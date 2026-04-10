@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.cms.pages
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
@@ -22,7 +22,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         val pageData =
@@ -347,7 +347,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         val pageData =
@@ -713,7 +713,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         val page = websitePageService.list()
@@ -724,7 +724,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         websitePageService.delete(
@@ -735,7 +735,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun clone() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         val pageData =
@@ -749,7 +749,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         val pageData =
@@ -767,7 +767,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         val pageData = websitePageService.getDraft("objectId")
@@ -778,7 +778,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun publishDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         websitePageService.publishDraft("objectId")
@@ -787,7 +787,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun schedule() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         websitePageService.schedule(
@@ -801,7 +801,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun setNewLangPrimary() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         websitePageService.setNewLangPrimary(
@@ -812,7 +812,7 @@ internal class WebsitePageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val websitePageService = client.cms().pages().websitePages()
 
         val pageData =

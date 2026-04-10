@@ -9,7 +9,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.cms.sourcecode.FileExtractRequest
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeDeleteParams
@@ -29,7 +29,7 @@ internal class SourceCodeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sourceCodeService = client.cms().sourceCode()
 
         val assetFileMetadata =
@@ -47,7 +47,7 @@ internal class SourceCodeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sourceCodeService = client.cms().sourceCode()
 
         sourceCodeService.delete(
@@ -58,7 +58,7 @@ internal class SourceCodeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun extractAsync() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sourceCodeService = client.cms().sourceCode()
 
         val taskLocator =
@@ -70,7 +70,7 @@ internal class SourceCodeServiceTest {
     @Test
     fun get(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -88,7 +88,7 @@ internal class SourceCodeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getExtractionStatus() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sourceCodeService = client.cms().sourceCode()
 
         val actionResponse = sourceCodeService.getExtractionStatus(0)
@@ -99,7 +99,7 @@ internal class SourceCodeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getMetadata() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sourceCodeService = client.cms().sourceCode()
 
         val assetFileMetadata =
@@ -117,7 +117,7 @@ internal class SourceCodeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upsert() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sourceCodeService = client.cms().sourceCode()
 
         val assetFileMetadata =
@@ -135,7 +135,7 @@ internal class SourceCodeServiceTest {
     @Test
     fun validate(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()

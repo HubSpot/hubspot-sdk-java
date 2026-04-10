@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.settings.currencies
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyCreateRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ internal class CentralFxRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createCurrency() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val centralFxRateServiceAsync = client.settings().currencies().centralFxRates()
 
         val exchangeRateFuture =
@@ -29,7 +29,7 @@ internal class CentralFxRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getInformation() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val centralFxRateServiceAsync = client.settings().currencies().centralFxRates()
 
         val centralExchangeRatesInformationFuture = centralFxRateServiceAsync.getInformation()
@@ -41,7 +41,7 @@ internal class CentralFxRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getUnsupportedCurrencies() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val centralFxRateServiceAsync = client.settings().currencies().centralFxRates()
 
         val collectionResponseCurrencyCodeInfoNoPagingFuture =

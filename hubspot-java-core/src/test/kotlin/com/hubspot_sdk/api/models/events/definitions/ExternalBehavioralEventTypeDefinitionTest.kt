@@ -90,7 +90,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .formField(true)
                         .hasUniqueValue(true)
                         .hidden(false)
-                        .hubspotDefined(true)
+                        .hubSpotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)
@@ -247,7 +247,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                     .formField(true)
                     .hasUniqueValue(true)
                     .hidden(false)
-                    .hubspotDefined(true)
+                    .hubSpotDefined(true)
                     .modificationMetadata(
                         PropertyModificationMetadata.builder()
                             .archivable(true)
@@ -409,7 +409,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .formField(true)
                         .hasUniqueValue(true)
                         .hidden(false)
-                        .hubspotDefined(true)
+                        .hubSpotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)

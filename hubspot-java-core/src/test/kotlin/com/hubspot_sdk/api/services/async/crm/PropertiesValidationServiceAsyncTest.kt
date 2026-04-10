@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.propertiesvalidations.PropertiesValidationGetByObjectTypeIdAndPropertyNameParams
 import com.hubspot_sdk.api.models.crm.propertiesvalidations.PropertiesValidationGetByObjectTypeIdPropertyNameAndRuleTypeParams
 import com.hubspot_sdk.api.models.crm.propertiesvalidations.PropertiesValidationUpdateByObjectTypeIdPropertyNameAndRuleTypeParams
@@ -15,7 +15,7 @@ internal class PropertiesValidationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeId() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertiesValidationServiceAsync = client.crm().propertiesValidations()
 
         val collectionResponsePublicPropertyValidationRuleMapNoPagingFuture =
@@ -29,7 +29,7 @@ internal class PropertiesValidationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeIdAndPropertyName() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertiesValidationServiceAsync = client.crm().propertiesValidations()
 
         val collectionResponsePublicPropertyValidationRuleNoPagingFuture =
@@ -48,7 +48,7 @@ internal class PropertiesValidationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeIdPropertyNameAndRuleType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertiesValidationServiceAsync = client.crm().propertiesValidations()
 
         val publicPropertyValidationRuleFuture =
@@ -70,7 +70,7 @@ internal class PropertiesValidationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateByObjectTypeIdPropertyNameAndRuleType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertiesValidationServiceAsync = client.crm().propertiesValidations()
 
         val future =

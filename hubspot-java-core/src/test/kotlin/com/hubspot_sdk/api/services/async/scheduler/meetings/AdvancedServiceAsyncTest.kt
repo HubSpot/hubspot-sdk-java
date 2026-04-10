@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.scheduler.meetings
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalAssociationCreateRequest
@@ -23,7 +23,7 @@ internal class AdvancedServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val advancedServiceAsync = client.scheduler().meetings().advanced()
 
         val externalCalenderMeetingEventResponseFuture =
@@ -67,7 +67,7 @@ internal class AdvancedServiceAsyncTest {
                                     )
                                     .hsMeetingTitle("hs_meeting_title")
                                     .hsTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .hubspotOwnerId("hubspot_owner_id")
+                                    .hubSpotOwnerId("hubspot_owner_id")
                                     .hsActivityType("hs_activity_type")
                                     .addHsAttachmentId("string")
                                     .addHsAttendeeOwnerId("string")
@@ -94,7 +94,7 @@ internal class AdvancedServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun book() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val advancedServiceAsync = client.scheduler().meetings().advanced()
 
         val externalMeetingBookingResponseFuture =

@@ -8,7 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.PropertyValue
 import com.hubspot_sdk.api.models.marketing.marketingevents.BatchInputMarketingEventCreateRequestParams
 import com.hubspot_sdk.api.models.marketing.marketingevents.BatchInputMarketingEventExternalUniqueIdentifier
@@ -39,7 +39,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val marketingEventDefaultResponse =
@@ -88,7 +88,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val marketingEventPublicDefaultResponseV2 =
@@ -139,7 +139,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val page = marketingEventService.list()
@@ -150,7 +150,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         marketingEventService.delete("objectId")
@@ -159,7 +159,7 @@ internal class MarketingEventServiceTest {
     @Test
     fun deleteBatch(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -183,7 +183,7 @@ internal class MarketingEventServiceTest {
     @Test
     fun deleteBatchByExternalEventId(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -209,7 +209,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         marketingEventService.deleteByExternalEventId(
@@ -223,7 +223,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val marketingEventPublicReadResponseV2 = marketingEventService.get("objectId")
@@ -234,7 +234,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val marketingEventPublicReadResponse =
@@ -251,7 +251,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun searchByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val collectionResponseSearchPublicResponseWrapperNoPaging =
@@ -265,7 +265,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun searchIdentifiersByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val collectionResponseWithTotalMarketingEventIdentifiersResponse =
@@ -277,7 +277,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val batchResponseMarketingEventPublicDefaultResponseV2 =
@@ -328,7 +328,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val marketingEventPublicDefaultResponse =
@@ -381,7 +381,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upsertBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val batchResponseMarketingEventPublicDefaultResponse =
@@ -434,7 +434,7 @@ internal class MarketingEventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upsertByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val marketingEventService = client.marketing().marketingEvents()
 
         val marketingEventPublicDefaultResponse =

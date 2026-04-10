@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.cms.pages
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.cms.pages.ContentFolder
 import com.hubspot_sdk.api.models.cms.pages.folders.FolderBatchGetParams
@@ -20,7 +20,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val contentFolderFuture =
@@ -43,7 +43,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val contentFolderFuture =
@@ -72,7 +72,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val pageFuture = folderServiceAsync.list()
@@ -84,7 +84,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val future =
@@ -98,7 +98,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchGet() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val batchResponseContentFolderFuture =
@@ -116,7 +116,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val contentFolderFuture =
@@ -135,7 +135,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val contentFolderVersionFuture =
@@ -153,7 +153,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listRevisions() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val pageFuture = folderServiceAsync.listRevisions("objectId")
@@ -165,7 +165,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.cms().pages().folders()
 
         val contentFolderFuture =

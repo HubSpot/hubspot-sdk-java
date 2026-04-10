@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -59,7 +59,7 @@ private constructor(
     /**
      * The number of days to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun days(): Optional<Int> = days.getOptional("days")
@@ -67,7 +67,7 @@ private constructor(
     /**
      * The number of hours to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hours(): Optional<Int> = hours.getOptional("hours")
@@ -75,7 +75,7 @@ private constructor(
     /**
      * The number of milliseconds to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun milliseconds(): Optional<Int> = milliseconds.getOptional("milliseconds")
@@ -83,7 +83,7 @@ private constructor(
     /**
      * The number of minutes to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun minutes(): Optional<Int> = minutes.getOptional("minutes")
@@ -91,7 +91,7 @@ private constructor(
     /**
      * The number of months to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun months(): Optional<Int> = months.getOptional("months")
@@ -99,7 +99,7 @@ private constructor(
     /**
      * The number of quarters to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun quarters(): Optional<Int> = quarters.getOptional("quarters")
@@ -107,7 +107,7 @@ private constructor(
     /**
      * The number of seconds to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun seconds(): Optional<Int> = seconds.getOptional("seconds")
@@ -115,7 +115,7 @@ private constructor(
     /**
      * The number of weeks to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun weeks(): Optional<Int> = weeks.getOptional("weeks")
@@ -123,7 +123,7 @@ private constructor(
     /**
      * The number of years to offset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun years(): Optional<Int> = years.getOptional("years")
@@ -399,7 +399,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

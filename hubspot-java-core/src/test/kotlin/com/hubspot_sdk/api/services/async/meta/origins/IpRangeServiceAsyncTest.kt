@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.meta.origins
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.meta.origins.ipranges.IpRangeListParams
 import com.hubspot_sdk.api.models.meta.origins.ipranges.IpRangeListSimpleParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class IpRangeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ipRangeServiceAsync = client.meta().origins().ipRanges()
 
         val collectionResponseIpRangeNoPagingFuture =
@@ -31,7 +31,7 @@ internal class IpRangeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listSimple() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ipRangeServiceAsync = client.meta().origins().ipRanges()
 
         val responseFuture =

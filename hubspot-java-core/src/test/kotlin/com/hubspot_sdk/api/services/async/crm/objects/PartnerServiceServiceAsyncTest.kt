@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.objects
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
@@ -19,7 +19,7 @@ internal class PartnerServiceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val partnerServiceServiceAsync = client.crm().objects().partnerServices()
 
         val simplePublicObjectFuture =
@@ -46,7 +46,7 @@ internal class PartnerServiceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val partnerServiceServiceAsync = client.crm().objects().partnerServices()
 
         val pageFuture =
@@ -64,7 +64,7 @@ internal class PartnerServiceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val partnerServiceServiceAsync = client.crm().objects().partnerServices()
 
         val simplePublicObjectWithAssociationsFuture =
@@ -86,7 +86,7 @@ internal class PartnerServiceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val partnerServiceServiceAsync = client.crm().objects().partnerServices()
 
         val collectionResponseWithTotalSimplePublicObjectFuture =

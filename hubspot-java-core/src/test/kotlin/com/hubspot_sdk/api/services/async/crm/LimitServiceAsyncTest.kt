@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.limits.LimitGetAssociationLabelLimitsParams
 import com.hubspot_sdk.api.models.crm.limits.LimitGetAssociationRecordsLimitsByObjectTypeParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationLabelLimits() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val collectionResponseAssociationLabelLimitResponseNoPagingFuture =
@@ -32,7 +32,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationRecordsLimitsByObjectType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val associationRecordLimitResponseFuture =
@@ -50,7 +50,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationRecordsLimitsFromObjects() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val collectionResponseObjectTypeNearOrAtAssociationLimitNoPagingFuture =
@@ -64,7 +64,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationRecordsLimitsToObjects() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val collectionResponseObjectTypeNearOrAtAssociationLimitNoPagingFuture =
@@ -78,7 +78,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCalculatedPropertyLimits() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val calculatedPropertyLimitResponseFuture = limitServiceAsync.getCalculatedPropertyLimits()
@@ -90,7 +90,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCustomObjectTypeLimits() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val customObjectLimitResponseFuture = limitServiceAsync.getCustomObjectTypeLimits()
@@ -102,7 +102,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCustomPropertyLimits() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val customPropertyLimitResponseFuture = limitServiceAsync.getCustomPropertyLimits()
@@ -114,7 +114,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getPipelineLimits() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val pipelineLimitResponseFuture = limitServiceAsync.getPipelineLimits()
@@ -126,7 +126,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRecordLimits() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().limits()
 
         val recordLimitResponseFuture = limitServiceAsync.getRecordLimits()

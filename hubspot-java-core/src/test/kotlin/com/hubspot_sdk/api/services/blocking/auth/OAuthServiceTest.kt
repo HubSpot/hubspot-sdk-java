@@ -8,7 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.auth.oauth.OAuthCreateTokenParams
 import com.hubspot_sdk.api.models.auth.oauth.OAuthIntrospectTokenParams
 import com.hubspot_sdk.api.models.auth.oauth.OAuthRevokeTokenParams
@@ -24,7 +24,7 @@ internal class OAuthServiceTest {
     @Test
     fun createToken(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -51,7 +51,7 @@ internal class OAuthServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun introspectToken() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val oauthService = client.auth().oauth()
 
         val tokenInfoResponseBaseIf =
@@ -70,7 +70,7 @@ internal class OAuthServiceTest {
     @Test
     fun revokeToken(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()

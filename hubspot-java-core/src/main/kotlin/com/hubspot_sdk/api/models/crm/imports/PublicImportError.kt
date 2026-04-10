@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.PropertyValue
 import java.util.Collections
 import java.util.Objects
@@ -90,7 +90,7 @@ private constructor(
     /**
      * A unique, stable identifier for this specific error.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -98,7 +98,7 @@ private constructor(
     /**
      * The epoch millisecond timestamp when this error was recorded.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): Int = createdAt.getRequired("createdAt")
@@ -106,13 +106,13 @@ private constructor(
     /**
      * The classification of what went wrong during import processing.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun errorType(): ErrorType = errorType.getRequired("errorType")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sourceData(): ImportRowCore = sourceData.getRequired("sourceData")
@@ -120,7 +120,7 @@ private constructor(
     /**
      * A human-readable error message.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun errorMessage(): Optional<String> = errorMessage.getOptional("errorMessage")
@@ -128,7 +128,7 @@ private constructor(
     /**
      * Additional human-readable context about the error.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun extraContext(): Optional<String> = extraContext.getOptional("extraContext")
@@ -138,7 +138,7 @@ private constructor(
      * (like source, timestamp, and sensitivity), and related audit information for tracking
      * changes.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun invalidPropertyValue(): Optional<PropertyValue> =
@@ -147,7 +147,7 @@ private constructor(
     /**
      * The raw string value from the import file that caused the validation failure.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun invalidValue(): Optional<String> = invalidValue.getOptional("invalidValue")
@@ -156,7 +156,7 @@ private constructor(
      * A convenience accessor that returns either the value from `invalidPropertyValue` or
      * `invalidValue`, whichever is present (preferring the property value).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun invalidValueToDisplay(): Optional<String> =
@@ -165,7 +165,7 @@ private constructor(
     /**
      * The zero-based column index in the import file where the error occurred
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun knownColumnNumber(): Optional<Int> = knownColumnNumber.getOptional("knownColumnNumber")
@@ -173,7 +173,7 @@ private constructor(
     /**
      * The CRM object type affected by this error.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectType(): Optional<ObjectType> = objectType.getOptional("objectType")
@@ -181,7 +181,7 @@ private constructor(
     /**
      * The modern object type identifier for the CRM object affected by this error.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectTypeId(): Optional<String> = objectTypeId.getOptional("objectTypeId")
@@ -598,7 +598,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -1027,7 +1027,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1103,7 +1103,7 @@ private constructor(
                 UNKNOWN_BAD_REQUEST -> Known.UNKNOWN_BAD_REQUEST
                 UNKNOWN_ERROR -> Known.UNKNOWN_ERROR
                 UPDATE_ONLY_IMPORT -> Known.UPDATE_ONLY_IMPORT
-                else -> throw HubspotInvalidDataException("Unknown ErrorType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown ErrorType: $value")
             }
 
         /**
@@ -1112,11 +1112,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1133,7 +1133,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -2020,7 +2020,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -2186,7 +2186,7 @@ private constructor(
                 VIEW -> Known.VIEW
                 VIEW_BLOCK -> Known.VIEW_BLOCK
                 WEB_INTERACTIVE -> Known.WEB_INTERACTIVE
-                else -> throw HubspotInvalidDataException("Unknown ObjectType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown ObjectType: $value")
             }
 
         /**
@@ -2195,11 +2195,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2216,7 +2216,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

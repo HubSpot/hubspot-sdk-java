@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.files
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.files.FileUpdateInput
 import com.hubspot_sdk.api.models.files.FolderInput
 import com.hubspot_sdk.api.models.files.ImportFromUrlInput
@@ -21,7 +21,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val folderFuture =
@@ -40,7 +40,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val fileFuture =
@@ -68,7 +68,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val future = fileAssetServiceAsync.delete("321669910225")
@@ -79,7 +79,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun gdprDelete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val future = fileAssetServiceAsync.gdprDelete("321669910225")
@@ -90,7 +90,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val fileFuture =
@@ -105,7 +105,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByPath() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val fileStatFuture =
@@ -120,7 +120,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getImportTaskStatus() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val fileActionResponseFuture = fileAssetServiceAsync.getImportTaskStatus("taskId")
@@ -132,7 +132,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSignedUrl() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val signedUrlFuture =
@@ -152,7 +152,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun importFromUrlAsync() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val importFromUrlTaskLocatorFuture =
@@ -182,7 +182,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun replace() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val fileFuture =
@@ -202,7 +202,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val pageFuture = fileAssetServiceAsync.search()
@@ -214,7 +214,7 @@ internal class FileAssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upload() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileAssetServiceAsync = client.files().fileAssets()
 
         val fileFuture =

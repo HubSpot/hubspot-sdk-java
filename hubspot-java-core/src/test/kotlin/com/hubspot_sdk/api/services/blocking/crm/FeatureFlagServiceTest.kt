@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagDeleteParams
 import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagDeletePortalStateParams
 import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagGetParams
@@ -20,7 +20,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val flagResponse =
@@ -43,7 +43,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val flagResponse =
@@ -57,7 +57,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deletePortalState() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateResponse =
@@ -75,7 +75,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val flagResponse =
@@ -89,7 +89,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getPortalState() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateResponse =
@@ -107,7 +107,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listAll() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val flagsForAppResponse = featureFlagService.listAll(0)
@@ -118,7 +118,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listPortals() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateBatchResponse =
@@ -137,7 +137,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updatePortalState() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateResponse =

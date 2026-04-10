@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.PropertyValue
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -115,7 +115,7 @@ private constructor(
     /**
      * The ID of the marketing event CRM object.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -123,7 +123,7 @@ private constructor(
     /**
      * The number of HubSpot contacts that attended this marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun attendees(): Int = attendees.getRequired("attendees")
@@ -132,7 +132,7 @@ private constructor(
      * The number of HubSpot contacts that registered for this marketing event, but later cancelled
      * their registration.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun cancellations(): Int = cancellations.getRequired("cancellations")
@@ -140,7 +140,7 @@ private constructor(
     /**
      * The creation date and time of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
@@ -154,7 +154,7 @@ private constructor(
      * create any new default properties on the MarketingEvent object as that will apply to all
      * HubSpot accounts.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun customProperties(): List<PropertyValue> = customProperties.getRequired("customProperties")
@@ -162,7 +162,7 @@ private constructor(
     /**
      * The name of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun eventName(): String = eventName.getRequired("eventName")
@@ -170,7 +170,7 @@ private constructor(
     /**
      * The name of the organizer of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun eventOrganizer(): String = eventOrganizer.getRequired("eventOrganizer")
@@ -178,7 +178,7 @@ private constructor(
     /**
      * The id of the marketing event in the external event application.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun externalEventId(): String = externalEventId.getRequired("externalEventId")
@@ -187,7 +187,7 @@ private constructor(
      * The number of HubSpot contacts that registered for this marketing event, but did not attend.
      * This field only had a value when the event is over.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun noShows(): Int = noShows.getRequired("noShows")
@@ -195,7 +195,7 @@ private constructor(
     /**
      * The number of HubSpot contacts that registered for this marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun registrants(): Int = registrants.getRequired("registrants")
@@ -203,7 +203,7 @@ private constructor(
     /**
      * The update date and time of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
@@ -211,7 +211,7 @@ private constructor(
     /**
      * The end date and time of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun endDateTime(): Optional<OffsetDateTime> = endDateTime.getOptional("endDateTime")
@@ -219,7 +219,7 @@ private constructor(
     /**
      * Indicates if the marketing event has been cancelled.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun eventCancelled(): Optional<Boolean> = eventCancelled.getOptional("eventCancelled")
@@ -227,7 +227,7 @@ private constructor(
     /**
      * Indicates if the marketing event has been completed.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun eventCompleted(): Optional<Boolean> = eventCompleted.getOptional("eventCompleted")
@@ -235,7 +235,7 @@ private constructor(
     /**
      * The description of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun eventDescription(): Optional<String> = eventDescription.getOptional("eventDescription")
@@ -243,7 +243,7 @@ private constructor(
     /**
      * The type of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun eventType(): Optional<String> = eventType.getOptional("eventType")
@@ -251,7 +251,7 @@ private constructor(
     /**
      * A URL in the external event application where the marketing event can be managed.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun eventUrl(): Optional<String> = eventUrl.getOptional("eventUrl")
@@ -259,7 +259,7 @@ private constructor(
     /**
      * The ID of the marketing event CRM object.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectId(): Optional<String> = objectId.getOptional("objectId")
@@ -267,7 +267,7 @@ private constructor(
     /**
      * The start date and time of the marketing event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun startDateTime(): Optional<OffsetDateTime> = startDateTime.getOptional("startDateTime")
@@ -885,7 +885,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

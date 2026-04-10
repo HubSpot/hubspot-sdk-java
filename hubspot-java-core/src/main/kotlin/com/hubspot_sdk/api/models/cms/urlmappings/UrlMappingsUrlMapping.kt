@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -134,7 +134,7 @@ private constructor(
     /**
      * The unique identifier for the URL mapping, represented as a 64-bit integer.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): Long = id.getRequired("id")
@@ -143,7 +143,7 @@ private constructor(
      * A Unix timestamp in milliseconds indicating the embargo time for CDN purge related to the URL
      * mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun cdnPurgeEmbargoTime(): Long = cdnPurgeEmbargoTime.getRequired("cdnPurgeEmbargoTime")
@@ -151,7 +151,7 @@ private constructor(
     /**
      * A 64-bit integer representing the content group associated with the URL mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contentGroupId(): Long = contentGroupId.getRequired("contentGroupId")
@@ -160,7 +160,7 @@ private constructor(
      * A string representing the type of content object associated with the URL mapping. Valid
      * values include various content types such as 'CONTENT', 'LAYOUT', 'FILE', etc.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun cosObjectType(): CosObjectType = cosObjectType.getRequired("cosObjectType")
@@ -168,7 +168,7 @@ private constructor(
     /**
      * A Unix timestamp in milliseconds indicating when the URL mapping was created.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun created(): Long = created.getRequired("created")
@@ -176,7 +176,7 @@ private constructor(
     /**
      * The identifier of the user who created the URL mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdById(): Int = createdById.getRequired("createdById")
@@ -184,7 +184,7 @@ private constructor(
     /**
      * A Unix timestamp in milliseconds indicating when the URL mapping was deleted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun deletedAt(): Long = deletedAt.getRequired("deletedAt")
@@ -192,7 +192,7 @@ private constructor(
     /**
      * The destination URL to which the routePrefix is redirected.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun destination(): String = destination.getRequired("destination")
@@ -200,7 +200,7 @@ private constructor(
     /**
      * A boolean indicating if the URL mapping was created internally by the system.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun internallyCreated(): Boolean = internallyCreated.getRequired("internallyCreated")
@@ -208,7 +208,7 @@ private constructor(
     /**
      * A boolean indicating if the URL mapping is currently active.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isActive(): Boolean = isActive.getRequired("isActive")
@@ -216,7 +216,7 @@ private constructor(
     /**
      * A boolean indicating if the full URL should be matched.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isMatchFullUrl(): Boolean = isMatchFullUrl.getRequired("isMatchFullUrl")
@@ -224,7 +224,7 @@ private constructor(
     /**
      * A boolean indicating if the query string should be matched.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isMatchQueryString(): Boolean = isMatchQueryString.getRequired("isMatchQueryString")
@@ -232,7 +232,7 @@ private constructor(
     /**
      * A boolean indicating if the mapping should only be applied after a 404 Not Found response.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isOnlyAfterNotFound(): Boolean = isOnlyAfterNotFound.getRequired("isOnlyAfterNotFound")
@@ -240,7 +240,7 @@ private constructor(
     /**
      * A boolean indicating if the routePrefix is a pattern.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isPattern(): Boolean = isPattern.getRequired("isPattern")
@@ -248,7 +248,7 @@ private constructor(
     /**
      * A boolean indicating if the mapping should ignore the URL protocol (http/https).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isProtocolAgnostic(): Boolean = isProtocolAgnostic.getRequired("isProtocolAgnostic")
@@ -256,7 +256,7 @@ private constructor(
     /**
      * A boolean indicating if the routePrefix should be treated as a regular expression.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isRegex(): Boolean = isRegex.getRequired("isRegex")
@@ -264,7 +264,7 @@ private constructor(
     /**
      * A boolean indicating if the trailing slash in the URL is optional.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isTrailingSlashOptional(): Boolean =
@@ -273,7 +273,7 @@ private constructor(
     /**
      * A label for the URL mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
@@ -281,7 +281,7 @@ private constructor(
     /**
      * The name of the URL mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -289,7 +289,7 @@ private constructor(
     /**
      * A string containing notes about the URL mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun note(): String = note.getRequired("note")
@@ -297,7 +297,7 @@ private constructor(
     /**
      * The identifier for the HubSpot portal associated with this URL mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun portalId(): Int = portalId.getRequired("portalId")
@@ -306,7 +306,7 @@ private constructor(
      * An integer representing the precedence of the URL mapping, used to determine order of
      * evaluation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun precedence(): Int = precedence.getRequired("precedence")
@@ -314,7 +314,7 @@ private constructor(
     /**
      * An integer representing the style of redirection used.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun redirectStyle(): Int = redirectStyle.getRequired("redirectStyle")
@@ -322,7 +322,7 @@ private constructor(
     /**
      * The prefix of the URL path that is being mapped.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun routePrefix(): String = routePrefix.getRequired("routePrefix")
@@ -330,7 +330,7 @@ private constructor(
     /**
      * A Unix timestamp in milliseconds indicating when the URL mapping was last updated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updated(): Long = updated.getRequired("updated")
@@ -338,7 +338,7 @@ private constructor(
     /**
      * The identifier of the user who last updated the URL mapping.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedById(): Int = updatedById.getRequired("updatedById")
@@ -1129,7 +1129,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -1533,7 +1533,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1599,7 +1599,7 @@ private constructor(
                 VIDEO_PLAYER -> Known.VIDEO_PLAYER
                 WIDGET -> Known.WIDGET
                 WORKFLOW -> Known.WORKFLOW
-                else -> throw HubspotInvalidDataException("Unknown CosObjectType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown CosObjectType: $value")
             }
 
         /**
@@ -1608,11 +1608,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1629,7 +1629,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

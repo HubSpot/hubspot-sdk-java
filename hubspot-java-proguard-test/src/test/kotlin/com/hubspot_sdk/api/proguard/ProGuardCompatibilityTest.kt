@@ -3,7 +3,7 @@
 package com.hubspot_sdk.api.proguard
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.auth.oauth.PublicAccessTokenInfoResponse
 import com.hubspot_sdk.api.models.auth.oauth.SignedAccessToken
@@ -47,7 +47,7 @@ internal class ProGuardCompatibilityTest {
 
     @Test
     fun client() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
 
         assertThat(client).isNotNull()
         assertThat(client.account()).isNotNull()

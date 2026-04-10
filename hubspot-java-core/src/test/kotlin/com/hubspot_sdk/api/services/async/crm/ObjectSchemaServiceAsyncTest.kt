@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.AssociationDefinitionEgg
 import com.hubspot_sdk.api.models.ObjectTypeDefinitionLabels
 import com.hubspot_sdk.api.models.ObjectTypeDefinitionPatch
@@ -23,7 +23,7 @@ internal class ObjectSchemaServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
         val objectSchemaFuture =
@@ -85,7 +85,7 @@ internal class ObjectSchemaServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
         val objectTypeDefinitionFuture =
@@ -120,7 +120,7 @@ internal class ObjectSchemaServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
         val collectionResponseObjectSchemaNoPagingFuture =
@@ -141,7 +141,7 @@ internal class ObjectSchemaServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
         val future =
@@ -155,7 +155,7 @@ internal class ObjectSchemaServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createAssociation() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
         val associationDefinitionFuture =
@@ -179,7 +179,7 @@ internal class ObjectSchemaServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteAssociation() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
         val future =
@@ -196,7 +196,7 @@ internal class ObjectSchemaServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
         val objectSchemaFuture =

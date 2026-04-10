@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.settings
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -11,7 +11,7 @@ internal class TaxRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val taxRateServiceAsync = client.settings().taxRates()
 
         val pageFuture = taxRateServiceAsync.list()
@@ -23,7 +23,7 @@ internal class TaxRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val taxRateServiceAsync = client.settings().taxRates()
 
         val publicTaxRateGroupFuture = taxRateServiceAsync.get("taxRateGroupId")

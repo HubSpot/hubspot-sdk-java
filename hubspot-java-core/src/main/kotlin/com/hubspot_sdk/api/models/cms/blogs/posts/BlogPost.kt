@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -301,7 +301,7 @@ private constructor(
     /**
      * The unique ID of the Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -312,7 +312,7 @@ private constructor(
      * Available options: automated_loser_variant, automated_master, automated_variant,
      * loser_variant, mab_master, mab_variant, master, variant
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun abStatus(): AbStatus = abStatus.getRequired("abStatus")
@@ -320,7 +320,7 @@ private constructor(
     /**
      * The ID of the AB test associated with this page, if applicable
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun abTestId(): String = abTestId.getRequired("abTestId")
@@ -328,7 +328,7 @@ private constructor(
     /**
      * The timestamp (ISO8601 format) when this Blog Post was deleted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun archivedAt(): Long = archivedAt.getRequired("archivedAt")
@@ -336,7 +336,7 @@ private constructor(
     /**
      * If True, the post will not show up in your dashboard, although the post could still be live.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun archivedInDashboard(): Boolean = archivedInDashboard.getRequired("archivedInDashboard")
@@ -345,7 +345,7 @@ private constructor(
      * List of stylesheets to attach to this blog post. These stylesheets are attached to just this
      * page. Order of precedence is bottom to top, just like in the HTML.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun attachedStylesheets(): List<AttachedStylesheet> =
@@ -354,7 +354,7 @@ private constructor(
     /**
      * The name of the user that updated this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun authorName(): String = authorName.getRequired("authorName")
@@ -362,7 +362,7 @@ private constructor(
     /**
      * The ID of the Blog Author associated with this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun blogAuthorId(): String = blogAuthorId.getRequired("blogAuthorId")
@@ -370,7 +370,7 @@ private constructor(
     /**
      * The GUID of the marketing campaign this Blog Post is a part of.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun campaign(): String = campaign.getRequired("campaign")
@@ -378,7 +378,7 @@ private constructor(
     /**
      * ID of the type of object this is. Should always .
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun categoryId(): Int = categoryId.getRequired("categoryId")
@@ -386,7 +386,7 @@ private constructor(
     /**
      * The ID of the parent Blog this Blog Post is associated with.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contentGroupId(): String = contentGroupId.getRequired("contentGroupId")
@@ -394,7 +394,7 @@ private constructor(
     /**
      * An ENUM descibing the type of this object. Should always be BLOG_POST.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contentTypeCategory(): ContentTypeCategory =
@@ -403,7 +403,7 @@ private constructor(
     /**
      * The timestamp (ISO8601 format) when this Blog Post was created.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun created(): OffsetDateTime = created.getRequired("created")
@@ -411,7 +411,7 @@ private constructor(
     /**
      * The ID of the user that created this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdById(): String = createdById.getRequired("createdById")
@@ -419,7 +419,7 @@ private constructor(
     /**
      * Whether the post is published (true or false)
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currentlyPublished(): Boolean = currentlyPublished.getRequired("currentlyPublished")
@@ -427,7 +427,7 @@ private constructor(
     /**
      * A generated ENUM descibing the current state of this Blog Post. Should always match state.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currentState(): CurrentState = currentState.getRequired("currentState")
@@ -436,7 +436,7 @@ private constructor(
      * The domain this Blog Post will resolve to. If null, the Blog Post will default to the domain
      * of the ParentBlog.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun domain(): String = domain.getRequired("domain")
@@ -444,7 +444,7 @@ private constructor(
     /**
      * The identifier for the data source used by the dynamic page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dynamicPageDataSourceId(): String =
@@ -453,7 +453,7 @@ private constructor(
     /**
      * The type of data source used by the dynamic page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dynamicPageDataSourceType(): Int =
@@ -462,7 +462,7 @@ private constructor(
     /**
      * The ID of the HubDB table this Blog Post references, if applicable
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dynamicPageHubDbTableId(): String =
@@ -471,7 +471,7 @@ private constructor(
     /**
      * Boolean to determine whether or not the styles from the template should be applied.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enableDomainStylesheets(): Boolean =
@@ -480,7 +480,7 @@ private constructor(
     /**
      * Boolean to allow overriding the AMP settings for the blog.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enableGoogleAmpOutputOverride(): Boolean =
@@ -489,7 +489,7 @@ private constructor(
     /**
      * Boolean to determine whether or not the styles from the template should be applied.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enableLayoutStylesheets(): Boolean =
@@ -498,7 +498,7 @@ private constructor(
     /**
      * The featuredImage of this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun featuredImage(): String = featuredImage.getRequired("featuredImage")
@@ -506,7 +506,7 @@ private constructor(
     /**
      * Alt Text of the featuredImage.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun featuredImageAltText(): String = featuredImageAltText.getRequired("featuredImageAltText")
@@ -514,7 +514,7 @@ private constructor(
     /**
      * Unique identifier of associated folder
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun folderId(): String = folderId.getRequired("folderId")
@@ -523,7 +523,7 @@ private constructor(
      * Custom HTML for embed codes, javascript that should be placed before the </body> tag of the
      * page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun footerHtml(): String = footerHtml.getRequired("footerHtml")
@@ -531,7 +531,7 @@ private constructor(
     /**
      * Custom HTML for embed codes, javascript, etc. that goes in the <head> tag of the page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun headHtml(): String = headHtml.getRequired("headHtml")
@@ -539,7 +539,7 @@ private constructor(
     /**
      * The html title of this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun htmlTitle(): String = htmlTitle.getRequired("htmlTitle")
@@ -547,7 +547,7 @@ private constructor(
     /**
      * Boolean to determine whether or not the Primary CSS Files should be applied.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun includeDefaultCustomCss(): Boolean =
@@ -557,7 +557,7 @@ private constructor(
      * The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will
      * default to the language of the ParentBlog.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun language(): Language = language.getRequired("language")
@@ -565,7 +565,7 @@ private constructor(
     /**
      * A structure detailing the layout sections of the blog post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun layoutSections(): LayoutSections = layoutSections.getRequired("layoutSections")
@@ -573,7 +573,7 @@ private constructor(
     /**
      * Optional override to set the URL to be used in the rel=canonical link tag on the page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun linkRelCanonicalUrl(): String = linkRelCanonicalUrl.getRequired("linkRelCanonicalUrl")
@@ -581,7 +581,7 @@ private constructor(
     /**
      * Unique identifier of the MAB Experiment
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun mabExperimentId(): String = mabExperimentId.getRequired("mabExperimentId")
@@ -589,7 +589,7 @@ private constructor(
     /**
      * A description that goes in <meta> tag on the page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun metaDescription(): String = metaDescription.getRequired("metaDescription")
@@ -597,7 +597,7 @@ private constructor(
     /**
      * The internal name of the Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -605,7 +605,7 @@ private constructor(
     /**
      * The date at which this blog post should expire and begin redirecting to another url or page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun pageExpiryDate(): Long = pageExpiryDate.getRequired("pageExpiryDate")
@@ -613,7 +613,7 @@ private constructor(
     /**
      * Boolean describing if the page expiration feature is enabled for this blog post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun pageExpiryEnabled(): Boolean = pageExpiryEnabled.getRequired("pageExpiryEnabled")
@@ -622,7 +622,7 @@ private constructor(
      * The ID of another page this blog post's url should redirect to once this blog post expires.
      * Should only set this or pageExpiryRedirectUrl.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun pageExpiryRedirectId(): Long = pageExpiryRedirectId.getRequired("pageExpiryRedirectId")
@@ -631,7 +631,7 @@ private constructor(
      * The URL this blog post's url should redirect to once it expires. Should only set this or
      * pageExpiryRedirectId.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun pageExpiryRedirectUrl(): String = pageExpiryRedirectUrl.getRequired("pageExpiryRedirectUrl")
@@ -640,7 +640,7 @@ private constructor(
      * Set this to create a password protected page. Entering the password will be required to view
      * the page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun password(): String = password.getRequired("password")
@@ -648,7 +648,7 @@ private constructor(
     /**
      * The HTML of the main post body.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun postBody(): String = postBody.getRequired("postBody")
@@ -656,7 +656,7 @@ private constructor(
     /**
      * The summary of the blog post that will appear on the main listing page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun postSummary(): String = postSummary.getRequired("postSummary")
@@ -664,7 +664,7 @@ private constructor(
     /**
      * Rules for require member registration to access private content.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publicAccessRules(): List<PublicAccessRule> =
@@ -673,7 +673,7 @@ private constructor(
     /**
      * Boolean to determine whether or not to respect publicAccessRules.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publicAccessRulesEnabled(): Boolean =
@@ -682,7 +682,7 @@ private constructor(
     /**
      * The date (ISO8601 format) the blog post is to be published at.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publishDate(): OffsetDateTime = publishDate.getRequired("publishDate")
@@ -691,7 +691,7 @@ private constructor(
      * Set this to true if you want to be published immediately when the schedule publish endpoint
      * is called, and to ignore the publish_date setting.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publishImmediately(): Boolean = publishImmediately.getRequired("publishImmediately")
@@ -699,7 +699,7 @@ private constructor(
     /**
      * The contents of the RSS body for this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun rssBody(): String = rssBody.getRequired("rssBody")
@@ -707,7 +707,7 @@ private constructor(
     /**
      * The contents of the RSS summary for this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun rssSummary(): String = rssSummary.getRequired("rssSummary")
@@ -716,7 +716,7 @@ private constructor(
      * The path of the this blog post. This field is appended to the domain to construct the url of
      * this post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun slug(): String = slug.getRequired("slug")
@@ -724,7 +724,7 @@ private constructor(
     /**
      * An ENUM descibing the current state of this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun state(): String = state.getRequired("state")
@@ -732,7 +732,7 @@ private constructor(
     /**
      * List of IDs for the tags associated with this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun tagIds(): List<Long> = tagIds.getRequired("tagIds")
@@ -740,7 +740,7 @@ private constructor(
     /**
      * A collection of settings specific to the theme applied to the blog post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun themeSettingsValues(): ThemeSettingsValues =
@@ -749,7 +749,7 @@ private constructor(
     /**
      * ID of the primary blog post this object was translated from.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun translatedFromId(): String = translatedFromId.getRequired("translatedFromId")
@@ -757,7 +757,7 @@ private constructor(
     /**
      * A map of translations for the blog post, each associated with a specific language variation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun translations(): Translations = translations.getRequired("translations")
@@ -765,7 +765,7 @@ private constructor(
     /**
      * The timestamp (ISO8601 format) when this Blog Post was updated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updated(): OffsetDateTime = updated.getRequired("updated")
@@ -773,7 +773,7 @@ private constructor(
     /**
      * The ID of the user that updated this Blog Post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedById(): String = updatedById.getRequired("updatedById")
@@ -781,7 +781,7 @@ private constructor(
     /**
      * A generated field representing the URL of this blog post.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun url(): String = url.getRequired("url")
@@ -789,7 +789,7 @@ private constructor(
     /**
      * Boolean to determine if this post should use a featuredImage.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun useFeaturedImage(): Boolean = useFeaturedImage.getRequired("useFeaturedImage")
@@ -798,7 +798,7 @@ private constructor(
      * A data structure containing the data for all the modules inside the containers for this post.
      * This will only be populated if the page has widget containers.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun widgetContainers(): WidgetContainers = widgetContainers.getRequired("widgetContainers")
@@ -806,7 +806,7 @@ private constructor(
     /**
      * A data structure containing the data for all the modules for this page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun widgets(): Widgets = widgets.getRequired("widgets")
@@ -2675,7 +2675,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -2847,7 +2847,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -2860,7 +2860,7 @@ private constructor(
                 MAB_VARIANT -> Known.MAB_VARIANT
                 MASTER -> Known.MASTER
                 VARIANT -> Known.VARIANT
-                else -> throw HubspotInvalidDataException("Unknown AbStatus: $value")
+                else -> throw HubSpotInvalidDataException("Unknown AbStatus: $value")
             }
 
         /**
@@ -2869,11 +2869,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2890,7 +2890,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -2985,7 +2985,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -3188,7 +3188,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -3216,7 +3216,7 @@ private constructor(
                 _7 -> Known._7
                 _8 -> Known._8
                 _9 -> Known._9
-                else -> throw HubspotInvalidDataException("Unknown ContentTypeCategory: $value")
+                else -> throw HubSpotInvalidDataException("Unknown ContentTypeCategory: $value")
             }
 
         /**
@@ -3225,11 +3225,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -3246,7 +3246,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -3490,7 +3490,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -3527,7 +3527,7 @@ private constructor(
                 SCHEDULED -> Known.SCHEDULED
                 SCHEDULED_AB -> Known.SCHEDULED_AB
                 SCHEDULED_OR_PUBLISHED -> Known.SCHEDULED_OR_PUBLISHED
-                else -> throw HubspotInvalidDataException("Unknown CurrentState: $value")
+                else -> throw HubSpotInvalidDataException("Unknown CurrentState: $value")
             }
 
         /**
@@ -3536,11 +3536,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -3557,7 +3557,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -7854,7 +7854,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -8702,7 +8702,7 @@ private constructor(
                 ZH_TW -> Known.ZH_TW
                 ZU -> Known.ZU
                 ZU_ZA -> Known.ZU_ZA
-                else -> throw HubspotInvalidDataException("Unknown Language: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Language: $value")
             }
 
         /**
@@ -8711,11 +8711,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -8732,7 +8732,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -8828,7 +8828,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -8929,7 +8929,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -9032,7 +9032,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -9135,7 +9135,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -9235,7 +9235,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -22,7 +22,7 @@ class PipelineLimitResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val customObjectTypes: JsonField<CustomObjectRecordLimitResponse>,
-    private val hubspotDefinedObjectTypes: JsonField<List<LimitAndUsageForObjectType>>,
+    private val hubSpotDefinedObjectTypes: JsonField<List<LimitAndUsageForObjectType>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,22 +33,22 @@ private constructor(
         customObjectTypes: JsonField<CustomObjectRecordLimitResponse> = JsonMissing.of(),
         @JsonProperty("hubspotDefinedObjectTypes")
         @ExcludeMissing
-        hubspotDefinedObjectTypes: JsonField<List<LimitAndUsageForObjectType>> = JsonMissing.of(),
-    ) : this(customObjectTypes, hubspotDefinedObjectTypes, mutableMapOf())
+        hubSpotDefinedObjectTypes: JsonField<List<LimitAndUsageForObjectType>> = JsonMissing.of(),
+    ) : this(customObjectTypes, hubSpotDefinedObjectTypes, mutableMapOf())
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun customObjectTypes(): CustomObjectRecordLimitResponse =
         customObjectTypes.getRequired("customObjectTypes")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun hubspotDefinedObjectTypes(): List<LimitAndUsageForObjectType> =
-        hubspotDefinedObjectTypes.getRequired("hubspotDefinedObjectTypes")
+    fun hubSpotDefinedObjectTypes(): List<LimitAndUsageForObjectType> =
+        hubSpotDefinedObjectTypes.getRequired("hubspotDefinedObjectTypes")
 
     /**
      * Returns the raw JSON value of [customObjectTypes].
@@ -61,15 +61,15 @@ private constructor(
     fun _customObjectTypes(): JsonField<CustomObjectRecordLimitResponse> = customObjectTypes
 
     /**
-     * Returns the raw JSON value of [hubspotDefinedObjectTypes].
+     * Returns the raw JSON value of [hubSpotDefinedObjectTypes].
      *
-     * Unlike [hubspotDefinedObjectTypes], this method doesn't throw if the JSON field has an
+     * Unlike [hubSpotDefinedObjectTypes], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
     @JsonProperty("hubspotDefinedObjectTypes")
     @ExcludeMissing
-    fun _hubspotDefinedObjectTypes(): JsonField<List<LimitAndUsageForObjectType>> =
-        hubspotDefinedObjectTypes
+    fun _hubSpotDefinedObjectTypes(): JsonField<List<LimitAndUsageForObjectType>> =
+        hubSpotDefinedObjectTypes
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -91,7 +91,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .customObjectTypes()
-         * .hubspotDefinedObjectTypes()
+         * .hubSpotDefinedObjectTypes()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -101,15 +101,15 @@ private constructor(
     class Builder internal constructor() {
 
         private var customObjectTypes: JsonField<CustomObjectRecordLimitResponse>? = null
-        private var hubspotDefinedObjectTypes: JsonField<MutableList<LimitAndUsageForObjectType>>? =
+        private var hubSpotDefinedObjectTypes: JsonField<MutableList<LimitAndUsageForObjectType>>? =
             null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(pipelineLimitResponse: PipelineLimitResponse) = apply {
             customObjectTypes = pipelineLimitResponse.customObjectTypes
-            hubspotDefinedObjectTypes =
-                pipelineLimitResponse.hubspotDefinedObjectTypes.map { it.toMutableList() }
+            hubSpotDefinedObjectTypes =
+                pipelineLimitResponse.hubSpotDefinedObjectTypes.map { it.toMutableList() }
             additionalProperties = pipelineLimitResponse.additionalProperties.toMutableMap()
         }
 
@@ -128,32 +128,32 @@ private constructor(
                 this.customObjectTypes = customObjectTypes
             }
 
-        fun hubspotDefinedObjectTypes(hubspotDefinedObjectTypes: List<LimitAndUsageForObjectType>) =
-            hubspotDefinedObjectTypes(JsonField.of(hubspotDefinedObjectTypes))
+        fun hubSpotDefinedObjectTypes(hubSpotDefinedObjectTypes: List<LimitAndUsageForObjectType>) =
+            hubSpotDefinedObjectTypes(JsonField.of(hubSpotDefinedObjectTypes))
 
         /**
-         * Sets [Builder.hubspotDefinedObjectTypes] to an arbitrary JSON value.
+         * Sets [Builder.hubSpotDefinedObjectTypes] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.hubspotDefinedObjectTypes] with a well-typed
+         * You should usually call [Builder.hubSpotDefinedObjectTypes] with a well-typed
          * `List<LimitAndUsageForObjectType>` value instead. This method is primarily for setting
          * the field to an undocumented or not yet supported value.
          */
-        fun hubspotDefinedObjectTypes(
-            hubspotDefinedObjectTypes: JsonField<List<LimitAndUsageForObjectType>>
+        fun hubSpotDefinedObjectTypes(
+            hubSpotDefinedObjectTypes: JsonField<List<LimitAndUsageForObjectType>>
         ) = apply {
-            this.hubspotDefinedObjectTypes = hubspotDefinedObjectTypes.map { it.toMutableList() }
+            this.hubSpotDefinedObjectTypes = hubSpotDefinedObjectTypes.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [LimitAndUsageForObjectType] to [hubspotDefinedObjectTypes].
+         * Adds a single [LimitAndUsageForObjectType] to [hubSpotDefinedObjectTypes].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addHubspotDefinedObjectType(hubspotDefinedObjectType: LimitAndUsageForObjectType) =
+        fun addHubSpotDefinedObjectType(hubSpotDefinedObjectType: LimitAndUsageForObjectType) =
             apply {
-                hubspotDefinedObjectTypes =
-                    (hubspotDefinedObjectTypes ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("hubspotDefinedObjectTypes", it).add(hubspotDefinedObjectType)
+                hubSpotDefinedObjectTypes =
+                    (hubSpotDefinedObjectTypes ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("hubSpotDefinedObjectTypes", it).add(hubSpotDefinedObjectType)
                     }
             }
 
@@ -184,7 +184,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .customObjectTypes()
-         * .hubspotDefinedObjectTypes()
+         * .hubSpotDefinedObjectTypes()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -192,7 +192,7 @@ private constructor(
         fun build(): PipelineLimitResponse =
             PipelineLimitResponse(
                 checkRequired("customObjectTypes", customObjectTypes),
-                checkRequired("hubspotDefinedObjectTypes", hubspotDefinedObjectTypes).map {
+                checkRequired("hubSpotDefinedObjectTypes", hubSpotDefinedObjectTypes).map {
                     it.toImmutable()
                 },
                 additionalProperties.toMutableMap(),
@@ -207,7 +207,7 @@ private constructor(
         }
 
         customObjectTypes().validate()
-        hubspotDefinedObjectTypes().forEach { it.validate() }
+        hubSpotDefinedObjectTypes().forEach { it.validate() }
         validated = true
     }
 
@@ -215,7 +215,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -227,7 +227,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (customObjectTypes.asKnown().getOrNull()?.validity() ?: 0) +
-            (hubspotDefinedObjectTypes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+            (hubSpotDefinedObjectTypes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -236,16 +236,16 @@ private constructor(
 
         return other is PipelineLimitResponse &&
             customObjectTypes == other.customObjectTypes &&
-            hubspotDefinedObjectTypes == other.hubspotDefinedObjectTypes &&
+            hubSpotDefinedObjectTypes == other.hubSpotDefinedObjectTypes &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(customObjectTypes, hubspotDefinedObjectTypes, additionalProperties)
+        Objects.hash(customObjectTypes, hubSpotDefinedObjectTypes, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PipelineLimitResponse{customObjectTypes=$customObjectTypes, hubspotDefinedObjectTypes=$hubspotDefinedObjectTypes, additionalProperties=$additionalProperties}"
+        "PipelineLimitResponse{customObjectTypes=$customObjectTypes, hubSpotDefinedObjectTypes=$hubSpotDefinedObjectTypes, additionalProperties=$additionalProperties}"
 }

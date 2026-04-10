@@ -9,6 +9,6 @@ package com.hubspot_sdk.api.errors
  * @param message A descriptive error message
  * @param cause The underlying cause of this exception, if any
  */
-class HubspotRetryableException
+class HubSpotRetryableException
 @JvmOverloads
-constructor(message: String? = null, cause: Throwable? = null) : HubspotException(message, cause)
+constructor(message: String? = null, cause: Throwable? = null) : HubSpotException(message, cause)

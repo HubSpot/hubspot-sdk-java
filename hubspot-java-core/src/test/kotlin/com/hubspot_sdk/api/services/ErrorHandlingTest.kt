@@ -8,13 +8,13 @@ import com.github.tomakehurst.wiremock.client.WireMock.status
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.HubspotClient
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.HubSpotClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.errors.BadRequestException
-import com.hubspot_sdk.api.errors.HubspotException
+import com.hubspot_sdk.api.errors.HubSpotException
 import com.hubspot_sdk.api.errors.InternalServerException
 import com.hubspot_sdk.api.errors.NotFoundException
 import com.hubspot_sdk.api.errors.PermissionDeniedException
@@ -50,12 +50,12 @@ internal class ErrorHandlingTest {
         private const val NOT_JSON: String = "Not JSON"
     }
 
-    private lateinit var client: HubspotClient
+    private lateinit var client: HubSpotClient
 
     @BeforeEach
     fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
         client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -726,7 +726,7 @@ internal class ErrorHandlingTest {
         )
 
         val e =
-            assertThrows<HubspotException> {
+            assertThrows<HubSpotException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
                         .addAssociation(

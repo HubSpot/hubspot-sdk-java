@@ -21,7 +21,7 @@ import com.hubspot_sdk.api.services.async.WebhookServiceAsync
 import java.util.function.Consumer
 
 /**
- * A client for interacting with the Hubspot REST API asynchronously. You can also switch to
+ * A client for interacting with the HubSpot REST API asynchronously. You can also switch to
  * synchronous execution via the [sync] method.
  *
  * This client performs best when you create a single instance and reuse it for all interactions
@@ -34,7 +34,7 @@ import java.util.function.Consumer
  * if you are writing an application that needs to aggressively release unused resources, then you
  * may call [close].
  */
-interface HubspotClientAsync {
+interface HubSpotClientAsync {
 
     /**
      * Returns a version of this client that uses synchronous execution.
@@ -42,7 +42,7 @@ interface HubspotClientAsync {
      * The returned client shares its resources, like its connection pool and thread pools, with
      * this client.
      */
-    fun sync(): HubspotClient
+    fun sync(): HubSpotClient
 
     /**
      * Returns a view of this service that provides access to raw HTTP responses for each method.
@@ -54,7 +54,7 @@ interface HubspotClientAsync {
      *
      * The original service is not modified.
      */
-    fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubspotClientAsync
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubSpotClientAsync
 
     fun account(): AccountServiceAsync
 
@@ -100,7 +100,7 @@ interface HubspotClientAsync {
     fun close()
 
     /**
-     * A view of [HubspotClientAsync] that provides access to raw HTTP responses for each method.
+     * A view of [HubSpotClientAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
 
@@ -111,7 +111,7 @@ interface HubspotClientAsync {
          */
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
-        ): HubspotClientAsync.WithRawResponse
+        ): HubSpotClientAsync.WithRawResponse
 
         fun account(): AccountServiceAsync.WithRawResponse
 

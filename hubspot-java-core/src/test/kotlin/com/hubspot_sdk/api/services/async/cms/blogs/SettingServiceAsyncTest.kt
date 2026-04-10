@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.cms.blogs
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetRevisionParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ internal class SettingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val settingServiceAsync = client.cms().blogs().settings()
 
         val pageFuture = settingServiceAsync.list()
@@ -24,7 +24,7 @@ internal class SettingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val settingServiceAsync = client.cms().blogs().settings()
 
         val blogFuture = settingServiceAsync.get("blogId")
@@ -36,7 +36,7 @@ internal class SettingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val settingServiceAsync = client.cms().blogs().settings()
 
         val blogVersionFuture =
@@ -51,7 +51,7 @@ internal class SettingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listRevisions() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val settingServiceAsync = client.cms().blogs().settings()
 
         val pageFuture = settingServiceAsync.listRevisions("blogId")

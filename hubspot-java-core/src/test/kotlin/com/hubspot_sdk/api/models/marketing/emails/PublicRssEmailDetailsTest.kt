@@ -17,7 +17,7 @@ internal class PublicRssEmailDetailsTest {
                 .blogEmailType("blogEmailType")
                 .blogImageMaxWidth(0)
                 .blogLayout(PublicRssEmailDetails.BlogLayout.FULL_POST)
-                .hubspotBlogId("hubspotBlogId")
+                .hubSpotBlogId("hubspotBlogId")
                 .maxEntries(0)
                 .rssEntryTemplate("rssEntryTemplate")
                 .timing(
@@ -33,7 +33,7 @@ internal class PublicRssEmailDetailsTest {
         assertThat(publicRssEmailDetails.blogImageMaxWidth()).contains(0)
         assertThat(publicRssEmailDetails.blogLayout())
             .contains(PublicRssEmailDetails.BlogLayout.FULL_POST)
-        assertThat(publicRssEmailDetails.hubspotBlogId()).contains("hubspotBlogId")
+        assertThat(publicRssEmailDetails.hubSpotBlogId()).contains("hubspotBlogId")
         assertThat(publicRssEmailDetails.maxEntries()).contains(0)
         assertThat(publicRssEmailDetails.rssEntryTemplate()).contains("rssEntryTemplate")
         assertThat(publicRssEmailDetails.timing())
@@ -54,7 +54,7 @@ internal class PublicRssEmailDetailsTest {
                 .blogEmailType("blogEmailType")
                 .blogImageMaxWidth(0)
                 .blogLayout(PublicRssEmailDetails.BlogLayout.FULL_POST)
-                .hubspotBlogId("hubspotBlogId")
+                .hubSpotBlogId("hubspotBlogId")
                 .maxEntries(0)
                 .rssEntryTemplate("rssEntryTemplate")
                 .timing(

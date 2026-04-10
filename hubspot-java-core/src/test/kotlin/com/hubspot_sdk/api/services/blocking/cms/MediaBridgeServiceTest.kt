@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.cms
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AssociationDefinitionEgg
 import com.hubspot_sdk.api.models.ObjectTypeDefinitionLabels
@@ -54,7 +54,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createAssociation() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val associationDefinition =
@@ -78,7 +78,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createAttentionSpanEvent() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val attentionSpanEvent =
@@ -119,7 +119,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createMediaPlayedEvent() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val mediaPlayedEvent =
@@ -150,7 +150,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createMediaPlayedPercentEvent() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val mediaPlayedPercentageEvent =
@@ -182,7 +182,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createObjectType() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val bulkIntegratorObjectCreationResponse =
@@ -203,7 +203,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOembedDomain() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val integratorOEmbedDomainModel =
@@ -231,7 +231,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createProperty() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val property =
@@ -275,7 +275,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createPropertyGroup() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val propertyGroup =
@@ -299,7 +299,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createVideoAssociationDefinition() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val associationDefinition = mediaBridgeService.createVideoAssociationDefinition(0)
@@ -310,7 +310,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteAssociation() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         mediaBridgeService.deleteAssociation(
@@ -325,7 +325,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteOembedDomain() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         mediaBridgeService.deleteOembedDomain(
@@ -336,7 +336,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteProperty() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         mediaBridgeService.deleteProperty(
@@ -351,7 +351,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deletePropertyGroup() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         mediaBridgeService.deletePropertyGroup(
@@ -366,7 +366,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getEventVisibilitySettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val eventVisibilityResponse = mediaBridgeService.getEventVisibilitySettings(0)
@@ -377,7 +377,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getOembedDomain() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val integratorOEmbedDomainModel =
@@ -394,7 +394,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getProperty() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val property =
@@ -414,7 +414,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getPropertyGroup() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val propertyGroup =
@@ -432,7 +432,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSchema() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val objectSchema =
@@ -446,7 +446,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listObjectTypesByMediaType() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val objectDefinitionResponse =
@@ -464,7 +464,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listOembedDomains() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val oEmbedDomainsCollectionResponse =
@@ -478,7 +478,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listProperties() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val collectionResponsePropertyNoPaging =
@@ -497,7 +497,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listPropertyGroups() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val collectionResponsePropertyGroupNoPaging =
@@ -514,7 +514,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listSchemas() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val collectionResponseObjectSchemaNoPaging =
@@ -528,7 +528,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun registerAppName() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val mediaBridgeProviderRegistrationResponse =
@@ -552,7 +552,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateEventVisibilitySettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val eventVisibilityChange =
@@ -577,7 +577,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateOembedDomain() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val integratorOEmbedDomainModel =
@@ -606,7 +606,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateProperty() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val property =
@@ -647,7 +647,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updatePropertyGroup() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val propertyGroup =
@@ -668,7 +668,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateSchema() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val objectTypeDefinition =
@@ -703,7 +703,7 @@ internal class MediaBridgeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
         val mediaBridgeProviderRegistrationResponse =

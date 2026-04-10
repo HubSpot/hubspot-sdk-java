@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -120,7 +120,7 @@ private constructor(
     /**
      * The alternative text for the current logo.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun logoAltText(): String = logoAltText.getRequired("logoAltText")
@@ -128,7 +128,7 @@ private constructor(
     /**
      * Whether Hubspot Marketing ads are shown.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun showMarketingAd(): Boolean = showMarketingAd.getRequired("showMarketingAd")
@@ -136,7 +136,7 @@ private constructor(
     /**
      * Whether Hubspot Sales ads are shown.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun showSalesAd(): Boolean = showSalesAd.getRequired("showSalesAd")
@@ -144,7 +144,7 @@ private constructor(
     /**
      * The secondary accent color used in branding.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun accent2Color(): Optional<String> = accent2Color.getOptional("accent2Color")
@@ -152,7 +152,7 @@ private constructor(
     /**
      * The primary accent color used in branding.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun accentColor(): Optional<String> = accentColor.getOptional("accentColor")
@@ -160,7 +160,7 @@ private constructor(
     /**
      * The first line of the company's address.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyAddressLine1(): Optional<String> =
@@ -169,7 +169,7 @@ private constructor(
     /**
      * The second line of the company's address.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyAddressLine2(): Optional<String> =
@@ -178,7 +178,7 @@ private constructor(
     /**
      * The URL of the company's avatar image.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyAvatar(): Optional<String> = companyAvatar.getOptional("companyAvatar")
@@ -186,7 +186,7 @@ private constructor(
     /**
      * The city where the company is located.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyCity(): Optional<String> = companyCity.getOptional("companyCity")
@@ -194,7 +194,7 @@ private constructor(
     /**
      * The country where the company is located.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyCountry(): Optional<String> = companyCountry.getOptional("companyCountry")
@@ -202,7 +202,7 @@ private constructor(
     /**
      * The domain of the company's website.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyDomain(): Optional<String> = companyDomain.getOptional("companyDomain")
@@ -210,7 +210,7 @@ private constructor(
     /**
      * The name of the company.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyName(): Optional<String> = companyName.getOptional("companyName")
@@ -218,7 +218,7 @@ private constructor(
     /**
      * The state where the company is located.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyState(): Optional<String> = companyState.getOptional("companyState")
@@ -226,7 +226,7 @@ private constructor(
     /**
      * The ZIP code of the company's location.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyZip(): Optional<String> = companyZip.getOptional("companyZip")
@@ -234,7 +234,7 @@ private constructor(
     /**
      * The height of the logo in pixels.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun logoHeight(): Optional<Int> = logoHeight.getOptional("logoHeight")
@@ -242,7 +242,7 @@ private constructor(
     /**
      * The URL of a custom logo image.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun logoUrl(): Optional<String> = logoUrl.getOptional("logoUrl")
@@ -250,7 +250,7 @@ private constructor(
     /**
      * The width of the logo in pixels.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun logoWidth(): Optional<Int> = logoWidth.getOptional("logoWidth")
@@ -258,7 +258,7 @@ private constructor(
     /**
      * The primary color used in branding.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun primaryColor(): Optional<String> = primaryColor.getOptional("primaryColor")
@@ -266,7 +266,7 @@ private constructor(
     /**
      * The secondary color used in branding.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun secondaryColor(): Optional<String> = secondaryColor.getOptional("secondaryColor")
@@ -842,7 +842,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

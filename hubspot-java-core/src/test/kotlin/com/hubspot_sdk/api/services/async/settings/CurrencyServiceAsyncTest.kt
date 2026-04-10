@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.settings
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.settings.currencies.CompanyCurrencyUpdateRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ internal class CurrencyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCompanyCurrency() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val currencyServiceAsync = client.settings().currencies()
 
         val companyCurrencyFuture = currencyServiceAsync.getCompanyCurrency()
@@ -24,7 +24,7 @@ internal class CurrencyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listCodes() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val currencyServiceAsync = client.settings().currencies()
 
         val collectionResponseCurrencyCodeInfoNoPagingFuture = currencyServiceAsync.listCodes()
@@ -37,7 +37,7 @@ internal class CurrencyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateCompanyCurrency() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val currencyServiceAsync = client.settings().currencies()
 
         val companyCurrencyFuture =

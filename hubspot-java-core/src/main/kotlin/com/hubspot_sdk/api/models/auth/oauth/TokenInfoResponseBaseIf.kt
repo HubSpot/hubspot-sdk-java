@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.BaseSerializer
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.allMaxBy
 import com.hubspot_sdk.api.core.getOrThrow
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -83,7 +83,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -166,10 +166,10 @@ private constructor(
          * on an older version than the API, then the API may respond with new variants that the SDK
          * is unaware of.
          *
-         * @throws HubspotInvalidDataException in the default implementation.
+         * @throws HubSpotInvalidDataException in the default implementation.
          */
         fun unknown(json: JsonValue?): T {
-            throw HubspotInvalidDataException("Unknown TokenInfoResponseBaseIf: $json")
+            throw HubSpotInvalidDataException("Unknown TokenInfoResponseBaseIf: $json")
         }
     }
 

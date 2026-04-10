@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.campaigns
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.marketing.campaigns.PublicSpendItemInput
 import com.hubspot_sdk.api.models.marketing.campaigns.spend.SpendCreateParams
 import com.hubspot_sdk.api.models.marketing.campaigns.spend.SpendDeleteParams
@@ -16,7 +16,7 @@ internal class SpendServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val spendServiceAsync = client.marketing().campaigns().spend()
 
         val publicSpendItemFuture =
@@ -41,7 +41,7 @@ internal class SpendServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val spendServiceAsync = client.marketing().campaigns().spend()
 
         val publicSpendItemFuture =
@@ -67,7 +67,7 @@ internal class SpendServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val spendServiceAsync = client.marketing().campaigns().spend()
 
         val future =
@@ -81,7 +81,7 @@ internal class SpendServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val spendServiceAsync = client.marketing().campaigns().spend()
 
         val publicSpendItemFuture =

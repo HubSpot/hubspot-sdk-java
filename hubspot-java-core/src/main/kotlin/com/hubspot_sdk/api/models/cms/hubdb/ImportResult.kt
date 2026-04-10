@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.Error
 import java.util.Collections
 import java.util.Objects
@@ -46,7 +46,7 @@ private constructor(
     /**
      * Specifies number of duplicate rows
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun duplicateRows(): Int = duplicateRows.getRequired("duplicateRows")
@@ -54,7 +54,7 @@ private constructor(
     /**
      * List of errors during import
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun errors(): List<Error> = errors.getRequired("errors")
@@ -62,7 +62,7 @@ private constructor(
     /**
      * Specifies whether row limit exceeded during import
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun rowLimitExceeded(): Boolean = rowLimitExceeded.getRequired("rowLimitExceeded")
@@ -70,7 +70,7 @@ private constructor(
     /**
      * Specifies number of rows imported
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun rowsImported(): Int = rowsImported.getRequired("rowsImported")
@@ -283,7 +283,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.associationsschema
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchInputPublicAssociationDefinitionConfigurationUpdateRequest
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchInputPublicAssociationSpec
 import com.hubspot_sdk.api.models.crm.associationsschema.PublicAssociationDefinitionConfigurationUpdateRequest
@@ -18,7 +18,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         val collectionResponsePublicAssociationDefinitionUserConfigurationNoPaging =
@@ -30,7 +30,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchDelete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         limitService.batchDelete(
@@ -51,7 +51,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchUpdate() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         val batchResponsePublicAssociationDefinitionConfigurationUpdateResult =
@@ -83,7 +83,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypes() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         val collectionResponsePublicAssociationDefinitionUserConfigurationNoPaging =

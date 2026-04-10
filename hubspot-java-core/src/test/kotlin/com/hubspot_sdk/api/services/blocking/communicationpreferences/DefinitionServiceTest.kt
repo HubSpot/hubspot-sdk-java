@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.communicationpreferences
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.communicationpreferences.definitions.DefinitionListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.communicationPreferences().definitions()
 
         val actionResponseWithResultsSubscriptionDefinition =

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.settings.currencies
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyPairUpdate
 import com.hubspot_sdk.api.models.settings.currencies.ExchangeRateCreateRequest
 import com.hubspot_sdk.api.models.settings.currencies.ExchangeRateMultiplier
@@ -16,7 +16,7 @@ internal class ExchangeRateServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createExchangeRate() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exchangeRateService = client.settings().currencies().exchangeRates()
 
         val exchangeRate =
@@ -34,7 +34,7 @@ internal class ExchangeRateServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getExchangeRateById() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exchangeRateService = client.settings().currencies().exchangeRates()
 
         val exchangeRate = exchangeRateService.getExchangeRateById("exchangeRateId")
@@ -45,7 +45,7 @@ internal class ExchangeRateServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listCurrentExchangeRates() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exchangeRateService = client.settings().currencies().exchangeRates()
 
         val collectionResponseExchangeRateNoPaging = exchangeRateService.listCurrentExchangeRates()
@@ -56,7 +56,7 @@ internal class ExchangeRateServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listExchangeRates() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exchangeRateService = client.settings().currencies().exchangeRates()
 
         val page = exchangeRateService.listExchangeRates()
@@ -67,7 +67,7 @@ internal class ExchangeRateServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateExchangeRate() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exchangeRateService = client.settings().currencies().exchangeRates()
 
         val exchangeRate =
@@ -89,7 +89,7 @@ internal class ExchangeRateServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateVisibility() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exchangeRateService = client.settings().currencies().exchangeRates()
 
         exchangeRateService.updateVisibility(

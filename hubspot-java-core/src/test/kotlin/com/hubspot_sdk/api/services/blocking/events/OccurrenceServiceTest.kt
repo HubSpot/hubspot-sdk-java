@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.events
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -11,7 +11,7 @@ internal class OccurrenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val occurrenceService = client.events().occurrences()
 
         val page = occurrenceService.list()
@@ -22,7 +22,7 @@ internal class OccurrenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listEventTypes() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val occurrenceService = client.events().occurrences()
 
         val visibleExternalEventTypeNames = occurrenceService.listEventTypes()

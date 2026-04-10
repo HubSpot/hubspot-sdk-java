@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.account
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -11,7 +11,7 @@ internal class ActivityServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listAuditLogs() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val activityServiceAsync = client.account().activity()
 
         val pageFuture = activityServiceAsync.listAuditLogs()
@@ -23,7 +23,7 @@ internal class ActivityServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listLoginActivities() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val activityServiceAsync = client.account().activity()
 
         val pageFuture = activityServiceAsync.listLoginActivities()
@@ -35,7 +35,7 @@ internal class ActivityServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listSecurityActivities() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val activityServiceAsync = client.account().activity()
 
         val pageFuture = activityServiceAsync.listSecurityActivities()

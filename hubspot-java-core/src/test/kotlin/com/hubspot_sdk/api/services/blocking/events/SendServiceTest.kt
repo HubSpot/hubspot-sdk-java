@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.events
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
 import com.hubspot_sdk.api.models.events.BehavioralEventHttpCompletionRequest
@@ -15,7 +15,7 @@ internal class SendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchSend() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sendService = client.events().send()
 
         sendService.batchSend(
@@ -42,7 +42,7 @@ internal class SendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sendService = client.events().send()
 
         sendService.send(

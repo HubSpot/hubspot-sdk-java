@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.automation
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentRequest
 import com.hubspot_sdk.api.models.automation.sequences.SequenceCreateEnrollmentParams
 import com.hubspot_sdk.api.models.automation.sequences.SequenceGetParams
@@ -15,7 +15,7 @@ internal class SequenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sequenceService = client.automation().sequences()
 
         val page = sequenceService.list(SequenceListParams.builder().userId("userId").build())
@@ -26,7 +26,7 @@ internal class SequenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createEnrollment() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sequenceService = client.automation().sequences()
 
         val publicSequenceEnrollmentLiteResponse =
@@ -50,7 +50,7 @@ internal class SequenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sequenceService = client.automation().sequences()
 
         val publicSequenceResponse =
@@ -64,7 +64,7 @@ internal class SequenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getEnrollmentByContactId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val sequenceService = client.automation().sequences()
 
         val publicSequenceEnrollmentResponse = sequenceService.getEnrollmentByContactId("contactId")

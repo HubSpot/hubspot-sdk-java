@@ -193,7 +193,7 @@ internal class PublicEmailVersionTest {
                                 .blogEmailType("blogEmailType")
                                 .blogImageMaxWidth(0)
                                 .blogLayout(PublicRssEmailDetails.BlogLayout.FULL_POST)
-                                .hubspotBlogId("hubspotBlogId")
+                                .hubSpotBlogId("hubspotBlogId")
                                 .maxEntries(0)
                                 .rssEntryTemplate("rssEntryTemplate")
                                 .timing(
@@ -500,7 +500,7 @@ internal class PublicEmailVersionTest {
                             .blogEmailType("blogEmailType")
                             .blogImageMaxWidth(0)
                             .blogLayout(PublicRssEmailDetails.BlogLayout.FULL_POST)
-                            .hubspotBlogId("hubspotBlogId")
+                            .hubSpotBlogId("hubspotBlogId")
                             .maxEntries(0)
                             .rssEntryTemplate("rssEntryTemplate")
                             .timing(
@@ -806,7 +806,7 @@ internal class PublicEmailVersionTest {
                                 .blogEmailType("blogEmailType")
                                 .blogImageMaxWidth(0)
                                 .blogLayout(PublicRssEmailDetails.BlogLayout.FULL_POST)
-                                .hubspotBlogId("hubspotBlogId")
+                                .hubSpotBlogId("hubspotBlogId")
                                 .maxEntries(0)
                                 .rssEntryTemplate("rssEntryTemplate")
                                 .timing(

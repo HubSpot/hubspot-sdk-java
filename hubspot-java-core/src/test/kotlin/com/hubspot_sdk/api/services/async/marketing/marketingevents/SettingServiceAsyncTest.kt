@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.marketingevents
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.marketing.marketingevents.EventDetailSettingsUrl
 import com.hubspot_sdk.api.models.marketing.marketingevents.settings.SettingCreateOrUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class SettingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOrUpdate() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val settingServiceAsync = client.marketing().marketingEvents().settings()
 
         val eventDetailSettingsFuture =
@@ -33,7 +33,7 @@ internal class SettingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val settingServiceAsync = client.marketing().marketingEvents().settings()
 
         val eventDetailSettingsFuture = settingServiceAsync.get(0)

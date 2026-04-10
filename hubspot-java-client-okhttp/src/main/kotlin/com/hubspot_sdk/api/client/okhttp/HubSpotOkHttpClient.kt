@@ -3,8 +3,8 @@
 package com.hubspot_sdk.api.client.okhttp
 
 import com.fasterxml.jackson.databind.json.JsonMapper
-import com.hubspot_sdk.api.client.HubspotClientAsync
-import com.hubspot_sdk.api.client.HubspotClientAsyncImpl
+import com.hubspot_sdk.api.client.HubSpotClient
+import com.hubspot_sdk.api.client.HubSpotClientImpl
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.Sleeper
 import com.hubspot_sdk.api.core.Timeout
@@ -25,14 +25,14 @@ import javax.net.ssl.X509TrustManager
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * A class that allows building an instance of [HubspotClientAsync] with [OkHttpClient] as the
- * underlying [HttpClient].
+ * A class that allows building an instance of [HubSpotClient] with [OkHttpClient] as the underlying
+ * [HttpClient].
  */
-class HubspotOkHttpClientAsync private constructor() {
+class HubSpotOkHttpClient private constructor() {
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [HubspotClientAsync]. */
+        /** Returns a mutable builder for constructing an instance of [HubSpotClient]. */
         @JvmStatic fun builder() = Builder()
 
         /**
@@ -40,10 +40,10 @@ class HubspotOkHttpClientAsync private constructor() {
          *
          * @see ClientOptions.Builder.fromEnv
          */
-        @JvmStatic fun fromEnv(): HubspotClientAsync = builder().fromEnv().build()
+        @JvmStatic fun fromEnv(): HubSpotClient = builder().fromEnv().build()
     }
 
-    /** A builder for [HubspotOkHttpClientAsync]. */
+    /** A builder for [HubSpotOkHttpClient]. */
     class Builder internal constructor() {
 
         private var clientOptions: ClientOptions.Builder = ClientOptions.builder()
@@ -372,12 +372,12 @@ class HubspotOkHttpClientAsync private constructor() {
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
         /**
-         * Returns an immutable instance of [HubspotClientAsync].
+         * Returns an immutable instance of [HubSpotClient].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): HubspotClientAsync =
-            HubspotClientAsyncImpl(
+        fun build(): HubSpotClient =
+            HubSpotClientImpl(
                 clientOptions
                     .httpClient(
                         OkHttpClient.builder()

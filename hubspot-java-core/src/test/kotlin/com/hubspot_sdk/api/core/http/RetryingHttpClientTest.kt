@@ -18,7 +18,7 @@ import com.github.tomakehurst.wiremock.stubbing.Scenario
 import com.hubspot_sdk.api.client.okhttp.OkHttpClient
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.Sleeper
-import com.hubspot_sdk.api.errors.HubspotRetryableException
+import com.hubspot_sdk.api.errors.HubSpotRetryableException
 import java.io.InputStream
 import java.time.Clock
 import java.time.Duration
@@ -317,7 +317,7 @@ internal class RetryingHttpClientTest {
                 ): HttpResponse {
                     callCount++
                     if (callCount == 1) {
-                        throw HubspotRetryableException("Simulated retryable failure")
+                        throw HubSpotRetryableException("Simulated retryable failure")
                     }
                     return httpClient.execute(request, requestOptions)
                 }
@@ -330,7 +330,7 @@ internal class RetryingHttpClientTest {
                     if (callCount == 1) {
                         val future = CompletableFuture<HttpResponse>()
                         future.completeExceptionally(
-                            HubspotRetryableException("Simulated retryable failure")
+                            HubSpotRetryableException("Simulated retryable failure")
                         )
                         return future
                     }

@@ -8,7 +8,7 @@ import com.hubspot_sdk.api.core.http.HttpMethod
 import com.hubspot_sdk.api.core.http.HttpRequest
 import com.hubspot_sdk.api.core.http.HttpRequestBody
 import com.hubspot_sdk.api.core.http.HttpResponse
-import com.hubspot_sdk.api.errors.HubspotIoException
+import com.hubspot_sdk.api.errors.HubSpotIoException
 import java.io.IOException
 import java.io.InputStream
 import java.net.Proxy
@@ -43,7 +43,7 @@ internal constructor(@JvmSynthetic internal val okHttpClient: okhttp3.OkHttpClie
         return try {
             call.execute().toResponse()
         } catch (e: IOException) {
-            throw HubspotIoException("Request failed", e)
+            throw HubSpotIoException("Request failed", e)
         } finally {
             request.body?.close()
         }
@@ -63,7 +63,7 @@ internal constructor(@JvmSynthetic internal val okHttpClient: okhttp3.OkHttpClie
                 }
 
                 override fun onFailure(call: Call, e: IOException) {
-                    future.completeExceptionally(HubspotIoException("Request failed", e))
+                    future.completeExceptionally(HubSpotIoException("Request failed", e))
                 }
             }
         )

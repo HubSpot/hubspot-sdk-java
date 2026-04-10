@@ -14,7 +14,7 @@ private constructor(
     private val headers: Headers,
     private val body: JsonValue,
     cause: Throwable?,
-) : HubspotServiceException("$statusCode: $body", cause) {
+) : HubSpotServiceException("$statusCode: $body", cause) {
 
     override fun statusCode(): Int = statusCode
 

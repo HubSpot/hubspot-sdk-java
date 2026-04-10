@@ -15,7 +15,7 @@ internal class TableCloneDraftParamsTest {
             .hubDbTableCloneRequest(
                 HubDbTableCloneRequest.builder()
                     .copyRows(true)
-                    .isHubspotDefined(true)
+                    .isHubSpotDefined(true)
                     .newLabel("newLabel")
                     .newName("newName")
                     .build()
@@ -29,7 +29,7 @@ internal class TableCloneDraftParamsTest {
             TableCloneDraftParams.builder()
                 .tableIdOrName("tableIdOrName")
                 .hubDbTableCloneRequest(
-                    HubDbTableCloneRequest.builder().copyRows(true).isHubspotDefined(true).build()
+                    HubDbTableCloneRequest.builder().copyRows(true).isHubSpotDefined(true).build()
                 )
                 .build()
 
@@ -46,7 +46,7 @@ internal class TableCloneDraftParamsTest {
                 .hubDbTableCloneRequest(
                     HubDbTableCloneRequest.builder()
                         .copyRows(true)
-                        .isHubspotDefined(true)
+                        .isHubSpotDefined(true)
                         .newLabel("newLabel")
                         .newName("newName")
                         .build()
@@ -59,7 +59,7 @@ internal class TableCloneDraftParamsTest {
             .isEqualTo(
                 HubDbTableCloneRequest.builder()
                     .copyRows(true)
-                    .isHubspotDefined(true)
+                    .isHubSpotDefined(true)
                     .newLabel("newLabel")
                     .newName("newName")
                     .build()
@@ -72,7 +72,7 @@ internal class TableCloneDraftParamsTest {
             TableCloneDraftParams.builder()
                 .tableIdOrName("tableIdOrName")
                 .hubDbTableCloneRequest(
-                    HubDbTableCloneRequest.builder().copyRows(true).isHubspotDefined(true).build()
+                    HubDbTableCloneRequest.builder().copyRows(true).isHubSpotDefined(true).build()
                 )
                 .build()
 
@@ -80,7 +80,7 @@ internal class TableCloneDraftParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                HubDbTableCloneRequest.builder().copyRows(true).isHubspotDefined(true).build()
+                HubDbTableCloneRequest.builder().copyRows(true).isHubSpotDefined(true).build()
             )
     }
 }

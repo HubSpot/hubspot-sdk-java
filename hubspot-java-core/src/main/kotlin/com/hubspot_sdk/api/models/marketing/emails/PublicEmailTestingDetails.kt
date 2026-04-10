@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -65,7 +65,7 @@ private constructor(
     )
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isAbVariation(): Boolean = isAbVariation.getRequired("isAbVariation")
@@ -74,7 +74,7 @@ private constructor(
      * Version of the email that should be sent if there are too few recipients to conduct an AB
      * test.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun abSampleSizeDefault(): Optional<AbSampleSizeDefault> =
@@ -84,7 +84,7 @@ private constructor(
      * Version of the email that should be sent if the results are inconclusive after the test
      * period, master or variant.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun abSamplingDefault(): Optional<AbSamplingDefault> =
@@ -93,7 +93,7 @@ private constructor(
     /**
      * Status of the AB test.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun abStatus(): Optional<AbStatus> = abStatus.getOptional("abStatus")
@@ -101,7 +101,7 @@ private constructor(
     /**
      * Metric to determine the version that will be sent to the remaining contacts.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun abSuccessMetric(): Optional<AbSuccessMetric> =
@@ -110,7 +110,7 @@ private constructor(
     /**
      * The size of your test group.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun abTestPercentage(): Optional<Int> = abTestPercentage.getOptional("abTestPercentage")
@@ -119,7 +119,7 @@ private constructor(
      * Time limit on gathering test results. After this time is up, the winning version will be sent
      * to the remaining contacts.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hoursToWait(): Optional<Int> = hoursToWait.getOptional("hoursToWait")
@@ -127,7 +127,7 @@ private constructor(
     /**
      * The ID of the AB test.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun testId(): Optional<String> = testId.getOptional("testId")
@@ -435,7 +435,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -557,7 +557,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -570,7 +570,7 @@ private constructor(
                 MAB_VARIANT -> Known.MAB_VARIANT
                 MASTER -> Known.MASTER
                 VARIANT -> Known.VARIANT
-                else -> throw HubspotInvalidDataException("Unknown AbSampleSizeDefault: $value")
+                else -> throw HubSpotInvalidDataException("Unknown AbSampleSizeDefault: $value")
             }
 
         /**
@@ -579,11 +579,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -600,7 +600,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -726,7 +726,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -739,7 +739,7 @@ private constructor(
                 MAB_VARIANT -> Known.MAB_VARIANT
                 MASTER -> Known.MASTER
                 VARIANT -> Known.VARIANT
-                else -> throw HubspotInvalidDataException("Unknown AbSamplingDefault: $value")
+                else -> throw HubSpotInvalidDataException("Unknown AbSamplingDefault: $value")
             }
 
         /**
@@ -748,11 +748,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -769,7 +769,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -888,7 +888,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -901,7 +901,7 @@ private constructor(
                 MAB_VARIANT -> Known.MAB_VARIANT
                 MASTER -> Known.MASTER
                 VARIANT -> Known.VARIANT
-                else -> throw HubspotInvalidDataException("Unknown AbStatus: $value")
+                else -> throw HubSpotInvalidDataException("Unknown AbStatus: $value")
             }
 
         /**
@@ -910,11 +910,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -931,7 +931,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -1029,7 +1029,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1037,7 +1037,7 @@ private constructor(
                 CLICKS_BY_DELIVERED -> Known.CLICKS_BY_DELIVERED
                 CLICKS_BY_OPENS -> Known.CLICKS_BY_OPENS
                 OPENS_BY_DELIVERED -> Known.OPENS_BY_DELIVERED
-                else -> throw HubspotInvalidDataException("Unknown AbSuccessMetric: $value")
+                else -> throw HubSpotInvalidDataException("Unknown AbSuccessMetric: $value")
             }
 
         /**
@@ -1046,11 +1046,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1067,7 +1067,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

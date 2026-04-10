@@ -72,7 +72,7 @@ internal class ObjectSchemaTest {
                         .formField(true)
                         .hasUniqueValue(true)
                         .hidden(false)
-                        .hubspotDefined(true)
+                        .hubSpotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)
@@ -152,7 +152,7 @@ internal class ObjectSchemaTest {
                     .formField(true)
                     .hasUniqueValue(true)
                     .hidden(false)
-                    .hubspotDefined(true)
+                    .hubSpotDefined(true)
                     .modificationMetadata(
                         PropertyModificationMetadata.builder()
                             .archivable(true)
@@ -239,7 +239,7 @@ internal class ObjectSchemaTest {
                         .formField(true)
                         .hasUniqueValue(true)
                         .hidden(false)
-                        .hubspotDefined(true)
+                        .hubSpotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)

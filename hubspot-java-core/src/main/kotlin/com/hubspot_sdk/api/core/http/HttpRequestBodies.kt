@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.databind.node.JsonNodeType
 import com.hubspot_sdk.api.core.MultipartField
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.io.OutputStream
@@ -126,7 +126,7 @@ private fun serializePart(name: String, node: JsonNode): Sequence<Pair<String, I
                                 JsonNodeType.ARRAY,
                                 JsonNodeType.OBJECT,
                                 JsonNodeType.POJO ->
-                                    throw HubspotInvalidDataException(
+                                    throw HubSpotInvalidDataException(
                                         "Unexpected JsonNode type in array: ${element.nodeType}"
                                     )
                             }
@@ -139,7 +139,7 @@ private fun serializePart(name: String, node: JsonNode): Sequence<Pair<String, I
                 serializePart("$name[$key]", value)
             }
         JsonNodeType.POJO,
-        null -> throw HubspotInvalidDataException("Unexpected JsonNode type: ${node.nodeType}")
+        null -> throw HubSpotInvalidDataException("Unexpected JsonNode type: ${node.nodeType}")
     }
 
 private class MultipartBody

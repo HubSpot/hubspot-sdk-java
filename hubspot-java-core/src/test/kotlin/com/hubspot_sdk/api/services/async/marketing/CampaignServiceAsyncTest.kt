@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignGetParams
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignUpdateParams
@@ -15,7 +15,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val publicCampaignFuture =
@@ -36,7 +36,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val publicCampaignFuture =
@@ -62,7 +62,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val pageFuture = campaignServiceAsync.list()
@@ -74,7 +74,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val future = campaignServiceAsync.delete("campaignGuid")
@@ -85,7 +85,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val publicCampaignWithAssetsFuture =

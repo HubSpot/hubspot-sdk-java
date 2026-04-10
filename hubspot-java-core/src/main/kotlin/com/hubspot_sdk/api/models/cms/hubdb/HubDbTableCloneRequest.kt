@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -20,7 +20,7 @@ class HubDbTableCloneRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val copyRows: JsonField<Boolean>,
-    private val isHubspotDefined: JsonField<Boolean>,
+    private val isHubSpotDefined: JsonField<Boolean>,
     private val newLabel: JsonField<String>,
     private val newName: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -31,15 +31,15 @@ private constructor(
         @JsonProperty("copyRows") @ExcludeMissing copyRows: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("isHubspotDefined")
         @ExcludeMissing
-        isHubspotDefined: JsonField<Boolean> = JsonMissing.of(),
+        isHubSpotDefined: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("newLabel") @ExcludeMissing newLabel: JsonField<String> = JsonMissing.of(),
         @JsonProperty("newName") @ExcludeMissing newName: JsonField<String> = JsonMissing.of(),
-    ) : this(copyRows, isHubspotDefined, newLabel, newName, mutableMapOf())
+    ) : this(copyRows, isHubSpotDefined, newLabel, newName, mutableMapOf())
 
     /**
      * Specifies whether to copy the rows during clone
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun copyRows(): Boolean = copyRows.getRequired("copyRows")
@@ -47,15 +47,15 @@ private constructor(
     /**
      * Indicates whether the table is defined by HubSpot.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun isHubspotDefined(): Boolean = isHubspotDefined.getRequired("isHubspotDefined")
+    fun isHubSpotDefined(): Boolean = isHubSpotDefined.getRequired("isHubspotDefined")
 
     /**
      * The new label for the cloned table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun newLabel(): Optional<String> = newLabel.getOptional("newLabel")
@@ -63,7 +63,7 @@ private constructor(
     /**
      * The new name for the cloned table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun newName(): Optional<String> = newName.getOptional("newName")
@@ -76,14 +76,14 @@ private constructor(
     @JsonProperty("copyRows") @ExcludeMissing fun _copyRows(): JsonField<Boolean> = copyRows
 
     /**
-     * Returns the raw JSON value of [isHubspotDefined].
+     * Returns the raw JSON value of [isHubSpotDefined].
      *
-     * Unlike [isHubspotDefined], this method doesn't throw if the JSON field has an unexpected
+     * Unlike [isHubSpotDefined], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
     @JsonProperty("isHubspotDefined")
     @ExcludeMissing
-    fun _isHubspotDefined(): JsonField<Boolean> = isHubspotDefined
+    fun _isHubSpotDefined(): JsonField<Boolean> = isHubSpotDefined
 
     /**
      * Returns the raw JSON value of [newLabel].
@@ -119,7 +119,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .copyRows()
-         * .isHubspotDefined()
+         * .isHubSpotDefined()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -129,7 +129,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var copyRows: JsonField<Boolean>? = null
-        private var isHubspotDefined: JsonField<Boolean>? = null
+        private var isHubSpotDefined: JsonField<Boolean>? = null
         private var newLabel: JsonField<String> = JsonMissing.of()
         private var newName: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -137,7 +137,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(hubDbTableCloneRequest: HubDbTableCloneRequest) = apply {
             copyRows = hubDbTableCloneRequest.copyRows
-            isHubspotDefined = hubDbTableCloneRequest.isHubspotDefined
+            isHubSpotDefined = hubDbTableCloneRequest.isHubSpotDefined
             newLabel = hubDbTableCloneRequest.newLabel
             newName = hubDbTableCloneRequest.newName
             additionalProperties = hubDbTableCloneRequest.additionalProperties.toMutableMap()
@@ -156,18 +156,18 @@ private constructor(
         fun copyRows(copyRows: JsonField<Boolean>) = apply { this.copyRows = copyRows }
 
         /** Indicates whether the table is defined by HubSpot. */
-        fun isHubspotDefined(isHubspotDefined: Boolean) =
-            isHubspotDefined(JsonField.of(isHubspotDefined))
+        fun isHubSpotDefined(isHubSpotDefined: Boolean) =
+            isHubSpotDefined(JsonField.of(isHubSpotDefined))
 
         /**
-         * Sets [Builder.isHubspotDefined] to an arbitrary JSON value.
+         * Sets [Builder.isHubSpotDefined] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.isHubspotDefined] with a well-typed [Boolean] value
+         * You should usually call [Builder.isHubSpotDefined] with a well-typed [Boolean] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun isHubspotDefined(isHubspotDefined: JsonField<Boolean>) = apply {
-            this.isHubspotDefined = isHubspotDefined
+        fun isHubSpotDefined(isHubSpotDefined: JsonField<Boolean>) = apply {
+            this.isHubSpotDefined = isHubSpotDefined
         }
 
         /** The new label for the cloned table */
@@ -219,7 +219,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .copyRows()
-         * .isHubspotDefined()
+         * .isHubSpotDefined()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -227,7 +227,7 @@ private constructor(
         fun build(): HubDbTableCloneRequest =
             HubDbTableCloneRequest(
                 checkRequired("copyRows", copyRows),
-                checkRequired("isHubspotDefined", isHubspotDefined),
+                checkRequired("isHubSpotDefined", isHubSpotDefined),
                 newLabel,
                 newName,
                 additionalProperties.toMutableMap(),
@@ -242,7 +242,7 @@ private constructor(
         }
 
         copyRows()
-        isHubspotDefined()
+        isHubSpotDefined()
         newLabel()
         newName()
         validated = true
@@ -252,7 +252,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -264,7 +264,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (copyRows.asKnown().isPresent) 1 else 0) +
-            (if (isHubspotDefined.asKnown().isPresent) 1 else 0) +
+            (if (isHubSpotDefined.asKnown().isPresent) 1 else 0) +
             (if (newLabel.asKnown().isPresent) 1 else 0) +
             (if (newName.asKnown().isPresent) 1 else 0)
 
@@ -275,18 +275,18 @@ private constructor(
 
         return other is HubDbTableCloneRequest &&
             copyRows == other.copyRows &&
-            isHubspotDefined == other.isHubspotDefined &&
+            isHubSpotDefined == other.isHubSpotDefined &&
             newLabel == other.newLabel &&
             newName == other.newName &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(copyRows, isHubspotDefined, newLabel, newName, additionalProperties)
+        Objects.hash(copyRows, isHubSpotDefined, newLabel, newName, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "HubDbTableCloneRequest{copyRows=$copyRows, isHubspotDefined=$isHubspotDefined, newLabel=$newLabel, newName=$newName, additionalProperties=$additionalProperties}"
+        "HubDbTableCloneRequest{copyRows=$copyRows, isHubSpotDefined=$isHubSpotDefined, newLabel=$newLabel, newName=$newName, additionalProperties=$additionalProperties}"
 }

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.marketing
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.marketing.PublicSingleSendEmail
 import com.hubspot_sdk.api.models.marketing.PublicSingleSendRequestEgg
@@ -14,7 +14,7 @@ internal class SingleSendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val singleSendService = client.marketing().singleSend()
 
         val emailSendStatusView =

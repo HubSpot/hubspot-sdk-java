@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -125,7 +125,7 @@ private constructor(
     /**
      * The unique ID of this domain.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -133,7 +133,7 @@ private constructor(
     /**
      * The expected CNAME record for the domain.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun correctCname(): String = correctCname.getRequired("correctCname")
@@ -141,7 +141,7 @@ private constructor(
     /**
      * The date and time when the domain was created.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun created(): OffsetDateTime = created.getRequired("created")
@@ -149,7 +149,7 @@ private constructor(
     /**
      * The actual domain or sub-domain. e.g. www.hubspot.com
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun domain(): String = domain.getRequired("domain")
@@ -157,7 +157,7 @@ private constructor(
     /**
      * Whether the DNS for this domain is optimally configured for use with HubSpot.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isResolving(): Boolean = isResolving.getRequired("isResolving")
@@ -165,7 +165,7 @@ private constructor(
     /**
      * Indicates whether SSL is enabled for the domain.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isSslEnabled(): Boolean = isSslEnabled.getRequired("isSslEnabled")
@@ -173,7 +173,7 @@ private constructor(
     /**
      * Indicates whether the domain is accessible only via SSL.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isSslOnly(): Boolean = isSslOnly.getRequired("isSslOnly")
@@ -181,7 +181,7 @@ private constructor(
     /**
      * Whether the domain is used for CMS blog posts.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isUsedForBlogPost(): Boolean = isUsedForBlogPost.getRequired("isUsedForBlogPost")
@@ -189,7 +189,7 @@ private constructor(
     /**
      * Whether the domain is used for CMS email web pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isUsedForEmail(): Boolean = isUsedForEmail.getRequired("isUsedForEmail")
@@ -197,7 +197,7 @@ private constructor(
     /**
      * Whether the domain is used for CMS knowledge pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isUsedForKnowledge(): Boolean = isUsedForKnowledge.getRequired("isUsedForKnowledge")
@@ -205,7 +205,7 @@ private constructor(
     /**
      * Whether the domain is used for CMS landing pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isUsedForLandingPage(): Boolean = isUsedForLandingPage.getRequired("isUsedForLandingPage")
@@ -213,7 +213,7 @@ private constructor(
     /**
      * Whether the domain is used for CMS site pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isUsedForSitePage(): Boolean = isUsedForSitePage.getRequired("isUsedForSitePage")
@@ -221,7 +221,7 @@ private constructor(
     /**
      * Indicates whether the domain has been manually marked as resolving.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun manuallyMarkedAsResolving(): Boolean =
@@ -230,7 +230,7 @@ private constructor(
     /**
      * Indicates whether the domain is the primary domain for blog posts.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun primaryBlogPost(): Boolean = primaryBlogPost.getRequired("primaryBlogPost")
@@ -238,7 +238,7 @@ private constructor(
     /**
      * Indicates whether the domain is the primary domain for email pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun primaryEmail(): Boolean = primaryEmail.getRequired("primaryEmail")
@@ -246,7 +246,7 @@ private constructor(
     /**
      * Indicates whether the domain is the primary domain for knowledge pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun primaryKnowledge(): Boolean = primaryKnowledge.getRequired("primaryKnowledge")
@@ -254,7 +254,7 @@ private constructor(
     /**
      * Indicates whether the domain is the primary domain for landing pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun primaryLandingPage(): Boolean = primaryLandingPage.getRequired("primaryLandingPage")
@@ -262,7 +262,7 @@ private constructor(
     /**
      * Indicates whether the domain is the primary domain for site pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun primarySitePage(): Boolean = primarySitePage.getRequired("primarySitePage")
@@ -270,7 +270,7 @@ private constructor(
     /**
      * Specifies the domain to which this domain is secondary.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun secondaryToDomain(): String = secondaryToDomain.getRequired("secondaryToDomain")
@@ -278,7 +278,7 @@ private constructor(
     /**
      * The date and time when the domain was last updated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updated(): OffsetDateTime = updated.getRequired("updated")
@@ -941,7 +941,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

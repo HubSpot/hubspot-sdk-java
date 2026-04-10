@@ -28,7 +28,7 @@ internal class PipelineLimitResponseTest {
                         .overallUsage(0)
                         .build()
                 )
-                .addHubspotDefinedObjectType(
+                .addHubSpotDefinedObjectType(
                     LimitAndUsageForObjectType.builder()
                         .limit(0)
                         .objectTypeId("objectTypeId")
@@ -56,7 +56,7 @@ internal class PipelineLimitResponseTest {
                     .overallUsage(0)
                     .build()
             )
-        assertThat(pipelineLimitResponse.hubspotDefinedObjectTypes())
+        assertThat(pipelineLimitResponse.hubSpotDefinedObjectTypes())
             .containsExactly(
                 LimitAndUsageForObjectType.builder()
                     .limit(0)
@@ -89,7 +89,7 @@ internal class PipelineLimitResponseTest {
                         .overallUsage(0)
                         .build()
                 )
-                .addHubspotDefinedObjectType(
+                .addHubSpotDefinedObjectType(
                     LimitAndUsageForObjectType.builder()
                         .limit(0)
                         .objectTypeId("objectTypeId")

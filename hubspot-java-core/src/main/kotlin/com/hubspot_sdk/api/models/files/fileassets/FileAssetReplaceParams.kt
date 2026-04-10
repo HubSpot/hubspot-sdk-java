@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.io.InputStream
 import java.nio.file.Path
 import java.util.Collections
@@ -37,19 +37,19 @@ private constructor(
     fun fileId(): Optional<String> = Optional.ofNullable(fileId)
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun charsetHunch(): Optional<String> = body.charsetHunch()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun file(): Optional<InputStream> = body.file()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun options(): Optional<String> = body.options()
@@ -319,19 +319,19 @@ private constructor(
     ) {
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun charsetHunch(): Optional<String> = charsetHunch.value.getOptional("charsetHunch")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun file(): Optional<InputStream> = file.value.getOptional("file")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun options(): Optional<String> = options.value.getOptional("options")
@@ -485,7 +485,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

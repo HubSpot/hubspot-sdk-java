@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.crm.lists
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -102,7 +102,7 @@ internal class PublicListConversionTimeTest {
         val publicListConversionTime =
             jsonMapper().convertValue(testCase.value, jacksonTypeRef<PublicListConversionTime>())
 
-        val e = assertThrows<HubspotInvalidDataException> { publicListConversionTime.validate() }
+        val e = assertThrows<HubSpotInvalidDataException> { publicListConversionTime.validate() }
         assertThat(e).hasMessageStartingWith("Unknown ")
     }
 }

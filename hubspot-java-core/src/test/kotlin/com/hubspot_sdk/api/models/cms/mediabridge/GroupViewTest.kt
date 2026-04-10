@@ -17,7 +17,7 @@ internal class GroupViewTest {
                 .displayOrder(0)
                 .fulcrumPortalId(0)
                 .fulcrumTimestamp(0L)
-                .hubspotDefined(true)
+                .hubSpotDefined(true)
                 .name("name")
                 .build()
 
@@ -25,7 +25,7 @@ internal class GroupViewTest {
         assertThat(groupView.displayOrder()).isEqualTo(0)
         assertThat(groupView.fulcrumPortalId()).isEqualTo(0)
         assertThat(groupView.fulcrumTimestamp()).isEqualTo(0L)
-        assertThat(groupView.hubspotDefined()).isEqualTo(true)
+        assertThat(groupView.hubSpotDefined()).isEqualTo(true)
         assertThat(groupView.name()).isEqualTo("name")
     }
 
@@ -38,7 +38,7 @@ internal class GroupViewTest {
                 .displayOrder(0)
                 .fulcrumPortalId(0)
                 .fulcrumTimestamp(0L)
-                .hubspotDefined(true)
+                .hubSpotDefined(true)
                 .name("name")
                 .build()
 

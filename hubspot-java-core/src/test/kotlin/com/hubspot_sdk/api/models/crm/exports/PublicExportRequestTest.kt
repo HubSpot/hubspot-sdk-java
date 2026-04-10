@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.crm.exports
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
@@ -200,7 +200,7 @@ internal class PublicExportRequestTest {
         val publicExportRequest =
             jsonMapper().convertValue(testCase.value, jacksonTypeRef<PublicExportRequest>())
 
-        val e = assertThrows<HubspotInvalidDataException> { publicExportRequest.validate() }
+        val e = assertThrows<HubSpotInvalidDataException> { publicExportRequest.validate() }
         assertThat(e).hasMessageStartingWith("Unknown ")
     }
 }

@@ -45,7 +45,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                         .formField(true)
                         .hasUniqueValue(true)
                         .hidden(true)
-                        .hubspotDefined(true)
+                        .hubSpotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)
@@ -94,7 +94,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                     .formField(true)
                     .hasUniqueValue(true)
                     .hidden(true)
-                    .hubspotDefined(true)
+                    .hubSpotDefined(true)
                     .modificationMetadata(
                         PropertyModificationMetadata.builder()
                             .archivable(true)
@@ -147,7 +147,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                         .formField(true)
                         .hasUniqueValue(true)
                         .hidden(true)
-                        .hubspotDefined(true)
+                        .hubSpotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)

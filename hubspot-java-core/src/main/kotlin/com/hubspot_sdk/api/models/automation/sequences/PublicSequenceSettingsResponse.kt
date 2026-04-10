@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -76,7 +76,7 @@ private constructor(
     /**
      * The unique identifier for the sequence settings.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -84,7 +84,7 @@ private constructor(
     /**
      * The timestamp of when the sequence settings were created.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
@@ -92,7 +92,7 @@ private constructor(
     /**
      * Specifies the days on which follow-up actions are allowed.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun eligibleFollowUpDays(): EligibleFollowUpDays =
@@ -101,7 +101,7 @@ private constructor(
     /**
      * Indicates whether individual task reminders are enabled.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun individualTaskRemindersEnabled(): Boolean =
@@ -112,7 +112,7 @@ private constructor(
      * LEAD_BASED. If ACCOUNT_BASED is used, all contacts associated with the same company will be
      * unenrolled if one contact meets any of the unenrollment criteria.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sellingStrategy(): SellingStrategy = sellingStrategy.getRequired("sellingStrategy")
@@ -120,7 +120,7 @@ private constructor(
     /**
      * Indicates the end minute of the time window during which automated emails can be sent.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sendWindowEndMinute(): Int = sendWindowEndMinute.getRequired("sendWindowEndMinute")
@@ -128,7 +128,7 @@ private constructor(
     /**
      * Indicates the start minute of the time window during which automated emails can be sent.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sendWindowStartMinute(): Int = sendWindowStartMinute.getRequired("sendWindowStartMinute")
@@ -136,7 +136,7 @@ private constructor(
     /**
      * Specifies the minute of day at which task reminders are triggered.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun taskReminderMinute(): Int = taskReminderMinute.getRequired("taskReminderMinute")
@@ -144,7 +144,7 @@ private constructor(
     /**
      * The timestamp of when the sequence settings were last updated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
@@ -508,7 +508,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -604,7 +604,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -612,7 +612,7 @@ private constructor(
                 BUSINESS_DAYS -> Known.BUSINESS_DAYS
                 EVERYDAY -> Known.EVERYDAY
                 WEEKDAYS_ONLY -> Known.WEEKDAYS_ONLY
-                else -> throw HubspotInvalidDataException("Unknown EligibleFollowUpDays: $value")
+                else -> throw HubSpotInvalidDataException("Unknown EligibleFollowUpDays: $value")
             }
 
         /**
@@ -621,11 +621,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -642,7 +642,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -739,14 +739,14 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 ACCOUNT_BASED -> Known.ACCOUNT_BASED
                 LEAD_BASED -> Known.LEAD_BASED
-                else -> throw HubspotInvalidDataException("Unknown SellingStrategy: $value")
+                else -> throw HubSpotInvalidDataException("Unknown SellingStrategy: $value")
             }
 
         /**
@@ -755,11 +755,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -776,7 +776,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

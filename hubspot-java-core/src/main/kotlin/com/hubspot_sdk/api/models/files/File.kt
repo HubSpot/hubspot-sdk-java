@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -111,7 +111,7 @@ private constructor(
     /**
      * File ID.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -119,7 +119,7 @@ private constructor(
     /**
      * If the file is deleted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun archived(): Boolean = archived.getRequired("archived")
@@ -127,7 +127,7 @@ private constructor(
     /**
      * Creation time of the file object.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
@@ -135,7 +135,7 @@ private constructor(
     /**
      * Timestamp of the latest update to the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
@@ -143,7 +143,7 @@ private constructor(
     /**
      * File access. Can be PUBLIC_INDEXABLE, PUBLIC_NOT_INDEXABLE, PRIVATE.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun access(): Optional<Access> = access.getOptional("access")
@@ -151,7 +151,7 @@ private constructor(
     /**
      * Deletion time of the file object.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
@@ -160,7 +160,7 @@ private constructor(
      * Default hosting URL of the file. This will use one of HubSpot's provided URLs to serve the
      * file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun defaultHostingUrl(): Optional<String> = defaultHostingUrl.getOptional("defaultHostingUrl")
@@ -168,13 +168,13 @@ private constructor(
     /**
      * Encoding of the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun encoding(): Optional<String> = encoding.getOptional("encoding")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun expiresAt(): Optional<Long> = expiresAt.getOptional("expiresAt")
@@ -182,7 +182,7 @@ private constructor(
     /**
      * Extension of the file. ex: .jpg, .png, .gif, .pdf, etc.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun extension(): Optional<String> = extension.getOptional("extension")
@@ -190,7 +190,7 @@ private constructor(
     /**
      * The MD5 hash of the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fileMd5(): Optional<String> = fileMd5.getOptional("fileMd5")
@@ -198,7 +198,7 @@ private constructor(
     /**
      * For image and video files, the height of the content.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun height(): Optional<Int> = height.getOptional("height")
@@ -207,7 +207,7 @@ private constructor(
      * Previously "archied". Indicates if the file should be used when creating new content like web
      * pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isUsableInContent(): Optional<Boolean> = isUsableInContent.getOptional("isUsableInContent")
@@ -215,7 +215,7 @@ private constructor(
     /**
      * Name of the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
@@ -223,7 +223,7 @@ private constructor(
     /**
      * ID of the folder the file is in.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun parentFolderId(): Optional<String> = parentFolderId.getOptional("parentFolderId")
@@ -231,7 +231,7 @@ private constructor(
     /**
      * Path of the file in the file manager.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun path(): Optional<String> = path.getOptional("path")
@@ -239,13 +239,13 @@ private constructor(
     /**
      * Size of the file in bytes.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun size(): Optional<Long> = size.getOptional("size")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun sourceGroup(): Optional<SourceGroup> = sourceGroup.getOptional("sourceGroup")
@@ -253,7 +253,7 @@ private constructor(
     /**
      * Type of the file. Can be IMG, DOCUMENT, AUDIO, MOVIE, or OTHER.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun type(): Optional<String> = type.getOptional("type")
@@ -262,7 +262,7 @@ private constructor(
      * URL of the given file. This URL can change depending on the domain settings of the account.
      * Will use the select file hosting domain.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun url(): Optional<String> = url.getOptional("url")
@@ -270,7 +270,7 @@ private constructor(
     /**
      * For image and video files, the width of the content.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun width(): Optional<Int> = width.getOptional("width")
@@ -873,7 +873,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -1000,7 +1000,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1013,7 +1013,7 @@ private constructor(
                 PUBLIC_INDEXABLE -> Known.PUBLIC_INDEXABLE
                 PUBLIC_NOT_INDEXABLE -> Known.PUBLIC_NOT_INDEXABLE
                 SENSITIVE -> Known.SENSITIVE
-                else -> throw HubspotInvalidDataException("Unknown Access: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Access: $value")
             }
 
         /**
@@ -1022,11 +1022,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1043,7 +1043,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -1149,7 +1149,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1159,7 +1159,7 @@ private constructor(
                 FORMS -> Known.FORMS
                 UI_EXTENSIONS -> Known.UI_EXTENSIONS
                 UNKNOWN -> Known.UNKNOWN
-                else -> throw HubspotInvalidDataException("Unknown SourceGroup: $value")
+                else -> throw HubSpotInvalidDataException("Unknown SourceGroup: $value")
             }
 
         /**
@@ -1168,11 +1168,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1189,7 +1189,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

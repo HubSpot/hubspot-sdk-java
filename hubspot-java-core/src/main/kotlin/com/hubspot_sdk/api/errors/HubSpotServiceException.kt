@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.errors
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.http.Headers
 
-abstract class HubspotServiceException
+abstract class HubSpotServiceException
 protected constructor(message: String, cause: Throwable? = null) :
-    HubspotException(message, cause) {
+    HubSpotException(message, cause) {
 
     abstract fun statusCode(): Int
 

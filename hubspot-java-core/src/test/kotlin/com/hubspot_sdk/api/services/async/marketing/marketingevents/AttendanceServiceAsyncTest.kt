@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.marketingevents
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.marketing.marketingevents.BatchInputMarketingEventEmailSubscriber
 import com.hubspot_sdk.api.models.marketing.marketingevents.BatchInputMarketingEventSubscriber
@@ -20,7 +20,7 @@ internal class AttendanceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByEventIdAndContactId() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val attendanceServiceAsync = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberVidResponseFuture =
@@ -53,7 +53,7 @@ internal class AttendanceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByEventIdAndEmail() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val attendanceServiceAsync = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberEmailResponseFuture =
@@ -91,7 +91,7 @@ internal class AttendanceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByExternalEventIdAndContactId() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val attendanceServiceAsync = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberVidResponseFuture =
@@ -125,7 +125,7 @@ internal class AttendanceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByExternalEventIdAndEmail() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val attendanceServiceAsync = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberEmailResponseFuture =

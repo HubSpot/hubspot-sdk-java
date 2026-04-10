@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.marketing.campaigns
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.marketing.campaigns.assets.AssetDeleteParams
 import com.hubspot_sdk.api.models.marketing.campaigns.assets.AssetListParams
 import com.hubspot_sdk.api.models.marketing.campaigns.assets.AssetUpdateParams
@@ -14,7 +14,7 @@ internal class AssetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val assetService = client.marketing().campaigns().assets()
 
         assetService.update(
@@ -29,7 +29,7 @@ internal class AssetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val assetService = client.marketing().campaigns().assets()
 
         val collectionResponsePublicCampaignAssetForwardPaging =
@@ -50,7 +50,7 @@ internal class AssetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val assetService = client.marketing().campaigns().assets()
 
         assetService.delete(

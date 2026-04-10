@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.extensions
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.crm.extensions.cardsdev.CardActions
 import com.hubspot_sdk.api.models.crm.extensions.cardsdev.CardCreateRequest
 import com.hubspot_sdk.api.models.crm.extensions.cardsdev.CardDisplayBody
@@ -26,7 +26,7 @@ internal class CardsDevServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val cardsDevService = client.crm().extensions().cardsDev()
 
         val publicCardResponse =
@@ -79,7 +79,7 @@ internal class CardsDevServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val cardsDevService = client.crm().extensions().cardsDev()
 
         val publicCardResponse =
@@ -133,7 +133,7 @@ internal class CardsDevServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val cardsDevService = client.crm().extensions().cardsDev()
 
         cardsDevService.delete(CardsDevDeleteParams.builder().appId(0).cardId("cardId").build())
@@ -142,7 +142,7 @@ internal class CardsDevServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val cardsDevService = client.crm().extensions().cardsDev()
 
         val publicCardListResponse = cardsDevService.get(0)
@@ -153,7 +153,7 @@ internal class CardsDevServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getById() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val cardsDevService = client.crm().extensions().cardsDev()
 
         val publicCardResponse =
@@ -167,7 +167,7 @@ internal class CardsDevServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSampleResponse() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val cardsDevService = client.crm().extensions().cardsDev()
 
         val integratorCardPayloadResponse = cardsDevService.getSampleResponse()
@@ -178,7 +178,7 @@ internal class CardsDevServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun migrateViews() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val cardsDevService = client.crm().extensions().cardsDev()
 
         val cardMigrateViewsResponse =

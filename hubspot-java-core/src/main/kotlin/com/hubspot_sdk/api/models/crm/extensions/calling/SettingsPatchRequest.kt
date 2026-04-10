@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -65,7 +65,7 @@ private constructor(
     /**
      * The height setting for the calling extension interface.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun height(): Optional<Int> = height.getOptional("height")
@@ -73,7 +73,7 @@ private constructor(
     /**
      * Specifies whether the calling extension is ready for use.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isReady(): Optional<Boolean> = isReady.getOptional("isReady")
@@ -81,7 +81,7 @@ private constructor(
     /**
      * The name of the calling extension.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
@@ -89,7 +89,7 @@ private constructor(
     /**
      * Indicates if the calling extension supports custom objects.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun supportsCustomObjects(): Optional<Boolean> =
@@ -98,7 +98,7 @@ private constructor(
     /**
      * Indicates if the calling extension supports inbound calling.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun supportsInboundCalling(): Optional<Boolean> =
@@ -107,7 +107,7 @@ private constructor(
     /**
      * The URL associated with the calling extension settings.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun url(): Optional<String> = url.getOptional("url")
@@ -115,7 +115,7 @@ private constructor(
     /**
      * Indicates if the calling extension uses a calling window.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun usesCallingWindow(): Optional<Boolean> = usesCallingWindow.getOptional("usesCallingWindow")
@@ -123,7 +123,7 @@ private constructor(
     /**
      * Indicates if the calling extension uses a remote connection.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun usesRemote(): Optional<Boolean> = usesRemote.getOptional("usesRemote")
@@ -131,7 +131,7 @@ private constructor(
     /**
      * The width setting for the calling extension interface.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun width(): Optional<Int> = width.getOptional("width")
@@ -428,7 +428,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

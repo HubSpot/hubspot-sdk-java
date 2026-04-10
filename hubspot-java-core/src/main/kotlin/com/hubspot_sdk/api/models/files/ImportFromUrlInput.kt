@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -75,7 +75,7 @@ private constructor(
      * Search engines *can't* index the file. PRIVATE: File is NOT publicly accessible. Requires a
      * signed URL to see content. Search engines *can't* index the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun access(): Access = access.getRequired("access")
@@ -84,7 +84,7 @@ private constructor(
      * ENTIRE_PORTAL: Look for a duplicate file in the entire account. EXACT_FOLDER: Look for a
      * duplicate file in the provided folder.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun duplicateValidationScope(): DuplicateValidationScope =
@@ -95,7 +95,7 @@ private constructor(
      * RETURN_EXISTING: If a duplicate file is found, do not upload a new file and return the found
      * duplicate instead.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun duplicateValidationStrategy(): DuplicateValidationStrategy =
@@ -107,7 +107,7 @@ private constructor(
      * with a new ID. If unset or set as false, the new file's name will be updated to prevent
      * colliding with existing file if one exists with the same path, name, and extension
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun overwrite(): Boolean = overwrite.getRequired("overwrite")
@@ -115,7 +115,7 @@ private constructor(
     /**
      * Specifies the date and time when the file will expire.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun expiresAt(): Optional<OffsetDateTime> = expiresAt.getOptional("expiresAt")
@@ -123,7 +123,7 @@ private constructor(
     /**
      * One of folderId or folderPath is required. Destination folderId for the uploaded file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun folderId(): Optional<String> = folderId.getOptional("folderId")
@@ -132,7 +132,7 @@ private constructor(
      * One of folderPath or folderId is required. Destination folder path for the uploaded file. If
      * the folder path does not exist, there will be an attempt to create the folder path.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun folderPath(): Optional<String> = folderPath.getOptional("folderPath")
@@ -140,7 +140,7 @@ private constructor(
     /**
      * Name to give the resulting file in the file manager.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
@@ -149,7 +149,7 @@ private constructor(
      * Time to live. If specified the file will be deleted after the given time frame. If left
      * unset, the file will exist indefinitely
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun ttl(): Optional<String> = ttl.getOptional("ttl")
@@ -157,7 +157,7 @@ private constructor(
     /**
      * URL to download the new file from.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun url(): Optional<String> = url.getOptional("url")
@@ -520,7 +520,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -641,7 +641,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -654,7 +654,7 @@ private constructor(
                 PUBLIC_INDEXABLE -> Known.PUBLIC_INDEXABLE
                 PUBLIC_NOT_INDEXABLE -> Known.PUBLIC_NOT_INDEXABLE
                 SENSITIVE -> Known.SENSITIVE
-                else -> throw HubspotInvalidDataException("Unknown Access: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Access: $value")
             }
 
         /**
@@ -663,11 +663,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -684,7 +684,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -783,7 +783,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -791,7 +791,7 @@ private constructor(
                 ENTIRE_PORTAL -> Known.ENTIRE_PORTAL
                 EXACT_FOLDER -> Known.EXACT_FOLDER
                 else ->
-                    throw HubspotInvalidDataException("Unknown DuplicateValidationScope: $value")
+                    throw HubSpotInvalidDataException("Unknown DuplicateValidationScope: $value")
             }
 
         /**
@@ -800,11 +800,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -821,7 +821,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -926,7 +926,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -935,7 +935,7 @@ private constructor(
                 REJECT -> Known.REJECT
                 RETURN_EXISTING -> Known.RETURN_EXISTING
                 else ->
-                    throw HubspotInvalidDataException("Unknown DuplicateValidationStrategy: $value")
+                    throw HubSpotInvalidDataException("Unknown DuplicateValidationStrategy: $value")
             }
 
         /**
@@ -944,11 +944,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -965,7 +965,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

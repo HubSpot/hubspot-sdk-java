@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.businessunits
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.businessunits.businessunitentries.BusinessUnitEntryGetByUserIdParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ internal class BusinessUnitEntryServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByUserId() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val businessUnitEntryServiceAsync = client.businessUnits().businessUnitEntries()
 
         val collectionResponsePublicBusinessUnitNoPagingFuture =

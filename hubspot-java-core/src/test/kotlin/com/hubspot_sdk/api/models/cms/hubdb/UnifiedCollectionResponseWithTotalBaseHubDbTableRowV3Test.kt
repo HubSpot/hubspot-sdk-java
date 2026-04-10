@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.cms.hubdb
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.NextPage
 import com.hubspot_sdk.api.models.Paging
 import com.hubspot_sdk.api.models.PreviousPage
@@ -161,7 +161,7 @@ internal class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3Test {
                 )
 
         val e =
-            assertThrows<HubspotInvalidDataException> {
+            assertThrows<HubSpotInvalidDataException> {
                 unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.validate()
             }
         assertThat(e).hasMessageStartingWith("Unknown ")

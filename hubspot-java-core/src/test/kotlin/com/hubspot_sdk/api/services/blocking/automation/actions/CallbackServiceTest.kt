@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.automation.actions
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.automation.actions.ActionExecutionIndexIdentifier
 import com.hubspot_sdk.api.models.automation.actions.BatchInputCallbackCompletionBatchRequest
@@ -18,7 +18,7 @@ internal class CallbackServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun complete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val callbackService = client.automation().actions().callbacks()
 
         callbackService.complete(
@@ -55,7 +55,7 @@ internal class CallbackServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun completeBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val callbackService = client.automation().actions().callbacks()
 
         callbackService.completeBatch(

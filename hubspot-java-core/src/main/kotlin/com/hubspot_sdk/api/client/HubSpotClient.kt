@@ -21,7 +21,7 @@ import com.hubspot_sdk.api.services.blocking.WebhookService
 import java.util.function.Consumer
 
 /**
- * A client for interacting with the Hubspot REST API synchronously. You can also switch to
+ * A client for interacting with the HubSpot REST API synchronously. You can also switch to
  * asynchronous execution via the [async] method.
  *
  * This client performs best when you create a single instance and reuse it for all interactions
@@ -34,7 +34,7 @@ import java.util.function.Consumer
  * if you are writing an application that needs to aggressively release unused resources, then you
  * may call [close].
  */
-interface HubspotClient {
+interface HubSpotClient {
 
     /**
      * Returns a version of this client that uses asynchronous execution.
@@ -42,7 +42,7 @@ interface HubspotClient {
      * The returned client shares its resources, like its connection pool and thread pools, with
      * this client.
      */
-    fun async(): HubspotClientAsync
+    fun async(): HubSpotClientAsync
 
     /**
      * Returns a view of this service that provides access to raw HTTP responses for each method.
@@ -54,7 +54,7 @@ interface HubspotClient {
      *
      * The original service is not modified.
      */
-    fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubspotClient
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubSpotClient
 
     fun account(): AccountService
 
@@ -99,7 +99,7 @@ interface HubspotClient {
      */
     fun close()
 
-    /** A view of [HubspotClient] that provides access to raw HTTP responses for each method. */
+    /** A view of [HubSpotClient] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -107,7 +107,7 @@ interface HubspotClient {
          *
          * The original service is not modified.
          */
-        fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubspotClient.WithRawResponse
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubSpotClient.WithRawResponse
 
         fun account(): AccountService.WithRawResponse
 

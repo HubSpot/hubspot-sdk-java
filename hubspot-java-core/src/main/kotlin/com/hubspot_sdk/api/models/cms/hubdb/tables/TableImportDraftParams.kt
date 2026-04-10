@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.io.InputStream
 import java.nio.file.Path
 import java.util.Collections
@@ -43,13 +43,13 @@ private constructor(
     fun tableIdOrName(): Optional<String> = Optional.ofNullable(tableIdOrName)
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun config(): Optional<String> = body.config()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun file(): Optional<InputStream> = body.file()
@@ -297,13 +297,13 @@ private constructor(
     ) {
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun config(): Optional<String> = config.value.getOptional("config")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun file(): Optional<InputStream> = file.value.getOptional("file")
@@ -429,7 +429,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

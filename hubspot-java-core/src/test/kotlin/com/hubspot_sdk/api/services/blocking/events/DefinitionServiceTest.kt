@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.events
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
@@ -26,7 +26,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         val externalBehavioralEventTypeDefinition =
@@ -73,7 +73,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         val externalBehavioralEventTypeDefinition =
@@ -95,7 +95,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         val page = definitionService.list()
@@ -106,7 +106,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         definitionService.delete("eventName")
@@ -115,7 +115,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createProperty() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         val property =
@@ -148,7 +148,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteProperty() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         definitionService.deleteProperty(
@@ -162,7 +162,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         val externalBehavioralEventTypeDefinition = definitionService.get("eventName")
@@ -173,7 +173,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun sendBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         definitionService.sendBatch(
@@ -200,7 +200,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateProperty() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
         val property =

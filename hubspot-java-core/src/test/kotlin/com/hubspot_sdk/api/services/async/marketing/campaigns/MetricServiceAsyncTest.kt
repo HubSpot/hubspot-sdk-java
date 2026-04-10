@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.campaigns
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.marketing.campaigns.metrics.MetricGetAttributionMetricsParams
 import com.hubspot_sdk.api.models.marketing.campaigns.metrics.MetricGetRevenueAttributionParams
 import com.hubspot_sdk.api.models.marketing.campaigns.metrics.MetricListContactIdsByTypeParams
@@ -14,7 +14,7 @@ internal class MetricServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAttributionMetrics() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val metricServiceAsync = client.marketing().campaigns().metrics()
 
         val metricsCountersFuture =
@@ -33,7 +33,7 @@ internal class MetricServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRevenueAttribution() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val metricServiceAsync = client.marketing().campaigns().metrics()
 
         val revenueAttributionAggregateFuture =
@@ -53,7 +53,7 @@ internal class MetricServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listContactIdsByType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val metricServiceAsync = client.marketing().campaigns().metrics()
 
         val pageFuture =
