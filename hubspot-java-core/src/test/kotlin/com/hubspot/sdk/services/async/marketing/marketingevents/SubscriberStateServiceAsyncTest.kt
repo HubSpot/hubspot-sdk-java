@@ -1,0 +1,107 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.sdk.services.async.marketing.marketingevents
+
+import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
+import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.post
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
+import com.github.tomakehurst.wiremock.junit5.WireMockTest
+import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClientAsync
+import com.hubspot.sdk.core.JsonValue
+import com.hubspot.sdk.models.marketing.marketingevents.BatchInputMarketingEventEmailSubscriber
+import com.hubspot.sdk.models.marketing.marketingevents.BatchInputMarketingEventSubscriber
+import com.hubspot.sdk.models.marketing.marketingevents.MarketingEventEmailSubscriber
+import com.hubspot.sdk.models.marketing.marketingevents.MarketingEventSubscriber
+import com.hubspot.sdk.models.marketing.marketingevents.subscriberstate.SubscriberStateRecordByEmailParams
+import com.hubspot.sdk.models.marketing.marketingevents.subscriberstate.SubscriberStateRecordByIdParams
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.ResourceLock
+
+@WireMockTest
+@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
+internal class SubscriberStateServiceAsyncTest {
+
+    @Test
+    fun recordByEmail(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubSpotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("My Access Token")
+                .build()
+        val subscriberStateServiceAsync = client.marketing().marketingEvents().subscriberState()
+        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            subscriberStateServiceAsync.recordByEmail(
+                SubscriberStateRecordByEmailParams.builder()
+                    .externalEventId("externalEventId")
+                    .subscriberState("subscriberState")
+                    .externalAccountId("externalAccountId")
+                    .batchInputMarketingEventEmailSubscriber(
+                        BatchInputMarketingEventEmailSubscriber.builder()
+                            .addInput(
+                                MarketingEventEmailSubscriber.builder()
+                                    .contactProperties(
+                                        MarketingEventEmailSubscriber.ContactProperties.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .email("email")
+                                    .interactionDateTime(0L)
+                                    .properties(
+                                        MarketingEventEmailSubscriber.Properties.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun recordById(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubSpotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("My Access Token")
+                .build()
+        val subscriberStateServiceAsync = client.marketing().marketingEvents().subscriberState()
+        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            subscriberStateServiceAsync.recordById(
+                SubscriberStateRecordByIdParams.builder()
+                    .externalEventId("externalEventId")
+                    .subscriberState("subscriberState")
+                    .externalAccountId("externalAccountId")
+                    .batchInputMarketingEventSubscriber(
+                        BatchInputMarketingEventSubscriber.builder()
+                            .addInput(
+                                MarketingEventSubscriber.builder()
+                                    .interactionDateTime(0L)
+                                    .properties(
+                                        MarketingEventSubscriber.Properties.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .vid(0)
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+}

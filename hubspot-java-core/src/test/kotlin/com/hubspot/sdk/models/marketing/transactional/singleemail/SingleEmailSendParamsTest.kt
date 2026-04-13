@@ -1,0 +1,159 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.sdk.models.marketing.transactional.singleemail
+
+import com.hubspot.sdk.core.JsonValue
+import com.hubspot.sdk.models.marketing.PublicSingleSendEmail
+import com.hubspot.sdk.models.marketing.PublicSingleSendRequestEgg
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class SingleEmailSendParamsTest {
+
+    @Test
+    fun create() {
+        SingleEmailSendParams.builder()
+            .publicSingleSendRequestEgg(
+                PublicSingleSendRequestEgg.builder()
+                    .contactProperties(
+                        PublicSingleSendRequestEgg.ContactProperties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .customProperties(
+                        PublicSingleSendRequestEgg.CustomProperties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                            .build()
+                    )
+                    .emailId(0L)
+                    .message(
+                        PublicSingleSendEmail.builder()
+                            .addBcc("string")
+                            .addCc("string")
+                            .addReplyTo("string")
+                            .from("from")
+                            .sendId("sendId")
+                            .to("to")
+                            .build()
+                    )
+                    .build()
+            )
+            .build()
+    }
+
+    @Test
+    fun body() {
+        val params =
+            SingleEmailSendParams.builder()
+                .publicSingleSendRequestEgg(
+                    PublicSingleSendRequestEgg.builder()
+                        .contactProperties(
+                            PublicSingleSendRequestEgg.ContactProperties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .customProperties(
+                            PublicSingleSendRequestEgg.CustomProperties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                                .build()
+                        )
+                        .emailId(0L)
+                        .message(
+                            PublicSingleSendEmail.builder()
+                                .addBcc("string")
+                                .addCc("string")
+                                .addReplyTo("string")
+                                .from("from")
+                                .sendId("sendId")
+                                .to("to")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                PublicSingleSendRequestEgg.builder()
+                    .contactProperties(
+                        PublicSingleSendRequestEgg.ContactProperties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .customProperties(
+                        PublicSingleSendRequestEgg.CustomProperties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                            .build()
+                    )
+                    .emailId(0L)
+                    .message(
+                        PublicSingleSendEmail.builder()
+                            .addBcc("string")
+                            .addCc("string")
+                            .addReplyTo("string")
+                            .from("from")
+                            .sendId("sendId")
+                            .to("to")
+                            .build()
+                    )
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            SingleEmailSendParams.builder()
+                .publicSingleSendRequestEgg(
+                    PublicSingleSendRequestEgg.builder()
+                        .contactProperties(
+                            PublicSingleSendRequestEgg.ContactProperties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .customProperties(
+                            PublicSingleSendRequestEgg.CustomProperties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                                .build()
+                        )
+                        .emailId(0L)
+                        .message(
+                            PublicSingleSendEmail.builder()
+                                .addBcc("string")
+                                .addCc("string")
+                                .addReplyTo("string")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                PublicSingleSendRequestEgg.builder()
+                    .contactProperties(
+                        PublicSingleSendRequestEgg.ContactProperties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .customProperties(
+                        PublicSingleSendRequestEgg.CustomProperties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                            .build()
+                    )
+                    .emailId(0L)
+                    .message(
+                        PublicSingleSendEmail.builder()
+                            .addBcc("string")
+                            .addCc("string")
+                            .addReplyTo("string")
+                            .build()
+                    )
+                    .build()
+            )
+    }
+}
