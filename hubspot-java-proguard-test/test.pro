@@ -1,5 +1,5 @@
 # Specify the entrypoint where ProGuard starts to determine what's reachable.
--keep class com.hubspot.proguard.** { *; }
+-keep class com.hubspot.sdk.proguard.** { *; }
 
 # For the testing framework.
 -keep class org.junit.** { *; }

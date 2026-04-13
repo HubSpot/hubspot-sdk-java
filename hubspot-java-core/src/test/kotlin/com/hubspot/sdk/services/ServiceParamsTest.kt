@@ -1,0 +1,112 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.sdk.services
+
+import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
+import com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
+import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.post
+import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.client.WireMock.verify
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
+import com.github.tomakehurst.wiremock.junit5.WireMockTest
+import com.hubspot.sdk.client.HubSpotClient
+import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
+import com.hubspot.sdk.core.JsonValue
+import com.hubspot.sdk.models.AssociationSpec
+import com.hubspot.sdk.models.PublicObjectId
+import com.hubspot.sdk.models.crm.objects.PublicAssociationsForObject
+import com.hubspot.sdk.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot.sdk.models.crm.objects.contacts.ContactCreateParams
+import com.hubspot.sdk.models.crm.objects.contacts.ContactGetParams
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.ResourceLock
+
+@WireMockTest
+@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
+internal class ServiceParamsTest {
+
+    private lateinit var client: HubSpotClient
+
+    @BeforeEach
+    fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
+        client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("My Access Token")
+                .build()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun create() {
+        val contactService = client.crm().objects().contacts()
+        stubFor(post(anyUrl()).willReturn(ok("{}")))
+
+        contactService.create(
+            ContactCreateParams.builder()
+                .simplePublicObjectInputForCreate(
+                    SimplePublicObjectInputForCreate.builder()
+                        .addAssociation(
+                            PublicAssociationsForObject.builder()
+                                .to(PublicObjectId.builder().id("id").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
+                .putAdditionalHeader("Secret-Header", "42")
+                .putAdditionalQueryParam("secret_query_param", "42")
+                .build()
+        )
+
+        verify(
+            postRequestedFor(anyUrl())
+                .withHeader("Secret-Header", equalTo("42"))
+                .withQueryParam("secret_query_param", equalTo("42"))
+        )
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun get() {
+        val contactService = client.crm().objects().contacts()
+        stubFor(get(anyUrl()).willReturn(ok("{}")))
+
+        contactService.get(
+            ContactGetParams.builder()
+                .contactId("contactId")
+                .archived(true)
+                .addAssociation("string")
+                .idProperty("idProperty")
+                .addProperty("string")
+                .addPropertiesWithHistory("string")
+                .putAdditionalHeader("Secret-Header", "42")
+                .putAdditionalQueryParam("secret_query_param", "42")
+                .build()
+        )
+
+        verify(
+            getRequestedFor(anyUrl())
+                .withHeader("Secret-Header", equalTo("42"))
+                .withQueryParam("secret_query_param", equalTo("42"))
+        )
+    }
+}

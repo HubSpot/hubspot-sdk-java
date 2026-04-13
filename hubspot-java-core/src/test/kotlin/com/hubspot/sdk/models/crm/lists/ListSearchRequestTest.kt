@@ -1,0 +1,61 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.sdk.models.crm.lists
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.jsonMapper
+import kotlin.jvm.optionals.getOrNull
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class ListSearchRequestTest {
+
+    @Test
+    fun create() {
+        val listSearchRequest =
+            ListSearchRequest.builder()
+                .addListId("string")
+                .offset(0)
+                .addProcessingType("string")
+                .addAdditionalFilterProperty("string")
+                .count(0)
+                .objectTypeId("objectTypeId")
+                .query("query")
+                .sort("sort")
+                .build()
+
+        assertThat(listSearchRequest.listIds()).containsExactly("string")
+        assertThat(listSearchRequest.offset()).isEqualTo(0)
+        assertThat(listSearchRequest.processingTypes()).containsExactly("string")
+        assertThat(listSearchRequest.additionalFilterProperties().getOrNull())
+            .containsExactly("string")
+        assertThat(listSearchRequest.count()).contains(0)
+        assertThat(listSearchRequest.objectTypeId()).contains("objectTypeId")
+        assertThat(listSearchRequest.query()).contains("query")
+        assertThat(listSearchRequest.sort()).contains("sort")
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val listSearchRequest =
+            ListSearchRequest.builder()
+                .addListId("string")
+                .offset(0)
+                .addProcessingType("string")
+                .addAdditionalFilterProperty("string")
+                .count(0)
+                .objectTypeId("objectTypeId")
+                .query("query")
+                .sort("sort")
+                .build()
+
+        val roundtrippedListSearchRequest =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(listSearchRequest),
+                jacksonTypeRef<ListSearchRequest>(),
+            )
+
+        assertThat(roundtrippedListSearchRequest).isEqualTo(listSearchRequest)
+    }
+}

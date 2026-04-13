@@ -59,7 +59,7 @@ val testProGuard by tasks.registering(JavaExec::class) {
     dependsOn(proguardJar)
     notCompatibleWithConfigurationCache("ProGuard")
 
-    mainClass.set("com.hubspot.proguard.ProGuardCompatibilityTest")
+    mainClass.set("com.hubspot.sdk.proguard.ProGuardCompatibilityTest")
     classpath = files(proguardJarPath)
 }
 
@@ -89,7 +89,7 @@ val testR8 by tasks.registering(JavaExec::class) {
     dependsOn(r8Jar)
     notCompatibleWithConfigurationCache("R8")
 
-    mainClass.set("com.hubspot.proguard.ProGuardCompatibilityTest")
+    mainClass.set("com.hubspot.sdk.proguard.ProGuardCompatibilityTest")
     classpath = files(r8JarPath)
 }
 
