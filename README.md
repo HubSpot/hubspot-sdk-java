@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot_sdk.api/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot_sdk.api/hubspot-java/0.0.1)
-[![javadoc](https://javadoc.io/badge2/com.hubspot_sdk.api/hubspot-java/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.hubspot_sdk.api/hubspot-java/0.0.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot/hubspot-java/0.0.1)
+[![javadoc](https://javadoc.io/badge2/com.hubspot/hubspot-java/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.hubspot/hubspot-java/0.0.1)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot_sdk.api/hubspot-java/0.0.1).
+The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot/hubspot-java/0.0.1).
 
 <!-- x-release-please-end -->
 
@@ -24,14 +24,14 @@ The REST API documentation can be found on [developers.hubspot.com](https://deve
 ### Gradle
 
 ```kotlin
-implementation("com.hubspot_sdk.api:hubspot-java:0.0.1")
+implementation("com.hubspot:hubspot-java:0.0.1")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-  <groupId>com.hubspot_sdk.api</groupId>
+  <groupId>com.hubspot</groupId>
   <artifactId>hubspot-java</artifactId>
   <version>0.0.1</version>
 </dependency>
@@ -46,10 +46,10 @@ This library requires Java 8 or later.
 ## Usage
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.contacts.ContactGetParams;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
@@ -66,8 +66,8 @@ SimplePublicObjectWithAssociations result = client.crm().objects().contacts().ge
 Configure the client using system properties or environment variables:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
@@ -80,8 +80,8 @@ HubSpotClient client = HubSpotOkHttpClient.builder()
 Or manually:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
     .accessToken("My Access Token")
@@ -91,8 +91,8 @@ HubSpotClient client = HubSpotOkHttpClient.builder()
 Or using a combination of the two approaches:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
@@ -119,7 +119,7 @@ System properties take precedence over environment variables.
 To temporarily use a modified client configuration, while reusing the same connection and thread pools, call `withOptions()` on any client or service:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
+import com.hubspot.client.HubSpotClient;
 
 HubSpotClient clientWithOptions = client.withOptions(optionsBuilder -> {
     optionsBuilder.baseUrl("https://example.com");
@@ -148,10 +148,10 @@ Because each class is immutable, builder modification will _never_ affect alread
 The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.contacts.ContactGetParams;
 import java.util.concurrent.CompletableFuture;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
@@ -167,10 +167,10 @@ CompletableFuture<SimplePublicObjectWithAssociations> result = client.async().cr
 Or create an asynchronous client from the beginning:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClientAsync;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync;
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams;
+import com.hubspot.client.HubSpotClientAsync;
+import com.hubspot.client.okhttp.HubSpotOkHttpClientAsync;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.contacts.ContactGetParams;
 import java.util.concurrent.CompletableFuture;
 
 HubSpotClientAsync client = HubSpotOkHttpClientAsync.builder()
@@ -192,8 +192,8 @@ The SDK defines methods that accept files.
 To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
 
 ```java
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
+import com.hubspot.models.cms.hubdb.ImportResult;
+import com.hubspot.models.cms.hubdb.tables.TableImportDraftParams;
 import java.nio.file.Paths;
 
 TableImportDraftParams params = TableImportDraftParams.builder()
@@ -206,8 +206,8 @@ ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
 
 ```java
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
+import com.hubspot.models.cms.hubdb.ImportResult;
+import com.hubspot.models.cms.hubdb.tables.TableImportDraftParams;
 import java.net.URL;
 
 TableImportDraftParams params = TableImportDraftParams.builder()
@@ -220,8 +220,8 @@ ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 Or a `byte[]` array:
 
 ```java
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
+import com.hubspot.models.cms.hubdb.ImportResult;
+import com.hubspot.models.cms.hubdb.tables.TableImportDraftParams;
 
 TableImportDraftParams params = TableImportDraftParams.builder()
     .tableIdOrName("tableIdOrName")
@@ -230,12 +230,12 @@ TableImportDraftParams params = TableImportDraftParams.builder()
 ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt):
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](hubspot-java-core/src/main/kotlin/com/hubspot/core/Values.kt):
 
 ```java
-import com.hubspot_sdk.api.core.MultipartField;
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
+import com.hubspot.core.MultipartField;
+import com.hubspot.models.cms.hubdb.ImportResult;
+import com.hubspot.models.cms.hubdb.tables.TableImportDraftParams;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -253,11 +253,11 @@ ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 
 The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
 
-These methods return [`HttpResponse`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/http/HttpResponse.kt):
+These methods return [`HttpResponse`](hubspot-java-core/src/main/kotlin/com/hubspot/core/http/HttpResponse.kt):
 
 ```java
-import com.hubspot_sdk.api.core.http.HttpResponse;
-import com.hubspot_sdk.api.models.auth.oauth.OAuthCreateTokenParams;
+import com.hubspot.core.http.HttpResponse;
+import com.hubspot.models.auth.oauth.OAuthCreateTokenParams;
 
 HttpResponse response = client.auth().oauth().createToken();
 ```
@@ -265,7 +265,7 @@ HttpResponse response = client.auth().oauth().createToken();
 To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
 
 ```java
-import com.hubspot_sdk.api.core.http.HttpResponse;
+import com.hubspot.core.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -285,7 +285,7 @@ try (HttpResponse response = client.auth().oauth().createToken(params)) {
 Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
 
 ```java
-import com.hubspot_sdk.api.core.http.HttpResponse;
+import com.hubspot.core.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -304,15 +304,15 @@ The SDK defines methods that deserialize responses into instances of Java classe
 To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
 
 ```java
-import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.core.http.Headers;
-import com.hubspot_sdk.api.core.http.HttpResponseFor;
-import com.hubspot_sdk.api.models.AssociationSpec;
-import com.hubspot_sdk.api.models.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.SimplePublicObject;
-import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot.core.JsonValue;
+import com.hubspot.core.http.Headers;
+import com.hubspot.core.http.HttpResponseFor;
+import com.hubspot.models.AssociationSpec;
+import com.hubspot.models.PublicObjectId;
+import com.hubspot.models.crm.SimplePublicObject;
+import com.hubspot.models.crm.objects.PublicAssociationsForObject;
+import com.hubspot.models.crm.objects.SimplePublicObjectInputForCreate;
+import com.hubspot.models.crm.objects.contacts.ContactCreateParams;
 
 SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
     .addAssociation(PublicAssociationsForObject.builder()
@@ -337,7 +337,7 @@ Headers headers = simplePublicObject.headers();
 You can still deserialize the response into an instance of a Java class if needed:
 
 ```java
-import com.hubspot_sdk.api.models.crm.SimplePublicObject;
+import com.hubspot.models.crm.SimplePublicObject;
 
 SimplePublicObject parsedSimplePublicObject = simplePublicObject.parse();
 ```
@@ -346,26 +346,26 @@ SimplePublicObject parsedSimplePublicObject = simplePublicObject.parse();
 
 The SDK throws custom unchecked exception types:
 
-- [`HubSpotServiceException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/HubSpotServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`HubSpotServiceException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/HubSpotServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                                                                                                                        |
-  | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-  | 400    | [`BadRequestException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/BadRequestException.kt)                     |
-  | 401    | [`UnauthorizedException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/UnauthorizedException.kt)                 |
-  | 403    | [`PermissionDeniedException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/PermissionDeniedException.kt)         |
-  | 404    | [`NotFoundException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/NotFoundException.kt)                         |
-  | 422    | [`UnprocessableEntityException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/UnprocessableEntityException.kt)   |
-  | 429    | [`RateLimitException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/RateLimitException.kt)                       |
-  | 5xx    | [`InternalServerException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/InternalServerException.kt)             |
-  | others | [`UnexpectedStatusCodeException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/UnexpectedStatusCodeException.kt) |
+  | Status | Exception                                                                                                                |
+  | ------ | ------------------------------------------------------------------------------------------------------------------------ |
+  | 400    | [`BadRequestException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/UnexpectedStatusCodeException.kt) |
 
-- [`HubSpotIoException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/HubSpotIoException.kt): I/O networking errors.
+- [`HubSpotIoException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/HubSpotIoException.kt): I/O networking errors.
 
-- [`HubSpotRetryableException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/HubSpotRetryableException.kt): Generic error indicating a failure that could be retried by the client.
+- [`HubSpotRetryableException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/HubSpotRetryableException.kt): Generic error indicating a failure that could be retried by the client.
 
-- [`HubSpotInvalidDataException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/HubSpotInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`HubSpotInvalidDataException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/HubSpotInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- [`HubSpotException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/HubSpotException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`HubSpotException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/HubSpotException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Pagination
 
@@ -378,8 +378,8 @@ To iterate through all results across all pages, use the `autoPager()` method, w
 When using the synchronous client, the method returns an [`Iterable`](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html)
 
 ```java
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListPage;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.contacts.ContactListPage;
 
 ContactListPage page = client.crm().objects().contacts().list();
 
@@ -395,12 +395,12 @@ page.autoPager()
     .forEach(contact -> System.out.println(contact));
 ```
 
-When using the asynchronous client, the method returns an [`AsyncStreamResponse`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/http/AsyncStreamResponse.kt):
+When using the asynchronous client, the method returns an [`AsyncStreamResponse`](hubspot-java-core/src/main/kotlin/com/hubspot/core/http/AsyncStreamResponse.kt):
 
 ```java
-import com.hubspot_sdk.api.core.http.AsyncStreamResponse;
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListPageAsync;
+import com.hubspot.core.http.AsyncStreamResponse;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.contacts.ContactListPageAsync;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -450,8 +450,8 @@ To access individual page items and manually request the next page, use the `ite
 `hasNextPage()`, and `nextPage()` methods:
 
 ```java
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListPage;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.contacts.ContactListPage;
 
 ContactListPage page = client.crm().objects().contacts().list();
 while (true) {
@@ -495,7 +495,7 @@ The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON seri
 
 The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
 
-If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClient.kt) or [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClientAsync.kt).
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClient.kt) or [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClientAsync.kt).
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
@@ -521,8 +521,8 @@ The API may also explicitly instruct the SDK to retry or not retry a request.
 To set a custom number of retries, configure the client using the `maxRetries` method:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
     .fromEnv()
@@ -538,7 +538,7 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.hubspot_sdk.api.models.crm.SimplePublicObject;
+import com.hubspot.models.crm.SimplePublicObject;
 
 SimplePublicObject simplePublicObject = client.crm().objects().contacts().create(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
@@ -548,8 +548,8 @@ SimplePublicObject simplePublicObject = client.crm().objects().contacts().create
 Or configure the default for all method calls at the client level:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 import java.time.Duration;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
@@ -564,8 +564,8 @@ HubSpotClient client = HubSpotOkHttpClient.builder()
 To route requests through a proxy, configure the client using the `proxy` method:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
@@ -585,8 +585,8 @@ HubSpotClient client = HubSpotOkHttpClient.builder()
 To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 import java.time.Duration;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
@@ -609,8 +609,8 @@ If both options are unset, OkHttp's default connection pool settings are used.
 To configure how HTTPS connections are secured, configure the client using the `sslSocketFactory`, `trustManager`, and `hostnameVerifier` methods:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
     .fromEnv()
@@ -629,10 +629,10 @@ The SDK consists of three artifacts:
 - `hubspot-java-core`
   - Contains core SDK logic
   - Does not depend on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`HubSpotClient`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClient.kt), [`HubSpotClientAsync`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientAsync.kt), [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientImpl.kt), and [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientAsyncImpl.kt), all of which can work with any HTTP client
+  - Exposes [`HubSpotClient`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClient.kt), [`HubSpotClientAsync`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientAsync.kt), [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientImpl.kt), and [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientAsyncImpl.kt), all of which can work with any HTTP client
 - `hubspot-java-client-okhttp`
   - Depends on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClient.kt) and [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClientAsync.kt), which provide a way to construct [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientImpl.kt) and [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientAsyncImpl.kt), respectively, using OkHttp
+  - Exposes [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClient.kt) and [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClientAsync.kt), which provide a way to construct [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientImpl.kt) and [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientAsyncImpl.kt), respectively, using OkHttp
 - `hubspot-java`
   - Depends on and exposes the APIs of both `hubspot-java-core` and `hubspot-java-client-okhttp`
   - Does not have its own logic
@@ -647,16 +647,16 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 To use a customized `OkHttpClient`:
 
 1. Replace your [`hubspot-java` dependency](#installation) with `hubspot-java-core`
-2. Copy `hubspot-java-client-okhttp`'s [`OkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
-3. Construct [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientImpl.kt) or [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientAsyncImpl.kt), similarly to [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClient.kt) or [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClientAsync.kt), using your customized client
+2. Copy `hubspot-java-client-okhttp`'s [`OkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientImpl.kt) or [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientAsyncImpl.kt), similarly to [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClient.kt) or [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClientAsync.kt), using your customized client
 
 ### Completely custom HTTP client
 
 To use a completely custom HTTP client:
 
 1. Replace your [`hubspot-java` dependency](#installation) with `hubspot-java-core`
-2. Write a class that implements the [`HttpClient`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/http/HttpClient.kt) interface
-3. Construct [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientImpl.kt) or [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/client/HubSpotClientAsyncImpl.kt), similarly to [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClient.kt) or [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot_sdk/api/client/okhttp/HubSpotOkHttpClientAsync.kt), using your new client class
+2. Write a class that implements the [`HttpClient`](hubspot-java-core/src/main/kotlin/com/hubspot/core/http/HttpClient.kt) interface
+3. Construct [`HubSpotClientImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientImpl.kt) or [`HubSpotClientAsyncImpl`](hubspot-java-core/src/main/kotlin/com/hubspot/client/HubSpotClientAsyncImpl.kt), similarly to [`HubSpotOkHttpClient`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClient.kt) or [`HubSpotOkHttpClientAsync`](hubspot-java-client-okhttp/src/main/kotlin/com/hubspot/client/okhttp/HubSpotOkHttpClientAsync.kt), using your new client class
 
 ## Undocumented API functionality
 
@@ -667,8 +667,8 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods on any `Params` class:
 
 ```java
-import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams;
+import com.hubspot.core.JsonValue;
+import com.hubspot.models.crm.objects.contacts.ContactGetParams;
 
 ContactGetParams params = ContactGetParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
@@ -679,18 +679,18 @@ ContactGetParams params = ContactGetParams.builder()
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot/core/Values.kt) object to its setter:
 
 ```java
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams;
+import com.hubspot.models.crm.objects.contacts.ContactGetParams;
 
 ContactGetParams params = ContactGetParams.builder().build();
 ```
 
-The most straightforward way to create a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt) is using its `from(...)` method:
+The most straightforward way to create a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot/core/Values.kt) is using its `from(...)` method:
 
 ```java
-import com.hubspot_sdk.api.core.JsonValue;
+import com.hubspot.core.JsonValue;
 import java.util.List;
 import java.util.Map;
 
@@ -728,11 +728,11 @@ JsonValue complexValue = JsonValue.from(Map.of(
 
 Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
 
-To forcibly omit a required parameter or property, pass [`JsonMissing`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt):
+To forcibly omit a required parameter or property, pass [`JsonMissing`](hubspot-java-core/src/main/kotlin/com/hubspot/core/Values.kt):
 
 ```java
-import com.hubspot_sdk.api.core.JsonMissing;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams;
+import com.hubspot.core.JsonMissing;
+import com.hubspot.models.crm.objects.contacts.ContactGetParams;
 
 ContactGetParams params = ContactGetParams.builder()
     .contactId(JsonMissing.of())
@@ -744,7 +744,7 @@ ContactGetParams params = ContactGetParams.builder()
 To access undocumented response properties, call the `_additionalProperties()` method:
 
 ```java
-import com.hubspot_sdk.api.core.JsonValue;
+import com.hubspot.core.JsonValue;
 import java.util.Map;
 
 Map<String, JsonValue> additionalProperties = client.crm().objects().contacts().get(params)._additionalProperties();
@@ -774,7 +774,7 @@ String result = secretPropertyValue.accept(new JsonValue.Visitor<>() {
 To access a property's raw JSON value, which may be undocumented, call its `_` prefixed method:
 
 ```java
-import com.hubspot_sdk.api.core.JsonField;
+import com.hubspot.core.JsonField;
 import java.util.Optional;
 
 JsonField<Object> field = client.crm().objects().contacts().get(params)._field();
@@ -797,12 +797,12 @@ if (field.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw [`HubSpotInvalidDataException`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/errors/HubSpotInvalidDataException.kt) only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`HubSpotInvalidDataException`](hubspot-java-core/src/main/kotlin/com/hubspot/errors/HubSpotInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```java
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
 
 SimplePublicObjectWithAssociations result = client.crm().objects().contacts().get(params).validate();
 ```
@@ -810,7 +810,7 @@ SimplePublicObjectWithAssociations result = client.crm().objects().contacts().ge
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```java
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations;
+import com.hubspot.models.crm.objects.SimplePublicObjectWithAssociations;
 
 SimplePublicObjectWithAssociations result = client.crm().objects().contacts().get(RequestOptions.builder().responseValidation(true).build());
 ```
@@ -818,8 +818,8 @@ SimplePublicObjectWithAssociations result = client.crm().objects().contacts().ge
 Or configure the default for all method calls at the client level:
 
 ```java
-import com.hubspot_sdk.api.client.HubSpotClient;
-import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.client.HubSpotClient;
+import com.hubspot.client.okhttp.HubSpotOkHttpClient;
 
 HubSpotClient client = HubSpotOkHttpClient.builder()
     .fromEnv()

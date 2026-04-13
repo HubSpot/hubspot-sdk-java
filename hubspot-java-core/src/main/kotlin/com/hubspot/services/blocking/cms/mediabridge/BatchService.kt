@@ -1,0 +1,193 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.services.blocking.cms.mediabridge
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.hubspot.core.ClientOptions
+import com.hubspot.core.RequestOptions
+import com.hubspot.core.http.HttpResponse
+import com.hubspot.core.http.HttpResponseFor
+import com.hubspot.models.cms.mediabridge.BatchResponseProperty
+import com.hubspot.models.cms.mediabridge.batch.BatchCreateParams
+import com.hubspot.models.cms.mediabridge.batch.BatchDeleteParams
+import com.hubspot.models.cms.mediabridge.batch.BatchGetParams
+import java.util.function.Consumer
+
+interface BatchService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
+
+    /** Create a batch of properties of the specified object type. */
+    fun create(objectType: String, params: BatchCreateParams): BatchResponseProperty =
+        create(objectType, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        objectType: String,
+        params: BatchCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseProperty =
+        create(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: BatchCreateParams): BatchResponseProperty =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: BatchCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseProperty
+
+    /** Archive a batch of existing properties for the specified types. */
+    fun delete(objectType: String, params: BatchDeleteParams) =
+        delete(objectType, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        objectType: String,
+        params: BatchDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(params: BatchDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
+
+    /** Get the details for a batch of properties for a specified object type. */
+    fun get(objectType: String, params: BatchGetParams): BatchResponseProperty =
+        get(objectType, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        objectType: String,
+        params: BatchGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseProperty =
+        get(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see get */
+    fun get(params: BatchGetParams): BatchResponseProperty = get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseProperty
+
+    /** A view of [BatchService] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /media-bridge/2026-03/{appId}/properties/{objectType}/batch/create`, but is otherwise the
+         * same as [BatchService.create].
+         */
+        @MustBeClosed
+        fun create(
+            objectType: String,
+            params: BatchCreateParams,
+        ): HttpResponseFor<BatchResponseProperty> =
+            create(objectType, params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            objectType: String,
+            params: BatchCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseProperty> =
+            create(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see create */
+        @MustBeClosed
+        fun create(params: BatchCreateParams): HttpResponseFor<BatchResponseProperty> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: BatchCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseProperty>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /media-bridge/2026-03/{appId}/properties/{objectType}/batch/archive`, but is otherwise
+         * the same as [BatchService.delete].
+         */
+        @MustBeClosed
+        fun delete(objectType: String, params: BatchDeleteParams): HttpResponse =
+            delete(objectType, params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            objectType: String,
+            params: BatchDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(params: BatchDeleteParams): HttpResponse = delete(params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            params: BatchDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /media-bridge/2026-03/{appId}/properties/{objectType}/batch/read`, but is otherwise the
+         * same as [BatchService.get].
+         */
+        @MustBeClosed
+        fun get(
+            objectType: String,
+            params: BatchGetParams,
+        ): HttpResponseFor<BatchResponseProperty> = get(objectType, params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            objectType: String,
+            params: BatchGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseProperty> =
+            get(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: BatchGetParams): HttpResponseFor<BatchResponseProperty> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: BatchGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseProperty>
+    }
+}

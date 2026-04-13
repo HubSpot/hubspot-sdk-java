@@ -1,0 +1,220 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.models.crm.objects.custom.batch
+
+import com.hubspot.core.JsonValue
+import com.hubspot.models.AssociationSpec
+import com.hubspot.models.PublicObjectId
+import com.hubspot.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot.models.crm.objects.PublicAssociationsForObject
+import com.hubspot.models.crm.objects.SimplePublicObjectBatchInputForCreate
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class BatchCreateParamsTest {
+
+    @Test
+    fun create() {
+        BatchCreateParams.builder()
+            .objectType("objectType")
+            .batchInputSimplePublicObjectBatchInputForCreate(
+                BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                    .addInput(
+                        SimplePublicObjectBatchInputForCreate.builder()
+                            .addAssociation(
+                                PublicAssociationsForObject.builder()
+                                    .to(PublicObjectId.builder().id("id").build())
+                                    .addType(
+                                        AssociationSpec.builder()
+                                            .associationCategory(
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                            )
+                                            .associationTypeId(0)
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .properties(
+                                SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .objectWriteTraceId("objectWriteTraceId")
+                            .build()
+                    )
+                    .build()
+            )
+            .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            BatchCreateParams.builder()
+                .objectType("objectType")
+                .batchInputSimplePublicObjectBatchInputForCreate(
+                    BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                        .addInput(
+                            SimplePublicObjectBatchInputForCreate.builder()
+                                .addAssociation(
+                                    PublicAssociationsForObject.builder()
+                                        .to(PublicObjectId.builder().id("id").build())
+                                        .addType(
+                                            AssociationSpec.builder()
+                                                .associationCategory(
+                                                    AssociationSpec.AssociationCategory
+                                                        .HUBSPOT_DEFINED
+                                                )
+                                                .associationTypeId(0)
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .properties(
+                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("objectType")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            BatchCreateParams.builder()
+                .objectType("objectType")
+                .batchInputSimplePublicObjectBatchInputForCreate(
+                    BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                        .addInput(
+                            SimplePublicObjectBatchInputForCreate.builder()
+                                .addAssociation(
+                                    PublicAssociationsForObject.builder()
+                                        .to(PublicObjectId.builder().id("id").build())
+                                        .addType(
+                                            AssociationSpec.builder()
+                                                .associationCategory(
+                                                    AssociationSpec.AssociationCategory
+                                                        .HUBSPOT_DEFINED
+                                                )
+                                                .associationTypeId(0)
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .properties(
+                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .objectWriteTraceId("objectWriteTraceId")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                    .addInput(
+                        SimplePublicObjectBatchInputForCreate.builder()
+                            .addAssociation(
+                                PublicAssociationsForObject.builder()
+                                    .to(PublicObjectId.builder().id("id").build())
+                                    .addType(
+                                        AssociationSpec.builder()
+                                            .associationCategory(
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                            )
+                                            .associationTypeId(0)
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .properties(
+                                SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .objectWriteTraceId("objectWriteTraceId")
+                            .build()
+                    )
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            BatchCreateParams.builder()
+                .objectType("objectType")
+                .batchInputSimplePublicObjectBatchInputForCreate(
+                    BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                        .addInput(
+                            SimplePublicObjectBatchInputForCreate.builder()
+                                .addAssociation(
+                                    PublicAssociationsForObject.builder()
+                                        .to(PublicObjectId.builder().id("id").build())
+                                        .addType(
+                                            AssociationSpec.builder()
+                                                .associationCategory(
+                                                    AssociationSpec.AssociationCategory
+                                                        .HUBSPOT_DEFINED
+                                                )
+                                                .associationTypeId(0)
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .properties(
+                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                    .addInput(
+                        SimplePublicObjectBatchInputForCreate.builder()
+                            .addAssociation(
+                                PublicAssociationsForObject.builder()
+                                    .to(PublicObjectId.builder().id("id").build())
+                                    .addType(
+                                        AssociationSpec.builder()
+                                            .associationCategory(
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                            )
+                                            .associationTypeId(0)
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .properties(
+                                SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+    }
+}
