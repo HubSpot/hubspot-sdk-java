@@ -1,0 +1,72 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.models.automation.sequences
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.core.jsonMapper
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class PublicSequenceSettingsResponseTest {
+
+    @Test
+    fun create() {
+        val publicSequenceSettingsResponse =
+            PublicSequenceSettingsResponse.builder()
+                .id("id")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .eligibleFollowUpDays(
+                    PublicSequenceSettingsResponse.EligibleFollowUpDays.BUSINESS_DAYS
+                )
+                .individualTaskRemindersEnabled(true)
+                .sellingStrategy(PublicSequenceSettingsResponse.SellingStrategy.ACCOUNT_BASED)
+                .sendWindowEndMinute(0)
+                .sendWindowStartMinute(0)
+                .taskReminderMinute(0)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        assertThat(publicSequenceSettingsResponse.id()).isEqualTo("id")
+        assertThat(publicSequenceSettingsResponse.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(publicSequenceSettingsResponse.eligibleFollowUpDays())
+            .isEqualTo(PublicSequenceSettingsResponse.EligibleFollowUpDays.BUSINESS_DAYS)
+        assertThat(publicSequenceSettingsResponse.individualTaskRemindersEnabled()).isEqualTo(true)
+        assertThat(publicSequenceSettingsResponse.sellingStrategy())
+            .isEqualTo(PublicSequenceSettingsResponse.SellingStrategy.ACCOUNT_BASED)
+        assertThat(publicSequenceSettingsResponse.sendWindowEndMinute()).isEqualTo(0)
+        assertThat(publicSequenceSettingsResponse.sendWindowStartMinute()).isEqualTo(0)
+        assertThat(publicSequenceSettingsResponse.taskReminderMinute()).isEqualTo(0)
+        assertThat(publicSequenceSettingsResponse.updatedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val publicSequenceSettingsResponse =
+            PublicSequenceSettingsResponse.builder()
+                .id("id")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .eligibleFollowUpDays(
+                    PublicSequenceSettingsResponse.EligibleFollowUpDays.BUSINESS_DAYS
+                )
+                .individualTaskRemindersEnabled(true)
+                .sellingStrategy(PublicSequenceSettingsResponse.SellingStrategy.ACCOUNT_BASED)
+                .sendWindowEndMinute(0)
+                .sendWindowStartMinute(0)
+                .taskReminderMinute(0)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedPublicSequenceSettingsResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(publicSequenceSettingsResponse),
+                jacksonTypeRef<PublicSequenceSettingsResponse>(),
+            )
+
+        assertThat(roundtrippedPublicSequenceSettingsResponse)
+            .isEqualTo(publicSequenceSettingsResponse)
+    }
+}

@@ -1,0 +1,142 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.models.crm.objects.communications
+
+import com.hubspot.models.crm.Filter
+import com.hubspot.models.crm.FilterGroup
+import com.hubspot.models.crm.PublicObjectSearchRequest
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class CommunicationSearchParamsTest {
+
+    @Test
+    fun create() {
+        CommunicationSearchParams.builder()
+            .publicObjectSearchRequest(
+                PublicObjectSearchRequest.builder()
+                    .after("after")
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.BETWEEN)
+                                    .propertyName("propertyName")
+                                    .highValue("highValue")
+                                    .value("value")
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .limit(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .query("query")
+                    .build()
+            )
+            .build()
+    }
+
+    @Test
+    fun body() {
+        val params =
+            CommunicationSearchParams.builder()
+                .publicObjectSearchRequest(
+                    PublicObjectSearchRequest.builder()
+                        .after("after")
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.BETWEEN)
+                                        .propertyName("propertyName")
+                                        .highValue("highValue")
+                                        .value("value")
+                                        .addValue("string")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .limit(0)
+                        .addProperty("string")
+                        .addSort("string")
+                        .query("query")
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                PublicObjectSearchRequest.builder()
+                    .after("after")
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.BETWEEN)
+                                    .propertyName("propertyName")
+                                    .highValue("highValue")
+                                    .value("value")
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .limit(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .query("query")
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            CommunicationSearchParams.builder()
+                .publicObjectSearchRequest(
+                    PublicObjectSearchRequest.builder()
+                        .after("after")
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.BETWEEN)
+                                        .propertyName("propertyName")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .limit(0)
+                        .addProperty("string")
+                        .addSort("string")
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                PublicObjectSearchRequest.builder()
+                    .after("after")
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.BETWEEN)
+                                    .propertyName("propertyName")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .limit(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .build()
+            )
+    }
+}

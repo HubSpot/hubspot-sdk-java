@@ -1,0 +1,185 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.models.automation.actions
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.hubspot.core.ExcludeMissing
+import com.hubspot.core.JsonField
+import com.hubspot.core.JsonMissing
+import com.hubspot.core.JsonValue
+import com.hubspot.core.checkRequired
+import com.hubspot.errors.HubSpotInvalidDataException
+import java.util.Collections
+import java.util.Objects
+
+class PublicActionDefinitionRequiresObjectResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
+private constructor(
+    private val requiresObject: JsonField<Boolean>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
+) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("requiresObject")
+        @ExcludeMissing
+        requiresObject: JsonField<Boolean> = JsonMissing.of()
+    ) : this(requiresObject, mutableMapOf())
+
+    /**
+     * Indicates whether a custom action definition requires an object.
+     *
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun requiresObject(): Boolean = requiresObject.getRequired("requiresObject")
+
+    /**
+     * Returns the raw JSON value of [requiresObject].
+     *
+     * Unlike [requiresObject], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("requiresObject")
+    @ExcludeMissing
+    fun _requiresObject(): JsonField<Boolean> = requiresObject
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
+    @JsonAnyGetter
+    @ExcludeMissing
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PublicActionDefinitionRequiresObjectResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .requiresObject()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [PublicActionDefinitionRequiresObjectResponse]. */
+    class Builder internal constructor() {
+
+        private var requiresObject: JsonField<Boolean>? = null
+        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+        @JvmSynthetic
+        internal fun from(
+            publicActionDefinitionRequiresObjectResponse:
+                PublicActionDefinitionRequiresObjectResponse
+        ) = apply {
+            requiresObject = publicActionDefinitionRequiresObjectResponse.requiresObject
+            additionalProperties =
+                publicActionDefinitionRequiresObjectResponse.additionalProperties.toMutableMap()
+        }
+
+        /** Indicates whether a custom action definition requires an object. */
+        fun requiresObject(requiresObject: Boolean) = requiresObject(JsonField.of(requiresObject))
+
+        /**
+         * Sets [Builder.requiresObject] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requiresObject] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun requiresObject(requiresObject: JsonField<Boolean>) = apply {
+            this.requiresObject = requiresObject
+        }
+
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
+
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
+
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
+
+        /**
+         * Returns an immutable instance of [PublicActionDefinitionRequiresObjectResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .requiresObject()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PublicActionDefinitionRequiresObjectResponse =
+            PublicActionDefinitionRequiresObjectResponse(
+                checkRequired("requiresObject", requiresObject),
+                additionalProperties.toMutableMap(),
+            )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): PublicActionDefinitionRequiresObjectResponse = apply {
+        if (validated) {
+            return@apply
+        }
+
+        requiresObject()
+        validated = true
+    }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: HubSpotInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    @JvmSynthetic internal fun validity(): Int = (if (requiresObject.asKnown().isPresent) 1 else 0)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is PublicActionDefinitionRequiresObjectResponse &&
+            requiresObject == other.requiresObject &&
+            additionalProperties == other.additionalProperties
+    }
+
+    private val hashCode: Int by lazy { Objects.hash(requiresObject, additionalProperties) }
+
+    override fun hashCode(): Int = hashCode
+
+    override fun toString() =
+        "PublicActionDefinitionRequiresObjectResponse{requiresObject=$requiresObject, additionalProperties=$additionalProperties}"
+}

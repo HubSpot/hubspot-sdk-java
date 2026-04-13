@@ -8,7 +8,7 @@ repositories {
 }
 
 allprojects {
-    group = "com.hubspot_sdk.api"
+    group = "com.hubspot"
     version = "0.0.1" // x-release-please-version
 }
 
