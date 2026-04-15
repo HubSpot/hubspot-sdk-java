@@ -7,9 +7,9 @@ import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import com.hubspot.sdk.models.ErrorDetail
 import com.hubspot.sdk.models.Option
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import com.hubspot.sdk.models.StandardError
-import com.hubspot.sdk.models.crm.Property
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -62,6 +62,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
+                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)
@@ -282,6 +283,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                             .readOnlyOptions(true)
                             .build()
                     )
+                    .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                     .referencedObjectType("referencedObjectType")
                     .addSensitiveDataCategory("string")
                     .showCurrencySymbol(true)
@@ -414,6 +416,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
+                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)

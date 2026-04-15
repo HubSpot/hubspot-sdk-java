@@ -7,7 +7,7 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
-import com.hubspot.sdk.models.crm.properties.BatchInputPropertyCreate
+import com.hubspot.sdk.models.BatchInputPropertyCreate
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull

@@ -8,6 +8,11 @@ import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Create a new subscription in the webhooks journal for the specified version. This endpoint allows
+ * you to define the subscription details, including actions and object types, to manage webhook
+ * events effectively. It requires a valid request body with the subscription details.
+ */
 class WebhookCreateJournalSubscriptionParams
 private constructor(
     private val subscriptionUpsertRequest: SubscriptionUpsertRequest,
@@ -99,6 +104,17 @@ private constructor(
          */
         fun subscriptionUpsertRequest(listMembership: ListMembershipSubscriptionUpsertRequest) =
             subscriptionUpsertRequest(SubscriptionUpsertRequest.ofListMembership(listMembership))
+
+        /**
+         * Alias for calling [subscriptionUpsertRequest] with
+         * `SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion)`.
+         */
+        fun subscriptionUpsertRequest(
+            gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
+        ) =
+            subscriptionUpsertRequest(
+                SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion)
+            )
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

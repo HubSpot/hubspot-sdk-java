@@ -26,8 +26,13 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** The communication channel to filter the subscription statuses. Must be 'EMAIL'. */
     fun channel(): Channel = channel
 
+    /**
+     * An optional integer representing the business unit ID. This parameter helps to filter the
+     * results based on the specific business unit.
+     */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
     fun batchInputString(): BatchInputString = batchInputString
@@ -75,8 +80,13 @@ private constructor(
             additionalQueryParams = batchReadParams.additionalQueryParams.toBuilder()
         }
 
+        /** The communication channel to filter the subscription statuses. Must be 'EMAIL'. */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
+        /**
+         * An optional integer representing the business unit ID. This parameter helps to filter the
+         * results based on the specific business unit.
+         */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -228,6 +238,7 @@ private constructor(
             }
             .build()
 
+    /** The communication channel to filter the subscription statuses. Must be 'EMAIL'. */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

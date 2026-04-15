@@ -8,6 +8,7 @@ import com.hubspot.sdk.models.AssociationDefinitionEgg
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
 import com.hubspot.sdk.models.ObjectTypeDefinitionPatch
 import com.hubspot.sdk.models.OptionInput
+import com.hubspot.sdk.models.PropertyCreate
 import com.hubspot.sdk.models.PropertyGroupCreate
 import com.hubspot.sdk.models.PropertyGroupUpdate
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanCalculatedValues
@@ -45,7 +46,6 @@ import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeUpdateSchemaParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeUpdateSettingsParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaPlayedEventRequest
 import com.hubspot.sdk.models.cms.mediabridge.MediaPlayedPercentageEventRequest
-import com.hubspot.sdk.models.cms.mediabridge.PropertyCreate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -247,6 +247,7 @@ internal class MediaBridgeServiceTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
@@ -254,6 +255,7 @@ internal class MediaBridgeServiceTest {
                             .formField(true)
                             .hasUniqueValue(true)
                             .hidden(true)
+                            .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -264,6 +266,7 @@ internal class MediaBridgeServiceTest {
                                     .build()
                             )
                             .referencedObjectType("referencedObjectType")
+                            .showCurrencySymbol(true)
                             .build()
                     )
                     .build()
@@ -618,6 +621,7 @@ internal class MediaBridgeServiceTest {
                     .mediaBridgePropertyUpdate(
                         MediaBridgePropertyUpdate.builder()
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .description("description")
                             .displayOrder(0)
                             .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -626,6 +630,7 @@ internal class MediaBridgeServiceTest {
                             .hasUniqueValue(true)
                             .hidden(true)
                             .label("label")
+                            .numberDisplayHint(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -635,6 +640,7 @@ internal class MediaBridgeServiceTest {
                                     .description("description")
                                     .build()
                             )
+                            .showCurrencySymbol(true)
                             .type(MediaBridgePropertyUpdate.Type.BOOL)
                             .build()
                     )

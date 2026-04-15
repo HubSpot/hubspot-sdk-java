@@ -16,6 +16,7 @@ internal class MediaBridgePropertyUpdateTest {
         val mediaBridgePropertyUpdate =
             MediaBridgePropertyUpdate.builder()
                 .calculationFormula("calculationFormula")
+                .currencyPropertyName("currencyPropertyName")
                 .description("description")
                 .displayOrder(0)
                 .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -24,6 +25,7 @@ internal class MediaBridgePropertyUpdateTest {
                 .hasUniqueValue(true)
                 .hidden(true)
                 .label("label")
+                .numberDisplayHint(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
                 .addOption(
                     OptionInput.builder()
                         .displayOrder(0)
@@ -33,10 +35,13 @@ internal class MediaBridgePropertyUpdateTest {
                         .description("description")
                         .build()
                 )
+                .showCurrencySymbol(true)
                 .type(MediaBridgePropertyUpdate.Type.BOOL)
                 .build()
 
         assertThat(mediaBridgePropertyUpdate.calculationFormula()).contains("calculationFormula")
+        assertThat(mediaBridgePropertyUpdate.currencyPropertyName())
+            .contains("currencyPropertyName")
         assertThat(mediaBridgePropertyUpdate.description()).contains("description")
         assertThat(mediaBridgePropertyUpdate.displayOrder()).contains(0)
         assertThat(mediaBridgePropertyUpdate.fieldType())
@@ -46,6 +51,8 @@ internal class MediaBridgePropertyUpdateTest {
         assertThat(mediaBridgePropertyUpdate.hasUniqueValue()).contains(true)
         assertThat(mediaBridgePropertyUpdate.hidden()).contains(true)
         assertThat(mediaBridgePropertyUpdate.label()).contains("label")
+        assertThat(mediaBridgePropertyUpdate.numberDisplayHint())
+            .contains(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
         assertThat(mediaBridgePropertyUpdate.options().getOrNull())
             .containsExactly(
                 OptionInput.builder()
@@ -56,6 +63,7 @@ internal class MediaBridgePropertyUpdateTest {
                     .description("description")
                     .build()
             )
+        assertThat(mediaBridgePropertyUpdate.showCurrencySymbol()).contains(true)
         assertThat(mediaBridgePropertyUpdate.type()).contains(MediaBridgePropertyUpdate.Type.BOOL)
     }
 
@@ -65,6 +73,7 @@ internal class MediaBridgePropertyUpdateTest {
         val mediaBridgePropertyUpdate =
             MediaBridgePropertyUpdate.builder()
                 .calculationFormula("calculationFormula")
+                .currencyPropertyName("currencyPropertyName")
                 .description("description")
                 .displayOrder(0)
                 .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -73,6 +82,7 @@ internal class MediaBridgePropertyUpdateTest {
                 .hasUniqueValue(true)
                 .hidden(true)
                 .label("label")
+                .numberDisplayHint(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
                 .addOption(
                     OptionInput.builder()
                         .displayOrder(0)
@@ -82,6 +92,7 @@ internal class MediaBridgePropertyUpdateTest {
                         .description("description")
                         .build()
                 )
+                .showCurrencySymbol(true)
                 .type(MediaBridgePropertyUpdate.Type.BOOL)
                 .build()
 

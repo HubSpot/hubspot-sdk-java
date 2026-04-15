@@ -9,6 +9,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve a specific filter associated with a webhook journal subscription. This endpoint allows
+ * you to access detailed information about the filter identified by the filterId path parameter. It
+ * is useful for managing and reviewing filter configurations within your webhook subscriptions.
+ */
 class WebhookGetSubscriptionFilterParams
 private constructor(
     private val filterId: Long?,

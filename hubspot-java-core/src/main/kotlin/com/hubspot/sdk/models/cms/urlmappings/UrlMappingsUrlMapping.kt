@@ -38,6 +38,7 @@ private constructor(
     private val isRegex: JsonField<Boolean>,
     private val isTrailingSlashOptional: JsonField<Boolean>,
     private val label: JsonField<String>,
+    private val lastUsedAt: JsonField<Long>,
     private val name: JsonField<String>,
     private val note: JsonField<String>,
     private val portalId: JsonField<Int>,
@@ -89,6 +90,7 @@ private constructor(
         @ExcludeMissing
         isTrailingSlashOptional: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("lastUsedAt") @ExcludeMissing lastUsedAt: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
         @JsonProperty("portalId") @ExcludeMissing portalId: JsonField<Int> = JsonMissing.of(),
@@ -120,6 +122,7 @@ private constructor(
         isRegex,
         isTrailingSlashOptional,
         label,
+        lastUsedAt,
         name,
         note,
         portalId,
@@ -277,6 +280,12 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun lastUsedAt(): Long = lastUsedAt.getRequired("lastUsedAt")
 
     /**
      * The name of the URL mapping.
@@ -494,6 +503,13 @@ private constructor(
     @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
 
     /**
+     * Returns the raw JSON value of [lastUsedAt].
+     *
+     * Unlike [lastUsedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("lastUsedAt") @ExcludeMissing fun _lastUsedAt(): JsonField<Long> = lastUsedAt
+
+    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
@@ -588,6 +604,7 @@ private constructor(
          * .isRegex()
          * .isTrailingSlashOptional()
          * .label()
+         * .lastUsedAt()
          * .name()
          * .note()
          * .portalId()
@@ -622,6 +639,7 @@ private constructor(
         private var isRegex: JsonField<Boolean>? = null
         private var isTrailingSlashOptional: JsonField<Boolean>? = null
         private var label: JsonField<String>? = null
+        private var lastUsedAt: JsonField<Long>? = null
         private var name: JsonField<String>? = null
         private var note: JsonField<String>? = null
         private var portalId: JsonField<Int>? = null
@@ -652,6 +670,7 @@ private constructor(
             isRegex = urlMappingsUrlMapping.isRegex
             isTrailingSlashOptional = urlMappingsUrlMapping.isTrailingSlashOptional
             label = urlMappingsUrlMapping.label
+            lastUsedAt = urlMappingsUrlMapping.lastUsedAt
             name = urlMappingsUrlMapping.name
             note = urlMappingsUrlMapping.note
             portalId = urlMappingsUrlMapping.portalId
@@ -906,6 +925,16 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        fun lastUsedAt(lastUsedAt: Long) = lastUsedAt(JsonField.of(lastUsedAt))
+
+        /**
+         * Sets [Builder.lastUsedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lastUsedAt] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun lastUsedAt(lastUsedAt: JsonField<Long>) = apply { this.lastUsedAt = lastUsedAt }
+
         /** The name of the URL mapping. */
         fun name(name: String) = name(JsonField.of(name))
 
@@ -1045,6 +1074,7 @@ private constructor(
          * .isRegex()
          * .isTrailingSlashOptional()
          * .label()
+         * .lastUsedAt()
          * .name()
          * .note()
          * .portalId()
@@ -1077,6 +1107,7 @@ private constructor(
                 checkRequired("isRegex", isRegex),
                 checkRequired("isTrailingSlashOptional", isTrailingSlashOptional),
                 checkRequired("label", label),
+                checkRequired("lastUsedAt", lastUsedAt),
                 checkRequired("name", name),
                 checkRequired("note", note),
                 checkRequired("portalId", portalId),
@@ -1114,6 +1145,7 @@ private constructor(
         isRegex()
         isTrailingSlashOptional()
         label()
+        lastUsedAt()
         name()
         note()
         portalId()
@@ -1158,6 +1190,7 @@ private constructor(
             (if (isRegex.asKnown().isPresent) 1 else 0) +
             (if (isTrailingSlashOptional.asKnown().isPresent) 1 else 0) +
             (if (label.asKnown().isPresent) 1 else 0) +
+            (if (lastUsedAt.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (note.asKnown().isPresent) 1 else 0) +
             (if (portalId.asKnown().isPresent) 1 else 0) +
@@ -1678,6 +1711,7 @@ private constructor(
             isRegex == other.isRegex &&
             isTrailingSlashOptional == other.isTrailingSlashOptional &&
             label == other.label &&
+            lastUsedAt == other.lastUsedAt &&
             name == other.name &&
             note == other.note &&
             portalId == other.portalId &&
@@ -1709,6 +1743,7 @@ private constructor(
             isRegex,
             isTrailingSlashOptional,
             label,
+            lastUsedAt,
             name,
             note,
             portalId,
@@ -1724,5 +1759,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UrlMappingsUrlMapping{id=$id, cdnPurgeEmbargoTime=$cdnPurgeEmbargoTime, contentGroupId=$contentGroupId, cosObjectType=$cosObjectType, created=$created, createdById=$createdById, deletedAt=$deletedAt, destination=$destination, internallyCreated=$internallyCreated, isActive=$isActive, isMatchFullUrl=$isMatchFullUrl, isMatchQueryString=$isMatchQueryString, isOnlyAfterNotFound=$isOnlyAfterNotFound, isPattern=$isPattern, isProtocolAgnostic=$isProtocolAgnostic, isRegex=$isRegex, isTrailingSlashOptional=$isTrailingSlashOptional, label=$label, name=$name, note=$note, portalId=$portalId, precedence=$precedence, redirectStyle=$redirectStyle, routePrefix=$routePrefix, updated=$updated, updatedById=$updatedById, additionalProperties=$additionalProperties}"
+        "UrlMappingsUrlMapping{id=$id, cdnPurgeEmbargoTime=$cdnPurgeEmbargoTime, contentGroupId=$contentGroupId, cosObjectType=$cosObjectType, created=$created, createdById=$createdById, deletedAt=$deletedAt, destination=$destination, internallyCreated=$internallyCreated, isActive=$isActive, isMatchFullUrl=$isMatchFullUrl, isMatchQueryString=$isMatchQueryString, isOnlyAfterNotFound=$isOnlyAfterNotFound, isPattern=$isPattern, isProtocolAgnostic=$isProtocolAgnostic, isRegex=$isRegex, isTrailingSlashOptional=$isTrailingSlashOptional, label=$label, lastUsedAt=$lastUsedAt, name=$name, note=$note, portalId=$portalId, precedence=$precedence, redirectStyle=$redirectStyle, routePrefix=$routePrefix, updated=$updated, updatedById=$updatedById, additionalProperties=$additionalProperties}"
 }

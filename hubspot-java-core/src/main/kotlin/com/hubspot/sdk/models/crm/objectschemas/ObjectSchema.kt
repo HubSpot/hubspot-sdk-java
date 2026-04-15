@@ -16,7 +16,7 @@ import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import com.hubspot.sdk.models.AssociationDefinition
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
-import com.hubspot.sdk.models.crm.Property
+import com.hubspot.sdk.models.Property
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects

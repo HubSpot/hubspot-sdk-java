@@ -33,7 +33,8 @@ private constructor(
     ) : this(results, mutableMapOf())
 
     /**
-     * An array containing all active and paused event subscriptions configured for the app.
+     * An array of SubscriptionResponse objects, each representing a subscription associated with
+     * the app. This property is required.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -86,7 +87,10 @@ private constructor(
             additionalProperties = subscriptionListResponse.additionalProperties.toMutableMap()
         }
 
-        /** An array containing all active and paused event subscriptions configured for the app. */
+        /**
+         * An array of SubscriptionResponse objects, each representing a subscription associated
+         * with the app. This property is required.
+         */
         fun results(results: List<SubscriptionResponse>) = results(JsonField.of(results))
 
         /**

@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.crm.properties
 
 import com.hubspot.sdk.models.OptionInput
+import com.hubspot.sdk.models.PropertyCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -28,6 +29,7 @@ internal class PropertyCreateParamsTest {
                     .formField(true)
                     .hasUniqueValue(true)
                     .hidden(true)
+                    .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                     .addOption(
                         OptionInput.builder()
                             .displayOrder(0)
@@ -86,6 +88,7 @@ internal class PropertyCreateParamsTest {
                         .formField(true)
                         .hasUniqueValue(true)
                         .hidden(true)
+                        .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                         .addOption(
                             OptionInput.builder()
                                 .displayOrder(0)
@@ -120,6 +123,7 @@ internal class PropertyCreateParamsTest {
                     .formField(true)
                     .hasUniqueValue(true)
                     .hidden(true)
+                    .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                     .addOption(
                         OptionInput.builder()
                             .displayOrder(0)

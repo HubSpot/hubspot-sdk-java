@@ -197,6 +197,7 @@ internal class CardsDevServiceAsyncTest {
                     .appId(0)
                     .cardMigrateViewsRequest(
                         CardMigrateViewsRequest.builder()
+                            .allowDuplicateAppCardIds(true)
                             .appCardId(0L)
                             .legacyCrmCardId(0L)
                             .helpdeskAppCardId(0L)

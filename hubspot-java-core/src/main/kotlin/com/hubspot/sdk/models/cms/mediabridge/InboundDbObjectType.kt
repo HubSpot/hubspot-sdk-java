@@ -40,6 +40,7 @@ private constructor(
     private val metaTypeId: JsonField<Int>,
     private val name: JsonField<String>,
     private val objectTypeId: JsonField<String>,
+    private val objectTypeIdString: JsonField<String>,
     private val permissioningType: JsonField<PermissioningType>,
     private val pipelinePropertyName: JsonField<String>,
     private val pipelineStagePropertyName: JsonField<String>,
@@ -106,6 +107,9 @@ private constructor(
         @JsonProperty("objectTypeId")
         @ExcludeMissing
         objectTypeId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("objectTypeIdString")
+        @ExcludeMissing
+        objectTypeIdString: JsonField<String> = JsonMissing.of(),
         @JsonProperty("permissioningType")
         @ExcludeMissing
         permissioningType: JsonField<PermissioningType> = JsonMissing.of(),
@@ -186,6 +190,7 @@ private constructor(
         metaTypeId,
         name,
         objectTypeId,
+        objectTypeIdString,
         permissioningType,
         pipelinePropertyName,
         pipelineStagePropertyName,
@@ -317,6 +322,12 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectTypeId(): String = objectTypeId.getRequired("objectTypeId")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun objectTypeIdString(): String = objectTypeIdString.getRequired("objectTypeIdString")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -606,6 +617,16 @@ private constructor(
     fun _objectTypeId(): JsonField<String> = objectTypeId
 
     /**
+     * Returns the raw JSON value of [objectTypeIdString].
+     *
+     * Unlike [objectTypeIdString], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("objectTypeIdString")
+    @ExcludeMissing
+    fun _objectTypeIdString(): JsonField<String> = objectTypeIdString
+
+    /**
      * Returns the raw JSON value of [permissioningType].
      *
      * Unlike [permissioningType], this method doesn't throw if the JSON field has an unexpected
@@ -837,6 +858,7 @@ private constructor(
          * .metaTypeId()
          * .name()
          * .objectTypeId()
+         * .objectTypeIdString()
          * .permissioningType()
          * .pipelinePropertyName()
          * .pipelineStagePropertyName()
@@ -869,6 +891,7 @@ private constructor(
         private var metaTypeId: JsonField<Int>? = null
         private var name: JsonField<String>? = null
         private var objectTypeId: JsonField<String>? = null
+        private var objectTypeIdString: JsonField<String>? = null
         private var permissioningType: JsonField<PermissioningType>? = null
         private var pipelinePropertyName: JsonField<String>? = null
         private var pipelineStagePropertyName: JsonField<String>? = null
@@ -913,6 +936,7 @@ private constructor(
             metaTypeId = inboundDbObjectType.metaTypeId
             name = inboundDbObjectType.name
             objectTypeId = inboundDbObjectType.objectTypeId
+            objectTypeIdString = inboundDbObjectType.objectTypeIdString
             permissioningType = inboundDbObjectType.permissioningType
             pipelinePropertyName = inboundDbObjectType.pipelinePropertyName
             pipelineStagePropertyName = inboundDbObjectType.pipelineStagePropertyName
@@ -1165,6 +1189,20 @@ private constructor(
          */
         fun objectTypeId(objectTypeId: JsonField<String>) = apply {
             this.objectTypeId = objectTypeId
+        }
+
+        fun objectTypeIdString(objectTypeIdString: String) =
+            objectTypeIdString(JsonField.of(objectTypeIdString))
+
+        /**
+         * Sets [Builder.objectTypeIdString] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.objectTypeIdString] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun objectTypeIdString(objectTypeIdString: JsonField<String>) = apply {
+            this.objectTypeIdString = objectTypeIdString
         }
 
         fun permissioningType(permissioningType: PermissioningType) =
@@ -1535,6 +1573,7 @@ private constructor(
          * .metaTypeId()
          * .name()
          * .objectTypeId()
+         * .objectTypeIdString()
          * .permissioningType()
          * .pipelinePropertyName()
          * .pipelineStagePropertyName()
@@ -1567,6 +1606,7 @@ private constructor(
                 checkRequired("metaTypeId", metaTypeId),
                 checkRequired("name", name),
                 checkRequired("objectTypeId", objectTypeId),
+                checkRequired("objectTypeIdString", objectTypeIdString),
                 checkRequired("permissioningType", permissioningType),
                 checkRequired("pipelinePropertyName", pipelinePropertyName),
                 checkRequired("pipelineStagePropertyName", pipelineStagePropertyName),
@@ -1621,6 +1661,7 @@ private constructor(
         metaTypeId()
         name()
         objectTypeId()
+        objectTypeIdString()
         permissioningType().validate()
         pipelinePropertyName()
         pipelineStagePropertyName()
@@ -1678,6 +1719,7 @@ private constructor(
             (if (metaTypeId.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (objectTypeId.asKnown().isPresent) 1 else 0) +
+            (if (objectTypeIdString.asKnown().isPresent) 1 else 0) +
             (permissioningType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (pipelinePropertyName.asKnown().isPresent) 1 else 0) +
             (if (pipelineStagePropertyName.asKnown().isPresent) 1 else 0) +
@@ -2308,6 +2350,7 @@ private constructor(
             metaTypeId == other.metaTypeId &&
             name == other.name &&
             objectTypeId == other.objectTypeId &&
+            objectTypeIdString == other.objectTypeIdString &&
             permissioningType == other.permissioningType &&
             pipelinePropertyName == other.pipelinePropertyName &&
             pipelineStagePropertyName == other.pipelineStagePropertyName &&
@@ -2352,6 +2395,7 @@ private constructor(
             metaTypeId,
             name,
             objectTypeId,
+            objectTypeIdString,
             permissioningType,
             pipelinePropertyName,
             pipelineStagePropertyName,
@@ -2381,5 +2425,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundDbObjectType{id=$id, allowsSensitiveProperties=$allowsSensitiveProperties, createDatePropertyName=$createDatePropertyName, defaultSearchPropertyNames=$defaultSearchPropertyNames, deleted=$deleted, fullyQualifiedName=$fullyQualifiedName, hasCustomProperties=$hasCustomProperties, hasDefaultProperties=$hasDefaultProperties, hasExternalObjectIds=$hasExternalObjectIds, hasOwners=$hasOwners, hasPipelines=$hasPipelines, indexedForFiltersAndReports=$indexedForFiltersAndReports, lastModifiedPropertyName=$lastModifiedPropertyName, metaType=$metaType, metaTypeId=$metaTypeId, name=$name, objectTypeId=$objectTypeId, permissioningType=$permissioningType, pipelinePropertyName=$pipelinePropertyName, pipelineStagePropertyName=$pipelineStagePropertyName, requiredProperties=$requiredProperties, restorable=$restorable, scopeMappings=$scopeMappings, secondaryDisplayLabelPropertyNames=$secondaryDisplayLabelPropertyNames, accessScopeName=$accessScopeName, createdAt=$createdAt, description=$description, integrationAppId=$integrationAppId, janusGroup=$janusGroup, ownerPortalId=$ownerPortalId, pipelineCloseDatePropertyName=$pipelineCloseDatePropertyName, pipelineTimeToClosePropertyName=$pipelineTimeToClosePropertyName, pluralForm=$pluralForm, primaryDisplayLabelPropertyName=$primaryDisplayLabelPropertyName, readScopeName=$readScopeName, singularForm=$singularForm, status=$status, visibility=$visibility, writeScopeName=$writeScopeName, additionalProperties=$additionalProperties}"
+        "InboundDbObjectType{id=$id, allowsSensitiveProperties=$allowsSensitiveProperties, createDatePropertyName=$createDatePropertyName, defaultSearchPropertyNames=$defaultSearchPropertyNames, deleted=$deleted, fullyQualifiedName=$fullyQualifiedName, hasCustomProperties=$hasCustomProperties, hasDefaultProperties=$hasDefaultProperties, hasExternalObjectIds=$hasExternalObjectIds, hasOwners=$hasOwners, hasPipelines=$hasPipelines, indexedForFiltersAndReports=$indexedForFiltersAndReports, lastModifiedPropertyName=$lastModifiedPropertyName, metaType=$metaType, metaTypeId=$metaTypeId, name=$name, objectTypeId=$objectTypeId, objectTypeIdString=$objectTypeIdString, permissioningType=$permissioningType, pipelinePropertyName=$pipelinePropertyName, pipelineStagePropertyName=$pipelineStagePropertyName, requiredProperties=$requiredProperties, restorable=$restorable, scopeMappings=$scopeMappings, secondaryDisplayLabelPropertyNames=$secondaryDisplayLabelPropertyNames, accessScopeName=$accessScopeName, createdAt=$createdAt, description=$description, integrationAppId=$integrationAppId, janusGroup=$janusGroup, ownerPortalId=$ownerPortalId, pipelineCloseDatePropertyName=$pipelineCloseDatePropertyName, pipelineTimeToClosePropertyName=$pipelineTimeToClosePropertyName, pluralForm=$pluralForm, primaryDisplayLabelPropertyName=$primaryDisplayLabelPropertyName, readScopeName=$readScopeName, singularForm=$singularForm, status=$status, visibility=$visibility, writeScopeName=$writeScopeName, additionalProperties=$additionalProperties}"
 }

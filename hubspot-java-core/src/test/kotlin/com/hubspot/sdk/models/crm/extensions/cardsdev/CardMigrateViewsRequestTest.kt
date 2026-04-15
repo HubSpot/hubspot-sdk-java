@@ -13,11 +13,13 @@ internal class CardMigrateViewsRequestTest {
     fun create() {
         val cardMigrateViewsRequest =
             CardMigrateViewsRequest.builder()
+                .allowDuplicateAppCardIds(true)
                 .appCardId(0L)
                 .legacyCrmCardId(0L)
                 .helpdeskAppCardId(0L)
                 .build()
 
+        assertThat(cardMigrateViewsRequest.allowDuplicateAppCardIds()).isEqualTo(true)
         assertThat(cardMigrateViewsRequest.appCardId()).isEqualTo(0L)
         assertThat(cardMigrateViewsRequest.legacyCrmCardId()).isEqualTo(0L)
         assertThat(cardMigrateViewsRequest.helpdeskAppCardId()).contains(0L)
@@ -28,6 +30,7 @@ internal class CardMigrateViewsRequestTest {
         val jsonMapper = jsonMapper()
         val cardMigrateViewsRequest =
             CardMigrateViewsRequest.builder()
+                .allowDuplicateAppCardIds(true)
                 .appCardId(0L)
                 .legacyCrmCardId(0L)
                 .helpdeskAppCardId(0L)

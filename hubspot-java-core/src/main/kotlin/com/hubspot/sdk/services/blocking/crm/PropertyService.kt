@@ -7,7 +7,7 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.crm.Property
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.crm.properties.CollectionResponsePropertyNoPaging
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams

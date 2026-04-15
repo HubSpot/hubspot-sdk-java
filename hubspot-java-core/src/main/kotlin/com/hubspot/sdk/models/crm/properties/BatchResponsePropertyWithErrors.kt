@@ -15,8 +15,8 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.StandardError
-import com.hubspot.sdk.models.crm.Property
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects

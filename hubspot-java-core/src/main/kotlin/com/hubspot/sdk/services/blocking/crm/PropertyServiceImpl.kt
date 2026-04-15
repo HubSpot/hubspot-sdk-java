@@ -17,7 +17,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.crm.Property
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.crm.properties.CollectionResponsePropertyNoPaging
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams

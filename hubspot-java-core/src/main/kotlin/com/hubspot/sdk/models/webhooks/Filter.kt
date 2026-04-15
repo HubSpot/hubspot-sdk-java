@@ -37,6 +37,9 @@ private constructor(
     ) : this(conditions, mutableMapOf())
 
     /**
+     * An array of conditions that define the filter criteria. Each condition specifies a property,
+     * operator, and value to determine if a data item meets the filter requirements.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -88,6 +91,10 @@ private constructor(
             additionalProperties = filter.additionalProperties.toMutableMap()
         }
 
+        /**
+         * An array of conditions that define the filter criteria. Each condition specifies a
+         * property, operator, and value to determine if a data item meets the filter requirements.
+         */
         fun conditions(conditions: List<Condition>) = conditions(JsonField.of(conditions))
 
         /**

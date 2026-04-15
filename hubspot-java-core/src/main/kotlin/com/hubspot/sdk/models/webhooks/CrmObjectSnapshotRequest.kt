@@ -41,24 +41,34 @@ private constructor(
     ) : this(objectId, objectTypeId, portalId, properties, mutableMapOf())
 
     /**
+     * An integer representing the unique identifier of the CRM object for which the snapshot is
+     * being requested.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectId(): Int = objectId.getRequired("objectId")
 
     /**
+     * A string representing the type identifier of the CRM object.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectTypeId(): String = objectTypeId.getRequired("objectTypeId")
 
     /**
+     * An integer representing the unique identifier of the HubSpot portal.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun portalId(): Int = portalId.getRequired("portalId")
 
     /**
+     * An array of strings, each representing a property of the CRM object to be included in the
+     * snapshot.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -142,6 +152,10 @@ private constructor(
             additionalProperties = crmObjectSnapshotRequest.additionalProperties.toMutableMap()
         }
 
+        /**
+         * An integer representing the unique identifier of the CRM object for which the snapshot is
+         * being requested.
+         */
         fun objectId(objectId: Int) = objectId(JsonField.of(objectId))
 
         /**
@@ -152,6 +166,7 @@ private constructor(
          */
         fun objectId(objectId: JsonField<Int>) = apply { this.objectId = objectId }
 
+        /** A string representing the type identifier of the CRM object. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -165,6 +180,7 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
+        /** An integer representing the unique identifier of the HubSpot portal. */
         fun portalId(portalId: Int) = portalId(JsonField.of(portalId))
 
         /**
@@ -175,6 +191,10 @@ private constructor(
          */
         fun portalId(portalId: JsonField<Int>) = apply { this.portalId = portalId }
 
+        /**
+         * An array of strings, each representing a property of the CRM object to be included in the
+         * snapshot.
+         */
         fun properties(properties: List<String>) = properties(JsonField.of(properties))
 
         /**

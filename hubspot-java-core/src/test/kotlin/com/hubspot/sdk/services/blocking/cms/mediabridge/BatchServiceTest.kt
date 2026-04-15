@@ -3,12 +3,12 @@
 package com.hubspot.sdk.services.blocking.cms.mediabridge
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
+import com.hubspot.sdk.models.BatchInputPropertyCreate
 import com.hubspot.sdk.models.BatchInputPropertyName
 import com.hubspot.sdk.models.BatchReadInputPropertyName
 import com.hubspot.sdk.models.OptionInput
+import com.hubspot.sdk.models.PropertyCreate
 import com.hubspot.sdk.models.PropertyName
-import com.hubspot.sdk.models.cms.mediabridge.BatchInputPropertyCreate
-import com.hubspot.sdk.models.cms.mediabridge.PropertyCreate
 import com.hubspot.sdk.models.cms.mediabridge.batch.BatchCreateParams
 import com.hubspot.sdk.models.cms.mediabridge.batch.BatchDeleteParams
 import com.hubspot.sdk.models.cms.mediabridge.batch.BatchGetParams
@@ -38,6 +38,7 @@ internal class BatchServiceTest {
                                     .name("name")
                                     .type(PropertyCreate.Type.BOOL)
                                     .calculationFormula("calculationFormula")
+                                    .currencyPropertyName("currencyPropertyName")
                                     .dataSensitivity(
                                         PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE
                                     )
@@ -47,6 +48,7 @@ internal class BatchServiceTest {
                                     .formField(true)
                                     .hasUniqueValue(true)
                                     .hidden(true)
+                                    .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                                     .addOption(
                                         OptionInput.builder()
                                             .displayOrder(0)
@@ -57,6 +59,7 @@ internal class BatchServiceTest {
                                             .build()
                                     )
                                     .referencedObjectType("referencedObjectType")
+                                    .showCurrencySymbol(true)
                                     .build()
                             )
                             .build()
