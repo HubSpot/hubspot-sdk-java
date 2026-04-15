@@ -8,6 +8,7 @@ import com.hubspot.sdk.models.NextPage
 import com.hubspot.sdk.models.Option
 import com.hubspot.sdk.models.Paging
 import com.hubspot.sdk.models.PreviousPage
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -90,6 +91,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .calculationFormula("calculationFormula")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
+                                .currencyPropertyName("currencyPropertyName")
                                 .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                                 .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                                 .displayOrder(0)
@@ -106,6 +108,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                         .readOnlyOptions(true)
                                         .build()
                                 )
+                                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                                 .referencedObjectType("referencedObjectType")
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)
@@ -257,6 +260,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                             .calculationFormula("calculationFormula")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdUserId("createdUserId")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                             .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                             .displayOrder(0)
@@ -273,6 +277,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                     .readOnlyOptions(true)
                                     .build()
                             )
+                            .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                             .referencedObjectType("referencedObjectType")
                             .addSensitiveDataCategory("string")
                             .showCurrencySymbol(true)
@@ -430,6 +435,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .calculationFormula("calculationFormula")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
+                                .currencyPropertyName("currencyPropertyName")
                                 .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                                 .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                                 .displayOrder(0)
@@ -446,6 +452,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                         .readOnlyOptions(true)
                                         .build()
                                 )
+                                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                                 .referencedObjectType("referencedObjectType")
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)

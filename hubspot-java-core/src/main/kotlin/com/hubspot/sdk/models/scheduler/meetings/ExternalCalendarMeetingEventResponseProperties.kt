@@ -1121,6 +1121,8 @@ private constructor(
 
             @JvmField val MARKETPLACE = of("MARKETPLACE")
 
+            @JvmField val MARKETS = of("MARKETS")
+
             @JvmField val MEETINGS = of("MEETINGS")
 
             @JvmField val MERGE_COMPANIES = of("MERGE_COMPANIES")
@@ -1168,6 +1170,8 @@ private constructor(
             @JvmField val RECYCLING_BIN = of("RECYCLING_BIN")
 
             @JvmField val RESTORE_OBJECTS = of("RESTORE_OBJECTS")
+
+            @JvmField val REVENUE_PLATFORM = of("REVENUE_PLATFORM")
 
             @JvmField val SALES = of("SALES")
 
@@ -1281,6 +1285,7 @@ private constructor(
             LEGAL_BASIS_REMEDIATION,
             MARKET_SOURCING,
             MARKETPLACE,
+            MARKETS,
             MEETINGS,
             MERGE_COMPANIES,
             MERGE_CONTACTS,
@@ -1305,6 +1310,7 @@ private constructor(
             QUOTES,
             RECYCLING_BIN,
             RESTORE_OBJECTS,
+            REVENUE_PLATFORM,
             SALES,
             SALES_MESSAGES,
             SALESFORCE,
@@ -1406,6 +1412,7 @@ private constructor(
             LEGAL_BASIS_REMEDIATION,
             MARKET_SOURCING,
             MARKETPLACE,
+            MARKETS,
             MEETINGS,
             MERGE_COMPANIES,
             MERGE_CONTACTS,
@@ -1430,6 +1437,7 @@ private constructor(
             QUOTES,
             RECYCLING_BIN,
             RESTORE_OBJECTS,
+            REVENUE_PLATFORM,
             SALES,
             SALES_MESSAGES,
             SALESFORCE,
@@ -1535,6 +1543,7 @@ private constructor(
                 LEGAL_BASIS_REMEDIATION -> Value.LEGAL_BASIS_REMEDIATION
                 MARKET_SOURCING -> Value.MARKET_SOURCING
                 MARKETPLACE -> Value.MARKETPLACE
+                MARKETS -> Value.MARKETS
                 MEETINGS -> Value.MEETINGS
                 MERGE_COMPANIES -> Value.MERGE_COMPANIES
                 MERGE_CONTACTS -> Value.MERGE_CONTACTS
@@ -1559,6 +1568,7 @@ private constructor(
                 QUOTES -> Value.QUOTES
                 RECYCLING_BIN -> Value.RECYCLING_BIN
                 RESTORE_OBJECTS -> Value.RESTORE_OBJECTS
+                REVENUE_PLATFORM -> Value.REVENUE_PLATFORM
                 SALES -> Value.SALES
                 SALES_MESSAGES -> Value.SALES_MESSAGES
                 SALESFORCE -> Value.SALESFORCE
@@ -1662,6 +1672,7 @@ private constructor(
                 LEGAL_BASIS_REMEDIATION -> Known.LEGAL_BASIS_REMEDIATION
                 MARKET_SOURCING -> Known.MARKET_SOURCING
                 MARKETPLACE -> Known.MARKETPLACE
+                MARKETS -> Known.MARKETS
                 MEETINGS -> Known.MEETINGS
                 MERGE_COMPANIES -> Known.MERGE_COMPANIES
                 MERGE_CONTACTS -> Known.MERGE_CONTACTS
@@ -1686,6 +1697,7 @@ private constructor(
                 QUOTES -> Known.QUOTES
                 RECYCLING_BIN -> Known.RECYCLING_BIN
                 RESTORE_OBJECTS -> Known.RESTORE_OBJECTS
+                REVENUE_PLATFORM -> Known.REVENUE_PLATFORM
                 SALES -> Known.SALES
                 SALES_MESSAGES -> Known.SALES_MESSAGES
                 SALESFORCE -> Known.SALESFORCE

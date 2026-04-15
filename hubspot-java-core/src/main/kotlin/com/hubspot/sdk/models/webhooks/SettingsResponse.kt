@@ -43,7 +43,7 @@ private constructor(
     ) : this(createdAt, targetUrl, throttling, updatedAt, mutableMapOf())
 
     /**
-     * When this subscription was created. Formatted as milliseconds from the [Unix epoch](#).
+     * The date and time when the webhook settings were created, in ISO 8601 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -51,8 +51,7 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
-     * A publicly available URL for Hubspot to call where event payloads will be delivered. See
-     * [link-so-some-doc](#) for details about the format of these event payloads.
+     * The URL to which the webhook events will be sent. It is a string.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -66,7 +65,7 @@ private constructor(
     fun throttling(): ThrottlingSettings = throttling.getRequired("throttling")
 
     /**
-     * When this subscription was last updated. Formatted as milliseconds from the [Unix epoch](#).
+     * The date and time when the webhook settings were last updated, in ISO 8601 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -152,9 +151,7 @@ private constructor(
             additionalProperties = settingsResponse.additionalProperties.toMutableMap()
         }
 
-        /**
-         * When this subscription was created. Formatted as milliseconds from the [Unix epoch](#).
-         */
+        /** The date and time when the webhook settings were created, in ISO 8601 format. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -166,10 +163,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /**
-         * A publicly available URL for Hubspot to call where event payloads will be delivered. See
-         * [link-so-some-doc](#) for details about the format of these event payloads.
-         */
+        /** The URL to which the webhook events will be sent. It is a string. */
         fun targetUrl(targetUrl: String) = targetUrl(JsonField.of(targetUrl))
 
         /**
@@ -194,10 +188,7 @@ private constructor(
             this.throttling = throttling
         }
 
-        /**
-         * When this subscription was last updated. Formatted as milliseconds from the
-         * [Unix epoch](#).
-         */
+        /** The date and time when the webhook settings were last updated, in ISO 8601 format. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**

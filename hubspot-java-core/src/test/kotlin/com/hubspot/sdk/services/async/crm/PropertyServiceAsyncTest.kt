@@ -4,7 +4,7 @@ package com.hubspot.sdk.services.async.crm
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot.sdk.models.OptionInput
-import com.hubspot.sdk.models.crm.properties.PropertyCreate
+import com.hubspot.sdk.models.PropertyCreate
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams
 import com.hubspot.sdk.models.crm.properties.PropertyGetParams
@@ -42,6 +42,7 @@ internal class PropertyServiceAsyncTest {
                             .formField(true)
                             .hasUniqueValue(true)
                             .hidden(true)
+                            .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -84,6 +85,7 @@ internal class PropertyServiceAsyncTest {
                             .groupName("groupName")
                             .hidden(true)
                             .label("label")
+                            .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)

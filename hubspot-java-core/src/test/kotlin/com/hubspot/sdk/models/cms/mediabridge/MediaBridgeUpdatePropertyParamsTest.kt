@@ -17,6 +17,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
             .mediaBridgePropertyUpdate(
                 MediaBridgePropertyUpdate.builder()
                     .calculationFormula("calculationFormula")
+                    .currencyPropertyName("currencyPropertyName")
                     .description("description")
                     .displayOrder(0)
                     .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -25,6 +26,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
                     .hasUniqueValue(true)
                     .hidden(true)
                     .label("label")
+                    .numberDisplayHint(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
                     .addOption(
                         OptionInput.builder()
                             .displayOrder(0)
@@ -34,6 +36,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
                             .description("description")
                             .build()
                     )
+                    .showCurrencySymbol(true)
                     .type(MediaBridgePropertyUpdate.Type.BOOL)
                     .build()
             )
@@ -67,6 +70,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
                 .mediaBridgePropertyUpdate(
                     MediaBridgePropertyUpdate.builder()
                         .calculationFormula("calculationFormula")
+                        .currencyPropertyName("currencyPropertyName")
                         .description("description")
                         .displayOrder(0)
                         .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -75,6 +79,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
                         .hasUniqueValue(true)
                         .hidden(true)
                         .label("label")
+                        .numberDisplayHint(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
                         .addOption(
                             OptionInput.builder()
                                 .displayOrder(0)
@@ -84,6 +89,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
                                 .description("description")
                                 .build()
                         )
+                        .showCurrencySymbol(true)
                         .type(MediaBridgePropertyUpdate.Type.BOOL)
                         .build()
                 )
@@ -95,6 +101,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
             .isEqualTo(
                 MediaBridgePropertyUpdate.builder()
                     .calculationFormula("calculationFormula")
+                    .currencyPropertyName("currencyPropertyName")
                     .description("description")
                     .displayOrder(0)
                     .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -103,6 +110,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
                     .hasUniqueValue(true)
                     .hidden(true)
                     .label("label")
+                    .numberDisplayHint(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
                     .addOption(
                         OptionInput.builder()
                             .displayOrder(0)
@@ -112,6 +120,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
                             .description("description")
                             .build()
                     )
+                    .showCurrencySymbol(true)
                     .type(MediaBridgePropertyUpdate.Type.BOOL)
                     .build()
             )

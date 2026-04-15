@@ -51,6 +51,7 @@ internal class UrlMappingServiceTest {
                     .isRegex(true)
                     .isTrailingSlashOptional(true)
                     .label("label")
+                    .lastUsedAt(0L)
                     .name("name")
                     .note("note")
                     .portalId(0)

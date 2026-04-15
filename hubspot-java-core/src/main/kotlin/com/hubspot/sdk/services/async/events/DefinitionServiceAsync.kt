@@ -6,6 +6,7 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.events.BatchedBehavioralEventHttpCompletionRequest
 import com.hubspot.sdk.models.events.definitions.DefinitionCreateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionCreatePropertyParams
@@ -19,7 +20,6 @@ import com.hubspot.sdk.models.events.definitions.DefinitionUpdateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionUpdatePropertyParams
 import com.hubspot.sdk.models.events.definitions.ExternalBehavioralEventTypeDefinition
 import com.hubspot.sdk.models.events.definitions.ExternalBehavioralEventTypeDefinitionEgg
-import com.hubspot.sdk.models.events.definitions.Property
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 

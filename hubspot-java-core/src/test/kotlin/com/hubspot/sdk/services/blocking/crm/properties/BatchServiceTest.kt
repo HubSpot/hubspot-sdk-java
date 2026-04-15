@@ -3,12 +3,12 @@
 package com.hubspot.sdk.services.blocking.crm.properties
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
+import com.hubspot.sdk.models.BatchInputPropertyCreate
 import com.hubspot.sdk.models.BatchInputPropertyName
 import com.hubspot.sdk.models.BatchReadInputPropertyName
 import com.hubspot.sdk.models.OptionInput
+import com.hubspot.sdk.models.PropertyCreate
 import com.hubspot.sdk.models.PropertyName
-import com.hubspot.sdk.models.crm.properties.BatchInputPropertyCreate
-import com.hubspot.sdk.models.crm.properties.PropertyCreate
 import com.hubspot.sdk.models.crm.properties.batch.BatchCreateParams
 import com.hubspot.sdk.models.crm.properties.batch.BatchDeleteParams
 import com.hubspot.sdk.models.crm.properties.batch.BatchGetParams
@@ -47,6 +47,7 @@ internal class BatchServiceTest {
                                     .formField(true)
                                     .hasUniqueValue(true)
                                     .hidden(true)
+                                    .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                                     .addOption(
                                         OptionInput.builder()
                                             .displayOrder(0)

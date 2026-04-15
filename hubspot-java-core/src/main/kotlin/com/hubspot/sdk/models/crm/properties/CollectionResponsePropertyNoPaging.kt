@@ -14,7 +14,7 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.crm.Property
+import com.hubspot.sdk.models.Property
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull

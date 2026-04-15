@@ -33,6 +33,9 @@ private constructor(
     ) : this(snapshotRequests, mutableMapOf())
 
     /**
+     * An array of CrmObjectSnapshotRequest objects, each representing a request to capture a
+     * snapshot of a specific CRM object. This property is required.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -88,6 +91,10 @@ private constructor(
             additionalProperties = crmObjectSnapshotBatchRequest.additionalProperties.toMutableMap()
         }
 
+        /**
+         * An array of CrmObjectSnapshotRequest objects, each representing a request to capture a
+         * snapshot of a specific CRM object. This property is required.
+         */
         fun snapshotRequests(snapshotRequests: List<CrmObjectSnapshotRequest>) =
             snapshotRequests(JsonField.of(snapshotRequests))
 

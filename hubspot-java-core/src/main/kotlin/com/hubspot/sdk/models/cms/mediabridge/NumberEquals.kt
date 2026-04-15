@@ -485,6 +485,9 @@ private constructor(
         /** Alias for calling [addInput] with `Input.ofStringLength(stringLength)`. */
         fun addInput(stringLength: StringLength) = addInput(Input.ofStringLength(stringLength))
 
+        /** Alias for calling [addInput] with `Input.ofIsBlank(isBlank)`. */
+        fun addInput(isBlank: IsBlank) = addInput(Input.ofIsBlank(isBlank))
+
         /** Alias for calling [addInput] with `Input.ofAddTime(addTime)`. */
         fun addInput(addTime: AddTime) = addInput(Input.ofAddTime(addTime))
 
@@ -784,6 +787,7 @@ private constructor(
         private val substring: Substring? = null,
         private val euler: Euler? = null,
         private val stringLength: StringLength? = null,
+        private val isBlank: IsBlank? = null,
         private val addTime: AddTime? = null,
         private val subtractTime: SubtractTime? = null,
         private val _json: JsonValue? = null,
@@ -954,6 +958,8 @@ private constructor(
 
         fun stringLength(): Optional<StringLength> = Optional.ofNullable(stringLength)
 
+        fun isBlank(): Optional<IsBlank> = Optional.ofNullable(isBlank)
+
         fun addTime(): Optional<AddTime> = Optional.ofNullable(addTime)
 
         fun subtractTime(): Optional<SubtractTime> = Optional.ofNullable(subtractTime)
@@ -1102,6 +1108,8 @@ private constructor(
         fun isEuler(): Boolean = euler != null
 
         fun isStringLength(): Boolean = stringLength != null
+
+        fun isIsBlank(): Boolean = isBlank != null
 
         fun isAddTime(): Boolean = addTime != null
 
@@ -1272,6 +1280,8 @@ private constructor(
 
         fun asStringLength(): StringLength = stringLength.getOrThrow("stringLength")
 
+        fun asIsBlank(): IsBlank = isBlank.getOrThrow("isBlank")
+
         fun asAddTime(): AddTime = addTime.getOrThrow("addTime")
 
         fun asSubtractTime(): SubtractTime = subtractTime.getOrThrow("subtractTime")
@@ -1374,6 +1384,7 @@ private constructor(
                 substring != null -> visitor.visitSubstring(substring)
                 euler != null -> visitor.visitEuler(euler)
                 stringLength != null -> visitor.visitStringLength(stringLength)
+                isBlank != null -> visitor.visitIsBlank(isBlank)
                 addTime != null -> visitor.visitAddTime(addTime)
                 subtractTime != null -> visitor.visitSubtractTime(subtractTime)
                 else -> visitor.unknown(_json)
@@ -1710,6 +1721,10 @@ private constructor(
                         stringLength.validate()
                     }
 
+                    override fun visitIsBlank(isBlank: IsBlank) {
+                        isBlank.validate()
+                    }
+
                     override fun visitAddTime(addTime: AddTime) {
                         addTime.validate()
                     }
@@ -1945,6 +1960,8 @@ private constructor(
                     override fun visitStringLength(stringLength: StringLength) =
                         stringLength.validity()
 
+                    override fun visitIsBlank(isBlank: IsBlank) = isBlank.validity()
+
                     override fun visitAddTime(addTime: AddTime) = addTime.validity()
 
                     override fun visitSubtractTime(subtractTime: SubtractTime) =
@@ -2032,6 +2049,7 @@ private constructor(
                 substring == other.substring &&
                 euler == other.euler &&
                 stringLength == other.stringLength &&
+                isBlank == other.isBlank &&
                 addTime == other.addTime &&
                 subtractTime == other.subtractTime
         }
@@ -2109,6 +2127,7 @@ private constructor(
                 substring,
                 euler,
                 stringLength,
+                isBlank,
                 addTime,
                 subtractTime,
             )
@@ -2203,6 +2222,7 @@ private constructor(
                 substring != null -> "Input{substring=$substring}"
                 euler != null -> "Input{euler=$euler}"
                 stringLength != null -> "Input{stringLength=$stringLength}"
+                isBlank != null -> "Input{isBlank=$isBlank}"
                 addTime != null -> "Input{addTime=$addTime}"
                 subtractTime != null -> "Input{subtractTime=$subtractTime}"
                 _json != null -> "Input{_unknown=$_json}"
@@ -2446,6 +2466,8 @@ private constructor(
             @JvmStatic
             fun ofStringLength(stringLength: StringLength) = Input(stringLength = stringLength)
 
+            @JvmStatic fun ofIsBlank(isBlank: IsBlank) = Input(isBlank = isBlank)
+
             @JvmStatic fun ofAddTime(addTime: AddTime) = Input(addTime = addTime)
 
             @JvmStatic
@@ -2618,6 +2640,8 @@ private constructor(
             fun visitEuler(euler: Euler): T
 
             fun visitStringLength(stringLength: StringLength): T
+
+            fun visitIsBlank(isBlank: IsBlank): T
 
             fun visitAddTime(addTime: AddTime): T
 
@@ -2862,6 +2886,9 @@ private constructor(
                             tryDeserialize(node, jacksonTypeRef<StringLength>())?.let {
                                 Input(stringLength = it, _json = json)
                             },
+                            tryDeserialize(node, jacksonTypeRef<IsBlank>())?.let {
+                                Input(isBlank = it, _json = json)
+                            },
                             tryDeserialize(node, jacksonTypeRef<AddTime>())?.let {
                                 Input(addTime = it, _json = json)
                             },
@@ -2987,6 +3014,7 @@ private constructor(
                     value.substring != null -> generator.writeObject(value.substring)
                     value.euler != null -> generator.writeObject(value.euler)
                     value.stringLength != null -> generator.writeObject(value.stringLength)
+                    value.isBlank != null -> generator.writeObject(value.isBlank)
                     value.addTime != null -> generator.writeObject(value.addTime)
                     value.subtractTime != null -> generator.writeObject(value.subtractTime)
                     value._json != null -> generator.writeObject(value._json)

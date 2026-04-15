@@ -18,8 +18,16 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /**
+     * An integer representing the ID of the business unit for which to retrieve subscription
+     * definitions.
+     */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
+    /**
+     * A boolean indicating whether to include translations of the communication preferences
+     * definitions in the response.
+     */
     fun includeTranslations(): Optional<Boolean> = Optional.ofNullable(includeTranslations)
 
     /** Additional headers to send with the request. */
@@ -54,6 +62,10 @@ private constructor(
             additionalQueryParams = definitionListParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * An integer representing the ID of the business unit for which to retrieve subscription
+         * definitions.
+         */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -67,6 +79,10 @@ private constructor(
         fun businessUnitId(businessUnitId: Optional<Long>) =
             businessUnitId(businessUnitId.getOrNull())
 
+        /**
+         * A boolean indicating whether to include translations of the communication preferences
+         * definitions in the response.
+         */
         fun includeTranslations(includeTranslations: Boolean?) = apply {
             this.includeTranslations = includeTranslations
         }

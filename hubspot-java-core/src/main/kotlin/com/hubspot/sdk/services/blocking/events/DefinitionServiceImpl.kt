@@ -17,6 +17,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.events.definitions.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
 import com.hubspot.sdk.models.events.definitions.DefinitionCreateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionCreatePropertyParams
@@ -29,7 +30,6 @@ import com.hubspot.sdk.models.events.definitions.DefinitionSendBatchParams
 import com.hubspot.sdk.models.events.definitions.DefinitionUpdateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionUpdatePropertyParams
 import com.hubspot.sdk.models.events.definitions.ExternalBehavioralEventTypeDefinition
-import com.hubspot.sdk.models.events.definitions.Property
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 

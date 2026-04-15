@@ -28,6 +28,8 @@ private constructor(
     ) : this(filterId, mutableMapOf())
 
     /**
+     * The unique identifier for the created filter. It is an integer formatted as int64.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -77,6 +79,7 @@ private constructor(
             additionalProperties = filterCreateResponse.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the created filter. It is an integer formatted as int64. */
         fun filterId(filterId: Long) = filterId(JsonField.of(filterId))
 
         /**

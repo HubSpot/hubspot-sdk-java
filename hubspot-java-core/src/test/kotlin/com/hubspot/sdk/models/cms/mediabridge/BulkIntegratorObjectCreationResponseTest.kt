@@ -40,6 +40,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "metaTypeId" to 0,
                                             "name" to "name",
                                             "objectTypeId" to "objectTypeId",
+                                            "objectTypeIdString" to "objectTypeIdString",
                                             "permissioningType" to "ALL_OR_NONE",
                                             "pipelinePropertyName" to "pipelinePropertyName",
                                             "pipelineStagePropertyName" to
@@ -285,6 +286,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                         "metaTypeId" to 0,
                                         "name" to "name",
                                         "objectTypeId" to "objectTypeId",
+                                        "objectTypeIdString" to "objectTypeIdString",
                                         "permissioningType" to "ALL_OR_NONE",
                                         "pipelinePropertyName" to "pipelinePropertyName",
                                         "pipelineStagePropertyName" to "pipelineStagePropertyName",
@@ -520,6 +522,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "metaTypeId" to 0,
                                             "name" to "name",
                                             "objectTypeId" to "objectTypeId",
+                                            "objectTypeIdString" to "objectTypeIdString",
                                             "permissioningType" to "ALL_OR_NONE",
                                             "pipelinePropertyName" to "pipelinePropertyName",
                                             "pipelineStagePropertyName" to

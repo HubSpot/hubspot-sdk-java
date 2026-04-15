@@ -24,6 +24,7 @@ internal class PropertyUpdateTest {
                 .groupName("groupName")
                 .hidden(true)
                 .label("label")
+                .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                 .addOption(
                     OptionInput.builder()
                         .displayOrder(0)
@@ -46,6 +47,8 @@ internal class PropertyUpdateTest {
         assertThat(propertyUpdate.groupName()).contains("groupName")
         assertThat(propertyUpdate.hidden()).contains(true)
         assertThat(propertyUpdate.label()).contains("label")
+        assertThat(propertyUpdate.numberDisplayHint())
+            .contains(PropertyUpdate.NumberDisplayHint.CURRENCY)
         assertThat(propertyUpdate.options().getOrNull())
             .containsExactly(
                 OptionInput.builder()
@@ -74,6 +77,7 @@ internal class PropertyUpdateTest {
                 .groupName("groupName")
                 .hidden(true)
                 .label("label")
+                .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                 .addOption(
                     OptionInput.builder()
                         .displayOrder(0)

@@ -19,6 +19,7 @@ import java.util.Optional
 class CardMigrateViewsRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val allowDuplicateAppCardIds: JsonField<Boolean>,
     private val appCardId: JsonField<Long>,
     private val legacyCrmCardId: JsonField<Long>,
     private val helpdeskAppCardId: JsonField<Long>,
@@ -27,6 +28,9 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("allowDuplicateAppCardIds")
+        @ExcludeMissing
+        allowDuplicateAppCardIds: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("appCardId") @ExcludeMissing appCardId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("legacyCrmCardId")
         @ExcludeMissing
@@ -34,7 +38,20 @@ private constructor(
         @JsonProperty("helpdeskAppCardId")
         @ExcludeMissing
         helpdeskAppCardId: JsonField<Long> = JsonMissing.of(),
-    ) : this(appCardId, legacyCrmCardId, helpdeskAppCardId, mutableMapOf())
+    ) : this(
+        allowDuplicateAppCardIds,
+        appCardId,
+        legacyCrmCardId,
+        helpdeskAppCardId,
+        mutableMapOf(),
+    )
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun allowDuplicateAppCardIds(): Boolean =
+        allowDuplicateAppCardIds.getRequired("allowDuplicateAppCardIds")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -53,6 +70,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun helpdeskAppCardId(): Optional<Long> = helpdeskAppCardId.getOptional("helpdeskAppCardId")
+
+    /**
+     * Returns the raw JSON value of [allowDuplicateAppCardIds].
+     *
+     * Unlike [allowDuplicateAppCardIds], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("allowDuplicateAppCardIds")
+    @ExcludeMissing
+    fun _allowDuplicateAppCardIds(): JsonField<Boolean> = allowDuplicateAppCardIds
 
     /**
      * Returns the raw JSON value of [appCardId].
@@ -99,6 +126,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .allowDuplicateAppCardIds()
          * .appCardId()
          * .legacyCrmCardId()
          * ```
@@ -109,6 +137,7 @@ private constructor(
     /** A builder for [CardMigrateViewsRequest]. */
     class Builder internal constructor() {
 
+        private var allowDuplicateAppCardIds: JsonField<Boolean>? = null
         private var appCardId: JsonField<Long>? = null
         private var legacyCrmCardId: JsonField<Long>? = null
         private var helpdeskAppCardId: JsonField<Long> = JsonMissing.of()
@@ -116,10 +145,25 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(cardMigrateViewsRequest: CardMigrateViewsRequest) = apply {
+            allowDuplicateAppCardIds = cardMigrateViewsRequest.allowDuplicateAppCardIds
             appCardId = cardMigrateViewsRequest.appCardId
             legacyCrmCardId = cardMigrateViewsRequest.legacyCrmCardId
             helpdeskAppCardId = cardMigrateViewsRequest.helpdeskAppCardId
             additionalProperties = cardMigrateViewsRequest.additionalProperties.toMutableMap()
+        }
+
+        fun allowDuplicateAppCardIds(allowDuplicateAppCardIds: Boolean) =
+            allowDuplicateAppCardIds(JsonField.of(allowDuplicateAppCardIds))
+
+        /**
+         * Sets [Builder.allowDuplicateAppCardIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.allowDuplicateAppCardIds] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun allowDuplicateAppCardIds(allowDuplicateAppCardIds: JsonField<Boolean>) = apply {
+            this.allowDuplicateAppCardIds = allowDuplicateAppCardIds
         }
 
         fun appCardId(appCardId: Long) = appCardId(JsonField.of(appCardId))
@@ -185,6 +229,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .allowDuplicateAppCardIds()
          * .appCardId()
          * .legacyCrmCardId()
          * ```
@@ -193,6 +238,7 @@ private constructor(
          */
         fun build(): CardMigrateViewsRequest =
             CardMigrateViewsRequest(
+                checkRequired("allowDuplicateAppCardIds", allowDuplicateAppCardIds),
                 checkRequired("appCardId", appCardId),
                 checkRequired("legacyCrmCardId", legacyCrmCardId),
                 helpdeskAppCardId,
@@ -207,6 +253,7 @@ private constructor(
             return@apply
         }
 
+        allowDuplicateAppCardIds()
         appCardId()
         legacyCrmCardId()
         helpdeskAppCardId()
@@ -228,7 +275,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (appCardId.asKnown().isPresent) 1 else 0) +
+        (if (allowDuplicateAppCardIds.asKnown().isPresent) 1 else 0) +
+            (if (appCardId.asKnown().isPresent) 1 else 0) +
             (if (legacyCrmCardId.asKnown().isPresent) 1 else 0) +
             (if (helpdeskAppCardId.asKnown().isPresent) 1 else 0)
 
@@ -238,6 +286,7 @@ private constructor(
         }
 
         return other is CardMigrateViewsRequest &&
+            allowDuplicateAppCardIds == other.allowDuplicateAppCardIds &&
             appCardId == other.appCardId &&
             legacyCrmCardId == other.legacyCrmCardId &&
             helpdeskAppCardId == other.helpdeskAppCardId &&
@@ -245,11 +294,17 @@ private constructor(
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(appCardId, legacyCrmCardId, helpdeskAppCardId, additionalProperties)
+        Objects.hash(
+            allowDuplicateAppCardIds,
+            appCardId,
+            legacyCrmCardId,
+            helpdeskAppCardId,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardMigrateViewsRequest{appCardId=$appCardId, legacyCrmCardId=$legacyCrmCardId, helpdeskAppCardId=$helpdeskAppCardId, additionalProperties=$additionalProperties}"
+        "CardMigrateViewsRequest{allowDuplicateAppCardIds=$allowDuplicateAppCardIds, appCardId=$appCardId, legacyCrmCardId=$legacyCrmCardId, helpdeskAppCardId=$helpdeskAppCardId, additionalProperties=$additionalProperties}"
 }

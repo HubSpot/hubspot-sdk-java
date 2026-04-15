@@ -47,36 +47,51 @@ private constructor(
     ) : this(id, initiatedAt, status, completedAt, errorCode, message, mutableMapOf())
 
     /**
+     * The unique identifier for the snapshot operation, formatted as a UUID.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * A Unix timestamp in milliseconds indicating when the snapshot operation was initiated.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun initiatedAt(): Long = initiatedAt.getRequired("initiatedAt")
 
     /**
+     * The current status of the snapshot operation. Valid values include 'PENDING', 'IN_PROGRESS',
+     * 'COMPLETED', 'FAILED', and 'EXPIRED'.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
 
     /**
+     * A Unix timestamp in milliseconds indicating when the snapshot operation was completed.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun completedAt(): Optional<Long> = completedAt.getOptional("completedAt")
 
     /**
+     * The code representing any error that occurred during the snapshot operation. Possible values
+     * are 'TIMEOUT', 'VALIDATION_ERROR', 'INTERNAL_ERROR', and 'PERMISSION_DENIED'.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun errorCode(): Optional<ErrorCode> = errorCode.getOptional("errorCode")
 
     /**
+     * A descriptive message providing additional information about the snapshot operation or any
+     * errors encountered.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -173,6 +188,7 @@ private constructor(
             additionalProperties = snapshotStatusResponse.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the snapshot operation, formatted as a UUID. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -183,6 +199,9 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /**
+         * A Unix timestamp in milliseconds indicating when the snapshot operation was initiated.
+         */
         fun initiatedAt(initiatedAt: Long) = initiatedAt(JsonField.of(initiatedAt))
 
         /**
@@ -194,6 +213,10 @@ private constructor(
          */
         fun initiatedAt(initiatedAt: JsonField<Long>) = apply { this.initiatedAt = initiatedAt }
 
+        /**
+         * The current status of the snapshot operation. Valid values include 'PENDING',
+         * 'IN_PROGRESS', 'COMPLETED', 'FAILED', and 'EXPIRED'.
+         */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
@@ -204,6 +227,9 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /**
+         * A Unix timestamp in milliseconds indicating when the snapshot operation was completed.
+         */
         fun completedAt(completedAt: Long) = completedAt(JsonField.of(completedAt))
 
         /**
@@ -215,6 +241,10 @@ private constructor(
          */
         fun completedAt(completedAt: JsonField<Long>) = apply { this.completedAt = completedAt }
 
+        /**
+         * The code representing any error that occurred during the snapshot operation. Possible
+         * values are 'TIMEOUT', 'VALIDATION_ERROR', 'INTERNAL_ERROR', and 'PERMISSION_DENIED'.
+         */
         fun errorCode(errorCode: ErrorCode) = errorCode(JsonField.of(errorCode))
 
         /**
@@ -226,6 +256,10 @@ private constructor(
          */
         fun errorCode(errorCode: JsonField<ErrorCode>) = apply { this.errorCode = errorCode }
 
+        /**
+         * A descriptive message providing additional information about the snapshot operation or
+         * any errors encountered.
+         */
         fun message(message: String) = message(JsonField.of(message))
 
         /**
@@ -319,6 +353,10 @@ private constructor(
             (errorCode.asKnown().getOrNull()?.validity() ?: 0) +
             (if (message.asKnown().isPresent) 1 else 0)
 
+    /**
+     * The current status of the snapshot operation. Valid values include 'PENDING', 'IN_PROGRESS',
+     * 'COMPLETED', 'FAILED', and 'EXPIRED'.
+     */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -462,6 +500,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * The code representing any error that occurred during the snapshot operation. Possible values
+     * are 'TIMEOUT', 'VALIDATION_ERROR', 'INTERNAL_ERROR', and 'PERMISSION_DENIED'.
+     */
     class ErrorCode @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

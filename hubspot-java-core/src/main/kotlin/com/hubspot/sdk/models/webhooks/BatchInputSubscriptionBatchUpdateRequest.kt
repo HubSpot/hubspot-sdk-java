@@ -33,6 +33,9 @@ private constructor(
     ) : this(inputs, mutableMapOf())
 
     /**
+     * An array of SubscriptionBatchUpdateRequest objects, each representing a subscription to be
+     * updated. This property is required.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -88,6 +91,10 @@ private constructor(
                 batchInputSubscriptionBatchUpdateRequest.additionalProperties.toMutableMap()
         }
 
+        /**
+         * An array of SubscriptionBatchUpdateRequest objects, each representing a subscription to
+         * be updated. This property is required.
+         */
         fun inputs(inputs: List<SubscriptionBatchUpdateRequest>) = inputs(JsonField.of(inputs))
 
         /**

@@ -444,6 +444,8 @@ private constructor(
 
             @JvmField val REMOVED_FROM_LIST = of("REMOVED_FROM_LIST")
 
+            @JvmField val GDPR_DELETE = of("GDPR_DELETE")
+
             @JvmStatic fun of(value: String) = Action(JsonField.of(value))
         }
 
@@ -461,6 +463,7 @@ private constructor(
             APP_UNINSTALL,
             ADDED_TO_LIST,
             REMOVED_FROM_LIST,
+            GDPR_DELETE,
         }
 
         /**
@@ -485,6 +488,7 @@ private constructor(
             APP_UNINSTALL,
             ADDED_TO_LIST,
             REMOVED_FROM_LIST,
+            GDPR_DELETE,
             /** An enum member indicating that [Action] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -510,6 +514,7 @@ private constructor(
                 APP_UNINSTALL -> Value.APP_UNINSTALL
                 ADDED_TO_LIST -> Value.ADDED_TO_LIST
                 REMOVED_FROM_LIST -> Value.REMOVED_FROM_LIST
+                GDPR_DELETE -> Value.GDPR_DELETE
                 else -> Value._UNKNOWN
             }
 
@@ -536,6 +541,7 @@ private constructor(
                 APP_UNINSTALL -> Known.APP_UNINSTALL
                 ADDED_TO_LIST -> Known.ADDED_TO_LIST
                 REMOVED_FROM_LIST -> Known.REMOVED_FROM_LIST
+                GDPR_DELETE -> Known.GDPR_DELETE
                 else -> throw HubSpotInvalidDataException("Unknown Action: $value")
             }
 
@@ -616,6 +622,8 @@ private constructor(
 
             @JvmField val LIST_MEMBERSHIP = of("LIST_MEMBERSHIP")
 
+            @JvmField val GDPR_PRIVACY_DELETION = of("GDPR_PRIVACY_DELETION")
+
             @JvmStatic fun of(value: String) = SubscriptionType(JsonField.of(value))
         }
 
@@ -626,6 +634,7 @@ private constructor(
             EVENT,
             APP_LIFECYCLE_EVENT,
             LIST_MEMBERSHIP,
+            GDPR_PRIVACY_DELETION,
         }
 
         /**
@@ -643,6 +652,7 @@ private constructor(
             EVENT,
             APP_LIFECYCLE_EVENT,
             LIST_MEMBERSHIP,
+            GDPR_PRIVACY_DELETION,
             /**
              * An enum member indicating that [SubscriptionType] was instantiated with an unknown
              * value.
@@ -664,6 +674,7 @@ private constructor(
                 EVENT -> Value.EVENT
                 APP_LIFECYCLE_EVENT -> Value.APP_LIFECYCLE_EVENT
                 LIST_MEMBERSHIP -> Value.LIST_MEMBERSHIP
+                GDPR_PRIVACY_DELETION -> Value.GDPR_PRIVACY_DELETION
                 else -> Value._UNKNOWN
             }
 
@@ -683,6 +694,7 @@ private constructor(
                 EVENT -> Known.EVENT
                 APP_LIFECYCLE_EVENT -> Known.APP_LIFECYCLE_EVENT
                 LIST_MEMBERSHIP -> Known.LIST_MEMBERSHIP
+                GDPR_PRIVACY_DELETION -> Known.GDPR_PRIVACY_DELETION
                 else -> throw HubSpotInvalidDataException("Unknown SubscriptionType: $value")
             }
 

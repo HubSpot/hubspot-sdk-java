@@ -38,6 +38,7 @@ private constructor(
     private val calculationFormula: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdUserId: JsonField<String>,
+    private val currencyPropertyName: JsonField<String>,
     private val dataSensitivity: JsonField<DataSensitivity>,
     private val dateDisplayHint: JsonField<DateDisplayHint>,
     private val displayOrder: JsonField<Int>,
@@ -47,6 +48,7 @@ private constructor(
     private val hidden: JsonField<Boolean>,
     private val hubSpotDefined: JsonField<Boolean>,
     private val modificationMetadata: JsonField<PropertyModificationMetadata>,
+    private val numberDisplayHint: JsonField<NumberDisplayHint>,
     private val referencedObjectType: JsonField<String>,
     private val sensitiveDataCategories: JsonField<List<String>>,
     private val showCurrencySymbol: JsonField<Boolean>,
@@ -84,6 +86,9 @@ private constructor(
         @JsonProperty("createdUserId")
         @ExcludeMissing
         createdUserId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currencyPropertyName")
+        @ExcludeMissing
+        currencyPropertyName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("dataSensitivity")
         @ExcludeMissing
         dataSensitivity: JsonField<DataSensitivity> = JsonMissing.of(),
@@ -107,6 +112,9 @@ private constructor(
         @JsonProperty("modificationMetadata")
         @ExcludeMissing
         modificationMetadata: JsonField<PropertyModificationMetadata> = JsonMissing.of(),
+        @JsonProperty("numberDisplayHint")
+        @ExcludeMissing
+        numberDisplayHint: JsonField<NumberDisplayHint> = JsonMissing.of(),
         @JsonProperty("referencedObjectType")
         @ExcludeMissing
         referencedObjectType: JsonField<String> = JsonMissing.of(),
@@ -136,6 +144,7 @@ private constructor(
         calculationFormula,
         createdAt,
         createdUserId,
+        currencyPropertyName,
         dataSensitivity,
         dateDisplayHint,
         displayOrder,
@@ -145,6 +154,7 @@ private constructor(
         hidden,
         hubSpotDefined,
         modificationMetadata,
+        numberDisplayHint,
         referencedObjectType,
         sensitiveDataCategories,
         showCurrencySymbol,
@@ -236,6 +246,13 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun currencyPropertyName(): Optional<String> =
+        currencyPropertyName.getOptional("currencyPropertyName")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun dataSensitivity(): Optional<DataSensitivity> =
         dataSensitivity.getOptional("dataSensitivity")
 
@@ -288,6 +305,13 @@ private constructor(
      */
     fun modificationMetadata(): Optional<PropertyModificationMetadata> =
         modificationMetadata.getOptional("modificationMetadata")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun numberDisplayHint(): Optional<NumberDisplayHint> =
+        numberDisplayHint.getOptional("numberDisplayHint")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -423,6 +447,16 @@ private constructor(
     fun _createdUserId(): JsonField<String> = createdUserId
 
     /**
+     * Returns the raw JSON value of [currencyPropertyName].
+     *
+     * Unlike [currencyPropertyName], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("currencyPropertyName")
+    @ExcludeMissing
+    fun _currencyPropertyName(): JsonField<String> = currencyPropertyName
+
+    /**
      * Returns the raw JSON value of [dataSensitivity].
      *
      * Unlike [dataSensitivity], this method doesn't throw if the JSON field has an unexpected type.
@@ -497,6 +531,16 @@ private constructor(
     @JsonProperty("modificationMetadata")
     @ExcludeMissing
     fun _modificationMetadata(): JsonField<PropertyModificationMetadata> = modificationMetadata
+
+    /**
+     * Returns the raw JSON value of [numberDisplayHint].
+     *
+     * Unlike [numberDisplayHint], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("numberDisplayHint")
+    @ExcludeMissing
+    fun _numberDisplayHint(): JsonField<NumberDisplayHint> = numberDisplayHint
 
     /**
      * Returns the raw JSON value of [referencedObjectType].
@@ -593,6 +637,7 @@ private constructor(
         private var calculationFormula: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdUserId: JsonField<String> = JsonMissing.of()
+        private var currencyPropertyName: JsonField<String> = JsonMissing.of()
         private var dataSensitivity: JsonField<DataSensitivity> = JsonMissing.of()
         private var dateDisplayHint: JsonField<DateDisplayHint> = JsonMissing.of()
         private var displayOrder: JsonField<Int> = JsonMissing.of()
@@ -602,6 +647,7 @@ private constructor(
         private var hidden: JsonField<Boolean> = JsonMissing.of()
         private var hubSpotDefined: JsonField<Boolean> = JsonMissing.of()
         private var modificationMetadata: JsonField<PropertyModificationMetadata> = JsonMissing.of()
+        private var numberDisplayHint: JsonField<NumberDisplayHint> = JsonMissing.of()
         private var referencedObjectType: JsonField<String> = JsonMissing.of()
         private var sensitiveDataCategories: JsonField<MutableList<String>>? = null
         private var showCurrencySymbol: JsonField<Boolean> = JsonMissing.of()
@@ -624,6 +670,7 @@ private constructor(
             calculationFormula = property1.calculationFormula
             createdAt = property1.createdAt
             createdUserId = property1.createdUserId
+            currencyPropertyName = property1.currencyPropertyName
             dataSensitivity = property1.dataSensitivity
             dateDisplayHint = property1.dateDisplayHint
             displayOrder = property1.displayOrder
@@ -633,6 +680,7 @@ private constructor(
             hidden = property1.hidden
             hubSpotDefined = property1.hubSpotDefined
             modificationMetadata = property1.modificationMetadata
+            numberDisplayHint = property1.numberDisplayHint
             referencedObjectType = property1.referencedObjectType
             sensitiveDataCategories = property1.sensitiveDataCategories.map { it.toMutableList() }
             showCurrencySymbol = property1.showCurrencySymbol
@@ -802,6 +850,20 @@ private constructor(
             this.createdUserId = createdUserId
         }
 
+        fun currencyPropertyName(currencyPropertyName: String) =
+            currencyPropertyName(JsonField.of(currencyPropertyName))
+
+        /**
+         * Sets [Builder.currencyPropertyName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currencyPropertyName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun currencyPropertyName(currencyPropertyName: JsonField<String>) = apply {
+            this.currencyPropertyName = currencyPropertyName
+        }
+
         fun dataSensitivity(dataSensitivity: DataSensitivity) =
             dataSensitivity(JsonField.of(dataSensitivity))
 
@@ -916,6 +978,20 @@ private constructor(
             apply {
                 this.modificationMetadata = modificationMetadata
             }
+
+        fun numberDisplayHint(numberDisplayHint: NumberDisplayHint) =
+            numberDisplayHint(JsonField.of(numberDisplayHint))
+
+        /**
+         * Sets [Builder.numberDisplayHint] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.numberDisplayHint] with a well-typed [NumberDisplayHint]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun numberDisplayHint(numberDisplayHint: JsonField<NumberDisplayHint>) = apply {
+            this.numberDisplayHint = numberDisplayHint
+        }
 
         fun referencedObjectType(referencedObjectType: String) =
             referencedObjectType(JsonField.of(referencedObjectType))
@@ -1047,6 +1123,7 @@ private constructor(
                 calculationFormula,
                 createdAt,
                 createdUserId,
+                currencyPropertyName,
                 dataSensitivity,
                 dateDisplayHint,
                 displayOrder,
@@ -1056,6 +1133,7 @@ private constructor(
                 hidden,
                 hubSpotDefined,
                 modificationMetadata,
+                numberDisplayHint,
                 referencedObjectType,
                 (sensitiveDataCategories ?: JsonMissing.of()).map { it.toImmutable() },
                 showCurrencySymbol,
@@ -1085,6 +1163,7 @@ private constructor(
         calculationFormula()
         createdAt()
         createdUserId()
+        currencyPropertyName()
         dataSensitivity().ifPresent { it.validate() }
         dateDisplayHint().ifPresent { it.validate() }
         displayOrder()
@@ -1094,6 +1173,7 @@ private constructor(
         hidden()
         hubSpotDefined()
         modificationMetadata().ifPresent { it.validate() }
+        numberDisplayHint().ifPresent { it.validate() }
         referencedObjectType()
         sensitiveDataCategories()
         showCurrencySymbol()
@@ -1130,6 +1210,7 @@ private constructor(
             (if (calculationFormula.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (createdUserId.asKnown().isPresent) 1 else 0) +
+            (if (currencyPropertyName.asKnown().isPresent) 1 else 0) +
             (dataSensitivity.asKnown().getOrNull()?.validity() ?: 0) +
             (dateDisplayHint.asKnown().getOrNull()?.validity() ?: 0) +
             (if (displayOrder.asKnown().isPresent) 1 else 0) +
@@ -1139,6 +1220,7 @@ private constructor(
             (if (hidden.asKnown().isPresent) 1 else 0) +
             (if (hubSpotDefined.asKnown().isPresent) 1 else 0) +
             (modificationMetadata.asKnown().getOrNull()?.validity() ?: 0) +
+            (numberDisplayHint.asKnown().getOrNull()?.validity() ?: 0) +
             (if (referencedObjectType.asKnown().isPresent) 1 else 0) +
             (sensitiveDataCategories.asKnown().getOrNull()?.size ?: 0) +
             (if (showCurrencySymbol.asKnown().isPresent) 1 else 0) +
@@ -1421,6 +1503,159 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class NumberDisplayHint @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val CURRENCY = of("currency")
+
+            @JvmField val DURATION = of("duration")
+
+            @JvmField val FORMATTED = of("formatted")
+
+            @JvmField val PERCENTAGE = of("percentage")
+
+            @JvmField val PROBABILITY = of("probability")
+
+            @JvmField val UNFORMATTED = of("unformatted")
+
+            @JvmStatic fun of(value: String) = NumberDisplayHint(JsonField.of(value))
+        }
+
+        /** An enum containing [NumberDisplayHint]'s known values. */
+        enum class Known {
+            CURRENCY,
+            DURATION,
+            FORMATTED,
+            PERCENTAGE,
+            PROBABILITY,
+            UNFORMATTED,
+        }
+
+        /**
+         * An enum containing [NumberDisplayHint]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [NumberDisplayHint] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            CURRENCY,
+            DURATION,
+            FORMATTED,
+            PERCENTAGE,
+            PROBABILITY,
+            UNFORMATTED,
+            /**
+             * An enum member indicating that [NumberDisplayHint] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                CURRENCY -> Value.CURRENCY
+                DURATION -> Value.DURATION
+                FORMATTED -> Value.FORMATTED
+                PERCENTAGE -> Value.PERCENTAGE
+                PROBABILITY -> Value.PROBABILITY
+                UNFORMATTED -> Value.UNFORMATTED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                CURRENCY -> Known.CURRENCY
+                DURATION -> Known.DURATION
+                FORMATTED -> Known.FORMATTED
+                PERCENTAGE -> Known.PERCENTAGE
+                PROBABILITY -> Known.PROBABILITY
+                UNFORMATTED -> Known.UNFORMATTED
+                else -> throw HubSpotInvalidDataException("Unknown NumberDisplayHint: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): NumberDisplayHint = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubSpotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NumberDisplayHint && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -1440,6 +1675,7 @@ private constructor(
             calculationFormula == other.calculationFormula &&
             createdAt == other.createdAt &&
             createdUserId == other.createdUserId &&
+            currencyPropertyName == other.currencyPropertyName &&
             dataSensitivity == other.dataSensitivity &&
             dateDisplayHint == other.dateDisplayHint &&
             displayOrder == other.displayOrder &&
@@ -1449,6 +1685,7 @@ private constructor(
             hidden == other.hidden &&
             hubSpotDefined == other.hubSpotDefined &&
             modificationMetadata == other.modificationMetadata &&
+            numberDisplayHint == other.numberDisplayHint &&
             referencedObjectType == other.referencedObjectType &&
             sensitiveDataCategories == other.sensitiveDataCategories &&
             showCurrencySymbol == other.showCurrencySymbol &&
@@ -1472,6 +1709,7 @@ private constructor(
             calculationFormula,
             createdAt,
             createdUserId,
+            currencyPropertyName,
             dataSensitivity,
             dateDisplayHint,
             displayOrder,
@@ -1481,6 +1719,7 @@ private constructor(
             hidden,
             hubSpotDefined,
             modificationMetadata,
+            numberDisplayHint,
             referencedObjectType,
             sensitiveDataCategories,
             showCurrencySymbol,
@@ -1493,5 +1732,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Property1{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, modificationMetadata=$modificationMetadata, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
+        "Property1{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, currencyPropertyName=$currencyPropertyName, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, modificationMetadata=$modificationMetadata, numberDisplayHint=$numberDisplayHint, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
 }
