@@ -88,7 +88,7 @@ jobs:
   test:
     timeout-minutes: 30
     name: test
-    runs-on: ${{ (github.repository == 'stainless-sdks/hubspot-sdk-java' || github.repository == 'HubSpot/hubspot-sdk-java') && 'depot-ubuntu-24.04-4' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository == 'stainless-sdks/hubspot-sdk-java' && 'depot-ubuntu-24.04-4' || 'ubuntu-latest' }}
     if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
       - uses: actions/checkout@v6
