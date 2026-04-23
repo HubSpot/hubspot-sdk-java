@@ -21,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 class AgentRequestContext
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val agentId: JsonField<Int>,
+    private val agentId: JsonField<Long>,
     private val chirpAiContextObject: JsonField<ChirpAiContextObject>,
     private val source: JsonField<Source>,
     private val trajectoryId: JsonField<String>,
@@ -30,7 +30,7 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("agentId") @ExcludeMissing agentId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("agentId") @ExcludeMissing agentId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("chirpAiContextObject")
         @ExcludeMissing
         chirpAiContextObject: JsonField<ChirpAiContextObject> = JsonMissing.of(),
@@ -46,7 +46,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun agentId(): Int = agentId.getRequired("agentId")
+    fun agentId(): Long = agentId.getRequired("agentId")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -76,7 +76,7 @@ private constructor(
      *
      * Unlike [agentId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("agentId") @ExcludeMissing fun _agentId(): JsonField<Int> = agentId
+    @JsonProperty("agentId") @ExcludeMissing fun _agentId(): JsonField<Long> = agentId
 
     /**
      * Returns the raw JSON value of [chirpAiContextObject].
@@ -134,7 +134,7 @@ private constructor(
     /** A builder for [AgentRequestContext]. */
     class Builder internal constructor() {
 
-        private var agentId: JsonField<Int>? = null
+        private var agentId: JsonField<Long>? = null
         private var chirpAiContextObject: JsonField<ChirpAiContextObject>? = null
         private var source: JsonField<Source>? = null
         private var trajectoryId: JsonField<String> = JsonMissing.of()
@@ -150,15 +150,15 @@ private constructor(
         }
 
         /** The unique identifier for the agent making the request. */
-        fun agentId(agentId: Int) = agentId(JsonField.of(agentId))
+        fun agentId(agentId: Long) = agentId(JsonField.of(agentId))
 
         /**
          * Sets [Builder.agentId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.agentId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.agentId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun agentId(agentId: JsonField<Int>) = apply { this.agentId = agentId }
+        fun agentId(agentId: JsonField<Long>) = apply { this.agentId = agentId }
 
         fun chirpAiContextObject(chirpAiContextObject: ChirpAiContextObject) =
             chirpAiContextObject(JsonField.of(chirpAiContextObject))

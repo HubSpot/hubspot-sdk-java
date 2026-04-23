@@ -23,7 +23,7 @@ internal class CollectionResponseWithTotalHubDbTableV3Test {
                         .id("id")
                         .allowChildTables(true)
                         .allowPublicApiAccess(true)
-                        .columnCount(0)
+                        .columnCount(0L)
                         .addColumn(
                             Column.builder()
                                 .id("id")
@@ -77,7 +77,7 @@ internal class CollectionResponseWithTotalHubDbTableV3Test {
                                 .foreignTableId(0L)
                                 .optionCount(0)
                                 .addOption(
-                                    Option.builder()
+                                    HubdbOption.builder()
                                         .id("id")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .label("label")
@@ -168,7 +168,7 @@ internal class CollectionResponseWithTotalHubDbTableV3Test {
                     .id("id")
                     .allowChildTables(true)
                     .allowPublicApiAccess(true)
-                    .columnCount(0)
+                    .columnCount(0L)
                     .addColumn(
                         Column.builder()
                             .id("id")
@@ -214,7 +214,7 @@ internal class CollectionResponseWithTotalHubDbTableV3Test {
                             .foreignTableId(0L)
                             .optionCount(0)
                             .addOption(
-                                Option.builder()
+                                HubdbOption.builder()
                                     .id("id")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .label("label")
@@ -310,7 +310,7 @@ internal class CollectionResponseWithTotalHubDbTableV3Test {
                         .id("id")
                         .allowChildTables(true)
                         .allowPublicApiAccess(true)
-                        .columnCount(0)
+                        .columnCount(0L)
                         .addColumn(
                             Column.builder()
                                 .id("id")
@@ -364,7 +364,7 @@ internal class CollectionResponseWithTotalHubDbTableV3Test {
                                 .foreignTableId(0L)
                                 .optionCount(0)
                                 .addOption(
-                                    Option.builder()
+                                    HubdbOption.builder()
                                         .id("id")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .label("label")

@@ -5,7 +5,7 @@ package com.hubspot.sdk.models.cms.hubdb.tables
 import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.models.cms.hubdb.ColumnRequest
 import com.hubspot.sdk.models.cms.hubdb.HubDbTableV3Request
-import com.hubspot.sdk.models.cms.hubdb.Option
+import com.hubspot.sdk.models.cms.hubdb.HubdbOption
 import com.hubspot.sdk.models.cms.hubdb.SimpleUser
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -26,7 +26,7 @@ internal class TableCreateParamsTest {
                             .label("label")
                             .name("name")
                             .addOption(
-                                Option.builder()
+                                HubdbOption.builder()
                                     .id("id")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .label("label")
@@ -89,7 +89,7 @@ internal class TableCreateParamsTest {
                                 .label("label")
                                 .name("name")
                                 .addOption(
-                                    Option.builder()
+                                    HubdbOption.builder()
                                         .id("id")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .label("label")
@@ -150,7 +150,7 @@ internal class TableCreateParamsTest {
                             .label("label")
                             .name("name")
                             .addOption(
-                                Option.builder()
+                                HubdbOption.builder()
                                     .id("id")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .label("label")
@@ -212,7 +212,7 @@ internal class TableCreateParamsTest {
                                 .label("label")
                                 .name("name")
                                 .addOption(
-                                    Option.builder()
+                                    HubdbOption.builder()
                                         .id("id")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .label("label")
@@ -251,7 +251,7 @@ internal class TableCreateParamsTest {
                             .label("label")
                             .name("name")
                             .addOption(
-                                Option.builder()
+                                HubdbOption.builder()
                                     .id("id")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .label("label")

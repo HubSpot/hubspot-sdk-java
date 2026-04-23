@@ -27,9 +27,9 @@ internal class TranscriptServiceAsyncTest {
                     .engagementId(0L)
                     .addTranscriptCreateUtterance(
                         TranscriptCreateUtterance.builder()
-                            .endTimeMillis(0)
+                            .endTimeMillis(0L)
                             .speaker(Speaker.builder().id("id").name("name").email("email").build())
-                            .startTimeMillis(0)
+                            .startTimeMillis(0L)
                             .text("text")
                             .languageCode("languageCode")
                             .build()

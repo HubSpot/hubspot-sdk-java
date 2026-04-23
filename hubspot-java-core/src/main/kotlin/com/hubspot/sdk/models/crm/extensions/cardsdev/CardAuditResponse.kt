@@ -25,7 +25,7 @@ private constructor(
     private val authSource: JsonField<AuthSource>,
     private val changedAt: JsonField<Long>,
     private val initiatingUserId: JsonField<Int>,
-    private val objectTypeId: JsonField<Int>,
+    private val objectTypeId: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -46,7 +46,7 @@ private constructor(
         initiatingUserId: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("objectTypeId")
         @ExcludeMissing
-        objectTypeId: JsonField<Int> = JsonMissing.of(),
+        objectTypeId: JsonField<Long> = JsonMissing.of(),
     ) : this(
         actionType,
         applicationId,
@@ -103,7 +103,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun objectTypeId(): Int = objectTypeId.getRequired("objectTypeId")
+    fun objectTypeId(): Long = objectTypeId.getRequired("objectTypeId")
 
     /**
      * Returns the raw JSON value of [actionType].
@@ -154,7 +154,9 @@ private constructor(
      *
      * Unlike [objectTypeId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("objectTypeId") @ExcludeMissing fun _objectTypeId(): JsonField<Int> = objectTypeId
+    @JsonProperty("objectTypeId")
+    @ExcludeMissing
+    fun _objectTypeId(): JsonField<Long> = objectTypeId
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -194,7 +196,7 @@ private constructor(
         private var authSource: JsonField<AuthSource>? = null
         private var changedAt: JsonField<Long>? = null
         private var initiatingUserId: JsonField<Int>? = null
-        private var objectTypeId: JsonField<Int>? = null
+        private var objectTypeId: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -276,16 +278,16 @@ private constructor(
         }
 
         /** The ID of the card. */
-        fun objectTypeId(objectTypeId: Int) = objectTypeId(JsonField.of(objectTypeId))
+        fun objectTypeId(objectTypeId: Long) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
          * Sets [Builder.objectTypeId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.objectTypeId] with a well-typed [Int] value instead.
+         * You should usually call [Builder.objectTypeId] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun objectTypeId(objectTypeId: JsonField<Int>) = apply { this.objectTypeId = objectTypeId }
+        fun objectTypeId(objectTypeId: JsonField<Long>) = apply { this.objectTypeId = objectTypeId }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

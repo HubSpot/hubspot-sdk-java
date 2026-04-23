@@ -7,8 +7,8 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.AssociationDefinition
-import com.hubspot.sdk.models.ObjectTypeDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
+import com.hubspot.sdk.models.BaseObjectTypeDefinition
 import com.hubspot.sdk.models.crm.objectschemas.CollectionResponseObjectSchemaNoPaging
 import com.hubspot.sdk.models.crm.objectschemas.ObjectSchema
 import com.hubspot.sdk.models.crm.objectschemas.ObjectSchemaCreateAssociationParams
@@ -66,7 +66,7 @@ interface ObjectSchemaService {
      * Update attributes of a custom object schema, such as properties and labels, using the object
      * type ID or fully qualified name.
      */
-    fun update(objectType: String, params: ObjectSchemaUpdateParams): ObjectTypeDefinition =
+    fun update(objectType: String, params: ObjectSchemaUpdateParams): BaseObjectTypeDefinition =
         update(objectType, params, RequestOptions.none())
 
     /** @see update */
@@ -74,18 +74,18 @@ interface ObjectSchemaService {
         objectType: String,
         params: ObjectSchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ObjectTypeDefinition =
+    ): BaseObjectTypeDefinition =
         update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ObjectSchemaUpdateParams): ObjectTypeDefinition =
+    fun update(params: ObjectSchemaUpdateParams): BaseObjectTypeDefinition =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ObjectSchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ObjectTypeDefinition
+    ): BaseObjectTypeDefinition
 
     /**
      * Retrieve all custom object schemas, with options to include property definitions, association
@@ -148,25 +148,25 @@ interface ObjectSchemaService {
     fun createAssociation(
         objectType: String,
         params: ObjectSchemaCreateAssociationParams,
-    ): AssociationDefinition = createAssociation(objectType, params, RequestOptions.none())
+    ): BaseAssociationDefinition = createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         objectType: String,
         params: ObjectSchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssociationDefinition =
+    ): BaseAssociationDefinition =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
-    fun createAssociation(params: ObjectSchemaCreateAssociationParams): AssociationDefinition =
+    fun createAssociation(params: ObjectSchemaCreateAssociationParams): BaseAssociationDefinition =
         createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: ObjectSchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssociationDefinition
+    ): BaseAssociationDefinition
 
     /**
      * Remove an association between two object types identified by the association identifier and
@@ -286,7 +286,8 @@ interface ObjectSchemaService {
         fun update(
             objectType: String,
             params: ObjectSchemaUpdateParams,
-        ): HttpResponseFor<ObjectTypeDefinition> = update(objectType, params, RequestOptions.none())
+        ): HttpResponseFor<BaseObjectTypeDefinition> =
+            update(objectType, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -294,12 +295,12 @@ interface ObjectSchemaService {
             objectType: String,
             params: ObjectSchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ObjectTypeDefinition> =
+        ): HttpResponseFor<BaseObjectTypeDefinition> =
             update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: ObjectSchemaUpdateParams): HttpResponseFor<ObjectTypeDefinition> =
+        fun update(params: ObjectSchemaUpdateParams): HttpResponseFor<BaseObjectTypeDefinition> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -307,7 +308,7 @@ interface ObjectSchemaService {
         fun update(
             params: ObjectSchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ObjectTypeDefinition>
+        ): HttpResponseFor<BaseObjectTypeDefinition>
 
         /**
          * Returns a raw HTTP response for `get /crm-object-schemas/2026-03/schemas`, but is
@@ -388,7 +389,7 @@ interface ObjectSchemaService {
         fun createAssociation(
             objectType: String,
             params: ObjectSchemaCreateAssociationParams,
-        ): HttpResponseFor<AssociationDefinition> =
+        ): HttpResponseFor<BaseAssociationDefinition> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -397,21 +398,22 @@ interface ObjectSchemaService {
             objectType: String,
             params: ObjectSchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssociationDefinition> =
+        ): HttpResponseFor<BaseAssociationDefinition> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: ObjectSchemaCreateAssociationParams
-        ): HttpResponseFor<AssociationDefinition> = createAssociation(params, RequestOptions.none())
+        ): HttpResponseFor<BaseAssociationDefinition> =
+            createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: ObjectSchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssociationDefinition>
+        ): HttpResponseFor<BaseAssociationDefinition>
 
         /**
          * Returns a raw HTTP response for `delete

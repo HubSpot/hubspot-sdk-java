@@ -18,18 +18,18 @@ import java.util.Objects
 class LimitAndUsageForObjectType
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val limit: JsonField<Int>,
+    private val limit: JsonField<Long>,
     private val objectTypeId: JsonField<String>,
     private val percentage: JsonField<Double>,
     private val pluralLabel: JsonField<String>,
     private val singularLabel: JsonField<String>,
-    private val usage: JsonField<Int>,
+    private val usage: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("limit") @ExcludeMissing limit: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("limit") @ExcludeMissing limit: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("objectTypeId")
         @ExcludeMissing
         objectTypeId: JsonField<String> = JsonMissing.of(),
@@ -42,7 +42,7 @@ private constructor(
         @JsonProperty("singularLabel")
         @ExcludeMissing
         singularLabel: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Long> = JsonMissing.of(),
     ) : this(limit, objectTypeId, percentage, pluralLabel, singularLabel, usage, mutableMapOf())
 
     /**
@@ -51,7 +51,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun limit(): Int = limit.getRequired("limit")
+    fun limit(): Long = limit.getRequired("limit")
 
     /**
      * The unique identifier for the object type.
@@ -91,14 +91,14 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun usage(): Int = usage.getRequired("usage")
+    fun usage(): Long = usage.getRequired("usage")
 
     /**
      * Returns the raw JSON value of [limit].
      *
      * Unlike [limit], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("limit") @ExcludeMissing fun _limit(): JsonField<Int> = limit
+    @JsonProperty("limit") @ExcludeMissing fun _limit(): JsonField<Long> = limit
 
     /**
      * Returns the raw JSON value of [objectTypeId].
@@ -137,7 +137,7 @@ private constructor(
      *
      * Unlike [usage], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Int> = usage
+    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Long> = usage
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -172,12 +172,12 @@ private constructor(
     /** A builder for [LimitAndUsageForObjectType]. */
     class Builder internal constructor() {
 
-        private var limit: JsonField<Int>? = null
+        private var limit: JsonField<Long>? = null
         private var objectTypeId: JsonField<String>? = null
         private var percentage: JsonField<Double>? = null
         private var pluralLabel: JsonField<String>? = null
         private var singularLabel: JsonField<String>? = null
-        private var usage: JsonField<Int>? = null
+        private var usage: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -192,15 +192,15 @@ private constructor(
         }
 
         /** The maximum allowed count for the object type. */
-        fun limit(limit: Int) = limit(JsonField.of(limit))
+        fun limit(limit: Long) = limit(JsonField.of(limit))
 
         /**
          * Sets [Builder.limit] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.limit] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.limit] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun limit(limit: JsonField<Int>) = apply { this.limit = limit }
+        fun limit(limit: JsonField<Long>) = apply { this.limit = limit }
 
         /** The unique identifier for the object type. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
@@ -255,15 +255,15 @@ private constructor(
         }
 
         /** The current usage count for the object type. */
-        fun usage(usage: Int) = usage(JsonField.of(usage))
+        fun usage(usage: Long) = usage(JsonField.of(usage))
 
         /**
          * Sets [Builder.usage] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.usage] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.usage] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun usage(usage: JsonField<Int>) = apply { this.usage = usage }
+        fun usage(usage: JsonField<Long>) = apply { this.usage = usage }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

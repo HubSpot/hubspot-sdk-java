@@ -53,8 +53,8 @@ private constructor(
         associatedObjectTypeIds.getOptional("associatedObjectTypeIds")
 
     /**
-     * An array of integers representing list IDs that are affected by the action override. These
-     * IDs are in int64 format.
+     * An array of integers representing list IDs that are associated with the action override. The
+     * integers are in int64 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -63,7 +63,7 @@ private constructor(
 
     /**
      * An array of integers, each representing an object ID for which the action override is
-     * applicable. These IDs are in int64 format.
+     * applicable. The integers are in int64 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -71,8 +71,8 @@ private constructor(
     fun objectIds(): Optional<List<Long>> = objectIds.getOptional("objectIds")
 
     /**
-     * An array of strings representing specific properties to be overridden in the action. Each
-     * entry in the array corresponds to a property name.
+     * An array of strings representing the properties to be overridden in the action. Each string
+     * corresponds to a property name.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -180,8 +180,8 @@ private constructor(
         }
 
         /**
-         * An array of integers representing list IDs that are affected by the action override.
-         * These IDs are in int64 format.
+         * An array of integers representing list IDs that are associated with the action override.
+         * The integers are in int64 format.
          */
         fun listIds(listIds: List<Long>) = listIds(JsonField.of(listIds))
 
@@ -210,7 +210,7 @@ private constructor(
 
         /**
          * An array of integers, each representing an object ID for which the action override is
-         * applicable. These IDs are in int64 format.
+         * applicable. The integers are in int64 format.
          */
         fun objectIds(objectIds: List<Long>) = objectIds(JsonField.of(objectIds))
 
@@ -238,8 +238,8 @@ private constructor(
         }
 
         /**
-         * An array of strings representing specific properties to be overridden in the action. Each
-         * entry in the array corresponds to a property name.
+         * An array of strings representing the properties to be overridden in the action. Each
+         * string corresponds to a property name.
          */
         fun properties(properties: List<String>) = properties(JsonField.of(properties))
 

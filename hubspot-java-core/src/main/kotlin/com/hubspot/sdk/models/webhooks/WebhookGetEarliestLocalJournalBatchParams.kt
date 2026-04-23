@@ -10,9 +10,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the earliest batch of webhook journal entries up to a specified count. This endpoint is
- * useful for accessing the oldest records available in the webhook journal, allowing you to process
- * or analyze historical webhook data.
+ * Retrieve the earliest batch of webhook journal entries based on the specified count. This
+ * endpoint is useful for fetching a specific number of the earliest entries in the webhook journal
+ * for analysis or processing.
  */
 class WebhookGetEarliestLocalJournalBatchParams
 private constructor(
@@ -24,10 +24,7 @@ private constructor(
 
     fun count(): Optional<Int> = Optional.ofNullable(count)
 
-    /**
-     * The ID of the portal installation to filter the webhook journal entries. It is an integer
-     * value.
-     */
+    /** The ID of the portal where the webhooks are installed. This is an integer value. */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
     /** Additional headers to send with the request. */
@@ -81,10 +78,7 @@ private constructor(
         /** Alias for calling [Builder.count] with `count.orElse(null)`. */
         fun count(count: Optional<Int>) = count(count.getOrNull())
 
-        /**
-         * The ID of the portal installation to filter the webhook journal entries. It is an integer
-         * value.
-         */
+        /** The ID of the portal where the webhooks are installed. This is an integer value. */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId
         }

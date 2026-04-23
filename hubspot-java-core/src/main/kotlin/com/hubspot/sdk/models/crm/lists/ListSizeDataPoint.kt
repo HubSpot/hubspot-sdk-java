@@ -19,14 +19,14 @@ import java.util.Objects
 class ListSizeDataPoint
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val size: JsonField<Int>,
+    private val size: JsonField<Long>,
     private val timestamp: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("size") @ExcludeMissing size: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("size") @ExcludeMissing size: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("timestamp")
         @ExcludeMissing
         timestamp: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -36,7 +36,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun size(): Int = size.getRequired("size")
+    fun size(): Long = size.getRequired("size")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -49,7 +49,7 @@ private constructor(
      *
      * Unlike [size], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("size") @ExcludeMissing fun _size(): JsonField<Int> = size
+    @JsonProperty("size") @ExcludeMissing fun _size(): JsonField<Long> = size
 
     /**
      * Returns the raw JSON value of [timestamp].
@@ -89,7 +89,7 @@ private constructor(
     /** A builder for [ListSizeDataPoint]. */
     class Builder internal constructor() {
 
-        private var size: JsonField<Int>? = null
+        private var size: JsonField<Long>? = null
         private var timestamp: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -100,15 +100,15 @@ private constructor(
             additionalProperties = listSizeDataPoint.additionalProperties.toMutableMap()
         }
 
-        fun size(size: Int) = size(JsonField.of(size))
+        fun size(size: Long) = size(JsonField.of(size))
 
         /**
          * Sets [Builder.size] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.size] with a well-typed [Int] value instead. This method
-         * is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.size] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun size(size: JsonField<Int>) = apply { this.size = size }
+        fun size(size: JsonField<Long>) = apply { this.size = size }
 
         fun timestamp(timestamp: OffsetDateTime) = timestamp(JsonField.of(timestamp))
 

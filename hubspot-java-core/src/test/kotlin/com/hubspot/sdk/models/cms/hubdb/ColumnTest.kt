@@ -53,7 +53,7 @@ internal class ColumnTest {
                 .foreignTableId(0L)
                 .optionCount(0)
                 .addOption(
-                    Option.builder()
+                    HubdbOption.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .label("label")
@@ -136,7 +136,7 @@ internal class ColumnTest {
         assertThat(column.optionCount()).contains(0)
         assertThat(column.options().getOrNull())
             .containsExactly(
-                Option.builder()
+                HubdbOption.builder()
                     .id("id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .label("label")
@@ -220,7 +220,7 @@ internal class ColumnTest {
                 .foreignTableId(0L)
                 .optionCount(0)
                 .addOption(
-                    Option.builder()
+                    HubdbOption.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .label("label")

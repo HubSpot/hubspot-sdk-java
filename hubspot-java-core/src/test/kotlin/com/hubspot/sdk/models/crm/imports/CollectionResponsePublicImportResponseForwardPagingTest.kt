@@ -46,7 +46,7 @@ internal class CollectionResponsePublicImportResponseForwardPagingTest {
                         .importSource(PublicImportResponse.ImportSource.API)
                         .importTemplate(
                             ImportTemplate.builder()
-                                .templateId(0)
+                                .templateId(0L)
                                 .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                                 .build()
                         )
@@ -89,7 +89,7 @@ internal class CollectionResponsePublicImportResponseForwardPagingTest {
                     .importSource(PublicImportResponse.ImportSource.API)
                     .importTemplate(
                         ImportTemplate.builder()
-                            .templateId(0)
+                            .templateId(0L)
                             .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                             .build()
                     )
@@ -137,7 +137,7 @@ internal class CollectionResponsePublicImportResponseForwardPagingTest {
                         .importSource(PublicImportResponse.ImportSource.API)
                         .importTemplate(
                             ImportTemplate.builder()
-                                .templateId(0)
+                                .templateId(0L)
                                 .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                                 .build()
                         )

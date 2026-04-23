@@ -30,7 +30,7 @@ private constructor(
     ) : this(id, active, mutableMapOf())
 
     /**
-     * The unique identifier for the subscription to be updated. It is an integer.
+     * The unique identifier for the subscription. It is an integer.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -101,7 +101,7 @@ private constructor(
                 subscriptionBatchUpdateRequest.additionalProperties.toMutableMap()
         }
 
-        /** The unique identifier for the subscription to be updated. It is an integer. */
+        /** The unique identifier for the subscription. It is an integer. */
         fun id(id: Int) = id(JsonField.of(id))
 
         /**

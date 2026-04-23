@@ -21,10 +21,10 @@ class PublicRangedNumberPropertyOperation
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val includeObjectsWithNoValueSet: JsonField<Boolean>,
-    private val lowerBound: JsonField<Int>,
+    private val lowerBound: JsonField<Long>,
     private val operationType: JsonField<OperationType>,
     private val operator: JsonField<String>,
-    private val upperBound: JsonField<Int>,
+    private val upperBound: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,12 +33,12 @@ private constructor(
         @JsonProperty("includeObjectsWithNoValueSet")
         @ExcludeMissing
         includeObjectsWithNoValueSet: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("lowerBound") @ExcludeMissing lowerBound: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("lowerBound") @ExcludeMissing lowerBound: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("operationType")
         @ExcludeMissing
         operationType: JsonField<OperationType> = JsonMissing.of(),
         @JsonProperty("operator") @ExcludeMissing operator: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("upperBound") @ExcludeMissing upperBound: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("upperBound") @ExcludeMissing upperBound: JsonField<Long> = JsonMissing.of(),
     ) : this(
         includeObjectsWithNoValueSet,
         lowerBound,
@@ -64,7 +64,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun lowerBound(): Int = lowerBound.getRequired("lowerBound")
+    fun lowerBound(): Long = lowerBound.getRequired("lowerBound")
 
     /**
      * Specifies the type of operation (NUMBER_RANGED).
@@ -89,7 +89,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun upperBound(): Int = upperBound.getRequired("upperBound")
+    fun upperBound(): Long = upperBound.getRequired("upperBound")
 
     /**
      * Returns the raw JSON value of [includeObjectsWithNoValueSet].
@@ -106,7 +106,7 @@ private constructor(
      *
      * Unlike [lowerBound], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("lowerBound") @ExcludeMissing fun _lowerBound(): JsonField<Int> = lowerBound
+    @JsonProperty("lowerBound") @ExcludeMissing fun _lowerBound(): JsonField<Long> = lowerBound
 
     /**
      * Returns the raw JSON value of [operationType].
@@ -129,7 +129,7 @@ private constructor(
      *
      * Unlike [upperBound], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("upperBound") @ExcludeMissing fun _upperBound(): JsonField<Int> = upperBound
+    @JsonProperty("upperBound") @ExcludeMissing fun _upperBound(): JsonField<Long> = upperBound
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -165,10 +165,10 @@ private constructor(
     class Builder internal constructor() {
 
         private var includeObjectsWithNoValueSet: JsonField<Boolean>? = null
-        private var lowerBound: JsonField<Int>? = null
+        private var lowerBound: JsonField<Long>? = null
         private var operationType: JsonField<OperationType>? = null
         private var operator: JsonField<String>? = null
-        private var upperBound: JsonField<Int>? = null
+        private var upperBound: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -204,15 +204,15 @@ private constructor(
         }
 
         /** The lower limit of the number range for the operation. */
-        fun lowerBound(lowerBound: Int) = lowerBound(JsonField.of(lowerBound))
+        fun lowerBound(lowerBound: Long) = lowerBound(JsonField.of(lowerBound))
 
         /**
          * Sets [Builder.lowerBound] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.lowerBound] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.lowerBound] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun lowerBound(lowerBound: JsonField<Int>) = apply { this.lowerBound = lowerBound }
+        fun lowerBound(lowerBound: JsonField<Long>) = apply { this.lowerBound = lowerBound }
 
         /** Specifies the type of operation (NUMBER_RANGED). */
         fun operationType(operationType: OperationType) = operationType(JsonField.of(operationType))
@@ -243,15 +243,15 @@ private constructor(
         fun operator(operator: JsonField<String>) = apply { this.operator = operator }
 
         /** The upper limit of the number range for the operation. */
-        fun upperBound(upperBound: Int) = upperBound(JsonField.of(upperBound))
+        fun upperBound(upperBound: Long) = upperBound(JsonField.of(upperBound))
 
         /**
          * Sets [Builder.upperBound] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.upperBound] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.upperBound] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun upperBound(upperBound: JsonField<Int>) = apply { this.upperBound = upperBound }
+        fun upperBound(upperBound: JsonField<Long>) = apply { this.upperBound = upperBound }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

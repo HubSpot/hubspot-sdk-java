@@ -4,11 +4,11 @@ package com.hubspot.sdk.models.events.definitions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
+import com.hubspot.sdk.models.BaseOption
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.NextPage
-import com.hubspot.sdk.models.Option
 import com.hubspot.sdk.models.Paging
 import com.hubspot.sdk.models.PreviousPage
-import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -25,11 +25,13 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                         .id("id")
                         .archived(true)
                         .addAssociation(
-                            AssociationDefinition.builder()
+                            DefinitionsAssociationDefinition.builder()
                                 .id(0)
                                 .allowsCustomLabels(true)
-                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
-                                .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
+                                .cardinality(
+                                    DefinitionsAssociationDefinition.Cardinality.ONE_TO_MANY
+                                )
+                                .category(DefinitionsAssociationDefinition.Category.HUBSPOT_DEFINED)
                                 .fromObjectTypeId("fromObjectTypeId")
                                 .hasAllAssociatedObjects(true)
                                 .hasCascadingDeletes(true)
@@ -38,7 +40,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .hidden(true)
                                 .inverseAllowsCustomLabels(true)
                                 .inverseCardinality(
-                                    AssociationDefinition.InverseCardinality.ONE_TO_MANY
+                                    DefinitionsAssociationDefinition.InverseCardinality.ONE_TO_MANY
                                 )
                                 .inverseHasAllAssociatedObjects(true)
                                 .inverseId(0)
@@ -52,11 +54,15 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .portalUniqueIdentifier("portalUniqueIdentifier")
                                 .readOnly(true)
                                 .toObjectTypeId("toObjectTypeId")
-                                .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
-                                .hiddenReason(AssociationDefinition.HiddenReason.DEFAULT)
+                                .fromObjectType(
+                                    DefinitionsAssociationDefinition.FromObjectType.ABANDONED_CART
+                                )
+                                .hiddenReason(DefinitionsAssociationDefinition.HiddenReason.DEFAULT)
                                 .inverseLabel("inverseLabel")
                                 .label("label")
-                                .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
+                                .toObjectType(
+                                    DefinitionsAssociationDefinition.ToObjectType.ABANDONED_CART
+                                )
                                 .build()
                         )
                         .fullyQualifiedName("fullyQualifiedName")
@@ -69,14 +75,14 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                         .name("name")
                         .objectTypeId("objectTypeId")
                         .addProperty(
-                            Property.builder()
+                            BaseProperty.builder()
                                 .description("description")
                                 .fieldType("fieldType")
                                 .groupName("groupName")
                                 .label("label")
                                 .name("name")
                                 .addOption(
-                                    Option.builder()
+                                    BaseOption.builder()
                                         .hidden(true)
                                         .label("label")
                                         .value("value")
@@ -92,8 +98,8 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
                                 .currencyPropertyName("currencyPropertyName")
-                                .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                                .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                                .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                                .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                                 .displayOrder(0)
                                 .externalOptions(true)
                                 .formField(true)
@@ -108,7 +114,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                         .readOnlyOptions(true)
                                         .build()
                                 )
-                                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                                .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                                 .referencedObjectType("referencedObjectType")
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)
@@ -172,6 +178,8 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .build()
                         )
                         .description("description")
+                        .detailTemplate("detailTemplate")
+                        .headerTemplate("headerTemplate")
                         .primaryObject("primaryObject")
                         .primaryObjectId("primaryObjectId")
                         .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.APP_EVENT)
@@ -194,11 +202,11 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                     .id("id")
                     .archived(true)
                     .addAssociation(
-                        AssociationDefinition.builder()
+                        DefinitionsAssociationDefinition.builder()
                             .id(0)
                             .allowsCustomLabels(true)
-                            .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
-                            .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
+                            .cardinality(DefinitionsAssociationDefinition.Cardinality.ONE_TO_MANY)
+                            .category(DefinitionsAssociationDefinition.Category.HUBSPOT_DEFINED)
                             .fromObjectTypeId("fromObjectTypeId")
                             .hasAllAssociatedObjects(true)
                             .hasCascadingDeletes(true)
@@ -207,7 +215,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                             .hidden(true)
                             .inverseAllowsCustomLabels(true)
                             .inverseCardinality(
-                                AssociationDefinition.InverseCardinality.ONE_TO_MANY
+                                DefinitionsAssociationDefinition.InverseCardinality.ONE_TO_MANY
                             )
                             .inverseHasAllAssociatedObjects(true)
                             .inverseId(0)
@@ -221,11 +229,15 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                             .portalUniqueIdentifier("portalUniqueIdentifier")
                             .readOnly(true)
                             .toObjectTypeId("toObjectTypeId")
-                            .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
-                            .hiddenReason(AssociationDefinition.HiddenReason.DEFAULT)
+                            .fromObjectType(
+                                DefinitionsAssociationDefinition.FromObjectType.ABANDONED_CART
+                            )
+                            .hiddenReason(DefinitionsAssociationDefinition.HiddenReason.DEFAULT)
                             .inverseLabel("inverseLabel")
                             .label("label")
-                            .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
+                            .toObjectType(
+                                DefinitionsAssociationDefinition.ToObjectType.ABANDONED_CART
+                            )
                             .build()
                     )
                     .fullyQualifiedName("fullyQualifiedName")
@@ -238,14 +250,14 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                     .name("name")
                     .objectTypeId("objectTypeId")
                     .addProperty(
-                        Property.builder()
+                        BaseProperty.builder()
                             .description("description")
                             .fieldType("fieldType")
                             .groupName("groupName")
                             .label("label")
                             .name("name")
                             .addOption(
-                                Option.builder()
+                                BaseOption.builder()
                                     .hidden(true)
                                     .label("label")
                                     .value("value")
@@ -261,8 +273,8 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdUserId("createdUserId")
                             .currencyPropertyName("currencyPropertyName")
-                            .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                            .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                            .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                            .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                             .displayOrder(0)
                             .externalOptions(true)
                             .formField(true)
@@ -277,7 +289,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                     .readOnlyOptions(true)
                                     .build()
                             )
-                            .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                            .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                             .referencedObjectType("referencedObjectType")
                             .addSensitiveDataCategory("string")
                             .showCurrencySymbol(true)
@@ -341,6 +353,8 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                             .build()
                     )
                     .description("description")
+                    .detailTemplate("detailTemplate")
+                    .headerTemplate("headerTemplate")
                     .primaryObject("primaryObject")
                     .primaryObjectId("primaryObjectId")
                     .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.APP_EVENT)
@@ -369,11 +383,13 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                         .id("id")
                         .archived(true)
                         .addAssociation(
-                            AssociationDefinition.builder()
+                            DefinitionsAssociationDefinition.builder()
                                 .id(0)
                                 .allowsCustomLabels(true)
-                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
-                                .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
+                                .cardinality(
+                                    DefinitionsAssociationDefinition.Cardinality.ONE_TO_MANY
+                                )
+                                .category(DefinitionsAssociationDefinition.Category.HUBSPOT_DEFINED)
                                 .fromObjectTypeId("fromObjectTypeId")
                                 .hasAllAssociatedObjects(true)
                                 .hasCascadingDeletes(true)
@@ -382,7 +398,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .hidden(true)
                                 .inverseAllowsCustomLabels(true)
                                 .inverseCardinality(
-                                    AssociationDefinition.InverseCardinality.ONE_TO_MANY
+                                    DefinitionsAssociationDefinition.InverseCardinality.ONE_TO_MANY
                                 )
                                 .inverseHasAllAssociatedObjects(true)
                                 .inverseId(0)
@@ -396,11 +412,15 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .portalUniqueIdentifier("portalUniqueIdentifier")
                                 .readOnly(true)
                                 .toObjectTypeId("toObjectTypeId")
-                                .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
-                                .hiddenReason(AssociationDefinition.HiddenReason.DEFAULT)
+                                .fromObjectType(
+                                    DefinitionsAssociationDefinition.FromObjectType.ABANDONED_CART
+                                )
+                                .hiddenReason(DefinitionsAssociationDefinition.HiddenReason.DEFAULT)
                                 .inverseLabel("inverseLabel")
                                 .label("label")
-                                .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
+                                .toObjectType(
+                                    DefinitionsAssociationDefinition.ToObjectType.ABANDONED_CART
+                                )
                                 .build()
                         )
                         .fullyQualifiedName("fullyQualifiedName")
@@ -413,14 +433,14 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                         .name("name")
                         .objectTypeId("objectTypeId")
                         .addProperty(
-                            Property.builder()
+                            BaseProperty.builder()
                                 .description("description")
                                 .fieldType("fieldType")
                                 .groupName("groupName")
                                 .label("label")
                                 .name("name")
                                 .addOption(
-                                    Option.builder()
+                                    BaseOption.builder()
                                         .hidden(true)
                                         .label("label")
                                         .value("value")
@@ -436,8 +456,8 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
                                 .currencyPropertyName("currencyPropertyName")
-                                .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                                .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                                .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                                .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                                 .displayOrder(0)
                                 .externalOptions(true)
                                 .formField(true)
@@ -452,7 +472,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                         .readOnlyOptions(true)
                                         .build()
                                 )
-                                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                                .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                                 .referencedObjectType("referencedObjectType")
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)
@@ -516,6 +536,8 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionT
                                 .build()
                         )
                         .description("description")
+                        .detailTemplate("detailTemplate")
+                        .headerTemplate("headerTemplate")
                         .primaryObject("primaryObject")
                         .primaryObjectId("primaryObjectId")
                         .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.APP_EVENT)

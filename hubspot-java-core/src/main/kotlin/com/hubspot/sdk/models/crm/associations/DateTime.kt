@@ -20,7 +20,7 @@ class DateTime
 private constructor(
     private val dateOnly: JsonField<Boolean>,
     private val timeZoneShift: JsonField<Int>,
-    private val value: JsonField<Int>,
+    private val value: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -30,7 +30,7 @@ private constructor(
         @JsonProperty("timeZoneShift")
         @ExcludeMissing
         timeZoneShift: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("value") @ExcludeMissing value: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("value") @ExcludeMissing value: JsonField<Long> = JsonMissing.of(),
     ) : this(dateOnly, timeZoneShift, value, mutableMapOf())
 
     /**
@@ -55,7 +55,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun value(): Int = value.getRequired("value")
+    fun value(): Long = value.getRequired("value")
 
     /**
      * Returns the raw JSON value of [dateOnly].
@@ -78,7 +78,7 @@ private constructor(
      *
      * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Int> = value
+    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Long> = value
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -112,7 +112,7 @@ private constructor(
 
         private var dateOnly: JsonField<Boolean>? = null
         private var timeZoneShift: JsonField<Int>? = null
-        private var value: JsonField<Int>? = null
+        private var value: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -150,15 +150,15 @@ private constructor(
         }
 
         /** The integer value representing a specific point in time. */
-        fun value(value: Int) = value(JsonField.of(value))
+        fun value(value: Long) = value(JsonField.of(value))
 
         /**
          * Sets [Builder.value] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.value] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.value] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun value(value: JsonField<Int>) = apply { this.value = value }
+        fun value(value: JsonField<Long>) = apply { this.value = value }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

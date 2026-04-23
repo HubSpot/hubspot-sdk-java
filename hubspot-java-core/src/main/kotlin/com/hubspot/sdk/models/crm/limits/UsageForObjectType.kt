@@ -21,7 +21,7 @@ private constructor(
     private val objectTypeId: JsonField<String>,
     private val pluralLabel: JsonField<String>,
     private val singularLabel: JsonField<String>,
-    private val usage: JsonField<Int>,
+    private val usage: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -36,7 +36,7 @@ private constructor(
         @JsonProperty("singularLabel")
         @ExcludeMissing
         singularLabel: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Long> = JsonMissing.of(),
     ) : this(objectTypeId, pluralLabel, singularLabel, usage, mutableMapOf())
 
     /**
@@ -69,7 +69,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun usage(): Int = usage.getRequired("usage")
+    fun usage(): Long = usage.getRequired("usage")
 
     /**
      * Returns the raw JSON value of [objectTypeId].
@@ -101,7 +101,7 @@ private constructor(
      *
      * Unlike [usage], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Int> = usage
+    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Long> = usage
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -137,7 +137,7 @@ private constructor(
         private var objectTypeId: JsonField<String>? = null
         private var pluralLabel: JsonField<String>? = null
         private var singularLabel: JsonField<String>? = null
-        private var usage: JsonField<Int>? = null
+        private var usage: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -190,15 +190,15 @@ private constructor(
         }
 
         /** The number of records used for the object type. */
-        fun usage(usage: Int) = usage(JsonField.of(usage))
+        fun usage(usage: Long) = usage(JsonField.of(usage))
 
         /**
          * Sets [Builder.usage] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.usage] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.usage] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun usage(usage: JsonField<Int>) = apply { this.usage = usage }
+        fun usage(usage: JsonField<Long>) = apply { this.usage = usage }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

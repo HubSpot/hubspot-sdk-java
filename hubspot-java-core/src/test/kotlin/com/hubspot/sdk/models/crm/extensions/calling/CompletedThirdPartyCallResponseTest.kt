@@ -18,7 +18,7 @@ internal class CompletedThirdPartyCallResponseTest {
                         .callerIdType(ContactCallerId.CallerIdType.CONTACT)
                         .objectCoordinates(
                             ObjectCoordinates.builder()
-                                .objectId(0)
+                                .objectId(0L)
                                 .objectTypeId("objectTypeId")
                                 .portalId(0)
                                 .build()
@@ -37,7 +37,7 @@ internal class CompletedThirdPartyCallResponseTest {
                         .callerIdType(ContactCallerId.CallerIdType.CONTACT)
                         .objectCoordinates(
                             ObjectCoordinates.builder()
-                                .objectId(0)
+                                .objectId(0L)
                                 .objectTypeId("objectTypeId")
                                 .portalId(0)
                                 .build()
@@ -60,7 +60,7 @@ internal class CompletedThirdPartyCallResponseTest {
                         .callerIdType(ContactCallerId.CallerIdType.CONTACT)
                         .objectCoordinates(
                             ObjectCoordinates.builder()
-                                .objectId(0)
+                                .objectId(0L)
                                 .objectTypeId("objectTypeId")
                                 .portalId(0)
                                 .build()

@@ -22,7 +22,7 @@ class MarketingEventSubscriber
 private constructor(
     private val interactionDateTime: JsonField<Long>,
     private val properties: JsonField<Properties>,
-    private val vid: JsonField<Int>,
+    private val vid: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -34,7 +34,7 @@ private constructor(
         @JsonProperty("properties")
         @ExcludeMissing
         properties: JsonField<Properties> = JsonMissing.of(),
-        @JsonProperty("vid") @ExcludeMissing vid: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("vid") @ExcludeMissing vid: JsonField<Long> = JsonMissing.of(),
     ) : this(interactionDateTime, properties, vid, mutableMapOf())
 
     /**
@@ -59,7 +59,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun vid(): Int = vid.getRequired("vid")
+    fun vid(): Long = vid.getRequired("vid")
 
     /**
      * Returns the raw JSON value of [interactionDateTime].
@@ -85,7 +85,7 @@ private constructor(
      *
      * Unlike [vid], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("vid") @ExcludeMissing fun _vid(): JsonField<Int> = vid
+    @JsonProperty("vid") @ExcludeMissing fun _vid(): JsonField<Long> = vid
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -119,7 +119,7 @@ private constructor(
 
         private var interactionDateTime: JsonField<Long>? = null
         private var properties: JsonField<Properties>? = null
-        private var vid: JsonField<Int>? = null
+        private var vid: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -158,15 +158,15 @@ private constructor(
         fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
 
         /** The ID of the contact in HubSpot */
-        fun vid(vid: Int) = vid(JsonField.of(vid))
+        fun vid(vid: Long) = vid(JsonField.of(vid))
 
         /**
          * Sets [Builder.vid] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.vid] with a well-typed [Int] value instead. This method
+         * You should usually call [Builder.vid] with a well-typed [Long] value instead. This method
          * is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun vid(vid: JsonField<Int>) = apply { this.vid = vid }
+        fun vid(vid: JsonField<Long>) = apply { this.vid = vid }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

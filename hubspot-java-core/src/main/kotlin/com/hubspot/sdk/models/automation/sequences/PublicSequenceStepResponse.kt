@@ -25,7 +25,7 @@ private constructor(
     private val id: JsonField<String>,
     private val actionType: JsonField<ActionType>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val delayMillis: JsonField<Int>,
+    private val delayMillis: JsonField<Long>,
     private val stepOrder: JsonField<Int>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val emailPattern: JsonField<PublicEmailPatternResponse>,
@@ -42,7 +42,9 @@ private constructor(
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("delayMillis") @ExcludeMissing delayMillis: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("delayMillis")
+        @ExcludeMissing
+        delayMillis: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("stepOrder") @ExcludeMissing stepOrder: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("updatedAt")
         @ExcludeMissing
@@ -95,7 +97,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun delayMillis(): Int = delayMillis.getRequired("delayMillis")
+    fun delayMillis(): Long = delayMillis.getRequired("delayMillis")
 
     /**
      * The order of the step within the sequence.
@@ -156,7 +158,7 @@ private constructor(
      *
      * Unlike [delayMillis], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("delayMillis") @ExcludeMissing fun _delayMillis(): JsonField<Int> = delayMillis
+    @JsonProperty("delayMillis") @ExcludeMissing fun _delayMillis(): JsonField<Long> = delayMillis
 
     /**
      * Returns the raw JSON value of [stepOrder].
@@ -228,7 +230,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var actionType: JsonField<ActionType>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
-        private var delayMillis: JsonField<Int>? = null
+        private var delayMillis: JsonField<Long>? = null
         private var stepOrder: JsonField<Int>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var emailPattern: JsonField<PublicEmailPatternResponse> = JsonMissing.of()
@@ -284,15 +286,16 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The delay in milliseconds before the sequence step is executed. */
-        fun delayMillis(delayMillis: Int) = delayMillis(JsonField.of(delayMillis))
+        fun delayMillis(delayMillis: Long) = delayMillis(JsonField.of(delayMillis))
 
         /**
          * Sets [Builder.delayMillis] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.delayMillis] with a well-typed [Int] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.delayMillis] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun delayMillis(delayMillis: JsonField<Int>) = apply { this.delayMillis = delayMillis }
+        fun delayMillis(delayMillis: JsonField<Long>) = apply { this.delayMillis = delayMillis }
 
         /** The order of the step within the sequence. */
         fun stepOrder(stepOrder: Int) = stepOrder(JsonField.of(stepOrder))

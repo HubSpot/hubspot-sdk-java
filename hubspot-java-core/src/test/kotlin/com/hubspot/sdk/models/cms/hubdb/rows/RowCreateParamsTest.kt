@@ -19,7 +19,7 @@ internal class RowCreateParamsTest {
                     .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
-                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                            .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                             .build()
                     )
                     .name("name")
@@ -40,7 +40,7 @@ internal class RowCreateParamsTest {
                         .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
-                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                                .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                                 .build()
                         )
                         .build()
@@ -63,7 +63,7 @@ internal class RowCreateParamsTest {
                         .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
-                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                                .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                                 .build()
                         )
                         .name("name")
@@ -81,7 +81,7 @@ internal class RowCreateParamsTest {
                     .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
-                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                            .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                             .build()
                     )
                     .name("name")
@@ -101,7 +101,7 @@ internal class RowCreateParamsTest {
                         .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
-                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                                .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                                 .build()
                         )
                         .build()
@@ -117,7 +117,7 @@ internal class RowCreateParamsTest {
                     .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
-                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                            .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                             .build()
                     )
                     .build()

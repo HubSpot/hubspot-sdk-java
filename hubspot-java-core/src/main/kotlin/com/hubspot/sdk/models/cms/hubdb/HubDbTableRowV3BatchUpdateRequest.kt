@@ -21,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 class HubDbTableRowV3BatchUpdateRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val childTableId: JsonField<Int>,
+    private val childTableId: JsonField<Long>,
     private val displayIndex: JsonField<Int>,
     private val values: JsonField<Values>,
     private val id: JsonField<String>,
@@ -34,7 +34,7 @@ private constructor(
     private constructor(
         @JsonProperty("childTableId")
         @ExcludeMissing
-        childTableId: JsonField<Int> = JsonMissing.of(),
+        childTableId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("displayIndex")
         @ExcludeMissing
         displayIndex: JsonField<Int> = JsonMissing.of(),
@@ -50,7 +50,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun childTableId(): Int = childTableId.getRequired("childTableId")
+    fun childTableId(): Long = childTableId.getRequired("childTableId")
 
     /**
      * The index position for displaying the row within the table.
@@ -97,7 +97,9 @@ private constructor(
      *
      * Unlike [childTableId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("childTableId") @ExcludeMissing fun _childTableId(): JsonField<Int> = childTableId
+    @JsonProperty("childTableId")
+    @ExcludeMissing
+    fun _childTableId(): JsonField<Long> = childTableId
 
     /**
      * Returns the raw JSON value of [displayIndex].
@@ -165,7 +167,7 @@ private constructor(
     /** A builder for [HubDbTableRowV3BatchUpdateRequest]. */
     class Builder internal constructor() {
 
-        private var childTableId: JsonField<Int>? = null
+        private var childTableId: JsonField<Long>? = null
         private var displayIndex: JsonField<Int>? = null
         private var values: JsonField<Values>? = null
         private var id: JsonField<String> = JsonMissing.of()
@@ -187,16 +189,16 @@ private constructor(
             }
 
         /** Specifies the value for the column child table id */
-        fun childTableId(childTableId: Int) = childTableId(JsonField.of(childTableId))
+        fun childTableId(childTableId: Long) = childTableId(JsonField.of(childTableId))
 
         /**
          * Sets [Builder.childTableId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.childTableId] with a well-typed [Int] value instead.
+         * You should usually call [Builder.childTableId] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun childTableId(childTableId: JsonField<Int>) = apply { this.childTableId = childTableId }
+        fun childTableId(childTableId: JsonField<Long>) = apply { this.childTableId = childTableId }
 
         /** The index position for displaying the row within the table. */
         fun displayIndex(displayIndex: Int) = displayIndex(JsonField.of(displayIndex))

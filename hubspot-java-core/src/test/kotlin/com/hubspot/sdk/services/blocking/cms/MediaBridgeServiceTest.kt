@@ -57,7 +57,7 @@ internal class MediaBridgeServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val associationDefinition =
+        val baseAssociationDefinition =
             mediaBridgeService.createAssociation(
                 MediaBridgeCreateAssociationParams.builder()
                     .appId(0)
@@ -72,7 +72,7 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        associationDefinition.validate()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -234,7 +234,7 @@ internal class MediaBridgeServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val property =
+        val mediaBridgeProperty =
             mediaBridgeService.createProperty(
                 MediaBridgeCreatePropertyParams.builder()
                     .appId(0)
@@ -272,7 +272,7 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        property.validate()
+        mediaBridgeProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -305,9 +305,9 @@ internal class MediaBridgeServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val associationDefinition = mediaBridgeService.createVideoAssociationDefinition(0)
+        val baseAssociationDefinition = mediaBridgeService.createVideoAssociationDefinition(0)
 
-        associationDefinition.validate()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -400,7 +400,7 @@ internal class MediaBridgeServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val property =
+        val mediaBridgeProperty =
             mediaBridgeService.getProperty(
                 MediaBridgeGetPropertyParams.builder()
                     .appId(0)
@@ -411,7 +411,7 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        property.validate()
+        mediaBridgeProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -612,7 +612,7 @@ internal class MediaBridgeServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val property =
+        val mediaBridgeProperty =
             mediaBridgeService.updateProperty(
                 MediaBridgeUpdatePropertyParams.builder()
                     .appId(0)
@@ -647,7 +647,7 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        property.validate()
+        mediaBridgeProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -677,7 +677,7 @@ internal class MediaBridgeServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val objectTypeDefinition =
+        val baseObjectTypeDefinition =
             mediaBridgeService.updateSchema(
                 MediaBridgeUpdateSchemaParams.builder()
                     .appId(0)
@@ -703,7 +703,7 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        objectTypeDefinition.validate()
+        baseObjectTypeDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")

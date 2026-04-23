@@ -28,8 +28,8 @@ private constructor(
     ) : this(active, mutableMapOf())
 
     /**
-     * Whether to activate or pause the webhook subscription. If true, the subscription will send
-     * webhook notifications. If false, the subscription is paused and will not send notifications.
+     * A boolean indicating whether the subscription is active. If true, the subscription is active;
+     * if false, it is inactive.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -74,9 +74,8 @@ private constructor(
         }
 
         /**
-         * Whether to activate or pause the webhook subscription. If true, the subscription will
-         * send webhook notifications. If false, the subscription is paused and will not send
-         * notifications.
+         * A boolean indicating whether the subscription is active. If true, the subscription is
+         * active; if false, it is inactive.
          */
         fun active(active: Boolean) = active(JsonField.of(active))
 

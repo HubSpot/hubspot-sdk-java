@@ -44,7 +44,7 @@ private constructor(
 
     /**
      * The unique identifier of the subscription to which the filter will be applied. It is an
-     * integer in int64 format.
+     * integer formatted as int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -124,7 +124,7 @@ private constructor(
 
         /**
          * The unique identifier of the subscription to which the filter will be applied. It is an
-         * integer in int64 format.
+         * integer formatted as int64.
          */
         fun subscriptionId(subscriptionId: Long) = subscriptionId(JsonField.of(subscriptionId))
 

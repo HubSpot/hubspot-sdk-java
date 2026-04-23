@@ -18,7 +18,7 @@ import java.util.Objects
 class ObjectCoordinates
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val objectId: JsonField<Int>,
+    private val objectId: JsonField<Long>,
     private val objectTypeId: JsonField<String>,
     private val portalId: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -26,7 +26,7 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("objectId") @ExcludeMissing objectId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("objectId") @ExcludeMissing objectId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("objectTypeId")
         @ExcludeMissing
         objectTypeId: JsonField<String> = JsonMissing.of(),
@@ -39,7 +39,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun objectId(): Int = objectId.getRequired("objectId")
+    fun objectId(): Long = objectId.getRequired("objectId")
 
     /**
      * The type identifier for the object.
@@ -62,7 +62,7 @@ private constructor(
      *
      * Unlike [objectId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("objectId") @ExcludeMissing fun _objectId(): JsonField<Int> = objectId
+    @JsonProperty("objectId") @ExcludeMissing fun _objectId(): JsonField<Long> = objectId
 
     /**
      * Returns the raw JSON value of [objectTypeId].
@@ -110,7 +110,7 @@ private constructor(
     /** A builder for [ObjectCoordinates]. */
     class Builder internal constructor() {
 
-        private var objectId: JsonField<Int>? = null
+        private var objectId: JsonField<Long>? = null
         private var objectTypeId: JsonField<String>? = null
         private var portalId: JsonField<Int>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -124,15 +124,15 @@ private constructor(
         }
 
         /** The unique identifier for the object. */
-        fun objectId(objectId: Int) = objectId(JsonField.of(objectId))
+        fun objectId(objectId: Long) = objectId(JsonField.of(objectId))
 
         /**
          * Sets [Builder.objectId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.objectId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.objectId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun objectId(objectId: JsonField<Int>) = apply { this.objectId = objectId }
+        fun objectId(objectId: JsonField<Long>) = apply { this.objectId = objectId }
 
         /** The type identifier for the object. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))

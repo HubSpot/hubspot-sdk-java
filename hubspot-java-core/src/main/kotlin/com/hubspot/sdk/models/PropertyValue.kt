@@ -1137,6 +1137,8 @@ private constructor(
 
             @JvmField val COMPANY_INSIGHTS = of("COMPANY_INSIGHTS")
 
+            @JvmField val CONNECTED_ACCOUNT = of("CONNECTED_ACCOUNT")
+
             @JvmField val CONTACTS = of("CONTACTS")
 
             @JvmField val CONTACTS_WEB = of("CONTACTS_WEB")
@@ -1341,6 +1343,7 @@ private constructor(
             COMPANIES,
             COMPANY_FAMILIES,
             COMPANY_INSIGHTS,
+            CONNECTED_ACCOUNT,
             CONTACTS,
             CONTACTS_WEB,
             CONTENT_MEMBERSHIP,
@@ -1468,6 +1471,7 @@ private constructor(
             COMPANIES,
             COMPANY_FAMILIES,
             COMPANY_INSIGHTS,
+            CONNECTED_ACCOUNT,
             CONTACTS,
             CONTACTS_WEB,
             CONTENT_MEMBERSHIP,
@@ -1596,6 +1600,7 @@ private constructor(
                 COMPANIES -> Value.COMPANIES
                 COMPANY_FAMILIES -> Value.COMPANY_FAMILIES
                 COMPANY_INSIGHTS -> Value.COMPANY_INSIGHTS
+                CONNECTED_ACCOUNT -> Value.CONNECTED_ACCOUNT
                 CONTACTS -> Value.CONTACTS
                 CONTACTS_WEB -> Value.CONTACTS_WEB
                 CONTENT_MEMBERSHIP -> Value.CONTENT_MEMBERSHIP
@@ -1725,6 +1730,7 @@ private constructor(
                 COMPANIES -> Known.COMPANIES
                 COMPANY_FAMILIES -> Known.COMPANY_FAMILIES
                 COMPANY_INSIGHTS -> Known.COMPANY_INSIGHTS
+                CONNECTED_ACCOUNT -> Known.CONNECTED_ACCOUNT
                 CONTACTS -> Known.CONTACTS
                 CONTACTS_WEB -> Known.CONTACTS_WEB
                 CONTENT_MEMBERSHIP -> Known.CONTENT_MEMBERSHIP

@@ -11,16 +11,16 @@ internal class AtLimitRecordSampleTest {
 
     @Test
     fun create() {
-        val atLimitRecordSample = AtLimitRecordSample.builder().label("label").objectId(0).build()
+        val atLimitRecordSample = AtLimitRecordSample.builder().label("label").objectId(0L).build()
 
         assertThat(atLimitRecordSample.label()).isEqualTo("label")
-        assertThat(atLimitRecordSample.objectId()).isEqualTo(0)
+        assertThat(atLimitRecordSample.objectId()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val atLimitRecordSample = AtLimitRecordSample.builder().label("label").objectId(0).build()
+        val atLimitRecordSample = AtLimitRecordSample.builder().label("label").objectId(0L).build()
 
         val roundtrippedAtLimitRecordSample =
             jsonMapper.readValue(

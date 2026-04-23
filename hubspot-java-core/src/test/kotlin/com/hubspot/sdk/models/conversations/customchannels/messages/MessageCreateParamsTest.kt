@@ -66,7 +66,7 @@ internal class MessageCreateParamsTest {
                                     .addContactPropertiesLeadingToMatch(
                                         PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                                     )
-                                    .contactVid(0)
+                                    .contactVid(0L)
                                     .build()
                             )
                             .build()
@@ -185,7 +185,7 @@ internal class MessageCreateParamsTest {
                                             PreResolvedContact.ContactPropertiesLeadingToMatch
                                                 .ADDRESS
                                         )
-                                        .contactVid(0)
+                                        .contactVid(0L)
                                         .build()
                                 )
                                 .build()
@@ -246,7 +246,7 @@ internal class MessageCreateParamsTest {
                                     .addContactPropertiesLeadingToMatch(
                                         PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                                     )
-                                    .contactVid(0)
+                                    .contactVid(0L)
                                     .build()
                             )
                             .build()

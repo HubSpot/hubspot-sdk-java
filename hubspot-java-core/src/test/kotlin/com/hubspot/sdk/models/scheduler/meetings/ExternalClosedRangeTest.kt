@@ -11,16 +11,16 @@ internal class ExternalClosedRangeTest {
 
     @Test
     fun create() {
-        val externalClosedRange = ExternalClosedRange.builder().end(0).start(0).build()
+        val externalClosedRange = ExternalClosedRange.builder().end(0L).start(0L).build()
 
-        assertThat(externalClosedRange.end()).isEqualTo(0)
-        assertThat(externalClosedRange.start()).isEqualTo(0)
+        assertThat(externalClosedRange.end()).isEqualTo(0L)
+        assertThat(externalClosedRange.start()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val externalClosedRange = ExternalClosedRange.builder().end(0).start(0).build()
+        val externalClosedRange = ExternalClosedRange.builder().end(0L).start(0L).build()
 
         val roundtrippedExternalClosedRange =
             jsonMapper.readValue(

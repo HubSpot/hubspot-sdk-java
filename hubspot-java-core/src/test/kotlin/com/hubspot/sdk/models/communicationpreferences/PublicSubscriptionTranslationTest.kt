@@ -13,20 +13,20 @@ internal class PublicSubscriptionTranslationTest {
     fun create() {
         val publicSubscriptionTranslation =
             PublicSubscriptionTranslation.builder()
-                .createdAt(0)
+                .createdAt(0L)
                 .description("description")
                 .languageCode("languageCode")
                 .name("name")
-                .subscriptionId(0)
-                .updatedAt(0)
+                .subscriptionId(0L)
+                .updatedAt(0L)
                 .build()
 
-        assertThat(publicSubscriptionTranslation.createdAt()).isEqualTo(0)
+        assertThat(publicSubscriptionTranslation.createdAt()).isEqualTo(0L)
         assertThat(publicSubscriptionTranslation.description()).isEqualTo("description")
         assertThat(publicSubscriptionTranslation.languageCode()).isEqualTo("languageCode")
         assertThat(publicSubscriptionTranslation.name()).isEqualTo("name")
-        assertThat(publicSubscriptionTranslation.subscriptionId()).isEqualTo(0)
-        assertThat(publicSubscriptionTranslation.updatedAt()).isEqualTo(0)
+        assertThat(publicSubscriptionTranslation.subscriptionId()).isEqualTo(0L)
+        assertThat(publicSubscriptionTranslation.updatedAt()).isEqualTo(0L)
     }
 
     @Test
@@ -34,12 +34,12 @@ internal class PublicSubscriptionTranslationTest {
         val jsonMapper = jsonMapper()
         val publicSubscriptionTranslation =
             PublicSubscriptionTranslation.builder()
-                .createdAt(0)
+                .createdAt(0L)
                 .description("description")
                 .languageCode("languageCode")
                 .name("name")
-                .subscriptionId(0)
-                .updatedAt(0)
+                .subscriptionId(0L)
+                .updatedAt(0L)
                 .build()
 
         val roundtrippedPublicSubscriptionTranslation =

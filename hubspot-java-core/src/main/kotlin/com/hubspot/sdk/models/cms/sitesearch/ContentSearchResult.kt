@@ -23,7 +23,7 @@ import kotlin.jvm.optionals.getOrNull
 class ContentSearchResult
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val id: JsonField<Int>,
+    private val id: JsonField<Long>,
     private val domain: JsonField<String>,
     private val score: JsonField<Double>,
     private val type: JsonField<Type>,
@@ -48,7 +48,7 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing id: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("id") @ExcludeMissing id: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("domain") @ExcludeMissing domain: JsonField<String> = JsonMissing.of(),
         @JsonProperty("score") @ExcludeMissing score: JsonField<Double> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
@@ -112,7 +112,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun id(): Int = id.getRequired("id")
+    fun id(): Long = id.getRequired("id")
 
     /**
      * The domain the document is hosted on.
@@ -267,7 +267,7 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<Int> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<Long> = id
 
     /**
      * Returns the raw JSON value of [domain].
@@ -441,7 +441,7 @@ private constructor(
     /** A builder for [ContentSearchResult]. */
     class Builder internal constructor() {
 
-        private var id: JsonField<Int>? = null
+        private var id: JsonField<Long>? = null
         private var domain: JsonField<String>? = null
         private var score: JsonField<Double>? = null
         private var type: JsonField<Type>? = null
@@ -489,15 +489,15 @@ private constructor(
         }
 
         /** The ID of the content. */
-        fun id(id: Int) = id(JsonField.of(id))
+        fun id(id: Long) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [Int] value instead. This method
+         * You should usually call [Builder.id] with a well-typed [Long] value instead. This method
          * is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun id(id: JsonField<Int>) = apply { this.id = id }
+        fun id(id: JsonField<Long>) = apply { this.id = id }
 
         /** The domain the document is hosted on. */
         fun domain(domain: String) = domain(JsonField.of(domain))

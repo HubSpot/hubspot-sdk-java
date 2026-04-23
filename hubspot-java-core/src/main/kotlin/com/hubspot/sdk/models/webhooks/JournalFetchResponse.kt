@@ -37,7 +37,7 @@ private constructor(
     ) : this(currentOffset, expiresAt, url, mutableMapOf())
 
     /**
-     * A UUID string indicating the current offset in the journal data, used for pagination.
+     * The unique identifier for the current offset of the journal entry, formatted as a UUID.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -53,7 +53,7 @@ private constructor(
     fun expiresAt(): OffsetDateTime = expiresAt.getRequired("expiresAt")
 
     /**
-     * A string representing the URL where the fetched journal data can be accessed.
+     * The URL where the journal entry can be accessed. It is a string.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -128,7 +128,9 @@ private constructor(
             additionalProperties = journalFetchResponse.additionalProperties.toMutableMap()
         }
 
-        /** A UUID string indicating the current offset in the journal data, used for pagination. */
+        /**
+         * The unique identifier for the current offset of the journal entry, formatted as a UUID.
+         */
         fun currentOffset(currentOffset: String) = currentOffset(JsonField.of(currentOffset))
 
         /**
@@ -154,7 +156,7 @@ private constructor(
          */
         fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply { this.expiresAt = expiresAt }
 
-        /** A string representing the URL where the fetched journal data can be accessed. */
+        /** The URL where the journal entry can be accessed. It is a string. */
         fun url(url: String) = url(JsonField.of(url))
 
         /**

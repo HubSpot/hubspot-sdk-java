@@ -16,7 +16,7 @@ internal class ExternalLinkAvailabilityAndBusyTimesTest {
             ExternalLinkAvailabilityAndBusyTimes.builder()
                 .addAllUsersBusyTime(
                     ExternalUserBusyTimes.builder()
-                        .addBusyTime(ExternalTimeRange.builder().end(0).start(0).build())
+                        .addBusyTime(ExternalTimeRange.builder().end(0L).start(0L).build())
                         .isOffline(true)
                         .meetingsUser(
                             ExternalMeetingsUser.builder()
@@ -65,7 +65,7 @@ internal class ExternalLinkAvailabilityAndBusyTimesTest {
         assertThat(externalLinkAvailabilityAndBusyTimes.allUsersBusyTimes())
             .containsExactly(
                 ExternalUserBusyTimes.builder()
-                    .addBusyTime(ExternalTimeRange.builder().end(0).start(0).build())
+                    .addBusyTime(ExternalTimeRange.builder().end(0L).start(0L).build())
                     .isOffline(true)
                     .meetingsUser(
                         ExternalMeetingsUser.builder()
@@ -116,7 +116,7 @@ internal class ExternalLinkAvailabilityAndBusyTimesTest {
             ExternalLinkAvailabilityAndBusyTimes.builder()
                 .addAllUsersBusyTime(
                     ExternalUserBusyTimes.builder()
-                        .addBusyTime(ExternalTimeRange.builder().end(0).start(0).build())
+                        .addBusyTime(ExternalTimeRange.builder().end(0L).start(0L).build())
                         .isOffline(true)
                         .meetingsUser(
                             ExternalMeetingsUser.builder()

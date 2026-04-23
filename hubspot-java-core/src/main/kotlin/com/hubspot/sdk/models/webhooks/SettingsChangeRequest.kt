@@ -33,8 +33,7 @@ private constructor(
     ) : this(targetUrl, throttling, mutableMapOf())
 
     /**
-     * A publicly available URL for Hubspot to call where event payloads will be delivered. See
-     * [link-so-some-doc](#) for details about the format of these event payloads.
+     * The URL to which webhook events will be sent. It is a string.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -103,10 +102,7 @@ private constructor(
             additionalProperties = settingsChangeRequest.additionalProperties.toMutableMap()
         }
 
-        /**
-         * A publicly available URL for Hubspot to call where event payloads will be delivered. See
-         * [link-so-some-doc](#) for details about the format of these event payloads.
-         */
+        /** The URL to which webhook events will be sent. It is a string. */
         fun targetUrl(targetUrl: String) = targetUrl(JsonField.of(targetUrl))
 
         /**

@@ -20,7 +20,7 @@ internal class MarketingEventSubscriberTest {
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
-                .vid(0)
+                .vid(0L)
                 .build()
 
         assertThat(marketingEventSubscriber.interactionDateTime()).isEqualTo(0L)
@@ -30,7 +30,7 @@ internal class MarketingEventSubscriberTest {
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
-        assertThat(marketingEventSubscriber.vid()).isEqualTo(0)
+        assertThat(marketingEventSubscriber.vid()).isEqualTo(0L)
     }
 
     @Test
@@ -44,7 +44,7 @@ internal class MarketingEventSubscriberTest {
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
-                .vid(0)
+                .vid(0L)
                 .build()
 
         val roundtrippedMarketingEventSubscriber =

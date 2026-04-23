@@ -16,7 +16,7 @@ internal class RelativeComparativeTimestampRefineByTest {
                 .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                 .timeOffset(
                     TimeOffset.builder()
-                        .amount(0)
+                        .amount(0L)
                         .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                         .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()
@@ -32,7 +32,7 @@ internal class RelativeComparativeTimestampRefineByTest {
         assertThat(relativeComparativeTimestampRefineBy.timeOffset())
             .isEqualTo(
                 TimeOffset.builder()
-                    .amount(0)
+                    .amount(0L)
                     .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                     .timeUnit(TimeOffset.TimeUnit.DAYS)
                     .build()
@@ -51,7 +51,7 @@ internal class RelativeComparativeTimestampRefineByTest {
                 .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                 .timeOffset(
                     TimeOffset.builder()
-                        .amount(0)
+                        .amount(0L)
                         .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                         .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()

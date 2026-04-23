@@ -27,7 +27,7 @@ private constructor(
     private val durations: JsonField<List<Long>>,
     private val formFields: JsonField<List<ExternalLinkFormField>>,
     private val legalConsentEnabled: JsonField<Boolean>,
-    private val meetingBufferTime: JsonField<Int>,
+    private val meetingBufferTime: JsonField<Long>,
     private val ownerPrioritized: JsonField<Boolean>,
     private val startTimeIncrementMinutes: JsonField<StartTimeIncrementMinutes>,
     private val weeksToAdvertise: JsonField<Int>,
@@ -60,7 +60,7 @@ private constructor(
         legalConsentEnabled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("meetingBufferTime")
         @ExcludeMissing
-        meetingBufferTime: JsonField<Int> = JsonMissing.of(),
+        meetingBufferTime: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("ownerPrioritized")
         @ExcludeMissing
         ownerPrioritized: JsonField<Boolean> = JsonMissing.of(),
@@ -151,7 +151,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun meetingBufferTime(): Int = meetingBufferTime.getRequired("meetingBufferTime")
+    fun meetingBufferTime(): Long = meetingBufferTime.getRequired("meetingBufferTime")
 
     /**
      * Indicates whether the meeting owner is prioritized during booking. Only applies to link types
@@ -303,7 +303,7 @@ private constructor(
      */
     @JsonProperty("meetingBufferTime")
     @ExcludeMissing
-    fun _meetingBufferTime(): JsonField<Int> = meetingBufferTime
+    fun _meetingBufferTime(): JsonField<Long> = meetingBufferTime
 
     /**
      * Returns the raw JSON value of [ownerPrioritized].
@@ -461,7 +461,7 @@ private constructor(
         private var durations: JsonField<MutableList<Long>>? = null
         private var formFields: JsonField<MutableList<ExternalLinkFormField>>? = null
         private var legalConsentEnabled: JsonField<Boolean>? = null
-        private var meetingBufferTime: JsonField<Int>? = null
+        private var meetingBufferTime: JsonField<Long>? = null
         private var ownerPrioritized: JsonField<Boolean>? = null
         private var startTimeIncrementMinutes: JsonField<StartTimeIncrementMinutes>? = null
         private var weeksToAdvertise: JsonField<Int>? = null
@@ -585,17 +585,17 @@ private constructor(
         }
 
         /** The minimum buffer time in milliseconds between consecutive meetings. */
-        fun meetingBufferTime(meetingBufferTime: Int) =
+        fun meetingBufferTime(meetingBufferTime: Long) =
             meetingBufferTime(JsonField.of(meetingBufferTime))
 
         /**
          * Sets [Builder.meetingBufferTime] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meetingBufferTime] with a well-typed [Int] value
+         * You should usually call [Builder.meetingBufferTime] with a well-typed [Long] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun meetingBufferTime(meetingBufferTime: JsonField<Int>) = apply {
+        fun meetingBufferTime(meetingBufferTime: JsonField<Long>) = apply {
             this.meetingBufferTime = meetingBufferTime
         }
 

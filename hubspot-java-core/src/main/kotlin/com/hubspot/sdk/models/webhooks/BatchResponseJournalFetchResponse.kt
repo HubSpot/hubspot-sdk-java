@@ -60,8 +60,8 @@ private constructor(
     fun completedAt(): OffsetDateTime = completedAt.getRequired("completedAt")
 
     /**
-     * An array of journal fetch responses, each containing details about individual journal
-     * entries.
+     * An array of results from the batch operation, each represented as a JournalFetchResponse
+     * object.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -86,8 +86,7 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * A map of link names to associated URIs, providing additional resources or documentation
-     * related to the batch operation.
+     * A map of link names to associated URIs related to the batch operation.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -220,8 +219,8 @@ private constructor(
         }
 
         /**
-         * An array of journal fetch responses, each containing details about individual journal
-         * entries.
+         * An array of results from the batch operation, each represented as a JournalFetchResponse
+         * object.
          */
         fun results(results: List<JournalFetchResponse>) = results(JsonField.of(results))
 
@@ -274,10 +273,7 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /**
-         * A map of link names to associated URIs, providing additional resources or documentation
-         * related to the batch operation.
-         */
+        /** A map of link names to associated URIs related to the batch operation. */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -527,10 +523,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * A map of link names to associated URIs, providing additional resources or documentation
-     * related to the batch operation.
-     */
+    /** A map of link names to associated URIs related to the batch operation. */
     class Links
     @JsonCreator
     private constructor(

@@ -20,10 +20,10 @@ import kotlin.jvm.optionals.getOrNull
 class AbsoluteRangedTimestampRefineBy
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val lowerTimestamp: JsonField<Int>,
+    private val lowerTimestamp: JsonField<Long>,
     private val rangeType: JsonField<RangeType>,
     private val type: JsonField<Type>,
-    private val upperTimestamp: JsonField<Int>,
+    private val upperTimestamp: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -31,21 +31,21 @@ private constructor(
     private constructor(
         @JsonProperty("lowerTimestamp")
         @ExcludeMissing
-        lowerTimestamp: JsonField<Int> = JsonMissing.of(),
+        lowerTimestamp: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("rangeType")
         @ExcludeMissing
         rangeType: JsonField<RangeType> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("upperTimestamp")
         @ExcludeMissing
-        upperTimestamp: JsonField<Int> = JsonMissing.of(),
+        upperTimestamp: JsonField<Long> = JsonMissing.of(),
     ) : this(lowerTimestamp, rangeType, type, upperTimestamp, mutableMapOf())
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun lowerTimestamp(): Int = lowerTimestamp.getRequired("lowerTimestamp")
+    fun lowerTimestamp(): Long = lowerTimestamp.getRequired("lowerTimestamp")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -63,7 +63,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun upperTimestamp(): Int = upperTimestamp.getRequired("upperTimestamp")
+    fun upperTimestamp(): Long = upperTimestamp.getRequired("upperTimestamp")
 
     /**
      * Returns the raw JSON value of [lowerTimestamp].
@@ -72,7 +72,7 @@ private constructor(
      */
     @JsonProperty("lowerTimestamp")
     @ExcludeMissing
-    fun _lowerTimestamp(): JsonField<Int> = lowerTimestamp
+    fun _lowerTimestamp(): JsonField<Long> = lowerTimestamp
 
     /**
      * Returns the raw JSON value of [rangeType].
@@ -95,7 +95,7 @@ private constructor(
      */
     @JsonProperty("upperTimestamp")
     @ExcludeMissing
-    fun _upperTimestamp(): JsonField<Int> = upperTimestamp
+    fun _upperTimestamp(): JsonField<Long> = upperTimestamp
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -129,10 +129,10 @@ private constructor(
     /** A builder for [AbsoluteRangedTimestampRefineBy]. */
     class Builder internal constructor() {
 
-        private var lowerTimestamp: JsonField<Int>? = null
+        private var lowerTimestamp: JsonField<Long>? = null
         private var rangeType: JsonField<RangeType>? = null
         private var type: JsonField<Type>? = null
-        private var upperTimestamp: JsonField<Int>? = null
+        private var upperTimestamp: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -146,16 +146,16 @@ private constructor(
                     absoluteRangedTimestampRefineBy.additionalProperties.toMutableMap()
             }
 
-        fun lowerTimestamp(lowerTimestamp: Int) = lowerTimestamp(JsonField.of(lowerTimestamp))
+        fun lowerTimestamp(lowerTimestamp: Long) = lowerTimestamp(JsonField.of(lowerTimestamp))
 
         /**
          * Sets [Builder.lowerTimestamp] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.lowerTimestamp] with a well-typed [Int] value instead.
+         * You should usually call [Builder.lowerTimestamp] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun lowerTimestamp(lowerTimestamp: JsonField<Int>) = apply {
+        fun lowerTimestamp(lowerTimestamp: JsonField<Long>) = apply {
             this.lowerTimestamp = lowerTimestamp
         }
 
@@ -180,16 +180,16 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun upperTimestamp(upperTimestamp: Int) = upperTimestamp(JsonField.of(upperTimestamp))
+        fun upperTimestamp(upperTimestamp: Long) = upperTimestamp(JsonField.of(upperTimestamp))
 
         /**
          * Sets [Builder.upperTimestamp] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.upperTimestamp] with a well-typed [Int] value instead.
+         * You should usually call [Builder.upperTimestamp] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun upperTimestamp(upperTimestamp: JsonField<Int>) = apply {
+        fun upperTimestamp(upperTimestamp: JsonField<Long>) = apply {
             this.upperTimestamp = upperTimestamp
         }
 

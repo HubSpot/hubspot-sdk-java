@@ -17,7 +17,7 @@ internal class PublicDateTimePropertyOperationTest {
                 .operationType(PublicDateTimePropertyOperation.OperationType.DATETIME)
                 .operator("operator")
                 .requiresTimeZoneConversion(true)
-                .timestamp(0)
+                .timestamp(0L)
                 .build()
 
         assertThat(publicDateTimePropertyOperation.includeObjectsWithNoValueSet()).isEqualTo(true)
@@ -25,7 +25,7 @@ internal class PublicDateTimePropertyOperationTest {
             .isEqualTo(PublicDateTimePropertyOperation.OperationType.DATETIME)
         assertThat(publicDateTimePropertyOperation.operator()).isEqualTo("operator")
         assertThat(publicDateTimePropertyOperation.requiresTimeZoneConversion()).isEqualTo(true)
-        assertThat(publicDateTimePropertyOperation.timestamp()).isEqualTo(0)
+        assertThat(publicDateTimePropertyOperation.timestamp()).isEqualTo(0L)
     }
 
     @Test
@@ -37,7 +37,7 @@ internal class PublicDateTimePropertyOperationTest {
                 .operationType(PublicDateTimePropertyOperation.OperationType.DATETIME)
                 .operator("operator")
                 .requiresTimeZoneConversion(true)
-                .timestamp(0)
+                .timestamp(0L)
                 .build()
 
         val roundtrippedPublicDateTimePropertyOperation =

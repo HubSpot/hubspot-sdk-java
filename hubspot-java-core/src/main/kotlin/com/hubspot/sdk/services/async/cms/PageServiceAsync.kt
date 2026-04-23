@@ -6,17 +6,9 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.cms.pages.CursorPagedResultContentFolderLong
-import com.hubspot.sdk.models.cms.pages.CursorPagedResultPageLong
 import com.hubspot.sdk.models.cms.pages.PageData
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPageFoldersByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPageFoldersParams
 import com.hubspot.sdk.models.cms.pages.PageGetLandingPageRevisionParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPagesByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPagesParams
 import com.hubspot.sdk.models.cms.pages.PageGetSitePageRevisionParams
-import com.hubspot.sdk.models.cms.pages.PageGetSitePagesByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetSitePagesParams
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsPageAsync
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsParams
 import com.hubspot.sdk.models.cms.pages.PageListSitePageRevisionsPageAsync
@@ -62,50 +54,6 @@ interface PageServiceAsync {
 
     fun websitePages(): WebsitePageServiceAsync
 
-    fun getLandingPageFolders(): CompletableFuture<CursorPagedResultContentFolderLong> =
-        getLandingPageFolders(PageGetLandingPageFoldersParams.none())
-
-    /** @see getLandingPageFolders */
-    fun getLandingPageFolders(
-        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultContentFolderLong>
-
-    /** @see getLandingPageFolders */
-    fun getLandingPageFolders(
-        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        getLandingPageFolders(params, RequestOptions.none())
-
-    /** @see getLandingPageFolders */
-    fun getLandingPageFolders(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
-
-    fun getLandingPageFoldersByQuery(): CompletableFuture<CursorPagedResultContentFolderLong> =
-        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
-
-    /** @see getLandingPageFoldersByQuery */
-    fun getLandingPageFoldersByQuery(
-        params: PageGetLandingPageFoldersByQueryParams =
-            PageGetLandingPageFoldersByQueryParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultContentFolderLong>
-
-    /** @see getLandingPageFoldersByQuery */
-    fun getLandingPageFoldersByQuery(
-        params: PageGetLandingPageFoldersByQueryParams =
-            PageGetLandingPageFoldersByQueryParams.none()
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        getLandingPageFoldersByQuery(params, RequestOptions.none())
-
-    /** @see getLandingPageFoldersByQuery */
-    fun getLandingPageFoldersByQuery(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none(), requestOptions)
-
     /** Retrieve a previous version of a landing page, specified by page ID and revision ID. */
     fun getLandingPageRevision(
         revisionId: String,
@@ -132,47 +80,6 @@ interface PageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PageVersion>
 
-    fun getLandingPages(): CompletableFuture<CursorPagedResultPageLong> =
-        getLandingPages(PageGetLandingPagesParams.none())
-
-    /** @see getLandingPages */
-    fun getLandingPages(
-        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultPageLong>
-
-    /** @see getLandingPages */
-    fun getLandingPages(
-        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> = getLandingPages(params, RequestOptions.none())
-
-    /** @see getLandingPages */
-    fun getLandingPages(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
-
-    fun getLandingPagesByQuery(): CompletableFuture<CursorPagedResultPageLong> =
-        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
-
-    /** @see getLandingPagesByQuery */
-    fun getLandingPagesByQuery(
-        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultPageLong>
-
-    /** @see getLandingPagesByQuery */
-    fun getLandingPagesByQuery(
-        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        getLandingPagesByQuery(params, RequestOptions.none())
-
-    /** @see getLandingPagesByQuery */
-    fun getLandingPagesByQuery(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
-
     /** Retrieve a previous version of a website page by the revision ID. */
     fun getSitePageRevision(
         revisionId: String,
@@ -197,45 +104,6 @@ interface PageServiceAsync {
         params: PageGetSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PageVersion>
-
-    fun getSitePages(): CompletableFuture<CursorPagedResultPageLong> =
-        getSitePages(PageGetSitePagesParams.none())
-
-    /** @see getSitePages */
-    fun getSitePages(
-        params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultPageLong>
-
-    /** @see getSitePages */
-    fun getSitePages(
-        params: PageGetSitePagesParams = PageGetSitePagesParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> = getSitePages(params, RequestOptions.none())
-
-    /** @see getSitePages */
-    fun getSitePages(requestOptions: RequestOptions): CompletableFuture<CursorPagedResultPageLong> =
-        getSitePages(PageGetSitePagesParams.none(), requestOptions)
-
-    fun getSitePagesByQuery(): CompletableFuture<CursorPagedResultPageLong> =
-        getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
-
-    /** @see getSitePagesByQuery */
-    fun getSitePagesByQuery(
-        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultPageLong>
-
-    /** @see getSitePagesByQuery */
-    fun getSitePagesByQuery(
-        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        getSitePagesByQuery(params, RequestOptions.none())
-
-    /** @see getSitePagesByQuery */
-    fun getSitePagesByQuery(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
 
     /** Retrieve all the previous versions of a landing page, specified by page ID. */
     fun listLandingPageRevisions(
@@ -495,64 +363,6 @@ interface PageServiceAsync {
         fun websitePages(): WebsitePageServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders/cursor`,
-         * but is otherwise the same as [PageServiceAsync.getLandingPageFolders].
-         */
-        fun getLandingPageFolders():
-            CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            getLandingPageFolders(PageGetLandingPageFoldersParams.none())
-
-        /** @see getLandingPageFolders */
-        fun getLandingPageFolders(
-            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>>
-
-        /** @see getLandingPageFolders */
-        fun getLandingPageFolders(
-            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            getLandingPageFolders(params, RequestOptions.none())
-
-        /** @see getLandingPageFolders */
-        fun getLandingPageFolders(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/cursor/query`, but is otherwise the same as
-         * [PageServiceAsync.getLandingPageFoldersByQuery].
-         */
-        fun getLandingPageFoldersByQuery():
-            CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
-
-        /** @see getLandingPageFoldersByQuery */
-        fun getLandingPageFoldersByQuery(
-            params: PageGetLandingPageFoldersByQueryParams =
-                PageGetLandingPageFoldersByQueryParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>>
-
-        /** @see getLandingPageFoldersByQuery */
-        fun getLandingPageFoldersByQuery(
-            params: PageGetLandingPageFoldersByQueryParams =
-                PageGetLandingPageFoldersByQueryParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            getLandingPageFoldersByQuery(params, RequestOptions.none())
-
-        /** @see getLandingPageFoldersByQuery */
-        fun getLandingPageFoldersByQuery(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            getLandingPageFoldersByQuery(
-                PageGetLandingPageFoldersByQueryParams.none(),
-                requestOptions,
-            )
-
-        /**
          * Returns a raw HTTP response for `get
          * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
          * same as [PageServiceAsync.getLandingPageRevision].
@@ -587,57 +397,6 @@ interface PageServiceAsync {
         ): CompletableFuture<HttpResponseFor<PageVersion>>
 
         /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor`, but is
-         * otherwise the same as [PageServiceAsync.getLandingPages].
-         */
-        fun getLandingPages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getLandingPages(PageGetLandingPagesParams.none())
-
-        /** @see getLandingPages */
-        fun getLandingPages(
-            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
-
-        /** @see getLandingPages */
-        fun getLandingPages(
-            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getLandingPages(params, RequestOptions.none())
-
-        /** @see getLandingPages */
-        fun getLandingPages(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor/query`, but
-         * is otherwise the same as [PageServiceAsync.getLandingPagesByQuery].
-         */
-        fun getLandingPagesByQuery():
-            CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
-
-        /** @see getLandingPagesByQuery */
-        fun getLandingPagesByQuery(
-            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
-
-        /** @see getLandingPagesByQuery */
-        fun getLandingPagesByQuery(
-            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getLandingPagesByQuery(params, RequestOptions.none())
-
-        /** @see getLandingPagesByQuery */
-        fun getLandingPagesByQuery(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `get
          * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
          * same as [PageServiceAsync.getSitePageRevision].
@@ -667,56 +426,6 @@ interface PageServiceAsync {
             params: PageGetSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PageVersion>>
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor`, but is
-         * otherwise the same as [PageServiceAsync.getSitePages].
-         */
-        fun getSitePages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getSitePages(PageGetSitePagesParams.none())
-
-        /** @see getSitePages */
-        fun getSitePages(
-            params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
-
-        /** @see getSitePages */
-        fun getSitePages(
-            params: PageGetSitePagesParams = PageGetSitePagesParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getSitePages(params, RequestOptions.none())
-
-        /** @see getSitePages */
-        fun getSitePages(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getSitePages(PageGetSitePagesParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor/query`, but is
-         * otherwise the same as [PageServiceAsync.getSitePagesByQuery].
-         */
-        fun getSitePagesByQuery(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
-
-        /** @see getSitePagesByQuery */
-        fun getSitePagesByQuery(
-            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
-
-        /** @see getSitePagesByQuery */
-        fun getSitePagesByQuery(
-            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getSitePagesByQuery(params, RequestOptions.none())
-
-        /** @see getSitePagesByQuery */
-        fun getSitePagesByQuery(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

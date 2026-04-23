@@ -22,9 +22,9 @@ class CustomObjectRecordLimitResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val byObjectType: JsonField<List<UsageForObjectType>>,
-    private val overallLimit: JsonField<Int>,
+    private val overallLimit: JsonField<Long>,
     private val overallPercentage: JsonField<Double>,
-    private val overallUsage: JsonField<Int>,
+    private val overallUsage: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -35,13 +35,13 @@ private constructor(
         byObjectType: JsonField<List<UsageForObjectType>> = JsonMissing.of(),
         @JsonProperty("overallLimit")
         @ExcludeMissing
-        overallLimit: JsonField<Int> = JsonMissing.of(),
+        overallLimit: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("overallPercentage")
         @ExcludeMissing
         overallPercentage: JsonField<Double> = JsonMissing.of(),
         @JsonProperty("overallUsage")
         @ExcludeMissing
-        overallUsage: JsonField<Int> = JsonMissing.of(),
+        overallUsage: JsonField<Long> = JsonMissing.of(),
     ) : this(byObjectType, overallLimit, overallPercentage, overallUsage, mutableMapOf())
 
     /**
@@ -56,7 +56,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun overallLimit(): Int = overallLimit.getRequired("overallLimit")
+    fun overallLimit(): Long = overallLimit.getRequired("overallLimit")
 
     /**
      * The percentage of the overall custom object record limit that has been used.
@@ -72,7 +72,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun overallUsage(): Int = overallUsage.getRequired("overallUsage")
+    fun overallUsage(): Long = overallUsage.getRequired("overallUsage")
 
     /**
      * Returns the raw JSON value of [byObjectType].
@@ -88,7 +88,9 @@ private constructor(
      *
      * Unlike [overallLimit], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("overallLimit") @ExcludeMissing fun _overallLimit(): JsonField<Int> = overallLimit
+    @JsonProperty("overallLimit")
+    @ExcludeMissing
+    fun _overallLimit(): JsonField<Long> = overallLimit
 
     /**
      * Returns the raw JSON value of [overallPercentage].
@@ -105,7 +107,9 @@ private constructor(
      *
      * Unlike [overallUsage], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("overallUsage") @ExcludeMissing fun _overallUsage(): JsonField<Int> = overallUsage
+    @JsonProperty("overallUsage")
+    @ExcludeMissing
+    fun _overallUsage(): JsonField<Long> = overallUsage
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -140,9 +144,9 @@ private constructor(
     class Builder internal constructor() {
 
         private var byObjectType: JsonField<MutableList<UsageForObjectType>>? = null
-        private var overallLimit: JsonField<Int>? = null
+        private var overallLimit: JsonField<Long>? = null
         private var overallPercentage: JsonField<Double>? = null
-        private var overallUsage: JsonField<Int>? = null
+        private var overallUsage: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -184,16 +188,16 @@ private constructor(
         }
 
         /** The maximum number of custom object records allowed. */
-        fun overallLimit(overallLimit: Int) = overallLimit(JsonField.of(overallLimit))
+        fun overallLimit(overallLimit: Long) = overallLimit(JsonField.of(overallLimit))
 
         /**
          * Sets [Builder.overallLimit] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.overallLimit] with a well-typed [Int] value instead.
+         * You should usually call [Builder.overallLimit] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun overallLimit(overallLimit: JsonField<Int>) = apply { this.overallLimit = overallLimit }
+        fun overallLimit(overallLimit: JsonField<Long>) = apply { this.overallLimit = overallLimit }
 
         /** The percentage of the overall custom object record limit that has been used. */
         fun overallPercentage(overallPercentage: Double) =
@@ -211,16 +215,16 @@ private constructor(
         }
 
         /** The total number of custom object records currently in use. */
-        fun overallUsage(overallUsage: Int) = overallUsage(JsonField.of(overallUsage))
+        fun overallUsage(overallUsage: Long) = overallUsage(JsonField.of(overallUsage))
 
         /**
          * Sets [Builder.overallUsage] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.overallUsage] with a well-typed [Int] value instead.
+         * You should usually call [Builder.overallUsage] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun overallUsage(overallUsage: JsonField<Int>) = apply { this.overallUsage = overallUsage }
+        fun overallUsage(overallUsage: JsonField<Long>) = apply { this.overallUsage = overallUsage }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

@@ -20,7 +20,7 @@ import kotlin.jvm.optionals.getOrNull
 class TimeOffset
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val amount: JsonField<Int>,
+    private val amount: JsonField<Long>,
     private val offsetDirection: JsonField<OffsetDirection>,
     private val timeUnit: JsonField<TimeUnit>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -28,7 +28,7 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("offsetDirection")
         @ExcludeMissing
         offsetDirection: JsonField<OffsetDirection> = JsonMissing.of(),
@@ -39,7 +39,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun amount(): Int = amount.getRequired("amount")
+    fun amount(): Long = amount.getRequired("amount")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -58,7 +58,7 @@ private constructor(
      *
      * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Int> = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * Returns the raw JSON value of [offsetDirection].
@@ -106,7 +106,7 @@ private constructor(
     /** A builder for [TimeOffset]. */
     class Builder internal constructor() {
 
-        private var amount: JsonField<Int>? = null
+        private var amount: JsonField<Long>? = null
         private var offsetDirection: JsonField<OffsetDirection>? = null
         private var timeUnit: JsonField<TimeUnit>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -119,15 +119,15 @@ private constructor(
             additionalProperties = timeOffset.additionalProperties.toMutableMap()
         }
 
-        fun amount(amount: Int) = amount(JsonField.of(amount))
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
          * Sets [Builder.amount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amount] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun amount(amount: JsonField<Int>) = apply { this.amount = amount }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         fun offsetDirection(offsetDirection: OffsetDirection) =
             offsetDirection(JsonField.of(offsetDirection))

@@ -16,13 +16,13 @@ internal class UsageForObjectTypeTest {
                 .objectTypeId("objectTypeId")
                 .pluralLabel("pluralLabel")
                 .singularLabel("singularLabel")
-                .usage(0)
+                .usage(0L)
                 .build()
 
         assertThat(usageForObjectType.objectTypeId()).isEqualTo("objectTypeId")
         assertThat(usageForObjectType.pluralLabel()).isEqualTo("pluralLabel")
         assertThat(usageForObjectType.singularLabel()).isEqualTo("singularLabel")
-        assertThat(usageForObjectType.usage()).isEqualTo(0)
+        assertThat(usageForObjectType.usage()).isEqualTo(0L)
     }
 
     @Test
@@ -33,7 +33,7 @@ internal class UsageForObjectTypeTest {
                 .objectTypeId("objectTypeId")
                 .pluralLabel("pluralLabel")
                 .singularLabel("singularLabel")
-                .usage(0)
+                .usage(0L)
                 .build()
 
         val roundtrippedUsageForObjectType =

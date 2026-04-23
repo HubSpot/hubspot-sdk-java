@@ -24,6 +24,7 @@ private constructor(
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
+    /** A specific property of the landing page to include in the response. */
     fun property(): Optional<String> = Optional.ofNullable(property)
 
     /** Additional headers to send with the request. */
@@ -78,6 +79,7 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
+        /** A specific property of the landing page to include in the response. */
         fun property(property: String?) = apply { this.property = property }
 
         /** Alias for calling [Builder.property] with `property.orElse(null)`. */

@@ -16,7 +16,7 @@ internal class PublicCampaignTest {
         val publicCampaign =
             PublicCampaign.builder()
                 .id("id")
-                .addBusinessUnit(PublicBusinessUnit.builder().id(0).build())
+                .addBusinessUnit(PublicBusinessUnit.builder().id(0L).build())
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     PublicCampaign.Properties.builder()
@@ -28,7 +28,7 @@ internal class PublicCampaignTest {
 
         assertThat(publicCampaign.id()).isEqualTo("id")
         assertThat(publicCampaign.businessUnits())
-            .containsExactly(PublicBusinessUnit.builder().id(0).build())
+            .containsExactly(PublicBusinessUnit.builder().id(0L).build())
         assertThat(publicCampaign.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(publicCampaign.properties())
@@ -47,7 +47,7 @@ internal class PublicCampaignTest {
         val publicCampaign =
             PublicCampaign.builder()
                 .id("id")
-                .addBusinessUnit(PublicBusinessUnit.builder().id(0).build())
+                .addBusinessUnit(PublicBusinessUnit.builder().id(0L).build())
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     PublicCampaign.Properties.builder()

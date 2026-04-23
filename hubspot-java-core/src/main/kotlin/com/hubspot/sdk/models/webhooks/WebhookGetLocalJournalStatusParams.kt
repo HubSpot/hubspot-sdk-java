@@ -11,8 +11,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Retrieve the status of a specific webhook journal entry using its unique status ID. This endpoint
- * is useful for checking the progress or result of a webhook operation, such as whether it is
- * pending, in progress, completed, failed, or expired.
+ * is useful for monitoring the progress or completion of webhook processing tasks.
  */
 class WebhookGetLocalJournalStatusParams
 private constructor(

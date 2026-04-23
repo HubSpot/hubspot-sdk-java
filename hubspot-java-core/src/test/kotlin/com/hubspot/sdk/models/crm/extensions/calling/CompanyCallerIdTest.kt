@@ -16,7 +16,7 @@ internal class CompanyCallerIdTest {
                 .callerIdType(CompanyCallerId.CallerIdType.COMPANY)
                 .objectCoordinates(
                     ObjectCoordinates.builder()
-                        .objectId(0)
+                        .objectId(0L)
                         .objectTypeId("objectTypeId")
                         .portalId(0)
                         .build()
@@ -28,7 +28,7 @@ internal class CompanyCallerIdTest {
         assertThat(companyCallerId.objectCoordinates())
             .isEqualTo(
                 ObjectCoordinates.builder()
-                    .objectId(0)
+                    .objectId(0L)
                     .objectTypeId("objectTypeId")
                     .portalId(0)
                     .build()
@@ -44,7 +44,7 @@ internal class CompanyCallerIdTest {
                 .callerIdType(CompanyCallerId.CallerIdType.COMPANY)
                 .objectCoordinates(
                     ObjectCoordinates.builder()
-                        .objectId(0)
+                        .objectId(0L)
                         .objectTypeId("objectTypeId")
                         .portalId(0)
                         .build()

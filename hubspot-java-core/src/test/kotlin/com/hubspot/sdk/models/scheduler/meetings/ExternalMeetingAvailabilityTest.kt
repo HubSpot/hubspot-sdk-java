@@ -12,17 +12,17 @@ internal class ExternalMeetingAvailabilityTest {
     @Test
     fun create() {
         val externalMeetingAvailability =
-            ExternalMeetingAvailability.builder().endMillisUtc(0).startMillisUtc(0).build()
+            ExternalMeetingAvailability.builder().endMillisUtc(0L).startMillisUtc(0L).build()
 
-        assertThat(externalMeetingAvailability.endMillisUtc()).isEqualTo(0)
-        assertThat(externalMeetingAvailability.startMillisUtc()).isEqualTo(0)
+        assertThat(externalMeetingAvailability.endMillisUtc()).isEqualTo(0L)
+        assertThat(externalMeetingAvailability.startMillisUtc()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val externalMeetingAvailability =
-            ExternalMeetingAvailability.builder().endMillisUtc(0).startMillisUtc(0).build()
+            ExternalMeetingAvailability.builder().endMillisUtc(0L).startMillisUtc(0L).build()
 
         val roundtrippedExternalMeetingAvailability =
             jsonMapper.readValue(

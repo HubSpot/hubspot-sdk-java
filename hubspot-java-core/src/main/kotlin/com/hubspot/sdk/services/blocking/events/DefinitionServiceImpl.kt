@@ -17,7 +17,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.Property
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.events.definitions.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
 import com.hubspot.sdk.models.events.definitions.DefinitionCreateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionCreatePropertyParams
@@ -74,7 +74,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
     override fun createProperty(
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions,
-    ): Property =
+    ): BaseProperty =
         // post /events/2026-03/event-definitions/{eventName}/property
         withRawResponse().createProperty(params, requestOptions).parse()
 
@@ -101,7 +101,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
     override fun updateProperty(
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions,
-    ): Property =
+    ): BaseProperty =
         // patch /events/2026-03/event-definitions/{eventName}/property/{propertyName}
         withRawResponse().updateProperty(params, requestOptions).parse()
 
@@ -238,13 +238,13 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val createPropertyHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val createPropertyHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun createProperty(
             params: DefinitionCreatePropertyParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<BaseProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventName", params.eventName().getOrNull())
@@ -357,13 +357,13 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val updatePropertyHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val updatePropertyHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun updateProperty(
             params: DefinitionUpdatePropertyParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<BaseProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())

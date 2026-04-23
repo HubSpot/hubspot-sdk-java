@@ -60,8 +60,8 @@ private constructor(
     fun completedAt(): OffsetDateTime = completedAt.getRequired("completedAt")
 
     /**
-     * An array of SubscriptionResponse objects, each representing the result of an individual
-     * subscription update within the batch operation.
+     * An array containing the results of the batch operation, with each item representing an
+     * individual subscription response.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -86,8 +86,8 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * A map of link names to associated URIs, providing additional information or resources related
-     * to the batch operation.
+     * A map of link names to associated URIs providing additional information about the batch
+     * operation.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -220,8 +220,8 @@ private constructor(
         }
 
         /**
-         * An array of SubscriptionResponse objects, each representing the result of an individual
-         * subscription update within the batch operation.
+         * An array containing the results of the batch operation, with each item representing an
+         * individual subscription response.
          */
         fun results(results: List<SubscriptionResponse>) = results(JsonField.of(results))
 
@@ -275,8 +275,8 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * A map of link names to associated URIs, providing additional information or resources
-         * related to the batch operation.
+         * A map of link names to associated URIs providing additional information about the batch
+         * operation.
          */
         fun links(links: Links) = links(JsonField.of(links))
 
@@ -528,8 +528,8 @@ private constructor(
     }
 
     /**
-     * A map of link names to associated URIs, providing additional information or resources related
-     * to the batch operation.
+     * A map of link names to associated URIs providing additional information about the batch
+     * operation.
      */
     class Links
     @JsonCreator

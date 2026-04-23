@@ -10,9 +10,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the earliest entry from the webhooks journal for the specified portal. This endpoint is
- * useful for accessing the initial entries in the journal, which can be helpful for debugging or
- * auditing purposes.
+ * Retrieve the earliest entry from the webhooks journal for the specified version. This endpoint is
+ * useful for accessing the oldest records available in the journal, which can be helpful for
+ * auditing or historical data analysis.
  */
 class WebhookGetEarliestJournalEntryParams
 private constructor(
@@ -21,9 +21,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The ID of the portal installation to filter the journal entries. This is an integer value.
-     */
+    /** The ID of the portal installation to filter the journal entries. It is an integer. */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
     /** Additional headers to send with the request. */
@@ -62,10 +60,7 @@ private constructor(
                 webhookGetEarliestJournalEntryParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The ID of the portal installation to filter the journal entries. This is an integer
-         * value.
-         */
+        /** The ID of the portal installation to filter the journal entries. It is an integer. */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId
         }

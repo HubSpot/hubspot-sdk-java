@@ -21,14 +21,12 @@ import com.hubspot.sdk.core.prepare
 import com.hubspot.sdk.models.files.CollectionResponseFile
 import com.hubspot.sdk.models.files.File
 import com.hubspot.sdk.models.files.FileActionResponse
-import com.hubspot.sdk.models.files.FileStat
 import com.hubspot.sdk.models.files.Folder
 import com.hubspot.sdk.models.files.ImportFromUrlTaskLocator
 import com.hubspot.sdk.models.files.SignedUrl
 import com.hubspot.sdk.models.files.fileassets.FileAssetCreateParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetDeleteParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGdprDeleteParams
-import com.hubspot.sdk.models.files.fileassets.FileAssetGetByPathParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetImportTaskStatusParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetSignedUrlParams
@@ -74,13 +72,6 @@ class FileAssetServiceImpl internal constructor(private val clientOptions: Clien
     override fun get(params: FileAssetGetParams, requestOptions: RequestOptions): File =
         // get /files/2026-03/files/{fileId}
         withRawResponse().get(params, requestOptions).parse()
-
-    override fun getByPath(
-        params: FileAssetGetByPathParams,
-        requestOptions: RequestOptions,
-    ): FileStat =
-        // get /files/2026-03/files/stat/{path}
-        withRawResponse().getByPath(params, requestOptions).parse()
 
     override fun getImportTaskStatus(
         params: FileAssetGetImportTaskStatusParams,
@@ -263,36 +254,6 @@ class FileAssetServiceImpl internal constructor(private val clientOptions: Clien
             return errorHandler.handle(response).parseable {
                 response
                     .use { getHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val getByPathHandler: Handler<FileStat> =
-            jsonHandler<FileStat>(clientOptions.jsonMapper)
-
-        override fun getByPath(
-            params: FileAssetGetByPathParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<FileStat> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("files", "2026-03", "files", "stat", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { getByPathHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

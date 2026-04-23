@@ -13,18 +13,18 @@ internal class AbsoluteRangedTimestampRefineByTest {
     fun create() {
         val absoluteRangedTimestampRefineBy =
             AbsoluteRangedTimestampRefineBy.builder()
-                .lowerTimestamp(0)
+                .lowerTimestamp(0L)
                 .rangeType(AbsoluteRangedTimestampRefineBy.RangeType.BETWEEN)
                 .type(AbsoluteRangedTimestampRefineBy.Type.ABSOLUTE_RANGED_TIMESTAMP_REFINE_BY)
-                .upperTimestamp(0)
+                .upperTimestamp(0L)
                 .build()
 
-        assertThat(absoluteRangedTimestampRefineBy.lowerTimestamp()).isEqualTo(0)
+        assertThat(absoluteRangedTimestampRefineBy.lowerTimestamp()).isEqualTo(0L)
         assertThat(absoluteRangedTimestampRefineBy.rangeType())
             .isEqualTo(AbsoluteRangedTimestampRefineBy.RangeType.BETWEEN)
         assertThat(absoluteRangedTimestampRefineBy.type())
             .isEqualTo(AbsoluteRangedTimestampRefineBy.Type.ABSOLUTE_RANGED_TIMESTAMP_REFINE_BY)
-        assertThat(absoluteRangedTimestampRefineBy.upperTimestamp()).isEqualTo(0)
+        assertThat(absoluteRangedTimestampRefineBy.upperTimestamp()).isEqualTo(0L)
     }
 
     @Test
@@ -32,10 +32,10 @@ internal class AbsoluteRangedTimestampRefineByTest {
         val jsonMapper = jsonMapper()
         val absoluteRangedTimestampRefineBy =
             AbsoluteRangedTimestampRefineBy.builder()
-                .lowerTimestamp(0)
+                .lowerTimestamp(0L)
                 .rangeType(AbsoluteRangedTimestampRefineBy.RangeType.BETWEEN)
                 .type(AbsoluteRangedTimestampRefineBy.Type.ABSOLUTE_RANGED_TIMESTAMP_REFINE_BY)
-                .upperTimestamp(0)
+                .upperTimestamp(0L)
                 .build()
 
         val roundtrippedAbsoluteRangedTimestampRefineBy =

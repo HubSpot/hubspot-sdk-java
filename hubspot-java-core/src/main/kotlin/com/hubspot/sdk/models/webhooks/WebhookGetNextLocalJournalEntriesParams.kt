@@ -10,9 +10,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the next set of journal entries starting from a specified offset. This endpoint is
- * useful for paginating through webhook journal entries in a sequential manner. It requires
- * specifying the offset from which the next entries should be fetched.
+ * Retrieve the next set of webhook journal entries starting from a specified offset. This endpoint
+ * is useful for paginating through webhook journal data in a sequential manner, allowing you to
+ * fetch entries beyond a given point.
  */
 class WebhookGetNextLocalJournalEntriesParams
 private constructor(
@@ -24,10 +24,7 @@ private constructor(
 
     fun offset(): Optional<String> = Optional.ofNullable(offset)
 
-    /**
-     * The ID of the portal installation to filter the journal entries by. This is an optional
-     * parameter.
-     */
+    /** The ID of the portal where the webhook is installed. This is an integer value. */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
     /** Additional headers to send with the request. */
@@ -74,10 +71,7 @@ private constructor(
         /** Alias for calling [Builder.offset] with `offset.orElse(null)`. */
         fun offset(offset: Optional<String>) = offset(offset.getOrNull())
 
-        /**
-         * The ID of the portal installation to filter the journal entries by. This is an optional
-         * parameter.
-         */
+        /** The ID of the portal where the webhook is installed. This is an integer value. */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId
         }

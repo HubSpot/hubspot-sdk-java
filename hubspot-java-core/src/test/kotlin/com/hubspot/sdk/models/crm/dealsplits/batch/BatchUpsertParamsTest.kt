@@ -17,7 +17,7 @@ internal class BatchUpsertParamsTest {
                 PublicDealSplitsBatchCreateRequest.builder()
                     .addInput(
                         PublicDealSplitsCreateRequest.builder()
-                            .id(0)
+                            .id(0L)
                             .addSplit(
                                 PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build()
                             )
@@ -36,7 +36,7 @@ internal class BatchUpsertParamsTest {
                     PublicDealSplitsBatchCreateRequest.builder()
                         .addInput(
                             PublicDealSplitsCreateRequest.builder()
-                                .id(0)
+                                .id(0L)
                                 .addSplit(
                                     PublicDealSplitInput.builder()
                                         .ownerId(0)
@@ -56,7 +56,7 @@ internal class BatchUpsertParamsTest {
                 PublicDealSplitsBatchCreateRequest.builder()
                     .addInput(
                         PublicDealSplitsCreateRequest.builder()
-                            .id(0)
+                            .id(0L)
                             .addSplit(
                                 PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build()
                             )

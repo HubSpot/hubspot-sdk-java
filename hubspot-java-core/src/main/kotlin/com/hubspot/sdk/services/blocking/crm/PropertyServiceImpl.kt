@@ -17,7 +17,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.Property
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.crm.properties.CollectionResponsePropertyNoPaging
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams
@@ -51,11 +51,17 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
 
     override fun groups(): GroupService = groups
 
-    override fun create(params: PropertyCreateParams, requestOptions: RequestOptions): Property =
+    override fun create(
+        params: PropertyCreateParams,
+        requestOptions: RequestOptions,
+    ): BaseProperty =
         // post /crm/properties/2026-03/{objectType}
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun update(params: PropertyUpdateParams, requestOptions: RequestOptions): Property =
+    override fun update(
+        params: PropertyUpdateParams,
+        requestOptions: RequestOptions,
+    ): BaseProperty =
         // patch /crm/properties/2026-03/{objectType}/{propertyName}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -71,7 +77,7 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun get(params: PropertyGetParams, requestOptions: RequestOptions): Property =
+    override fun get(params: PropertyGetParams, requestOptions: RequestOptions): BaseProperty =
         // get /crm/properties/2026-03/{objectType}/{propertyName}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -100,13 +106,13 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
 
         override fun groups(): GroupService.WithRawResponse = groups
 
-        private val createHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val createHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun create(
             params: PropertyCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<BaseProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())
@@ -131,13 +137,13 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val updateHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun update(
             params: PropertyUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<BaseProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())
@@ -228,12 +234,13 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val getHandler: Handler<Property> = jsonHandler<Property>(clientOptions.jsonMapper)
+        private val getHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun get(
             params: PropertyGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<BaseProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())

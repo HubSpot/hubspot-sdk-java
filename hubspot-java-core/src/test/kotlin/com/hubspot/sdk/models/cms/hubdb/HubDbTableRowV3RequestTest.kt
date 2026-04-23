@@ -18,7 +18,7 @@ internal class HubDbTableRowV3RequestTest {
                 .displayIndex(0)
                 .values(
                     HubDbTableRowV3Request.Values.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                        .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                         .build()
                 )
                 .name("name")
@@ -30,7 +30,7 @@ internal class HubDbTableRowV3RequestTest {
         assertThat(hubDbTableRowV3Request.values())
             .isEqualTo(
                 HubDbTableRowV3Request.Values.builder()
-                    .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                    .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                     .build()
             )
         assertThat(hubDbTableRowV3Request.name()).contains("name")
@@ -46,7 +46,7 @@ internal class HubDbTableRowV3RequestTest {
                 .displayIndex(0)
                 .values(
                     HubDbTableRowV3Request.Values.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                        .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                         .build()
                 )
                 .name("name")

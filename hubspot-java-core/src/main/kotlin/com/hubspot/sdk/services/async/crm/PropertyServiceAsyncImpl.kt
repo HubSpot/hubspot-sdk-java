@@ -17,7 +17,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepareAsync
-import com.hubspot.sdk.models.Property
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.crm.properties.CollectionResponsePropertyNoPaging
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams
@@ -55,14 +55,14 @@ class PropertyServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun create(
         params: PropertyCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Property> =
+    ): CompletableFuture<BaseProperty> =
         // post /crm/properties/2026-03/{objectType}
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: PropertyUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Property> =
+    ): CompletableFuture<BaseProperty> =
         // patch /crm/properties/2026-03/{objectType}/{propertyName}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -83,7 +83,7 @@ class PropertyServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun get(
         params: PropertyGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Property> =
+    ): CompletableFuture<BaseProperty> =
         // get /crm/properties/2026-03/{objectType}/{propertyName}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -112,13 +112,13 @@ class PropertyServiceAsyncImpl internal constructor(private val clientOptions: C
 
         override fun groups(): GroupServiceAsync.WithRawResponse = groups
 
-        private val createHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val createHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun create(
             params: PropertyCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Property>> {
+        ): CompletableFuture<HttpResponseFor<BaseProperty>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())
@@ -146,13 +146,13 @@ class PropertyServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val updateHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun update(
             params: PropertyUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Property>> {
+        ): CompletableFuture<HttpResponseFor<BaseProperty>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())
@@ -252,12 +252,13 @@ class PropertyServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val getHandler: Handler<Property> = jsonHandler<Property>(clientOptions.jsonMapper)
+        private val getHandler: Handler<BaseProperty> =
+            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
 
         override fun get(
             params: PropertyGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Property>> {
+        ): CompletableFuture<HttpResponseFor<BaseProperty>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())

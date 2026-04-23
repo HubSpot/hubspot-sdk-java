@@ -26,7 +26,7 @@ private constructor(
     private val id: JsonField<String>,
     private val allowChildTables: JsonField<Boolean>,
     private val allowPublicApiAccess: JsonField<Boolean>,
-    private val columnCount: JsonField<Int>,
+    private val columnCount: JsonField<Long>,
     private val columns: JsonField<List<Column>>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val deleted: JsonField<Boolean>,
@@ -55,7 +55,9 @@ private constructor(
         @JsonProperty("allowPublicApiAccess")
         @ExcludeMissing
         allowPublicApiAccess: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("columnCount") @ExcludeMissing columnCount: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("columnCount")
+        @ExcludeMissing
+        columnCount: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("columns")
         @ExcludeMissing
         columns: JsonField<List<Column>> = JsonMissing.of(),
@@ -148,7 +150,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun columnCount(): Int = columnCount.getRequired("columnCount")
+    fun columnCount(): Long = columnCount.getRequired("columnCount")
 
     /**
      * List of columns in the table
@@ -309,7 +311,7 @@ private constructor(
      *
      * Unlike [columnCount], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("columnCount") @ExcludeMissing fun _columnCount(): JsonField<Int> = columnCount
+    @JsonProperty("columnCount") @ExcludeMissing fun _columnCount(): JsonField<Long> = columnCount
 
     /**
      * Returns the raw JSON value of [columns].
@@ -488,7 +490,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var allowChildTables: JsonField<Boolean>? = null
         private var allowPublicApiAccess: JsonField<Boolean>? = null
-        private var columnCount: JsonField<Int>? = null
+        private var columnCount: JsonField<Long>? = null
         private var columns: JsonField<MutableList<Column>>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var deleted: JsonField<Boolean>? = null
@@ -574,15 +576,16 @@ private constructor(
         }
 
         /** Number of columns including deleted */
-        fun columnCount(columnCount: Int) = columnCount(JsonField.of(columnCount))
+        fun columnCount(columnCount: Long) = columnCount(JsonField.of(columnCount))
 
         /**
          * Sets [Builder.columnCount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.columnCount] with a well-typed [Int] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.columnCount] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun columnCount(columnCount: JsonField<Int>) = apply { this.columnCount = columnCount }
+        fun columnCount(columnCount: JsonField<Long>) = apply { this.columnCount = columnCount }
 
         /** List of columns in the table */
         fun columns(columns: List<Column>) = columns(JsonField.of(columns))

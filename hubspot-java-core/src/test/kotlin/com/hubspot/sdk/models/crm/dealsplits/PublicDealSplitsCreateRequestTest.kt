@@ -13,11 +13,11 @@ internal class PublicDealSplitsCreateRequestTest {
     fun create() {
         val publicDealSplitsCreateRequest =
             PublicDealSplitsCreateRequest.builder()
-                .id(0)
+                .id(0L)
                 .addSplit(PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build())
                 .build()
 
-        assertThat(publicDealSplitsCreateRequest.id()).isEqualTo(0)
+        assertThat(publicDealSplitsCreateRequest.id()).isEqualTo(0L)
         assertThat(publicDealSplitsCreateRequest.splits())
             .containsExactly(PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build())
     }
@@ -27,7 +27,7 @@ internal class PublicDealSplitsCreateRequestTest {
         val jsonMapper = jsonMapper()
         val publicDealSplitsCreateRequest =
             PublicDealSplitsCreateRequest.builder()
-                .id(0)
+                .id(0L)
                 .addSplit(PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build())
                 .build()
 

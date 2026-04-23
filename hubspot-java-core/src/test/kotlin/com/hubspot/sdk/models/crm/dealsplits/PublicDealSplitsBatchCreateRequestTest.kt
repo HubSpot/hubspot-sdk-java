@@ -15,7 +15,7 @@ internal class PublicDealSplitsBatchCreateRequestTest {
             PublicDealSplitsBatchCreateRequest.builder()
                 .addInput(
                     PublicDealSplitsCreateRequest.builder()
-                        .id(0)
+                        .id(0L)
                         .addSplit(PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build())
                         .build()
                 )
@@ -24,7 +24,7 @@ internal class PublicDealSplitsBatchCreateRequestTest {
         assertThat(publicDealSplitsBatchCreateRequest.inputs())
             .containsExactly(
                 PublicDealSplitsCreateRequest.builder()
-                    .id(0)
+                    .id(0L)
                     .addSplit(PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build())
                     .build()
             )
@@ -37,7 +37,7 @@ internal class PublicDealSplitsBatchCreateRequestTest {
             PublicDealSplitsBatchCreateRequest.builder()
                 .addInput(
                     PublicDealSplitsCreateRequest.builder()
-                        .id(0)
+                        .id(0L)
                         .addSplit(PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build())
                         .build()
                 )

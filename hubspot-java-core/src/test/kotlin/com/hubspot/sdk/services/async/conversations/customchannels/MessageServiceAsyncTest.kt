@@ -86,7 +86,7 @@ internal class MessageServiceAsyncTest {
                                                 PreResolvedContact.ContactPropertiesLeadingToMatch
                                                     .ADDRESS
                                             )
-                                            .contactVid(0)
+                                            .contactVid(0L)
                                             .build()
                                     )
                                     .build()

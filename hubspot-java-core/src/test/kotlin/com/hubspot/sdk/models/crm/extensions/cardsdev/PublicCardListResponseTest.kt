@@ -25,7 +25,7 @@ internal class PublicCardListResponseTest {
                                 .authSource(CardAuditResponse.AuthSource.APP)
                                 .changedAt(0L)
                                 .initiatingUserId(0)
-                                .objectTypeId(0)
+                                .objectTypeId(0L)
                                 .build()
                         )
                         .display(
@@ -76,7 +76,7 @@ internal class PublicCardListResponseTest {
                             .authSource(CardAuditResponse.AuthSource.APP)
                             .changedAt(0L)
                             .initiatingUserId(0)
-                            .objectTypeId(0)
+                            .objectTypeId(0L)
                             .build()
                     )
                     .display(
@@ -131,7 +131,7 @@ internal class PublicCardListResponseTest {
                                 .authSource(CardAuditResponse.AuthSource.APP)
                                 .changedAt(0L)
                                 .initiatingUserId(0)
-                                .objectTypeId(0)
+                                .objectTypeId(0L)
                                 .build()
                         )
                         .display(

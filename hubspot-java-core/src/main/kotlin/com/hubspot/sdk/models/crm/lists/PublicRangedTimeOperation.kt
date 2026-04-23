@@ -34,7 +34,7 @@ class PublicRangedTimeOperation
 private constructor(
     private val includeObjectsWithNoValueSet: JsonField<Boolean>,
     private val lowerBoundTimePoint: JsonField<LowerBoundTimePoint>,
-    private val operationType: JsonField<String>,
+    private val operationType: JsonField<OperationType>,
     private val operator: JsonField<String>,
     private val type: JsonField<Type>,
     private val upperBoundTimePoint: JsonField<UpperBoundTimePoint>,
@@ -54,7 +54,7 @@ private constructor(
         lowerBoundTimePoint: JsonField<LowerBoundTimePoint> = JsonMissing.of(),
         @JsonProperty("operationType")
         @ExcludeMissing
-        operationType: JsonField<String> = JsonMissing.of(),
+        operationType: JsonField<OperationType> = JsonMissing.of(),
         @JsonProperty("operator") @ExcludeMissing operator: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("upperBoundTimePoint")
@@ -107,7 +107,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun operationType(): String = operationType.getRequired("operationType")
+    fun operationType(): OperationType = operationType.getRequired("operationType")
 
     /**
      * Defines the operation to be applied within the time range (IS_BETWEEN, IS_NOT_BETWEEN).
@@ -187,7 +187,7 @@ private constructor(
      */
     @JsonProperty("operationType")
     @ExcludeMissing
-    fun _operationType(): JsonField<String> = operationType
+    fun _operationType(): JsonField<OperationType> = operationType
 
     /**
      * Returns the raw JSON value of [operator].
@@ -277,7 +277,7 @@ private constructor(
 
         private var includeObjectsWithNoValueSet: JsonField<Boolean>? = null
         private var lowerBoundTimePoint: JsonField<LowerBoundTimePoint>? = null
-        private var operationType: JsonField<String>? = null
+        private var operationType: JsonField<OperationType>? = null
         private var operator: JsonField<String>? = null
         private var type: JsonField<Type>? = null
         private var upperBoundTimePoint: JsonField<UpperBoundTimePoint>? = null
@@ -357,16 +357,16 @@ private constructor(
             )
 
         /** Specifies the type of operation (TIME_RANGED). */
-        fun operationType(operationType: String) = operationType(JsonField.of(operationType))
+        fun operationType(operationType: OperationType) = operationType(JsonField.of(operationType))
 
         /**
          * Sets [Builder.operationType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.operationType] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.operationType] with a well-typed [OperationType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun operationType(operationType: JsonField<String>) = apply {
+        fun operationType(operationType: JsonField<OperationType>) = apply {
             this.operationType = operationType
         }
 
@@ -536,7 +536,7 @@ private constructor(
 
         includeObjectsWithNoValueSet()
         lowerBoundTimePoint().validate()
-        operationType()
+        operationType().validate()
         operator()
         type().validate()
         upperBoundTimePoint().validate()
@@ -563,7 +563,7 @@ private constructor(
     internal fun validity(): Int =
         (if (includeObjectsWithNoValueSet.asKnown().isPresent) 1 else 0) +
             (lowerBoundTimePoint.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (operationType.asKnown().isPresent) 1 else 0) +
+            (operationType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (operator.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (upperBoundTimePoint.asKnown().getOrNull()?.validity() ?: 0) +
@@ -797,6 +797,130 @@ private constructor(
                 }
             }
         }
+    }
+
+    /** Specifies the type of operation (TIME_RANGED). */
+    class OperationType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TIME_RANGED = of("TIME_RANGED")
+
+            @JvmStatic fun of(value: String) = OperationType(JsonField.of(value))
+        }
+
+        /** An enum containing [OperationType]'s known values. */
+        enum class Known {
+            TIME_RANGED
+        }
+
+        /**
+         * An enum containing [OperationType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [OperationType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TIME_RANGED,
+            /**
+             * An enum member indicating that [OperationType] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TIME_RANGED -> Value.TIME_RANGED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TIME_RANGED -> Known.TIME_RANGED
+                else -> throw HubSpotInvalidDataException("Unknown OperationType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): OperationType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubSpotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is OperationType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     /** Specifies the type of operation (TIME_RANGED). */

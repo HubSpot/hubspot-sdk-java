@@ -85,8 +85,10 @@ interface LandingPageServiceAsync {
     ): CompletableFuture<PageData>
 
     /**
-     * Get the list of landing pages. Supports paging and filtering. This method would be useful for
-     * an integration that examined these models and used an external service to suggest edits.
+     * Retrieve a list of landing pages in your HubSpot account. This endpoint allows you to filter
+     * landing pages based on creation and update timestamps, sort them, and paginate through
+     * results. You can also choose to include archived pages or specify certain properties to be
+     * included in the response.
      */
     fun list(): CompletableFuture<LandingPageListPageAsync> = list(LandingPageListParams.none())
 

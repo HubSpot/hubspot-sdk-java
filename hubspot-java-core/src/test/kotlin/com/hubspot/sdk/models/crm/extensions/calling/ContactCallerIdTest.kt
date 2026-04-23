@@ -16,7 +16,7 @@ internal class ContactCallerIdTest {
                 .callerIdType(ContactCallerId.CallerIdType.CONTACT)
                 .objectCoordinates(
                     ObjectCoordinates.builder()
-                        .objectId(0)
+                        .objectId(0L)
                         .objectTypeId("objectTypeId")
                         .portalId(0)
                         .build()
@@ -30,7 +30,7 @@ internal class ContactCallerIdTest {
         assertThat(contactCallerId.objectCoordinates())
             .isEqualTo(
                 ObjectCoordinates.builder()
-                    .objectId(0)
+                    .objectId(0L)
                     .objectTypeId("objectTypeId")
                     .portalId(0)
                     .build()
@@ -48,7 +48,7 @@ internal class ContactCallerIdTest {
                 .callerIdType(ContactCallerId.CallerIdType.CONTACT)
                 .objectCoordinates(
                     ObjectCoordinates.builder()
-                        .objectId(0)
+                        .objectId(0L)
                         .objectTypeId("objectTypeId")
                         .portalId(0)
                         .build()

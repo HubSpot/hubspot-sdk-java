@@ -28,7 +28,7 @@ internal class PublicRangedTimeOperationTest {
                         .timezoneSource("timezoneSource")
                         .build()
                 )
-                .operationType("operationType")
+                .operationType(PublicRangedTimeOperation.OperationType.TIME_RANGED)
                 .operator("operator")
                 .type(PublicRangedTimeOperation.Type.TIME_RANGED)
                 .upperBoundTimePoint(
@@ -68,7 +68,8 @@ internal class PublicRangedTimeOperationTest {
                         .build()
                 )
             )
-        assertThat(publicRangedTimeOperation.operationType()).isEqualTo("operationType")
+        assertThat(publicRangedTimeOperation.operationType())
+            .isEqualTo(PublicRangedTimeOperation.OperationType.TIME_RANGED)
         assertThat(publicRangedTimeOperation.operator()).isEqualTo("operator")
         assertThat(publicRangedTimeOperation.type())
             .isEqualTo(PublicRangedTimeOperation.Type.TIME_RANGED)
@@ -116,7 +117,7 @@ internal class PublicRangedTimeOperationTest {
                         .timezoneSource("timezoneSource")
                         .build()
                 )
-                .operationType("operationType")
+                .operationType(PublicRangedTimeOperation.OperationType.TIME_RANGED)
                 .operator("operator")
                 .type(PublicRangedTimeOperation.Type.TIME_RANGED)
                 .upperBoundTimePoint(
