@@ -24,7 +24,7 @@ class ImportRowCore
 private constructor(
     private val additionalRowData: JsonField<List<String>>,
     private val containsEncryptedProperties: JsonField<Boolean>,
-    private val fileId: JsonField<Int>,
+    private val fileId: JsonField<Long>,
     private val lineNumber: JsonField<Int>,
     private val rowData: JsonField<List<String>>,
     private val pageName: JsonField<String>,
@@ -39,7 +39,7 @@ private constructor(
         @JsonProperty("containsEncryptedProperties")
         @ExcludeMissing
         containsEncryptedProperties: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("fileId") @ExcludeMissing fileId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("fileId") @ExcludeMissing fileId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("lineNumber") @ExcludeMissing lineNumber: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("rowData")
         @ExcludeMissing
@@ -76,7 +76,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun fileId(): Int = fileId.getRequired("fileId")
+    fun fileId(): Long = fileId.getRequired("fileId")
 
     /**
      * The 1-indexed line number of this row in the source file. Line number 0 is reserved for
@@ -126,7 +126,7 @@ private constructor(
      *
      * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("fileId") @ExcludeMissing fun _fileId(): JsonField<Int> = fileId
+    @JsonProperty("fileId") @ExcludeMissing fun _fileId(): JsonField<Long> = fileId
 
     /**
      * Returns the raw JSON value of [lineNumber].
@@ -183,7 +183,7 @@ private constructor(
 
         private var additionalRowData: JsonField<MutableList<String>>? = null
         private var containsEncryptedProperties: JsonField<Boolean>? = null
-        private var fileId: JsonField<Int>? = null
+        private var fileId: JsonField<Long>? = null
         private var lineNumber: JsonField<Int>? = null
         private var rowData: JsonField<MutableList<String>>? = null
         private var pageName: JsonField<String> = JsonMissing.of()
@@ -242,15 +242,15 @@ private constructor(
         }
 
         /** The unique identifier of the uploaded file containing this row. */
-        fun fileId(fileId: Int) = fileId(JsonField.of(fileId))
+        fun fileId(fileId: Long) = fileId(JsonField.of(fileId))
 
         /**
          * Sets [Builder.fileId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.fileId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.fileId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun fileId(fileId: JsonField<Int>) = apply { this.fileId = fileId }
+        fun fileId(fileId: JsonField<Long>) = apply { this.fileId = fileId }
 
         /**
          * The 1-indexed line number of this row in the source file. Line number 0 is reserved for

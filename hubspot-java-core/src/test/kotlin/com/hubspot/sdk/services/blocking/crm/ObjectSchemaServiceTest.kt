@@ -87,7 +87,7 @@ internal class ObjectSchemaServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
-        val objectTypeDefinition =
+        val baseObjectTypeDefinition =
             objectSchemaService.update(
                 ObjectSchemaUpdateParams.builder()
                     .objectType("objectType")
@@ -112,7 +112,7 @@ internal class ObjectSchemaServiceTest {
                     .build()
             )
 
-        objectTypeDefinition.validate()
+        baseObjectTypeDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -151,7 +151,7 @@ internal class ObjectSchemaServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
-        val associationDefinition =
+        val baseAssociationDefinition =
             objectSchemaService.createAssociation(
                 ObjectSchemaCreateAssociationParams.builder()
                     .objectType("objectType")
@@ -165,7 +165,7 @@ internal class ObjectSchemaServiceTest {
                     .build()
             )
 
-        associationDefinition.validate()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")

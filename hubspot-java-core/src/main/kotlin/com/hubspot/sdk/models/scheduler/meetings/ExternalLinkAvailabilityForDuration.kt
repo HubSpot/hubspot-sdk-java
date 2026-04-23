@@ -22,7 +22,7 @@ class ExternalLinkAvailabilityForDuration
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val availabilities: JsonField<List<ExternalMeetingAvailability>>,
-    private val meetingDurationMillis: JsonField<Int>,
+    private val meetingDurationMillis: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,7 +33,7 @@ private constructor(
         availabilities: JsonField<List<ExternalMeetingAvailability>> = JsonMissing.of(),
         @JsonProperty("meetingDurationMillis")
         @ExcludeMissing
-        meetingDurationMillis: JsonField<Int> = JsonMissing.of(),
+        meetingDurationMillis: JsonField<Long> = JsonMissing.of(),
     ) : this(availabilities, meetingDurationMillis, mutableMapOf())
 
     /**
@@ -49,7 +49,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun meetingDurationMillis(): Int = meetingDurationMillis.getRequired("meetingDurationMillis")
+    fun meetingDurationMillis(): Long = meetingDurationMillis.getRequired("meetingDurationMillis")
 
     /**
      * Returns the raw JSON value of [availabilities].
@@ -68,7 +68,7 @@ private constructor(
      */
     @JsonProperty("meetingDurationMillis")
     @ExcludeMissing
-    fun _meetingDurationMillis(): JsonField<Int> = meetingDurationMillis
+    fun _meetingDurationMillis(): JsonField<Long> = meetingDurationMillis
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -101,7 +101,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var availabilities: JsonField<MutableList<ExternalMeetingAvailability>>? = null
-        private var meetingDurationMillis: JsonField<Int>? = null
+        private var meetingDurationMillis: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -142,17 +142,17 @@ private constructor(
         }
 
         /** The duration of the meeting in milliseconds. */
-        fun meetingDurationMillis(meetingDurationMillis: Int) =
+        fun meetingDurationMillis(meetingDurationMillis: Long) =
             meetingDurationMillis(JsonField.of(meetingDurationMillis))
 
         /**
          * Sets [Builder.meetingDurationMillis] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meetingDurationMillis] with a well-typed [Int] value
+         * You should usually call [Builder.meetingDurationMillis] with a well-typed [Long] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun meetingDurationMillis(meetingDurationMillis: JsonField<Int>) = apply {
+        fun meetingDurationMillis(meetingDurationMillis: JsonField<Long>) = apply {
             this.meetingDurationMillis = meetingDurationMillis
         }
 

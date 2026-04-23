@@ -20,9 +20,9 @@ import kotlin.jvm.optionals.getOrNull
 class TranscriptCreateUtterance
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val endTimeMillis: JsonField<Int>,
+    private val endTimeMillis: JsonField<Long>,
     private val speaker: JsonField<Speaker>,
-    private val startTimeMillis: JsonField<Int>,
+    private val startTimeMillis: JsonField<Long>,
     private val text: JsonField<String>,
     private val languageCode: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -32,11 +32,11 @@ private constructor(
     private constructor(
         @JsonProperty("endTimeMillis")
         @ExcludeMissing
-        endTimeMillis: JsonField<Int> = JsonMissing.of(),
+        endTimeMillis: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("speaker") @ExcludeMissing speaker: JsonField<Speaker> = JsonMissing.of(),
         @JsonProperty("startTimeMillis")
         @ExcludeMissing
-        startTimeMillis: JsonField<Int> = JsonMissing.of(),
+        startTimeMillis: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
         @JsonProperty("languageCode")
         @ExcludeMissing
@@ -47,7 +47,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun endTimeMillis(): Int = endTimeMillis.getRequired("endTimeMillis")
+    fun endTimeMillis(): Long = endTimeMillis.getRequired("endTimeMillis")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -59,7 +59,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun startTimeMillis(): Int = startTimeMillis.getRequired("startTimeMillis")
+    fun startTimeMillis(): Long = startTimeMillis.getRequired("startTimeMillis")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -80,7 +80,7 @@ private constructor(
      */
     @JsonProperty("endTimeMillis")
     @ExcludeMissing
-    fun _endTimeMillis(): JsonField<Int> = endTimeMillis
+    fun _endTimeMillis(): JsonField<Long> = endTimeMillis
 
     /**
      * Returns the raw JSON value of [speaker].
@@ -96,7 +96,7 @@ private constructor(
      */
     @JsonProperty("startTimeMillis")
     @ExcludeMissing
-    fun _startTimeMillis(): JsonField<Int> = startTimeMillis
+    fun _startTimeMillis(): JsonField<Long> = startTimeMillis
 
     /**
      * Returns the raw JSON value of [text].
@@ -145,9 +145,9 @@ private constructor(
     /** A builder for [TranscriptCreateUtterance]. */
     class Builder internal constructor() {
 
-        private var endTimeMillis: JsonField<Int>? = null
+        private var endTimeMillis: JsonField<Long>? = null
         private var speaker: JsonField<Speaker>? = null
-        private var startTimeMillis: JsonField<Int>? = null
+        private var startTimeMillis: JsonField<Long>? = null
         private var text: JsonField<String>? = null
         private var languageCode: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -162,16 +162,16 @@ private constructor(
             additionalProperties = transcriptCreateUtterance.additionalProperties.toMutableMap()
         }
 
-        fun endTimeMillis(endTimeMillis: Int) = endTimeMillis(JsonField.of(endTimeMillis))
+        fun endTimeMillis(endTimeMillis: Long) = endTimeMillis(JsonField.of(endTimeMillis))
 
         /**
          * Sets [Builder.endTimeMillis] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.endTimeMillis] with a well-typed [Int] value instead.
+         * You should usually call [Builder.endTimeMillis] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun endTimeMillis(endTimeMillis: JsonField<Int>) = apply {
+        fun endTimeMillis(endTimeMillis: JsonField<Long>) = apply {
             this.endTimeMillis = endTimeMillis
         }
 
@@ -185,16 +185,16 @@ private constructor(
          */
         fun speaker(speaker: JsonField<Speaker>) = apply { this.speaker = speaker }
 
-        fun startTimeMillis(startTimeMillis: Int) = startTimeMillis(JsonField.of(startTimeMillis))
+        fun startTimeMillis(startTimeMillis: Long) = startTimeMillis(JsonField.of(startTimeMillis))
 
         /**
          * Sets [Builder.startTimeMillis] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.startTimeMillis] with a well-typed [Int] value instead.
+         * You should usually call [Builder.startTimeMillis] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun startTimeMillis(startTimeMillis: JsonField<Int>) = apply {
+        fun startTimeMillis(startTimeMillis: JsonField<Long>) = apply {
             this.startTimeMillis = startTimeMillis
         }
 

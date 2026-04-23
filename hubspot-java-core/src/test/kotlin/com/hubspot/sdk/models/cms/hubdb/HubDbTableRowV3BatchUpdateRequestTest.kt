@@ -14,11 +14,11 @@ internal class HubDbTableRowV3BatchUpdateRequestTest {
     fun create() {
         val hubDbTableRowV3BatchUpdateRequest =
             HubDbTableRowV3BatchUpdateRequest.builder()
-                .childTableId(0)
+                .childTableId(0L)
                 .displayIndex(0)
                 .values(
                     HubDbTableRowV3BatchUpdateRequest.Values.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                        .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                         .build()
                 )
                 .id("id")
@@ -26,12 +26,12 @@ internal class HubDbTableRowV3BatchUpdateRequestTest {
                 .path("path")
                 .build()
 
-        assertThat(hubDbTableRowV3BatchUpdateRequest.childTableId()).isEqualTo(0)
+        assertThat(hubDbTableRowV3BatchUpdateRequest.childTableId()).isEqualTo(0L)
         assertThat(hubDbTableRowV3BatchUpdateRequest.displayIndex()).isEqualTo(0)
         assertThat(hubDbTableRowV3BatchUpdateRequest.values())
             .isEqualTo(
                 HubDbTableRowV3BatchUpdateRequest.Values.builder()
-                    .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                    .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                     .build()
             )
         assertThat(hubDbTableRowV3BatchUpdateRequest.id()).contains("id")
@@ -44,11 +44,11 @@ internal class HubDbTableRowV3BatchUpdateRequestTest {
         val jsonMapper = jsonMapper()
         val hubDbTableRowV3BatchUpdateRequest =
             HubDbTableRowV3BatchUpdateRequest.builder()
-                .childTableId(0)
+                .childTableId(0L)
                 .displayIndex(0)
                 .values(
                     HubDbTableRowV3BatchUpdateRequest.Values.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                        .putAdditionalProperty("foo", JsonValue.from(mapOf("foo" to "bar")))
                         .build()
                 )
                 .id("id")

@@ -13,15 +13,15 @@ internal class CrmObjectSnapshotRequestTest {
     fun create() {
         val crmObjectSnapshotRequest =
             CrmObjectSnapshotRequest.builder()
-                .objectId(0)
+                .objectId(0L)
                 .objectTypeId("objectTypeId")
-                .portalId(0)
+                .portalId(0L)
                 .addProperty("string")
                 .build()
 
-        assertThat(crmObjectSnapshotRequest.objectId()).isEqualTo(0)
+        assertThat(crmObjectSnapshotRequest.objectId()).isEqualTo(0L)
         assertThat(crmObjectSnapshotRequest.objectTypeId()).isEqualTo("objectTypeId")
-        assertThat(crmObjectSnapshotRequest.portalId()).isEqualTo(0)
+        assertThat(crmObjectSnapshotRequest.portalId()).isEqualTo(0L)
         assertThat(crmObjectSnapshotRequest.properties()).containsExactly("string")
     }
 
@@ -30,9 +30,9 @@ internal class CrmObjectSnapshotRequestTest {
         val jsonMapper = jsonMapper()
         val crmObjectSnapshotRequest =
             CrmObjectSnapshotRequest.builder()
-                .objectId(0)
+                .objectId(0L)
                 .objectTypeId("objectTypeId")
-                .portalId(0)
+                .portalId(0L)
                 .addProperty("string")
                 .build()
 

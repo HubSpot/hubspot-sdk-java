@@ -13,7 +13,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Delete a specific webhook journal subscription using its unique identifier. This operation is
- * useful for managing and cleaning up subscriptions that are no longer needed.
+ * useful for managing and cleaning up subscriptions that are no longer needed or relevant.
  */
 class WebhookDeleteJournalSubscriptionParams
 private constructor(

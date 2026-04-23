@@ -26,7 +26,7 @@ private constructor(
     private val source: JsonField<String>,
     private val status: JsonField<Status>,
     private val subscriberIdString: JsonField<String>,
-    private val subscriptionId: JsonField<Int>,
+    private val subscriptionId: JsonField<Long>,
     private val timestamp: JsonField<OffsetDateTime>,
     private val businessUnitId: JsonField<Long>,
     private val legalBasis: JsonField<LegalBasis>,
@@ -46,7 +46,7 @@ private constructor(
         subscriberIdString: JsonField<String> = JsonMissing.of(),
         @JsonProperty("subscriptionId")
         @ExcludeMissing
-        subscriptionId: JsonField<Int> = JsonMissing.of(),
+        subscriptionId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("timestamp")
         @ExcludeMissing
         timestamp: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -119,7 +119,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun subscriptionId(): Int = subscriptionId.getRequired("subscriptionId")
+    fun subscriptionId(): Long = subscriptionId.getRequired("subscriptionId")
 
     /**
      * The date and time when the subscription status was last updated.
@@ -212,7 +212,7 @@ private constructor(
      */
     @JsonProperty("subscriptionId")
     @ExcludeMissing
-    fun _subscriptionId(): JsonField<Int> = subscriptionId
+    fun _subscriptionId(): JsonField<Long> = subscriptionId
 
     /**
      * Returns the raw JSON value of [timestamp].
@@ -308,7 +308,7 @@ private constructor(
         private var source: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var subscriberIdString: JsonField<String>? = null
-        private var subscriptionId: JsonField<Int>? = null
+        private var subscriptionId: JsonField<Long>? = null
         private var timestamp: JsonField<OffsetDateTime>? = null
         private var businessUnitId: JsonField<Long> = JsonMissing.of()
         private var legalBasis: JsonField<LegalBasis> = JsonMissing.of()
@@ -385,16 +385,16 @@ private constructor(
         }
 
         /** The unique identifier of the subscription. */
-        fun subscriptionId(subscriptionId: Int) = subscriptionId(JsonField.of(subscriptionId))
+        fun subscriptionId(subscriptionId: Long) = subscriptionId(JsonField.of(subscriptionId))
 
         /**
          * Sets [Builder.subscriptionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.subscriptionId] with a well-typed [Int] value instead.
+         * You should usually call [Builder.subscriptionId] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun subscriptionId(subscriptionId: JsonField<Int>) = apply {
+        fun subscriptionId(subscriptionId: JsonField<Long>) = apply {
             this.subscriptionId = subscriptionId
         }
 

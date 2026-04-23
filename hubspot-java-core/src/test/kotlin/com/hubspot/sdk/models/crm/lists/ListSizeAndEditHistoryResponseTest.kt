@@ -17,7 +17,7 @@ internal class ListSizeAndEditHistoryResponseTest {
                 .addEditHistory(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addSizeHistory(
                     ListSizeDataPoint.builder()
-                        .size(0)
+                        .size(0L)
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
@@ -28,7 +28,7 @@ internal class ListSizeAndEditHistoryResponseTest {
         assertThat(listSizeAndEditHistoryResponse.sizeHistory())
             .containsExactly(
                 ListSizeDataPoint.builder()
-                    .size(0)
+                    .size(0L)
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
@@ -42,7 +42,7 @@ internal class ListSizeAndEditHistoryResponseTest {
                 .addEditHistory(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addSizeHistory(
                     ListSizeDataPoint.builder()
-                        .size(0)
+                        .size(0L)
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )

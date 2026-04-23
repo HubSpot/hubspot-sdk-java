@@ -24,7 +24,7 @@ internal class RowCreateBatchParamsTest {
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
                                         "foo",
-                                        JsonValue.from(mapOf<String, Any>()),
+                                        JsonValue.from(mapOf("foo" to "bar")),
                                     )
                                     .build()
                             )
@@ -52,7 +52,7 @@ internal class RowCreateBatchParamsTest {
                                     HubDbTableRowV3Request.Values.builder()
                                         .putAdditionalProperty(
                                             "foo",
-                                            JsonValue.from(mapOf<String, Any>()),
+                                            JsonValue.from(mapOf("foo" to "bar")),
                                         )
                                         .build()
                                 )
@@ -82,7 +82,7 @@ internal class RowCreateBatchParamsTest {
                                     HubDbTableRowV3Request.Values.builder()
                                         .putAdditionalProperty(
                                             "foo",
-                                            JsonValue.from(mapOf<String, Any>()),
+                                            JsonValue.from(mapOf("foo" to "bar")),
                                         )
                                         .build()
                                 )
@@ -107,7 +107,7 @@ internal class RowCreateBatchParamsTest {
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
                                         "foo",
-                                        JsonValue.from(mapOf<String, Any>()),
+                                        JsonValue.from(mapOf("foo" to "bar")),
                                     )
                                     .build()
                             )
@@ -134,7 +134,7 @@ internal class RowCreateBatchParamsTest {
                                     HubDbTableRowV3Request.Values.builder()
                                         .putAdditionalProperty(
                                             "foo",
-                                            JsonValue.from(mapOf<String, Any>()),
+                                            JsonValue.from(mapOf("foo" to "bar")),
                                         )
                                         .build()
                                 )
@@ -157,7 +157,7 @@ internal class RowCreateBatchParamsTest {
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
                                         "foo",
-                                        JsonValue.from(mapOf<String, Any>()),
+                                        JsonValue.from(mapOf("foo" to "bar")),
                                     )
                                     .build()
                             )

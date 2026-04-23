@@ -19,13 +19,13 @@ internal class CollectionResponsePublicImportErrorForwardPagingTest {
                 .addResult(
                     PublicImportError.builder()
                         .id("id")
-                        .createdAt(0)
+                        .createdAt(0L)
                         .errorType(PublicImportError.ErrorType.AMBIGUOUS_ENUMERATION_OPTION)
                         .sourceData(
                             ImportRowCore.builder()
                                 .addAdditionalRowData("string")
                                 .containsEncryptedProperties(true)
-                                .fileId(0)
+                                .fileId(0L)
                                 .lineNumber(0)
                                 .addRowData("string")
                                 .pageName("pageName")
@@ -74,13 +74,13 @@ internal class CollectionResponsePublicImportErrorForwardPagingTest {
             .containsExactly(
                 PublicImportError.builder()
                     .id("id")
-                    .createdAt(0)
+                    .createdAt(0L)
                     .errorType(PublicImportError.ErrorType.AMBIGUOUS_ENUMERATION_OPTION)
                     .sourceData(
                         ImportRowCore.builder()
                             .addAdditionalRowData("string")
                             .containsEncryptedProperties(true)
-                            .fileId(0)
+                            .fileId(0L)
                             .lineNumber(0)
                             .addRowData("string")
                             .pageName("pageName")
@@ -134,13 +134,13 @@ internal class CollectionResponsePublicImportErrorForwardPagingTest {
                 .addResult(
                     PublicImportError.builder()
                         .id("id")
-                        .createdAt(0)
+                        .createdAt(0L)
                         .errorType(PublicImportError.ErrorType.AMBIGUOUS_ENUMERATION_OPTION)
                         .sourceData(
                             ImportRowCore.builder()
                                 .addAdditionalRowData("string")
                                 .containsEncryptedProperties(true)
-                                .fileId(0)
+                                .fileId(0L)
                                 .lineNumber(0)
                                 .addRowData("string")
                                 .pageName("pageName")

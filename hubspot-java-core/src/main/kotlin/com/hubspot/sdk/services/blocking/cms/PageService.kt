@@ -7,17 +7,9 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.cms.pages.CursorPagedResultContentFolderLong
-import com.hubspot.sdk.models.cms.pages.CursorPagedResultPageLong
 import com.hubspot.sdk.models.cms.pages.PageData
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPageFoldersByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPageFoldersParams
 import com.hubspot.sdk.models.cms.pages.PageGetLandingPageRevisionParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPagesByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPagesParams
 import com.hubspot.sdk.models.cms.pages.PageGetSitePageRevisionParams
-import com.hubspot.sdk.models.cms.pages.PageGetSitePagesByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetSitePagesParams
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsPage
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsParams
 import com.hubspot.sdk.models.cms.pages.PageListSitePageRevisionsPage
@@ -62,47 +54,6 @@ interface PageService {
 
     fun websitePages(): WebsitePageService
 
-    fun getLandingPageFolders(): CursorPagedResultContentFolderLong =
-        getLandingPageFolders(PageGetLandingPageFoldersParams.none())
-
-    /** @see getLandingPageFolders */
-    fun getLandingPageFolders(
-        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultContentFolderLong
-
-    /** @see getLandingPageFolders */
-    fun getLandingPageFolders(
-        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
-    ): CursorPagedResultContentFolderLong = getLandingPageFolders(params, RequestOptions.none())
-
-    /** @see getLandingPageFolders */
-    fun getLandingPageFolders(requestOptions: RequestOptions): CursorPagedResultContentFolderLong =
-        getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
-
-    fun getLandingPageFoldersByQuery(): CursorPagedResultContentFolderLong =
-        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
-
-    /** @see getLandingPageFoldersByQuery */
-    fun getLandingPageFoldersByQuery(
-        params: PageGetLandingPageFoldersByQueryParams =
-            PageGetLandingPageFoldersByQueryParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultContentFolderLong
-
-    /** @see getLandingPageFoldersByQuery */
-    fun getLandingPageFoldersByQuery(
-        params: PageGetLandingPageFoldersByQueryParams =
-            PageGetLandingPageFoldersByQueryParams.none()
-    ): CursorPagedResultContentFolderLong =
-        getLandingPageFoldersByQuery(params, RequestOptions.none())
-
-    /** @see getLandingPageFoldersByQuery */
-    fun getLandingPageFoldersByQuery(
-        requestOptions: RequestOptions
-    ): CursorPagedResultContentFolderLong =
-        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none(), requestOptions)
-
     /** Retrieve a previous version of a landing page, specified by page ID and revision ID. */
     fun getLandingPageRevision(
         revisionId: String,
@@ -127,42 +78,6 @@ interface PageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PageVersion
 
-    fun getLandingPages(): CursorPagedResultPageLong =
-        getLandingPages(PageGetLandingPagesParams.none())
-
-    /** @see getLandingPages */
-    fun getLandingPages(
-        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultPageLong
-
-    /** @see getLandingPages */
-    fun getLandingPages(
-        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
-    ): CursorPagedResultPageLong = getLandingPages(params, RequestOptions.none())
-
-    /** @see getLandingPages */
-    fun getLandingPages(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
-
-    fun getLandingPagesByQuery(): CursorPagedResultPageLong =
-        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
-
-    /** @see getLandingPagesByQuery */
-    fun getLandingPagesByQuery(
-        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultPageLong
-
-    /** @see getLandingPagesByQuery */
-    fun getLandingPagesByQuery(
-        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
-    ): CursorPagedResultPageLong = getLandingPagesByQuery(params, RequestOptions.none())
-
-    /** @see getLandingPagesByQuery */
-    fun getLandingPagesByQuery(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
-
     /** Retrieve a previous version of a website page by the revision ID. */
     fun getSitePageRevision(
         revisionId: String,
@@ -186,41 +101,6 @@ interface PageService {
         params: PageGetSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PageVersion
-
-    fun getSitePages(): CursorPagedResultPageLong = getSitePages(PageGetSitePagesParams.none())
-
-    /** @see getSitePages */
-    fun getSitePages(
-        params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultPageLong
-
-    /** @see getSitePages */
-    fun getSitePages(
-        params: PageGetSitePagesParams = PageGetSitePagesParams.none()
-    ): CursorPagedResultPageLong = getSitePages(params, RequestOptions.none())
-
-    /** @see getSitePages */
-    fun getSitePages(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        getSitePages(PageGetSitePagesParams.none(), requestOptions)
-
-    fun getSitePagesByQuery(): CursorPagedResultPageLong =
-        getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
-
-    /** @see getSitePagesByQuery */
-    fun getSitePagesByQuery(
-        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultPageLong
-
-    /** @see getSitePagesByQuery */
-    fun getSitePagesByQuery(
-        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
-    ): CursorPagedResultPageLong = getSitePagesByQuery(params, RequestOptions.none())
-
-    /** @see getSitePagesByQuery */
-    fun getSitePagesByQuery(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
 
     /** Retrieve all the previous versions of a landing page, specified by page ID. */
     fun listLandingPageRevisions(objectId: String): PageListLandingPageRevisionsPage =
@@ -462,70 +342,6 @@ interface PageService {
         fun websitePages(): WebsitePageService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders/cursor`,
-         * but is otherwise the same as [PageService.getLandingPageFolders].
-         */
-        @MustBeClosed
-        fun getLandingPageFolders(): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            getLandingPageFolders(PageGetLandingPageFoldersParams.none())
-
-        /** @see getLandingPageFolders */
-        @MustBeClosed
-        fun getLandingPageFolders(
-            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultContentFolderLong>
-
-        /** @see getLandingPageFolders */
-        @MustBeClosed
-        fun getLandingPageFolders(
-            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
-        ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            getLandingPageFolders(params, RequestOptions.none())
-
-        /** @see getLandingPageFolders */
-        @MustBeClosed
-        fun getLandingPageFolders(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/cursor/query`, but is otherwise the same as
-         * [PageService.getLandingPageFoldersByQuery].
-         */
-        @MustBeClosed
-        fun getLandingPageFoldersByQuery(): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
-
-        /** @see getLandingPageFoldersByQuery */
-        @MustBeClosed
-        fun getLandingPageFoldersByQuery(
-            params: PageGetLandingPageFoldersByQueryParams =
-                PageGetLandingPageFoldersByQueryParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultContentFolderLong>
-
-        /** @see getLandingPageFoldersByQuery */
-        @MustBeClosed
-        fun getLandingPageFoldersByQuery(
-            params: PageGetLandingPageFoldersByQueryParams =
-                PageGetLandingPageFoldersByQueryParams.none()
-        ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            getLandingPageFoldersByQuery(params, RequestOptions.none())
-
-        /** @see getLandingPageFoldersByQuery */
-        @MustBeClosed
-        fun getLandingPageFoldersByQuery(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            getLandingPageFoldersByQuery(
-                PageGetLandingPageFoldersByQueryParams.none(),
-                requestOptions,
-            )
-
-        /**
          * Returns a raw HTTP response for `get
          * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
          * same as [PageService.getLandingPageRevision].
@@ -563,64 +379,6 @@ interface PageService {
         ): HttpResponseFor<PageVersion>
 
         /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor`, but is
-         * otherwise the same as [PageService.getLandingPages].
-         */
-        @MustBeClosed
-        fun getLandingPages(): HttpResponseFor<CursorPagedResultPageLong> =
-            getLandingPages(PageGetLandingPagesParams.none())
-
-        /** @see getLandingPages */
-        @MustBeClosed
-        fun getLandingPages(
-            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultPageLong>
-
-        /** @see getLandingPages */
-        @MustBeClosed
-        fun getLandingPages(
-            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            getLandingPages(params, RequestOptions.none())
-
-        /** @see getLandingPages */
-        @MustBeClosed
-        fun getLandingPages(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor/query`, but
-         * is otherwise the same as [PageService.getLandingPagesByQuery].
-         */
-        @MustBeClosed
-        fun getLandingPagesByQuery(): HttpResponseFor<CursorPagedResultPageLong> =
-            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
-
-        /** @see getLandingPagesByQuery */
-        @MustBeClosed
-        fun getLandingPagesByQuery(
-            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultPageLong>
-
-        /** @see getLandingPagesByQuery */
-        @MustBeClosed
-        fun getLandingPagesByQuery(
-            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            getLandingPagesByQuery(params, RequestOptions.none())
-
-        /** @see getLandingPagesByQuery */
-        @MustBeClosed
-        fun getLandingPagesByQuery(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `get
          * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
          * same as [PageService.getSitePageRevision].
@@ -653,63 +411,6 @@ interface PageService {
             params: PageGetSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PageVersion>
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor`, but is
-         * otherwise the same as [PageService.getSitePages].
-         */
-        @MustBeClosed
-        fun getSitePages(): HttpResponseFor<CursorPagedResultPageLong> =
-            getSitePages(PageGetSitePagesParams.none())
-
-        /** @see getSitePages */
-        @MustBeClosed
-        fun getSitePages(
-            params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultPageLong>
-
-        /** @see getSitePages */
-        @MustBeClosed
-        fun getSitePages(
-            params: PageGetSitePagesParams = PageGetSitePagesParams.none()
-        ): HttpResponseFor<CursorPagedResultPageLong> = getSitePages(params, RequestOptions.none())
-
-        /** @see getSitePages */
-        @MustBeClosed
-        fun getSitePages(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            getSitePages(PageGetSitePagesParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor/query`, but is
-         * otherwise the same as [PageService.getSitePagesByQuery].
-         */
-        @MustBeClosed
-        fun getSitePagesByQuery(): HttpResponseFor<CursorPagedResultPageLong> =
-            getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
-
-        /** @see getSitePagesByQuery */
-        @MustBeClosed
-        fun getSitePagesByQuery(
-            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultPageLong>
-
-        /** @see getSitePagesByQuery */
-        @MustBeClosed
-        fun getSitePagesByQuery(
-            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            getSitePagesByQuery(params, RequestOptions.none())
-
-        /** @see getSitePagesByQuery */
-        @MustBeClosed
-        fun getSitePagesByQuery(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

@@ -14,7 +14,7 @@ internal class AgentRequestContextTest {
     fun create() {
         val agentRequestContext =
             AgentRequestContext.builder()
-                .agentId(0)
+                .agentId(0L)
                 .chirpAiContextObject(
                     ChirpAiContextObject.builder()
                         .applicationGroup("applicationGroup")
@@ -42,6 +42,7 @@ internal class AgentRequestContextTest {
                                 .noUserIdReason("noUserIdReason")
                                 .build()
                         )
+                        .conversationId("conversationId")
                         .featureId("featureId")
                         .inferenceId("inferenceId")
                         .trajectoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -51,7 +52,7 @@ internal class AgentRequestContextTest {
                 .trajectoryId("trajectoryId")
                 .build()
 
-        assertThat(agentRequestContext.agentId()).isEqualTo(0)
+        assertThat(agentRequestContext.agentId()).isEqualTo(0L)
         assertThat(agentRequestContext.chirpAiContextObject())
             .isEqualTo(
                 ChirpAiContextObject.builder()
@@ -80,6 +81,7 @@ internal class AgentRequestContextTest {
                             .noUserIdReason("noUserIdReason")
                             .build()
                     )
+                    .conversationId("conversationId")
                     .featureId("featureId")
                     .inferenceId("inferenceId")
                     .trajectoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -94,7 +96,7 @@ internal class AgentRequestContextTest {
         val jsonMapper = jsonMapper()
         val agentRequestContext =
             AgentRequestContext.builder()
-                .agentId(0)
+                .agentId(0L)
                 .chirpAiContextObject(
                     ChirpAiContextObject.builder()
                         .applicationGroup("applicationGroup")
@@ -122,6 +124,7 @@ internal class AgentRequestContextTest {
                                 .noUserIdReason("noUserIdReason")
                                 .build()
                         )
+                        .conversationId("conversationId")
                         .featureId("featureId")
                         .inferenceId("inferenceId")
                         .trajectoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

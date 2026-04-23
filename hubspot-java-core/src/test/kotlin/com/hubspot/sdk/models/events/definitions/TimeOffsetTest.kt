@@ -13,12 +13,12 @@ internal class TimeOffsetTest {
     fun create() {
         val timeOffset =
             TimeOffset.builder()
-                .amount(0)
+                .amount(0L)
                 .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                 .timeUnit(TimeOffset.TimeUnit.DAYS)
                 .build()
 
-        assertThat(timeOffset.amount()).isEqualTo(0)
+        assertThat(timeOffset.amount()).isEqualTo(0L)
         assertThat(timeOffset.offsetDirection()).isEqualTo(TimeOffset.OffsetDirection.FUTURE)
         assertThat(timeOffset.timeUnit()).isEqualTo(TimeOffset.TimeUnit.DAYS)
     }
@@ -28,7 +28,7 @@ internal class TimeOffsetTest {
         val jsonMapper = jsonMapper()
         val timeOffset =
             TimeOffset.builder()
-                .amount(0)
+                .amount(0L)
                 .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                 .timeUnit(TimeOffset.TimeUnit.DAYS)
                 .build()

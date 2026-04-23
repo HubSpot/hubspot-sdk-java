@@ -11,15 +11,15 @@ internal class PublicBusinessUnitTest {
 
     @Test
     fun create() {
-        val publicBusinessUnit = PublicBusinessUnit.builder().id(0).build()
+        val publicBusinessUnit = PublicBusinessUnit.builder().id(0L).build()
 
-        assertThat(publicBusinessUnit.id()).isEqualTo(0)
+        assertThat(publicBusinessUnit.id()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val publicBusinessUnit = PublicBusinessUnit.builder().id(0).build()
+        val publicBusinessUnit = PublicBusinessUnit.builder().id(0L).build()
 
         val roundtrippedPublicBusinessUnit =
             jsonMapper.readValue(

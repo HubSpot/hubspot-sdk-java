@@ -18,7 +18,7 @@ internal class CardAuditResponseTest {
                 .authSource(CardAuditResponse.AuthSource.APP)
                 .changedAt(0L)
                 .initiatingUserId(0)
-                .objectTypeId(0)
+                .objectTypeId(0L)
                 .build()
 
         assertThat(cardAuditResponse.actionType()).isEqualTo(CardAuditResponse.ActionType.CREATE)
@@ -26,7 +26,7 @@ internal class CardAuditResponseTest {
         assertThat(cardAuditResponse.authSource()).isEqualTo(CardAuditResponse.AuthSource.APP)
         assertThat(cardAuditResponse.changedAt()).isEqualTo(0L)
         assertThat(cardAuditResponse.initiatingUserId()).isEqualTo(0)
-        assertThat(cardAuditResponse.objectTypeId()).isEqualTo(0)
+        assertThat(cardAuditResponse.objectTypeId()).isEqualTo(0L)
     }
 
     @Test
@@ -39,7 +39,7 @@ internal class CardAuditResponseTest {
                 .authSource(CardAuditResponse.AuthSource.APP)
                 .changedAt(0L)
                 .initiatingUserId(0)
-                .objectTypeId(0)
+                .objectTypeId(0L)
                 .build()
 
         val roundtrippedCardAuditResponse =

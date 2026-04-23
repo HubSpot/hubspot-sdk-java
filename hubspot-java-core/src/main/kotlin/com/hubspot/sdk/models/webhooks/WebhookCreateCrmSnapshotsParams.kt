@@ -10,9 +10,10 @@ import com.hubspot.sdk.core.http.QueryParams
 import java.util.Objects
 
 /**
- * Create a batch of CRM object snapshots for a specified portal. This endpoint allows you to
- * capture the current state of CRM objects by submitting a batch request with the necessary object
- * details. It is useful for tracking changes or maintaining historical records of CRM data.
+ * Create a batch of CRM object snapshots for the specified portal. This endpoint allows you to
+ * capture the state of CRM objects at a specific point in time, which can be useful for auditing or
+ * historical analysis. The request requires a list of CRM object snapshot requests, each specifying
+ * the portal ID, object ID, object type ID, and properties to include in the snapshot.
  */
 class WebhookCreateCrmSnapshotsParams
 private constructor(

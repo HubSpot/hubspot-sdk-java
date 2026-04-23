@@ -14,15 +14,15 @@ internal class AssociationRecordLimitResponseTest {
         val associationRecordLimitResponse =
             AssociationRecordLimitResponse.builder()
                 .addAtLimitFromRecordSample(
-                    AtLimitRecordSample.builder().label("label").objectId(0).build()
+                    AtLimitRecordSample.builder().label("label").objectId(0L).build()
                 )
                 .limit(0L)
                 .addNearLimitFromRecordSample(
                     NearLimitRecordSample.builder()
                         .label("label")
-                        .objectId(0)
+                        .objectId(0L)
                         .percentage(0.0)
-                        .usage(0)
+                        .usage(0L)
                         .build()
                 )
                 .totalRecordsAtLimit(0)
@@ -30,15 +30,15 @@ internal class AssociationRecordLimitResponseTest {
                 .build()
 
         assertThat(associationRecordLimitResponse.atLimitFromRecordSamples())
-            .containsExactly(AtLimitRecordSample.builder().label("label").objectId(0).build())
+            .containsExactly(AtLimitRecordSample.builder().label("label").objectId(0L).build())
         assertThat(associationRecordLimitResponse.limit()).isEqualTo(0L)
         assertThat(associationRecordLimitResponse.nearLimitFromRecordSamples())
             .containsExactly(
                 NearLimitRecordSample.builder()
                     .label("label")
-                    .objectId(0)
+                    .objectId(0L)
                     .percentage(0.0)
-                    .usage(0)
+                    .usage(0L)
                     .build()
             )
         assertThat(associationRecordLimitResponse.totalRecordsAtLimit()).isEqualTo(0)
@@ -51,15 +51,15 @@ internal class AssociationRecordLimitResponseTest {
         val associationRecordLimitResponse =
             AssociationRecordLimitResponse.builder()
                 .addAtLimitFromRecordSample(
-                    AtLimitRecordSample.builder().label("label").objectId(0).build()
+                    AtLimitRecordSample.builder().label("label").objectId(0L).build()
                 )
                 .limit(0L)
                 .addNearLimitFromRecordSample(
                     NearLimitRecordSample.builder()
                         .label("label")
-                        .objectId(0)
+                        .objectId(0L)
                         .percentage(0.0)
-                        .usage(0)
+                        .usage(0L)
                         .build()
                 )
                 .totalRecordsAtLimit(0)

@@ -6,7 +6,6 @@ import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
 import com.hubspot.sdk.models.files.FileUpdateInput
 import com.hubspot.sdk.models.files.FolderInput
 import com.hubspot.sdk.models.files.ImportFromUrlInput
-import com.hubspot.sdk.models.files.fileassets.FileAssetGetByPathParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetSignedUrlParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetReplaceParams
@@ -93,20 +92,6 @@ internal class FileAssetServiceTest {
             )
 
         file.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun getByPath() {
-        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
-        val fileAssetService = client.files().fileAssets()
-
-        val fileStat =
-            fileAssetService.getByPath(
-                FileAssetGetByPathParams.builder().path("path").addProperty("string").build()
-            )
-
-        fileStat.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,21 +16,9 @@ internal class IfStringTest {
         val ifString =
             IfString.builder()
                 .enclosedInParentheses(true)
-                .ifExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .ifExpression(JsonValue.from(mapOf<String, Any>()))
                 .operator(IfString.Operator.IF_STRING)
-                .elseExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .elseExpression(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
@@ -42,27 +31,9 @@ internal class IfStringTest {
                 .build()
 
         assertThat(ifString.enclosedInParentheses()).isEqualTo(true)
-        assertThat(ifString.ifExpression())
-            .isEqualTo(
-                IfString.IfExpression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(ifString._ifExpression()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(ifString.operator()).isEqualTo(IfString.Operator.IF_STRING)
-        assertThat(ifString.elseExpression())
-            .contains(
-                IfString.ElseExpression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(ifString._elseExpression()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(ifString.inputs().getOrNull())
             .containsExactly(
                 IfString.Input.ofConstantBoolean(
@@ -83,21 +54,9 @@ internal class IfStringTest {
         val ifString =
             IfString.builder()
                 .enclosedInParentheses(true)
-                .ifExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .ifExpression(JsonValue.from(mapOf<String, Any>()))
                 .operator(IfString.Operator.IF_STRING)
-                .elseExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .elseExpression(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)

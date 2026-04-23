@@ -21,7 +21,7 @@ internal class CollectionResponseWithTotalPublicCampaignTest {
                 .addResult(
                     PublicCampaign.builder()
                         .id("id")
-                        .addBusinessUnit(PublicBusinessUnit.builder().id(0).build())
+                        .addBusinessUnit(PublicBusinessUnit.builder().id(0L).build())
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .properties(
                             PublicCampaign.Properties.builder()
@@ -44,7 +44,7 @@ internal class CollectionResponseWithTotalPublicCampaignTest {
             .containsExactly(
                 PublicCampaign.builder()
                     .id("id")
-                    .addBusinessUnit(PublicBusinessUnit.builder().id(0).build())
+                    .addBusinessUnit(PublicBusinessUnit.builder().id(0L).build())
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .properties(
                         PublicCampaign.Properties.builder()
@@ -72,7 +72,7 @@ internal class CollectionResponseWithTotalPublicCampaignTest {
                 .addResult(
                     PublicCampaign.builder()
                         .id("id")
-                        .addBusinessUnit(PublicBusinessUnit.builder().id(0).build())
+                        .addBusinessUnit(PublicBusinessUnit.builder().id(0L).build())
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .properties(
                             PublicCampaign.Properties.builder()

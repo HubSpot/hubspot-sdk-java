@@ -18,7 +18,7 @@ internal class HubDbTableV3Test {
                 .id("id")
                 .allowChildTables(true)
                 .allowPublicApiAccess(true)
-                .columnCount(0)
+                .columnCount(0L)
                 .addColumn(
                     Column.builder()
                         .id("id")
@@ -64,7 +64,7 @@ internal class HubDbTableV3Test {
                         .foreignTableId(0L)
                         .optionCount(0)
                         .addOption(
-                            Option.builder()
+                            HubdbOption.builder()
                                 .id("id")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .label("label")
@@ -143,7 +143,7 @@ internal class HubDbTableV3Test {
         assertThat(hubDbTableV3.id()).isEqualTo("id")
         assertThat(hubDbTableV3.allowChildTables()).isEqualTo(true)
         assertThat(hubDbTableV3.allowPublicApiAccess()).isEqualTo(true)
-        assertThat(hubDbTableV3.columnCount()).isEqualTo(0)
+        assertThat(hubDbTableV3.columnCount()).isEqualTo(0L)
         assertThat(hubDbTableV3.columns())
             .containsExactly(
                 Column.builder()
@@ -188,7 +188,7 @@ internal class HubDbTableV3Test {
                     .foreignTableId(0L)
                     .optionCount(0)
                     .addOption(
-                        Option.builder()
+                        HubdbOption.builder()
                             .id("id")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .label("label")
@@ -279,7 +279,7 @@ internal class HubDbTableV3Test {
                 .id("id")
                 .allowChildTables(true)
                 .allowPublicApiAccess(true)
-                .columnCount(0)
+                .columnCount(0L)
                 .addColumn(
                     Column.builder()
                         .id("id")
@@ -325,7 +325,7 @@ internal class HubDbTableV3Test {
                         .foreignTableId(0L)
                         .optionCount(0)
                         .addOption(
-                            Option.builder()
+                            HubdbOption.builder()
                                 .id("id")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .label("label")

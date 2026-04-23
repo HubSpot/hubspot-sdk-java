@@ -69,7 +69,7 @@ private constructor(
     )
 
     /**
-     * The date and time when the batch operation was completed, in ISO 8601 format.
+     * The date and time when the batch processing was completed, in ISO 8601 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -77,7 +77,8 @@ private constructor(
     fun completedAt(): OffsetDateTime = completedAt.getRequired("completedAt")
 
     /**
-     * An array of SubscriptionResponse objects, representing the results of the batch operation.
+     * An array of SubscriptionResponse objects representing the results of each subscription update
+     * processed in the batch.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -85,7 +86,7 @@ private constructor(
     fun results(): List<SubscriptionResponse> = results.getRequired("results")
 
     /**
-     * The date and time when the batch operation started, in ISO 8601 format.
+     * The date and time when the batch processing began, in ISO 8601 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -102,8 +103,8 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * An array of StandardError objects, detailing any errors that occurred during the batch
-     * operation.
+     * An array of StandardError objects detailing any errors that occurred during the batch
+     * processing.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -120,7 +121,7 @@ private constructor(
     fun links(): Optional<Links> = links.getOptional("links")
 
     /**
-     * The number of errors encountered during the batch operation.
+     * The total number of errors encountered during the batch operation.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -128,7 +129,7 @@ private constructor(
     fun numErrors(): Optional<Int> = numErrors.getOptional("numErrors")
 
     /**
-     * The date and time when the batch operation was requested, in ISO 8601 format.
+     * The date and time when the batch request was initially made, in ISO 8601 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -257,7 +258,7 @@ private constructor(
                 batchResponseSubscriptionResponseWithErrors.additionalProperties.toMutableMap()
         }
 
-        /** The date and time when the batch operation was completed, in ISO 8601 format. */
+        /** The date and time when the batch processing was completed, in ISO 8601 format. */
         fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
 
         /**
@@ -272,8 +273,8 @@ private constructor(
         }
 
         /**
-         * An array of SubscriptionResponse objects, representing the results of the batch
-         * operation.
+         * An array of SubscriptionResponse objects representing the results of each subscription
+         * update processed in the batch.
          */
         fun results(results: List<SubscriptionResponse>) = results(JsonField.of(results))
 
@@ -300,7 +301,7 @@ private constructor(
                 }
         }
 
-        /** The date and time when the batch operation started, in ISO 8601 format. */
+        /** The date and time when the batch processing began, in ISO 8601 format. */
         fun startedAt(startedAt: OffsetDateTime) = startedAt(JsonField.of(startedAt))
 
         /**
@@ -327,8 +328,8 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * An array of StandardError objects, detailing any errors that occurred during the batch
-         * operation.
+         * An array of StandardError objects detailing any errors that occurred during the batch
+         * processing.
          */
         fun errors(errors: List<StandardError>) = errors(JsonField.of(errors))
 
@@ -369,7 +370,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
-        /** The number of errors encountered during the batch operation. */
+        /** The total number of errors encountered during the batch operation. */
         fun numErrors(numErrors: Int) = numErrors(JsonField.of(numErrors))
 
         /**
@@ -380,7 +381,7 @@ private constructor(
          */
         fun numErrors(numErrors: JsonField<Int>) = apply { this.numErrors = numErrors }
 
-        /** The date and time when the batch operation was requested, in ISO 8601 format. */
+        /** The date and time when the batch request was initially made, in ISO 8601 format. */
         fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
         /**

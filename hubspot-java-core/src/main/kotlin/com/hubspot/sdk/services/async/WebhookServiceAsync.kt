@@ -106,10 +106,11 @@ interface WebhookServiceAsync {
     ): CompletableFuture<BatchResponseSubscriptionResponse>
 
     /**
-     * Create a batch of CRM object snapshots for a specified portal. This endpoint allows you to
-     * capture the current state of CRM objects by submitting a batch request with the necessary
-     * object details. It is useful for tracking changes or maintaining historical records of CRM
-     * data.
+     * Create a batch of CRM object snapshots for the specified portal. This endpoint allows you to
+     * capture the state of CRM objects at a specific point in time, which can be useful for
+     * auditing or historical analysis. The request requires a list of CRM object snapshot requests,
+     * each specifying the portal ID, object ID, object type ID, and properties to include in the
+     * snapshot.
      */
     fun createCrmSnapshots(
         params: WebhookCreateCrmSnapshotsParams
@@ -168,9 +169,10 @@ interface WebhookServiceAsync {
     ): CompletableFuture<SubscriptionResponse>
 
     /**
-     * Create a new subscription in the webhooks journal for the specified version. This endpoint
-     * allows you to define the subscription details, including actions and object types, to manage
-     * webhook events effectively. It requires a valid request body with the subscription details.
+     * Create a new webhook subscription for the specified portal in the HubSpot account. This
+     * endpoint allows you to define the subscription details, including the types of events you
+     * want to subscribe to. The request body must include the necessary subscription information as
+     * defined by the SubscriptionUpsertRequest schema.
      */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams
@@ -284,10 +286,10 @@ interface WebhookServiceAsync {
         createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
     /**
-     * Create a new filter for a webhook subscription in the HubSpot account. This endpoint allows
-     * you to define conditions that determine when a webhook event should be triggered for a
-     * specific subscription. The request body must include the subscription ID and the filter
-     * details.
+     * Create a new filter for a webhook subscription in your HubSpot account. This endpoint allows
+     * you to define specific conditions that a webhook event must meet to trigger the subscription.
+     * It is useful for managing and customizing the behavior of webhook subscriptions based on
+     * specific criteria.
      */
     fun createSubscriptionFilter(
         params: WebhookCreateSubscriptionFilterParams
@@ -349,7 +351,7 @@ interface WebhookServiceAsync {
 
     /**
      * Delete a specific webhook journal subscription using its unique identifier. This operation is
-     * useful for managing and cleaning up subscriptions that are no longer needed.
+     * useful for managing and cleaning up subscriptions that are no longer needed or relevant.
      */
     fun deleteJournalSubscription(subscriptionId: Long): CompletableFuture<Void?> =
         deleteJournalSubscription(subscriptionId, WebhookDeleteJournalSubscriptionParams.none())
@@ -398,8 +400,8 @@ interface WebhookServiceAsync {
 
     /**
      * Delete a webhook journal subscription for a specific portal. This operation removes the
-     * subscription associated with the given portalId, effectively stopping any webhook events from
-     * being sent to the portal.
+     * subscription associated with the given portalId, and no content is returned upon successful
+     * deletion.
      */
     fun deleteJournalSubscriptionForPortal(portalId: Long): CompletableFuture<Void?> =
         deleteJournalSubscriptionForPortal(
@@ -485,9 +487,9 @@ interface WebhookServiceAsync {
         deleteSettings(appId, WebhookDeleteSettingsParams.none(), requestOptions)
 
     /**
-     * Remove a specific filter from your webhook journal subscriptions. This operation is useful
-     * when you need to clean up or modify the filters applied to your webhook subscriptions. The
-     * filter identified by the filterId will be permanently deleted.
+     * Delete a specific filter associated with a webhook journal subscription. This operation is
+     * useful for managing and cleaning up filters that are no longer needed in your subscription
+     * setup. The endpoint requires the unique identifier of the filter to be deleted.
      */
     fun deleteSubscriptionFilter(filterId: Long): CompletableFuture<Void?> =
         deleteSubscriptionFilter(filterId, WebhookDeleteSubscriptionFilterParams.none())
@@ -532,7 +534,7 @@ interface WebhookServiceAsync {
     /**
      * Retrieve the earliest batch of webhook journal entries up to the specified count. This
      * endpoint is useful for fetching historical webhook data in batches, allowing you to process
-     * or analyze them as needed.
+     * or analyze the earliest entries first.
      */
     fun getEarliestJournalBatch(count: Int): CompletableFuture<BatchResponseJournalFetchResponse> =
         getEarliestJournalBatch(count, WebhookGetEarliestJournalBatchParams.none())
@@ -572,9 +574,9 @@ interface WebhookServiceAsync {
         getEarliestJournalBatch(count, WebhookGetEarliestJournalBatchParams.none(), requestOptions)
 
     /**
-     * Retrieve the earliest entry from the webhooks journal for the specified portal. This endpoint
-     * is useful for accessing the initial entries in the journal, which can be helpful for
-     * debugging or auditing purposes.
+     * Retrieve the earliest entry from the webhooks journal for the specified version. This
+     * endpoint is useful for accessing the oldest records available in the journal, which can be
+     * helpful for auditing or historical data analysis.
      */
     fun getEarliestJournalEntry(): CompletableFuture<HttpResponse> =
         getEarliestJournalEntry(WebhookGetEarliestJournalEntryParams.none())
@@ -595,9 +597,9 @@ interface WebhookServiceAsync {
         getEarliestJournalEntry(WebhookGetEarliestJournalEntryParams.none(), requestOptions)
 
     /**
-     * Retrieve the earliest batch of webhook journal entries up to a specified count. This endpoint
-     * is useful for accessing the oldest records available in the webhook journal, allowing you to
-     * process or analyze historical webhook data.
+     * Retrieve the earliest batch of webhook journal entries based on the specified count. This
+     * endpoint is useful for fetching a specific number of the earliest entries in the webhook
+     * journal for analysis or processing.
      */
     fun getEarliestLocalJournalBatch(
         count: Int
@@ -646,8 +648,8 @@ interface WebhookServiceAsync {
 
     /**
      * Retrieve the earliest entry from the webhooks journal for the specified portal. This endpoint
-     * is useful for accessing the oldest available data in the journal, which can be used for
-     * historical analysis or troubleshooting.
+     * is useful for accessing the oldest records in the journal, which can be helpful for auditing
+     * or tracking purposes.
      */
     fun getEarliestLocalJournalEntry(): CompletableFuture<HttpResponse> =
         getEarliestLocalJournalEntry(WebhookGetEarliestLocalJournalEntryParams.none())
@@ -704,9 +706,9 @@ interface WebhookServiceAsync {
     ): CompletableFuture<SubscriptionResponse>
 
     /**
-     * Read a batch of webhook journal entries for the specified portal. This endpoint allows you to
-     * retrieve detailed information about webhook events processed by your HubSpot account. It is
-     * useful for auditing and tracking webhook activity.
+     * Perform a batch read operation on the webhooks journal for the specified date. This endpoint
+     * allows you to retrieve multiple entries from the webhooks journal in a single request, which
+     * can be useful for processing large amounts of data efficiently.
      */
     fun getJournalBatchByRequest(
         params: WebhookGetJournalBatchByRequestParams
@@ -739,8 +741,8 @@ interface WebhookServiceAsync {
 
     /**
      * Retrieve a batch of webhook journal entries starting from a specified offset. This endpoint
-     * allows you to specify the number of entries to retrieve, helping you manage and paginate
-     * through large sets of webhook data efficiently.
+     * allows you to fetch a specified number of entries, making it useful for paginating through
+     * large sets of webhook journal data.
      */
     fun getJournalBatchFromOffset(
         count: Int,
@@ -769,9 +771,9 @@ interface WebhookServiceAsync {
     ): CompletableFuture<BatchResponseJournalFetchResponse>
 
     /**
-     * Retrieve the status of a specific webhook journal entry using its unique status ID. This
-     * endpoint is useful for monitoring the progress or outcome of a webhook operation, providing
-     * insights into whether it is pending, in progress, completed, failed, or expired.
+     * Retrieve the status of a specific webhook journal entry using its status ID. This endpoint is
+     * useful for checking the current state of a webhook process, such as whether it is pending, in
+     * progress, completed, failed, or expired.
      */
     fun getJournalStatus(statusId: String): CompletableFuture<SnapshotStatusResponse> =
         getJournalStatus(statusId, WebhookGetJournalStatusParams.none())
@@ -810,9 +812,9 @@ interface WebhookServiceAsync {
         getJournalStatus(statusId, WebhookGetJournalStatusParams.none(), requestOptions)
 
     /**
-     * Retrieve details of a specific webhook journal subscription using its unique identifier. This
-     * endpoint is useful for obtaining information about a particular subscription, such as its
-     * actions, object types, and associated properties.
+     * Retrieve details of a specific webhook subscription using its unique identifier. This
+     * endpoint is useful for obtaining information about a particular subscription's configuration
+     * and status within the HubSpot account.
      */
     fun getJournalSubscription(subscriptionId: Long): CompletableFuture<SubscriptionResponse1> =
         getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
@@ -859,10 +861,9 @@ interface WebhookServiceAsync {
         )
 
     /**
-     * Retrieve the latest batch of webhook journal entries up to a specified count. This endpoint
-     * is useful for fetching the most recent webhook events processed by your HubSpot account. The
-     * response includes details about each event, and you can specify the number of entries to
-     * retrieve.
+     * Retrieve the latest batch of webhook journal entries. This endpoint allows you to specify the
+     * number of entries to fetch, providing a way to access recent webhook activity within your
+     * HubSpot account.
      */
     fun getLatestJournalBatch(count: Int): CompletableFuture<BatchResponseJournalFetchResponse> =
         getLatestJournalBatch(count, WebhookGetLatestJournalBatchParams.none())
@@ -902,8 +903,10 @@ interface WebhookServiceAsync {
         getLatestJournalBatch(count, WebhookGetLatestJournalBatchParams.none(), requestOptions)
 
     /**
-     * Retrieve the latest entry from the webhooks journal for the specified portal. This endpoint
-     * is useful for accessing the most recent webhook data available in the journal.
+     * Retrieve the latest entries from the webhooks journal for the specified portal. This endpoint
+     * is useful for accessing the most recent webhook events processed by your HubSpot account. It
+     * allows you to filter the results by the portal ID to ensure you are retrieving data relevant
+     * to a specific installation.
      */
     fun getLatestJournalEntry(): CompletableFuture<HttpResponse> =
         getLatestJournalEntry(WebhookGetLatestJournalEntryParams.none())
@@ -924,9 +927,9 @@ interface WebhookServiceAsync {
         getLatestJournalEntry(WebhookGetLatestJournalEntryParams.none(), requestOptions)
 
     /**
-     * Retrieve the latest batch of webhook journal entries up to a specified count. This endpoint
-     * is useful for fetching the most recent webhook events processed by the system. It requires
-     * authentication and supports various security schemes.
+     * Retrieve the latest batch of webhook journal entries. This endpoint is useful for accessing
+     * the most recent data entries processed by the webhook journal. It requires specifying the
+     * number of entries to retrieve.
      */
     fun getLatestLocalJournalBatch(
         count: Int
@@ -974,9 +977,9 @@ interface WebhookServiceAsync {
         )
 
     /**
-     * Retrieve the latest entries from the webhooks journal. This endpoint is useful for accessing
-     * the most recent webhook data for analysis or troubleshooting. It supports filtering by the
-     * installPortalId to narrow down results to a specific portal.
+     * Retrieve the latest entries from the webhooks journal for the specified portal. This endpoint
+     * is useful for accessing the most recent webhook events that have been logged, allowing you to
+     * process or analyze them as needed.
      */
     fun getLatestLocalJournalEntry(): CompletableFuture<HttpResponse> =
         getLatestLocalJournalEntry(WebhookGetLatestLocalJournalEntryParams.none())
@@ -1001,9 +1004,10 @@ interface WebhookServiceAsync {
         getLatestLocalJournalEntry(WebhookGetLatestLocalJournalEntryParams.none(), requestOptions)
 
     /**
-     * Perform a batch read operation on the webhooks journal. This endpoint allows you to retrieve
-     * a batch of journal entries by providing the necessary input data. It is useful for processing
-     * large volumes of webhook data efficiently.
+     * Perform a batch read operation on the webhooks journal. This endpoint allows you to read
+     * multiple entries from the journal in a single request. It requires a JSON request body
+     * specifying the inputs to be read. The response includes the results of the batch read
+     * operation, and may return multiple statuses if there are errors.
      */
     fun getLocalJournalBatchByRequest(
         params: WebhookGetLocalJournalBatchByRequestParams
@@ -1036,8 +1040,8 @@ interface WebhookServiceAsync {
 
     /**
      * Retrieve a batch of webhook journal entries starting from a specified offset. This endpoint
-     * is useful for fetching sequential batches of data, allowing you to paginate through large
-     * sets of webhook journal entries efficiently.
+     * allows you to fetch a defined number of entries, facilitating the processing of webhook data
+     * in manageable chunks.
      */
     fun getLocalJournalBatchFromOffset(
         count: Int,
@@ -1067,8 +1071,7 @@ interface WebhookServiceAsync {
 
     /**
      * Retrieve the status of a specific webhook journal entry using its unique status ID. This
-     * endpoint is useful for checking the progress or result of a webhook operation, such as
-     * whether it is pending, in progress, completed, failed, or expired.
+     * endpoint is useful for monitoring the progress or completion of webhook processing tasks.
      */
     fun getLocalJournalStatus(statusId: String): CompletableFuture<SnapshotStatusResponse> =
         getLocalJournalStatus(statusId, WebhookGetLocalJournalStatusParams.none())
@@ -1108,10 +1111,9 @@ interface WebhookServiceAsync {
         getLocalJournalStatus(statusId, WebhookGetLocalJournalStatusParams.none(), requestOptions)
 
     /**
-     * Retrieve the next set of webhook journal entries starting from a specified offset. This
-     * endpoint is useful for paginating through webhook journal entries in a HubSpot account. It
-     * allows you to continue fetching entries from where the last request left off, using the
-     * offset parameter.
+     * Retrieve the next batch of webhook journal entries starting from a specified offset. This
+     * endpoint is useful for paginating through large sets of webhook data, allowing you to
+     * continue fetching entries from where you last left off.
      */
     fun getNextJournalEntries(offset: String): CompletableFuture<HttpResponse> =
         getNextJournalEntries(offset, WebhookGetNextJournalEntriesParams.none())
@@ -1150,9 +1152,9 @@ interface WebhookServiceAsync {
         getNextJournalEntries(offset, WebhookGetNextJournalEntriesParams.none(), requestOptions)
 
     /**
-     * Retrieve the next set of journal entries starting from a specified offset. This endpoint is
-     * useful for paginating through webhook journal entries in a sequential manner. It requires
-     * specifying the offset from which the next entries should be fetched.
+     * Retrieve the next set of webhook journal entries starting from a specified offset. This
+     * endpoint is useful for paginating through webhook journal data in a sequential manner,
+     * allowing you to fetch entries beyond a given point.
      */
     fun getNextLocalJournalEntries(offset: String): CompletableFuture<HttpResponse> =
         getNextLocalJournalEntries(offset, WebhookGetNextLocalJournalEntriesParams.none())
@@ -1235,10 +1237,9 @@ interface WebhookServiceAsync {
         getSettings(appId, WebhookGetSettingsParams.none(), requestOptions)
 
     /**
-     * Retrieve a specific filter associated with a webhook journal subscription. This endpoint
-     * allows you to access detailed information about the filter identified by the filterId path
-     * parameter. It is useful for managing and reviewing filter configurations within your webhook
-     * subscriptions.
+     * Retrieve details of a specific filter associated with a webhook subscription in the HubSpot
+     * account. This endpoint is useful for accessing the configuration and conditions of a filter
+     * by its unique identifier.
      */
     fun getSubscriptionFilter(filterId: Long): CompletableFuture<FilterResponse> =
         getSubscriptionFilter(filterId, WebhookGetSubscriptionFilterParams.none())
@@ -1315,9 +1316,9 @@ interface WebhookServiceAsync {
         listEventSubscriptions(appId, WebhookListEventSubscriptionsParams.none(), requestOptions)
 
     /**
-     * Retrieve a list of webhook journal subscriptions for the specified version. This endpoint
-     * allows you to view all active subscriptions without pagination. It is useful for managing and
-     * auditing webhook subscriptions in your HubSpot account.
+     * Retrieve a list of webhook journal subscriptions for the specified API version. This endpoint
+     * provides details about each subscription, including actions, object types, and associated
+     * properties. It is useful for managing and reviewing current webhook subscriptions.
      */
     fun listJournalSubscriptions():
         CompletableFuture<CollectionResponseSubscriptionResponseNoPaging> =
@@ -1343,9 +1344,9 @@ interface WebhookServiceAsync {
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
     /**
-     * Retrieve the filters associated with a specific webhook subscription. This endpoint is useful
-     * for obtaining detailed information about the filters applied to a subscription, which can
-     * help in managing and understanding the data flow through your webhook integrations.
+     * Retrieve the filters associated with a specific webhook subscription in the HubSpot account.
+     * This endpoint is useful for obtaining detailed information about the filters applied to a
+     * given subscription, identified by its subscription ID.
      */
     fun listSubscriptionFilters(subscriptionId: Long): CompletableFuture<List<FilterResponse>> =
         listSubscriptionFilters(subscriptionId, WebhookListSubscriptionFiltersParams.none())

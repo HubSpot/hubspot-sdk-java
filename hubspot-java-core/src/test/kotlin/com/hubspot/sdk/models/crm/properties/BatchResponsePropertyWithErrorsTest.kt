@@ -5,9 +5,9 @@ package com.hubspot.sdk.models.crm.properties
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
+import com.hubspot.sdk.models.BaseOption
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.ErrorDetail
-import com.hubspot.sdk.models.Option
-import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import com.hubspot.sdk.models.StandardError
 import java.time.OffsetDateTime
@@ -23,14 +23,14 @@ internal class BatchResponsePropertyWithErrorsTest {
             BatchResponsePropertyWithErrors.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
-                    Property.builder()
+                    BaseProperty.builder()
                         .description("description")
                         .fieldType("fieldType")
                         .groupName("groupName")
                         .label("label")
                         .name("name")
                         .addOption(
-                            Option.builder()
+                            BaseOption.builder()
                                 .hidden(true)
                                 .label("label")
                                 .value("value")
@@ -46,8 +46,8 @@ internal class BatchResponsePropertyWithErrorsTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
                         .currencyPropertyName("currencyPropertyName")
-                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                        .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                        .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                        .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)
                         .externalOptions(true)
                         .formField(true)
@@ -62,7 +62,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
-                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                        .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)
@@ -244,14 +244,14 @@ internal class BatchResponsePropertyWithErrorsTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePropertyWithErrors.results())
             .containsExactly(
-                Property.builder()
+                BaseProperty.builder()
                     .description("description")
                     .fieldType("fieldType")
                     .groupName("groupName")
                     .label("label")
                     .name("name")
                     .addOption(
-                        Option.builder()
+                        BaseOption.builder()
                             .hidden(true)
                             .label("label")
                             .value("value")
@@ -267,8 +267,8 @@ internal class BatchResponsePropertyWithErrorsTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdUserId("createdUserId")
                     .currencyPropertyName("currencyPropertyName")
-                    .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                    .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                    .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                    .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                     .displayOrder(0)
                     .externalOptions(true)
                     .formField(true)
@@ -283,7 +283,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                             .readOnlyOptions(true)
                             .build()
                     )
-                    .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                    .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                     .referencedObjectType("referencedObjectType")
                     .addSensitiveDataCategory("string")
                     .showCurrencySymbol(true)
@@ -377,14 +377,14 @@ internal class BatchResponsePropertyWithErrorsTest {
             BatchResponsePropertyWithErrors.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
-                    Property.builder()
+                    BaseProperty.builder()
                         .description("description")
                         .fieldType("fieldType")
                         .groupName("groupName")
                         .label("label")
                         .name("name")
                         .addOption(
-                            Option.builder()
+                            BaseOption.builder()
                                 .hidden(true)
                                 .label("label")
                                 .value("value")
@@ -400,8 +400,8 @@ internal class BatchResponsePropertyWithErrorsTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
                         .currencyPropertyName("currencyPropertyName")
-                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                        .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                        .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                        .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)
                         .externalOptions(true)
                         .formField(true)
@@ -416,7 +416,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
-                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                        .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)

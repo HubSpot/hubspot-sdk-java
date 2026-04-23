@@ -22,11 +22,11 @@ class AssociationLabelLimitResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val allLabels: JsonField<List<String>>,
-    private val fromObjectType: JsonField<ObjectTypeDefinition>,
-    private val limit: JsonField<Int>,
+    private val fromObjectType: JsonField<LimitsObjectTypeDefinition>,
+    private val limit: JsonField<Long>,
     private val percentage: JsonField<Double>,
-    private val toObjectType: JsonField<ObjectTypeDefinition>,
-    private val usage: JsonField<Int>,
+    private val toObjectType: JsonField<LimitsObjectTypeDefinition>,
+    private val usage: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -37,15 +37,15 @@ private constructor(
         allLabels: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("fromObjectType")
         @ExcludeMissing
-        fromObjectType: JsonField<ObjectTypeDefinition> = JsonMissing.of(),
-        @JsonProperty("limit") @ExcludeMissing limit: JsonField<Int> = JsonMissing.of(),
+        fromObjectType: JsonField<LimitsObjectTypeDefinition> = JsonMissing.of(),
+        @JsonProperty("limit") @ExcludeMissing limit: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("percentage")
         @ExcludeMissing
         percentage: JsonField<Double> = JsonMissing.of(),
         @JsonProperty("toObjectType")
         @ExcludeMissing
-        toObjectType: JsonField<ObjectTypeDefinition> = JsonMissing.of(),
-        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Int> = JsonMissing.of(),
+        toObjectType: JsonField<LimitsObjectTypeDefinition> = JsonMissing.of(),
+        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Long> = JsonMissing.of(),
     ) : this(allLabels, fromObjectType, limit, percentage, toObjectType, usage, mutableMapOf())
 
     /**
@@ -60,7 +60,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun fromObjectType(): ObjectTypeDefinition = fromObjectType.getRequired("fromObjectType")
+    fun fromObjectType(): LimitsObjectTypeDefinition = fromObjectType.getRequired("fromObjectType")
 
     /**
      * The maximum number of association labels allowed.
@@ -68,7 +68,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun limit(): Int = limit.getRequired("limit")
+    fun limit(): Long = limit.getRequired("limit")
 
     /**
      * The percentage of the association label limit that has been used.
@@ -82,7 +82,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun toObjectType(): ObjectTypeDefinition = toObjectType.getRequired("toObjectType")
+    fun toObjectType(): LimitsObjectTypeDefinition = toObjectType.getRequired("toObjectType")
 
     /**
      * The current number of association labels used.
@@ -90,7 +90,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun usage(): Int = usage.getRequired("usage")
+    fun usage(): Long = usage.getRequired("usage")
 
     /**
      * Returns the raw JSON value of [allLabels].
@@ -106,14 +106,14 @@ private constructor(
      */
     @JsonProperty("fromObjectType")
     @ExcludeMissing
-    fun _fromObjectType(): JsonField<ObjectTypeDefinition> = fromObjectType
+    fun _fromObjectType(): JsonField<LimitsObjectTypeDefinition> = fromObjectType
 
     /**
      * Returns the raw JSON value of [limit].
      *
      * Unlike [limit], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("limit") @ExcludeMissing fun _limit(): JsonField<Int> = limit
+    @JsonProperty("limit") @ExcludeMissing fun _limit(): JsonField<Long> = limit
 
     /**
      * Returns the raw JSON value of [percentage].
@@ -129,14 +129,14 @@ private constructor(
      */
     @JsonProperty("toObjectType")
     @ExcludeMissing
-    fun _toObjectType(): JsonField<ObjectTypeDefinition> = toObjectType
+    fun _toObjectType(): JsonField<LimitsObjectTypeDefinition> = toObjectType
 
     /**
      * Returns the raw JSON value of [usage].
      *
      * Unlike [usage], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Int> = usage
+    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Long> = usage
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -173,11 +173,11 @@ private constructor(
     class Builder internal constructor() {
 
         private var allLabels: JsonField<MutableList<String>>? = null
-        private var fromObjectType: JsonField<ObjectTypeDefinition>? = null
-        private var limit: JsonField<Int>? = null
+        private var fromObjectType: JsonField<LimitsObjectTypeDefinition>? = null
+        private var limit: JsonField<Long>? = null
         private var percentage: JsonField<Double>? = null
-        private var toObjectType: JsonField<ObjectTypeDefinition>? = null
-        private var usage: JsonField<Int>? = null
+        private var toObjectType: JsonField<LimitsObjectTypeDefinition>? = null
+        private var usage: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -217,30 +217,30 @@ private constructor(
                 }
         }
 
-        fun fromObjectType(fromObjectType: ObjectTypeDefinition) =
+        fun fromObjectType(fromObjectType: LimitsObjectTypeDefinition) =
             fromObjectType(JsonField.of(fromObjectType))
 
         /**
          * Sets [Builder.fromObjectType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.fromObjectType] with a well-typed [ObjectTypeDefinition]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.fromObjectType] with a well-typed
+         * [LimitsObjectTypeDefinition] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun fromObjectType(fromObjectType: JsonField<ObjectTypeDefinition>) = apply {
+        fun fromObjectType(fromObjectType: JsonField<LimitsObjectTypeDefinition>) = apply {
             this.fromObjectType = fromObjectType
         }
 
         /** The maximum number of association labels allowed. */
-        fun limit(limit: Int) = limit(JsonField.of(limit))
+        fun limit(limit: Long) = limit(JsonField.of(limit))
 
         /**
          * Sets [Builder.limit] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.limit] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.limit] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun limit(limit: JsonField<Int>) = apply { this.limit = limit }
+        fun limit(limit: JsonField<Long>) = apply { this.limit = limit }
 
         /** The percentage of the association label limit that has been used. */
         fun percentage(percentage: Double) = percentage(JsonField.of(percentage))
@@ -254,30 +254,30 @@ private constructor(
          */
         fun percentage(percentage: JsonField<Double>) = apply { this.percentage = percentage }
 
-        fun toObjectType(toObjectType: ObjectTypeDefinition) =
+        fun toObjectType(toObjectType: LimitsObjectTypeDefinition) =
             toObjectType(JsonField.of(toObjectType))
 
         /**
          * Sets [Builder.toObjectType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.toObjectType] with a well-typed [ObjectTypeDefinition]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.toObjectType] with a well-typed
+         * [LimitsObjectTypeDefinition] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun toObjectType(toObjectType: JsonField<ObjectTypeDefinition>) = apply {
+        fun toObjectType(toObjectType: JsonField<LimitsObjectTypeDefinition>) = apply {
             this.toObjectType = toObjectType
         }
 
         /** The current number of association labels used. */
-        fun usage(usage: Int) = usage(JsonField.of(usage))
+        fun usage(usage: Long) = usage(JsonField.of(usage))
 
         /**
          * Sets [Builder.usage] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.usage] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.usage] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun usage(usage: JsonField<Int>) = apply { this.usage = usage }
+        fun usage(usage: JsonField<Long>) = apply { this.usage = usage }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

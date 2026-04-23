@@ -16,12 +16,12 @@ internal class PreResolvedContactTest {
                 .addContactPropertiesLeadingToMatch(
                     PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                 )
-                .contactVid(0)
+                .contactVid(0L)
                 .build()
 
         assertThat(preResolvedContact.contactPropertiesLeadingToMatch())
             .containsExactly(PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS)
-        assertThat(preResolvedContact.contactVid()).isEqualTo(0)
+        assertThat(preResolvedContact.contactVid()).isEqualTo(0L)
     }
 
     @Test
@@ -32,7 +32,7 @@ internal class PreResolvedContactTest {
                 .addContactPropertiesLeadingToMatch(
                     PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                 )
-                .contactVid(0)
+                .contactVid(0L)
                 .build()
 
         val roundtrippedPreResolvedContact =

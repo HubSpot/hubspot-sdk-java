@@ -41,8 +41,7 @@ private constructor(
     fun id(): Long = id.getRequired("id")
 
     /**
-     * A timestamp indicating when the filter was created, represented as an integer in int64
-     * format.
+     * A Unix timestamp in milliseconds indicating when the filter was created.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -134,10 +133,7 @@ private constructor(
          */
         fun id(id: JsonField<Long>) = apply { this.id = id }
 
-        /**
-         * A timestamp indicating when the filter was created, represented as an integer in int64
-         * format.
-         */
+        /** A Unix timestamp in milliseconds indicating when the filter was created. */
         fun createdAt(createdAt: Long) = createdAt(JsonField.of(createdAt))
 
         /**

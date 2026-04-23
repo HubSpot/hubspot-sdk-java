@@ -30,7 +30,7 @@ private constructor(
     ) : this(maxConcurrentRequests, mutableMapOf())
 
     /**
-     * The maximum number of concurrent requests allowed. It is an integer value.
+     * The maximum number of concurrent requests allowed. This is an integer value.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -84,7 +84,7 @@ private constructor(
             additionalProperties = throttlingSettings.additionalProperties.toMutableMap()
         }
 
-        /** The maximum number of concurrent requests allowed. It is an integer value. */
+        /** The maximum number of concurrent requests allowed. This is an integer value. */
         fun maxConcurrentRequests(maxConcurrentRequests: Int) =
             maxConcurrentRequests(JsonField.of(maxConcurrentRequests))
 

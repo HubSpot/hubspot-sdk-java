@@ -92,7 +92,7 @@ internal class SubscriberStateServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("string"))
                                             .build()
                                     )
-                                    .vid(0)
+                                    .vid(0L)
                                     .build()
                             )
                             .build()

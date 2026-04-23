@@ -99,7 +99,7 @@ private constructor(
     )
 
     /**
-     * The unique identifier for the subscription, represented as an integer.
+     * The unique identifier for the subscription. It is an integer formatted as int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -107,9 +107,9 @@ private constructor(
     fun id(): Long = id.getRequired("id")
 
     /**
-     * An array of actions that trigger the subscription, such as 'CREATE', 'UPDATE', 'DELETE',
-     * 'MERGE', 'RESTORE', 'ASSOCIATION_ADDED', 'ASSOCIATION_REMOVED', 'SNAPSHOT', 'APP_INSTALL',
-     * 'APP_UNINSTALL', 'ADDED_TO_LIST', 'REMOVED_FROM_LIST', and 'GDPR_DELETE'.
+     * A list of actions that trigger the subscription. Possible values include 'CREATE', 'UPDATE',
+     * 'DELETE', 'MERGE', 'RESTORE', 'ASSOCIATION_ADDED', 'ASSOCIATION_REMOVED', 'SNAPSHOT',
+     * 'APP_INSTALL', 'APP_UNINSTALL', 'ADDED_TO_LIST', 'REMOVED_FROM_LIST', and 'GDPR_DELETE'.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -117,8 +117,8 @@ private constructor(
     fun actions(): List<Action> = actions.getRequired("actions")
 
     /**
-     * The unique identifier for the app associated with the subscription, represented as an
-     * integer.
+     * The unique identifier for the app associated with the subscription. It is an integer
+     * formatted as int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -134,7 +134,7 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
-     * The identifier for the object type associated with the subscription, represented as a string.
+     * The identifier for the object type associated with the subscription. It is a string.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -142,8 +142,8 @@ private constructor(
     fun objectTypeId(): String = objectTypeId.getRequired("objectTypeId")
 
     /**
-     * The type of subscription, which can be one of 'OBJECT', 'ASSOCIATION', 'EVENT',
-     * 'APP_LIFECYCLE_EVENT', 'LIST_MEMBERSHIP', or 'GDPR_PRIVACY_DELETION'.
+     * The type of subscription, which can be one of the following: 'OBJECT', 'ASSOCIATION',
+     * 'EVENT', 'APP_LIFECYCLE_EVENT', 'LIST_MEMBERSHIP', or 'GDPR_PRIVACY_DELETION'.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -169,7 +169,7 @@ private constructor(
         actionOverrides.getOptional("actionOverrides")
 
     /**
-     * An array of strings representing the associated object type IDs for the subscription.
+     * A list of associated object type IDs. Each ID is a string.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -178,7 +178,7 @@ private constructor(
         associatedObjectTypeIds.getOptional("associatedObjectTypeIds")
 
     /**
-     * The unique identifier for the user who created the subscription, represented as an integer.
+     * The ID of the user who created the subscription. It is an integer formatted as int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -186,7 +186,7 @@ private constructor(
     fun createdBy(): Optional<Long> = createdBy.getOptional("createdBy")
 
     /**
-     * The date and time when the subscription was deleted, in ISO 8601 format.
+     * The date and time when the subscription was deleted, in ISO 8601 format, if applicable.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -194,7 +194,8 @@ private constructor(
     fun deletedAt(): Optional<OffsetDateTime> = deletedAt.getOptional("deletedAt")
 
     /**
-     * An array of integers representing the list IDs associated with the subscription.
+     * A list of list IDs associated with the subscription. Each ID is an integer formatted as
+     * int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -202,7 +203,8 @@ private constructor(
     fun listIds(): Optional<List<Long>> = listIds.getOptional("listIds")
 
     /**
-     * An array of integers representing the object IDs associated with the subscription.
+     * A list of object IDs associated with the subscription. Each ID is an integer formatted as
+     * int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -210,8 +212,8 @@ private constructor(
     fun objectIds(): Optional<List<Long>> = objectIds.getOptional("objectIds")
 
     /**
-     * The unique identifier for the portal associated with the subscription, represented as an
-     * integer.
+     * The unique identifier for the portal associated with the subscription. It is an integer
+     * formatted as int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -219,7 +221,7 @@ private constructor(
     fun portalId(): Optional<Long> = portalId.getOptional("portalId")
 
     /**
-     * An array of strings representing the properties associated with the subscription.
+     * A list of property names associated with the subscription. Each property is a string.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -421,7 +423,7 @@ private constructor(
             additionalProperties = subscriptionResponse1.additionalProperties.toMutableMap()
         }
 
-        /** The unique identifier for the subscription, represented as an integer. */
+        /** The unique identifier for the subscription. It is an integer formatted as int64. */
         fun id(id: Long) = id(JsonField.of(id))
 
         /**
@@ -433,9 +435,10 @@ private constructor(
         fun id(id: JsonField<Long>) = apply { this.id = id }
 
         /**
-         * An array of actions that trigger the subscription, such as 'CREATE', 'UPDATE', 'DELETE',
-         * 'MERGE', 'RESTORE', 'ASSOCIATION_ADDED', 'ASSOCIATION_REMOVED', 'SNAPSHOT',
-         * 'APP_INSTALL', 'APP_UNINSTALL', 'ADDED_TO_LIST', 'REMOVED_FROM_LIST', and 'GDPR_DELETE'.
+         * A list of actions that trigger the subscription. Possible values include 'CREATE',
+         * 'UPDATE', 'DELETE', 'MERGE', 'RESTORE', 'ASSOCIATION_ADDED', 'ASSOCIATION_REMOVED',
+         * 'SNAPSHOT', 'APP_INSTALL', 'APP_UNINSTALL', 'ADDED_TO_LIST', 'REMOVED_FROM_LIST', and
+         * 'GDPR_DELETE'.
          */
         fun actions(actions: List<Action>) = actions(JsonField.of(actions))
 
@@ -463,8 +466,8 @@ private constructor(
         }
 
         /**
-         * The unique identifier for the app associated with the subscription, represented as an
-         * integer.
+         * The unique identifier for the app associated with the subscription. It is an integer
+         * formatted as int64.
          */
         fun appId(appId: Long) = appId(JsonField.of(appId))
 
@@ -488,10 +491,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /**
-         * The identifier for the object type associated with the subscription, represented as a
-         * string.
-         */
+        /** The identifier for the object type associated with the subscription. It is a string. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -506,8 +506,8 @@ private constructor(
         }
 
         /**
-         * The type of subscription, which can be one of 'OBJECT', 'ASSOCIATION', 'EVENT',
-         * 'APP_LIFECYCLE_EVENT', 'LIST_MEMBERSHIP', or 'GDPR_PRIVACY_DELETION'.
+         * The type of subscription, which can be one of the following: 'OBJECT', 'ASSOCIATION',
+         * 'EVENT', 'APP_LIFECYCLE_EVENT', 'LIST_MEMBERSHIP', or 'GDPR_PRIVACY_DELETION'.
          */
         fun subscriptionType(subscriptionType: SubscriptionType) =
             subscriptionType(JsonField.of(subscriptionType))
@@ -553,7 +553,7 @@ private constructor(
             this.actionOverrides = actionOverrides
         }
 
-        /** An array of strings representing the associated object type IDs for the subscription. */
+        /** A list of associated object type IDs. Each ID is a string. */
         fun associatedObjectTypeIds(associatedObjectTypeIds: List<String>) =
             associatedObjectTypeIds(JsonField.of(associatedObjectTypeIds))
 
@@ -580,10 +580,7 @@ private constructor(
                 }
         }
 
-        /**
-         * The unique identifier for the user who created the subscription, represented as an
-         * integer.
-         */
+        /** The ID of the user who created the subscription. It is an integer formatted as int64. */
         fun createdBy(createdBy: Long) = createdBy(JsonField.of(createdBy))
 
         /**
@@ -594,7 +591,9 @@ private constructor(
          */
         fun createdBy(createdBy: JsonField<Long>) = apply { this.createdBy = createdBy }
 
-        /** The date and time when the subscription was deleted, in ISO 8601 format. */
+        /**
+         * The date and time when the subscription was deleted, in ISO 8601 format, if applicable.
+         */
         fun deletedAt(deletedAt: OffsetDateTime) = deletedAt(JsonField.of(deletedAt))
 
         /**
@@ -606,7 +605,10 @@ private constructor(
          */
         fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
 
-        /** An array of integers representing the list IDs associated with the subscription. */
+        /**
+         * A list of list IDs associated with the subscription. Each ID is an integer formatted as
+         * int64.
+         */
         fun listIds(listIds: List<Long>) = listIds(JsonField.of(listIds))
 
         /**
@@ -632,7 +634,10 @@ private constructor(
                 }
         }
 
-        /** An array of integers representing the object IDs associated with the subscription. */
+        /**
+         * A list of object IDs associated with the subscription. Each ID is an integer formatted as
+         * int64.
+         */
         fun objectIds(objectIds: List<Long>) = objectIds(JsonField.of(objectIds))
 
         /**
@@ -659,8 +664,8 @@ private constructor(
         }
 
         /**
-         * The unique identifier for the portal associated with the subscription, represented as an
-         * integer.
+         * The unique identifier for the portal associated with the subscription. It is an integer
+         * formatted as int64.
          */
         fun portalId(portalId: Long) = portalId(JsonField.of(portalId))
 
@@ -672,7 +677,7 @@ private constructor(
          */
         fun portalId(portalId: JsonField<Long>) = apply { this.portalId = portalId }
 
-        /** An array of strings representing the properties associated with the subscription. */
+        /** A list of property names associated with the subscription. Each property is a string. */
         fun properties(properties: List<String>) = properties(JsonField.of(properties))
 
         /**
@@ -1004,8 +1009,8 @@ private constructor(
     }
 
     /**
-     * The type of subscription, which can be one of 'OBJECT', 'ASSOCIATION', 'EVENT',
-     * 'APP_LIFECYCLE_EVENT', 'LIST_MEMBERSHIP', or 'GDPR_PRIVACY_DELETION'.
+     * The type of subscription, which can be one of the following: 'OBJECT', 'ASSOCIATION',
+     * 'EVENT', 'APP_LIFECYCLE_EVENT', 'LIST_MEMBERSHIP', or 'GDPR_PRIVACY_DELETION'.
      */
     class SubscriptionType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {

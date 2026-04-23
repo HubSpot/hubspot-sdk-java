@@ -45,7 +45,7 @@ internal class ExternalMeetingsLinkSettingsTest {
                         .build()
                 )
                 .legalConsentEnabled(true)
-                .meetingBufferTime(0)
+                .meetingBufferTime(0L)
                 .ownerPrioritized(true)
                 .startTimeIncrementMinutes(
                     ExternalMeetingsLinkSettings.StartTimeIncrementMinutes.FIFTEEN
@@ -136,7 +136,7 @@ internal class ExternalMeetingsLinkSettingsTest {
                     .build()
             )
         assertThat(externalMeetingsLinkSettings.legalConsentEnabled()).isEqualTo(true)
-        assertThat(externalMeetingsLinkSettings.meetingBufferTime()).isEqualTo(0)
+        assertThat(externalMeetingsLinkSettings.meetingBufferTime()).isEqualTo(0L)
         assertThat(externalMeetingsLinkSettings.ownerPrioritized()).isEqualTo(true)
         assertThat(externalMeetingsLinkSettings.startTimeIncrementMinutes())
             .isEqualTo(ExternalMeetingsLinkSettings.StartTimeIncrementMinutes.FIFTEEN)
@@ -233,7 +233,7 @@ internal class ExternalMeetingsLinkSettingsTest {
                         .build()
                 )
                 .legalConsentEnabled(true)
-                .meetingBufferTime(0)
+                .meetingBufferTime(0L)
                 .ownerPrioritized(true)
                 .startTimeIncrementMinutes(
                     ExternalMeetingsLinkSettings.StartTimeIncrementMinutes.FIFTEEN

@@ -12,17 +12,17 @@ internal class SubscriberEmailResponseTest {
     @Test
     fun create() {
         val subscriberEmailResponse =
-            SubscriberEmailResponse.builder().email("email").vid(0).build()
+            SubscriberEmailResponse.builder().email("email").vid(0L).build()
 
         assertThat(subscriberEmailResponse.email()).isEqualTo("email")
-        assertThat(subscriberEmailResponse.vid()).isEqualTo(0)
+        assertThat(subscriberEmailResponse.vid()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val subscriberEmailResponse =
-            SubscriberEmailResponse.builder().email("email").vid(0).build()
+            SubscriberEmailResponse.builder().email("email").vid(0L).build()
 
         val roundtrippedSubscriberEmailResponse =
             jsonMapper.readValue(

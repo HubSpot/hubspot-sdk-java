@@ -9,7 +9,6 @@ import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.models.files.File
 import com.hubspot.sdk.models.files.FileActionResponse
-import com.hubspot.sdk.models.files.FileStat
 import com.hubspot.sdk.models.files.Folder
 import com.hubspot.sdk.models.files.FolderInput
 import com.hubspot.sdk.models.files.ImportFromUrlInput
@@ -18,7 +17,6 @@ import com.hubspot.sdk.models.files.SignedUrl
 import com.hubspot.sdk.models.files.fileassets.FileAssetCreateParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetDeleteParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGdprDeleteParams
-import com.hubspot.sdk.models.files.fileassets.FileAssetGetByPathParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetImportTaskStatusParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetParams
 import com.hubspot.sdk.models.files.fileassets.FileAssetGetSignedUrlParams
@@ -165,36 +163,6 @@ interface FileAssetService {
     /** @see get */
     fun get(fileId: String, requestOptions: RequestOptions): File =
         get(fileId, FileAssetGetParams.none(), requestOptions)
-
-    /** Retrieve a file by its path. */
-    fun getByPath(path: String): FileStat = getByPath(path, FileAssetGetByPathParams.none())
-
-    /** @see getByPath */
-    fun getByPath(
-        path: String,
-        params: FileAssetGetByPathParams = FileAssetGetByPathParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): FileStat = getByPath(params.toBuilder().path(path).build(), requestOptions)
-
-    /** @see getByPath */
-    fun getByPath(
-        path: String,
-        params: FileAssetGetByPathParams = FileAssetGetByPathParams.none(),
-    ): FileStat = getByPath(path, params, RequestOptions.none())
-
-    /** @see getByPath */
-    fun getByPath(
-        params: FileAssetGetByPathParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): FileStat
-
-    /** @see getByPath */
-    fun getByPath(params: FileAssetGetByPathParams): FileStat =
-        getByPath(params, RequestOptions.none())
-
-    /** @see getByPath */
-    fun getByPath(path: String, requestOptions: RequestOptions): FileStat =
-        getByPath(path, FileAssetGetByPathParams.none(), requestOptions)
 
     /** Check the status of requested import. */
     fun getImportTaskStatus(taskId: String): FileActionResponse =
@@ -534,47 +502,6 @@ interface FileAssetService {
         @MustBeClosed
         fun get(fileId: String, requestOptions: RequestOptions): HttpResponseFor<File> =
             get(fileId, FileAssetGetParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /files/2026-03/files/stat/{path}`, but is otherwise
-         * the same as [FileAssetService.getByPath].
-         */
-        @MustBeClosed
-        fun getByPath(path: String): HttpResponseFor<FileStat> =
-            getByPath(path, FileAssetGetByPathParams.none())
-
-        /** @see getByPath */
-        @MustBeClosed
-        fun getByPath(
-            path: String,
-            params: FileAssetGetByPathParams = FileAssetGetByPathParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FileStat> =
-            getByPath(params.toBuilder().path(path).build(), requestOptions)
-
-        /** @see getByPath */
-        @MustBeClosed
-        fun getByPath(
-            path: String,
-            params: FileAssetGetByPathParams = FileAssetGetByPathParams.none(),
-        ): HttpResponseFor<FileStat> = getByPath(path, params, RequestOptions.none())
-
-        /** @see getByPath */
-        @MustBeClosed
-        fun getByPath(
-            params: FileAssetGetByPathParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FileStat>
-
-        /** @see getByPath */
-        @MustBeClosed
-        fun getByPath(params: FileAssetGetByPathParams): HttpResponseFor<FileStat> =
-            getByPath(params, RequestOptions.none())
-
-        /** @see getByPath */
-        @MustBeClosed
-        fun getByPath(path: String, requestOptions: RequestOptions): HttpResponseFor<FileStat> =
-            getByPath(path, FileAssetGetByPathParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

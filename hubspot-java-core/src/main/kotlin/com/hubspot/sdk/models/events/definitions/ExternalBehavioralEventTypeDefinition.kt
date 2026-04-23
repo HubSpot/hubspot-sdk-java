@@ -15,7 +15,7 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.Property
+import com.hubspot.sdk.models.BaseProperty
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -27,17 +27,19 @@ class ExternalBehavioralEventTypeDefinition
 private constructor(
     private val id: JsonField<String>,
     private val archived: JsonField<Boolean>,
-    private val associations: JsonField<List<AssociationDefinition>>,
+    private val associations: JsonField<List<DefinitionsAssociationDefinition>>,
     private val fullyQualifiedName: JsonField<String>,
     private val labels: JsonField<BehavioralEventTypeDefinitionLabels>,
     private val name: JsonField<String>,
     private val objectTypeId: JsonField<String>,
-    private val properties: JsonField<List<Property>>,
+    private val properties: JsonField<List<BaseProperty>>,
     private val comboEventRules: JsonField<ComboEventRuleBranch>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdUserId: JsonField<Int>,
     private val customMatchingId: JsonField<ExternalObjectResolutionMappingResponse>,
     private val description: JsonField<String>,
+    private val detailTemplate: JsonField<String>,
+    private val headerTemplate: JsonField<String>,
     private val primaryObject: JsonField<String>,
     private val primaryObjectId: JsonField<String>,
     private val trackingType: JsonField<TrackingType>,
@@ -52,7 +54,7 @@ private constructor(
         @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("associations")
         @ExcludeMissing
-        associations: JsonField<List<AssociationDefinition>> = JsonMissing.of(),
+        associations: JsonField<List<DefinitionsAssociationDefinition>> = JsonMissing.of(),
         @JsonProperty("fullyQualifiedName")
         @ExcludeMissing
         fullyQualifiedName: JsonField<String> = JsonMissing.of(),
@@ -65,7 +67,7 @@ private constructor(
         objectTypeId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("properties")
         @ExcludeMissing
-        properties: JsonField<List<Property>> = JsonMissing.of(),
+        properties: JsonField<List<BaseProperty>> = JsonMissing.of(),
         @JsonProperty("comboEventRules")
         @ExcludeMissing
         comboEventRules: JsonField<ComboEventRuleBranch> = JsonMissing.of(),
@@ -81,6 +83,12 @@ private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("detailTemplate")
+        @ExcludeMissing
+        detailTemplate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("headerTemplate")
+        @ExcludeMissing
+        headerTemplate: JsonField<String> = JsonMissing.of(),
         @JsonProperty("primaryObject")
         @ExcludeMissing
         primaryObject: JsonField<String> = JsonMissing.of(),
@@ -110,6 +118,8 @@ private constructor(
         createdUserId,
         customMatchingId,
         description,
+        detailTemplate,
+        headerTemplate,
         primaryObject,
         primaryObjectId,
         trackingType,
@@ -134,7 +144,8 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun associations(): List<AssociationDefinition> = associations.getRequired("associations")
+    fun associations(): List<DefinitionsAssociationDefinition> =
+        associations.getRequired("associations")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -164,7 +175,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun properties(): List<Property> = properties.getRequired("properties")
+    fun properties(): List<BaseProperty> = properties.getRequired("properties")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -197,6 +208,18 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun description(): Optional<String> = description.getOptional("description")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun detailTemplate(): Optional<String> = detailTemplate.getOptional("detailTemplate")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun headerTemplate(): Optional<String> = headerTemplate.getOptional("headerTemplate")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -249,7 +272,7 @@ private constructor(
      */
     @JsonProperty("associations")
     @ExcludeMissing
-    fun _associations(): JsonField<List<AssociationDefinition>> = associations
+    fun _associations(): JsonField<List<DefinitionsAssociationDefinition>> = associations
 
     /**
      * Returns the raw JSON value of [fullyQualifiedName].
@@ -293,7 +316,7 @@ private constructor(
      */
     @JsonProperty("properties")
     @ExcludeMissing
-    fun _properties(): JsonField<List<Property>> = properties
+    fun _properties(): JsonField<List<BaseProperty>> = properties
 
     /**
      * Returns the raw JSON value of [comboEventRules].
@@ -338,6 +361,24 @@ private constructor(
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
+
+    /**
+     * Returns the raw JSON value of [detailTemplate].
+     *
+     * Unlike [detailTemplate], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("detailTemplate")
+    @ExcludeMissing
+    fun _detailTemplate(): JsonField<String> = detailTemplate
+
+    /**
+     * Returns the raw JSON value of [headerTemplate].
+     *
+     * Unlike [headerTemplate], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("headerTemplate")
+    @ExcludeMissing
+    fun _headerTemplate(): JsonField<String> = headerTemplate
 
     /**
      * Returns the raw JSON value of [primaryObject].
@@ -422,18 +463,20 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var archived: JsonField<Boolean>? = null
-        private var associations: JsonField<MutableList<AssociationDefinition>>? = null
+        private var associations: JsonField<MutableList<DefinitionsAssociationDefinition>>? = null
         private var fullyQualifiedName: JsonField<String>? = null
         private var labels: JsonField<BehavioralEventTypeDefinitionLabels>? = null
         private var name: JsonField<String>? = null
         private var objectTypeId: JsonField<String>? = null
-        private var properties: JsonField<MutableList<Property>>? = null
+        private var properties: JsonField<MutableList<BaseProperty>>? = null
         private var comboEventRules: JsonField<ComboEventRuleBranch> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdUserId: JsonField<Int> = JsonMissing.of()
         private var customMatchingId: JsonField<ExternalObjectResolutionMappingResponse> =
             JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
+        private var detailTemplate: JsonField<String> = JsonMissing.of()
+        private var headerTemplate: JsonField<String> = JsonMissing.of()
         private var primaryObject: JsonField<String> = JsonMissing.of()
         private var primaryObjectId: JsonField<String> = JsonMissing.of()
         private var trackingType: JsonField<TrackingType> = JsonMissing.of()
@@ -459,6 +502,8 @@ private constructor(
             createdUserId = externalBehavioralEventTypeDefinition.createdUserId
             customMatchingId = externalBehavioralEventTypeDefinition.customMatchingId
             description = externalBehavioralEventTypeDefinition.description
+            detailTemplate = externalBehavioralEventTypeDefinition.detailTemplate
+            headerTemplate = externalBehavioralEventTypeDefinition.headerTemplate
             primaryObject = externalBehavioralEventTypeDefinition.primaryObject
             primaryObjectId = externalBehavioralEventTypeDefinition.primaryObjectId
             trackingType = externalBehavioralEventTypeDefinition.trackingType
@@ -489,26 +534,26 @@ private constructor(
          */
         fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
-        fun associations(associations: List<AssociationDefinition>) =
+        fun associations(associations: List<DefinitionsAssociationDefinition>) =
             associations(JsonField.of(associations))
 
         /**
          * Sets [Builder.associations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.associations] with a well-typed
-         * `List<AssociationDefinition>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * `List<DefinitionsAssociationDefinition>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun associations(associations: JsonField<List<AssociationDefinition>>) = apply {
+        fun associations(associations: JsonField<List<DefinitionsAssociationDefinition>>) = apply {
             this.associations = associations.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [AssociationDefinition] to [associations].
+         * Adds a single [DefinitionsAssociationDefinition] to [associations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addAssociation(association: AssociationDefinition) = apply {
+        fun addAssociation(association: DefinitionsAssociationDefinition) = apply {
             associations =
                 (associations ?: JsonField.of(mutableListOf())).also {
                     checkKnown("associations", it).add(association)
@@ -565,25 +610,25 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
-        fun properties(properties: List<Property>) = properties(JsonField.of(properties))
+        fun properties(properties: List<BaseProperty>) = properties(JsonField.of(properties))
 
         /**
          * Sets [Builder.properties] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.properties] with a well-typed `List<Property>` value
+         * You should usually call [Builder.properties] with a well-typed `List<BaseProperty>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun properties(properties: JsonField<List<Property>>) = apply {
+        fun properties(properties: JsonField<List<BaseProperty>>) = apply {
             this.properties = properties.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Property] to [properties].
+         * Adds a single [BaseProperty] to [properties].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addProperty(property: Property) = apply {
+        fun addProperty(property: BaseProperty) = apply {
             properties =
                 (properties ?: JsonField.of(mutableListOf())).also {
                     checkKnown("properties", it).add(property)
@@ -653,6 +698,32 @@ private constructor(
          * value.
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
+
+        fun detailTemplate(detailTemplate: String) = detailTemplate(JsonField.of(detailTemplate))
+
+        /**
+         * Sets [Builder.detailTemplate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.detailTemplate] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun detailTemplate(detailTemplate: JsonField<String>) = apply {
+            this.detailTemplate = detailTemplate
+        }
+
+        fun headerTemplate(headerTemplate: String) = headerTemplate(JsonField.of(headerTemplate))
+
+        /**
+         * Sets [Builder.headerTemplate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.headerTemplate] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun headerTemplate(headerTemplate: JsonField<String>) = apply {
+            this.headerTemplate = headerTemplate
+        }
 
         fun primaryObject(primaryObject: String) = primaryObject(JsonField.of(primaryObject))
 
@@ -771,6 +842,8 @@ private constructor(
                 createdUserId,
                 customMatchingId,
                 description,
+                detailTemplate,
+                headerTemplate,
                 primaryObject,
                 primaryObjectId,
                 trackingType,
@@ -800,6 +873,8 @@ private constructor(
         createdUserId()
         customMatchingId().ifPresent { it.validate() }
         description()
+        detailTemplate()
+        headerTemplate()
         primaryObject()
         primaryObjectId()
         trackingType().ifPresent { it.validate() }
@@ -836,6 +911,8 @@ private constructor(
             (if (createdUserId.asKnown().isPresent) 1 else 0) +
             (customMatchingId.asKnown().getOrNull()?.validity() ?: 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
+            (if (detailTemplate.asKnown().isPresent) 1 else 0) +
+            (if (headerTemplate.asKnown().isPresent) 1 else 0) +
             (if (primaryObject.asKnown().isPresent) 1 else 0) +
             (if (primaryObjectId.asKnown().isPresent) 1 else 0) +
             (trackingType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1043,6 +1120,8 @@ private constructor(
             createdUserId == other.createdUserId &&
             customMatchingId == other.customMatchingId &&
             description == other.description &&
+            detailTemplate == other.detailTemplate &&
+            headerTemplate == other.headerTemplate &&
             primaryObject == other.primaryObject &&
             primaryObjectId == other.primaryObjectId &&
             trackingType == other.trackingType &&
@@ -1066,6 +1145,8 @@ private constructor(
             createdUserId,
             customMatchingId,
             description,
+            detailTemplate,
+            headerTemplate,
             primaryObject,
             primaryObjectId,
             trackingType,
@@ -1078,5 +1159,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalBehavioralEventTypeDefinition{id=$id, archived=$archived, associations=$associations, fullyQualifiedName=$fullyQualifiedName, labels=$labels, name=$name, objectTypeId=$objectTypeId, properties=$properties, comboEventRules=$comboEventRules, createdAt=$createdAt, createdUserId=$createdUserId, customMatchingId=$customMatchingId, description=$description, primaryObject=$primaryObject, primaryObjectId=$primaryObjectId, trackingType=$trackingType, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
+        "ExternalBehavioralEventTypeDefinition{id=$id, archived=$archived, associations=$associations, fullyQualifiedName=$fullyQualifiedName, labels=$labels, name=$name, objectTypeId=$objectTypeId, properties=$properties, comboEventRules=$comboEventRules, createdAt=$createdAt, createdUserId=$createdUserId, customMatchingId=$customMatchingId, description=$description, detailTemplate=$detailTemplate, headerTemplate=$headerTemplate, primaryObject=$primaryObject, primaryObjectId=$primaryObjectId, trackingType=$trackingType, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
 }

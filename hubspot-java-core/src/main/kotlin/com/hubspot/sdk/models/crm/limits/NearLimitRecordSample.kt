@@ -19,20 +19,20 @@ class NearLimitRecordSample
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val label: JsonField<String>,
-    private val objectId: JsonField<Int>,
+    private val objectId: JsonField<Long>,
     private val percentage: JsonField<Double>,
-    private val usage: JsonField<Int>,
+    private val usage: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("objectId") @ExcludeMissing objectId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("objectId") @ExcludeMissing objectId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("percentage")
         @ExcludeMissing
         percentage: JsonField<Double> = JsonMissing.of(),
-        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("usage") @ExcludeMissing usage: JsonField<Long> = JsonMissing.of(),
     ) : this(label, objectId, percentage, usage, mutableMapOf())
 
     /**
@@ -49,7 +49,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun objectId(): Int = objectId.getRequired("objectId")
+    fun objectId(): Long = objectId.getRequired("objectId")
 
     /**
      * The percentage of the limit that has been used.
@@ -65,7 +65,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun usage(): Int = usage.getRequired("usage")
+    fun usage(): Long = usage.getRequired("usage")
 
     /**
      * Returns the raw JSON value of [label].
@@ -79,7 +79,7 @@ private constructor(
      *
      * Unlike [objectId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("objectId") @ExcludeMissing fun _objectId(): JsonField<Int> = objectId
+    @JsonProperty("objectId") @ExcludeMissing fun _objectId(): JsonField<Long> = objectId
 
     /**
      * Returns the raw JSON value of [percentage].
@@ -93,7 +93,7 @@ private constructor(
      *
      * Unlike [usage], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Int> = usage
+    @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Long> = usage
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -127,9 +127,9 @@ private constructor(
     class Builder internal constructor() {
 
         private var label: JsonField<String>? = null
-        private var objectId: JsonField<Int>? = null
+        private var objectId: JsonField<Long>? = null
         private var percentage: JsonField<Double>? = null
-        private var usage: JsonField<Int>? = null
+        private var usage: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -153,15 +153,15 @@ private constructor(
         fun label(label: JsonField<String>) = apply { this.label = label }
 
         /** The unique identifier for the object. */
-        fun objectId(objectId: Int) = objectId(JsonField.of(objectId))
+        fun objectId(objectId: Long) = objectId(JsonField.of(objectId))
 
         /**
          * Sets [Builder.objectId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.objectId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.objectId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun objectId(objectId: JsonField<Int>) = apply { this.objectId = objectId }
+        fun objectId(objectId: JsonField<Long>) = apply { this.objectId = objectId }
 
         /** The percentage of the limit that has been used. */
         fun percentage(percentage: Double) = percentage(JsonField.of(percentage))
@@ -176,15 +176,15 @@ private constructor(
         fun percentage(percentage: JsonField<Double>) = apply { this.percentage = percentage }
 
         /** The number of records currently in use. */
-        fun usage(usage: Int) = usage(JsonField.of(usage))
+        fun usage(usage: Long) = usage(JsonField.of(usage))
 
         /**
          * Sets [Builder.usage] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.usage] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.usage] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun usage(usage: JsonField<Int>) = apply { this.usage = usage }
+        fun usage(usage: JsonField<Long>) = apply { this.usage = usage }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

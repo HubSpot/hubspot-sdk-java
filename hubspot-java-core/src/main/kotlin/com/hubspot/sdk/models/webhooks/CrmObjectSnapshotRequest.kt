@@ -21,20 +21,20 @@ import kotlin.jvm.optionals.getOrNull
 class CrmObjectSnapshotRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val objectId: JsonField<Int>,
+    private val objectId: JsonField<Long>,
     private val objectTypeId: JsonField<String>,
-    private val portalId: JsonField<Int>,
+    private val portalId: JsonField<Long>,
     private val properties: JsonField<List<String>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("objectId") @ExcludeMissing objectId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("objectId") @ExcludeMissing objectId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("objectTypeId")
         @ExcludeMissing
         objectTypeId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("portalId") @ExcludeMissing portalId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("portalId") @ExcludeMissing portalId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("properties")
         @ExcludeMissing
         properties: JsonField<List<String>> = JsonMissing.of(),
@@ -42,15 +42,16 @@ private constructor(
 
     /**
      * An integer representing the unique identifier of the CRM object for which the snapshot is
-     * being requested.
+     * requested.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun objectId(): Int = objectId.getRequired("objectId")
+    fun objectId(): Long = objectId.getRequired("objectId")
 
     /**
-     * A string representing the type identifier of the CRM object.
+     * A string representing the type identifier of the CRM object, specifying what kind of object
+     * it is within HubSpot.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -58,16 +59,17 @@ private constructor(
     fun objectTypeId(): String = objectTypeId.getRequired("objectTypeId")
 
     /**
-     * An integer representing the unique identifier of the HubSpot portal.
+     * An integer representing the unique identifier of the HubSpot account (portal) where the CRM
+     * object resides.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun portalId(): Int = portalId.getRequired("portalId")
+    fun portalId(): Long = portalId.getRequired("portalId")
 
     /**
-     * An array of strings, each representing a property of the CRM object to be included in the
-     * snapshot.
+     * An array of strings, each representing a property of the CRM object that should be included
+     * in the snapshot.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -79,7 +81,7 @@ private constructor(
      *
      * Unlike [objectId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("objectId") @ExcludeMissing fun _objectId(): JsonField<Int> = objectId
+    @JsonProperty("objectId") @ExcludeMissing fun _objectId(): JsonField<Long> = objectId
 
     /**
      * Returns the raw JSON value of [objectTypeId].
@@ -95,7 +97,7 @@ private constructor(
      *
      * Unlike [portalId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("portalId") @ExcludeMissing fun _portalId(): JsonField<Int> = portalId
+    @JsonProperty("portalId") @ExcludeMissing fun _portalId(): JsonField<Long> = portalId
 
     /**
      * Returns the raw JSON value of [properties].
@@ -137,9 +139,9 @@ private constructor(
     /** A builder for [CrmObjectSnapshotRequest]. */
     class Builder internal constructor() {
 
-        private var objectId: JsonField<Int>? = null
+        private var objectId: JsonField<Long>? = null
         private var objectTypeId: JsonField<String>? = null
-        private var portalId: JsonField<Int>? = null
+        private var portalId: JsonField<Long>? = null
         private var properties: JsonField<MutableList<String>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -154,19 +156,22 @@ private constructor(
 
         /**
          * An integer representing the unique identifier of the CRM object for which the snapshot is
-         * being requested.
+         * requested.
          */
-        fun objectId(objectId: Int) = objectId(JsonField.of(objectId))
+        fun objectId(objectId: Long) = objectId(JsonField.of(objectId))
 
         /**
          * Sets [Builder.objectId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.objectId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.objectId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun objectId(objectId: JsonField<Int>) = apply { this.objectId = objectId }
+        fun objectId(objectId: JsonField<Long>) = apply { this.objectId = objectId }
 
-        /** A string representing the type identifier of the CRM object. */
+        /**
+         * A string representing the type identifier of the CRM object, specifying what kind of
+         * object it is within HubSpot.
+         */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -180,20 +185,23 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
-        /** An integer representing the unique identifier of the HubSpot portal. */
-        fun portalId(portalId: Int) = portalId(JsonField.of(portalId))
+        /**
+         * An integer representing the unique identifier of the HubSpot account (portal) where the
+         * CRM object resides.
+         */
+        fun portalId(portalId: Long) = portalId(JsonField.of(portalId))
 
         /**
          * Sets [Builder.portalId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.portalId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.portalId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun portalId(portalId: JsonField<Int>) = apply { this.portalId = portalId }
+        fun portalId(portalId: JsonField<Long>) = apply { this.portalId = portalId }
 
         /**
-         * An array of strings, each representing a property of the CRM object to be included in the
-         * snapshot.
+         * An array of strings, each representing a property of the CRM object that should be
+         * included in the snapshot.
          */
         fun properties(properties: List<String>) = properties(JsonField.of(properties))
 

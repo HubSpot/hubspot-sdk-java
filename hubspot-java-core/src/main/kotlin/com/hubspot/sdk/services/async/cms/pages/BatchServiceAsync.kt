@@ -171,9 +171,9 @@ interface BatchServiceAsync {
         deleteLandingPages(batchInputString, RequestOptions.none())
 
     /**
-     * Delete a batch of website pages as specified in the request body. Note: this is not the same
-     * as the dashboard `archive` function. To perform a dashboard `archive` send an normal update
-     * with the `archivedInDashboard` field set to `true`.
+     * Delete a batch of website pages as specified in the request body. Note that this is not the
+     * same as the dashboard `archive` function. To perform a dashboard `archive` send an normal
+     * update with the `archivedInDashboard` field set to `true`.
      */
     fun deleteSitePages(params: BatchDeleteSitePagesParams): CompletableFuture<Void?> =
         deleteSitePages(params, RequestOptions.none())

@@ -11,15 +11,15 @@ internal class SubscriberVidResponseTest {
 
     @Test
     fun create() {
-        val subscriberVidResponse = SubscriberVidResponse.builder().vid(0).build()
+        val subscriberVidResponse = SubscriberVidResponse.builder().vid(0L).build()
 
-        assertThat(subscriberVidResponse.vid()).isEqualTo(0)
+        assertThat(subscriberVidResponse.vid()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val subscriberVidResponse = SubscriberVidResponse.builder().vid(0).build()
+        val subscriberVidResponse = SubscriberVidResponse.builder().vid(0L).build()
 
         val roundtrippedSubscriberVidResponse =
             jsonMapper.readValue(

@@ -42,7 +42,7 @@ internal class PublicImportResponseTest {
                 .importSource(PublicImportResponse.ImportSource.API)
                 .importTemplate(
                     ImportTemplate.builder()
-                        .templateId(0)
+                        .templateId(0L)
                         .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                         .build()
                 )
@@ -81,7 +81,7 @@ internal class PublicImportResponseTest {
         assertThat(publicImportResponse.importTemplate())
             .contains(
                 ImportTemplate.builder()
-                    .templateId(0)
+                    .templateId(0L)
                     .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                     .build()
             )
@@ -119,7 +119,7 @@ internal class PublicImportResponseTest {
                 .importSource(PublicImportResponse.ImportSource.API)
                 .importTemplate(
                     ImportTemplate.builder()
-                        .templateId(0)
+                        .templateId(0L)
                         .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                         .build()
                 )

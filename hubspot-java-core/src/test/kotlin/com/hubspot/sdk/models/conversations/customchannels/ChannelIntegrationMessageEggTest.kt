@@ -60,7 +60,7 @@ internal class ChannelIntegrationMessageEggTest {
                                 .addContactPropertiesLeadingToMatch(
                                     PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                                 )
-                                .contactVid(0)
+                                .contactVid(0L)
                                 .build()
                         )
                         .build()
@@ -124,7 +124,7 @@ internal class ChannelIntegrationMessageEggTest {
                             .addContactPropertiesLeadingToMatch(
                                 PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                             )
-                            .contactVid(0)
+                            .contactVid(0L)
                             .build()
                     )
                     .build()
@@ -183,7 +183,7 @@ internal class ChannelIntegrationMessageEggTest {
                                 .addContactPropertiesLeadingToMatch(
                                     PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                                 )
-                                .contactVid(0)
+                                .contactVid(0L)
                                 .build()
                         )
                         .build()

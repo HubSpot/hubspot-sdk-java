@@ -85,9 +85,9 @@ internal class WebhookServiceTest {
                 CrmObjectSnapshotBatchRequest.builder()
                     .addSnapshotRequest(
                         CrmObjectSnapshotRequest.builder()
-                            .objectId(0)
+                            .objectId(0L)
                             .objectTypeId("objectTypeId")
-                            .portalId(0)
+                            .portalId(0L)
                             .addProperty("string")
                             .build()
                     )

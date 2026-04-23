@@ -14,7 +14,7 @@ internal class ContentSearchResultTest {
     fun create() {
         val contentSearchResult =
             ContentSearchResult.builder()
-                .id(0)
+                .id(0L)
                 .domain("domain")
                 .score(0.0)
                 .type(ContentSearchResult.Type.BLOG_POST)
@@ -36,7 +36,7 @@ internal class ContentSearchResultTest {
                 .title("title")
                 .build()
 
-        assertThat(contentSearchResult.id()).isEqualTo(0)
+        assertThat(contentSearchResult.id()).isEqualTo(0L)
         assertThat(contentSearchResult.domain()).isEqualTo("domain")
         assertThat(contentSearchResult.score()).isEqualTo(0.0)
         assertThat(contentSearchResult.type()).isEqualTo(ContentSearchResult.Type.BLOG_POST)
@@ -63,7 +63,7 @@ internal class ContentSearchResultTest {
         val jsonMapper = jsonMapper()
         val contentSearchResult =
             ContentSearchResult.builder()
-                .id(0)
+                .id(0L)
                 .domain("domain")
                 .score(0.0)
                 .type(ContentSearchResult.Type.BLOG_POST)

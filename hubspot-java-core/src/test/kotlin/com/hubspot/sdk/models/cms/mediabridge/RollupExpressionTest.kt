@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import com.hubspot.sdk.models.AssociationSpec
 import org.assertj.core.api.Assertions.assertThat
@@ -23,13 +24,7 @@ internal class RollupExpressionTest {
                 .rollupOperator(RollupExpression.RollupOperator.AVERAGE)
                 .sourceObjectTypeId("sourceObjectTypeId")
                 .sourcePropertyName("sourcePropertyName")
-                .conditionalExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .conditionalExpression(JsonValue.from(mapOf<String, Any>()))
                 .conditionalFormula("conditionalFormula")
                 .emptyRollupValue("emptyRollupValue")
                 .sourceCompareByPropertyName("sourceCompareByPropertyName")
@@ -46,16 +41,8 @@ internal class RollupExpressionTest {
             .isEqualTo(RollupExpression.RollupOperator.AVERAGE)
         assertThat(rollupExpression.sourceObjectTypeId()).isEqualTo("sourceObjectTypeId")
         assertThat(rollupExpression.sourcePropertyName()).isEqualTo("sourcePropertyName")
-        assertThat(rollupExpression.conditionalExpression())
-            .contains(
-                RollupExpression.ConditionalExpression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(rollupExpression._conditionalExpression())
+            .isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(rollupExpression.conditionalFormula()).contains("conditionalFormula")
         assertThat(rollupExpression.emptyRollupValue()).contains("emptyRollupValue")
         assertThat(rollupExpression.sourceCompareByPropertyName())
@@ -76,13 +63,7 @@ internal class RollupExpressionTest {
                 .rollupOperator(RollupExpression.RollupOperator.AVERAGE)
                 .sourceObjectTypeId("sourceObjectTypeId")
                 .sourcePropertyName("sourcePropertyName")
-                .conditionalExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .conditionalExpression(JsonValue.from(mapOf<String, Any>()))
                 .conditionalFormula("conditionalFormula")
                 .emptyRollupValue("emptyRollupValue")
                 .sourceCompareByPropertyName("sourceCompareByPropertyName")

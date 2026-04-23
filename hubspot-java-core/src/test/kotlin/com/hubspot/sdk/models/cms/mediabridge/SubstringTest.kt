@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,13 +16,7 @@ internal class SubstringTest {
         val substring =
             Substring.builder()
                 .operator(Substring.Operator.SUBSTRING)
-                .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
@@ -34,16 +29,7 @@ internal class SubstringTest {
                 .build()
 
         assertThat(substring.operator()).isEqualTo(Substring.Operator.SUBSTRING)
-        assertThat(substring.stringToCheck())
-            .isEqualTo(
-                Substring.StringToCheck.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(substring._stringToCheck()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(substring.inputs().getOrNull())
             .containsExactly(
                 Substring.Input.ofConstantBoolean(
@@ -64,13 +50,7 @@ internal class SubstringTest {
         val substring =
             Substring.builder()
                 .operator(Substring.Operator.SUBSTRING)
-                .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)

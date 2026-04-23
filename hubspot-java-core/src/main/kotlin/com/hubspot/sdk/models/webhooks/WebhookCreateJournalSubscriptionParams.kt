@@ -9,9 +9,10 @@ import com.hubspot.sdk.core.http.QueryParams
 import java.util.Objects
 
 /**
- * Create a new subscription in the webhooks journal for the specified version. This endpoint allows
- * you to define the subscription details, including actions and object types, to manage webhook
- * events effectively. It requires a valid request body with the subscription details.
+ * Create a new webhook subscription for the specified portal in the HubSpot account. This endpoint
+ * allows you to define the subscription details, including the types of events you want to
+ * subscribe to. The request body must include the necessary subscription information as defined by
+ * the SubscriptionUpsertRequest schema.
  */
 class WebhookCreateJournalSubscriptionParams
 private constructor(

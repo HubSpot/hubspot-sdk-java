@@ -70,7 +70,7 @@ internal class IntegratorObjectCreationResponseTest {
                     PropertyDefinition.builder()
                         .objectTypeId("objectTypeId")
                         .property(
-                            Property.builder()
+                            MediaBridgeProperty.builder()
                                 .addAllowedObjectType(
                                     ObjectTypeIdProto.builder().innerId(0).metaTypeId(0).build()
                                 )
@@ -80,11 +80,11 @@ internal class IntegratorObjectCreationResponseTest {
                                 .createdAt(0L)
                                 .createdUserId(0L)
                                 .currencyPropertyName("currencyPropertyName")
-                                .dataSensitivity(Property.DataSensitivity.HIGH)
-                                .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                                .dataSensitivity(MediaBridgeProperty.DataSensitivity.HIGH)
+                                .dateDisplayHint(MediaBridgeProperty.DateDisplayHint.ABSOLUTE)
                                 .deleted(true)
                                 .description("description")
-                                .displayMode(Property.DisplayMode.ALL_UNIQUE_VERSIONS)
+                                .displayMode(MediaBridgeProperty.DisplayMode.ALL_UNIQUE_VERSIONS)
                                 .displayOrder(0)
                                 .enforceMultivalueUniqueness(true)
                                 .externalOptions(true)
@@ -104,7 +104,7 @@ internal class IntegratorObjectCreationResponseTest {
                                 .label("label")
                                 .mutableDefinitionNotDeletable(true)
                                 .name("name")
-                                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                                .numberDisplayHint(MediaBridgeProperty.NumberDisplayHint.CURRENCY)
                                 .addOption(
                                     AutomationActionsOption.builder()
                                         .description("description")
@@ -117,28 +117,28 @@ internal class IntegratorObjectCreationResponseTest {
                                         .build()
                                 )
                                 .optionsAreMutable(true)
-                                .optionSortStrategy(Property.OptionSortStrategy.ALPHABETICAL)
+                                .optionSortStrategy(
+                                    MediaBridgeProperty.OptionSortStrategy.ALPHABETICAL
+                                )
                                 .owningAppId(0L)
                                 .portalId(0L)
                                 .readOnlyDefinition(true)
                                 .readOnlyValue(true)
-                                .referencedObjectType(Property.ReferencedObjectType.ABANDONED_CART)
+                                .referencedObjectType(
+                                    MediaBridgeProperty.ReferencedObjectType.ABANDONED_CART
+                                )
                                 .searchableInGlobalSearch(true)
-                                .searchTextAnalysisMode(Property.SearchTextAnalysisMode.NONE)
+                                .searchTextAnalysisMode(
+                                    MediaBridgeProperty.SearchTextAnalysisMode.NONE
+                                )
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)
-                                .textDisplayHint(Property.TextDisplayHint.DOMAIN_NAME)
-                                .type(Property.Type.BOOL)
+                                .textDisplayHint(MediaBridgeProperty.TextDisplayHint.DOMAIN_NAME)
+                                .type(MediaBridgeProperty.Type.BOOL)
                                 .updatedAt(0L)
                                 .build()
                         )
-                        .calculationExpression(
-                            ConstantBoolean.builder()
-                                .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                                .propertyName("propertyName")
-                                .value(true)
-                                .build()
-                        )
+                        .calculationExpression(JsonValue.from(mapOf<String, Any>()))
                         .calculationFormula("calculationFormula")
                         .definitionSource(
                             PropertyDefinitionSource.builder()
@@ -203,6 +203,21 @@ internal class IntegratorObjectCreationResponseTest {
                         .fulcrumPortalId(0)
                         .fulcrumTimestamp(0L)
                         .janusGroup("janusGroup")
+                        .lookupAssociationSpec(
+                            LookupAssociationSpec.builder()
+                                .associationSpec(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .cardinality(LookupAssociationSpec.Cardinality.ONE_TO_MANY)
+                                .maxToObjectIds(0)
+                                .toObjectTypeId("toObjectTypeId")
+                                .build()
+                        )
                         .permission(
                             FieldLevelPermission.builder().accessLevel("accessLevel").build()
                         )
@@ -233,13 +248,7 @@ internal class IntegratorObjectCreationResponseTest {
                                 .rollupOperator(RollupExpression.RollupOperator.AVERAGE)
                                 .sourceObjectTypeId("sourceObjectTypeId")
                                 .sourcePropertyName("sourcePropertyName")
-                                .conditionalExpression(
-                                    ConstantBoolean.builder()
-                                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                                        .propertyName("propertyName")
-                                        .value(true)
-                                        .build()
-                                )
+                                .conditionalExpression(JsonValue.from(mapOf<String, Any>()))
                                 .conditionalFormula("conditionalFormula")
                                 .emptyRollupValue("emptyRollupValue")
                                 .sourceCompareByPropertyName("sourceCompareByPropertyName")
@@ -317,7 +326,7 @@ internal class IntegratorObjectCreationResponseTest {
                 PropertyDefinition.builder()
                     .objectTypeId("objectTypeId")
                     .property(
-                        Property.builder()
+                        MediaBridgeProperty.builder()
                             .addAllowedObjectType(
                                 ObjectTypeIdProto.builder().innerId(0).metaTypeId(0).build()
                             )
@@ -327,11 +336,11 @@ internal class IntegratorObjectCreationResponseTest {
                             .createdAt(0L)
                             .createdUserId(0L)
                             .currencyPropertyName("currencyPropertyName")
-                            .dataSensitivity(Property.DataSensitivity.HIGH)
-                            .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                            .dataSensitivity(MediaBridgeProperty.DataSensitivity.HIGH)
+                            .dateDisplayHint(MediaBridgeProperty.DateDisplayHint.ABSOLUTE)
                             .deleted(true)
                             .description("description")
-                            .displayMode(Property.DisplayMode.ALL_UNIQUE_VERSIONS)
+                            .displayMode(MediaBridgeProperty.DisplayMode.ALL_UNIQUE_VERSIONS)
                             .displayOrder(0)
                             .enforceMultivalueUniqueness(true)
                             .externalOptions(true)
@@ -351,7 +360,7 @@ internal class IntegratorObjectCreationResponseTest {
                             .label("label")
                             .mutableDefinitionNotDeletable(true)
                             .name("name")
-                            .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                            .numberDisplayHint(MediaBridgeProperty.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 AutomationActionsOption.builder()
                                     .description("description")
@@ -364,28 +373,24 @@ internal class IntegratorObjectCreationResponseTest {
                                     .build()
                             )
                             .optionsAreMutable(true)
-                            .optionSortStrategy(Property.OptionSortStrategy.ALPHABETICAL)
+                            .optionSortStrategy(MediaBridgeProperty.OptionSortStrategy.ALPHABETICAL)
                             .owningAppId(0L)
                             .portalId(0L)
                             .readOnlyDefinition(true)
                             .readOnlyValue(true)
-                            .referencedObjectType(Property.ReferencedObjectType.ABANDONED_CART)
+                            .referencedObjectType(
+                                MediaBridgeProperty.ReferencedObjectType.ABANDONED_CART
+                            )
                             .searchableInGlobalSearch(true)
-                            .searchTextAnalysisMode(Property.SearchTextAnalysisMode.NONE)
+                            .searchTextAnalysisMode(MediaBridgeProperty.SearchTextAnalysisMode.NONE)
                             .addSensitiveDataCategory("string")
                             .showCurrencySymbol(true)
-                            .textDisplayHint(Property.TextDisplayHint.DOMAIN_NAME)
-                            .type(Property.Type.BOOL)
+                            .textDisplayHint(MediaBridgeProperty.TextDisplayHint.DOMAIN_NAME)
+                            .type(MediaBridgeProperty.Type.BOOL)
                             .updatedAt(0L)
                             .build()
                     )
-                    .calculationExpression(
-                        ConstantBoolean.builder()
-                            .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                            .propertyName("propertyName")
-                            .value(true)
-                            .build()
-                    )
+                    .calculationExpression(JsonValue.from(mapOf<String, Any>()))
                     .calculationFormula("calculationFormula")
                     .definitionSource(
                         PropertyDefinitionSource.builder()
@@ -450,6 +455,21 @@ internal class IntegratorObjectCreationResponseTest {
                     .fulcrumPortalId(0)
                     .fulcrumTimestamp(0L)
                     .janusGroup("janusGroup")
+                    .lookupAssociationSpec(
+                        LookupAssociationSpec.builder()
+                            .associationSpec(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                    )
+                                    .associationTypeId(0)
+                                    .build()
+                            )
+                            .cardinality(LookupAssociationSpec.Cardinality.ONE_TO_MANY)
+                            .maxToObjectIds(0)
+                            .toObjectTypeId("toObjectTypeId")
+                            .build()
+                    )
                     .permission(FieldLevelPermission.builder().accessLevel("accessLevel").build())
                     .propertyDefinitionSource(
                         DefinitionSource.builder()
@@ -478,13 +498,7 @@ internal class IntegratorObjectCreationResponseTest {
                             .rollupOperator(RollupExpression.RollupOperator.AVERAGE)
                             .sourceObjectTypeId("sourceObjectTypeId")
                             .sourcePropertyName("sourcePropertyName")
-                            .conditionalExpression(
-                                ConstantBoolean.builder()
-                                    .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                                    .propertyName("propertyName")
-                                    .value(true)
-                                    .build()
-                            )
+                            .conditionalExpression(JsonValue.from(mapOf<String, Any>()))
                             .conditionalFormula("conditionalFormula")
                             .emptyRollupValue("emptyRollupValue")
                             .sourceCompareByPropertyName("sourceCompareByPropertyName")
@@ -566,7 +580,7 @@ internal class IntegratorObjectCreationResponseTest {
                     PropertyDefinition.builder()
                         .objectTypeId("objectTypeId")
                         .property(
-                            Property.builder()
+                            MediaBridgeProperty.builder()
                                 .addAllowedObjectType(
                                     ObjectTypeIdProto.builder().innerId(0).metaTypeId(0).build()
                                 )
@@ -576,11 +590,11 @@ internal class IntegratorObjectCreationResponseTest {
                                 .createdAt(0L)
                                 .createdUserId(0L)
                                 .currencyPropertyName("currencyPropertyName")
-                                .dataSensitivity(Property.DataSensitivity.HIGH)
-                                .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                                .dataSensitivity(MediaBridgeProperty.DataSensitivity.HIGH)
+                                .dateDisplayHint(MediaBridgeProperty.DateDisplayHint.ABSOLUTE)
                                 .deleted(true)
                                 .description("description")
-                                .displayMode(Property.DisplayMode.ALL_UNIQUE_VERSIONS)
+                                .displayMode(MediaBridgeProperty.DisplayMode.ALL_UNIQUE_VERSIONS)
                                 .displayOrder(0)
                                 .enforceMultivalueUniqueness(true)
                                 .externalOptions(true)
@@ -600,7 +614,7 @@ internal class IntegratorObjectCreationResponseTest {
                                 .label("label")
                                 .mutableDefinitionNotDeletable(true)
                                 .name("name")
-                                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                                .numberDisplayHint(MediaBridgeProperty.NumberDisplayHint.CURRENCY)
                                 .addOption(
                                     AutomationActionsOption.builder()
                                         .description("description")
@@ -613,28 +627,28 @@ internal class IntegratorObjectCreationResponseTest {
                                         .build()
                                 )
                                 .optionsAreMutable(true)
-                                .optionSortStrategy(Property.OptionSortStrategy.ALPHABETICAL)
+                                .optionSortStrategy(
+                                    MediaBridgeProperty.OptionSortStrategy.ALPHABETICAL
+                                )
                                 .owningAppId(0L)
                                 .portalId(0L)
                                 .readOnlyDefinition(true)
                                 .readOnlyValue(true)
-                                .referencedObjectType(Property.ReferencedObjectType.ABANDONED_CART)
+                                .referencedObjectType(
+                                    MediaBridgeProperty.ReferencedObjectType.ABANDONED_CART
+                                )
                                 .searchableInGlobalSearch(true)
-                                .searchTextAnalysisMode(Property.SearchTextAnalysisMode.NONE)
+                                .searchTextAnalysisMode(
+                                    MediaBridgeProperty.SearchTextAnalysisMode.NONE
+                                )
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)
-                                .textDisplayHint(Property.TextDisplayHint.DOMAIN_NAME)
-                                .type(Property.Type.BOOL)
+                                .textDisplayHint(MediaBridgeProperty.TextDisplayHint.DOMAIN_NAME)
+                                .type(MediaBridgeProperty.Type.BOOL)
                                 .updatedAt(0L)
                                 .build()
                         )
-                        .calculationExpression(
-                            ConstantBoolean.builder()
-                                .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                                .propertyName("propertyName")
-                                .value(true)
-                                .build()
-                        )
+                        .calculationExpression(JsonValue.from(mapOf<String, Any>()))
                         .calculationFormula("calculationFormula")
                         .definitionSource(
                             PropertyDefinitionSource.builder()
@@ -699,6 +713,21 @@ internal class IntegratorObjectCreationResponseTest {
                         .fulcrumPortalId(0)
                         .fulcrumTimestamp(0L)
                         .janusGroup("janusGroup")
+                        .lookupAssociationSpec(
+                            LookupAssociationSpec.builder()
+                                .associationSpec(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .cardinality(LookupAssociationSpec.Cardinality.ONE_TO_MANY)
+                                .maxToObjectIds(0)
+                                .toObjectTypeId("toObjectTypeId")
+                                .build()
+                        )
                         .permission(
                             FieldLevelPermission.builder().accessLevel("accessLevel").build()
                         )
@@ -729,13 +758,7 @@ internal class IntegratorObjectCreationResponseTest {
                                 .rollupOperator(RollupExpression.RollupOperator.AVERAGE)
                                 .sourceObjectTypeId("sourceObjectTypeId")
                                 .sourcePropertyName("sourcePropertyName")
-                                .conditionalExpression(
-                                    ConstantBoolean.builder()
-                                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                                        .propertyName("propertyName")
-                                        .value(true)
-                                        .build()
-                                )
+                                .conditionalExpression(JsonValue.from(mapOf<String, Any>()))
                                 .conditionalFormula("conditionalFormula")
                                 .emptyRollupValue("emptyRollupValue")
                                 .sourceCompareByPropertyName("sourceCompareByPropertyName")

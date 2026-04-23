@@ -23,7 +23,7 @@ class PreResolvedContact
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val contactPropertiesLeadingToMatch: JsonField<List<ContactPropertiesLeadingToMatch>>,
-    private val contactVid: JsonField<Int>,
+    private val contactVid: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,7 +33,7 @@ private constructor(
         @ExcludeMissing
         contactPropertiesLeadingToMatch: JsonField<List<ContactPropertiesLeadingToMatch>> =
             JsonMissing.of(),
-        @JsonProperty("contactVid") @ExcludeMissing contactVid: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("contactVid") @ExcludeMissing contactVid: JsonField<Long> = JsonMissing.of(),
     ) : this(contactPropertiesLeadingToMatch, contactVid, mutableMapOf())
 
     /**
@@ -47,7 +47,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun contactVid(): Int = contactVid.getRequired("contactVid")
+    fun contactVid(): Long = contactVid.getRequired("contactVid")
 
     /**
      * Returns the raw JSON value of [contactPropertiesLeadingToMatch].
@@ -65,7 +65,7 @@ private constructor(
      *
      * Unlike [contactVid], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("contactVid") @ExcludeMissing fun _contactVid(): JsonField<Int> = contactVid
+    @JsonProperty("contactVid") @ExcludeMissing fun _contactVid(): JsonField<Long> = contactVid
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -99,7 +99,7 @@ private constructor(
         private var contactPropertiesLeadingToMatch:
             JsonField<MutableList<ContactPropertiesLeadingToMatch>>? =
             null
-        private var contactVid: JsonField<Int>? = null
+        private var contactVid: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -144,15 +144,15 @@ private constructor(
                 }
         }
 
-        fun contactVid(contactVid: Int) = contactVid(JsonField.of(contactVid))
+        fun contactVid(contactVid: Long) = contactVid(JsonField.of(contactVid))
 
         /**
          * Sets [Builder.contactVid] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.contactVid] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.contactVid] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun contactVid(contactVid: JsonField<Int>) = apply { this.contactVid = contactVid }
+        fun contactVid(contactVid: JsonField<Long>) = apply { this.contactVid = contactVid }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -562,6 +562,10 @@ private constructor(
             @JvmField
             val HS_ENRICHED_EMAIL_BOUNCE_DETECTED = of("hs_enriched_email_bounce_detected")
 
+            @JvmField
+            val HS_EXCLUDED_FROM_CROSS_ACCOUNT_DATA_MIRRORING =
+                of("hs_excluded_from_cross_account_data_mirroring")
+
             @JvmField val HS_FACEBOOK_AD_CLICKED = of("hs_facebook_ad_clicked")
 
             @JvmField val HS_FACEBOOK_CLICK_ID = of("hs_facebook_click_id")
@@ -609,6 +613,18 @@ private constructor(
             val HS_FIRST_SUBSCRIPTION_CREATE_DATE = of("hs_first_subscription_create_date")
 
             @JvmField val HS_FULL_NAME_OR_EMAIL = of("hs_full_name_or_email")
+
+            @JvmField val HS_GEOHASH_1 = of("hs_geohash_1")
+
+            @JvmField val HS_GEOHASH_2 = of("hs_geohash_2")
+
+            @JvmField val HS_GEOHASH_3 = of("hs_geohash_3")
+
+            @JvmField val HS_GEOHASH_4 = of("hs_geohash_4")
+
+            @JvmField val HS_GEOHASH_5 = of("hs_geohash_5")
+
+            @JvmField val HS_GEOHASH_6 = of("hs_geohash_6")
 
             @JvmField val HS_GOOGLE_CLICK_ID = of("hs_google_click_id")
 
@@ -1255,6 +1271,7 @@ private constructor(
             HS_EMAILCONFIRMATIONSTATUS,
             HS_EMPLOYMENT_CHANGE_DETECTED_DATE,
             HS_ENRICHED_EMAIL_BOUNCE_DETECTED,
+            HS_EXCLUDED_FROM_CROSS_ACCOUNT_DATA_MIRRORING,
             HS_FACEBOOK_AD_CLICKED,
             HS_FACEBOOK_CLICK_ID,
             HS_FACEBOOKID,
@@ -1275,6 +1292,12 @@ private constructor(
             HS_FIRST_OUTREACH_DATE,
             HS_FIRST_SUBSCRIPTION_CREATE_DATE,
             HS_FULL_NAME_OR_EMAIL,
+            HS_GEOHASH_1,
+            HS_GEOHASH_2,
+            HS_GEOHASH_3,
+            HS_GEOHASH_4,
+            HS_GEOHASH_5,
+            HS_GEOHASH_6,
             HS_GOOGLE_CLICK_ID,
             HS_GOOGLEPLUSID,
             HS_GPS_COORDINATES,
@@ -1647,6 +1670,7 @@ private constructor(
             HS_EMAILCONFIRMATIONSTATUS,
             HS_EMPLOYMENT_CHANGE_DETECTED_DATE,
             HS_ENRICHED_EMAIL_BOUNCE_DETECTED,
+            HS_EXCLUDED_FROM_CROSS_ACCOUNT_DATA_MIRRORING,
             HS_FACEBOOK_AD_CLICKED,
             HS_FACEBOOK_CLICK_ID,
             HS_FACEBOOKID,
@@ -1667,6 +1691,12 @@ private constructor(
             HS_FIRST_OUTREACH_DATE,
             HS_FIRST_SUBSCRIPTION_CREATE_DATE,
             HS_FULL_NAME_OR_EMAIL,
+            HS_GEOHASH_1,
+            HS_GEOHASH_2,
+            HS_GEOHASH_3,
+            HS_GEOHASH_4,
+            HS_GEOHASH_5,
+            HS_GEOHASH_6,
             HS_GOOGLE_CLICK_ID,
             HS_GOOGLEPLUSID,
             HS_GPS_COORDINATES,
@@ -2056,6 +2086,8 @@ private constructor(
                 HS_EMAILCONFIRMATIONSTATUS -> Value.HS_EMAILCONFIRMATIONSTATUS
                 HS_EMPLOYMENT_CHANGE_DETECTED_DATE -> Value.HS_EMPLOYMENT_CHANGE_DETECTED_DATE
                 HS_ENRICHED_EMAIL_BOUNCE_DETECTED -> Value.HS_ENRICHED_EMAIL_BOUNCE_DETECTED
+                HS_EXCLUDED_FROM_CROSS_ACCOUNT_DATA_MIRRORING ->
+                    Value.HS_EXCLUDED_FROM_CROSS_ACCOUNT_DATA_MIRRORING
                 HS_FACEBOOK_AD_CLICKED -> Value.HS_FACEBOOK_AD_CLICKED
                 HS_FACEBOOK_CLICK_ID -> Value.HS_FACEBOOK_CLICK_ID
                 HS_FACEBOOKID -> Value.HS_FACEBOOKID
@@ -2077,6 +2109,12 @@ private constructor(
                 HS_FIRST_OUTREACH_DATE -> Value.HS_FIRST_OUTREACH_DATE
                 HS_FIRST_SUBSCRIPTION_CREATE_DATE -> Value.HS_FIRST_SUBSCRIPTION_CREATE_DATE
                 HS_FULL_NAME_OR_EMAIL -> Value.HS_FULL_NAME_OR_EMAIL
+                HS_GEOHASH_1 -> Value.HS_GEOHASH_1
+                HS_GEOHASH_2 -> Value.HS_GEOHASH_2
+                HS_GEOHASH_3 -> Value.HS_GEOHASH_3
+                HS_GEOHASH_4 -> Value.HS_GEOHASH_4
+                HS_GEOHASH_5 -> Value.HS_GEOHASH_5
+                HS_GEOHASH_6 -> Value.HS_GEOHASH_6
                 HS_GOOGLE_CLICK_ID -> Value.HS_GOOGLE_CLICK_ID
                 HS_GOOGLEPLUSID -> Value.HS_GOOGLEPLUSID
                 HS_GPS_COORDINATES -> Value.HS_GPS_COORDINATES
@@ -2485,6 +2523,8 @@ private constructor(
                 HS_EMAILCONFIRMATIONSTATUS -> Known.HS_EMAILCONFIRMATIONSTATUS
                 HS_EMPLOYMENT_CHANGE_DETECTED_DATE -> Known.HS_EMPLOYMENT_CHANGE_DETECTED_DATE
                 HS_ENRICHED_EMAIL_BOUNCE_DETECTED -> Known.HS_ENRICHED_EMAIL_BOUNCE_DETECTED
+                HS_EXCLUDED_FROM_CROSS_ACCOUNT_DATA_MIRRORING ->
+                    Known.HS_EXCLUDED_FROM_CROSS_ACCOUNT_DATA_MIRRORING
                 HS_FACEBOOK_AD_CLICKED -> Known.HS_FACEBOOK_AD_CLICKED
                 HS_FACEBOOK_CLICK_ID -> Known.HS_FACEBOOK_CLICK_ID
                 HS_FACEBOOKID -> Known.HS_FACEBOOKID
@@ -2506,6 +2546,12 @@ private constructor(
                 HS_FIRST_OUTREACH_DATE -> Known.HS_FIRST_OUTREACH_DATE
                 HS_FIRST_SUBSCRIPTION_CREATE_DATE -> Known.HS_FIRST_SUBSCRIPTION_CREATE_DATE
                 HS_FULL_NAME_OR_EMAIL -> Known.HS_FULL_NAME_OR_EMAIL
+                HS_GEOHASH_1 -> Known.HS_GEOHASH_1
+                HS_GEOHASH_2 -> Known.HS_GEOHASH_2
+                HS_GEOHASH_3 -> Known.HS_GEOHASH_3
+                HS_GEOHASH_4 -> Known.HS_GEOHASH_4
+                HS_GEOHASH_5 -> Known.HS_GEOHASH_5
+                HS_GEOHASH_6 -> Known.HS_GEOHASH_6
                 HS_GOOGLE_CLICK_ID -> Known.HS_GOOGLE_CLICK_ID
                 HS_GOOGLEPLUSID -> Known.HS_GOOGLEPLUSID
                 HS_GPS_COORDINATES -> Known.HS_GPS_COORDINATES

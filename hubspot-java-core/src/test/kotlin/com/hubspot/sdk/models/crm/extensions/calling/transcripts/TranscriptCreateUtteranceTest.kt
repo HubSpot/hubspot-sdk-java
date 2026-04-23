@@ -13,17 +13,17 @@ internal class TranscriptCreateUtteranceTest {
     fun create() {
         val transcriptCreateUtterance =
             TranscriptCreateUtterance.builder()
-                .endTimeMillis(0)
+                .endTimeMillis(0L)
                 .speaker(Speaker.builder().id("id").name("name").email("email").build())
-                .startTimeMillis(0)
+                .startTimeMillis(0L)
                 .text("text")
                 .languageCode("languageCode")
                 .build()
 
-        assertThat(transcriptCreateUtterance.endTimeMillis()).isEqualTo(0)
+        assertThat(transcriptCreateUtterance.endTimeMillis()).isEqualTo(0L)
         assertThat(transcriptCreateUtterance.speaker())
             .isEqualTo(Speaker.builder().id("id").name("name").email("email").build())
-        assertThat(transcriptCreateUtterance.startTimeMillis()).isEqualTo(0)
+        assertThat(transcriptCreateUtterance.startTimeMillis()).isEqualTo(0L)
         assertThat(transcriptCreateUtterance.text()).isEqualTo("text")
         assertThat(transcriptCreateUtterance.languageCode()).contains("languageCode")
     }
@@ -33,9 +33,9 @@ internal class TranscriptCreateUtteranceTest {
         val jsonMapper = jsonMapper()
         val transcriptCreateUtterance =
             TranscriptCreateUtterance.builder()
-                .endTimeMillis(0)
+                .endTimeMillis(0L)
                 .speaker(Speaker.builder().id("id").name("name").email("email").build())
-                .startTimeMillis(0)
+                .startTimeMillis(0L)
                 .text("text")
                 .languageCode("languageCode")
                 .build()

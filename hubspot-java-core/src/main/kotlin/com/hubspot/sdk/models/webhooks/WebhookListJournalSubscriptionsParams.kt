@@ -8,9 +8,9 @@ import com.hubspot.sdk.core.http.QueryParams
 import java.util.Objects
 
 /**
- * Retrieve a list of webhook journal subscriptions for the specified version. This endpoint allows
- * you to view all active subscriptions without pagination. It is useful for managing and auditing
- * webhook subscriptions in your HubSpot account.
+ * Retrieve a list of webhook journal subscriptions for the specified API version. This endpoint
+ * provides details about each subscription, including actions, object types, and associated
+ * properties. It is useful for managing and reviewing current webhook subscriptions.
  */
 class WebhookListJournalSubscriptionsParams
 private constructor(

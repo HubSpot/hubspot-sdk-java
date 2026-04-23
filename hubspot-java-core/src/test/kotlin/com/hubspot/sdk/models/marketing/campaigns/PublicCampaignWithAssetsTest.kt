@@ -40,7 +40,7 @@ internal class PublicCampaignWithAssetsTest {
                         )
                         .build()
                 )
-                .addBusinessUnit(PublicBusinessUnit.builder().id(0).build())
+                .addBusinessUnit(PublicBusinessUnit.builder().id(0L).build())
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     PublicCampaignWithAssets.Properties.builder()
@@ -77,7 +77,7 @@ internal class PublicCampaignWithAssetsTest {
                     .build()
             )
         assertThat(publicCampaignWithAssets.businessUnits())
-            .containsExactly(PublicBusinessUnit.builder().id(0).build())
+            .containsExactly(PublicBusinessUnit.builder().id(0L).build())
         assertThat(publicCampaignWithAssets.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(publicCampaignWithAssets.properties())
@@ -120,7 +120,7 @@ internal class PublicCampaignWithAssetsTest {
                         )
                         .build()
                 )
-                .addBusinessUnit(PublicBusinessUnit.builder().id(0).build())
+                .addBusinessUnit(PublicBusinessUnit.builder().id(0L).build())
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     PublicCampaignWithAssets.Properties.builder()

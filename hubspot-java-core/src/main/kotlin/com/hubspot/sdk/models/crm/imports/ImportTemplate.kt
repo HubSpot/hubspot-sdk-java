@@ -20,14 +20,14 @@ import kotlin.jvm.optionals.getOrNull
 class ImportTemplate
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val templateId: JsonField<Int>,
+    private val templateId: JsonField<Long>,
     private val templateType: JsonField<TemplateType>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("templateId") @ExcludeMissing templateId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("templateId") @ExcludeMissing templateId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("templateType")
         @ExcludeMissing
         templateType: JsonField<TemplateType> = JsonMissing.of(),
@@ -39,7 +39,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun templateId(): Int = templateId.getRequired("templateId")
+    fun templateId(): Long = templateId.getRequired("templateId")
 
     /**
      * The classification of what type of template this represents, and what is its origin or
@@ -55,7 +55,7 @@ private constructor(
      *
      * Unlike [templateId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("templateId") @ExcludeMissing fun _templateId(): JsonField<Int> = templateId
+    @JsonProperty("templateId") @ExcludeMissing fun _templateId(): JsonField<Long> = templateId
 
     /**
      * Returns the raw JSON value of [templateType].
@@ -95,7 +95,7 @@ private constructor(
     /** A builder for [ImportTemplate]. */
     class Builder internal constructor() {
 
-        private var templateId: JsonField<Int>? = null
+        private var templateId: JsonField<Long>? = null
         private var templateType: JsonField<TemplateType>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -110,15 +110,15 @@ private constructor(
          * The unique identifier for the specific saved template or previous import being
          * referenced.
          */
-        fun templateId(templateId: Int) = templateId(JsonField.of(templateId))
+        fun templateId(templateId: Long) = templateId(JsonField.of(templateId))
 
         /**
          * Sets [Builder.templateId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.templateId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.templateId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun templateId(templateId: JsonField<Int>) = apply { this.templateId = templateId }
+        fun templateId(templateId: JsonField<Long>) = apply { this.templateId = templateId }
 
         /**
          * The classification of what type of template this represents, and what is its origin or

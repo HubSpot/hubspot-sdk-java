@@ -23,7 +23,7 @@ class PublicImportError
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val createdAt: JsonField<Int>,
+    private val createdAt: JsonField<Long>,
     private val errorType: JsonField<ErrorType>,
     private val sourceData: JsonField<ImportRowCore>,
     private val errorMessage: JsonField<String>,
@@ -40,7 +40,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("createdAt") @ExcludeMissing createdAt: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("createdAt") @ExcludeMissing createdAt: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("errorType")
         @ExcludeMissing
         errorType: JsonField<ErrorType> = JsonMissing.of(),
@@ -101,7 +101,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun createdAt(): Int = createdAt.getRequired("createdAt")
+    fun createdAt(): Long = createdAt.getRequired("createdAt")
 
     /**
      * The classification of what went wrong during import processing.
@@ -198,7 +198,7 @@ private constructor(
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("createdAt") @ExcludeMissing fun _createdAt(): JsonField<Int> = createdAt
+    @JsonProperty("createdAt") @ExcludeMissing fun _createdAt(): JsonField<Long> = createdAt
 
     /**
      * Returns the raw JSON value of [errorType].
@@ -323,7 +323,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var createdAt: JsonField<Int>? = null
+        private var createdAt: JsonField<Long>? = null
         private var errorType: JsonField<ErrorType>? = null
         private var sourceData: JsonField<ImportRowCore>? = null
         private var errorMessage: JsonField<String> = JsonMissing.of()
@@ -365,15 +365,15 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The epoch millisecond timestamp when this error was recorded. */
-        fun createdAt(createdAt: Int) = createdAt(JsonField.of(createdAt))
+        fun createdAt(createdAt: Long) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.createdAt] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun createdAt(createdAt: JsonField<Int>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<Long>) = apply { this.createdAt = createdAt }
 
         /** The classification of what went wrong during import processing. */
         fun errorType(errorType: ErrorType) = errorType(JsonField.of(errorType))

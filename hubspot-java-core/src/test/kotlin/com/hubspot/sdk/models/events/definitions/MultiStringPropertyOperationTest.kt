@@ -32,7 +32,7 @@ internal class MultiStringPropertyOperationTest {
                         .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
-                                .amount(0)
+                                .amount(0L)
                                 .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                                 .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
@@ -72,7 +72,7 @@ internal class MultiStringPropertyOperationTest {
                         .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
-                                .amount(0)
+                                .amount(0L)
                                 .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                                 .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
@@ -111,7 +111,7 @@ internal class MultiStringPropertyOperationTest {
                         .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
-                                .amount(0)
+                                .amount(0L)
                                 .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
                                 .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()

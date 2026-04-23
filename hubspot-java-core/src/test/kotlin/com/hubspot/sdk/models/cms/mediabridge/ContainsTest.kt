@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,13 +16,7 @@ internal class ContainsTest {
         val contains =
             Contains.builder()
                 .operator(Contains.Operator.CONTAINS)
-                .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
@@ -34,16 +29,7 @@ internal class ContainsTest {
                 .build()
 
         assertThat(contains.operator()).isEqualTo(Contains.Operator.CONTAINS)
-        assertThat(contains.stringToCheck())
-            .isEqualTo(
-                Contains.StringToCheck.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(contains._stringToCheck()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(contains.inputs().getOrNull())
             .containsExactly(
                 Contains.Input.ofConstantBoolean(
@@ -64,13 +50,7 @@ internal class ContainsTest {
         val contains =
             Contains.builder()
                 .operator(Contains.Operator.CONTAINS)
-                .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)

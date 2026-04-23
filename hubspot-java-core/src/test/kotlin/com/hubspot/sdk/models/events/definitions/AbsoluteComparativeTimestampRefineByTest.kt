@@ -14,7 +14,7 @@ internal class AbsoluteComparativeTimestampRefineByTest {
         val absoluteComparativeTimestampRefineBy =
             AbsoluteComparativeTimestampRefineBy.builder()
                 .comparison(AbsoluteComparativeTimestampRefineBy.Comparison.AFTER)
-                .timestamp(0)
+                .timestamp(0L)
                 .type(
                     AbsoluteComparativeTimestampRefineBy.Type
                         .ABSOLUTE_COMPARATIVE_TIMESTAMP_REFINE_BY
@@ -23,7 +23,7 @@ internal class AbsoluteComparativeTimestampRefineByTest {
 
         assertThat(absoluteComparativeTimestampRefineBy.comparison())
             .isEqualTo(AbsoluteComparativeTimestampRefineBy.Comparison.AFTER)
-        assertThat(absoluteComparativeTimestampRefineBy.timestamp()).isEqualTo(0)
+        assertThat(absoluteComparativeTimestampRefineBy.timestamp()).isEqualTo(0L)
         assertThat(absoluteComparativeTimestampRefineBy.type())
             .isEqualTo(
                 AbsoluteComparativeTimestampRefineBy.Type.ABSOLUTE_COMPARATIVE_TIMESTAMP_REFINE_BY
@@ -36,7 +36,7 @@ internal class AbsoluteComparativeTimestampRefineByTest {
         val absoluteComparativeTimestampRefineBy =
             AbsoluteComparativeTimestampRefineBy.builder()
                 .comparison(AbsoluteComparativeTimestampRefineBy.Comparison.AFTER)
-                .timestamp(0)
+                .timestamp(0L)
                 .type(
                     AbsoluteComparativeTimestampRefineBy.Type
                         .ABSOLUTE_COMPARATIVE_TIMESTAMP_REFINE_BY

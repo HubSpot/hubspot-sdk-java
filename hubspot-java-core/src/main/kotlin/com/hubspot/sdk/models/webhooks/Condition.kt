@@ -43,7 +43,7 @@ private constructor(
     ) : this(filterType, operator, property, value, values, mutableMapOf())
 
     /**
-     * A string representing the type of filter. Valid value is 'CRM_OBJECT_PROPERTY'.
+     * A string indicating the type of filter being applied. Valid value is 'CRM_OBJECT_PROPERTY'.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -51,9 +51,9 @@ private constructor(
     fun filterType(): FilterType = filterType.getRequired("filterType")
 
     /**
-     * A string indicating the operation to apply for filtering. Valid values include 'EQ', 'N_EQ',
-     * 'LT', 'GT', 'LTE', 'GTE', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'IN', 'NOT_IN', 'IS_EMPTY',
-     * and 'IS_NOT_EMPTY'.
+     * A string specifying the operation to be performed in the condition. Valid values include
+     * 'EQ', 'N_EQ', 'LT', 'GT', 'LTE', 'GTE', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'IN',
+     * 'NOT_IN', 'IS_EMPTY', and 'IS_NOT_EMPTY'.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -61,7 +61,7 @@ private constructor(
     fun operator(): Operator = operator.getRequired("operator")
 
     /**
-     * A string specifying the property of the CRM object to be filtered.
+     * A string representing the specific property of the CRM object that the condition applies to.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -69,7 +69,8 @@ private constructor(
     fun property(): String = property.getRequired("property")
 
     /**
-     * A string representing the value to compare against the specified property when filtering.
+     * A string representing the value to be compared against the specified property when using
+     * single-value operators.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -77,7 +78,8 @@ private constructor(
     fun value(): Optional<String> = value.getOptional("value")
 
     /**
-     * An array of strings, each representing a value to be used in the filtering operation.
+     * An array of strings used to specify multiple values for comparison when using operators that
+     * support multiple values, such as 'IN' or 'NOT_IN'.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -168,7 +170,10 @@ private constructor(
             additionalProperties = condition.additionalProperties.toMutableMap()
         }
 
-        /** A string representing the type of filter. Valid value is 'CRM_OBJECT_PROPERTY'. */
+        /**
+         * A string indicating the type of filter being applied. Valid value is
+         * 'CRM_OBJECT_PROPERTY'.
+         */
         fun filterType(filterType: FilterType) = filterType(JsonField.of(filterType))
 
         /**
@@ -181,9 +186,9 @@ private constructor(
         fun filterType(filterType: JsonField<FilterType>) = apply { this.filterType = filterType }
 
         /**
-         * A string indicating the operation to apply for filtering. Valid values include 'EQ',
-         * 'N_EQ', 'LT', 'GT', 'LTE', 'GTE', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'IN', 'NOT_IN',
-         * 'IS_EMPTY', and 'IS_NOT_EMPTY'.
+         * A string specifying the operation to be performed in the condition. Valid values include
+         * 'EQ', 'N_EQ', 'LT', 'GT', 'LTE', 'GTE', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'IN',
+         * 'NOT_IN', 'IS_EMPTY', and 'IS_NOT_EMPTY'.
          */
         fun operator(operator: Operator) = operator(JsonField.of(operator))
 
@@ -196,7 +201,10 @@ private constructor(
          */
         fun operator(operator: JsonField<Operator>) = apply { this.operator = operator }
 
-        /** A string specifying the property of the CRM object to be filtered. */
+        /**
+         * A string representing the specific property of the CRM object that the condition applies
+         * to.
+         */
         fun property(property: String) = property(JsonField.of(property))
 
         /**
@@ -208,7 +216,8 @@ private constructor(
         fun property(property: JsonField<String>) = apply { this.property = property }
 
         /**
-         * A string representing the value to compare against the specified property when filtering.
+         * A string representing the value to be compared against the specified property when using
+         * single-value operators.
          */
         fun value(value: String) = value(JsonField.of(value))
 
@@ -220,7 +229,10 @@ private constructor(
          */
         fun value(value: JsonField<String>) = apply { this.value = value }
 
-        /** An array of strings, each representing a value to be used in the filtering operation. */
+        /**
+         * An array of strings used to specify multiple values for comparison when using operators
+         * that support multiple values, such as 'IN' or 'NOT_IN'.
+         */
         fun values(values: List<String>) = values(JsonField.of(values))
 
         /**
@@ -326,7 +338,9 @@ private constructor(
             (if (value.asKnown().isPresent) 1 else 0) +
             (values.asKnown().getOrNull()?.size ?: 0)
 
-    /** A string representing the type of filter. Valid value is 'CRM_OBJECT_PROPERTY'. */
+    /**
+     * A string indicating the type of filter being applied. Valid value is 'CRM_OBJECT_PROPERTY'.
+     */
     class FilterType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -449,9 +463,9 @@ private constructor(
     }
 
     /**
-     * A string indicating the operation to apply for filtering. Valid values include 'EQ', 'N_EQ',
-     * 'LT', 'GT', 'LTE', 'GTE', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'IN', 'NOT_IN', 'IS_EMPTY',
-     * and 'IS_NOT_EMPTY'.
+     * A string specifying the operation to be performed in the condition. Valid values include
+     * 'EQ', 'N_EQ', 'LT', 'GT', 'LTE', 'GTE', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'IN',
+     * 'NOT_IN', 'IS_EMPTY', and 'IS_NOT_EMPTY'.
      */
     class Operator @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

@@ -18,7 +18,7 @@ internal class PublicSearchResultsTest {
                 .page(0)
                 .addResult(
                     ContentSearchResult.builder()
-                        .id(0)
+                        .id(0L)
                         .domain("domain")
                         .score(0.0)
                         .type(ContentSearchResult.Type.BLOG_POST)
@@ -50,7 +50,7 @@ internal class PublicSearchResultsTest {
         assertThat(publicSearchResults.results())
             .containsExactly(
                 ContentSearchResult.builder()
-                    .id(0)
+                    .id(0L)
                     .domain("domain")
                     .score(0.0)
                     .type(ContentSearchResult.Type.BLOG_POST)
@@ -86,7 +86,7 @@ internal class PublicSearchResultsTest {
                 .page(0)
                 .addResult(
                     ContentSearchResult.builder()
-                        .id(0)
+                        .id(0L)
                         .domain("domain")
                         .score(0.0)
                         .type(ContentSearchResult.Type.BLOG_POST)
