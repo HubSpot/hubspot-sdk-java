@@ -28,40 +28,41 @@ import com.hubspot.sdk.models.webhooks.SnapshotStatusResponse
 import com.hubspot.sdk.models.webhooks.SubscriptionListResponse
 import com.hubspot.sdk.models.webhooks.SubscriptionResponse
 import com.hubspot.sdk.models.webhooks.SubscriptionResponse1
-import com.hubspot.sdk.models.webhooks.WebhookCreateCrmSnapshotParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateBatchEventSubscriptionsParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateCrmSnapshotsParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookCreateJournalSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionFilterParams
-import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionParams
-import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionsBatchParams
+import com.hubspot.sdk.models.webhooks.WebhookDeleteEventSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookDeleteJournalSubscriptionForPortalParams
 import com.hubspot.sdk.models.webhooks.WebhookDeleteJournalSubscriptionParams
-import com.hubspot.sdk.models.webhooks.WebhookDeletePortalSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookDeleteSettingsParams
 import com.hubspot.sdk.models.webhooks.WebhookDeleteSubscriptionFilterParams
-import com.hubspot.sdk.models.webhooks.WebhookDeleteSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalEntryParams
 import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalParams
-import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalEntryParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEventSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchByRequestParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchFromOffsetParams
 import com.hubspot.sdk.models.webhooks.WebhookGetJournalStatusParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalEntryParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalEntryParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchByRequestParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchFromOffsetParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalStatusParams
-import com.hubspot.sdk.models.webhooks.WebhookGetNextJournalAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetNextLocalJournalAfterOffsetParams
+import com.hubspot.sdk.models.webhooks.WebhookGetNextJournalEntriesParams
+import com.hubspot.sdk.models.webhooks.WebhookGetNextLocalJournalEntriesParams
 import com.hubspot.sdk.models.webhooks.WebhookGetSettingsParams
 import com.hubspot.sdk.models.webhooks.WebhookGetSubscriptionFilterParams
-import com.hubspot.sdk.models.webhooks.WebhookGetSubscriptionFiltersParams
-import com.hubspot.sdk.models.webhooks.WebhookGetSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookListEventSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookListJournalSubscriptionsParams
-import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionsParams
+import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionFiltersParams
+import com.hubspot.sdk.models.webhooks.WebhookUpdateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateSettingsParams
-import com.hubspot.sdk.models.webhooks.WebhookUpdateSubscriptionParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -77,12 +78,26 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookService =
         WebhookServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun createCrmSnapshot(
-        params: WebhookCreateCrmSnapshotParams,
+    override fun createBatchEventSubscriptions(
+        params: WebhookCreateBatchEventSubscriptionsParams,
+        requestOptions: RequestOptions,
+    ): BatchResponseSubscriptionResponse =
+        // post /webhooks/2026-03/{appId}/subscriptions/batch/update
+        withRawResponse().createBatchEventSubscriptions(params, requestOptions).parse()
+
+    override fun createCrmSnapshots(
+        params: WebhookCreateCrmSnapshotsParams,
         requestOptions: RequestOptions,
     ): CrmObjectSnapshotBatchResponse =
         // post /webhooks-journal/snapshots/2026-03/crm
-        withRawResponse().createCrmSnapshot(params, requestOptions).parse()
+        withRawResponse().createCrmSnapshots(params, requestOptions).parse()
+
+    override fun createEventSubscription(
+        params: WebhookCreateEventSubscriptionParams,
+        requestOptions: RequestOptions,
+    ): SubscriptionResponse =
+        // post /webhooks/2026-03/{appId}/subscriptions
+        withRawResponse().createEventSubscription(params, requestOptions).parse()
 
     override fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams,
@@ -91,13 +106,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // post /webhooks-journal/subscriptions/2026-03
         withRawResponse().createJournalSubscription(params, requestOptions).parse()
 
-    override fun createSubscription(
-        params: WebhookCreateSubscriptionParams,
-        requestOptions: RequestOptions,
-    ): SubscriptionResponse =
-        // post /webhooks/2026-03/{appId}/subscriptions
-        withRawResponse().createSubscription(params, requestOptions).parse()
-
     override fun createSubscriptionFilter(
         params: WebhookCreateSubscriptionFilterParams,
         requestOptions: RequestOptions,
@@ -105,12 +113,13 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // post /webhooks-journal/subscriptions/2026-03/filters
         withRawResponse().createSubscriptionFilter(params, requestOptions).parse()
 
-    override fun createSubscriptionsBatch(
-        params: WebhookCreateSubscriptionsBatchParams,
+    override fun deleteEventSubscription(
+        params: WebhookDeleteEventSubscriptionParams,
         requestOptions: RequestOptions,
-    ): BatchResponseSubscriptionResponse =
-        // post /webhooks/2026-03/{appId}/subscriptions/batch/update
-        withRawResponse().createSubscriptionsBatch(params, requestOptions).parse()
+    ) {
+        // delete /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
+        withRawResponse().deleteEventSubscription(params, requestOptions)
+    }
 
     override fun deleteJournalSubscription(
         params: WebhookDeleteJournalSubscriptionParams,
@@ -120,12 +129,12 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         withRawResponse().deleteJournalSubscription(params, requestOptions)
     }
 
-    override fun deletePortalSubscriptions(
-        params: WebhookDeletePortalSubscriptionsParams,
+    override fun deleteJournalSubscriptionForPortal(
+        params: WebhookDeleteJournalSubscriptionForPortalParams,
         requestOptions: RequestOptions,
     ) {
         // delete /webhooks-journal/subscriptions/2026-03/portals/{portalId}
-        withRawResponse().deletePortalSubscriptions(params, requestOptions)
+        withRawResponse().deleteJournalSubscriptionForPortal(params, requestOptions)
     }
 
     override fun deleteSettings(
@@ -136,14 +145,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         withRawResponse().deleteSettings(params, requestOptions)
     }
 
-    override fun deleteSubscription(
-        params: WebhookDeleteSubscriptionParams,
-        requestOptions: RequestOptions,
-    ) {
-        // delete /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
-        withRawResponse().deleteSubscription(params, requestOptions)
-    }
-
     override fun deleteSubscriptionFilter(
         params: WebhookDeleteSubscriptionFilterParams,
         requestOptions: RequestOptions,
@@ -152,13 +153,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         withRawResponse().deleteSubscriptionFilter(params, requestOptions)
     }
 
-    override fun getEarliestJournal(
-        params: WebhookGetEarliestJournalParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // get /webhooks-journal/journal/2026-03/earliest
-        withRawResponse().getEarliestJournal(params, requestOptions)
-
     override fun getEarliestJournalBatch(
         params: WebhookGetEarliestJournalBatchParams,
         requestOptions: RequestOptions,
@@ -166,12 +160,12 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/journal/2026-03/batch/earliest/{count}
         withRawResponse().getEarliestJournalBatch(params, requestOptions).parse()
 
-    override fun getEarliestLocalJournal(
-        params: WebhookGetEarliestLocalJournalParams,
+    override fun getEarliestJournalEntry(
+        params: WebhookGetEarliestJournalEntryParams,
         requestOptions: RequestOptions,
     ): HttpResponse =
-        // get /webhooks-journal/journal-local/2026-03/earliest
-        withRawResponse().getEarliestLocalJournal(params, requestOptions)
+        // get /webhooks-journal/journal/2026-03/earliest
+        withRawResponse().getEarliestJournalEntry(params, requestOptions)
 
     override fun getEarliestLocalJournalBatch(
         params: WebhookGetEarliestLocalJournalBatchParams,
@@ -180,19 +174,33 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/journal-local/2026-03/batch/earliest/{count}
         withRawResponse().getEarliestLocalJournalBatch(params, requestOptions).parse()
 
-    override fun getJournalBatch(
-        params: WebhookGetJournalBatchParams,
+    override fun getEarliestLocalJournalEntry(
+        params: WebhookGetEarliestLocalJournalEntryParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /webhooks-journal/journal-local/2026-03/earliest
+        withRawResponse().getEarliestLocalJournalEntry(params, requestOptions)
+
+    override fun getEventSubscription(
+        params: WebhookGetEventSubscriptionParams,
+        requestOptions: RequestOptions,
+    ): SubscriptionResponse =
+        // get /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
+        withRawResponse().getEventSubscription(params, requestOptions).parse()
+
+    override fun getJournalBatchByRequest(
+        params: WebhookGetJournalBatchByRequestParams,
         requestOptions: RequestOptions,
     ): BatchResponseJournalFetchResponse =
         // post /webhooks-journal/journal/2026-03/batch/read
-        withRawResponse().getJournalBatch(params, requestOptions).parse()
+        withRawResponse().getJournalBatchByRequest(params, requestOptions).parse()
 
-    override fun getJournalBatchAfterOffset(
-        params: WebhookGetJournalBatchAfterOffsetParams,
+    override fun getJournalBatchFromOffset(
+        params: WebhookGetJournalBatchFromOffsetParams,
         requestOptions: RequestOptions,
     ): BatchResponseJournalFetchResponse =
         // get /webhooks-journal/journal/2026-03/batch/{offset}/next/{count}
-        withRawResponse().getJournalBatchAfterOffset(params, requestOptions).parse()
+        withRawResponse().getJournalBatchFromOffset(params, requestOptions).parse()
 
     override fun getJournalStatus(
         params: WebhookGetJournalStatusParams,
@@ -201,12 +209,12 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/journal/2026-03/status/{statusId}
         withRawResponse().getJournalStatus(params, requestOptions).parse()
 
-    override fun getLatestJournal(
-        params: WebhookGetLatestJournalParams,
+    override fun getJournalSubscription(
+        params: WebhookGetJournalSubscriptionParams,
         requestOptions: RequestOptions,
-    ): HttpResponse =
-        // get /webhooks-journal/journal/2026-03/latest
-        withRawResponse().getLatestJournal(params, requestOptions)
+    ): SubscriptionResponse1 =
+        // get /webhooks-journal/subscriptions/2026-03/{subscriptionId}
+        withRawResponse().getJournalSubscription(params, requestOptions).parse()
 
     override fun getLatestJournalBatch(
         params: WebhookGetLatestJournalBatchParams,
@@ -215,12 +223,12 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/journal/2026-03/batch/latest/{count}
         withRawResponse().getLatestJournalBatch(params, requestOptions).parse()
 
-    override fun getLatestLocalJournal(
-        params: WebhookGetLatestLocalJournalParams,
+    override fun getLatestJournalEntry(
+        params: WebhookGetLatestJournalEntryParams,
         requestOptions: RequestOptions,
     ): HttpResponse =
-        // get /webhooks-journal/journal-local/2026-03/latest
-        withRawResponse().getLatestLocalJournal(params, requestOptions)
+        // get /webhooks-journal/journal/2026-03/latest
+        withRawResponse().getLatestJournalEntry(params, requestOptions)
 
     override fun getLatestLocalJournalBatch(
         params: WebhookGetLatestLocalJournalBatchParams,
@@ -229,19 +237,26 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/journal-local/2026-03/batch/latest/{count}
         withRawResponse().getLatestLocalJournalBatch(params, requestOptions).parse()
 
-    override fun getLocalJournalBatch(
-        params: WebhookGetLocalJournalBatchParams,
+    override fun getLatestLocalJournalEntry(
+        params: WebhookGetLatestLocalJournalEntryParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /webhooks-journal/journal-local/2026-03/latest
+        withRawResponse().getLatestLocalJournalEntry(params, requestOptions)
+
+    override fun getLocalJournalBatchByRequest(
+        params: WebhookGetLocalJournalBatchByRequestParams,
         requestOptions: RequestOptions,
     ): BatchResponseJournalFetchResponse =
         // post /webhooks-journal/journal-local/2026-03/batch/read
-        withRawResponse().getLocalJournalBatch(params, requestOptions).parse()
+        withRawResponse().getLocalJournalBatchByRequest(params, requestOptions).parse()
 
-    override fun getLocalJournalBatchAfterOffset(
-        params: WebhookGetLocalJournalBatchAfterOffsetParams,
+    override fun getLocalJournalBatchFromOffset(
+        params: WebhookGetLocalJournalBatchFromOffsetParams,
         requestOptions: RequestOptions,
     ): BatchResponseJournalFetchResponse =
         // get /webhooks-journal/journal-local/2026-03/batch/{offset}/next/{count}
-        withRawResponse().getLocalJournalBatchAfterOffset(params, requestOptions).parse()
+        withRawResponse().getLocalJournalBatchFromOffset(params, requestOptions).parse()
 
     override fun getLocalJournalStatus(
         params: WebhookGetLocalJournalStatusParams,
@@ -250,19 +265,19 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/journal-local/2026-03/status/{statusId}
         withRawResponse().getLocalJournalStatus(params, requestOptions).parse()
 
-    override fun getNextJournalAfterOffset(
-        params: WebhookGetNextJournalAfterOffsetParams,
+    override fun getNextJournalEntries(
+        params: WebhookGetNextJournalEntriesParams,
         requestOptions: RequestOptions,
     ): HttpResponse =
         // get /webhooks-journal/journal/2026-03/offset/{offset}/next
-        withRawResponse().getNextJournalAfterOffset(params, requestOptions)
+        withRawResponse().getNextJournalEntries(params, requestOptions)
 
-    override fun getNextLocalJournalAfterOffset(
-        params: WebhookGetNextLocalJournalAfterOffsetParams,
+    override fun getNextLocalJournalEntries(
+        params: WebhookGetNextLocalJournalEntriesParams,
         requestOptions: RequestOptions,
     ): HttpResponse =
         // get /webhooks-journal/journal-local/2026-03/offset/{offset}/next
-        withRawResponse().getNextLocalJournalAfterOffset(params, requestOptions)
+        withRawResponse().getNextLocalJournalEntries(params, requestOptions)
 
     override fun getSettings(
         params: WebhookGetSettingsParams,
@@ -271,13 +286,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks/2026-03/{appId}/settings
         withRawResponse().getSettings(params, requestOptions).parse()
 
-    override fun getSubscription(
-        params: WebhookGetSubscriptionParams,
-        requestOptions: RequestOptions,
-    ): SubscriptionResponse =
-        // get /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
-        withRawResponse().getSubscription(params, requestOptions).parse()
-
     override fun getSubscriptionFilter(
         params: WebhookGetSubscriptionFilterParams,
         requestOptions: RequestOptions,
@@ -285,12 +293,12 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/subscriptions/2026-03/filters/{filterId}
         withRawResponse().getSubscriptionFilter(params, requestOptions).parse()
 
-    override fun getSubscriptionFilters(
-        params: WebhookGetSubscriptionFiltersParams,
+    override fun listEventSubscriptions(
+        params: WebhookListEventSubscriptionsParams,
         requestOptions: RequestOptions,
-    ): List<FilterResponse> =
-        // get /webhooks-journal/subscriptions/2026-03/filters/subscription/{subscriptionId}
-        withRawResponse().getSubscriptionFilters(params, requestOptions).parse()
+    ): SubscriptionListResponse =
+        // get /webhooks/2026-03/{appId}/subscriptions
+        withRawResponse().listEventSubscriptions(params, requestOptions).parse()
 
     override fun listJournalSubscriptions(
         params: WebhookListJournalSubscriptionsParams,
@@ -299,12 +307,19 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         // get /webhooks-journal/subscriptions/2026-03
         withRawResponse().listJournalSubscriptions(params, requestOptions).parse()
 
-    override fun listSubscriptions(
-        params: WebhookListSubscriptionsParams,
+    override fun listSubscriptionFilters(
+        params: WebhookListSubscriptionFiltersParams,
         requestOptions: RequestOptions,
-    ): SubscriptionListResponse =
-        // get /webhooks/2026-03/{appId}/subscriptions
-        withRawResponse().listSubscriptions(params, requestOptions).parse()
+    ): List<FilterResponse> =
+        // get /webhooks-journal/subscriptions/2026-03/filters/subscription/{subscriptionId}
+        withRawResponse().listSubscriptionFilters(params, requestOptions).parse()
+
+    override fun updateEventSubscription(
+        params: WebhookUpdateEventSubscriptionParams,
+        requestOptions: RequestOptions,
+    ): SubscriptionResponse =
+        // patch /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
+        withRawResponse().updateEventSubscription(params, requestOptions).parse()
 
     override fun updateSettings(
         params: WebhookUpdateSettingsParams,
@@ -312,13 +327,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
     ): SettingsResponse =
         // put /webhooks/2026-03/{appId}/settings
         withRawResponse().updateSettings(params, requestOptions).parse()
-
-    override fun updateSubscription(
-        params: WebhookUpdateSubscriptionParams,
-        requestOptions: RequestOptions,
-    ): SubscriptionResponse =
-        // patch /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
-        withRawResponse().updateSubscription(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WebhookService.WithRawResponse {
@@ -333,11 +341,50 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createCrmSnapshotHandler: Handler<CrmObjectSnapshotBatchResponse> =
+        private val createBatchEventSubscriptionsHandler:
+            Handler<BatchResponseSubscriptionResponse> =
+            jsonHandler<BatchResponseSubscriptionResponse>(clientOptions.jsonMapper)
+
+        override fun createBatchEventSubscriptions(
+            params: WebhookCreateBatchEventSubscriptionsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseSubscriptionResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks",
+                        "2026-03",
+                        params._pathParam(0),
+                        "subscriptions",
+                        "batch",
+                        "update",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createBatchEventSubscriptionsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val createCrmSnapshotsHandler: Handler<CrmObjectSnapshotBatchResponse> =
             jsonHandler<CrmObjectSnapshotBatchResponse>(clientOptions.jsonMapper)
 
-        override fun createCrmSnapshot(
-            params: WebhookCreateCrmSnapshotParams,
+        override fun createCrmSnapshots(
+            params: WebhookCreateCrmSnapshotsParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CrmObjectSnapshotBatchResponse> {
             val request =
@@ -352,7 +399,38 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createCrmSnapshotHandler.handle(it) }
+                    .use { createCrmSnapshotsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val createEventSubscriptionHandler: Handler<SubscriptionResponse> =
+            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
+
+        override fun createEventSubscription(
+            params: WebhookCreateEventSubscriptionParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SubscriptionResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks", "2026-03", params._pathParam(0), "subscriptions")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createEventSubscriptionHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -389,37 +467,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val createSubscriptionHandler: Handler<SubscriptionResponse> =
-            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
-
-        override fun createSubscription(
-            params: WebhookCreateSubscriptionParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("appId", params.appId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks", "2026-03", params._pathParam(0), "subscriptions")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createSubscriptionHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
         private val createSubscriptionFilterHandler: Handler<FilterCreateResponse> =
             jsonHandler<FilterCreateResponse>(clientOptions.jsonMapper)
 
@@ -448,41 +495,33 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val createSubscriptionsBatchHandler: Handler<BatchResponseSubscriptionResponse> =
-            jsonHandler<BatchResponseSubscriptionResponse>(clientOptions.jsonMapper)
+        private val deleteEventSubscriptionHandler: Handler<Void?> = emptyHandler()
 
-        override fun createSubscriptionsBatch(
-            params: WebhookCreateSubscriptionsBatchParams,
+        override fun deleteEventSubscription(
+            params: WebhookDeleteEventSubscriptionParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSubscriptionResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("appId", params.appId().getOrNull())
+            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "webhooks",
                         "2026-03",
                         params._pathParam(0),
                         "subscriptions",
-                        "batch",
-                        "update",
+                        params._pathParam(1),
                     )
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { createSubscriptionsBatchHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteEventSubscriptionHandler.handle(it) }
             }
         }
 
@@ -515,10 +554,10 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val deletePortalSubscriptionsHandler: Handler<Void?> = emptyHandler()
+        private val deleteJournalSubscriptionForPortalHandler: Handler<Void?> = emptyHandler()
 
-        override fun deletePortalSubscriptions(
-            params: WebhookDeletePortalSubscriptionsParams,
+        override fun deleteJournalSubscriptionForPortal(
+            params: WebhookDeleteJournalSubscriptionForPortalParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -541,7 +580,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { deletePortalSubscriptionsHandler.handle(it) }
+                response.use { deleteJournalSubscriptionForPortalHandler.handle(it) }
             }
         }
 
@@ -566,36 +605,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { deleteSettingsHandler.handle(it) }
-            }
-        }
-
-        private val deleteSubscriptionHandler: Handler<Void?> = emptyHandler()
-
-        override fun deleteSubscription(
-            params: WebhookDeleteSubscriptionParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "webhooks",
-                        "2026-03",
-                        params._pathParam(0),
-                        "subscriptions",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { deleteSubscriptionHandler.handle(it) }
             }
         }
 
@@ -627,23 +636,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             return errorHandler.handle(response).parseable {
                 response.use { deleteSubscriptionFilterHandler.handle(it) }
             }
-        }
-
-        override fun getEarliestJournal(
-            params: WebhookGetEarliestJournalParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal", "2026-03", "earliest")
-                    .putHeader("Accept", "*/*")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
         }
 
         private val getEarliestJournalBatchHandler: Handler<BatchResponseJournalFetchResponse> =
@@ -683,15 +675,15 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        override fun getEarliestLocalJournal(
-            params: WebhookGetEarliestLocalJournalParams,
+        override fun getEarliestJournalEntry(
+            params: WebhookGetEarliestJournalEntryParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal-local", "2026-03", "earliest")
+                    .addPathSegments("webhooks-journal", "journal", "2026-03", "earliest")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepare(clientOptions, params)
@@ -738,11 +730,64 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getJournalBatchHandler: Handler<BatchResponseJournalFetchResponse> =
+        override fun getEarliestLocalJournalEntry(
+            params: WebhookGetEarliestLocalJournalEntryParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks-journal", "journal-local", "2026-03", "earliest")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        private val getEventSubscriptionHandler: Handler<SubscriptionResponse> =
+            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
+
+        override fun getEventSubscription(
+            params: WebhookGetEventSubscriptionParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SubscriptionResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks",
+                        "2026-03",
+                        params._pathParam(0),
+                        "subscriptions",
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getEventSubscriptionHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getJournalBatchByRequestHandler: Handler<BatchResponseJournalFetchResponse> =
             jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
 
-        override fun getJournalBatch(
-            params: WebhookGetJournalBatchParams,
+        override fun getJournalBatchByRequest(
+            params: WebhookGetJournalBatchByRequestParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseJournalFetchResponse> {
             val request =
@@ -757,7 +802,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getJournalBatchHandler.handle(it) }
+                    .use { getJournalBatchByRequestHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -766,11 +811,11 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getJournalBatchAfterOffsetHandler: Handler<BatchResponseJournalFetchResponse> =
+        private val getJournalBatchFromOffsetHandler: Handler<BatchResponseJournalFetchResponse> =
             jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
 
-        override fun getJournalBatchAfterOffset(
-            params: WebhookGetJournalBatchAfterOffsetParams,
+        override fun getJournalBatchFromOffset(
+            params: WebhookGetJournalBatchFromOffsetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseJournalFetchResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -795,7 +840,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getJournalBatchAfterOffsetHandler.handle(it) }
+                    .use { getJournalBatchFromOffsetHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -840,21 +885,39 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        override fun getLatestJournal(
-            params: WebhookGetLatestJournalParams,
+        private val getJournalSubscriptionHandler: Handler<SubscriptionResponse1> =
+            jsonHandler<SubscriptionResponse1>(clientOptions.jsonMapper)
+
+        override fun getJournalSubscription(
+            params: WebhookGetJournalSubscriptionParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<SubscriptionResponse1> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal", "2026-03", "latest")
-                    .putHeader("Accept", "*/*")
+                    .addPathSegments(
+                        "webhooks-journal",
+                        "subscriptions",
+                        "2026-03",
+                        params._pathParam(0),
+                    )
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getJournalSubscriptionHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
         private val getLatestJournalBatchHandler: Handler<BatchResponseJournalFetchResponse> =
@@ -894,15 +957,15 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        override fun getLatestLocalJournal(
-            params: WebhookGetLatestLocalJournalParams,
+        override fun getLatestJournalEntry(
+            params: WebhookGetLatestJournalEntryParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal-local", "2026-03", "latest")
+                    .addPathSegments("webhooks-journal", "journal", "2026-03", "latest")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepare(clientOptions, params)
@@ -948,11 +1011,29 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getLocalJournalBatchHandler: Handler<BatchResponseJournalFetchResponse> =
+        override fun getLatestLocalJournalEntry(
+            params: WebhookGetLatestLocalJournalEntryParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks-journal", "journal-local", "2026-03", "latest")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        private val getLocalJournalBatchByRequestHandler:
+            Handler<BatchResponseJournalFetchResponse> =
             jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
 
-        override fun getLocalJournalBatch(
-            params: WebhookGetLocalJournalBatchParams,
+        override fun getLocalJournalBatchByRequest(
+            params: WebhookGetLocalJournalBatchByRequestParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseJournalFetchResponse> {
             val request =
@@ -973,7 +1054,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getLocalJournalBatchHandler.handle(it) }
+                    .use { getLocalJournalBatchByRequestHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -982,12 +1063,12 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getLocalJournalBatchAfterOffsetHandler:
+        private val getLocalJournalBatchFromOffsetHandler:
             Handler<BatchResponseJournalFetchResponse> =
             jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
 
-        override fun getLocalJournalBatchAfterOffset(
-            params: WebhookGetLocalJournalBatchAfterOffsetParams,
+        override fun getLocalJournalBatchFromOffset(
+            params: WebhookGetLocalJournalBatchFromOffsetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseJournalFetchResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -1012,7 +1093,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getLocalJournalBatchAfterOffsetHandler.handle(it) }
+                    .use { getLocalJournalBatchFromOffsetHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -1057,8 +1138,8 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        override fun getNextJournalAfterOffset(
-            params: WebhookGetNextJournalAfterOffsetParams,
+        override fun getNextJournalEntries(
+            params: WebhookGetNextJournalEntriesParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -1084,8 +1165,8 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             return errorHandler.handle(response)
         }
 
-        override fun getNextLocalJournalAfterOffset(
-            params: WebhookGetNextLocalJournalAfterOffsetParams,
+        override fun getNextLocalJournalEntries(
+            params: WebhookGetNextLocalJournalEntriesParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -1141,42 +1222,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getSubscriptionHandler: Handler<SubscriptionResponse> =
-            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
-
-        override fun getSubscription(
-            params: WebhookGetSubscriptionParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "webhooks",
-                        "2026-03",
-                        params._pathParam(0),
-                        "subscriptions",
-                        params._pathParam(1),
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { getSubscriptionHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
         private val getSubscriptionFilterHandler: Handler<FilterResponse> =
             jsonHandler<FilterResponse>(clientOptions.jsonMapper)
 
@@ -1213,38 +1258,31 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getSubscriptionFiltersHandler: Handler<List<FilterResponse>> =
-            jsonHandler<List<FilterResponse>>(clientOptions.jsonMapper)
+        private val listEventSubscriptionsHandler: Handler<SubscriptionListResponse> =
+            jsonHandler<SubscriptionListResponse>(clientOptions.jsonMapper)
 
-        override fun getSubscriptionFilters(
-            params: WebhookGetSubscriptionFiltersParams,
+        override fun listEventSubscriptions(
+            params: WebhookListEventSubscriptionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<FilterResponse>> {
+        ): HttpResponseFor<SubscriptionListResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
+            checkRequired("appId", params.appId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "webhooks-journal",
-                        "subscriptions",
-                        "2026-03",
-                        "filters",
-                        "subscription",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("webhooks", "2026-03", params._pathParam(0), "subscriptions")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getSubscriptionFiltersHandler.handle(it) }
+                    .use { listEventSubscriptionsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
+                            it.validate()
                         }
                     }
             }
@@ -1278,28 +1316,72 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listSubscriptionsHandler: Handler<SubscriptionListResponse> =
-            jsonHandler<SubscriptionListResponse>(clientOptions.jsonMapper)
+        private val listSubscriptionFiltersHandler: Handler<List<FilterResponse>> =
+            jsonHandler<List<FilterResponse>>(clientOptions.jsonMapper)
 
-        override fun listSubscriptions(
-            params: WebhookListSubscriptionsParams,
+        override fun listSubscriptionFilters(
+            params: WebhookListSubscriptionFiltersParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionListResponse> {
+        ): HttpResponseFor<List<FilterResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("appId", params.appId().getOrNull())
+            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks", "2026-03", params._pathParam(0), "subscriptions")
+                    .addPathSegments(
+                        "webhooks-journal",
+                        "subscriptions",
+                        "2026-03",
+                        "filters",
+                        "subscription",
+                        params._pathParam(0),
+                    )
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listSubscriptionsHandler.handle(it) }
+                    .use { listSubscriptionFiltersHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.forEach { it.validate() }
+                        }
+                    }
+            }
+        }
+
+        private val updateEventSubscriptionHandler: Handler<SubscriptionResponse> =
+            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
+
+        override fun updateEventSubscription(
+            params: WebhookUpdateEventSubscriptionParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SubscriptionResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks",
+                        "2026-03",
+                        params._pathParam(0),
+                        "subscriptions",
+                        params._pathParam(1),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateEventSubscriptionHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -1331,43 +1413,6 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             return errorHandler.handle(response).parseable {
                 response
                     .use { updateSettingsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val updateSubscriptionHandler: Handler<SubscriptionResponse> =
-            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
-
-        override fun updateSubscription(
-            params: WebhookUpdateSubscriptionParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "webhooks",
-                        "2026-03",
-                        params._pathParam(0),
-                        "subscriptions",
-                        params._pathParam(1),
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateSubscriptionHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

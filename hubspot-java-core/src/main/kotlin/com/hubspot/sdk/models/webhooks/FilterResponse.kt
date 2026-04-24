@@ -33,12 +33,16 @@ private constructor(
     ) : this(id, createdAt, filter, mutableMapOf())
 
     /**
+     * The unique identifier for the filter. It is an integer in int64 format.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): Long = id.getRequired("id")
 
     /**
+     * A Unix timestamp in milliseconds indicating when the filter was created.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -118,6 +122,7 @@ private constructor(
             additionalProperties = filterResponse.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the filter. It is an integer in int64 format. */
         fun id(id: Long) = id(JsonField.of(id))
 
         /**
@@ -128,6 +133,7 @@ private constructor(
          */
         fun id(id: JsonField<Long>) = apply { this.id = id }
 
+        /** A Unix timestamp in milliseconds indicating when the filter was created. */
         fun createdAt(createdAt: Long) = createdAt(JsonField.of(createdAt))
 
         /**

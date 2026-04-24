@@ -19,7 +19,7 @@ internal class BatchResponseSubscriberEmailResponseTest {
         val batchResponseSubscriberEmailResponse =
             BatchResponseSubscriberEmailResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .addResult(SubscriberEmailResponse.builder().email("email").vid(0).build())
+                .addResult(SubscriberEmailResponse.builder().email("email").vid(0L).build())
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseSubscriberEmailResponse.Status.CANCELED)
                 .addError(
@@ -193,7 +193,7 @@ internal class BatchResponseSubscriberEmailResponseTest {
         assertThat(batchResponseSubscriberEmailResponse.completedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseSubscriberEmailResponse.results())
-            .containsExactly(SubscriberEmailResponse.builder().email("email").vid(0).build())
+            .containsExactly(SubscriberEmailResponse.builder().email("email").vid(0L).build())
         assertThat(batchResponseSubscriberEmailResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseSubscriberEmailResponse.status())
@@ -279,7 +279,7 @@ internal class BatchResponseSubscriberEmailResponseTest {
         val batchResponseSubscriberEmailResponse =
             BatchResponseSubscriberEmailResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .addResult(SubscriberEmailResponse.builder().email("email").vid(0).build())
+                .addResult(SubscriberEmailResponse.builder().email("email").vid(0L).build())
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseSubscriberEmailResponse.Status.CANCELED)
                 .addError(

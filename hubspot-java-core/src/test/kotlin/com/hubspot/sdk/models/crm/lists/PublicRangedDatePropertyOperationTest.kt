@@ -14,20 +14,20 @@ internal class PublicRangedDatePropertyOperationTest {
         val publicRangedDatePropertyOperation =
             PublicRangedDatePropertyOperation.builder()
                 .includeObjectsWithNoValueSet(true)
-                .lowerBound(0)
+                .lowerBound(0L)
                 .operationType(PublicRangedDatePropertyOperation.OperationType.RANGED_DATE)
                 .operator("operator")
                 .requiresTimeZoneConversion(true)
-                .upperBound(0)
+                .upperBound(0L)
                 .build()
 
         assertThat(publicRangedDatePropertyOperation.includeObjectsWithNoValueSet()).isEqualTo(true)
-        assertThat(publicRangedDatePropertyOperation.lowerBound()).isEqualTo(0)
+        assertThat(publicRangedDatePropertyOperation.lowerBound()).isEqualTo(0L)
         assertThat(publicRangedDatePropertyOperation.operationType())
             .isEqualTo(PublicRangedDatePropertyOperation.OperationType.RANGED_DATE)
         assertThat(publicRangedDatePropertyOperation.operator()).isEqualTo("operator")
         assertThat(publicRangedDatePropertyOperation.requiresTimeZoneConversion()).isEqualTo(true)
-        assertThat(publicRangedDatePropertyOperation.upperBound()).isEqualTo(0)
+        assertThat(publicRangedDatePropertyOperation.upperBound()).isEqualTo(0L)
     }
 
     @Test
@@ -36,11 +36,11 @@ internal class PublicRangedDatePropertyOperationTest {
         val publicRangedDatePropertyOperation =
             PublicRangedDatePropertyOperation.builder()
                 .includeObjectsWithNoValueSet(true)
-                .lowerBound(0)
+                .lowerBound(0L)
                 .operationType(PublicRangedDatePropertyOperation.OperationType.RANGED_DATE)
                 .operator("operator")
                 .requiresTimeZoneConversion(true)
-                .upperBound(0)
+                .upperBound(0L)
                 .build()
 
         val roundtrippedPublicRangedDatePropertyOperation =

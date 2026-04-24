@@ -27,10 +27,22 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /**
+     * The communication channel from which subscribers will be unsubscribed. This parameter is
+     * required and currently supports only 'EMAIL'.
+     */
     fun channel(): Channel = channel
 
+    /**
+     * An optional integer representing the business unit ID for which the operation is being
+     * performed.
+     */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
+    /**
+     * A boolean indicating whether to include detailed information in the response. Defaults to
+     * false.
+     */
     fun verbose(): Optional<Boolean> = Optional.ofNullable(verbose)
 
     fun batchInputString(): BatchInputString = batchInputString
@@ -80,8 +92,16 @@ private constructor(
             additionalQueryParams = batchUnsubscribeAllParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * The communication channel from which subscribers will be unsubscribed. This parameter is
+         * required and currently supports only 'EMAIL'.
+         */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
+        /**
+         * An optional integer representing the business unit ID for which the operation is being
+         * performed.
+         */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -95,6 +115,10 @@ private constructor(
         fun businessUnitId(businessUnitId: Optional<Long>) =
             businessUnitId(businessUnitId.getOrNull())
 
+        /**
+         * A boolean indicating whether to include detailed information in the response. Defaults to
+         * false.
+         */
         fun verbose(verbose: Boolean?) = apply { this.verbose = verbose }
 
         /**
@@ -247,6 +271,10 @@ private constructor(
             }
             .build()
 
+    /**
+     * The communication channel from which subscribers will be unsubscribed. This parameter is
+     * required and currently supports only 'EMAIL'.
+     */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

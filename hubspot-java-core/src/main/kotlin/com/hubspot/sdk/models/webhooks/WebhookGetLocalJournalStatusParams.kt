@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve the status of a specific webhook journal entry using its unique status ID. This endpoint
+ * is useful for monitoring the progress or completion of webhook processing tasks.
+ */
 class WebhookGetLocalJournalStatusParams
 private constructor(
     private val statusId: String?,

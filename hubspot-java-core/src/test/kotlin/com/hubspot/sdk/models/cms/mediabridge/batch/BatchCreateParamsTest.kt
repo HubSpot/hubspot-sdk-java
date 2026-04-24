@@ -2,9 +2,9 @@
 
 package com.hubspot.sdk.models.cms.mediabridge.batch
 
+import com.hubspot.sdk.models.BatchInputPropertyCreate
 import com.hubspot.sdk.models.OptionInput
-import com.hubspot.sdk.models.cms.mediabridge.BatchInputPropertyCreate
-import com.hubspot.sdk.models.cms.mediabridge.PropertyCreate
+import com.hubspot.sdk.models.PropertyCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -25,6 +25,7 @@ internal class BatchCreateParamsTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
@@ -32,6 +33,7 @@ internal class BatchCreateParamsTest {
                             .formField(true)
                             .hasUniqueValue(true)
                             .hidden(true)
+                            .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -42,6 +44,7 @@ internal class BatchCreateParamsTest {
                                     .build()
                             )
                             .referencedObjectType("referencedObjectType")
+                            .showCurrencySymbol(true)
                             .build()
                     )
                     .build()
@@ -92,6 +95,7 @@ internal class BatchCreateParamsTest {
                                 .name("name")
                                 .type(PropertyCreate.Type.BOOL)
                                 .calculationFormula("calculationFormula")
+                                .currencyPropertyName("currencyPropertyName")
                                 .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                                 .description("description")
                                 .displayOrder(0)
@@ -99,6 +103,7 @@ internal class BatchCreateParamsTest {
                                 .formField(true)
                                 .hasUniqueValue(true)
                                 .hidden(true)
+                                .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                                 .addOption(
                                     OptionInput.builder()
                                         .displayOrder(0)
@@ -109,6 +114,7 @@ internal class BatchCreateParamsTest {
                                         .build()
                                 )
                                 .referencedObjectType("referencedObjectType")
+                                .showCurrencySymbol(true)
                                 .build()
                         )
                         .build()
@@ -128,6 +134,7 @@ internal class BatchCreateParamsTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
@@ -135,6 +142,7 @@ internal class BatchCreateParamsTest {
                             .formField(true)
                             .hasUniqueValue(true)
                             .hidden(true)
+                            .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -145,6 +153,7 @@ internal class BatchCreateParamsTest {
                                     .build()
                             )
                             .referencedObjectType("referencedObjectType")
+                            .showCurrencySymbol(true)
                             .build()
                     )
                     .build()

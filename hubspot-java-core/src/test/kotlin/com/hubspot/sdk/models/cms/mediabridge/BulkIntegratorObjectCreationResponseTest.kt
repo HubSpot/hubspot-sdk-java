@@ -40,6 +40,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "metaTypeId" to 0,
                                             "name" to "name",
                                             "objectTypeId" to "objectTypeId",
+                                            "objectTypeIdString" to "objectTypeIdString",
                                             "permissioningType" to "ALL_OR_NONE",
                                             "pipelinePropertyName" to "pipelinePropertyName",
                                             "pipelineStagePropertyName" to
@@ -149,12 +150,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "type" to "bool",
                                                         "updatedAt" to 0,
                                                     ),
-                                                "calculationExpression" to
-                                                    mapOf(
-                                                        "operator" to "CONSTANT_BOOLEAN",
-                                                        "propertyName" to "propertyName",
-                                                        "value" to true,
-                                                    ),
+                                                "calculationExpression" to mapOf<String, Any>(),
                                                 "calculationFormula" to "calculationFormula",
                                                 "definitionSource" to
                                                     mapOf("type" to "GLOBAL", "name" to "name"),
@@ -199,6 +195,18 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                 "fulcrumPortalId" to 0,
                                                 "fulcrumTimestamp" to 0,
                                                 "janusGroup" to "janusGroup",
+                                                "lookupAssociationSpec" to
+                                                    mapOf(
+                                                        "associationSpec" to
+                                                            mapOf(
+                                                                "associationCategory" to
+                                                                    "HUBSPOT_DEFINED",
+                                                                "associationTypeId" to 0,
+                                                            ),
+                                                        "cardinality" to "ONE_TO_MANY",
+                                                        "maxToObjectIds" to 0,
+                                                        "toObjectTypeId" to "toObjectTypeId",
+                                                    ),
                                                 "permission" to
                                                     mapOf("accessLevel" to "accessLevel"),
                                                 "propertyDefinitionSource" to
@@ -226,11 +234,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "sourcePropertyName" to
                                                             "sourcePropertyName",
                                                         "conditionalExpression" to
-                                                            mapOf(
-                                                                "operator" to "CONSTANT_BOOLEAN",
-                                                                "propertyName" to "propertyName",
-                                                                "value" to true,
-                                                            ),
+                                                            mapOf<String, Any>(),
                                                         "conditionalFormula" to
                                                             "conditionalFormula",
                                                         "emptyRollupValue" to "emptyRollupValue",
@@ -285,6 +289,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                         "metaTypeId" to 0,
                                         "name" to "name",
                                         "objectTypeId" to "objectTypeId",
+                                        "objectTypeIdString" to "objectTypeIdString",
                                         "permissioningType" to "ALL_OR_NONE",
                                         "pipelinePropertyName" to "pipelinePropertyName",
                                         "pipelineStagePropertyName" to "pipelineStagePropertyName",
@@ -388,12 +393,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                     "type" to "bool",
                                                     "updatedAt" to 0,
                                                 ),
-                                            "calculationExpression" to
-                                                mapOf(
-                                                    "operator" to "CONSTANT_BOOLEAN",
-                                                    "propertyName" to "propertyName",
-                                                    "value" to true,
-                                                ),
+                                            "calculationExpression" to mapOf<String, Any>(),
                                             "calculationFormula" to "calculationFormula",
                                             "definitionSource" to
                                                 mapOf("type" to "GLOBAL", "name" to "name"),
@@ -433,6 +433,18 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "fulcrumPortalId" to 0,
                                             "fulcrumTimestamp" to 0,
                                             "janusGroup" to "janusGroup",
+                                            "lookupAssociationSpec" to
+                                                mapOf(
+                                                    "associationSpec" to
+                                                        mapOf(
+                                                            "associationCategory" to
+                                                                "HUBSPOT_DEFINED",
+                                                            "associationTypeId" to 0,
+                                                        ),
+                                                    "cardinality" to "ONE_TO_MANY",
+                                                    "maxToObjectIds" to 0,
+                                                    "toObjectTypeId" to "toObjectTypeId",
+                                                ),
                                             "permission" to mapOf("accessLevel" to "accessLevel"),
                                             "propertyDefinitionSource" to
                                                 mapOf("type" to "GLOBAL", "name" to "name"),
@@ -456,12 +468,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                     "rollupOperator" to "AVERAGE",
                                                     "sourceObjectTypeId" to "sourceObjectTypeId",
                                                     "sourcePropertyName" to "sourcePropertyName",
-                                                    "conditionalExpression" to
-                                                        mapOf(
-                                                            "operator" to "CONSTANT_BOOLEAN",
-                                                            "propertyName" to "propertyName",
-                                                            "value" to true,
-                                                        ),
+                                                    "conditionalExpression" to mapOf<String, Any>(),
                                                     "conditionalFormula" to "conditionalFormula",
                                                     "emptyRollupValue" to "emptyRollupValue",
                                                     "sourceCompareByPropertyName" to
@@ -520,6 +527,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "metaTypeId" to 0,
                                             "name" to "name",
                                             "objectTypeId" to "objectTypeId",
+                                            "objectTypeIdString" to "objectTypeIdString",
                                             "permissioningType" to "ALL_OR_NONE",
                                             "pipelinePropertyName" to "pipelinePropertyName",
                                             "pipelineStagePropertyName" to
@@ -629,12 +637,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "type" to "bool",
                                                         "updatedAt" to 0,
                                                     ),
-                                                "calculationExpression" to
-                                                    mapOf(
-                                                        "operator" to "CONSTANT_BOOLEAN",
-                                                        "propertyName" to "propertyName",
-                                                        "value" to true,
-                                                    ),
+                                                "calculationExpression" to mapOf<String, Any>(),
                                                 "calculationFormula" to "calculationFormula",
                                                 "definitionSource" to
                                                     mapOf("type" to "GLOBAL", "name" to "name"),
@@ -679,6 +682,18 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                 "fulcrumPortalId" to 0,
                                                 "fulcrumTimestamp" to 0,
                                                 "janusGroup" to "janusGroup",
+                                                "lookupAssociationSpec" to
+                                                    mapOf(
+                                                        "associationSpec" to
+                                                            mapOf(
+                                                                "associationCategory" to
+                                                                    "HUBSPOT_DEFINED",
+                                                                "associationTypeId" to 0,
+                                                            ),
+                                                        "cardinality" to "ONE_TO_MANY",
+                                                        "maxToObjectIds" to 0,
+                                                        "toObjectTypeId" to "toObjectTypeId",
+                                                    ),
                                                 "permission" to
                                                     mapOf("accessLevel" to "accessLevel"),
                                                 "propertyDefinitionSource" to
@@ -706,11 +721,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "sourcePropertyName" to
                                                             "sourcePropertyName",
                                                         "conditionalExpression" to
-                                                            mapOf(
-                                                                "operator" to "CONSTANT_BOOLEAN",
-                                                                "propertyName" to "propertyName",
-                                                                "value" to true,
-                                                            ),
+                                                            mapOf<String, Any>(),
                                                         "conditionalFormula" to
                                                             "conditionalFormula",
                                                         "emptyRollupValue" to "emptyRollupValue",

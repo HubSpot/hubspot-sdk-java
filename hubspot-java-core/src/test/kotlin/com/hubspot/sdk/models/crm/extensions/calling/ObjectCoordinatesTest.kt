@@ -12,9 +12,13 @@ internal class ObjectCoordinatesTest {
     @Test
     fun create() {
         val objectCoordinates =
-            ObjectCoordinates.builder().objectId(0).objectTypeId("objectTypeId").portalId(0).build()
+            ObjectCoordinates.builder()
+                .objectId(0L)
+                .objectTypeId("objectTypeId")
+                .portalId(0)
+                .build()
 
-        assertThat(objectCoordinates.objectId()).isEqualTo(0)
+        assertThat(objectCoordinates.objectId()).isEqualTo(0L)
         assertThat(objectCoordinates.objectTypeId()).isEqualTo("objectTypeId")
         assertThat(objectCoordinates.portalId()).isEqualTo(0)
     }
@@ -23,7 +27,11 @@ internal class ObjectCoordinatesTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val objectCoordinates =
-            ObjectCoordinates.builder().objectId(0).objectTypeId("objectTypeId").portalId(0).build()
+            ObjectCoordinates.builder()
+                .objectId(0L)
+                .objectTypeId("objectTypeId")
+                .portalId(0)
+                .build()
 
         val roundtrippedObjectCoordinates =
             jsonMapper.readValue(

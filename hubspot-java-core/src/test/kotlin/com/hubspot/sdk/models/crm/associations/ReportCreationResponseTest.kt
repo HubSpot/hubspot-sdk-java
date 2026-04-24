@@ -13,13 +13,13 @@ internal class ReportCreationResponseTest {
     fun create() {
         val reportCreationResponse =
             ReportCreationResponse.builder()
-                .enqueueTime(DateTime.builder().dateOnly(true).timeZoneShift(0).value(0).build())
+                .enqueueTime(DateTime.builder().dateOnly(true).timeZoneShift(0).value(0L).build())
                 .userEmail("userEmail")
                 .userId(0)
                 .build()
 
         assertThat(reportCreationResponse.enqueueTime())
-            .isEqualTo(DateTime.builder().dateOnly(true).timeZoneShift(0).value(0).build())
+            .isEqualTo(DateTime.builder().dateOnly(true).timeZoneShift(0).value(0L).build())
         assertThat(reportCreationResponse.userEmail()).isEqualTo("userEmail")
         assertThat(reportCreationResponse.userId()).isEqualTo(0)
     }
@@ -29,7 +29,7 @@ internal class ReportCreationResponseTest {
         val jsonMapper = jsonMapper()
         val reportCreationResponse =
             ReportCreationResponse.builder()
-                .enqueueTime(DateTime.builder().dateOnly(true).timeZoneShift(0).value(0).build())
+                .enqueueTime(DateTime.builder().dateOnly(true).timeZoneShift(0).value(0L).build())
                 .userEmail("userEmail")
                 .userId(0)
                 .build()

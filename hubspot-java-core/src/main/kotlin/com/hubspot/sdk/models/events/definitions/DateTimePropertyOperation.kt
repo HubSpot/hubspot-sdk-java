@@ -27,7 +27,7 @@ private constructor(
     private val operatorName: JsonField<String>,
     private val propertyType: JsonField<PropertyType>,
     private val requiresTimeZoneConversion: JsonField<Boolean>,
-    private val timestamp: JsonField<Int>,
+    private val timestamp: JsonField<Long>,
     private val defaultValue: JsonField<String>,
     private val renderSpec: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -51,7 +51,7 @@ private constructor(
         @JsonProperty("requiresTimeZoneConversion")
         @ExcludeMissing
         requiresTimeZoneConversion: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("timestamp") @ExcludeMissing timestamp: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("timestamp") @ExcludeMissing timestamp: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("defaultValue")
         @ExcludeMissing
         defaultValue: JsonField<String> = JsonMissing.of(),
@@ -111,7 +111,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun timestamp(): Int = timestamp.getRequired("timestamp")
+    fun timestamp(): Long = timestamp.getRequired("timestamp")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -184,7 +184,7 @@ private constructor(
      *
      * Unlike [timestamp], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("timestamp") @ExcludeMissing fun _timestamp(): JsonField<Int> = timestamp
+    @JsonProperty("timestamp") @ExcludeMissing fun _timestamp(): JsonField<Long> = timestamp
 
     /**
      * Returns the raw JSON value of [defaultValue].
@@ -242,7 +242,7 @@ private constructor(
         private var operatorName: JsonField<String>? = null
         private var propertyType: JsonField<PropertyType>? = null
         private var requiresTimeZoneConversion: JsonField<Boolean>? = null
-        private var timestamp: JsonField<Int>? = null
+        private var timestamp: JsonField<Long>? = null
         private var defaultValue: JsonField<String> = JsonMissing.of()
         private var renderSpec: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -339,15 +339,15 @@ private constructor(
             this.requiresTimeZoneConversion = requiresTimeZoneConversion
         }
 
-        fun timestamp(timestamp: Int) = timestamp(JsonField.of(timestamp))
+        fun timestamp(timestamp: Long) = timestamp(JsonField.of(timestamp))
 
         /**
          * Sets [Builder.timestamp] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.timestamp] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.timestamp] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun timestamp(timestamp: JsonField<Int>) = apply { this.timestamp = timestamp }
+        fun timestamp(timestamp: JsonField<Long>) = apply { this.timestamp = timestamp }
 
         fun defaultValue(defaultValue: String) = defaultValue(JsonField.of(defaultValue))
 

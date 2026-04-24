@@ -13,6 +13,7 @@ internal class CardsDevMigrateViewsParamsTest {
             .appId(0)
             .cardMigrateViewsRequest(
                 CardMigrateViewsRequest.builder()
+                    .allowDuplicateAppCardIds(true)
                     .appCardId(0L)
                     .legacyCrmCardId(0L)
                     .helpdeskAppCardId(0L)
@@ -27,7 +28,11 @@ internal class CardsDevMigrateViewsParamsTest {
             CardsDevMigrateViewsParams.builder()
                 .appId(0)
                 .cardMigrateViewsRequest(
-                    CardMigrateViewsRequest.builder().appCardId(0L).legacyCrmCardId(0L).build()
+                    CardMigrateViewsRequest.builder()
+                        .allowDuplicateAppCardIds(true)
+                        .appCardId(0L)
+                        .legacyCrmCardId(0L)
+                        .build()
                 )
                 .build()
 
@@ -43,6 +48,7 @@ internal class CardsDevMigrateViewsParamsTest {
                 .appId(0)
                 .cardMigrateViewsRequest(
                     CardMigrateViewsRequest.builder()
+                        .allowDuplicateAppCardIds(true)
                         .appCardId(0L)
                         .legacyCrmCardId(0L)
                         .helpdeskAppCardId(0L)
@@ -55,6 +61,7 @@ internal class CardsDevMigrateViewsParamsTest {
         assertThat(body)
             .isEqualTo(
                 CardMigrateViewsRequest.builder()
+                    .allowDuplicateAppCardIds(true)
                     .appCardId(0L)
                     .legacyCrmCardId(0L)
                     .helpdeskAppCardId(0L)
@@ -68,13 +75,23 @@ internal class CardsDevMigrateViewsParamsTest {
             CardsDevMigrateViewsParams.builder()
                 .appId(0)
                 .cardMigrateViewsRequest(
-                    CardMigrateViewsRequest.builder().appCardId(0L).legacyCrmCardId(0L).build()
+                    CardMigrateViewsRequest.builder()
+                        .allowDuplicateAppCardIds(true)
+                        .appCardId(0L)
+                        .legacyCrmCardId(0L)
+                        .build()
                 )
                 .build()
 
         val body = params._body()
 
         assertThat(body)
-            .isEqualTo(CardMigrateViewsRequest.builder().appCardId(0L).legacyCrmCardId(0L).build())
+            .isEqualTo(
+                CardMigrateViewsRequest.builder()
+                    .allowDuplicateAppCardIds(true)
+                    .appCardId(0L)
+                    .legacyCrmCardId(0L)
+                    .build()
+            )
     }
 }

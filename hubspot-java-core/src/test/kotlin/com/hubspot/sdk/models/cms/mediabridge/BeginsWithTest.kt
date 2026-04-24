@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,13 +16,7 @@ internal class BeginsWithTest {
         val beginsWith =
             BeginsWith.builder()
                 .operator(BeginsWith.Operator.BEGINS_WITH)
-                .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
@@ -34,16 +29,7 @@ internal class BeginsWithTest {
                 .build()
 
         assertThat(beginsWith.operator()).isEqualTo(BeginsWith.Operator.BEGINS_WITH)
-        assertThat(beginsWith.stringToCheck())
-            .isEqualTo(
-                BeginsWith.StringToCheck.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(beginsWith._stringToCheck()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(beginsWith.inputs().getOrNull())
             .containsExactly(
                 BeginsWith.Input.ofConstantBoolean(
@@ -64,13 +50,7 @@ internal class BeginsWithTest {
         val beginsWith =
             BeginsWith.builder()
                 .operator(BeginsWith.Operator.BEGINS_WITH)
-                .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
                 .addInput(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)

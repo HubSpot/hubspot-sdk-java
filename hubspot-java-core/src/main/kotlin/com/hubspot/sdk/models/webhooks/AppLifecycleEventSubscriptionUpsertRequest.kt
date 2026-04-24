@@ -282,6 +282,8 @@ private constructor(
 
             @JvmField val LIST_MEMBERSHIP = of("LIST_MEMBERSHIP")
 
+            @JvmField val GDPR_PRIVACY_DELETION = of("GDPR_PRIVACY_DELETION")
+
             @JvmStatic fun of(value: String) = SubscriptionType(JsonField.of(value))
         }
 
@@ -292,6 +294,7 @@ private constructor(
             EVENT,
             APP_LIFECYCLE_EVENT,
             LIST_MEMBERSHIP,
+            GDPR_PRIVACY_DELETION,
         }
 
         /**
@@ -309,6 +312,7 @@ private constructor(
             EVENT,
             APP_LIFECYCLE_EVENT,
             LIST_MEMBERSHIP,
+            GDPR_PRIVACY_DELETION,
             /**
              * An enum member indicating that [SubscriptionType] was instantiated with an unknown
              * value.
@@ -330,6 +334,7 @@ private constructor(
                 EVENT -> Value.EVENT
                 APP_LIFECYCLE_EVENT -> Value.APP_LIFECYCLE_EVENT
                 LIST_MEMBERSHIP -> Value.LIST_MEMBERSHIP
+                GDPR_PRIVACY_DELETION -> Value.GDPR_PRIVACY_DELETION
                 else -> Value._UNKNOWN
             }
 
@@ -349,6 +354,7 @@ private constructor(
                 EVENT -> Known.EVENT
                 APP_LIFECYCLE_EVENT -> Known.APP_LIFECYCLE_EVENT
                 LIST_MEMBERSHIP -> Known.LIST_MEMBERSHIP
+                GDPR_PRIVACY_DELETION -> Known.GDPR_PRIVACY_DELETION
                 else -> throw HubSpotInvalidDataException("Unknown SubscriptionType: $value")
             }
 

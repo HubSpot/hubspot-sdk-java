@@ -32,6 +32,7 @@ private constructor(
     private val groupName: JsonField<String>,
     private val hidden: JsonField<Boolean>,
     private val label: JsonField<String>,
+    private val numberDisplayHint: JsonField<NumberDisplayHint>,
     private val options: JsonField<List<OptionInput>>,
     private val showCurrencySymbol: JsonField<Boolean>,
     private val type: JsonField<Type>,
@@ -59,6 +60,9 @@ private constructor(
         @JsonProperty("groupName") @ExcludeMissing groupName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("hidden") @ExcludeMissing hidden: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("numberDisplayHint")
+        @ExcludeMissing
+        numberDisplayHint: JsonField<NumberDisplayHint> = JsonMissing.of(),
         @JsonProperty("options")
         @ExcludeMissing
         options: JsonField<List<OptionInput>> = JsonMissing.of(),
@@ -76,6 +80,7 @@ private constructor(
         groupName,
         hidden,
         label,
+        numberDisplayHint,
         options,
         showCurrencySymbol,
         type,
@@ -154,6 +159,13 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun label(): Optional<String> = label.getOptional("label")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun numberDisplayHint(): Optional<NumberDisplayHint> =
+        numberDisplayHint.getOptional("numberDisplayHint")
 
     /**
      * A list of valid options for the property.
@@ -248,6 +260,16 @@ private constructor(
     @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
 
     /**
+     * Returns the raw JSON value of [numberDisplayHint].
+     *
+     * Unlike [numberDisplayHint], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("numberDisplayHint")
+    @ExcludeMissing
+    fun _numberDisplayHint(): JsonField<NumberDisplayHint> = numberDisplayHint
+
+    /**
      * Returns the raw JSON value of [options].
      *
      * Unlike [options], this method doesn't throw if the JSON field has an unexpected type.
@@ -301,6 +323,7 @@ private constructor(
         private var groupName: JsonField<String> = JsonMissing.of()
         private var hidden: JsonField<Boolean> = JsonMissing.of()
         private var label: JsonField<String> = JsonMissing.of()
+        private var numberDisplayHint: JsonField<NumberDisplayHint> = JsonMissing.of()
         private var options: JsonField<MutableList<OptionInput>>? = null
         private var showCurrencySymbol: JsonField<Boolean> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -317,6 +340,7 @@ private constructor(
             groupName = propertyUpdate.groupName
             hidden = propertyUpdate.hidden
             label = propertyUpdate.label
+            numberDisplayHint = propertyUpdate.numberDisplayHint
             options = propertyUpdate.options.map { it.toMutableList() }
             showCurrencySymbol = propertyUpdate.showCurrencySymbol
             type = propertyUpdate.type
@@ -437,6 +461,20 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        fun numberDisplayHint(numberDisplayHint: NumberDisplayHint) =
+            numberDisplayHint(JsonField.of(numberDisplayHint))
+
+        /**
+         * Sets [Builder.numberDisplayHint] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.numberDisplayHint] with a well-typed [NumberDisplayHint]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun numberDisplayHint(numberDisplayHint: JsonField<NumberDisplayHint>) = apply {
+            this.numberDisplayHint = numberDisplayHint
+        }
+
         /** A list of valid options for the property. */
         fun options(options: List<OptionInput>) = options(JsonField.of(options))
 
@@ -523,6 +561,7 @@ private constructor(
                 groupName,
                 hidden,
                 label,
+                numberDisplayHint,
                 (options ?: JsonMissing.of()).map { it.toImmutable() },
                 showCurrencySymbol,
                 type,
@@ -546,6 +585,7 @@ private constructor(
         groupName()
         hidden()
         label()
+        numberDisplayHint().ifPresent { it.validate() }
         options().ifPresent { it.forEach { it.validate() } }
         showCurrencySymbol()
         type().ifPresent { it.validate() }
@@ -576,6 +616,7 @@ private constructor(
             (if (groupName.asKnown().isPresent) 1 else 0) +
             (if (hidden.asKnown().isPresent) 1 else 0) +
             (if (label.asKnown().isPresent) 1 else 0) +
+            (numberDisplayHint.asKnown().getOrNull()?.validity() ?: 0) +
             (options.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (showCurrencySymbol.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
@@ -768,6 +809,159 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class NumberDisplayHint @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val CURRENCY = of("currency")
+
+            @JvmField val DURATION = of("duration")
+
+            @JvmField val FORMATTED = of("formatted")
+
+            @JvmField val PERCENTAGE = of("percentage")
+
+            @JvmField val PROBABILITY = of("probability")
+
+            @JvmField val UNFORMATTED = of("unformatted")
+
+            @JvmStatic fun of(value: String) = NumberDisplayHint(JsonField.of(value))
+        }
+
+        /** An enum containing [NumberDisplayHint]'s known values. */
+        enum class Known {
+            CURRENCY,
+            DURATION,
+            FORMATTED,
+            PERCENTAGE,
+            PROBABILITY,
+            UNFORMATTED,
+        }
+
+        /**
+         * An enum containing [NumberDisplayHint]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [NumberDisplayHint] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            CURRENCY,
+            DURATION,
+            FORMATTED,
+            PERCENTAGE,
+            PROBABILITY,
+            UNFORMATTED,
+            /**
+             * An enum member indicating that [NumberDisplayHint] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                CURRENCY -> Value.CURRENCY
+                DURATION -> Value.DURATION
+                FORMATTED -> Value.FORMATTED
+                PERCENTAGE -> Value.PERCENTAGE
+                PROBABILITY -> Value.PROBABILITY
+                UNFORMATTED -> Value.UNFORMATTED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                CURRENCY -> Known.CURRENCY
+                DURATION -> Known.DURATION
+                FORMATTED -> Known.FORMATTED
+                PERCENTAGE -> Known.PERCENTAGE
+                PROBABILITY -> Known.PROBABILITY
+                UNFORMATTED -> Known.UNFORMATTED
+                else -> throw HubSpotInvalidDataException("Unknown NumberDisplayHint: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): NumberDisplayHint = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubSpotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NumberDisplayHint && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** The data type of the property. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -939,6 +1133,7 @@ private constructor(
             groupName == other.groupName &&
             hidden == other.hidden &&
             label == other.label &&
+            numberDisplayHint == other.numberDisplayHint &&
             options == other.options &&
             showCurrencySymbol == other.showCurrencySymbol &&
             type == other.type &&
@@ -956,6 +1151,7 @@ private constructor(
             groupName,
             hidden,
             label,
+            numberDisplayHint,
             options,
             showCurrencySymbol,
             type,
@@ -966,5 +1162,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PropertyUpdate{calculationFormula=$calculationFormula, currencyPropertyName=$currencyPropertyName, description=$description, displayOrder=$displayOrder, fieldType=$fieldType, formField=$formField, groupName=$groupName, hidden=$hidden, label=$label, options=$options, showCurrencySymbol=$showCurrencySymbol, type=$type, additionalProperties=$additionalProperties}"
+        "PropertyUpdate{calculationFormula=$calculationFormula, currencyPropertyName=$currencyPropertyName, description=$description, displayOrder=$displayOrder, fieldType=$fieldType, formField=$formField, groupName=$groupName, hidden=$hidden, label=$label, numberDisplayHint=$numberDisplayHint, options=$options, showCurrencySymbol=$showCurrencySymbol, type=$type, additionalProperties=$additionalProperties}"
 }

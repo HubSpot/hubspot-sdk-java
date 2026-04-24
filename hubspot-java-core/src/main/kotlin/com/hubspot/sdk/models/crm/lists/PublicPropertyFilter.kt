@@ -231,9 +231,9 @@ private constructor(
         fun operation(timePoint: PublicTimePointOperation) =
             operation(Operation.ofTimePoint(timePoint))
 
-        /** Alias for calling [operation] with `Operation.ofPublicRangedTime(publicRangedTime)`. */
-        fun operation(publicRangedTime: PublicRangedTimeOperation) =
-            operation(Operation.ofPublicRangedTime(publicRangedTime))
+        /** Alias for calling [operation] with `Operation.ofTimeRanged(timeRanged)`. */
+        fun operation(timeRanged: PublicRangedTimeOperation) =
+            operation(Operation.ofTimeRanged(timeRanged))
 
         /** Specifies the name of the property that the filter is applied to. */
         fun property(property: String) = property(JsonField.of(property))
@@ -465,7 +465,7 @@ private constructor(
         private val date: PublicDatePropertyOperation? = null,
         private val calendarDate: PublicCalendarDatePropertyOperation? = null,
         private val timePoint: PublicTimePointOperation? = null,
-        private val publicRangedTime: PublicRangedTimeOperation? = null,
+        private val timeRanged: PublicRangedTimeOperation? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -511,8 +511,7 @@ private constructor(
 
         fun timePoint(): Optional<PublicTimePointOperation> = Optional.ofNullable(timePoint)
 
-        fun publicRangedTime(): Optional<PublicRangedTimeOperation> =
-            Optional.ofNullable(publicRangedTime)
+        fun timeRanged(): Optional<PublicRangedTimeOperation> = Optional.ofNullable(timeRanged)
 
         fun isBool(): Boolean = bool != null
 
@@ -546,7 +545,7 @@ private constructor(
 
         fun isTimePoint(): Boolean = timePoint != null
 
-        fun isPublicRangedTime(): Boolean = publicRangedTime != null
+        fun isTimeRanged(): Boolean = timeRanged != null
 
         fun asBool(): PublicBoolPropertyOperation = bool.getOrThrow("bool")
 
@@ -588,8 +587,7 @@ private constructor(
 
         fun asTimePoint(): PublicTimePointOperation = timePoint.getOrThrow("timePoint")
 
-        fun asPublicRangedTime(): PublicRangedTimeOperation =
-            publicRangedTime.getOrThrow("publicRangedTime")
+        fun asTimeRanged(): PublicRangedTimeOperation = timeRanged.getOrThrow("timeRanged")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -613,7 +611,7 @@ private constructor(
                 date != null -> visitor.visitDate(date)
                 calendarDate != null -> visitor.visitCalendarDate(calendarDate)
                 timePoint != null -> visitor.visitTimePoint(timePoint)
-                publicRangedTime != null -> visitor.visitPublicRangedTime(publicRangedTime)
+                timeRanged != null -> visitor.visitTimeRanged(timeRanged)
                 else -> visitor.unknown(_json)
             }
 
@@ -702,10 +700,8 @@ private constructor(
                         timePoint.validate()
                     }
 
-                    override fun visitPublicRangedTime(
-                        publicRangedTime: PublicRangedTimeOperation
-                    ) {
-                        publicRangedTime.validate()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) {
+                        timeRanged.validate()
                     }
                 }
             )
@@ -782,9 +778,8 @@ private constructor(
                     override fun visitTimePoint(timePoint: PublicTimePointOperation) =
                         timePoint.validity()
 
-                    override fun visitPublicRangedTime(
-                        publicRangedTime: PublicRangedTimeOperation
-                    ) = publicRangedTime.validity()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                        timeRanged.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -812,7 +807,7 @@ private constructor(
                 date == other.date &&
                 calendarDate == other.calendarDate &&
                 timePoint == other.timePoint &&
-                publicRangedTime == other.publicRangedTime
+                timeRanged == other.timeRanged
         }
 
         override fun hashCode(): Int =
@@ -833,7 +828,7 @@ private constructor(
                 date,
                 calendarDate,
                 timePoint,
-                publicRangedTime,
+                timeRanged,
             )
 
         override fun toString(): String =
@@ -856,7 +851,7 @@ private constructor(
                 date != null -> "Operation{date=$date}"
                 calendarDate != null -> "Operation{calendarDate=$calendarDate}"
                 timePoint != null -> "Operation{timePoint=$timePoint}"
-                publicRangedTime != null -> "Operation{publicRangedTime=$publicRangedTime}"
+                timeRanged != null -> "Operation{timeRanged=$timeRanged}"
                 _json != null -> "Operation{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Operation")
             }
@@ -923,8 +918,8 @@ private constructor(
             fun ofTimePoint(timePoint: PublicTimePointOperation) = Operation(timePoint = timePoint)
 
             @JvmStatic
-            fun ofPublicRangedTime(publicRangedTime: PublicRangedTimeOperation) =
-                Operation(publicRangedTime = publicRangedTime)
+            fun ofTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                Operation(timeRanged = timeRanged)
         }
 
         /**
@@ -968,7 +963,7 @@ private constructor(
 
             fun visitTimePoint(timePoint: PublicTimePointOperation): T
 
-            fun visitPublicRangedTime(publicRangedTime: PublicRangedTimeOperation): T
+            fun visitTimeRanged(timeRanged: PublicRangedTimeOperation): T
 
             /**
              * Maps an unknown variant of [Operation] to a value of type [T].
@@ -1104,11 +1099,14 @@ private constructor(
                             ?.let { Operation(timePoint = it, _json = json) }
                             ?: Operation(_json = json)
                     }
+                    "TIME_RANGED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())
+                            ?.let { Operation(timeRanged = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
                 }
 
-                return tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())?.let {
-                    Operation(publicRangedTime = it, _json = json)
-                } ?: Operation(_json = json)
+                return Operation(_json = json)
             }
         }
 
@@ -1138,7 +1136,7 @@ private constructor(
                     value.date != null -> generator.writeObject(value.date)
                     value.calendarDate != null -> generator.writeObject(value.calendarDate)
                     value.timePoint != null -> generator.writeObject(value.timePoint)
-                    value.publicRangedTime != null -> generator.writeObject(value.publicRangedTime)
+                    value.timeRanged != null -> generator.writeObject(value.timeRanged)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Operation")
                 }

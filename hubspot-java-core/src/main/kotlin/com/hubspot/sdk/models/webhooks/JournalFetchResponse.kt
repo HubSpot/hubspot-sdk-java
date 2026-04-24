@@ -37,18 +37,24 @@ private constructor(
     ) : this(currentOffset, expiresAt, url, mutableMapOf())
 
     /**
+     * The unique identifier for the current offset of the journal entry, formatted as a UUID.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currentOffset(): String = currentOffset.getRequired("currentOffset")
 
     /**
+     * The date and time when the URL will expire, in ISO 8601 format.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun expiresAt(): OffsetDateTime = expiresAt.getRequired("expiresAt")
 
     /**
+     * The URL where the journal entry can be accessed. It is a string.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -122,6 +128,9 @@ private constructor(
             additionalProperties = journalFetchResponse.additionalProperties.toMutableMap()
         }
 
+        /**
+         * The unique identifier for the current offset of the journal entry, formatted as a UUID.
+         */
         fun currentOffset(currentOffset: String) = currentOffset(JsonField.of(currentOffset))
 
         /**
@@ -135,6 +144,7 @@ private constructor(
             this.currentOffset = currentOffset
         }
 
+        /** The date and time when the URL will expire, in ISO 8601 format. */
         fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
 
         /**
@@ -146,6 +156,7 @@ private constructor(
          */
         fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply { this.expiresAt = expiresAt }
 
+        /** The URL where the journal entry can be accessed. It is a string. */
         fun url(url: String) = url(JsonField.of(url))
 
         /**

@@ -11,17 +11,17 @@ internal class DateTimeTest {
 
     @Test
     fun create() {
-        val dateTime = DateTime.builder().dateOnly(true).timeZoneShift(0).value(0).build()
+        val dateTime = DateTime.builder().dateOnly(true).timeZoneShift(0).value(0L).build()
 
         assertThat(dateTime.dateOnly()).isEqualTo(true)
         assertThat(dateTime.timeZoneShift()).isEqualTo(0)
-        assertThat(dateTime.value()).isEqualTo(0)
+        assertThat(dateTime.value()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val dateTime = DateTime.builder().dateOnly(true).timeZoneShift(0).value(0).build()
+        val dateTime = DateTime.builder().dateOnly(true).timeZoneShift(0).value(0L).build()
 
         val roundtrippedDateTime =
             jsonMapper.readValue(

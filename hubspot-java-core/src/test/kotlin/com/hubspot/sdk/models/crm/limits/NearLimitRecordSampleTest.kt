@@ -14,15 +14,15 @@ internal class NearLimitRecordSampleTest {
         val nearLimitRecordSample =
             NearLimitRecordSample.builder()
                 .label("label")
-                .objectId(0)
+                .objectId(0L)
                 .percentage(0.0)
-                .usage(0)
+                .usage(0L)
                 .build()
 
         assertThat(nearLimitRecordSample.label()).isEqualTo("label")
-        assertThat(nearLimitRecordSample.objectId()).isEqualTo(0)
+        assertThat(nearLimitRecordSample.objectId()).isEqualTo(0L)
         assertThat(nearLimitRecordSample.percentage()).isEqualTo(0.0)
-        assertThat(nearLimitRecordSample.usage()).isEqualTo(0)
+        assertThat(nearLimitRecordSample.usage()).isEqualTo(0L)
     }
 
     @Test
@@ -31,9 +31,9 @@ internal class NearLimitRecordSampleTest {
         val nearLimitRecordSample =
             NearLimitRecordSample.builder()
                 .label("label")
-                .objectId(0)
+                .objectId(0L)
                 .percentage(0.0)
-                .usage(0)
+                .usage(0L)
                 .build()
 
         val roundtrippedNearLimitRecordSample =

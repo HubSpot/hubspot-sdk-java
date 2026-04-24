@@ -14,11 +14,11 @@ internal class WorkflowsRequestContextTest {
         val workflowsRequestContext =
             WorkflowsRequestContext.builder()
                 .source(WorkflowsRequestContext.Source.WORKFLOWS)
-                .workflowId(0)
+                .workflowId(0L)
                 .actionExecutionIndexIdentifier(
                     ActionExecutionIndexIdentifier.builder()
                         .actionExecutionIndex(0)
-                        .enrollmentId(0)
+                        .enrollmentId(0L)
                         .build()
                 )
                 .actionId(0L)
@@ -26,12 +26,12 @@ internal class WorkflowsRequestContextTest {
 
         assertThat(workflowsRequestContext.source())
             .isEqualTo(WorkflowsRequestContext.Source.WORKFLOWS)
-        assertThat(workflowsRequestContext.workflowId()).isEqualTo(0)
+        assertThat(workflowsRequestContext.workflowId()).isEqualTo(0L)
         assertThat(workflowsRequestContext.actionExecutionIndexIdentifier())
             .contains(
                 ActionExecutionIndexIdentifier.builder()
                     .actionExecutionIndex(0)
-                    .enrollmentId(0)
+                    .enrollmentId(0L)
                     .build()
             )
         assertThat(workflowsRequestContext.actionId()).contains(0L)
@@ -43,11 +43,11 @@ internal class WorkflowsRequestContextTest {
         val workflowsRequestContext =
             WorkflowsRequestContext.builder()
                 .source(WorkflowsRequestContext.Source.WORKFLOWS)
-                .workflowId(0)
+                .workflowId(0L)
                 .actionExecutionIndexIdentifier(
                     ActionExecutionIndexIdentifier.builder()
                         .actionExecutionIndex(0)
-                        .enrollmentId(0)
+                        .enrollmentId(0L)
                         .build()
                 )
                 .actionId(0L)

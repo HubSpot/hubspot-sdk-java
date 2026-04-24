@@ -17,7 +17,7 @@ internal class PublicSequenceStepResponseTest {
                 .id("id")
                 .actionType(PublicSequenceStepResponse.ActionType.EMAIL)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .delayMillis(0)
+                .delayMillis(0L)
                 .stepOrder(0)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .emailPattern(
@@ -50,7 +50,7 @@ internal class PublicSequenceStepResponseTest {
             .isEqualTo(PublicSequenceStepResponse.ActionType.EMAIL)
         assertThat(publicSequenceStepResponse.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(publicSequenceStepResponse.delayMillis()).isEqualTo(0)
+        assertThat(publicSequenceStepResponse.delayMillis()).isEqualTo(0L)
         assertThat(publicSequenceStepResponse.stepOrder()).isEqualTo(0)
         assertThat(publicSequenceStepResponse.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -89,7 +89,7 @@ internal class PublicSequenceStepResponseTest {
                 .id("id")
                 .actionType(PublicSequenceStepResponse.ActionType.EMAIL)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .delayMillis(0)
+                .delayMillis(0L)
                 .stepOrder(0)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .emailPattern(

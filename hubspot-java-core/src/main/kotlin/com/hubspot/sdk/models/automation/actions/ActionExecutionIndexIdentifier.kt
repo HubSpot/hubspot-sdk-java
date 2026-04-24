@@ -19,7 +19,7 @@ class ActionExecutionIndexIdentifier
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val actionExecutionIndex: JsonField<Int>,
-    private val enrollmentId: JsonField<Int>,
+    private val enrollmentId: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -30,7 +30,7 @@ private constructor(
         actionExecutionIndex: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("enrollmentId")
         @ExcludeMissing
-        enrollmentId: JsonField<Int> = JsonMissing.of(),
+        enrollmentId: JsonField<Long> = JsonMissing.of(),
     ) : this(actionExecutionIndex, enrollmentId, mutableMapOf())
 
     /**
@@ -47,7 +47,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun enrollmentId(): Int = enrollmentId.getRequired("enrollmentId")
+    fun enrollmentId(): Long = enrollmentId.getRequired("enrollmentId")
 
     /**
      * Returns the raw JSON value of [actionExecutionIndex].
@@ -64,7 +64,9 @@ private constructor(
      *
      * Unlike [enrollmentId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("enrollmentId") @ExcludeMissing fun _enrollmentId(): JsonField<Int> = enrollmentId
+    @JsonProperty("enrollmentId")
+    @ExcludeMissing
+    fun _enrollmentId(): JsonField<Long> = enrollmentId
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -97,7 +99,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var actionExecutionIndex: JsonField<Int>? = null
-        private var enrollmentId: JsonField<Int>? = null
+        private var enrollmentId: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -124,16 +126,16 @@ private constructor(
         }
 
         /** The ID associated with the enrollment process. */
-        fun enrollmentId(enrollmentId: Int) = enrollmentId(JsonField.of(enrollmentId))
+        fun enrollmentId(enrollmentId: Long) = enrollmentId(JsonField.of(enrollmentId))
 
         /**
          * Sets [Builder.enrollmentId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.enrollmentId] with a well-typed [Int] value instead.
+         * You should usually call [Builder.enrollmentId] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun enrollmentId(enrollmentId: JsonField<Int>) = apply { this.enrollmentId = enrollmentId }
+        fun enrollmentId(enrollmentId: JsonField<Long>) = apply { this.enrollmentId = enrollmentId }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

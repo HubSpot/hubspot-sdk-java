@@ -22,26 +22,26 @@ import com.hubspot.sdk.models.webhooks.SubscriptionBatchUpdateRequest
 import com.hubspot.sdk.models.webhooks.SubscriptionCreateRequest
 import com.hubspot.sdk.models.webhooks.SubscriptionPatchRequest
 import com.hubspot.sdk.models.webhooks.ThrottlingSettings
-import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionParams
-import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionsBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookDeleteSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateBatchEventSubscriptionsParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateEventSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookDeleteEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalEntryParams
 import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalParams
-import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalEntryParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEventSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchByRequestParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchFromOffsetParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalEntryParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetNextJournalAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetNextLocalJournalAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalEntryParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchByRequestParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchFromOffsetParams
+import com.hubspot.sdk.models.webhooks.WebhookGetNextJournalEntriesParams
+import com.hubspot.sdk.models.webhooks.WebhookGetNextLocalJournalEntriesParams
+import com.hubspot.sdk.models.webhooks.WebhookUpdateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateSettingsParams
-import com.hubspot.sdk.models.webhooks.WebhookUpdateSubscriptionParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -53,18 +53,41 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun createCrmSnapshot() {
+    fun createBatchEventSubscriptions() {
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
+        val webhookService = client.webhooks()
+
+        val batchResponseSubscriptionResponse =
+            webhookService.createBatchEventSubscriptions(
+                WebhookCreateBatchEventSubscriptionsParams.builder()
+                    .appId(0)
+                    .batchInputSubscriptionBatchUpdateRequest(
+                        BatchInputSubscriptionBatchUpdateRequest.builder()
+                            .addInput(
+                                SubscriptionBatchUpdateRequest.builder().id(0).active(true).build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        batchResponseSubscriptionResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun createCrmSnapshots() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
         val crmObjectSnapshotBatchResponse =
-            webhookService.createCrmSnapshot(
+            webhookService.createCrmSnapshots(
                 CrmObjectSnapshotBatchRequest.builder()
                     .addSnapshotRequest(
                         CrmObjectSnapshotRequest.builder()
-                            .objectId(0)
+                            .objectId(0L)
                             .objectTypeId("objectTypeId")
-                            .portalId(0)
+                            .portalId(0L)
                             .addProperty("string")
                             .build()
                     )
@@ -72,6 +95,33 @@ internal class WebhookServiceTest {
             )
 
         crmObjectSnapshotBatchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun createEventSubscription() {
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
+        val webhookService = client.webhooks()
+
+        val subscriptionResponse =
+            webhookService.createEventSubscription(
+                WebhookCreateEventSubscriptionParams.builder()
+                    .appId(0)
+                    .subscriptionCreateRequest(
+                        SubscriptionCreateRequest.builder()
+                            .active(true)
+                            .eventType(
+                                SubscriptionCreateRequest.EventType.COMPANY_ASSOCIATION_CHANGE
+                            )
+                            .eventTypeName("eventTypeName")
+                            .objectTypeId("objectTypeId")
+                            .propertyName("propertyName")
+                            .build()
+                    )
+                    .build()
+            )
+
+        subscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -93,33 +143,6 @@ internal class WebhookServiceTest {
             )
 
         subscriptionResponse1.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun createSubscription() {
-        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
-        val webhookService = client.webhooks()
-
-        val subscriptionResponse =
-            webhookService.createSubscription(
-                WebhookCreateSubscriptionParams.builder()
-                    .appId(0)
-                    .subscriptionCreateRequest(
-                        SubscriptionCreateRequest.builder()
-                            .active(true)
-                            .eventType(
-                                SubscriptionCreateRequest.EventType.COMPANY_ASSOCIATION_CHANGE
-                            )
-                            .eventTypeName("eventTypeName")
-                            .objectTypeId("objectTypeId")
-                            .propertyName("propertyName")
-                            .build()
-                    )
-                    .build()
-            )
-
-        subscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -153,25 +176,13 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun createSubscriptionsBatch() {
+    fun deleteEventSubscription() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
-        val batchResponseSubscriptionResponse =
-            webhookService.createSubscriptionsBatch(
-                WebhookCreateSubscriptionsBatchParams.builder()
-                    .appId(0)
-                    .batchInputSubscriptionBatchUpdateRequest(
-                        BatchInputSubscriptionBatchUpdateRequest.builder()
-                            .addInput(
-                                SubscriptionBatchUpdateRequest.builder().id(0).active(true).build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        batchResponseSubscriptionResponse.validate()
+        webhookService.deleteEventSubscription(
+            WebhookDeleteEventSubscriptionParams.builder().appId(0).subscriptionId(0).build()
+        )
     }
 
     @Disabled("Mock server tests are disabled")
@@ -185,11 +196,11 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun deletePortalSubscriptions() {
+    fun deleteJournalSubscriptionForPortal() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
-        webhookService.deletePortalSubscriptions(0L)
+        webhookService.deleteJournalSubscriptionForPortal(0L)
     }
 
     @Disabled("Mock server tests are disabled")
@@ -203,40 +214,11 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun deleteSubscription() {
-        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
-        val webhookService = client.webhooks()
-
-        webhookService.deleteSubscription(
-            WebhookDeleteSubscriptionParams.builder().appId(0).subscriptionId(0).build()
-        )
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
     fun deleteSubscriptionFilter() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
         webhookService.deleteSubscriptionFilter(0L)
-    }
-
-    @Test
-    fun getEarliestJournal(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("My Access Token")
-                .build()
-        val webhookService = client.webhooks()
-        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val response =
-            webhookService.getEarliestJournal(
-                WebhookGetEarliestJournalParams.builder().installPortalId(0).build()
-            )
-
-        assertThat(response.body()).hasContent("abc")
     }
 
     @Disabled("Mock server tests are disabled")
@@ -254,7 +236,7 @@ internal class WebhookServiceTest {
     }
 
     @Test
-    fun getEarliestLocalJournal(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getEarliestJournalEntry(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -264,8 +246,8 @@ internal class WebhookServiceTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val response =
-            webhookService.getEarliestLocalJournal(
-                WebhookGetEarliestLocalJournalParams.builder().installPortalId(0).build()
+            webhookService.getEarliestJournalEntry(
+                WebhookGetEarliestJournalEntryParams.builder().installPortalId(0).build()
             )
 
         assertThat(response.body()).hasContent("abc")
@@ -288,15 +270,47 @@ internal class WebhookServiceTest {
         batchResponseJournalFetchResponse.validate()
     }
 
+    @Test
+    fun getEarliestLocalJournalEntry(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("My Access Token")
+                .build()
+        val webhookService = client.webhooks()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            webhookService.getEarliestLocalJournalEntry(
+                WebhookGetEarliestLocalJournalEntryParams.builder().installPortalId(0).build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
+    }
+
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getJournalBatch() {
+    fun getEventSubscription() {
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
+        val webhookService = client.webhooks()
+
+        val subscriptionResponse =
+            webhookService.getEventSubscription(
+                WebhookGetEventSubscriptionParams.builder().appId(0).subscriptionId(0).build()
+            )
+
+        subscriptionResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getJournalBatchByRequest() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
         val batchResponseJournalFetchResponse =
-            webhookService.getJournalBatch(
-                WebhookGetJournalBatchParams.builder()
+            webhookService.getJournalBatchByRequest(
+                WebhookGetJournalBatchByRequestParams.builder()
                     .installPortalId(0)
                     .batchInputString(BatchInputString.builder().addInput("string").build())
                     .build()
@@ -307,13 +321,13 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getJournalBatchAfterOffset() {
+    fun getJournalBatchFromOffset() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
         val batchResponseJournalFetchResponse =
-            webhookService.getJournalBatchAfterOffset(
-                WebhookGetJournalBatchAfterOffsetParams.builder()
+            webhookService.getJournalBatchFromOffset(
+                WebhookGetJournalBatchFromOffsetParams.builder()
                     .offset("offset")
                     .count(1)
                     .installPortalId(0)
@@ -335,22 +349,15 @@ internal class WebhookServiceTest {
         snapshotStatusResponse.validate()
     }
 
+    @Disabled("Mock server tests are disabled")
     @Test
-    fun getLatestJournal(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("My Access Token")
-                .build()
+    fun getJournalSubscription() {
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
-        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
-        val response =
-            webhookService.getLatestJournal(
-                WebhookGetLatestJournalParams.builder().installPortalId(0).build()
-            )
+        val subscriptionResponse1 = webhookService.getJournalSubscription(0L)
 
-        assertThat(response.body()).hasContent("abc")
+        subscriptionResponse1.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -368,7 +375,7 @@ internal class WebhookServiceTest {
     }
 
     @Test
-    fun getLatestLocalJournal(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getLatestJournalEntry(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -378,8 +385,8 @@ internal class WebhookServiceTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val response =
-            webhookService.getLatestLocalJournal(
-                WebhookGetLatestLocalJournalParams.builder().installPortalId(0).build()
+            webhookService.getLatestJournalEntry(
+                WebhookGetLatestJournalEntryParams.builder().installPortalId(0).build()
             )
 
         assertThat(response.body()).hasContent("abc")
@@ -402,15 +409,33 @@ internal class WebhookServiceTest {
         batchResponseJournalFetchResponse.validate()
     }
 
+    @Test
+    fun getLatestLocalJournalEntry(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("My Access Token")
+                .build()
+        val webhookService = client.webhooks()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            webhookService.getLatestLocalJournalEntry(
+                WebhookGetLatestLocalJournalEntryParams.builder().installPortalId(0).build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
+    }
+
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getLocalJournalBatch() {
+    fun getLocalJournalBatchByRequest() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
         val batchResponseJournalFetchResponse =
-            webhookService.getLocalJournalBatch(
-                WebhookGetLocalJournalBatchParams.builder()
+            webhookService.getLocalJournalBatchByRequest(
+                WebhookGetLocalJournalBatchByRequestParams.builder()
                     .installPortalId(0)
                     .batchInputString(BatchInputString.builder().addInput("string").build())
                     .build()
@@ -421,13 +446,13 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getLocalJournalBatchAfterOffset() {
+    fun getLocalJournalBatchFromOffset() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
         val batchResponseJournalFetchResponse =
-            webhookService.getLocalJournalBatchAfterOffset(
-                WebhookGetLocalJournalBatchAfterOffsetParams.builder()
+            webhookService.getLocalJournalBatchFromOffset(
+                WebhookGetLocalJournalBatchFromOffsetParams.builder()
                     .offset("offset")
                     .count(1)
                     .installPortalId(0)
@@ -450,7 +475,7 @@ internal class WebhookServiceTest {
     }
 
     @Test
-    fun getNextJournalAfterOffset(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getNextJournalEntries(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -460,8 +485,8 @@ internal class WebhookServiceTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val response =
-            webhookService.getNextJournalAfterOffset(
-                WebhookGetNextJournalAfterOffsetParams.builder()
+            webhookService.getNextJournalEntries(
+                WebhookGetNextJournalEntriesParams.builder()
                     .offset("offset")
                     .installPortalId(0)
                     .build()
@@ -471,7 +496,7 @@ internal class WebhookServiceTest {
     }
 
     @Test
-    fun getNextLocalJournalAfterOffset(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getNextLocalJournalEntries(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -481,8 +506,8 @@ internal class WebhookServiceTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val response =
-            webhookService.getNextLocalJournalAfterOffset(
-                WebhookGetNextLocalJournalAfterOffsetParams.builder()
+            webhookService.getNextLocalJournalEntries(
+                WebhookGetNextLocalJournalEntriesParams.builder()
                     .offset("offset")
                     .installPortalId(0)
                     .build()
@@ -504,20 +529,6 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getSubscription() {
-        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
-        val webhookService = client.webhooks()
-
-        val subscriptionResponse =
-            webhookService.getSubscription(
-                WebhookGetSubscriptionParams.builder().appId(0).subscriptionId(0).build()
-            )
-
-        subscriptionResponse.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
     fun getSubscriptionFilter() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
@@ -529,13 +540,13 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getSubscriptionFilters() {
+    fun listEventSubscriptions() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
-        val filterResponses = webhookService.getSubscriptionFilters(0L)
+        val subscriptionListResponse = webhookService.listEventSubscriptions(0)
 
-        filterResponses.forEach { it.validate() }
+        subscriptionListResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -552,13 +563,33 @@ internal class WebhookServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun listSubscriptions() {
+    fun listSubscriptionFilters() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks()
 
-        val subscriptionListResponse = webhookService.listSubscriptions(0)
+        val filterResponses = webhookService.listSubscriptionFilters(0L)
 
-        subscriptionListResponse.validate()
+        filterResponses.forEach { it.validate() }
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateEventSubscription() {
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
+        val webhookService = client.webhooks()
+
+        val subscriptionResponse =
+            webhookService.updateEventSubscription(
+                WebhookUpdateEventSubscriptionParams.builder()
+                    .appId(0)
+                    .subscriptionId(0)
+                    .subscriptionPatchRequest(
+                        SubscriptionPatchRequest.builder().active(true).build()
+                    )
+                    .build()
+            )
+
+        subscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -583,25 +614,5 @@ internal class WebhookServiceTest {
             )
 
         settingsResponse.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun updateSubscription() {
-        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
-        val webhookService = client.webhooks()
-
-        val subscriptionResponse =
-            webhookService.updateSubscription(
-                WebhookUpdateSubscriptionParams.builder()
-                    .appId(0)
-                    .subscriptionId(0)
-                    .subscriptionPatchRequest(
-                        SubscriptionPatchRequest.builder().active(true).build()
-                    )
-                    .build()
-            )
-
-        subscriptionResponse.validate()
     }
 }

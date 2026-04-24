@@ -26,6 +26,7 @@ private constructor(
     private val association: AssociationSubscriptionUpsertRequest? = null,
     private val appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest? = null,
     private val listMembership: ListMembershipSubscriptionUpsertRequest? = null,
+    private val gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest? = null,
     private val _json: JsonValue? = null,
 ) {
 
@@ -41,6 +42,9 @@ private constructor(
     fun listMembership(): Optional<ListMembershipSubscriptionUpsertRequest> =
         Optional.ofNullable(listMembership)
 
+    fun gdprPrivacyDeletion(): Optional<GdprPrivacyDeletionSubscriptionUpsertRequest> =
+        Optional.ofNullable(gdprPrivacyDeletion)
+
     fun isObjectSubscriptionUpsertRequest(): Boolean = objectSubscriptionUpsertRequest != null
 
     fun isAssociation(): Boolean = association != null
@@ -48,6 +52,8 @@ private constructor(
     fun isAppLifecycleEvent(): Boolean = appLifecycleEvent != null
 
     fun isListMembership(): Boolean = listMembership != null
+
+    fun isGdprPrivacyDeletion(): Boolean = gdprPrivacyDeletion != null
 
     fun asObjectSubscriptionUpsertRequest(): ObjectSubscriptionUpsertRequest =
         objectSubscriptionUpsertRequest.getOrThrow("objectSubscriptionUpsertRequest")
@@ -61,6 +67,9 @@ private constructor(
     fun asListMembership(): ListMembershipSubscriptionUpsertRequest =
         listMembership.getOrThrow("listMembership")
 
+    fun asGdprPrivacyDeletion(): GdprPrivacyDeletionSubscriptionUpsertRequest =
+        gdprPrivacyDeletion.getOrThrow("gdprPrivacyDeletion")
+
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
     fun <T> accept(visitor: Visitor<T>): T =
@@ -70,6 +79,7 @@ private constructor(
             association != null -> visitor.visitAssociation(association)
             appLifecycleEvent != null -> visitor.visitAppLifecycleEvent(appLifecycleEvent)
             listMembership != null -> visitor.visitListMembership(listMembership)
+            gdprPrivacyDeletion != null -> visitor.visitGdprPrivacyDeletion(gdprPrivacyDeletion)
             else -> visitor.unknown(_json)
         }
 
@@ -102,6 +112,12 @@ private constructor(
                     listMembership: ListMembershipSubscriptionUpsertRequest
                 ) {
                     listMembership.validate()
+                }
+
+                override fun visitGdprPrivacyDeletion(
+                    gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
+                ) {
+                    gdprPrivacyDeletion.validate()
                 }
             }
         )
@@ -140,6 +156,10 @@ private constructor(
                     listMembership: ListMembershipSubscriptionUpsertRequest
                 ) = listMembership.validity()
 
+                override fun visitGdprPrivacyDeletion(
+                    gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
+                ) = gdprPrivacyDeletion.validity()
+
                 override fun unknown(json: JsonValue?) = 0
             }
         )
@@ -153,7 +173,8 @@ private constructor(
             objectSubscriptionUpsertRequest == other.objectSubscriptionUpsertRequest &&
             association == other.association &&
             appLifecycleEvent == other.appLifecycleEvent &&
-            listMembership == other.listMembership
+            listMembership == other.listMembership &&
+            gdprPrivacyDeletion == other.gdprPrivacyDeletion
     }
 
     override fun hashCode(): Int =
@@ -162,6 +183,7 @@ private constructor(
             association,
             appLifecycleEvent,
             listMembership,
+            gdprPrivacyDeletion,
         )
 
     override fun toString(): String =
@@ -172,6 +194,8 @@ private constructor(
             appLifecycleEvent != null ->
                 "SubscriptionUpsertRequest{appLifecycleEvent=$appLifecycleEvent}"
             listMembership != null -> "SubscriptionUpsertRequest{listMembership=$listMembership}"
+            gdprPrivacyDeletion != null ->
+                "SubscriptionUpsertRequest{gdprPrivacyDeletion=$gdprPrivacyDeletion}"
             _json != null -> "SubscriptionUpsertRequest{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid SubscriptionUpsertRequest")
         }
@@ -197,6 +221,11 @@ private constructor(
         @JvmStatic
         fun ofListMembership(listMembership: ListMembershipSubscriptionUpsertRequest) =
             SubscriptionUpsertRequest(listMembership = listMembership)
+
+        @JvmStatic
+        fun ofGdprPrivacyDeletion(
+            gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
+        ) = SubscriptionUpsertRequest(gdprPrivacyDeletion = gdprPrivacyDeletion)
     }
 
     /**
@@ -214,6 +243,10 @@ private constructor(
         fun visitAppLifecycleEvent(appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest): T
 
         fun visitListMembership(listMembership: ListMembershipSubscriptionUpsertRequest): T
+
+        fun visitGdprPrivacyDeletion(
+            gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
+        ): T
 
         /**
          * Maps an unknown variant of [SubscriptionUpsertRequest] to a value of type [T].
@@ -259,6 +292,13 @@ private constructor(
                                 jacksonTypeRef<ListMembershipSubscriptionUpsertRequest>(),
                             )
                             ?.let { SubscriptionUpsertRequest(listMembership = it, _json = json) },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<GdprPrivacyDeletionSubscriptionUpsertRequest>(),
+                            )
+                            ?.let {
+                                SubscriptionUpsertRequest(gdprPrivacyDeletion = it, _json = json)
+                            },
                     )
                     .filterNotNull()
                     .allMaxBy { it.validity() }
@@ -289,6 +329,8 @@ private constructor(
                 value.association != null -> generator.writeObject(value.association)
                 value.appLifecycleEvent != null -> generator.writeObject(value.appLifecycleEvent)
                 value.listMembership != null -> generator.writeObject(value.listMembership)
+                value.gdprPrivacyDeletion != null ->
+                    generator.writeObject(value.gdprPrivacyDeletion)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid SubscriptionUpsertRequest")
             }

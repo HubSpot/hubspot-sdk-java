@@ -27,7 +27,7 @@ private constructor(
     private val active: JsonField<Boolean>,
     private val appId: JsonField<Int>,
     private val clientId: JsonField<String>,
-    private val expiresIn: JsonField<Int>,
+    private val expiresIn: JsonField<Long>,
     private val hubId: JsonField<Int>,
     private val isPrivateDistribution: JsonField<Boolean>,
     private val scopes: JsonField<List<String>>,
@@ -46,7 +46,7 @@ private constructor(
         @JsonProperty("active") @ExcludeMissing active: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("app_id") @ExcludeMissing appId: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("client_id") @ExcludeMissing clientId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("expires_in") @ExcludeMissing expiresIn: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("expires_in") @ExcludeMissing expiresIn: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("hub_id") @ExcludeMissing hubId: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("is_private_distribution")
         @ExcludeMissing
@@ -106,7 +106,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun expiresIn(): Int = expiresIn.getRequired("expires_in")
+    fun expiresIn(): Long = expiresIn.getRequired("expires_in")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -197,7 +197,7 @@ private constructor(
      *
      * Unlike [expiresIn], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("expires_in") @ExcludeMissing fun _expiresIn(): JsonField<Int> = expiresIn
+    @JsonProperty("expires_in") @ExcludeMissing fun _expiresIn(): JsonField<Long> = expiresIn
 
     /**
      * Returns the raw JSON value of [hubId].
@@ -312,7 +312,7 @@ private constructor(
         private var active: JsonField<Boolean>? = null
         private var appId: JsonField<Int>? = null
         private var clientId: JsonField<String>? = null
-        private var expiresIn: JsonField<Int>? = null
+        private var expiresIn: JsonField<Long>? = null
         private var hubId: JsonField<Int>? = null
         private var isPrivateDistribution: JsonField<Boolean>? = null
         private var scopes: JsonField<MutableList<String>>? = null
@@ -383,15 +383,15 @@ private constructor(
          */
         fun clientId(clientId: JsonField<String>) = apply { this.clientId = clientId }
 
-        fun expiresIn(expiresIn: Int) = expiresIn(JsonField.of(expiresIn))
+        fun expiresIn(expiresIn: Long) = expiresIn(JsonField.of(expiresIn))
 
         /**
          * Sets [Builder.expiresIn] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.expiresIn] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.expiresIn] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun expiresIn(expiresIn: JsonField<Int>) = apply { this.expiresIn = expiresIn }
+        fun expiresIn(expiresIn: JsonField<Long>) = apply { this.expiresIn = expiresIn }
 
         fun hubId(hubId: Int) = hubId(JsonField.of(hubId))
 

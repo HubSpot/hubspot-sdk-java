@@ -49,7 +49,7 @@ internal class RowServiceAsyncTest {
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
                                         "foo",
-                                        JsonValue.from(mapOf<String, Any>()),
+                                        JsonValue.from(mapOf("foo" to "bar")),
                                     )
                                     .build()
                             )
@@ -154,7 +154,7 @@ internal class RowServiceAsyncTest {
                                         HubDbTableRowV3Request.Values.builder()
                                             .putAdditionalProperty(
                                                 "foo",
-                                                JsonValue.from(mapOf<String, Any>()),
+                                                JsonValue.from(mapOf("foo" to "bar")),
                                             )
                                             .build()
                                     )
@@ -293,13 +293,13 @@ internal class RowServiceAsyncTest {
                         BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                             .addInput(
                                 HubDbTableRowV3BatchUpdateRequest.builder()
-                                    .childTableId(0)
+                                    .childTableId(0L)
                                     .displayIndex(0)
                                     .values(
                                         HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                             .putAdditionalProperty(
                                                 "foo",
-                                                JsonValue.from(mapOf<String, Any>()),
+                                                JsonValue.from(mapOf("foo" to "bar")),
                                             )
                                             .build()
                                     )
@@ -336,7 +336,7 @@ internal class RowServiceAsyncTest {
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
                                         "foo",
-                                        JsonValue.from(mapOf<String, Any>()),
+                                        JsonValue.from(mapOf("foo" to "bar")),
                                     )
                                     .build()
                             )
@@ -365,13 +365,13 @@ internal class RowServiceAsyncTest {
                         BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                             .addInput(
                                 HubDbTableRowV3BatchUpdateRequest.builder()
-                                    .childTableId(0)
+                                    .childTableId(0L)
                                     .displayIndex(0)
                                     .values(
                                         HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                             .putAdditionalProperty(
                                                 "foo",
-                                                JsonValue.from(mapOf<String, Any>()),
+                                                JsonValue.from(mapOf("foo" to "bar")),
                                             )
                                             .build()
                                     )
@@ -408,7 +408,7 @@ internal class RowServiceAsyncTest {
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
                                         "foo",
-                                        JsonValue.from(mapOf<String, Any>()),
+                                        JsonValue.from(mapOf("foo" to "bar")),
                                     )
                                     .build()
                             )

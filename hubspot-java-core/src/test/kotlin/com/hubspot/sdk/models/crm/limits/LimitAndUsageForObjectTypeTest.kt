@@ -13,20 +13,20 @@ internal class LimitAndUsageForObjectTypeTest {
     fun create() {
         val limitAndUsageForObjectType =
             LimitAndUsageForObjectType.builder()
-                .limit(0)
+                .limit(0L)
                 .objectTypeId("objectTypeId")
                 .percentage(0.0)
                 .pluralLabel("pluralLabel")
                 .singularLabel("singularLabel")
-                .usage(0)
+                .usage(0L)
                 .build()
 
-        assertThat(limitAndUsageForObjectType.limit()).isEqualTo(0)
+        assertThat(limitAndUsageForObjectType.limit()).isEqualTo(0L)
         assertThat(limitAndUsageForObjectType.objectTypeId()).isEqualTo("objectTypeId")
         assertThat(limitAndUsageForObjectType.percentage()).isEqualTo(0.0)
         assertThat(limitAndUsageForObjectType.pluralLabel()).isEqualTo("pluralLabel")
         assertThat(limitAndUsageForObjectType.singularLabel()).isEqualTo("singularLabel")
-        assertThat(limitAndUsageForObjectType.usage()).isEqualTo(0)
+        assertThat(limitAndUsageForObjectType.usage()).isEqualTo(0L)
     }
 
     @Test
@@ -34,12 +34,12 @@ internal class LimitAndUsageForObjectTypeTest {
         val jsonMapper = jsonMapper()
         val limitAndUsageForObjectType =
             LimitAndUsageForObjectType.builder()
-                .limit(0)
+                .limit(0L)
                 .objectTypeId("objectTypeId")
                 .percentage(0.0)
                 .pluralLabel("pluralLabel")
                 .singularLabel("singularLabel")
-                .usage(0)
+                .usage(0L)
                 .build()
 
         val roundtrippedLimitAndUsageForObjectType =

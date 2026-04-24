@@ -29,6 +29,7 @@ private constructor(
     private val otelContextHolder: JsonField<OtelContextHolder>,
     private val unstructuredSources: JsonField<List<UnstructuredSource>>,
     private val complianceIds: JsonField<ComplianceIds>,
+    private val conversationId: JsonField<String>,
     private val featureId: JsonField<String>,
     private val inferenceId: JsonField<String>,
     private val trajectoryId: JsonField<String>,
@@ -53,6 +54,9 @@ private constructor(
         @JsonProperty("complianceIds")
         @ExcludeMissing
         complianceIds: JsonField<ComplianceIds> = JsonMissing.of(),
+        @JsonProperty("conversationId")
+        @ExcludeMissing
+        conversationId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("featureId") @ExcludeMissing featureId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("inferenceId")
         @ExcludeMissing
@@ -67,6 +71,7 @@ private constructor(
         otelContextHolder,
         unstructuredSources,
         complianceIds,
+        conversationId,
         featureId,
         inferenceId,
         trajectoryId,
@@ -117,6 +122,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun complianceIds(): Optional<ComplianceIds> = complianceIds.getOptional("complianceIds")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationId(): Optional<String> = conversationId.getOptional("conversationId")
 
     /**
      * The identifier for the feature associated with the context.
@@ -198,6 +209,15 @@ private constructor(
     fun _complianceIds(): JsonField<ComplianceIds> = complianceIds
 
     /**
+     * Returns the raw JSON value of [conversationId].
+     *
+     * Unlike [conversationId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("conversationId")
+    @ExcludeMissing
+    fun _conversationId(): JsonField<String> = conversationId
+
+    /**
      * Returns the raw JSON value of [featureId].
      *
      * Unlike [featureId], this method doesn't throw if the JSON field has an unexpected type.
@@ -258,6 +278,7 @@ private constructor(
         private var otelContextHolder: JsonField<OtelContextHolder>? = null
         private var unstructuredSources: JsonField<MutableList<UnstructuredSource>>? = null
         private var complianceIds: JsonField<ComplianceIds> = JsonMissing.of()
+        private var conversationId: JsonField<String> = JsonMissing.of()
         private var featureId: JsonField<String> = JsonMissing.of()
         private var inferenceId: JsonField<String> = JsonMissing.of()
         private var trajectoryId: JsonField<String> = JsonMissing.of()
@@ -272,6 +293,7 @@ private constructor(
             unstructuredSources =
                 chirpAiContextObject.unstructuredSources.map { it.toMutableList() }
             complianceIds = chirpAiContextObject.complianceIds
+            conversationId = chirpAiContextObject.conversationId
             featureId = chirpAiContextObject.featureId
             inferenceId = chirpAiContextObject.inferenceId
             trajectoryId = chirpAiContextObject.trajectoryId
@@ -373,6 +395,19 @@ private constructor(
             this.complianceIds = complianceIds
         }
 
+        fun conversationId(conversationId: String) = conversationId(JsonField.of(conversationId))
+
+        /**
+         * Sets [Builder.conversationId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun conversationId(conversationId: JsonField<String>) = apply {
+            this.conversationId = conversationId
+        }
+
         /** The identifier for the feature associated with the context. */
         fun featureId(featureId: String) = featureId(JsonField.of(featureId))
 
@@ -454,6 +489,7 @@ private constructor(
                 checkRequired("otelContextHolder", otelContextHolder),
                 checkRequired("unstructuredSources", unstructuredSources).map { it.toImmutable() },
                 complianceIds,
+                conversationId,
                 featureId,
                 inferenceId,
                 trajectoryId,
@@ -474,6 +510,7 @@ private constructor(
         otelContextHolder().validate()
         unstructuredSources().forEach { it.validate() }
         complianceIds().ifPresent { it.validate() }
+        conversationId()
         featureId()
         inferenceId()
         trajectoryId()
@@ -501,6 +538,7 @@ private constructor(
             (otelContextHolder.asKnown().getOrNull()?.validity() ?: 0) +
             (unstructuredSources.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (complianceIds.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (conversationId.asKnown().isPresent) 1 else 0) +
             (if (featureId.asKnown().isPresent) 1 else 0) +
             (if (inferenceId.asKnown().isPresent) 1 else 0) +
             (if (trajectoryId.asKnown().isPresent) 1 else 0)
@@ -961,6 +999,7 @@ private constructor(
             otelContextHolder == other.otelContextHolder &&
             unstructuredSources == other.unstructuredSources &&
             complianceIds == other.complianceIds &&
+            conversationId == other.conversationId &&
             featureId == other.featureId &&
             inferenceId == other.inferenceId &&
             trajectoryId == other.trajectoryId &&
@@ -975,6 +1014,7 @@ private constructor(
             otelContextHolder,
             unstructuredSources,
             complianceIds,
+            conversationId,
             featureId,
             inferenceId,
             trajectoryId,
@@ -985,5 +1025,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChirpAiContextObject{applicationGroup=$applicationGroup, applicationId=$applicationId, metadata=$metadata, otelContextHolder=$otelContextHolder, unstructuredSources=$unstructuredSources, complianceIds=$complianceIds, featureId=$featureId, inferenceId=$inferenceId, trajectoryId=$trajectoryId, additionalProperties=$additionalProperties}"
+        "ChirpAiContextObject{applicationGroup=$applicationGroup, applicationId=$applicationId, metadata=$metadata, otelContextHolder=$otelContextHolder, unstructuredSources=$unstructuredSources, complianceIds=$complianceIds, conversationId=$conversationId, featureId=$featureId, inferenceId=$inferenceId, trajectoryId=$trajectoryId, additionalProperties=$additionalProperties}"
 }

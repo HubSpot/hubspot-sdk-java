@@ -8,6 +8,7 @@ import com.hubspot.sdk.models.AssociationDefinitionEgg
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
 import com.hubspot.sdk.models.ObjectTypeDefinitionPatch
 import com.hubspot.sdk.models.OptionInput
+import com.hubspot.sdk.models.PropertyCreate
 import com.hubspot.sdk.models.PropertyGroupCreate
 import com.hubspot.sdk.models.PropertyGroupUpdate
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanCalculatedValues
@@ -45,7 +46,6 @@ import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeUpdateSchemaParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeUpdateSettingsParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaPlayedEventRequest
 import com.hubspot.sdk.models.cms.mediabridge.MediaPlayedPercentageEventRequest
-import com.hubspot.sdk.models.cms.mediabridge.PropertyCreate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -57,7 +57,7 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val associationDefinitionFuture =
+        val baseAssociationDefinitionFuture =
             mediaBridgeServiceAsync.createAssociation(
                 MediaBridgeCreateAssociationParams.builder()
                     .appId(0)
@@ -72,8 +72,8 @@ internal class MediaBridgeServiceAsyncTest {
                     .build()
             )
 
-        val associationDefinition = associationDefinitionFuture.get()
-        associationDefinition.validate()
+        val baseAssociationDefinition = baseAssociationDefinitionFuture.get()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -240,7 +240,7 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val propertyFuture =
+        val mediaBridgePropertyFuture =
             mediaBridgeServiceAsync.createProperty(
                 MediaBridgeCreatePropertyParams.builder()
                     .appId(0)
@@ -253,6 +253,7 @@ internal class MediaBridgeServiceAsyncTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
@@ -260,6 +261,7 @@ internal class MediaBridgeServiceAsyncTest {
                             .formField(true)
                             .hasUniqueValue(true)
                             .hidden(true)
+                            .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -270,13 +272,14 @@ internal class MediaBridgeServiceAsyncTest {
                                     .build()
                             )
                             .referencedObjectType("referencedObjectType")
+                            .showCurrencySymbol(true)
                             .build()
                     )
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val mediaBridgeProperty = mediaBridgePropertyFuture.get()
+        mediaBridgeProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -310,11 +313,11 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val associationDefinitionFuture =
+        val baseAssociationDefinitionFuture =
             mediaBridgeServiceAsync.createVideoAssociationDefinition(0)
 
-        val associationDefinition = associationDefinitionFuture.get()
-        associationDefinition.validate()
+        val baseAssociationDefinition = baseAssociationDefinitionFuture.get()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -425,7 +428,7 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val propertyFuture =
+        val mediaBridgePropertyFuture =
             mediaBridgeServiceAsync.getProperty(
                 MediaBridgeGetPropertyParams.builder()
                     .appId(0)
@@ -436,8 +439,8 @@ internal class MediaBridgeServiceAsyncTest {
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val mediaBridgeProperty = mediaBridgePropertyFuture.get()
+        mediaBridgeProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -651,7 +654,7 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val propertyFuture =
+        val mediaBridgePropertyFuture =
             mediaBridgeServiceAsync.updateProperty(
                 MediaBridgeUpdatePropertyParams.builder()
                     .appId(0)
@@ -660,6 +663,7 @@ internal class MediaBridgeServiceAsyncTest {
                     .mediaBridgePropertyUpdate(
                         MediaBridgePropertyUpdate.builder()
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .description("description")
                             .displayOrder(0)
                             .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -668,6 +672,7 @@ internal class MediaBridgeServiceAsyncTest {
                             .hasUniqueValue(true)
                             .hidden(true)
                             .label("label")
+                            .numberDisplayHint(MediaBridgePropertyUpdate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -677,14 +682,15 @@ internal class MediaBridgeServiceAsyncTest {
                                     .description("description")
                                     .build()
                             )
+                            .showCurrencySymbol(true)
                             .type(MediaBridgePropertyUpdate.Type.BOOL)
                             .build()
                     )
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val mediaBridgeProperty = mediaBridgePropertyFuture.get()
+        mediaBridgeProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -715,7 +721,7 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val objectTypeDefinitionFuture =
+        val baseObjectTypeDefinitionFuture =
             mediaBridgeServiceAsync.updateSchema(
                 MediaBridgeUpdateSchemaParams.builder()
                     .appId(0)
@@ -741,8 +747,8 @@ internal class MediaBridgeServiceAsyncTest {
                     .build()
             )
 
-        val objectTypeDefinition = objectTypeDefinitionFuture.get()
-        objectTypeDefinition.validate()
+        val baseObjectTypeDefinition = baseObjectTypeDefinitionFuture.get()
+        baseObjectTypeDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")

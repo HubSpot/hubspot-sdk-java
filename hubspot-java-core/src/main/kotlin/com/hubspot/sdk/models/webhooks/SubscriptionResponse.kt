@@ -68,7 +68,7 @@ private constructor(
     )
 
     /**
-     * The unique ID of the webhook subscription.
+     * The unique identifier for the subscription. It is an integer formatted as int64.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -76,8 +76,7 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * Whether the subscription is active or paused. If true, the subscription will send webhook
-     * notifications. If false, the subscription is paused and will not send notifications.
+     * A boolean indicating whether the subscription is currently active.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -85,8 +84,7 @@ private constructor(
     fun active(): Boolean = active.getRequired("active")
 
     /**
-     * The timestamp when the webhook subscription was created, in ISO 8601 format (e.g.,
-     * 2020-02-29T12:30:00Z).
+     * The date and time when the subscription was created, in ISO 8601 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -94,8 +92,9 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
-     * The type of event to listen for. Accepted values include contact.creation, contact.deletion,
-     * contact.propertyChange, and similar event types for other CRM objects and custom objects.
+     * The type of event that triggers the subscription. Valid values include various property
+     * changes, creations, deletions, merges, restores, and association changes for different
+     * HubSpot objects.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -103,8 +102,7 @@ private constructor(
     fun eventType(): EventType = eventType.getRequired("eventType")
 
     /**
-     * The name of the event to listen for. This is used with custom objects to specify custom event
-     * types beyond the standard eventType enum values.
+     * The name of the event type for the subscription.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -112,8 +110,7 @@ private constructor(
     fun eventTypeName(): Optional<String> = eventTypeName.getOptional("eventTypeName")
 
     /**
-     * The ID of the object type for the subscription. This can be a standard CRM object (e.g.,
-     * 'contact', 'company', 'deal') or a custom object ID for custom object subscriptions.
+     * The identifier for the object type associated with the subscription. It is a string.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -121,8 +118,7 @@ private constructor(
     fun objectTypeId(): Optional<String> = objectTypeId.getOptional("objectTypeId")
 
     /**
-     * The internal name of the property to monitor for changes. Only applies when eventType is
-     * propertyChange.
+     * The name of the property associated with the subscription event, if applicable.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -130,8 +126,7 @@ private constructor(
     fun propertyName(): Optional<String> = propertyName.getOptional("propertyName")
 
     /**
-     * The timestamp when the webhook subscription was last updated, in ISO 8601 format (e.g.,
-     * 2020-02-29T12:30:00Z).
+     * The date and time when the subscription was last updated, in ISO 8601 format.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -258,7 +253,7 @@ private constructor(
             additionalProperties = subscriptionResponse.additionalProperties.toMutableMap()
         }
 
-        /** The unique ID of the webhook subscription. */
+        /** The unique identifier for the subscription. It is an integer formatted as int64. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -269,10 +264,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /**
-         * Whether the subscription is active or paused. If true, the subscription will send webhook
-         * notifications. If false, the subscription is paused and will not send notifications.
-         */
+        /** A boolean indicating whether the subscription is currently active. */
         fun active(active: Boolean) = active(JsonField.of(active))
 
         /**
@@ -283,10 +275,7 @@ private constructor(
          */
         fun active(active: JsonField<Boolean>) = apply { this.active = active }
 
-        /**
-         * The timestamp when the webhook subscription was created, in ISO 8601 format (e.g.,
-         * 2020-02-29T12:30:00Z).
-         */
+        /** The date and time when the subscription was created, in ISO 8601 format. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -299,9 +288,9 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
-         * The type of event to listen for. Accepted values include contact.creation,
-         * contact.deletion, contact.propertyChange, and similar event types for other CRM objects
-         * and custom objects.
+         * The type of event that triggers the subscription. Valid values include various property
+         * changes, creations, deletions, merges, restores, and association changes for different
+         * HubSpot objects.
          */
         fun eventType(eventType: EventType) = eventType(JsonField.of(eventType))
 
@@ -314,10 +303,7 @@ private constructor(
          */
         fun eventType(eventType: JsonField<EventType>) = apply { this.eventType = eventType }
 
-        /**
-         * The name of the event to listen for. This is used with custom objects to specify custom
-         * event types beyond the standard eventType enum values.
-         */
+        /** The name of the event type for the subscription. */
         fun eventTypeName(eventTypeName: String) = eventTypeName(JsonField.of(eventTypeName))
 
         /**
@@ -331,10 +317,7 @@ private constructor(
             this.eventTypeName = eventTypeName
         }
 
-        /**
-         * The ID of the object type for the subscription. This can be a standard CRM object (e.g.,
-         * 'contact', 'company', 'deal') or a custom object ID for custom object subscriptions.
-         */
+        /** The identifier for the object type associated with the subscription. It is a string. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -348,10 +331,7 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
-        /**
-         * The internal name of the property to monitor for changes. Only applies when eventType is
-         * propertyChange.
-         */
+        /** The name of the property associated with the subscription event, if applicable. */
         fun propertyName(propertyName: String) = propertyName(JsonField.of(propertyName))
 
         /**
@@ -365,10 +345,7 @@ private constructor(
             this.propertyName = propertyName
         }
 
-        /**
-         * The timestamp when the webhook subscription was last updated, in ISO 8601 format (e.g.,
-         * 2020-02-29T12:30:00Z).
-         */
+        /** The date and time when the subscription was last updated, in ISO 8601 format. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -471,8 +448,9 @@ private constructor(
             (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /**
-     * The type of event to listen for. Accepted values include contact.creation, contact.deletion,
-     * contact.propertyChange, and similar event types for other CRM objects and custom objects.
+     * The type of event that triggers the subscription. Valid values include various property
+     * changes, creations, deletions, merges, restores, and association changes for different
+     * HubSpot objects.
      */
     class EventType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

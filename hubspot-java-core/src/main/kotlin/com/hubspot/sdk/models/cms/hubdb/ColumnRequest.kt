@@ -26,7 +26,7 @@ private constructor(
     private val id: JsonField<Int>,
     private val label: JsonField<String>,
     private val name: JsonField<String>,
-    private val options: JsonField<List<Option>>,
+    private val options: JsonField<List<HubdbOption>>,
     private val type: JsonField<Type>,
     private val foreignColumnId: JsonField<Int>,
     private val foreignTableId: JsonField<Long>,
@@ -42,7 +42,7 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("options")
         @ExcludeMissing
-        options: JsonField<List<Option>> = JsonMissing.of(),
+        options: JsonField<List<HubdbOption>> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("foreignColumnId")
         @ExcludeMissing
@@ -99,7 +99,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun options(): List<Option> = options.getRequired("options")
+    fun options(): List<HubdbOption> = options.getRequired("options")
 
     /**
      * Type of the column
@@ -168,7 +168,7 @@ private constructor(
      *
      * Unlike [options], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("options") @ExcludeMissing fun _options(): JsonField<List<Option>> = options
+    @JsonProperty("options") @ExcludeMissing fun _options(): JsonField<List<HubdbOption>> = options
 
     /**
      * Returns the raw JSON value of [type].
@@ -250,7 +250,7 @@ private constructor(
         private var id: JsonField<Int>? = null
         private var label: JsonField<String>? = null
         private var name: JsonField<String>? = null
-        private var options: JsonField<MutableList<Option>>? = null
+        private var options: JsonField<MutableList<HubdbOption>>? = null
         private var type: JsonField<Type>? = null
         private var foreignColumnId: JsonField<Int> = JsonMissing.of()
         private var foreignTableId: JsonField<Long> = JsonMissing.of()
@@ -306,25 +306,25 @@ private constructor(
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** Options to choose for select and multi-select columns */
-        fun options(options: List<Option>) = options(JsonField.of(options))
+        fun options(options: List<HubdbOption>) = options(JsonField.of(options))
 
         /**
          * Sets [Builder.options] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.options] with a well-typed `List<Option>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.options] with a well-typed `List<HubdbOption>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun options(options: JsonField<List<Option>>) = apply {
+        fun options(options: JsonField<List<HubdbOption>>) = apply {
             this.options = options.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Option] to [options].
+         * Adds a single [HubdbOption] to [options].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addOption(option: Option) = apply {
+        fun addOption(option: HubdbOption) = apply {
             options =
                 (options ?: JsonField.of(mutableListOf())).also {
                     checkKnown("options", it).add(option)

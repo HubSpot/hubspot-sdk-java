@@ -14,11 +14,11 @@ internal class ListSizeDataPointTest {
     fun create() {
         val listSizeDataPoint =
             ListSizeDataPoint.builder()
-                .size(0)
+                .size(0L)
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        assertThat(listSizeDataPoint.size()).isEqualTo(0)
+        assertThat(listSizeDataPoint.size()).isEqualTo(0L)
         assertThat(listSizeDataPoint.timestamp())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
@@ -28,7 +28,7 @@ internal class ListSizeDataPointTest {
         val jsonMapper = jsonMapper()
         val listSizeDataPoint =
             ListSizeDataPoint.builder()
-                .size(0)
+                .size(0L)
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 

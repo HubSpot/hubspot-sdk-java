@@ -4,7 +4,7 @@ package com.hubspot.sdk.services.async.crm
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot.sdk.models.OptionInput
-import com.hubspot.sdk.models.crm.properties.PropertyCreate
+import com.hubspot.sdk.models.PropertyCreate
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams
 import com.hubspot.sdk.models.crm.properties.PropertyGetParams
@@ -22,7 +22,7 @@ internal class PropertyServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
-        val propertyFuture =
+        val basePropertyFuture =
             propertyServiceAsync.create(
                 PropertyCreateParams.builder()
                     .objectType("objectType")
@@ -42,6 +42,7 @@ internal class PropertyServiceAsyncTest {
                             .formField(true)
                             .hasUniqueValue(true)
                             .hidden(true)
+                            .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -58,8 +59,8 @@ internal class PropertyServiceAsyncTest {
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val baseProperty = basePropertyFuture.get()
+        baseProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -68,7 +69,7 @@ internal class PropertyServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
-        val propertyFuture =
+        val basePropertyFuture =
             propertyServiceAsync.update(
                 PropertyUpdateParams.builder()
                     .objectType("objectType")
@@ -84,6 +85,7 @@ internal class PropertyServiceAsyncTest {
                             .groupName("groupName")
                             .hidden(true)
                             .label("label")
+                            .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -100,8 +102,8 @@ internal class PropertyServiceAsyncTest {
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val baseProperty = basePropertyFuture.get()
+        baseProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -148,7 +150,7 @@ internal class PropertyServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
-        val propertyFuture =
+        val basePropertyFuture =
             propertyServiceAsync.get(
                 PropertyGetParams.builder()
                     .objectType("objectType")
@@ -160,7 +162,7 @@ internal class PropertyServiceAsyncTest {
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val baseProperty = basePropertyFuture.get()
+        baseProperty.validate()
     }
 }

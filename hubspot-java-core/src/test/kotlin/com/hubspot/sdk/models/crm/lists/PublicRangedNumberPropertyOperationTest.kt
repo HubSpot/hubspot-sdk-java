@@ -14,19 +14,19 @@ internal class PublicRangedNumberPropertyOperationTest {
         val publicRangedNumberPropertyOperation =
             PublicRangedNumberPropertyOperation.builder()
                 .includeObjectsWithNoValueSet(true)
-                .lowerBound(0)
+                .lowerBound(0L)
                 .operationType(PublicRangedNumberPropertyOperation.OperationType.NUMBER_RANGED)
                 .operator("operator")
-                .upperBound(0)
+                .upperBound(0L)
                 .build()
 
         assertThat(publicRangedNumberPropertyOperation.includeObjectsWithNoValueSet())
             .isEqualTo(true)
-        assertThat(publicRangedNumberPropertyOperation.lowerBound()).isEqualTo(0)
+        assertThat(publicRangedNumberPropertyOperation.lowerBound()).isEqualTo(0L)
         assertThat(publicRangedNumberPropertyOperation.operationType())
             .isEqualTo(PublicRangedNumberPropertyOperation.OperationType.NUMBER_RANGED)
         assertThat(publicRangedNumberPropertyOperation.operator()).isEqualTo("operator")
-        assertThat(publicRangedNumberPropertyOperation.upperBound()).isEqualTo(0)
+        assertThat(publicRangedNumberPropertyOperation.upperBound()).isEqualTo(0L)
     }
 
     @Test
@@ -35,10 +35,10 @@ internal class PublicRangedNumberPropertyOperationTest {
         val publicRangedNumberPropertyOperation =
             PublicRangedNumberPropertyOperation.builder()
                 .includeObjectsWithNoValueSet(true)
-                .lowerBound(0)
+                .lowerBound(0L)
                 .operationType(PublicRangedNumberPropertyOperation.OperationType.NUMBER_RANGED)
                 .operator("operator")
-                .upperBound(0)
+                .upperBound(0L)
                 .build()
 
         val roundtrippedPublicRangedNumberPropertyOperation =

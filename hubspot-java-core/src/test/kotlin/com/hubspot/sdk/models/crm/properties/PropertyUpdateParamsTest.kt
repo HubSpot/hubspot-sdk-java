@@ -24,6 +24,7 @@ internal class PropertyUpdateParamsTest {
                     .groupName("groupName")
                     .hidden(true)
                     .label("label")
+                    .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                     .addOption(
                         OptionInput.builder()
                             .displayOrder(0)
@@ -72,6 +73,7 @@ internal class PropertyUpdateParamsTest {
                         .groupName("groupName")
                         .hidden(true)
                         .label("label")
+                        .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                         .addOption(
                             OptionInput.builder()
                                 .displayOrder(0)
@@ -101,6 +103,7 @@ internal class PropertyUpdateParamsTest {
                     .groupName("groupName")
                     .hidden(true)
                     .label("label")
+                    .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                     .addOption(
                         OptionInput.builder()
                             .displayOrder(0)

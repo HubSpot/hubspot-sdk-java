@@ -14,16 +14,19 @@ internal class ExternalLinkAvailabilityForDurationTest {
         val externalLinkAvailabilityForDuration =
             ExternalLinkAvailabilityForDuration.builder()
                 .addAvailability(
-                    ExternalMeetingAvailability.builder().endMillisUtc(0).startMillisUtc(0).build()
+                    ExternalMeetingAvailability.builder()
+                        .endMillisUtc(0L)
+                        .startMillisUtc(0L)
+                        .build()
                 )
-                .meetingDurationMillis(0)
+                .meetingDurationMillis(0L)
                 .build()
 
         assertThat(externalLinkAvailabilityForDuration.availabilities())
             .containsExactly(
-                ExternalMeetingAvailability.builder().endMillisUtc(0).startMillisUtc(0).build()
+                ExternalMeetingAvailability.builder().endMillisUtc(0L).startMillisUtc(0L).build()
             )
-        assertThat(externalLinkAvailabilityForDuration.meetingDurationMillis()).isEqualTo(0)
+        assertThat(externalLinkAvailabilityForDuration.meetingDurationMillis()).isEqualTo(0L)
     }
 
     @Test
@@ -32,9 +35,12 @@ internal class ExternalLinkAvailabilityForDurationTest {
         val externalLinkAvailabilityForDuration =
             ExternalLinkAvailabilityForDuration.builder()
                 .addAvailability(
-                    ExternalMeetingAvailability.builder().endMillisUtc(0).startMillisUtc(0).build()
+                    ExternalMeetingAvailability.builder()
+                        .endMillisUtc(0L)
+                        .startMillisUtc(0L)
+                        .build()
                 )
-                .meetingDurationMillis(0)
+                .meetingDurationMillis(0L)
                 .build()
 
         val roundtrippedExternalLinkAvailabilityForDuration =

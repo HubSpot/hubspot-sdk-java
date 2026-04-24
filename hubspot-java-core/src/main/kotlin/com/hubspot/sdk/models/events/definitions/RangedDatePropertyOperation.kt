@@ -22,13 +22,13 @@ class RangedDatePropertyOperation
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val includeObjectsWithNoValueSet: JsonField<Boolean>,
-    private val lowerBoundTimestamp: JsonField<Int>,
+    private val lowerBoundTimestamp: JsonField<Long>,
     private val operationType: JsonField<String>,
     private val operator: JsonField<Operator>,
     private val operatorName: JsonField<String>,
     private val propertyType: JsonField<PropertyType>,
     private val requiresTimeZoneConversion: JsonField<Boolean>,
-    private val upperBoundTimestamp: JsonField<Int>,
+    private val upperBoundTimestamp: JsonField<Long>,
     private val defaultValue: JsonField<String>,
     private val renderSpec: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -41,7 +41,7 @@ private constructor(
         includeObjectsWithNoValueSet: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("lowerBoundTimestamp")
         @ExcludeMissing
-        lowerBoundTimestamp: JsonField<Int> = JsonMissing.of(),
+        lowerBoundTimestamp: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("operationType")
         @ExcludeMissing
         operationType: JsonField<String> = JsonMissing.of(),
@@ -57,7 +57,7 @@ private constructor(
         requiresTimeZoneConversion: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("upperBoundTimestamp")
         @ExcludeMissing
-        upperBoundTimestamp: JsonField<Int> = JsonMissing.of(),
+        upperBoundTimestamp: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("defaultValue")
         @ExcludeMissing
         defaultValue: JsonField<String> = JsonMissing.of(),
@@ -87,7 +87,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun lowerBoundTimestamp(): Int = lowerBoundTimestamp.getRequired("lowerBoundTimestamp")
+    fun lowerBoundTimestamp(): Long = lowerBoundTimestamp.getRequired("lowerBoundTimestamp")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -124,7 +124,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun upperBoundTimestamp(): Int = upperBoundTimestamp.getRequired("upperBoundTimestamp")
+    fun upperBoundTimestamp(): Long = upperBoundTimestamp.getRequired("upperBoundTimestamp")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -156,7 +156,7 @@ private constructor(
      */
     @JsonProperty("lowerBoundTimestamp")
     @ExcludeMissing
-    fun _lowerBoundTimestamp(): JsonField<Int> = lowerBoundTimestamp
+    fun _lowerBoundTimestamp(): JsonField<Long> = lowerBoundTimestamp
 
     /**
      * Returns the raw JSON value of [operationType].
@@ -210,7 +210,7 @@ private constructor(
      */
     @JsonProperty("upperBoundTimestamp")
     @ExcludeMissing
-    fun _upperBoundTimestamp(): JsonField<Int> = upperBoundTimestamp
+    fun _upperBoundTimestamp(): JsonField<Long> = upperBoundTimestamp
 
     /**
      * Returns the raw JSON value of [defaultValue].
@@ -264,13 +264,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var includeObjectsWithNoValueSet: JsonField<Boolean>? = null
-        private var lowerBoundTimestamp: JsonField<Int>? = null
+        private var lowerBoundTimestamp: JsonField<Long>? = null
         private var operationType: JsonField<String>? = null
         private var operator: JsonField<Operator>? = null
         private var operatorName: JsonField<String>? = null
         private var propertyType: JsonField<PropertyType>? = null
         private var requiresTimeZoneConversion: JsonField<Boolean>? = null
-        private var upperBoundTimestamp: JsonField<Int>? = null
+        private var upperBoundTimestamp: JsonField<Long>? = null
         private var defaultValue: JsonField<String> = JsonMissing.of()
         private var renderSpec: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -304,17 +304,17 @@ private constructor(
             this.includeObjectsWithNoValueSet = includeObjectsWithNoValueSet
         }
 
-        fun lowerBoundTimestamp(lowerBoundTimestamp: Int) =
+        fun lowerBoundTimestamp(lowerBoundTimestamp: Long) =
             lowerBoundTimestamp(JsonField.of(lowerBoundTimestamp))
 
         /**
          * Sets [Builder.lowerBoundTimestamp] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.lowerBoundTimestamp] with a well-typed [Int] value
+         * You should usually call [Builder.lowerBoundTimestamp] with a well-typed [Long] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun lowerBoundTimestamp(lowerBoundTimestamp: JsonField<Int>) = apply {
+        fun lowerBoundTimestamp(lowerBoundTimestamp: JsonField<Long>) = apply {
             this.lowerBoundTimestamp = lowerBoundTimestamp
         }
 
@@ -382,17 +382,17 @@ private constructor(
             this.requiresTimeZoneConversion = requiresTimeZoneConversion
         }
 
-        fun upperBoundTimestamp(upperBoundTimestamp: Int) =
+        fun upperBoundTimestamp(upperBoundTimestamp: Long) =
             upperBoundTimestamp(JsonField.of(upperBoundTimestamp))
 
         /**
          * Sets [Builder.upperBoundTimestamp] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.upperBoundTimestamp] with a well-typed [Int] value
+         * You should usually call [Builder.upperBoundTimestamp] with a well-typed [Long] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun upperBoundTimestamp(upperBoundTimestamp: JsonField<Int>) = apply {
+        fun upperBoundTimestamp(upperBoundTimestamp: JsonField<Long>) = apply {
             this.upperBoundTimestamp = upperBoundTimestamp
         }
 

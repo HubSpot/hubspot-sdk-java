@@ -4,7 +4,7 @@ package com.hubspot.sdk.services.blocking.crm
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
 import com.hubspot.sdk.models.OptionInput
-import com.hubspot.sdk.models.crm.properties.PropertyCreate
+import com.hubspot.sdk.models.PropertyCreate
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams
 import com.hubspot.sdk.models.crm.properties.PropertyGetParams
@@ -22,7 +22,7 @@ internal class PropertyServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertyService = client.crm().properties()
 
-        val property =
+        val baseProperty =
             propertyService.create(
                 PropertyCreateParams.builder()
                     .objectType("objectType")
@@ -42,6 +42,7 @@ internal class PropertyServiceTest {
                             .formField(true)
                             .hasUniqueValue(true)
                             .hidden(true)
+                            .numberDisplayHint(PropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -58,7 +59,7 @@ internal class PropertyServiceTest {
                     .build()
             )
 
-        property.validate()
+        baseProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -67,7 +68,7 @@ internal class PropertyServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertyService = client.crm().properties()
 
-        val property =
+        val baseProperty =
             propertyService.update(
                 PropertyUpdateParams.builder()
                     .objectType("objectType")
@@ -83,6 +84,7 @@ internal class PropertyServiceTest {
                             .groupName("groupName")
                             .hidden(true)
                             .label("label")
+                            .numberDisplayHint(PropertyUpdate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(0)
@@ -99,7 +101,7 @@ internal class PropertyServiceTest {
                     .build()
             )
 
-        property.validate()
+        baseProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -142,7 +144,7 @@ internal class PropertyServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertyService = client.crm().properties()
 
-        val property =
+        val baseProperty =
             propertyService.get(
                 PropertyGetParams.builder()
                     .objectType("objectType")
@@ -154,6 +156,6 @@ internal class PropertyServiceTest {
                     .build()
             )
 
-        property.validate()
+        baseProperty.validate()
     }
 }

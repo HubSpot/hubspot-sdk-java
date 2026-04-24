@@ -9,6 +9,12 @@ import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Create a new filter for a webhook subscription in your HubSpot account. This endpoint allows you
+ * to define specific conditions that a webhook event must meet to trigger the subscription. It is
+ * useful for managing and customizing the behavior of webhook subscriptions based on specific
+ * criteria.
+ */
 class WebhookCreateSubscriptionFilterParams
 private constructor(
     private val filterCreateRequest: FilterCreateRequest,

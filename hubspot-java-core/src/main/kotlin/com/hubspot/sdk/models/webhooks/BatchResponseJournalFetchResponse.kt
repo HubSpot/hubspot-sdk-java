@@ -52,36 +52,50 @@ private constructor(
     ) : this(completedAt, results, startedAt, status, links, requestedAt, mutableMapOf())
 
     /**
+     * The date and time when the batch operation was completed, in ISO 8601 format.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun completedAt(): OffsetDateTime = completedAt.getRequired("completedAt")
 
     /**
+     * An array of results from the batch operation, each represented as a JournalFetchResponse
+     * object.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun results(): List<JournalFetchResponse> = results.getRequired("results")
 
     /**
+     * The date and time when the batch operation started, in ISO 8601 format.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun startedAt(): OffsetDateTime = startedAt.getRequired("startedAt")
 
     /**
+     * The current status of the batch operation. Valid values include 'PENDING', 'PROCESSING',
+     * 'CANCELED', and 'COMPLETE'.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
 
     /**
+     * A map of link names to associated URIs related to the batch operation.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun links(): Optional<Links> = links.getOptional("links")
 
     /**
+     * The date and time when the batch operation was requested, in ISO 8601 format.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -190,6 +204,7 @@ private constructor(
                     batchResponseJournalFetchResponse.additionalProperties.toMutableMap()
             }
 
+        /** The date and time when the batch operation was completed, in ISO 8601 format. */
         fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
 
         /**
@@ -203,6 +218,10 @@ private constructor(
             this.completedAt = completedAt
         }
 
+        /**
+         * An array of results from the batch operation, each represented as a JournalFetchResponse
+         * object.
+         */
         fun results(results: List<JournalFetchResponse>) = results(JsonField.of(results))
 
         /**
@@ -228,6 +247,7 @@ private constructor(
                 }
         }
 
+        /** The date and time when the batch operation started, in ISO 8601 format. */
         fun startedAt(startedAt: OffsetDateTime) = startedAt(JsonField.of(startedAt))
 
         /**
@@ -239,6 +259,10 @@ private constructor(
          */
         fun startedAt(startedAt: JsonField<OffsetDateTime>) = apply { this.startedAt = startedAt }
 
+        /**
+         * The current status of the batch operation. Valid values include 'PENDING', 'PROCESSING',
+         * 'CANCELED', and 'COMPLETE'.
+         */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
@@ -249,6 +273,7 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /** A map of link names to associated URIs related to the batch operation. */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -259,6 +284,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
+        /** The date and time when the batch operation was requested, in ISO 8601 format. */
         fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
         /**
@@ -356,6 +382,10 @@ private constructor(
             (links.asKnown().getOrNull()?.validity() ?: 0) +
             (if (requestedAt.asKnown().isPresent) 1 else 0)
 
+    /**
+     * The current status of the batch operation. Valid values include 'PENDING', 'PROCESSING',
+     * 'CANCELED', and 'COMPLETE'.
+     */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -493,6 +523,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A map of link names to associated URIs related to the batch operation. */
     class Links
     @JsonCreator
     private constructor(

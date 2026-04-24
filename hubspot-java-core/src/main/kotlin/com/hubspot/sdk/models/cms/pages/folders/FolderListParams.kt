@@ -42,8 +42,10 @@ private constructor(
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
+    /** Filter folders created after the specified date and time. */
     fun createdAfter(): Optional<OffsetDateTime> = Optional.ofNullable(createdAfter)
 
+    /** Filter folders by their exact creation date and time. */
     fun createdAt(): Optional<OffsetDateTime> = Optional.ofNullable(createdAt)
 
     fun createdBefore(): Optional<OffsetDateTime> = Optional.ofNullable(createdBefore)
@@ -51,6 +53,7 @@ private constructor(
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
+    /** Specify a property to include in the response. */
     fun property(): Optional<String> = Optional.ofNullable(property)
 
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
@@ -133,12 +136,14 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
+        /** Filter folders created after the specified date and time. */
         fun createdAfter(createdAfter: OffsetDateTime?) = apply { this.createdAfter = createdAfter }
 
         /** Alias for calling [Builder.createdAfter] with `createdAfter.orElse(null)`. */
         fun createdAfter(createdAfter: Optional<OffsetDateTime>) =
             createdAfter(createdAfter.getOrNull())
 
+        /** Filter folders by their exact creation date and time. */
         fun createdAt(createdAt: OffsetDateTime?) = apply { this.createdAt = createdAt }
 
         /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
@@ -165,6 +170,7 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
+        /** Specify a property to include in the response. */
         fun property(property: String?) = apply { this.property = property }
 
         /** Alias for calling [Builder.property] with `property.orElse(null)`. */

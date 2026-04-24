@@ -47,7 +47,7 @@ private constructor(
     ) : this(active, eventType, eventTypeName, objectTypeId, propertyName, mutableMapOf())
 
     /**
-     * Determines if the subscription is active or paused. Defaults to false.
+     * A boolean indicating whether the subscription is active.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -55,8 +55,9 @@ private constructor(
     fun active(): Boolean = active.getRequired("active")
 
     /**
-     * Type of event to listen for. Can be one of `create`, `delete`, `deletedForPrivacy`, or
-     * `propertyChange`.
+     * A string representing the type of event to subscribe to. Valid values include various
+     * property changes, creations, deletions, merges, restorations, association changes, and event
+     * completions.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -64,8 +65,7 @@ private constructor(
     fun eventType(): EventType = eventType.getRequired("eventType")
 
     /**
-     * The name of the event to listen for. This is used with custom objects to specify custom event
-     * types beyond the standard eventType enum values.
+     * A string providing a human-readable name for the event type.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -73,8 +73,7 @@ private constructor(
     fun eventTypeName(): Optional<String> = eventTypeName.getOptional("eventTypeName")
 
     /**
-     * The ID of the object type for the subscription. This can be a standard CRM object (e.g.,
-     * 'contact', 'company', 'deal') or a custom object ID for custom object subscriptions.
+     * A string representing the ID of the object type associated with the subscription.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -82,8 +81,7 @@ private constructor(
     fun objectTypeId(): Optional<String> = objectTypeId.getOptional("objectTypeId")
 
     /**
-     * The internal name of the property to monitor for changes. Only applies when `eventType` is
-     * `propertyChange`.
+     * A string indicating the specific property name related to the event type, if applicable.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -177,7 +175,7 @@ private constructor(
             additionalProperties = subscriptionCreateRequest.additionalProperties.toMutableMap()
         }
 
-        /** Determines if the subscription is active or paused. Defaults to false. */
+        /** A boolean indicating whether the subscription is active. */
         fun active(active: Boolean) = active(JsonField.of(active))
 
         /**
@@ -189,8 +187,9 @@ private constructor(
         fun active(active: JsonField<Boolean>) = apply { this.active = active }
 
         /**
-         * Type of event to listen for. Can be one of `create`, `delete`, `deletedForPrivacy`, or
-         * `propertyChange`.
+         * A string representing the type of event to subscribe to. Valid values include various
+         * property changes, creations, deletions, merges, restorations, association changes, and
+         * event completions.
          */
         fun eventType(eventType: EventType) = eventType(JsonField.of(eventType))
 
@@ -203,10 +202,7 @@ private constructor(
          */
         fun eventType(eventType: JsonField<EventType>) = apply { this.eventType = eventType }
 
-        /**
-         * The name of the event to listen for. This is used with custom objects to specify custom
-         * event types beyond the standard eventType enum values.
-         */
+        /** A string providing a human-readable name for the event type. */
         fun eventTypeName(eventTypeName: String) = eventTypeName(JsonField.of(eventTypeName))
 
         /**
@@ -220,10 +216,7 @@ private constructor(
             this.eventTypeName = eventTypeName
         }
 
-        /**
-         * The ID of the object type for the subscription. This can be a standard CRM object (e.g.,
-         * 'contact', 'company', 'deal') or a custom object ID for custom object subscriptions.
-         */
+        /** A string representing the ID of the object type associated with the subscription. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -238,8 +231,7 @@ private constructor(
         }
 
         /**
-         * The internal name of the property to monitor for changes. Only applies when `eventType`
-         * is `propertyChange`.
+         * A string indicating the specific property name related to the event type, if applicable.
          */
         fun propertyName(propertyName: String) = propertyName(JsonField.of(propertyName))
 
@@ -334,8 +326,9 @@ private constructor(
             (if (propertyName.asKnown().isPresent) 1 else 0)
 
     /**
-     * Type of event to listen for. Can be one of `create`, `delete`, `deletedForPrivacy`, or
-     * `propertyChange`.
+     * A string representing the type of event to subscribe to. Valid values include various
+     * property changes, creations, deletions, merges, restorations, association changes, and event
+     * completions.
      */
     class EventType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

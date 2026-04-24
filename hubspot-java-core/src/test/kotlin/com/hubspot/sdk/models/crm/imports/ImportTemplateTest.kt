@@ -13,11 +13,11 @@ internal class ImportTemplateTest {
     fun create() {
         val importTemplate =
             ImportTemplate.builder()
-                .templateId(0)
+                .templateId(0L)
                 .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                 .build()
 
-        assertThat(importTemplate.templateId()).isEqualTo(0)
+        assertThat(importTemplate.templateId()).isEqualTo(0L)
         assertThat(importTemplate.templateType())
             .isEqualTo(ImportTemplate.TemplateType.ADMIN_DEFINED)
     }
@@ -27,7 +27,7 @@ internal class ImportTemplateTest {
         val jsonMapper = jsonMapper()
         val importTemplate =
             ImportTemplate.builder()
-                .templateId(0)
+                .templateId(0L)
                 .templateType(ImportTemplate.TemplateType.ADMIN_DEFINED)
                 .build()
 

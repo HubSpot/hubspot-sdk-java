@@ -18,15 +18,15 @@ import java.util.Objects
 class ExternalClosedRange
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val end: JsonField<Int>,
-    private val start: JsonField<Int>,
+    private val end: JsonField<Long>,
+    private val start: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("end") @ExcludeMissing end: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("start") @ExcludeMissing start: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("end") @ExcludeMissing end: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("start") @ExcludeMissing start: JsonField<Long> = JsonMissing.of(),
     ) : this(end, start, mutableMapOf())
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun end(): Int = end.getRequired("end")
+    fun end(): Long = end.getRequired("end")
 
     /**
      * The start value of the closed range, represented as an integer.
@@ -43,21 +43,21 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun start(): Int = start.getRequired("start")
+    fun start(): Long = start.getRequired("start")
 
     /**
      * Returns the raw JSON value of [end].
      *
      * Unlike [end], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("end") @ExcludeMissing fun _end(): JsonField<Int> = end
+    @JsonProperty("end") @ExcludeMissing fun _end(): JsonField<Long> = end
 
     /**
      * Returns the raw JSON value of [start].
      *
      * Unlike [start], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("start") @ExcludeMissing fun _start(): JsonField<Int> = start
+    @JsonProperty("start") @ExcludeMissing fun _start(): JsonField<Long> = start
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -88,8 +88,8 @@ private constructor(
     /** A builder for [ExternalClosedRange]. */
     class Builder internal constructor() {
 
-        private var end: JsonField<Int>? = null
-        private var start: JsonField<Int>? = null
+        private var end: JsonField<Long>? = null
+        private var start: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -100,26 +100,26 @@ private constructor(
         }
 
         /** The end value of the closed range, represented as an integer. */
-        fun end(end: Int) = end(JsonField.of(end))
+        fun end(end: Long) = end(JsonField.of(end))
 
         /**
          * Sets [Builder.end] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.end] with a well-typed [Int] value instead. This method
+         * You should usually call [Builder.end] with a well-typed [Long] value instead. This method
          * is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun end(end: JsonField<Int>) = apply { this.end = end }
+        fun end(end: JsonField<Long>) = apply { this.end = end }
 
         /** The start value of the closed range, represented as an integer. */
-        fun start(start: Int) = start(JsonField.of(start))
+        fun start(start: Long) = start(JsonField.of(start))
 
         /**
          * Sets [Builder.start] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.start] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.start] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun start(start: JsonField<Int>) = apply { this.start = start }
+        fun start(start: JsonField<Long>) = apply { this.start = start }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

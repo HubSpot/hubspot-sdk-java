@@ -21,8 +21,8 @@ internal class TranscriptResponseTest {
                 .addTranscriptUtterance(
                     TranscriptUtterance.builder()
                         .id("id")
-                        .endTimeMillis(0)
-                        .startTimeMillis(0)
+                        .endTimeMillis(0L)
+                        .startTimeMillis(0L)
                         .text("text")
                         .languageCode("languageCode")
                         .speaker(Speaker.builder().id("id").name("name").email("email").build())
@@ -41,8 +41,8 @@ internal class TranscriptResponseTest {
             .containsExactly(
                 TranscriptUtterance.builder()
                     .id("id")
-                    .endTimeMillis(0)
-                    .startTimeMillis(0)
+                    .endTimeMillis(0L)
+                    .startTimeMillis(0L)
                     .text("text")
                     .languageCode("languageCode")
                     .speaker(Speaker.builder().id("id").name("name").email("email").build())
@@ -64,8 +64,8 @@ internal class TranscriptResponseTest {
                 .addTranscriptUtterance(
                     TranscriptUtterance.builder()
                         .id("id")
-                        .endTimeMillis(0)
-                        .startTimeMillis(0)
+                        .endTimeMillis(0L)
+                        .startTimeMillis(0L)
                         .text("text")
                         .languageCode("languageCode")
                         .speaker(Speaker.builder().id("id").name("name").email("email").build())

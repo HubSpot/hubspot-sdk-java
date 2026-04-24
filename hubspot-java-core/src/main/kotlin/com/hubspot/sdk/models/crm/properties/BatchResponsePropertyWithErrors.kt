@@ -15,8 +15,8 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.StandardError
-import com.hubspot.sdk.models.crm.Property
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -27,7 +27,7 @@ class BatchResponsePropertyWithErrors
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val completedAt: JsonField<OffsetDateTime>,
-    private val results: JsonField<List<Property>>,
+    private val results: JsonField<List<BaseProperty>>,
     private val startedAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val errors: JsonField<List<StandardError>>,
@@ -44,7 +44,7 @@ private constructor(
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("results")
         @ExcludeMissing
-        results: JsonField<List<Property>> = JsonMissing.of(),
+        results: JsonField<List<BaseProperty>> = JsonMissing.of(),
         @JsonProperty("startedAt")
         @ExcludeMissing
         startedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -79,7 +79,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun results(): List<Property> = results.getRequired("results")
+    fun results(): List<BaseProperty> = results.getRequired("results")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -131,7 +131,7 @@ private constructor(
      *
      * Unlike [results], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<Property>> = results
+    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<BaseProperty>> = results
 
     /**
      * Returns the raw JSON value of [startedAt].
@@ -212,7 +212,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var completedAt: JsonField<OffsetDateTime>? = null
-        private var results: JsonField<MutableList<Property>>? = null
+        private var results: JsonField<MutableList<BaseProperty>>? = null
         private var startedAt: JsonField<OffsetDateTime>? = null
         private var status: JsonField<Status>? = null
         private var errors: JsonField<MutableList<StandardError>>? = null
@@ -249,25 +249,25 @@ private constructor(
             this.completedAt = completedAt
         }
 
-        fun results(results: List<Property>) = results(JsonField.of(results))
+        fun results(results: List<BaseProperty>) = results(JsonField.of(results))
 
         /**
          * Sets [Builder.results] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.results] with a well-typed `List<Property>` value
+         * You should usually call [Builder.results] with a well-typed `List<BaseProperty>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun results(results: JsonField<List<Property>>) = apply {
+        fun results(results: JsonField<List<BaseProperty>>) = apply {
             this.results = results.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Property] to [results].
+         * Adds a single [BaseProperty] to [results].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResult(result: Property) = apply {
+        fun addResult(result: BaseProperty) = apply {
             results =
                 (results ?: JsonField.of(mutableListOf())).also {
                     checkKnown("results", it).add(result)

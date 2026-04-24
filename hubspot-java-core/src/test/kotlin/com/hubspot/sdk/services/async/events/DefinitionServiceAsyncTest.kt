@@ -125,7 +125,7 @@ internal class DefinitionServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
-        val propertyFuture =
+        val basePropertyFuture =
             definitionServiceAsync.createProperty(
                 DefinitionCreatePropertyParams.builder()
                     .eventName("eventName")
@@ -149,8 +149,8 @@ internal class DefinitionServiceAsyncTest {
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val baseProperty = basePropertyFuture.get()
+        baseProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -219,7 +219,7 @@ internal class DefinitionServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
-        val propertyFuture =
+        val basePropertyFuture =
             definitionServiceAsync.updateProperty(
                 DefinitionUpdatePropertyParams.builder()
                     .eventName("eventName")
@@ -242,7 +242,7 @@ internal class DefinitionServiceAsyncTest {
                     .build()
             )
 
-        val property = propertyFuture.get()
-        property.validate()
+        val baseProperty = basePropertyFuture.get()
+        baseProperty.validate()
     }
 }

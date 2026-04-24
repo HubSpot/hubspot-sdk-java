@@ -9,6 +9,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve details of a specific filter associated with a webhook subscription in the HubSpot
+ * account. This endpoint is useful for accessing the configuration and conditions of a filter by
+ * its unique identifier.
+ */
 class WebhookGetSubscriptionFilterParams
 private constructor(
     private val filterId: Long?,

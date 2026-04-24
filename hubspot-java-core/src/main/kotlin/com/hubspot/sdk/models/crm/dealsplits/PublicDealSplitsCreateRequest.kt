@@ -21,14 +21,14 @@ import kotlin.jvm.optionals.getOrNull
 class PublicDealSplitsCreateRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val id: JsonField<Int>,
+    private val id: JsonField<Long>,
     private val splits: JsonField<List<PublicDealSplitInput>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing id: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("id") @ExcludeMissing id: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("splits")
         @ExcludeMissing
         splits: JsonField<List<PublicDealSplitInput>> = JsonMissing.of(),
@@ -40,7 +40,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun id(): Int = id.getRequired("id")
+    fun id(): Long = id.getRequired("id")
 
     /**
      * An array of deal split inputs, each containing an owner ID and a percentage of the deal
@@ -56,7 +56,7 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<Int> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<Long> = id
 
     /**
      * Returns the raw JSON value of [splits].
@@ -97,7 +97,7 @@ private constructor(
     /** A builder for [PublicDealSplitsCreateRequest]. */
     class Builder internal constructor() {
 
-        private var id: JsonField<Int>? = null
+        private var id: JsonField<Long>? = null
         private var splits: JsonField<MutableList<PublicDealSplitInput>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -109,15 +109,15 @@ private constructor(
         }
 
         /** The unique identifier for the deal. */
-        fun id(id: Int) = id(JsonField.of(id))
+        fun id(id: Long) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [Int] value instead. This method
+         * You should usually call [Builder.id] with a well-typed [Long] value instead. This method
          * is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun id(id: JsonField<Int>) = apply { this.id = id }
+        fun id(id: JsonField<Long>) = apply { this.id = id }
 
         /**
          * An array of deal split inputs, each containing an owner ID and a percentage of the deal

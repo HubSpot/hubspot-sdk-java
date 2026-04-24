@@ -83,7 +83,7 @@ internal class BatchServiceTest {
                             .channel(PublicStatusRequest.Channel.EMAIL)
                             .statusState(PublicStatusRequest.StatusState.NOT_SPECIFIED)
                             .subscriberIdString("subscriberIdString")
-                            .subscriptionId(0)
+                            .subscriptionId(0L)
                             .legalBasis(PublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                             .legalBasisExplanation("legalBasisExplanation")
                             .build()

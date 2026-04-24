@@ -18,12 +18,12 @@ internal class CustomObjectRecordLimitResponseTest {
                         .objectTypeId("objectTypeId")
                         .pluralLabel("pluralLabel")
                         .singularLabel("singularLabel")
-                        .usage(0)
+                        .usage(0L)
                         .build()
                 )
-                .overallLimit(0)
+                .overallLimit(0L)
                 .overallPercentage(0.0)
-                .overallUsage(0)
+                .overallUsage(0L)
                 .build()
 
         assertThat(customObjectRecordLimitResponse.byObjectType())
@@ -32,12 +32,12 @@ internal class CustomObjectRecordLimitResponseTest {
                     .objectTypeId("objectTypeId")
                     .pluralLabel("pluralLabel")
                     .singularLabel("singularLabel")
-                    .usage(0)
+                    .usage(0L)
                     .build()
             )
-        assertThat(customObjectRecordLimitResponse.overallLimit()).isEqualTo(0)
+        assertThat(customObjectRecordLimitResponse.overallLimit()).isEqualTo(0L)
         assertThat(customObjectRecordLimitResponse.overallPercentage()).isEqualTo(0.0)
-        assertThat(customObjectRecordLimitResponse.overallUsage()).isEqualTo(0)
+        assertThat(customObjectRecordLimitResponse.overallUsage()).isEqualTo(0L)
     }
 
     @Test
@@ -50,12 +50,12 @@ internal class CustomObjectRecordLimitResponseTest {
                         .objectTypeId("objectTypeId")
                         .pluralLabel("pluralLabel")
                         .singularLabel("singularLabel")
-                        .usage(0)
+                        .usage(0L)
                         .build()
                 )
-                .overallLimit(0)
+                .overallLimit(0L)
                 .overallPercentage(0.0)
-                .overallUsage(0)
+                .overallUsage(0L)
                 .build()
 
         val roundtrippedCustomObjectRecordLimitResponse =

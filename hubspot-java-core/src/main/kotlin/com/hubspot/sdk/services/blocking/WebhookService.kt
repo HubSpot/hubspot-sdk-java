@@ -18,6 +18,7 @@ import com.hubspot.sdk.models.webhooks.CrmObjectSnapshotBatchResponse
 import com.hubspot.sdk.models.webhooks.FilterCreateRequest
 import com.hubspot.sdk.models.webhooks.FilterCreateResponse
 import com.hubspot.sdk.models.webhooks.FilterResponse
+import com.hubspot.sdk.models.webhooks.GdprPrivacyDeletionSubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.ListMembershipSubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.ObjectSubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.SettingsResponse
@@ -26,40 +27,41 @@ import com.hubspot.sdk.models.webhooks.SubscriptionListResponse
 import com.hubspot.sdk.models.webhooks.SubscriptionResponse
 import com.hubspot.sdk.models.webhooks.SubscriptionResponse1
 import com.hubspot.sdk.models.webhooks.SubscriptionUpsertRequest
-import com.hubspot.sdk.models.webhooks.WebhookCreateCrmSnapshotParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateBatchEventSubscriptionsParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateCrmSnapshotsParams
+import com.hubspot.sdk.models.webhooks.WebhookCreateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookCreateJournalSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionFilterParams
-import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionParams
-import com.hubspot.sdk.models.webhooks.WebhookCreateSubscriptionsBatchParams
+import com.hubspot.sdk.models.webhooks.WebhookDeleteEventSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookDeleteJournalSubscriptionForPortalParams
 import com.hubspot.sdk.models.webhooks.WebhookDeleteJournalSubscriptionParams
-import com.hubspot.sdk.models.webhooks.WebhookDeletePortalSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookDeleteSettingsParams
 import com.hubspot.sdk.models.webhooks.WebhookDeleteSubscriptionFilterParams
-import com.hubspot.sdk.models.webhooks.WebhookDeleteSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEarliestJournalEntryParams
 import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalParams
-import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEarliestLocalJournalEntryParams
+import com.hubspot.sdk.models.webhooks.WebhookGetEventSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchByRequestParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalBatchFromOffsetParams
 import com.hubspot.sdk.models.webhooks.WebhookGetJournalStatusParams
+import com.hubspot.sdk.models.webhooks.WebhookGetJournalSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLatestJournalEntryParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalBatchParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLatestLocalJournalEntryParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchByRequestParams
+import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalBatchFromOffsetParams
 import com.hubspot.sdk.models.webhooks.WebhookGetLocalJournalStatusParams
-import com.hubspot.sdk.models.webhooks.WebhookGetNextJournalAfterOffsetParams
-import com.hubspot.sdk.models.webhooks.WebhookGetNextLocalJournalAfterOffsetParams
+import com.hubspot.sdk.models.webhooks.WebhookGetNextJournalEntriesParams
+import com.hubspot.sdk.models.webhooks.WebhookGetNextLocalJournalEntriesParams
 import com.hubspot.sdk.models.webhooks.WebhookGetSettingsParams
 import com.hubspot.sdk.models.webhooks.WebhookGetSubscriptionFilterParams
-import com.hubspot.sdk.models.webhooks.WebhookGetSubscriptionFiltersParams
-import com.hubspot.sdk.models.webhooks.WebhookGetSubscriptionParams
+import com.hubspot.sdk.models.webhooks.WebhookListEventSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookListJournalSubscriptionsParams
-import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionsParams
+import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionFiltersParams
+import com.hubspot.sdk.models.webhooks.WebhookUpdateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateSettingsParams
-import com.hubspot.sdk.models.webhooks.WebhookUpdateSubscriptionParams
 import java.util.function.Consumer
 
 interface WebhookService {
@@ -76,33 +78,99 @@ interface WebhookService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookService
 
-    fun createCrmSnapshot(params: WebhookCreateCrmSnapshotParams): CrmObjectSnapshotBatchResponse =
-        createCrmSnapshot(params, RequestOptions.none())
+    /** Batch create event subscriptions for the specified app. */
+    fun createBatchEventSubscriptions(
+        appId: Int,
+        params: WebhookCreateBatchEventSubscriptionsParams,
+    ): BatchResponseSubscriptionResponse =
+        createBatchEventSubscriptions(appId, params, RequestOptions.none())
 
-    /** @see createCrmSnapshot */
-    fun createCrmSnapshot(
-        params: WebhookCreateCrmSnapshotParams,
+    /** @see createBatchEventSubscriptions */
+    fun createBatchEventSubscriptions(
+        appId: Int,
+        params: WebhookCreateBatchEventSubscriptionsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseSubscriptionResponse =
+        createBatchEventSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
+
+    /** @see createBatchEventSubscriptions */
+    fun createBatchEventSubscriptions(
+        params: WebhookCreateBatchEventSubscriptionsParams
+    ): BatchResponseSubscriptionResponse =
+        createBatchEventSubscriptions(params, RequestOptions.none())
+
+    /** @see createBatchEventSubscriptions */
+    fun createBatchEventSubscriptions(
+        params: WebhookCreateBatchEventSubscriptionsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseSubscriptionResponse
+
+    /**
+     * Create a batch of CRM object snapshots for the specified portal. This endpoint allows you to
+     * capture the state of CRM objects at a specific point in time, which can be useful for
+     * auditing or historical analysis. The request requires a list of CRM object snapshot requests,
+     * each specifying the portal ID, object ID, object type ID, and properties to include in the
+     * snapshot.
+     */
+    fun createCrmSnapshots(
+        params: WebhookCreateCrmSnapshotsParams
+    ): CrmObjectSnapshotBatchResponse = createCrmSnapshots(params, RequestOptions.none())
+
+    /** @see createCrmSnapshots */
+    fun createCrmSnapshots(
+        params: WebhookCreateCrmSnapshotsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CrmObjectSnapshotBatchResponse
 
-    /** @see createCrmSnapshot */
-    fun createCrmSnapshot(
+    /** @see createCrmSnapshots */
+    fun createCrmSnapshots(
         crmObjectSnapshotBatchRequest: CrmObjectSnapshotBatchRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CrmObjectSnapshotBatchResponse =
-        createCrmSnapshot(
-            WebhookCreateCrmSnapshotParams.builder()
+        createCrmSnapshots(
+            WebhookCreateCrmSnapshotsParams.builder()
                 .crmObjectSnapshotBatchRequest(crmObjectSnapshotBatchRequest)
                 .build(),
             requestOptions,
         )
 
-    /** @see createCrmSnapshot */
-    fun createCrmSnapshot(
+    /** @see createCrmSnapshots */
+    fun createCrmSnapshots(
         crmObjectSnapshotBatchRequest: CrmObjectSnapshotBatchRequest
     ): CrmObjectSnapshotBatchResponse =
-        createCrmSnapshot(crmObjectSnapshotBatchRequest, RequestOptions.none())
+        createCrmSnapshots(crmObjectSnapshotBatchRequest, RequestOptions.none())
 
+    /** Create new event subscription for the specified app. */
+    fun createEventSubscription(
+        appId: Int,
+        params: WebhookCreateEventSubscriptionParams,
+    ): SubscriptionResponse = createEventSubscription(appId, params, RequestOptions.none())
+
+    /** @see createEventSubscription */
+    fun createEventSubscription(
+        appId: Int,
+        params: WebhookCreateEventSubscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse =
+        createEventSubscription(params.toBuilder().appId(appId).build(), requestOptions)
+
+    /** @see createEventSubscription */
+    fun createEventSubscription(
+        params: WebhookCreateEventSubscriptionParams
+    ): SubscriptionResponse = createEventSubscription(params, RequestOptions.none())
+
+    /** @see createEventSubscription */
+    fun createEventSubscription(
+        params: WebhookCreateEventSubscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse
+
+    /**
+     * Create a new webhook subscription for the specified portal in the HubSpot account. This
+     * endpoint allows you to define the subscription details, including the types of events you
+     * want to subscribe to. The request body must include the necessary subscription information as
+     * defined by the SubscriptionUpsertRequest schema.
+     */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams
     ): SubscriptionResponse1 = createJournalSubscription(params, RequestOptions.none())
@@ -194,30 +262,27 @@ interface WebhookService {
         listMembership: ListMembershipSubscriptionUpsertRequest
     ): SubscriptionResponse1 = createJournalSubscription(listMembership, RequestOptions.none())
 
-    /** Create new event subscription for the specified app. */
-    fun createSubscription(
-        appId: Int,
-        params: WebhookCreateSubscriptionParams,
-    ): SubscriptionResponse = createSubscription(appId, params, RequestOptions.none())
-
-    /** @see createSubscription */
-    fun createSubscription(
-        appId: Int,
-        params: WebhookCreateSubscriptionParams,
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
-        createSubscription(params.toBuilder().appId(appId).build(), requestOptions)
+    ): SubscriptionResponse1 =
+        createJournalSubscription(
+            SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
+            requestOptions,
+        )
 
-    /** @see createSubscription */
-    fun createSubscription(params: WebhookCreateSubscriptionParams): SubscriptionResponse =
-        createSubscription(params, RequestOptions.none())
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
+    ): SubscriptionResponse1 = createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
-    /** @see createSubscription */
-    fun createSubscription(
-        params: WebhookCreateSubscriptionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse
-
+    /**
+     * Create a new filter for a webhook subscription in your HubSpot account. This endpoint allows
+     * you to define specific conditions that a webhook event must meet to trigger the subscription.
+     * It is useful for managing and customizing the behavior of webhook subscriptions based on
+     * specific criteria.
+     */
     fun createSubscriptionFilter(
         params: WebhookCreateSubscriptionFilterParams
     ): FilterCreateResponse = createSubscriptionFilter(params, RequestOptions.none())
@@ -244,32 +309,35 @@ interface WebhookService {
     fun createSubscriptionFilter(filterCreateRequest: FilterCreateRequest): FilterCreateResponse =
         createSubscriptionFilter(filterCreateRequest, RequestOptions.none())
 
-    /** Batch create event subscriptions for the specified app. */
-    fun createSubscriptionsBatch(
-        appId: Int,
-        params: WebhookCreateSubscriptionsBatchParams,
-    ): BatchResponseSubscriptionResponse =
-        createSubscriptionsBatch(appId, params, RequestOptions.none())
+    /** Delete an existing event subscription by ID. */
+    fun deleteEventSubscription(subscriptionId: Int, params: WebhookDeleteEventSubscriptionParams) =
+        deleteEventSubscription(subscriptionId, params, RequestOptions.none())
 
-    /** @see createSubscriptionsBatch */
-    fun createSubscriptionsBatch(
-        appId: Int,
-        params: WebhookCreateSubscriptionsBatchParams,
+    /** @see deleteEventSubscription */
+    fun deleteEventSubscription(
+        subscriptionId: Int,
+        params: WebhookDeleteEventSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSubscriptionResponse =
-        createSubscriptionsBatch(params.toBuilder().appId(appId).build(), requestOptions)
+    ) =
+        deleteEventSubscription(
+            params.toBuilder().subscriptionId(subscriptionId).build(),
+            requestOptions,
+        )
 
-    /** @see createSubscriptionsBatch */
-    fun createSubscriptionsBatch(
-        params: WebhookCreateSubscriptionsBatchParams
-    ): BatchResponseSubscriptionResponse = createSubscriptionsBatch(params, RequestOptions.none())
+    /** @see deleteEventSubscription */
+    fun deleteEventSubscription(params: WebhookDeleteEventSubscriptionParams) =
+        deleteEventSubscription(params, RequestOptions.none())
 
-    /** @see createSubscriptionsBatch */
-    fun createSubscriptionsBatch(
-        params: WebhookCreateSubscriptionsBatchParams,
+    /** @see deleteEventSubscription */
+    fun deleteEventSubscription(
+        params: WebhookDeleteEventSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSubscriptionResponse
+    )
 
+    /**
+     * Delete a specific webhook journal subscription using its unique identifier. This operation is
+     * useful for managing and cleaning up subscriptions that are no longer needed or relevant.
+     */
     fun deleteJournalSubscription(subscriptionId: Long) =
         deleteJournalSubscription(subscriptionId, WebhookDeleteJournalSubscriptionParams.none())
 
@@ -310,39 +378,52 @@ interface WebhookService {
             requestOptions,
         )
 
-    fun deletePortalSubscriptions(portalId: Long) =
-        deletePortalSubscriptions(portalId, WebhookDeletePortalSubscriptionsParams.none())
+    /**
+     * Delete a webhook journal subscription for a specific portal. This operation removes the
+     * subscription associated with the given portalId, and no content is returned upon successful
+     * deletion.
+     */
+    fun deleteJournalSubscriptionForPortal(portalId: Long) =
+        deleteJournalSubscriptionForPortal(
+            portalId,
+            WebhookDeleteJournalSubscriptionForPortalParams.none(),
+        )
 
-    /** @see deletePortalSubscriptions */
-    fun deletePortalSubscriptions(
+    /** @see deleteJournalSubscriptionForPortal */
+    fun deleteJournalSubscriptionForPortal(
         portalId: Long,
-        params: WebhookDeletePortalSubscriptionsParams =
-            WebhookDeletePortalSubscriptionsParams.none(),
+        params: WebhookDeleteJournalSubscriptionForPortalParams =
+            WebhookDeleteJournalSubscriptionForPortalParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = deletePortalSubscriptions(params.toBuilder().portalId(portalId).build(), requestOptions)
+    ) =
+        deleteJournalSubscriptionForPortal(
+            params.toBuilder().portalId(portalId).build(),
+            requestOptions,
+        )
 
-    /** @see deletePortalSubscriptions */
-    fun deletePortalSubscriptions(
+    /** @see deleteJournalSubscriptionForPortal */
+    fun deleteJournalSubscriptionForPortal(
         portalId: Long,
-        params: WebhookDeletePortalSubscriptionsParams =
-            WebhookDeletePortalSubscriptionsParams.none(),
-    ) = deletePortalSubscriptions(portalId, params, RequestOptions.none())
+        params: WebhookDeleteJournalSubscriptionForPortalParams =
+            WebhookDeleteJournalSubscriptionForPortalParams.none(),
+    ) = deleteJournalSubscriptionForPortal(portalId, params, RequestOptions.none())
 
-    /** @see deletePortalSubscriptions */
-    fun deletePortalSubscriptions(
-        params: WebhookDeletePortalSubscriptionsParams,
+    /** @see deleteJournalSubscriptionForPortal */
+    fun deleteJournalSubscriptionForPortal(
+        params: WebhookDeleteJournalSubscriptionForPortalParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see deletePortalSubscriptions */
-    fun deletePortalSubscriptions(params: WebhookDeletePortalSubscriptionsParams) =
-        deletePortalSubscriptions(params, RequestOptions.none())
+    /** @see deleteJournalSubscriptionForPortal */
+    fun deleteJournalSubscriptionForPortal(
+        params: WebhookDeleteJournalSubscriptionForPortalParams
+    ) = deleteJournalSubscriptionForPortal(params, RequestOptions.none())
 
-    /** @see deletePortalSubscriptions */
-    fun deletePortalSubscriptions(portalId: Long, requestOptions: RequestOptions) =
-        deletePortalSubscriptions(
+    /** @see deleteJournalSubscriptionForPortal */
+    fun deleteJournalSubscriptionForPortal(portalId: Long, requestOptions: RequestOptions) =
+        deleteJournalSubscriptionForPortal(
             portalId,
-            WebhookDeletePortalSubscriptionsParams.none(),
+            WebhookDeleteJournalSubscriptionForPortalParams.none(),
             requestOptions,
         )
 
@@ -379,31 +460,11 @@ interface WebhookService {
     fun deleteSettings(appId: Int, requestOptions: RequestOptions) =
         deleteSettings(appId, WebhookDeleteSettingsParams.none(), requestOptions)
 
-    /** Delete an existing event subscription by ID. */
-    fun deleteSubscription(subscriptionId: Int, params: WebhookDeleteSubscriptionParams) =
-        deleteSubscription(subscriptionId, params, RequestOptions.none())
-
-    /** @see deleteSubscription */
-    fun deleteSubscription(
-        subscriptionId: Int,
-        params: WebhookDeleteSubscriptionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        deleteSubscription(
-            params.toBuilder().subscriptionId(subscriptionId).build(),
-            requestOptions,
-        )
-
-    /** @see deleteSubscription */
-    fun deleteSubscription(params: WebhookDeleteSubscriptionParams) =
-        deleteSubscription(params, RequestOptions.none())
-
-    /** @see deleteSubscription */
-    fun deleteSubscription(
-        params: WebhookDeleteSubscriptionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
+    /**
+     * Delete a specific filter associated with a webhook journal subscription. This operation is
+     * useful for managing and cleaning up filters that are no longer needed in your subscription
+     * setup. The endpoint requires the unique identifier of the filter to be deleted.
+     */
     fun deleteSubscriptionFilter(filterId: Long) =
         deleteSubscriptionFilter(filterId, WebhookDeleteSubscriptionFilterParams.none())
 
@@ -439,28 +500,11 @@ interface WebhookService {
             requestOptions,
         )
 
-    @MustBeClosed
-    fun getEarliestJournal(): HttpResponse =
-        getEarliestJournal(WebhookGetEarliestJournalParams.none())
-
-    /** @see getEarliestJournal */
-    @MustBeClosed
-    fun getEarliestJournal(
-        params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see getEarliestJournal */
-    @MustBeClosed
-    fun getEarliestJournal(
-        params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none()
-    ): HttpResponse = getEarliestJournal(params, RequestOptions.none())
-
-    /** @see getEarliestJournal */
-    @MustBeClosed
-    fun getEarliestJournal(requestOptions: RequestOptions): HttpResponse =
-        getEarliestJournal(WebhookGetEarliestJournalParams.none(), requestOptions)
-
+    /**
+     * Retrieve the earliest batch of webhook journal entries up to the specified count. This
+     * endpoint is useful for fetching historical webhook data in batches, allowing you to process
+     * or analyze the earliest entries first.
+     */
     fun getEarliestJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getEarliestJournalBatch(count, WebhookGetEarliestJournalBatchParams.none())
 
@@ -497,28 +541,38 @@ interface WebhookService {
     ): BatchResponseJournalFetchResponse =
         getEarliestJournalBatch(count, WebhookGetEarliestJournalBatchParams.none(), requestOptions)
 
+    /**
+     * Retrieve the earliest entry from the webhooks journal for the specified version. This
+     * endpoint is useful for accessing the oldest records available in the journal, which can be
+     * helpful for auditing or historical data analysis.
+     */
     @MustBeClosed
-    fun getEarliestLocalJournal(): HttpResponse =
-        getEarliestLocalJournal(WebhookGetEarliestLocalJournalParams.none())
+    fun getEarliestJournalEntry(): HttpResponse =
+        getEarliestJournalEntry(WebhookGetEarliestJournalEntryParams.none())
 
-    /** @see getEarliestLocalJournal */
+    /** @see getEarliestJournalEntry */
     @MustBeClosed
-    fun getEarliestLocalJournal(
-        params: WebhookGetEarliestLocalJournalParams = WebhookGetEarliestLocalJournalParams.none(),
+    fun getEarliestJournalEntry(
+        params: WebhookGetEarliestJournalEntryParams = WebhookGetEarliestJournalEntryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getEarliestLocalJournal */
+    /** @see getEarliestJournalEntry */
     @MustBeClosed
-    fun getEarliestLocalJournal(
-        params: WebhookGetEarliestLocalJournalParams = WebhookGetEarliestLocalJournalParams.none()
-    ): HttpResponse = getEarliestLocalJournal(params, RequestOptions.none())
+    fun getEarliestJournalEntry(
+        params: WebhookGetEarliestJournalEntryParams = WebhookGetEarliestJournalEntryParams.none()
+    ): HttpResponse = getEarliestJournalEntry(params, RequestOptions.none())
 
-    /** @see getEarliestLocalJournal */
+    /** @see getEarliestJournalEntry */
     @MustBeClosed
-    fun getEarliestLocalJournal(requestOptions: RequestOptions): HttpResponse =
-        getEarliestLocalJournal(WebhookGetEarliestLocalJournalParams.none(), requestOptions)
+    fun getEarliestJournalEntry(requestOptions: RequestOptions): HttpResponse =
+        getEarliestJournalEntry(WebhookGetEarliestJournalEntryParams.none(), requestOptions)
 
+    /**
+     * Retrieve the earliest batch of webhook journal entries based on the specified count. This
+     * endpoint is useful for fetching a specific number of the earliest entries in the webhook
+     * journal for analysis or processing.
+     */
     fun getEarliestLocalJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getEarliestLocalJournalBatch(count, WebhookGetEarliestLocalJournalBatchParams.none())
 
@@ -562,54 +616,133 @@ interface WebhookService {
             requestOptions,
         )
 
-    fun getJournalBatch(params: WebhookGetJournalBatchParams): BatchResponseJournalFetchResponse =
-        getJournalBatch(params, RequestOptions.none())
+    /**
+     * Retrieve the earliest entry from the webhooks journal for the specified portal. This endpoint
+     * is useful for accessing the oldest records in the journal, which can be helpful for auditing
+     * or tracking purposes.
+     */
+    @MustBeClosed
+    fun getEarliestLocalJournalEntry(): HttpResponse =
+        getEarliestLocalJournalEntry(WebhookGetEarliestLocalJournalEntryParams.none())
 
-    /** @see getJournalBatch */
-    fun getJournalBatch(
-        params: WebhookGetJournalBatchParams,
+    /** @see getEarliestLocalJournalEntry */
+    @MustBeClosed
+    fun getEarliestLocalJournalEntry(
+        params: WebhookGetEarliestLocalJournalEntryParams =
+            WebhookGetEarliestLocalJournalEntryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseJournalFetchResponse
+    ): HttpResponse
 
-    /** @see getJournalBatch */
-    fun getJournalBatch(
-        batchInputString: BatchInputString,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseJournalFetchResponse =
-        getJournalBatch(
-            WebhookGetJournalBatchParams.builder().batchInputString(batchInputString).build(),
+    /** @see getEarliestLocalJournalEntry */
+    @MustBeClosed
+    fun getEarliestLocalJournalEntry(
+        params: WebhookGetEarliestLocalJournalEntryParams =
+            WebhookGetEarliestLocalJournalEntryParams.none()
+    ): HttpResponse = getEarliestLocalJournalEntry(params, RequestOptions.none())
+
+    /** @see getEarliestLocalJournalEntry */
+    @MustBeClosed
+    fun getEarliestLocalJournalEntry(requestOptions: RequestOptions): HttpResponse =
+        getEarliestLocalJournalEntry(
+            WebhookGetEarliestLocalJournalEntryParams.none(),
             requestOptions,
         )
 
-    /** @see getJournalBatch */
-    fun getJournalBatch(batchInputString: BatchInputString): BatchResponseJournalFetchResponse =
-        getJournalBatch(batchInputString, RequestOptions.none())
+    /** Retrieve a specific event subscription by ID. */
+    fun getEventSubscription(
+        subscriptionId: Int,
+        params: WebhookGetEventSubscriptionParams,
+    ): SubscriptionResponse = getEventSubscription(subscriptionId, params, RequestOptions.none())
 
-    fun getJournalBatchAfterOffset(
-        count: Int,
-        params: WebhookGetJournalBatchAfterOffsetParams,
-    ): BatchResponseJournalFetchResponse =
-        getJournalBatchAfterOffset(count, params, RequestOptions.none())
-
-    /** @see getJournalBatchAfterOffset */
-    fun getJournalBatchAfterOffset(
-        count: Int,
-        params: WebhookGetJournalBatchAfterOffsetParams,
+    /** @see getEventSubscription */
+    fun getEventSubscription(
+        subscriptionId: Int,
+        params: WebhookGetEventSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseJournalFetchResponse =
-        getJournalBatchAfterOffset(params.toBuilder().count(count).build(), requestOptions)
+    ): SubscriptionResponse =
+        getEventSubscription(
+            params.toBuilder().subscriptionId(subscriptionId).build(),
+            requestOptions,
+        )
 
-    /** @see getJournalBatchAfterOffset */
-    fun getJournalBatchAfterOffset(
-        params: WebhookGetJournalBatchAfterOffsetParams
-    ): BatchResponseJournalFetchResponse = getJournalBatchAfterOffset(params, RequestOptions.none())
+    /** @see getEventSubscription */
+    fun getEventSubscription(params: WebhookGetEventSubscriptionParams): SubscriptionResponse =
+        getEventSubscription(params, RequestOptions.none())
 
-    /** @see getJournalBatchAfterOffset */
-    fun getJournalBatchAfterOffset(
-        params: WebhookGetJournalBatchAfterOffsetParams,
+    /** @see getEventSubscription */
+    fun getEventSubscription(
+        params: WebhookGetEventSubscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse
+
+    /**
+     * Perform a batch read operation on the webhooks journal for the specified date. This endpoint
+     * allows you to retrieve multiple entries from the webhooks journal in a single request, which
+     * can be useful for processing large amounts of data efficiently.
+     */
+    fun getJournalBatchByRequest(
+        params: WebhookGetJournalBatchByRequestParams
+    ): BatchResponseJournalFetchResponse = getJournalBatchByRequest(params, RequestOptions.none())
+
+    /** @see getJournalBatchByRequest */
+    fun getJournalBatchByRequest(
+        params: WebhookGetJournalBatchByRequestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseJournalFetchResponse
 
+    /** @see getJournalBatchByRequest */
+    fun getJournalBatchByRequest(
+        batchInputString: BatchInputString,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseJournalFetchResponse =
+        getJournalBatchByRequest(
+            WebhookGetJournalBatchByRequestParams.builder()
+                .batchInputString(batchInputString)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see getJournalBatchByRequest */
+    fun getJournalBatchByRequest(
+        batchInputString: BatchInputString
+    ): BatchResponseJournalFetchResponse =
+        getJournalBatchByRequest(batchInputString, RequestOptions.none())
+
+    /**
+     * Retrieve a batch of webhook journal entries starting from a specified offset. This endpoint
+     * allows you to fetch a specified number of entries, making it useful for paginating through
+     * large sets of webhook journal data.
+     */
+    fun getJournalBatchFromOffset(
+        count: Int,
+        params: WebhookGetJournalBatchFromOffsetParams,
+    ): BatchResponseJournalFetchResponse =
+        getJournalBatchFromOffset(count, params, RequestOptions.none())
+
+    /** @see getJournalBatchFromOffset */
+    fun getJournalBatchFromOffset(
+        count: Int,
+        params: WebhookGetJournalBatchFromOffsetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseJournalFetchResponse =
+        getJournalBatchFromOffset(params.toBuilder().count(count).build(), requestOptions)
+
+    /** @see getJournalBatchFromOffset */
+    fun getJournalBatchFromOffset(
+        params: WebhookGetJournalBatchFromOffsetParams
+    ): BatchResponseJournalFetchResponse = getJournalBatchFromOffset(params, RequestOptions.none())
+
+    /** @see getJournalBatchFromOffset */
+    fun getJournalBatchFromOffset(
+        params: WebhookGetJournalBatchFromOffsetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseJournalFetchResponse
+
+    /**
+     * Retrieve the status of a specific webhook journal entry using its status ID. This endpoint is
+     * useful for checking the current state of a webhook process, such as whether it is pending, in
+     * progress, completed, failed, or expired.
+     */
     fun getJournalStatus(statusId: String): SnapshotStatusResponse =
         getJournalStatus(statusId, WebhookGetJournalStatusParams.none())
 
@@ -641,27 +774,57 @@ interface WebhookService {
     fun getJournalStatus(statusId: String, requestOptions: RequestOptions): SnapshotStatusResponse =
         getJournalStatus(statusId, WebhookGetJournalStatusParams.none(), requestOptions)
 
-    @MustBeClosed
-    fun getLatestJournal(): HttpResponse = getLatestJournal(WebhookGetLatestJournalParams.none())
+    /**
+     * Retrieve details of a specific webhook subscription using its unique identifier. This
+     * endpoint is useful for obtaining information about a particular subscription's configuration
+     * and status within the HubSpot account.
+     */
+    fun getJournalSubscription(subscriptionId: Long): SubscriptionResponse1 =
+        getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
-    /** @see getLatestJournal */
-    @MustBeClosed
-    fun getLatestJournal(
-        params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none(),
+    /** @see getJournalSubscription */
+    fun getJournalSubscription(
+        subscriptionId: Long,
+        params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
+    ): SubscriptionResponse1 =
+        getJournalSubscription(
+            params.toBuilder().subscriptionId(subscriptionId).build(),
+            requestOptions,
+        )
 
-    /** @see getLatestJournal */
-    @MustBeClosed
-    fun getLatestJournal(
-        params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none()
-    ): HttpResponse = getLatestJournal(params, RequestOptions.none())
+    /** @see getJournalSubscription */
+    fun getJournalSubscription(
+        subscriptionId: Long,
+        params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
+    ): SubscriptionResponse1 = getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
-    /** @see getLatestJournal */
-    @MustBeClosed
-    fun getLatestJournal(requestOptions: RequestOptions): HttpResponse =
-        getLatestJournal(WebhookGetLatestJournalParams.none(), requestOptions)
+    /** @see getJournalSubscription */
+    fun getJournalSubscription(
+        params: WebhookGetJournalSubscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse1
 
+    /** @see getJournalSubscription */
+    fun getJournalSubscription(params: WebhookGetJournalSubscriptionParams): SubscriptionResponse1 =
+        getJournalSubscription(params, RequestOptions.none())
+
+    /** @see getJournalSubscription */
+    fun getJournalSubscription(
+        subscriptionId: Long,
+        requestOptions: RequestOptions,
+    ): SubscriptionResponse1 =
+        getJournalSubscription(
+            subscriptionId,
+            WebhookGetJournalSubscriptionParams.none(),
+            requestOptions,
+        )
+
+    /**
+     * Retrieve the latest batch of webhook journal entries. This endpoint allows you to specify the
+     * number of entries to fetch, providing a way to access recent webhook activity within your
+     * HubSpot account.
+     */
     fun getLatestJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getLatestJournalBatch(count, WebhookGetLatestJournalBatchParams.none())
 
@@ -698,28 +861,39 @@ interface WebhookService {
     ): BatchResponseJournalFetchResponse =
         getLatestJournalBatch(count, WebhookGetLatestJournalBatchParams.none(), requestOptions)
 
+    /**
+     * Retrieve the latest entries from the webhooks journal for the specified portal. This endpoint
+     * is useful for accessing the most recent webhook events processed by your HubSpot account. It
+     * allows you to filter the results by the portal ID to ensure you are retrieving data relevant
+     * to a specific installation.
+     */
     @MustBeClosed
-    fun getLatestLocalJournal(): HttpResponse =
-        getLatestLocalJournal(WebhookGetLatestLocalJournalParams.none())
+    fun getLatestJournalEntry(): HttpResponse =
+        getLatestJournalEntry(WebhookGetLatestJournalEntryParams.none())
 
-    /** @see getLatestLocalJournal */
+    /** @see getLatestJournalEntry */
     @MustBeClosed
-    fun getLatestLocalJournal(
-        params: WebhookGetLatestLocalJournalParams = WebhookGetLatestLocalJournalParams.none(),
+    fun getLatestJournalEntry(
+        params: WebhookGetLatestJournalEntryParams = WebhookGetLatestJournalEntryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getLatestLocalJournal */
+    /** @see getLatestJournalEntry */
     @MustBeClosed
-    fun getLatestLocalJournal(
-        params: WebhookGetLatestLocalJournalParams = WebhookGetLatestLocalJournalParams.none()
-    ): HttpResponse = getLatestLocalJournal(params, RequestOptions.none())
+    fun getLatestJournalEntry(
+        params: WebhookGetLatestJournalEntryParams = WebhookGetLatestJournalEntryParams.none()
+    ): HttpResponse = getLatestJournalEntry(params, RequestOptions.none())
 
-    /** @see getLatestLocalJournal */
+    /** @see getLatestJournalEntry */
     @MustBeClosed
-    fun getLatestLocalJournal(requestOptions: RequestOptions): HttpResponse =
-        getLatestLocalJournal(WebhookGetLatestLocalJournalParams.none(), requestOptions)
+    fun getLatestJournalEntry(requestOptions: RequestOptions): HttpResponse =
+        getLatestJournalEntry(WebhookGetLatestJournalEntryParams.none(), requestOptions)
 
+    /**
+     * Retrieve the latest batch of webhook journal entries. This endpoint is useful for accessing
+     * the most recent data entries processed by the webhook journal. It requires specifying the
+     * number of entries to retrieve.
+     */
     fun getLatestLocalJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getLatestLocalJournalBatch(count, WebhookGetLatestLocalJournalBatchParams.none())
 
@@ -762,58 +936,105 @@ interface WebhookService {
             requestOptions,
         )
 
-    fun getLocalJournalBatch(
-        params: WebhookGetLocalJournalBatchParams
-    ): BatchResponseJournalFetchResponse = getLocalJournalBatch(params, RequestOptions.none())
+    /**
+     * Retrieve the latest entries from the webhooks journal for the specified portal. This endpoint
+     * is useful for accessing the most recent webhook events that have been logged, allowing you to
+     * process or analyze them as needed.
+     */
+    @MustBeClosed
+    fun getLatestLocalJournalEntry(): HttpResponse =
+        getLatestLocalJournalEntry(WebhookGetLatestLocalJournalEntryParams.none())
 
-    /** @see getLocalJournalBatch */
-    fun getLocalJournalBatch(
-        params: WebhookGetLocalJournalBatchParams,
+    /** @see getLatestLocalJournalEntry */
+    @MustBeClosed
+    fun getLatestLocalJournalEntry(
+        params: WebhookGetLatestLocalJournalEntryParams =
+            WebhookGetLatestLocalJournalEntryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see getLatestLocalJournalEntry */
+    @MustBeClosed
+    fun getLatestLocalJournalEntry(
+        params: WebhookGetLatestLocalJournalEntryParams =
+            WebhookGetLatestLocalJournalEntryParams.none()
+    ): HttpResponse = getLatestLocalJournalEntry(params, RequestOptions.none())
+
+    /** @see getLatestLocalJournalEntry */
+    @MustBeClosed
+    fun getLatestLocalJournalEntry(requestOptions: RequestOptions): HttpResponse =
+        getLatestLocalJournalEntry(WebhookGetLatestLocalJournalEntryParams.none(), requestOptions)
+
+    /**
+     * Perform a batch read operation on the webhooks journal. This endpoint allows you to read
+     * multiple entries from the journal in a single request. It requires a JSON request body
+     * specifying the inputs to be read. The response includes the results of the batch read
+     * operation, and may return multiple statuses if there are errors.
+     */
+    fun getLocalJournalBatchByRequest(
+        params: WebhookGetLocalJournalBatchByRequestParams
+    ): BatchResponseJournalFetchResponse =
+        getLocalJournalBatchByRequest(params, RequestOptions.none())
+
+    /** @see getLocalJournalBatchByRequest */
+    fun getLocalJournalBatchByRequest(
+        params: WebhookGetLocalJournalBatchByRequestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseJournalFetchResponse
 
-    /** @see getLocalJournalBatch */
-    fun getLocalJournalBatch(
+    /** @see getLocalJournalBatchByRequest */
+    fun getLocalJournalBatchByRequest(
         batchInputString: BatchInputString,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseJournalFetchResponse =
-        getLocalJournalBatch(
-            WebhookGetLocalJournalBatchParams.builder().batchInputString(batchInputString).build(),
+        getLocalJournalBatchByRequest(
+            WebhookGetLocalJournalBatchByRequestParams.builder()
+                .batchInputString(batchInputString)
+                .build(),
             requestOptions,
         )
 
-    /** @see getLocalJournalBatch */
-    fun getLocalJournalBatch(
+    /** @see getLocalJournalBatchByRequest */
+    fun getLocalJournalBatchByRequest(
         batchInputString: BatchInputString
     ): BatchResponseJournalFetchResponse =
-        getLocalJournalBatch(batchInputString, RequestOptions.none())
+        getLocalJournalBatchByRequest(batchInputString, RequestOptions.none())
 
-    fun getLocalJournalBatchAfterOffset(
+    /**
+     * Retrieve a batch of webhook journal entries starting from a specified offset. This endpoint
+     * allows you to fetch a defined number of entries, facilitating the processing of webhook data
+     * in manageable chunks.
+     */
+    fun getLocalJournalBatchFromOffset(
         count: Int,
-        params: WebhookGetLocalJournalBatchAfterOffsetParams,
+        params: WebhookGetLocalJournalBatchFromOffsetParams,
     ): BatchResponseJournalFetchResponse =
-        getLocalJournalBatchAfterOffset(count, params, RequestOptions.none())
+        getLocalJournalBatchFromOffset(count, params, RequestOptions.none())
 
-    /** @see getLocalJournalBatchAfterOffset */
-    fun getLocalJournalBatchAfterOffset(
+    /** @see getLocalJournalBatchFromOffset */
+    fun getLocalJournalBatchFromOffset(
         count: Int,
-        params: WebhookGetLocalJournalBatchAfterOffsetParams,
+        params: WebhookGetLocalJournalBatchFromOffsetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseJournalFetchResponse =
-        getLocalJournalBatchAfterOffset(params.toBuilder().count(count).build(), requestOptions)
+        getLocalJournalBatchFromOffset(params.toBuilder().count(count).build(), requestOptions)
 
-    /** @see getLocalJournalBatchAfterOffset */
-    fun getLocalJournalBatchAfterOffset(
-        params: WebhookGetLocalJournalBatchAfterOffsetParams
+    /** @see getLocalJournalBatchFromOffset */
+    fun getLocalJournalBatchFromOffset(
+        params: WebhookGetLocalJournalBatchFromOffsetParams
     ): BatchResponseJournalFetchResponse =
-        getLocalJournalBatchAfterOffset(params, RequestOptions.none())
+        getLocalJournalBatchFromOffset(params, RequestOptions.none())
 
-    /** @see getLocalJournalBatchAfterOffset */
-    fun getLocalJournalBatchAfterOffset(
-        params: WebhookGetLocalJournalBatchAfterOffsetParams,
+    /** @see getLocalJournalBatchFromOffset */
+    fun getLocalJournalBatchFromOffset(
+        params: WebhookGetLocalJournalBatchFromOffsetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseJournalFetchResponse
 
+    /**
+     * Retrieve the status of a specific webhook journal entry using its unique status ID. This
+     * endpoint is useful for monitoring the progress or completion of webhook processing tasks.
+     */
     fun getLocalJournalStatus(statusId: String): SnapshotStatusResponse =
         getLocalJournalStatus(statusId, WebhookGetLocalJournalStatusParams.none())
 
@@ -848,93 +1069,93 @@ interface WebhookService {
     ): SnapshotStatusResponse =
         getLocalJournalStatus(statusId, WebhookGetLocalJournalStatusParams.none(), requestOptions)
 
+    /**
+     * Retrieve the next batch of webhook journal entries starting from a specified offset. This
+     * endpoint is useful for paginating through large sets of webhook data, allowing you to
+     * continue fetching entries from where you last left off.
+     */
     @MustBeClosed
-    fun getNextJournalAfterOffset(offset: String): HttpResponse =
-        getNextJournalAfterOffset(offset, WebhookGetNextJournalAfterOffsetParams.none())
+    fun getNextJournalEntries(offset: String): HttpResponse =
+        getNextJournalEntries(offset, WebhookGetNextJournalEntriesParams.none())
 
-    /** @see getNextJournalAfterOffset */
+    /** @see getNextJournalEntries */
     @MustBeClosed
-    fun getNextJournalAfterOffset(
+    fun getNextJournalEntries(
         offset: String,
-        params: WebhookGetNextJournalAfterOffsetParams =
-            WebhookGetNextJournalAfterOffsetParams.none(),
+        params: WebhookGetNextJournalEntriesParams = WebhookGetNextJournalEntriesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse =
-        getNextJournalAfterOffset(params.toBuilder().offset(offset).build(), requestOptions)
+        getNextJournalEntries(params.toBuilder().offset(offset).build(), requestOptions)
 
-    /** @see getNextJournalAfterOffset */
+    /** @see getNextJournalEntries */
     @MustBeClosed
-    fun getNextJournalAfterOffset(
+    fun getNextJournalEntries(
         offset: String,
-        params: WebhookGetNextJournalAfterOffsetParams =
-            WebhookGetNextJournalAfterOffsetParams.none(),
-    ): HttpResponse = getNextJournalAfterOffset(offset, params, RequestOptions.none())
+        params: WebhookGetNextJournalEntriesParams = WebhookGetNextJournalEntriesParams.none(),
+    ): HttpResponse = getNextJournalEntries(offset, params, RequestOptions.none())
 
-    /** @see getNextJournalAfterOffset */
+    /** @see getNextJournalEntries */
     @MustBeClosed
-    fun getNextJournalAfterOffset(
-        params: WebhookGetNextJournalAfterOffsetParams,
+    fun getNextJournalEntries(
+        params: WebhookGetNextJournalEntriesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getNextJournalAfterOffset */
+    /** @see getNextJournalEntries */
     @MustBeClosed
-    fun getNextJournalAfterOffset(params: WebhookGetNextJournalAfterOffsetParams): HttpResponse =
-        getNextJournalAfterOffset(params, RequestOptions.none())
+    fun getNextJournalEntries(params: WebhookGetNextJournalEntriesParams): HttpResponse =
+        getNextJournalEntries(params, RequestOptions.none())
 
-    /** @see getNextJournalAfterOffset */
+    /** @see getNextJournalEntries */
     @MustBeClosed
-    fun getNextJournalAfterOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
-        getNextJournalAfterOffset(
-            offset,
-            WebhookGetNextJournalAfterOffsetParams.none(),
-            requestOptions,
-        )
+    fun getNextJournalEntries(offset: String, requestOptions: RequestOptions): HttpResponse =
+        getNextJournalEntries(offset, WebhookGetNextJournalEntriesParams.none(), requestOptions)
 
+    /**
+     * Retrieve the next set of webhook journal entries starting from a specified offset. This
+     * endpoint is useful for paginating through webhook journal data in a sequential manner,
+     * allowing you to fetch entries beyond a given point.
+     */
     @MustBeClosed
-    fun getNextLocalJournalAfterOffset(offset: String): HttpResponse =
-        getNextLocalJournalAfterOffset(offset, WebhookGetNextLocalJournalAfterOffsetParams.none())
+    fun getNextLocalJournalEntries(offset: String): HttpResponse =
+        getNextLocalJournalEntries(offset, WebhookGetNextLocalJournalEntriesParams.none())
 
-    /** @see getNextLocalJournalAfterOffset */
+    /** @see getNextLocalJournalEntries */
     @MustBeClosed
-    fun getNextLocalJournalAfterOffset(
+    fun getNextLocalJournalEntries(
         offset: String,
-        params: WebhookGetNextLocalJournalAfterOffsetParams =
-            WebhookGetNextLocalJournalAfterOffsetParams.none(),
+        params: WebhookGetNextLocalJournalEntriesParams =
+            WebhookGetNextLocalJournalEntriesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse =
-        getNextLocalJournalAfterOffset(params.toBuilder().offset(offset).build(), requestOptions)
+        getNextLocalJournalEntries(params.toBuilder().offset(offset).build(), requestOptions)
 
-    /** @see getNextLocalJournalAfterOffset */
+    /** @see getNextLocalJournalEntries */
     @MustBeClosed
-    fun getNextLocalJournalAfterOffset(
+    fun getNextLocalJournalEntries(
         offset: String,
-        params: WebhookGetNextLocalJournalAfterOffsetParams =
-            WebhookGetNextLocalJournalAfterOffsetParams.none(),
-    ): HttpResponse = getNextLocalJournalAfterOffset(offset, params, RequestOptions.none())
+        params: WebhookGetNextLocalJournalEntriesParams =
+            WebhookGetNextLocalJournalEntriesParams.none(),
+    ): HttpResponse = getNextLocalJournalEntries(offset, params, RequestOptions.none())
 
-    /** @see getNextLocalJournalAfterOffset */
+    /** @see getNextLocalJournalEntries */
     @MustBeClosed
-    fun getNextLocalJournalAfterOffset(
-        params: WebhookGetNextLocalJournalAfterOffsetParams,
+    fun getNextLocalJournalEntries(
+        params: WebhookGetNextLocalJournalEntriesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getNextLocalJournalAfterOffset */
+    /** @see getNextLocalJournalEntries */
     @MustBeClosed
-    fun getNextLocalJournalAfterOffset(
-        params: WebhookGetNextLocalJournalAfterOffsetParams
-    ): HttpResponse = getNextLocalJournalAfterOffset(params, RequestOptions.none())
+    fun getNextLocalJournalEntries(params: WebhookGetNextLocalJournalEntriesParams): HttpResponse =
+        getNextLocalJournalEntries(params, RequestOptions.none())
 
-    /** @see getNextLocalJournalAfterOffset */
+    /** @see getNextLocalJournalEntries */
     @MustBeClosed
-    fun getNextLocalJournalAfterOffset(
-        offset: String,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        getNextLocalJournalAfterOffset(
+    fun getNextLocalJournalEntries(offset: String, requestOptions: RequestOptions): HttpResponse =
+        getNextLocalJournalEntries(
             offset,
-            WebhookGetNextLocalJournalAfterOffsetParams.none(),
+            WebhookGetNextLocalJournalEntriesParams.none(),
             requestOptions,
         )
 
@@ -972,30 +1193,11 @@ interface WebhookService {
     fun getSettings(appId: Int, requestOptions: RequestOptions): SettingsResponse =
         getSettings(appId, WebhookGetSettingsParams.none(), requestOptions)
 
-    /** Retrieve a specific event subscription by ID. */
-    fun getSubscription(
-        subscriptionId: Int,
-        params: WebhookGetSubscriptionParams,
-    ): SubscriptionResponse = getSubscription(subscriptionId, params, RequestOptions.none())
-
-    /** @see getSubscription */
-    fun getSubscription(
-        subscriptionId: Int,
-        params: WebhookGetSubscriptionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
-        getSubscription(params.toBuilder().subscriptionId(subscriptionId).build(), requestOptions)
-
-    /** @see getSubscription */
-    fun getSubscription(params: WebhookGetSubscriptionParams): SubscriptionResponse =
-        getSubscription(params, RequestOptions.none())
-
-    /** @see getSubscription */
-    fun getSubscription(
-        params: WebhookGetSubscriptionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse
-
+    /**
+     * Retrieve details of a specific filter associated with a webhook subscription in the HubSpot
+     * account. This endpoint is useful for accessing the configuration and conditions of a filter
+     * by its unique identifier.
+     */
     fun getSubscriptionFilter(filterId: Long): FilterResponse =
         getSubscriptionFilter(filterId, WebhookGetSubscriptionFilterParams.none())
 
@@ -1027,47 +1229,47 @@ interface WebhookService {
     fun getSubscriptionFilter(filterId: Long, requestOptions: RequestOptions): FilterResponse =
         getSubscriptionFilter(filterId, WebhookGetSubscriptionFilterParams.none(), requestOptions)
 
-    fun getSubscriptionFilters(subscriptionId: Long): List<FilterResponse> =
-        getSubscriptionFilters(subscriptionId, WebhookGetSubscriptionFiltersParams.none())
+    /** Retrieve event subscriptions for the specified app. */
+    fun listEventSubscriptions(appId: Int): SubscriptionListResponse =
+        listEventSubscriptions(appId, WebhookListEventSubscriptionsParams.none())
 
-    /** @see getSubscriptionFilters */
-    fun getSubscriptionFilters(
-        subscriptionId: Long,
-        params: WebhookGetSubscriptionFiltersParams = WebhookGetSubscriptionFiltersParams.none(),
+    /** @see listEventSubscriptions */
+    fun listEventSubscriptions(
+        appId: Int,
+        params: WebhookListEventSubscriptionsParams = WebhookListEventSubscriptionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<FilterResponse> =
-        getSubscriptionFilters(
-            params.toBuilder().subscriptionId(subscriptionId).build(),
-            requestOptions,
-        )
+    ): SubscriptionListResponse =
+        listEventSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
 
-    /** @see getSubscriptionFilters */
-    fun getSubscriptionFilters(
-        subscriptionId: Long,
-        params: WebhookGetSubscriptionFiltersParams = WebhookGetSubscriptionFiltersParams.none(),
-    ): List<FilterResponse> = getSubscriptionFilters(subscriptionId, params, RequestOptions.none())
+    /** @see listEventSubscriptions */
+    fun listEventSubscriptions(
+        appId: Int,
+        params: WebhookListEventSubscriptionsParams = WebhookListEventSubscriptionsParams.none(),
+    ): SubscriptionListResponse = listEventSubscriptions(appId, params, RequestOptions.none())
 
-    /** @see getSubscriptionFilters */
-    fun getSubscriptionFilters(
-        params: WebhookGetSubscriptionFiltersParams,
+    /** @see listEventSubscriptions */
+    fun listEventSubscriptions(
+        params: WebhookListEventSubscriptionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<FilterResponse>
+    ): SubscriptionListResponse
 
-    /** @see getSubscriptionFilters */
-    fun getSubscriptionFilters(params: WebhookGetSubscriptionFiltersParams): List<FilterResponse> =
-        getSubscriptionFilters(params, RequestOptions.none())
+    /** @see listEventSubscriptions */
+    fun listEventSubscriptions(
+        params: WebhookListEventSubscriptionsParams
+    ): SubscriptionListResponse = listEventSubscriptions(params, RequestOptions.none())
 
-    /** @see getSubscriptionFilters */
-    fun getSubscriptionFilters(
-        subscriptionId: Long,
+    /** @see listEventSubscriptions */
+    fun listEventSubscriptions(
+        appId: Int,
         requestOptions: RequestOptions,
-    ): List<FilterResponse> =
-        getSubscriptionFilters(
-            subscriptionId,
-            WebhookGetSubscriptionFiltersParams.none(),
-            requestOptions,
-        )
+    ): SubscriptionListResponse =
+        listEventSubscriptions(appId, WebhookListEventSubscriptionsParams.none(), requestOptions)
 
+    /**
+     * Retrieve a list of webhook journal subscriptions for the specified API version. This endpoint
+     * provides details about each subscription, including actions, object types, and associated
+     * properties. It is useful for managing and reviewing current webhook subscriptions.
+     */
     fun listJournalSubscriptions(): CollectionResponseSubscriptionResponseNoPaging =
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
 
@@ -1090,37 +1292,80 @@ interface WebhookService {
     ): CollectionResponseSubscriptionResponseNoPaging =
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
-    /** Retrieve event subscriptions for the specified app. */
-    fun listSubscriptions(appId: Int): SubscriptionListResponse =
-        listSubscriptions(appId, WebhookListSubscriptionsParams.none())
+    /**
+     * Retrieve the filters associated with a specific webhook subscription in the HubSpot account.
+     * This endpoint is useful for obtaining detailed information about the filters applied to a
+     * given subscription, identified by its subscription ID.
+     */
+    fun listSubscriptionFilters(subscriptionId: Long): List<FilterResponse> =
+        listSubscriptionFilters(subscriptionId, WebhookListSubscriptionFiltersParams.none())
 
-    /** @see listSubscriptions */
-    fun listSubscriptions(
-        appId: Int,
-        params: WebhookListSubscriptionsParams = WebhookListSubscriptionsParams.none(),
+    /** @see listSubscriptionFilters */
+    fun listSubscriptionFilters(
+        subscriptionId: Long,
+        params: WebhookListSubscriptionFiltersParams = WebhookListSubscriptionFiltersParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionListResponse =
-        listSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
+    ): List<FilterResponse> =
+        listSubscriptionFilters(
+            params.toBuilder().subscriptionId(subscriptionId).build(),
+            requestOptions,
+        )
 
-    /** @see listSubscriptions */
-    fun listSubscriptions(
-        appId: Int,
-        params: WebhookListSubscriptionsParams = WebhookListSubscriptionsParams.none(),
-    ): SubscriptionListResponse = listSubscriptions(appId, params, RequestOptions.none())
+    /** @see listSubscriptionFilters */
+    fun listSubscriptionFilters(
+        subscriptionId: Long,
+        params: WebhookListSubscriptionFiltersParams = WebhookListSubscriptionFiltersParams.none(),
+    ): List<FilterResponse> = listSubscriptionFilters(subscriptionId, params, RequestOptions.none())
 
-    /** @see listSubscriptions */
-    fun listSubscriptions(
-        params: WebhookListSubscriptionsParams,
+    /** @see listSubscriptionFilters */
+    fun listSubscriptionFilters(
+        params: WebhookListSubscriptionFiltersParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionListResponse
+    ): List<FilterResponse>
 
-    /** @see listSubscriptions */
-    fun listSubscriptions(params: WebhookListSubscriptionsParams): SubscriptionListResponse =
-        listSubscriptions(params, RequestOptions.none())
+    /** @see listSubscriptionFilters */
+    fun listSubscriptionFilters(
+        params: WebhookListSubscriptionFiltersParams
+    ): List<FilterResponse> = listSubscriptionFilters(params, RequestOptions.none())
 
-    /** @see listSubscriptions */
-    fun listSubscriptions(appId: Int, requestOptions: RequestOptions): SubscriptionListResponse =
-        listSubscriptions(appId, WebhookListSubscriptionsParams.none(), requestOptions)
+    /** @see listSubscriptionFilters */
+    fun listSubscriptionFilters(
+        subscriptionId: Long,
+        requestOptions: RequestOptions,
+    ): List<FilterResponse> =
+        listSubscriptionFilters(
+            subscriptionId,
+            WebhookListSubscriptionFiltersParams.none(),
+            requestOptions,
+        )
+
+    /** Update an existing event subscription by ID. */
+    fun updateEventSubscription(
+        subscriptionId: Int,
+        params: WebhookUpdateEventSubscriptionParams,
+    ): SubscriptionResponse = updateEventSubscription(subscriptionId, params, RequestOptions.none())
+
+    /** @see updateEventSubscription */
+    fun updateEventSubscription(
+        subscriptionId: Int,
+        params: WebhookUpdateEventSubscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse =
+        updateEventSubscription(
+            params.toBuilder().subscriptionId(subscriptionId).build(),
+            requestOptions,
+        )
+
+    /** @see updateEventSubscription */
+    fun updateEventSubscription(
+        params: WebhookUpdateEventSubscriptionParams
+    ): SubscriptionResponse = updateEventSubscription(params, RequestOptions.none())
+
+    /** @see updateEventSubscription */
+    fun updateEventSubscription(
+        params: WebhookUpdateEventSubscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse
 
     /** Update webhook settings for the specified app. */
     fun updateSettings(appId: Int, params: WebhookUpdateSettingsParams): SettingsResponse =
@@ -1143,33 +1388,6 @@ interface WebhookService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SettingsResponse
 
-    /** Update an existing event subscription by ID. */
-    fun updateSubscription(
-        subscriptionId: Int,
-        params: WebhookUpdateSubscriptionParams,
-    ): SubscriptionResponse = updateSubscription(subscriptionId, params, RequestOptions.none())
-
-    /** @see updateSubscription */
-    fun updateSubscription(
-        subscriptionId: Int,
-        params: WebhookUpdateSubscriptionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
-        updateSubscription(
-            params.toBuilder().subscriptionId(subscriptionId).build(),
-            requestOptions,
-        )
-
-    /** @see updateSubscription */
-    fun updateSubscription(params: WebhookUpdateSubscriptionParams): SubscriptionResponse =
-        updateSubscription(params, RequestOptions.none())
-
-    /** @see updateSubscription */
-    fun updateSubscription(
-        params: WebhookUpdateSubscriptionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse
-
     /** A view of [WebhookService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -1181,41 +1399,110 @@ interface WebhookService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /webhooks-journal/snapshots/2026-03/crm`, but is
-         * otherwise the same as [WebhookService.createCrmSnapshot].
+         * Returns a raw HTTP response for `post
+         * /webhooks/2026-03/{appId}/subscriptions/batch/update`, but is otherwise the same as
+         * [WebhookService.createBatchEventSubscriptions].
          */
         @MustBeClosed
-        fun createCrmSnapshot(
-            params: WebhookCreateCrmSnapshotParams
-        ): HttpResponseFor<CrmObjectSnapshotBatchResponse> =
-            createCrmSnapshot(params, RequestOptions.none())
+        fun createBatchEventSubscriptions(
+            appId: Int,
+            params: WebhookCreateBatchEventSubscriptionsParams,
+        ): HttpResponseFor<BatchResponseSubscriptionResponse> =
+            createBatchEventSubscriptions(appId, params, RequestOptions.none())
 
-        /** @see createCrmSnapshot */
+        /** @see createBatchEventSubscriptions */
         @MustBeClosed
-        fun createCrmSnapshot(
-            params: WebhookCreateCrmSnapshotParams,
+        fun createBatchEventSubscriptions(
+            appId: Int,
+            params: WebhookCreateBatchEventSubscriptionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseSubscriptionResponse> =
+            createBatchEventSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
+
+        /** @see createBatchEventSubscriptions */
+        @MustBeClosed
+        fun createBatchEventSubscriptions(
+            params: WebhookCreateBatchEventSubscriptionsParams
+        ): HttpResponseFor<BatchResponseSubscriptionResponse> =
+            createBatchEventSubscriptions(params, RequestOptions.none())
+
+        /** @see createBatchEventSubscriptions */
+        @MustBeClosed
+        fun createBatchEventSubscriptions(
+            params: WebhookCreateBatchEventSubscriptionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseSubscriptionResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /webhooks-journal/snapshots/2026-03/crm`, but is
+         * otherwise the same as [WebhookService.createCrmSnapshots].
+         */
+        @MustBeClosed
+        fun createCrmSnapshots(
+            params: WebhookCreateCrmSnapshotsParams
+        ): HttpResponseFor<CrmObjectSnapshotBatchResponse> =
+            createCrmSnapshots(params, RequestOptions.none())
+
+        /** @see createCrmSnapshots */
+        @MustBeClosed
+        fun createCrmSnapshots(
+            params: WebhookCreateCrmSnapshotsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CrmObjectSnapshotBatchResponse>
 
-        /** @see createCrmSnapshot */
+        /** @see createCrmSnapshots */
         @MustBeClosed
-        fun createCrmSnapshot(
+        fun createCrmSnapshots(
             crmObjectSnapshotBatchRequest: CrmObjectSnapshotBatchRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CrmObjectSnapshotBatchResponse> =
-            createCrmSnapshot(
-                WebhookCreateCrmSnapshotParams.builder()
+            createCrmSnapshots(
+                WebhookCreateCrmSnapshotsParams.builder()
                     .crmObjectSnapshotBatchRequest(crmObjectSnapshotBatchRequest)
                     .build(),
                 requestOptions,
             )
 
-        /** @see createCrmSnapshot */
+        /** @see createCrmSnapshots */
         @MustBeClosed
-        fun createCrmSnapshot(
+        fun createCrmSnapshots(
             crmObjectSnapshotBatchRequest: CrmObjectSnapshotBatchRequest
         ): HttpResponseFor<CrmObjectSnapshotBatchResponse> =
-            createCrmSnapshot(crmObjectSnapshotBatchRequest, RequestOptions.none())
+            createCrmSnapshots(crmObjectSnapshotBatchRequest, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /webhooks/2026-03/{appId}/subscriptions`, but is
+         * otherwise the same as [WebhookService.createEventSubscription].
+         */
+        @MustBeClosed
+        fun createEventSubscription(
+            appId: Int,
+            params: WebhookCreateEventSubscriptionParams,
+        ): HttpResponseFor<SubscriptionResponse> =
+            createEventSubscription(appId, params, RequestOptions.none())
+
+        /** @see createEventSubscription */
+        @MustBeClosed
+        fun createEventSubscription(
+            appId: Int,
+            params: WebhookCreateEventSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse> =
+            createEventSubscription(params.toBuilder().appId(appId).build(), requestOptions)
+
+        /** @see createEventSubscription */
+        @MustBeClosed
+        fun createEventSubscription(
+            params: WebhookCreateEventSubscriptionParams
+        ): HttpResponseFor<SubscriptionResponse> =
+            createEventSubscription(params, RequestOptions.none())
+
+        /** @see createEventSubscription */
+        @MustBeClosed
+        fun createEventSubscription(
+            params: WebhookCreateEventSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse>
 
         /**
          * Returns a raw HTTP response for `post /webhooks-journal/subscriptions/2026-03`, but is
@@ -1328,38 +1615,23 @@ interface WebhookService {
         ): HttpResponseFor<SubscriptionResponse1> =
             createJournalSubscription(listMembership, RequestOptions.none())
 
-        /**
-         * Returns a raw HTTP response for `post /webhooks/2026-03/{appId}/subscriptions`, but is
-         * otherwise the same as [WebhookService.createSubscription].
-         */
+        /** @see createJournalSubscription */
         @MustBeClosed
-        fun createSubscription(
-            appId: Int,
-            params: WebhookCreateSubscriptionParams,
-        ): HttpResponseFor<SubscriptionResponse> =
-            createSubscription(appId, params, RequestOptions.none())
-
-        /** @see createSubscription */
-        @MustBeClosed
-        fun createSubscription(
-            appId: Int,
-            params: WebhookCreateSubscriptionParams,
+        fun createJournalSubscription(
+            gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
-            createSubscription(params.toBuilder().appId(appId).build(), requestOptions)
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(
+                SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
+                requestOptions,
+            )
 
-        /** @see createSubscription */
+        /** @see createJournalSubscription */
         @MustBeClosed
-        fun createSubscription(
-            params: WebhookCreateSubscriptionParams
-        ): HttpResponseFor<SubscriptionResponse> = createSubscription(params, RequestOptions.none())
-
-        /** @see createSubscription */
-        @MustBeClosed
-        fun createSubscription(
-            params: WebhookCreateSubscriptionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse>
+        fun createJournalSubscription(
+            gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post /webhooks-journal/subscriptions/2026-03/filters`,
@@ -1399,39 +1671,39 @@ interface WebhookService {
             createSubscriptionFilter(filterCreateRequest, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post
-         * /webhooks/2026-03/{appId}/subscriptions/batch/update`, but is otherwise the same as
-         * [WebhookService.createSubscriptionsBatch].
+         * Returns a raw HTTP response for `delete
+         * /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}`, but is otherwise the same as
+         * [WebhookService.deleteEventSubscription].
          */
         @MustBeClosed
-        fun createSubscriptionsBatch(
-            appId: Int,
-            params: WebhookCreateSubscriptionsBatchParams,
-        ): HttpResponseFor<BatchResponseSubscriptionResponse> =
-            createSubscriptionsBatch(appId, params, RequestOptions.none())
+        fun deleteEventSubscription(
+            subscriptionId: Int,
+            params: WebhookDeleteEventSubscriptionParams,
+        ): HttpResponse = deleteEventSubscription(subscriptionId, params, RequestOptions.none())
 
-        /** @see createSubscriptionsBatch */
+        /** @see deleteEventSubscription */
         @MustBeClosed
-        fun createSubscriptionsBatch(
-            appId: Int,
-            params: WebhookCreateSubscriptionsBatchParams,
+        fun deleteEventSubscription(
+            subscriptionId: Int,
+            params: WebhookDeleteEventSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSubscriptionResponse> =
-            createSubscriptionsBatch(params.toBuilder().appId(appId).build(), requestOptions)
+        ): HttpResponse =
+            deleteEventSubscription(
+                params.toBuilder().subscriptionId(subscriptionId).build(),
+                requestOptions,
+            )
 
-        /** @see createSubscriptionsBatch */
+        /** @see deleteEventSubscription */
         @MustBeClosed
-        fun createSubscriptionsBatch(
-            params: WebhookCreateSubscriptionsBatchParams
-        ): HttpResponseFor<BatchResponseSubscriptionResponse> =
-            createSubscriptionsBatch(params, RequestOptions.none())
+        fun deleteEventSubscription(params: WebhookDeleteEventSubscriptionParams): HttpResponse =
+            deleteEventSubscription(params, RequestOptions.none())
 
-        /** @see createSubscriptionsBatch */
+        /** @see deleteEventSubscription */
         @MustBeClosed
-        fun createSubscriptionsBatch(
-            params: WebhookCreateSubscriptionsBatchParams,
+        fun deleteEventSubscription(
+            params: WebhookDeleteEventSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSubscriptionResponse>
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `delete
@@ -1491,52 +1763,59 @@ interface WebhookService {
         /**
          * Returns a raw HTTP response for `delete
          * /webhooks-journal/subscriptions/2026-03/portals/{portalId}`, but is otherwise the same as
-         * [WebhookService.deletePortalSubscriptions].
+         * [WebhookService.deleteJournalSubscriptionForPortal].
          */
         @MustBeClosed
-        fun deletePortalSubscriptions(portalId: Long): HttpResponse =
-            deletePortalSubscriptions(portalId, WebhookDeletePortalSubscriptionsParams.none())
+        fun deleteJournalSubscriptionForPortal(portalId: Long): HttpResponse =
+            deleteJournalSubscriptionForPortal(
+                portalId,
+                WebhookDeleteJournalSubscriptionForPortalParams.none(),
+            )
 
-        /** @see deletePortalSubscriptions */
+        /** @see deleteJournalSubscriptionForPortal */
         @MustBeClosed
-        fun deletePortalSubscriptions(
+        fun deleteJournalSubscriptionForPortal(
             portalId: Long,
-            params: WebhookDeletePortalSubscriptionsParams =
-                WebhookDeletePortalSubscriptionsParams.none(),
+            params: WebhookDeleteJournalSubscriptionForPortalParams =
+                WebhookDeleteJournalSubscriptionForPortalParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            deletePortalSubscriptions(params.toBuilder().portalId(portalId).build(), requestOptions)
+            deleteJournalSubscriptionForPortal(
+                params.toBuilder().portalId(portalId).build(),
+                requestOptions,
+            )
 
-        /** @see deletePortalSubscriptions */
+        /** @see deleteJournalSubscriptionForPortal */
         @MustBeClosed
-        fun deletePortalSubscriptions(
+        fun deleteJournalSubscriptionForPortal(
             portalId: Long,
-            params: WebhookDeletePortalSubscriptionsParams =
-                WebhookDeletePortalSubscriptionsParams.none(),
-        ): HttpResponse = deletePortalSubscriptions(portalId, params, RequestOptions.none())
+            params: WebhookDeleteJournalSubscriptionForPortalParams =
+                WebhookDeleteJournalSubscriptionForPortalParams.none(),
+        ): HttpResponse =
+            deleteJournalSubscriptionForPortal(portalId, params, RequestOptions.none())
 
-        /** @see deletePortalSubscriptions */
+        /** @see deleteJournalSubscriptionForPortal */
         @MustBeClosed
-        fun deletePortalSubscriptions(
-            params: WebhookDeletePortalSubscriptionsParams,
+        fun deleteJournalSubscriptionForPortal(
+            params: WebhookDeleteJournalSubscriptionForPortalParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see deletePortalSubscriptions */
+        /** @see deleteJournalSubscriptionForPortal */
         @MustBeClosed
-        fun deletePortalSubscriptions(
-            params: WebhookDeletePortalSubscriptionsParams
-        ): HttpResponse = deletePortalSubscriptions(params, RequestOptions.none())
+        fun deleteJournalSubscriptionForPortal(
+            params: WebhookDeleteJournalSubscriptionForPortalParams
+        ): HttpResponse = deleteJournalSubscriptionForPortal(params, RequestOptions.none())
 
-        /** @see deletePortalSubscriptions */
+        /** @see deleteJournalSubscriptionForPortal */
         @MustBeClosed
-        fun deletePortalSubscriptions(
+        fun deleteJournalSubscriptionForPortal(
             portalId: Long,
             requestOptions: RequestOptions,
         ): HttpResponse =
-            deletePortalSubscriptions(
+            deleteJournalSubscriptionForPortal(
                 portalId,
-                WebhookDeletePortalSubscriptionsParams.none(),
+                WebhookDeleteJournalSubscriptionForPortalParams.none(),
                 requestOptions,
             )
 
@@ -1579,41 +1858,6 @@ interface WebhookService {
         @MustBeClosed
         fun deleteSettings(appId: Int, requestOptions: RequestOptions): HttpResponse =
             deleteSettings(appId, WebhookDeleteSettingsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `delete
-         * /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}`, but is otherwise the same as
-         * [WebhookService.deleteSubscription].
-         */
-        @MustBeClosed
-        fun deleteSubscription(
-            subscriptionId: Int,
-            params: WebhookDeleteSubscriptionParams,
-        ): HttpResponse = deleteSubscription(subscriptionId, params, RequestOptions.none())
-
-        /** @see deleteSubscription */
-        @MustBeClosed
-        fun deleteSubscription(
-            subscriptionId: Int,
-            params: WebhookDeleteSubscriptionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            deleteSubscription(
-                params.toBuilder().subscriptionId(subscriptionId).build(),
-                requestOptions,
-            )
-
-        /** @see deleteSubscription */
-        @MustBeClosed
-        fun deleteSubscription(params: WebhookDeleteSubscriptionParams): HttpResponse =
-            deleteSubscription(params, RequestOptions.none())
-
-        /** @see deleteSubscription */
-        @MustBeClosed
-        fun deleteSubscription(
-            params: WebhookDeleteSubscriptionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `delete
@@ -1662,32 +1906,6 @@ interface WebhookService {
                 WebhookDeleteSubscriptionFilterParams.none(),
                 requestOptions,
             )
-
-        /**
-         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/earliest`, but is
-         * otherwise the same as [WebhookService.getEarliestJournal].
-         */
-        @MustBeClosed
-        fun getEarliestJournal(): HttpResponse =
-            getEarliestJournal(WebhookGetEarliestJournalParams.none())
-
-        /** @see getEarliestJournal */
-        @MustBeClosed
-        fun getEarliestJournal(
-            params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see getEarliestJournal */
-        @MustBeClosed
-        fun getEarliestJournal(
-            params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none()
-        ): HttpResponse = getEarliestJournal(params, RequestOptions.none())
-
-        /** @see getEarliestJournal */
-        @MustBeClosed
-        fun getEarliestJournal(requestOptions: RequestOptions): HttpResponse =
-            getEarliestJournal(WebhookGetEarliestJournalParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
@@ -1746,32 +1964,32 @@ interface WebhookService {
             )
 
         /**
-         * Returns a raw HTTP response for `get /webhooks-journal/journal-local/2026-03/earliest`,
-         * but is otherwise the same as [WebhookService.getEarliestLocalJournal].
+         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/earliest`, but is
+         * otherwise the same as [WebhookService.getEarliestJournalEntry].
          */
         @MustBeClosed
-        fun getEarliestLocalJournal(): HttpResponse =
-            getEarliestLocalJournal(WebhookGetEarliestLocalJournalParams.none())
+        fun getEarliestJournalEntry(): HttpResponse =
+            getEarliestJournalEntry(WebhookGetEarliestJournalEntryParams.none())
 
-        /** @see getEarliestLocalJournal */
+        /** @see getEarliestJournalEntry */
         @MustBeClosed
-        fun getEarliestLocalJournal(
-            params: WebhookGetEarliestLocalJournalParams =
-                WebhookGetEarliestLocalJournalParams.none(),
+        fun getEarliestJournalEntry(
+            params: WebhookGetEarliestJournalEntryParams =
+                WebhookGetEarliestJournalEntryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getEarliestLocalJournal */
+        /** @see getEarliestJournalEntry */
         @MustBeClosed
-        fun getEarliestLocalJournal(
-            params: WebhookGetEarliestLocalJournalParams =
-                WebhookGetEarliestLocalJournalParams.none()
-        ): HttpResponse = getEarliestLocalJournal(params, RequestOptions.none())
+        fun getEarliestJournalEntry(
+            params: WebhookGetEarliestJournalEntryParams =
+                WebhookGetEarliestJournalEntryParams.none()
+        ): HttpResponse = getEarliestJournalEntry(params, RequestOptions.none())
 
-        /** @see getEarliestLocalJournal */
+        /** @see getEarliestJournalEntry */
         @MustBeClosed
-        fun getEarliestLocalJournal(requestOptions: RequestOptions): HttpResponse =
-            getEarliestLocalJournal(WebhookGetEarliestLocalJournalParams.none(), requestOptions)
+        fun getEarliestJournalEntry(requestOptions: RequestOptions): HttpResponse =
+            getEarliestJournalEntry(WebhookGetEarliestJournalEntryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
@@ -1830,72 +2048,143 @@ interface WebhookService {
             )
 
         /**
-         * Returns a raw HTTP response for `post /webhooks-journal/journal/2026-03/batch/read`, but
-         * is otherwise the same as [WebhookService.getJournalBatch].
+         * Returns a raw HTTP response for `get /webhooks-journal/journal-local/2026-03/earliest`,
+         * but is otherwise the same as [WebhookService.getEarliestLocalJournalEntry].
          */
         @MustBeClosed
-        fun getJournalBatch(
-            params: WebhookGetJournalBatchParams
-        ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getJournalBatch(params, RequestOptions.none())
+        fun getEarliestLocalJournalEntry(): HttpResponse =
+            getEarliestLocalJournalEntry(WebhookGetEarliestLocalJournalEntryParams.none())
 
-        /** @see getJournalBatch */
+        /** @see getEarliestLocalJournalEntry */
         @MustBeClosed
-        fun getJournalBatch(
-            params: WebhookGetJournalBatchParams,
+        fun getEarliestLocalJournalEntry(
+            params: WebhookGetEarliestLocalJournalEntryParams =
+                WebhookGetEarliestLocalJournalEntryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseJournalFetchResponse>
+        ): HttpResponse
 
-        /** @see getJournalBatch */
+        /** @see getEarliestLocalJournalEntry */
         @MustBeClosed
-        fun getJournalBatch(
-            batchInputString: BatchInputString,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getJournalBatch(
-                WebhookGetJournalBatchParams.builder().batchInputString(batchInputString).build(),
+        fun getEarliestLocalJournalEntry(
+            params: WebhookGetEarliestLocalJournalEntryParams =
+                WebhookGetEarliestLocalJournalEntryParams.none()
+        ): HttpResponse = getEarliestLocalJournalEntry(params, RequestOptions.none())
+
+        /** @see getEarliestLocalJournalEntry */
+        @MustBeClosed
+        fun getEarliestLocalJournalEntry(requestOptions: RequestOptions): HttpResponse =
+            getEarliestLocalJournalEntry(
+                WebhookGetEarliestLocalJournalEntryParams.none(),
                 requestOptions,
             )
 
-        /** @see getJournalBatch */
+        /**
+         * Returns a raw HTTP response for `get
+         * /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}`, but is otherwise the same as
+         * [WebhookService.getEventSubscription].
+         */
         @MustBeClosed
-        fun getJournalBatch(
+        fun getEventSubscription(
+            subscriptionId: Int,
+            params: WebhookGetEventSubscriptionParams,
+        ): HttpResponseFor<SubscriptionResponse> =
+            getEventSubscription(subscriptionId, params, RequestOptions.none())
+
+        /** @see getEventSubscription */
+        @MustBeClosed
+        fun getEventSubscription(
+            subscriptionId: Int,
+            params: WebhookGetEventSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse> =
+            getEventSubscription(
+                params.toBuilder().subscriptionId(subscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see getEventSubscription */
+        @MustBeClosed
+        fun getEventSubscription(
+            params: WebhookGetEventSubscriptionParams
+        ): HttpResponseFor<SubscriptionResponse> =
+            getEventSubscription(params, RequestOptions.none())
+
+        /** @see getEventSubscription */
+        @MustBeClosed
+        fun getEventSubscription(
+            params: WebhookGetEventSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /webhooks-journal/journal/2026-03/batch/read`, but
+         * is otherwise the same as [WebhookService.getJournalBatchByRequest].
+         */
+        @MustBeClosed
+        fun getJournalBatchByRequest(
+            params: WebhookGetJournalBatchByRequestParams
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> =
+            getJournalBatchByRequest(params, RequestOptions.none())
+
+        /** @see getJournalBatchByRequest */
+        @MustBeClosed
+        fun getJournalBatchByRequest(
+            params: WebhookGetJournalBatchByRequestParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseJournalFetchResponse>
+
+        /** @see getJournalBatchByRequest */
+        @MustBeClosed
+        fun getJournalBatchByRequest(
+            batchInputString: BatchInputString,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> =
+            getJournalBatchByRequest(
+                WebhookGetJournalBatchByRequestParams.builder()
+                    .batchInputString(batchInputString)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see getJournalBatchByRequest */
+        @MustBeClosed
+        fun getJournalBatchByRequest(
             batchInputString: BatchInputString
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getJournalBatch(batchInputString, RequestOptions.none())
+            getJournalBatchByRequest(batchInputString, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/journal/2026-03/batch/{offset}/next/{count}`, but is otherwise the same
-         * as [WebhookService.getJournalBatchAfterOffset].
+         * as [WebhookService.getJournalBatchFromOffset].
          */
         @MustBeClosed
-        fun getJournalBatchAfterOffset(
+        fun getJournalBatchFromOffset(
             count: Int,
-            params: WebhookGetJournalBatchAfterOffsetParams,
+            params: WebhookGetJournalBatchFromOffsetParams,
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getJournalBatchAfterOffset(count, params, RequestOptions.none())
+            getJournalBatchFromOffset(count, params, RequestOptions.none())
 
-        /** @see getJournalBatchAfterOffset */
+        /** @see getJournalBatchFromOffset */
         @MustBeClosed
-        fun getJournalBatchAfterOffset(
+        fun getJournalBatchFromOffset(
             count: Int,
-            params: WebhookGetJournalBatchAfterOffsetParams,
+            params: WebhookGetJournalBatchFromOffsetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getJournalBatchAfterOffset(params.toBuilder().count(count).build(), requestOptions)
+            getJournalBatchFromOffset(params.toBuilder().count(count).build(), requestOptions)
 
-        /** @see getJournalBatchAfterOffset */
+        /** @see getJournalBatchFromOffset */
         @MustBeClosed
-        fun getJournalBatchAfterOffset(
-            params: WebhookGetJournalBatchAfterOffsetParams
+        fun getJournalBatchFromOffset(
+            params: WebhookGetJournalBatchFromOffsetParams
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getJournalBatchAfterOffset(params, RequestOptions.none())
+            getJournalBatchFromOffset(params, RequestOptions.none())
 
-        /** @see getJournalBatchAfterOffset */
+        /** @see getJournalBatchFromOffset */
         @MustBeClosed
-        fun getJournalBatchAfterOffset(
-            params: WebhookGetJournalBatchAfterOffsetParams,
+        fun getJournalBatchFromOffset(
+            params: WebhookGetJournalBatchFromOffsetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseJournalFetchResponse>
 
@@ -1947,30 +2236,60 @@ interface WebhookService {
             getJournalStatus(statusId, WebhookGetJournalStatusParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/latest`, but is
-         * otherwise the same as [WebhookService.getLatestJournal].
+         * Returns a raw HTTP response for `get
+         * /webhooks-journal/subscriptions/2026-03/{subscriptionId}`, but is otherwise the same as
+         * [WebhookService.getJournalSubscription].
          */
         @MustBeClosed
-        fun getLatestJournal(): HttpResponse =
-            getLatestJournal(WebhookGetLatestJournalParams.none())
+        fun getJournalSubscription(subscriptionId: Long): HttpResponseFor<SubscriptionResponse1> =
+            getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
-        /** @see getLatestJournal */
+        /** @see getJournalSubscription */
         @MustBeClosed
-        fun getLatestJournal(
-            params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none(),
+        fun getJournalSubscription(
+            subscriptionId: Long,
+            params: WebhookGetJournalSubscriptionParams =
+                WebhookGetJournalSubscriptionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<SubscriptionResponse1> =
+            getJournalSubscription(
+                params.toBuilder().subscriptionId(subscriptionId).build(),
+                requestOptions,
+            )
 
-        /** @see getLatestJournal */
+        /** @see getJournalSubscription */
         @MustBeClosed
-        fun getLatestJournal(
-            params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none()
-        ): HttpResponse = getLatestJournal(params, RequestOptions.none())
+        fun getJournalSubscription(
+            subscriptionId: Long,
+            params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
+        ): HttpResponseFor<SubscriptionResponse1> =
+            getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
-        /** @see getLatestJournal */
+        /** @see getJournalSubscription */
         @MustBeClosed
-        fun getLatestJournal(requestOptions: RequestOptions): HttpResponse =
-            getLatestJournal(WebhookGetLatestJournalParams.none(), requestOptions)
+        fun getJournalSubscription(
+            params: WebhookGetJournalSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse1>
+
+        /** @see getJournalSubscription */
+        @MustBeClosed
+        fun getJournalSubscription(
+            params: WebhookGetJournalSubscriptionParams
+        ): HttpResponseFor<SubscriptionResponse1> =
+            getJournalSubscription(params, RequestOptions.none())
+
+        /** @see getJournalSubscription */
+        @MustBeClosed
+        fun getJournalSubscription(
+            subscriptionId: Long,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SubscriptionResponse1> =
+            getJournalSubscription(
+                subscriptionId,
+                WebhookGetJournalSubscriptionParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get
@@ -2021,30 +2340,30 @@ interface WebhookService {
             getLatestJournalBatch(count, WebhookGetLatestJournalBatchParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /webhooks-journal/journal-local/2026-03/latest`, but
-         * is otherwise the same as [WebhookService.getLatestLocalJournal].
+         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/latest`, but is
+         * otherwise the same as [WebhookService.getLatestJournalEntry].
          */
         @MustBeClosed
-        fun getLatestLocalJournal(): HttpResponse =
-            getLatestLocalJournal(WebhookGetLatestLocalJournalParams.none())
+        fun getLatestJournalEntry(): HttpResponse =
+            getLatestJournalEntry(WebhookGetLatestJournalEntryParams.none())
 
-        /** @see getLatestLocalJournal */
+        /** @see getLatestJournalEntry */
         @MustBeClosed
-        fun getLatestLocalJournal(
-            params: WebhookGetLatestLocalJournalParams = WebhookGetLatestLocalJournalParams.none(),
+        fun getLatestJournalEntry(
+            params: WebhookGetLatestJournalEntryParams = WebhookGetLatestJournalEntryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getLatestLocalJournal */
+        /** @see getLatestJournalEntry */
         @MustBeClosed
-        fun getLatestLocalJournal(
-            params: WebhookGetLatestLocalJournalParams = WebhookGetLatestLocalJournalParams.none()
-        ): HttpResponse = getLatestLocalJournal(params, RequestOptions.none())
+        fun getLatestJournalEntry(
+            params: WebhookGetLatestJournalEntryParams = WebhookGetLatestJournalEntryParams.none()
+        ): HttpResponse = getLatestJournalEntry(params, RequestOptions.none())
 
-        /** @see getLatestLocalJournal */
+        /** @see getLatestJournalEntry */
         @MustBeClosed
-        fun getLatestLocalJournal(requestOptions: RequestOptions): HttpResponse =
-            getLatestLocalJournal(WebhookGetLatestLocalJournalParams.none(), requestOptions)
+        fun getLatestJournalEntry(requestOptions: RequestOptions): HttpResponse =
+            getLatestJournalEntry(WebhookGetLatestJournalEntryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
@@ -2103,75 +2422,106 @@ interface WebhookService {
             )
 
         /**
-         * Returns a raw HTTP response for `post
-         * /webhooks-journal/journal-local/2026-03/batch/read`, but is otherwise the same as
-         * [WebhookService.getLocalJournalBatch].
+         * Returns a raw HTTP response for `get /webhooks-journal/journal-local/2026-03/latest`, but
+         * is otherwise the same as [WebhookService.getLatestLocalJournalEntry].
          */
         @MustBeClosed
-        fun getLocalJournalBatch(
-            params: WebhookGetLocalJournalBatchParams
-        ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getLocalJournalBatch(params, RequestOptions.none())
+        fun getLatestLocalJournalEntry(): HttpResponse =
+            getLatestLocalJournalEntry(WebhookGetLatestLocalJournalEntryParams.none())
 
-        /** @see getLocalJournalBatch */
+        /** @see getLatestLocalJournalEntry */
         @MustBeClosed
-        fun getLocalJournalBatch(
-            params: WebhookGetLocalJournalBatchParams,
+        fun getLatestLocalJournalEntry(
+            params: WebhookGetLatestLocalJournalEntryParams =
+                WebhookGetLatestLocalJournalEntryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see getLatestLocalJournalEntry */
+        @MustBeClosed
+        fun getLatestLocalJournalEntry(
+            params: WebhookGetLatestLocalJournalEntryParams =
+                WebhookGetLatestLocalJournalEntryParams.none()
+        ): HttpResponse = getLatestLocalJournalEntry(params, RequestOptions.none())
+
+        /** @see getLatestLocalJournalEntry */
+        @MustBeClosed
+        fun getLatestLocalJournalEntry(requestOptions: RequestOptions): HttpResponse =
+            getLatestLocalJournalEntry(
+                WebhookGetLatestLocalJournalEntryParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /webhooks-journal/journal-local/2026-03/batch/read`, but is otherwise the same as
+         * [WebhookService.getLocalJournalBatchByRequest].
+         */
+        @MustBeClosed
+        fun getLocalJournalBatchByRequest(
+            params: WebhookGetLocalJournalBatchByRequestParams
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> =
+            getLocalJournalBatchByRequest(params, RequestOptions.none())
+
+        /** @see getLocalJournalBatchByRequest */
+        @MustBeClosed
+        fun getLocalJournalBatchByRequest(
+            params: WebhookGetLocalJournalBatchByRequestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseJournalFetchResponse>
 
-        /** @see getLocalJournalBatch */
+        /** @see getLocalJournalBatchByRequest */
         @MustBeClosed
-        fun getLocalJournalBatch(
+        fun getLocalJournalBatchByRequest(
             batchInputString: BatchInputString,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getLocalJournalBatch(
-                WebhookGetLocalJournalBatchParams.builder()
+            getLocalJournalBatchByRequest(
+                WebhookGetLocalJournalBatchByRequestParams.builder()
                     .batchInputString(batchInputString)
                     .build(),
                 requestOptions,
             )
 
-        /** @see getLocalJournalBatch */
+        /** @see getLocalJournalBatchByRequest */
         @MustBeClosed
-        fun getLocalJournalBatch(
+        fun getLocalJournalBatchByRequest(
             batchInputString: BatchInputString
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getLocalJournalBatch(batchInputString, RequestOptions.none())
+            getLocalJournalBatchByRequest(batchInputString, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/journal-local/2026-03/batch/{offset}/next/{count}`, but is otherwise
-         * the same as [WebhookService.getLocalJournalBatchAfterOffset].
+         * the same as [WebhookService.getLocalJournalBatchFromOffset].
          */
         @MustBeClosed
-        fun getLocalJournalBatchAfterOffset(
+        fun getLocalJournalBatchFromOffset(
             count: Int,
-            params: WebhookGetLocalJournalBatchAfterOffsetParams,
+            params: WebhookGetLocalJournalBatchFromOffsetParams,
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getLocalJournalBatchAfterOffset(count, params, RequestOptions.none())
+            getLocalJournalBatchFromOffset(count, params, RequestOptions.none())
 
-        /** @see getLocalJournalBatchAfterOffset */
+        /** @see getLocalJournalBatchFromOffset */
         @MustBeClosed
-        fun getLocalJournalBatchAfterOffset(
+        fun getLocalJournalBatchFromOffset(
             count: Int,
-            params: WebhookGetLocalJournalBatchAfterOffsetParams,
+            params: WebhookGetLocalJournalBatchFromOffsetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getLocalJournalBatchAfterOffset(params.toBuilder().count(count).build(), requestOptions)
+            getLocalJournalBatchFromOffset(params.toBuilder().count(count).build(), requestOptions)
 
-        /** @see getLocalJournalBatchAfterOffset */
+        /** @see getLocalJournalBatchFromOffset */
         @MustBeClosed
-        fun getLocalJournalBatchAfterOffset(
-            params: WebhookGetLocalJournalBatchAfterOffsetParams
+        fun getLocalJournalBatchFromOffset(
+            params: WebhookGetLocalJournalBatchFromOffsetParams
         ): HttpResponseFor<BatchResponseJournalFetchResponse> =
-            getLocalJournalBatchAfterOffset(params, RequestOptions.none())
+            getLocalJournalBatchFromOffset(params, RequestOptions.none())
 
-        /** @see getLocalJournalBatchAfterOffset */
+        /** @see getLocalJournalBatchFromOffset */
         @MustBeClosed
-        fun getLocalJournalBatchAfterOffset(
-            params: WebhookGetLocalJournalBatchAfterOffsetParams,
+        fun getLocalJournalBatchFromOffset(
+            params: WebhookGetLocalJournalBatchFromOffsetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseJournalFetchResponse>
 
@@ -2230,110 +2580,94 @@ interface WebhookService {
         /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/journal/2026-03/offset/{offset}/next`, but is otherwise the same as
-         * [WebhookService.getNextJournalAfterOffset].
+         * [WebhookService.getNextJournalEntries].
          */
         @MustBeClosed
-        fun getNextJournalAfterOffset(offset: String): HttpResponse =
-            getNextJournalAfterOffset(offset, WebhookGetNextJournalAfterOffsetParams.none())
+        fun getNextJournalEntries(offset: String): HttpResponse =
+            getNextJournalEntries(offset, WebhookGetNextJournalEntriesParams.none())
 
-        /** @see getNextJournalAfterOffset */
+        /** @see getNextJournalEntries */
         @MustBeClosed
-        fun getNextJournalAfterOffset(
+        fun getNextJournalEntries(
             offset: String,
-            params: WebhookGetNextJournalAfterOffsetParams =
-                WebhookGetNextJournalAfterOffsetParams.none(),
+            params: WebhookGetNextJournalEntriesParams = WebhookGetNextJournalEntriesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            getNextJournalAfterOffset(params.toBuilder().offset(offset).build(), requestOptions)
+            getNextJournalEntries(params.toBuilder().offset(offset).build(), requestOptions)
 
-        /** @see getNextJournalAfterOffset */
+        /** @see getNextJournalEntries */
         @MustBeClosed
-        fun getNextJournalAfterOffset(
+        fun getNextJournalEntries(
             offset: String,
-            params: WebhookGetNextJournalAfterOffsetParams =
-                WebhookGetNextJournalAfterOffsetParams.none(),
-        ): HttpResponse = getNextJournalAfterOffset(offset, params, RequestOptions.none())
+            params: WebhookGetNextJournalEntriesParams = WebhookGetNextJournalEntriesParams.none(),
+        ): HttpResponse = getNextJournalEntries(offset, params, RequestOptions.none())
 
-        /** @see getNextJournalAfterOffset */
+        /** @see getNextJournalEntries */
         @MustBeClosed
-        fun getNextJournalAfterOffset(
-            params: WebhookGetNextJournalAfterOffsetParams,
+        fun getNextJournalEntries(
+            params: WebhookGetNextJournalEntriesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getNextJournalAfterOffset */
+        /** @see getNextJournalEntries */
         @MustBeClosed
-        fun getNextJournalAfterOffset(
-            params: WebhookGetNextJournalAfterOffsetParams
-        ): HttpResponse = getNextJournalAfterOffset(params, RequestOptions.none())
+        fun getNextJournalEntries(params: WebhookGetNextJournalEntriesParams): HttpResponse =
+            getNextJournalEntries(params, RequestOptions.none())
 
-        /** @see getNextJournalAfterOffset */
+        /** @see getNextJournalEntries */
         @MustBeClosed
-        fun getNextJournalAfterOffset(
-            offset: String,
-            requestOptions: RequestOptions,
-        ): HttpResponse =
-            getNextJournalAfterOffset(
-                offset,
-                WebhookGetNextJournalAfterOffsetParams.none(),
-                requestOptions,
-            )
+        fun getNextJournalEntries(offset: String, requestOptions: RequestOptions): HttpResponse =
+            getNextJournalEntries(offset, WebhookGetNextJournalEntriesParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/journal-local/2026-03/offset/{offset}/next`, but is otherwise the same
-         * as [WebhookService.getNextLocalJournalAfterOffset].
+         * as [WebhookService.getNextLocalJournalEntries].
          */
         @MustBeClosed
-        fun getNextLocalJournalAfterOffset(offset: String): HttpResponse =
-            getNextLocalJournalAfterOffset(
-                offset,
-                WebhookGetNextLocalJournalAfterOffsetParams.none(),
-            )
+        fun getNextLocalJournalEntries(offset: String): HttpResponse =
+            getNextLocalJournalEntries(offset, WebhookGetNextLocalJournalEntriesParams.none())
 
-        /** @see getNextLocalJournalAfterOffset */
+        /** @see getNextLocalJournalEntries */
         @MustBeClosed
-        fun getNextLocalJournalAfterOffset(
+        fun getNextLocalJournalEntries(
             offset: String,
-            params: WebhookGetNextLocalJournalAfterOffsetParams =
-                WebhookGetNextLocalJournalAfterOffsetParams.none(),
+            params: WebhookGetNextLocalJournalEntriesParams =
+                WebhookGetNextLocalJournalEntriesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            getNextLocalJournalAfterOffset(
-                params.toBuilder().offset(offset).build(),
-                requestOptions,
-            )
+            getNextLocalJournalEntries(params.toBuilder().offset(offset).build(), requestOptions)
 
-        /** @see getNextLocalJournalAfterOffset */
+        /** @see getNextLocalJournalEntries */
         @MustBeClosed
-        fun getNextLocalJournalAfterOffset(
+        fun getNextLocalJournalEntries(
             offset: String,
-            params: WebhookGetNextLocalJournalAfterOffsetParams =
-                WebhookGetNextLocalJournalAfterOffsetParams.none(),
-        ): HttpResponse = getNextLocalJournalAfterOffset(offset, params, RequestOptions.none())
+            params: WebhookGetNextLocalJournalEntriesParams =
+                WebhookGetNextLocalJournalEntriesParams.none(),
+        ): HttpResponse = getNextLocalJournalEntries(offset, params, RequestOptions.none())
 
-        /** @see getNextLocalJournalAfterOffset */
+        /** @see getNextLocalJournalEntries */
         @MustBeClosed
-        fun getNextLocalJournalAfterOffset(
-            params: WebhookGetNextLocalJournalAfterOffsetParams,
+        fun getNextLocalJournalEntries(
+            params: WebhookGetNextLocalJournalEntriesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getNextLocalJournalAfterOffset */
+        /** @see getNextLocalJournalEntries */
         @MustBeClosed
-        fun getNextLocalJournalAfterOffset(
-            params: WebhookGetNextLocalJournalAfterOffsetParams
-        ): HttpResponse = getNextLocalJournalAfterOffset(params, RequestOptions.none())
+        fun getNextLocalJournalEntries(
+            params: WebhookGetNextLocalJournalEntriesParams
+        ): HttpResponse = getNextLocalJournalEntries(params, RequestOptions.none())
 
-        /** @see getNextLocalJournalAfterOffset */
+        /** @see getNextLocalJournalEntries */
         @MustBeClosed
-        fun getNextLocalJournalAfterOffset(
+        fun getNextLocalJournalEntries(
             offset: String,
             requestOptions: RequestOptions,
         ): HttpResponse =
-            getNextLocalJournalAfterOffset(
+            getNextLocalJournalEntries(
                 offset,
-                WebhookGetNextLocalJournalAfterOffsetParams.none(),
+                WebhookGetNextLocalJournalEntriesParams.none(),
                 requestOptions,
             )
 
@@ -2380,43 +2714,6 @@ interface WebhookService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<SettingsResponse> =
             getSettings(appId, WebhookGetSettingsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}`, but is otherwise the same as
-         * [WebhookService.getSubscription].
-         */
-        @MustBeClosed
-        fun getSubscription(
-            subscriptionId: Int,
-            params: WebhookGetSubscriptionParams,
-        ): HttpResponseFor<SubscriptionResponse> =
-            getSubscription(subscriptionId, params, RequestOptions.none())
-
-        /** @see getSubscription */
-        @MustBeClosed
-        fun getSubscription(
-            subscriptionId: Int,
-            params: WebhookGetSubscriptionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
-            getSubscription(
-                params.toBuilder().subscriptionId(subscriptionId).build(),
-                requestOptions,
-            )
-
-        /** @see getSubscription */
-        @MustBeClosed
-        fun getSubscription(
-            params: WebhookGetSubscriptionParams
-        ): HttpResponseFor<SubscriptionResponse> = getSubscription(params, RequestOptions.none())
-
-        /** @see getSubscription */
-        @MustBeClosed
-        fun getSubscription(
-            params: WebhookGetSubscriptionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse>
 
         /**
          * Returns a raw HTTP response for `get
@@ -2470,58 +2767,54 @@ interface WebhookService {
             )
 
         /**
-         * Returns a raw HTTP response for `get
-         * /webhooks-journal/subscriptions/2026-03/filters/subscription/{subscriptionId}`, but is
-         * otherwise the same as [WebhookService.getSubscriptionFilters].
+         * Returns a raw HTTP response for `get /webhooks/2026-03/{appId}/subscriptions`, but is
+         * otherwise the same as [WebhookService.listEventSubscriptions].
          */
         @MustBeClosed
-        fun getSubscriptionFilters(subscriptionId: Long): HttpResponseFor<List<FilterResponse>> =
-            getSubscriptionFilters(subscriptionId, WebhookGetSubscriptionFiltersParams.none())
+        fun listEventSubscriptions(appId: Int): HttpResponseFor<SubscriptionListResponse> =
+            listEventSubscriptions(appId, WebhookListEventSubscriptionsParams.none())
 
-        /** @see getSubscriptionFilters */
+        /** @see listEventSubscriptions */
         @MustBeClosed
-        fun getSubscriptionFilters(
-            subscriptionId: Long,
-            params: WebhookGetSubscriptionFiltersParams =
-                WebhookGetSubscriptionFiltersParams.none(),
+        fun listEventSubscriptions(
+            appId: Int,
+            params: WebhookListEventSubscriptionsParams =
+                WebhookListEventSubscriptionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<FilterResponse>> =
-            getSubscriptionFilters(
-                params.toBuilder().subscriptionId(subscriptionId).build(),
-                requestOptions,
-            )
+        ): HttpResponseFor<SubscriptionListResponse> =
+            listEventSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
 
-        /** @see getSubscriptionFilters */
+        /** @see listEventSubscriptions */
         @MustBeClosed
-        fun getSubscriptionFilters(
-            subscriptionId: Long,
-            params: WebhookGetSubscriptionFiltersParams = WebhookGetSubscriptionFiltersParams.none(),
-        ): HttpResponseFor<List<FilterResponse>> =
-            getSubscriptionFilters(subscriptionId, params, RequestOptions.none())
+        fun listEventSubscriptions(
+            appId: Int,
+            params: WebhookListEventSubscriptionsParams = WebhookListEventSubscriptionsParams.none(),
+        ): HttpResponseFor<SubscriptionListResponse> =
+            listEventSubscriptions(appId, params, RequestOptions.none())
 
-        /** @see getSubscriptionFilters */
+        /** @see listEventSubscriptions */
         @MustBeClosed
-        fun getSubscriptionFilters(
-            params: WebhookGetSubscriptionFiltersParams,
+        fun listEventSubscriptions(
+            params: WebhookListEventSubscriptionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<FilterResponse>>
+        ): HttpResponseFor<SubscriptionListResponse>
 
-        /** @see getSubscriptionFilters */
+        /** @see listEventSubscriptions */
         @MustBeClosed
-        fun getSubscriptionFilters(
-            params: WebhookGetSubscriptionFiltersParams
-        ): HttpResponseFor<List<FilterResponse>> =
-            getSubscriptionFilters(params, RequestOptions.none())
+        fun listEventSubscriptions(
+            params: WebhookListEventSubscriptionsParams
+        ): HttpResponseFor<SubscriptionListResponse> =
+            listEventSubscriptions(params, RequestOptions.none())
 
-        /** @see getSubscriptionFilters */
+        /** @see listEventSubscriptions */
         @MustBeClosed
-        fun getSubscriptionFilters(
-            subscriptionId: Long,
+        fun listEventSubscriptions(
+            appId: Int,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<FilterResponse>> =
-            getSubscriptionFilters(
-                subscriptionId,
-                WebhookGetSubscriptionFiltersParams.none(),
+        ): HttpResponseFor<SubscriptionListResponse> =
+            listEventSubscriptions(
+                appId,
+                WebhookListEventSubscriptionsParams.none(),
                 requestOptions,
             )
 
@@ -2558,51 +2851,99 @@ interface WebhookService {
             listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /webhooks/2026-03/{appId}/subscriptions`, but is
-         * otherwise the same as [WebhookService.listSubscriptions].
+         * Returns a raw HTTP response for `get
+         * /webhooks-journal/subscriptions/2026-03/filters/subscription/{subscriptionId}`, but is
+         * otherwise the same as [WebhookService.listSubscriptionFilters].
          */
         @MustBeClosed
-        fun listSubscriptions(appId: Int): HttpResponseFor<SubscriptionListResponse> =
-            listSubscriptions(appId, WebhookListSubscriptionsParams.none())
+        fun listSubscriptionFilters(subscriptionId: Long): HttpResponseFor<List<FilterResponse>> =
+            listSubscriptionFilters(subscriptionId, WebhookListSubscriptionFiltersParams.none())
 
-        /** @see listSubscriptions */
+        /** @see listSubscriptionFilters */
         @MustBeClosed
-        fun listSubscriptions(
-            appId: Int,
-            params: WebhookListSubscriptionsParams = WebhookListSubscriptionsParams.none(),
+        fun listSubscriptionFilters(
+            subscriptionId: Long,
+            params: WebhookListSubscriptionFiltersParams =
+                WebhookListSubscriptionFiltersParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionListResponse> =
-            listSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
+        ): HttpResponseFor<List<FilterResponse>> =
+            listSubscriptionFilters(
+                params.toBuilder().subscriptionId(subscriptionId).build(),
+                requestOptions,
+            )
 
-        /** @see listSubscriptions */
+        /** @see listSubscriptionFilters */
         @MustBeClosed
-        fun listSubscriptions(
-            appId: Int,
-            params: WebhookListSubscriptionsParams = WebhookListSubscriptionsParams.none(),
-        ): HttpResponseFor<SubscriptionListResponse> =
-            listSubscriptions(appId, params, RequestOptions.none())
+        fun listSubscriptionFilters(
+            subscriptionId: Long,
+            params: WebhookListSubscriptionFiltersParams =
+                WebhookListSubscriptionFiltersParams.none(),
+        ): HttpResponseFor<List<FilterResponse>> =
+            listSubscriptionFilters(subscriptionId, params, RequestOptions.none())
 
-        /** @see listSubscriptions */
+        /** @see listSubscriptionFilters */
         @MustBeClosed
-        fun listSubscriptions(
-            params: WebhookListSubscriptionsParams,
+        fun listSubscriptionFilters(
+            params: WebhookListSubscriptionFiltersParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionListResponse>
+        ): HttpResponseFor<List<FilterResponse>>
 
-        /** @see listSubscriptions */
+        /** @see listSubscriptionFilters */
         @MustBeClosed
-        fun listSubscriptions(
-            params: WebhookListSubscriptionsParams
-        ): HttpResponseFor<SubscriptionListResponse> =
-            listSubscriptions(params, RequestOptions.none())
+        fun listSubscriptionFilters(
+            params: WebhookListSubscriptionFiltersParams
+        ): HttpResponseFor<List<FilterResponse>> =
+            listSubscriptionFilters(params, RequestOptions.none())
 
-        /** @see listSubscriptions */
+        /** @see listSubscriptionFilters */
         @MustBeClosed
-        fun listSubscriptions(
-            appId: Int,
+        fun listSubscriptionFilters(
+            subscriptionId: Long,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionListResponse> =
-            listSubscriptions(appId, WebhookListSubscriptionsParams.none(), requestOptions)
+        ): HttpResponseFor<List<FilterResponse>> =
+            listSubscriptionFilters(
+                subscriptionId,
+                WebhookListSubscriptionFiltersParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `patch
+         * /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}`, but is otherwise the same as
+         * [WebhookService.updateEventSubscription].
+         */
+        @MustBeClosed
+        fun updateEventSubscription(
+            subscriptionId: Int,
+            params: WebhookUpdateEventSubscriptionParams,
+        ): HttpResponseFor<SubscriptionResponse> =
+            updateEventSubscription(subscriptionId, params, RequestOptions.none())
+
+        /** @see updateEventSubscription */
+        @MustBeClosed
+        fun updateEventSubscription(
+            subscriptionId: Int,
+            params: WebhookUpdateEventSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse> =
+            updateEventSubscription(
+                params.toBuilder().subscriptionId(subscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see updateEventSubscription */
+        @MustBeClosed
+        fun updateEventSubscription(
+            params: WebhookUpdateEventSubscriptionParams
+        ): HttpResponseFor<SubscriptionResponse> =
+            updateEventSubscription(params, RequestOptions.none())
+
+        /** @see updateEventSubscription */
+        @MustBeClosed
+        fun updateEventSubscription(
+            params: WebhookUpdateEventSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse>
 
         /**
          * Returns a raw HTTP response for `put /webhooks/2026-03/{appId}/settings`, but is
@@ -2634,42 +2975,5 @@ interface WebhookService {
             params: WebhookUpdateSettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SettingsResponse>
-
-        /**
-         * Returns a raw HTTP response for `patch
-         * /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}`, but is otherwise the same as
-         * [WebhookService.updateSubscription].
-         */
-        @MustBeClosed
-        fun updateSubscription(
-            subscriptionId: Int,
-            params: WebhookUpdateSubscriptionParams,
-        ): HttpResponseFor<SubscriptionResponse> =
-            updateSubscription(subscriptionId, params, RequestOptions.none())
-
-        /** @see updateSubscription */
-        @MustBeClosed
-        fun updateSubscription(
-            subscriptionId: Int,
-            params: WebhookUpdateSubscriptionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
-            updateSubscription(
-                params.toBuilder().subscriptionId(subscriptionId).build(),
-                requestOptions,
-            )
-
-        /** @see updateSubscription */
-        @MustBeClosed
-        fun updateSubscription(
-            params: WebhookUpdateSubscriptionParams
-        ): HttpResponseFor<SubscriptionResponse> = updateSubscription(params, RequestOptions.none())
-
-        /** @see updateSubscription */
-        @MustBeClosed
-        fun updateSubscription(
-            params: WebhookUpdateSubscriptionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse>
     }
 }

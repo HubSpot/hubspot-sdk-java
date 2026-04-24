@@ -18,18 +18,18 @@ import java.util.Objects
 class PublicSubscriptionTranslation
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val createdAt: JsonField<Int>,
+    private val createdAt: JsonField<Long>,
     private val description: JsonField<String>,
     private val languageCode: JsonField<String>,
     private val name: JsonField<String>,
-    private val subscriptionId: JsonField<Int>,
-    private val updatedAt: JsonField<Int>,
+    private val subscriptionId: JsonField<Long>,
+    private val updatedAt: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("createdAt") @ExcludeMissing createdAt: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("createdAt") @ExcludeMissing createdAt: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
@@ -39,8 +39,8 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("subscriptionId")
         @ExcludeMissing
-        subscriptionId: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("updatedAt") @ExcludeMissing updatedAt: JsonField<Int> = JsonMissing.of(),
+        subscriptionId: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("updatedAt") @ExcludeMissing updatedAt: JsonField<Long> = JsonMissing.of(),
     ) : this(createdAt, description, languageCode, name, subscriptionId, updatedAt, mutableMapOf())
 
     /**
@@ -49,7 +49,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun createdAt(): Int = createdAt.getRequired("createdAt")
+    fun createdAt(): Long = createdAt.getRequired("createdAt")
 
     /**
      * A text description of the subscription translation.
@@ -81,7 +81,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun subscriptionId(): Int = subscriptionId.getRequired("subscriptionId")
+    fun subscriptionId(): Long = subscriptionId.getRequired("subscriptionId")
 
     /**
      * The timestamp indicating when the subscription translation was last updated.
@@ -89,14 +89,14 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun updatedAt(): Int = updatedAt.getRequired("updatedAt")
+    fun updatedAt(): Long = updatedAt.getRequired("updatedAt")
 
     /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("createdAt") @ExcludeMissing fun _createdAt(): JsonField<Int> = createdAt
+    @JsonProperty("createdAt") @ExcludeMissing fun _createdAt(): JsonField<Long> = createdAt
 
     /**
      * Returns the raw JSON value of [description].
@@ -128,14 +128,14 @@ private constructor(
      */
     @JsonProperty("subscriptionId")
     @ExcludeMissing
-    fun _subscriptionId(): JsonField<Int> = subscriptionId
+    fun _subscriptionId(): JsonField<Long> = subscriptionId
 
     /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("updatedAt") @ExcludeMissing fun _updatedAt(): JsonField<Int> = updatedAt
+    @JsonProperty("updatedAt") @ExcludeMissing fun _updatedAt(): JsonField<Long> = updatedAt
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -171,12 +171,12 @@ private constructor(
     /** A builder for [PublicSubscriptionTranslation]. */
     class Builder internal constructor() {
 
-        private var createdAt: JsonField<Int>? = null
+        private var createdAt: JsonField<Long>? = null
         private var description: JsonField<String>? = null
         private var languageCode: JsonField<String>? = null
         private var name: JsonField<String>? = null
-        private var subscriptionId: JsonField<Int>? = null
-        private var updatedAt: JsonField<Int>? = null
+        private var subscriptionId: JsonField<Long>? = null
+        private var updatedAt: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -191,15 +191,15 @@ private constructor(
         }
 
         /** The timestamp indicating when the subscription translation was created. */
-        fun createdAt(createdAt: Int) = createdAt(JsonField.of(createdAt))
+        fun createdAt(createdAt: Long) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.createdAt] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun createdAt(createdAt: JsonField<Int>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<Long>) = apply { this.createdAt = createdAt }
 
         /** A text description of the subscription translation. */
         fun description(description: String) = description(JsonField.of(description))
@@ -239,29 +239,29 @@ private constructor(
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** The unique identifier for the subscription associated with the translation. */
-        fun subscriptionId(subscriptionId: Int) = subscriptionId(JsonField.of(subscriptionId))
+        fun subscriptionId(subscriptionId: Long) = subscriptionId(JsonField.of(subscriptionId))
 
         /**
          * Sets [Builder.subscriptionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.subscriptionId] with a well-typed [Int] value instead.
+         * You should usually call [Builder.subscriptionId] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun subscriptionId(subscriptionId: JsonField<Int>) = apply {
+        fun subscriptionId(subscriptionId: JsonField<Long>) = apply {
             this.subscriptionId = subscriptionId
         }
 
         /** The timestamp indicating when the subscription translation was last updated. */
-        fun updatedAt(updatedAt: Int) = updatedAt(JsonField.of(updatedAt))
+        fun updatedAt(updatedAt: Long) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.updatedAt] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun updatedAt(updatedAt: JsonField<Int>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<Long>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

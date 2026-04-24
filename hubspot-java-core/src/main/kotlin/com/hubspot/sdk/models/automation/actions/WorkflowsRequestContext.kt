@@ -22,7 +22,7 @@ class WorkflowsRequestContext
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val source: JsonField<Source>,
-    private val workflowId: JsonField<Int>,
+    private val workflowId: JsonField<Long>,
     private val actionExecutionIndexIdentifier: JsonField<ActionExecutionIndexIdentifier>,
     private val actionId: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -31,7 +31,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
-        @JsonProperty("workflowId") @ExcludeMissing workflowId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("workflowId") @ExcludeMissing workflowId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("actionExecutionIndexIdentifier")
         @ExcludeMissing
         actionExecutionIndexIdentifier: JsonField<ActionExecutionIndexIdentifier> =
@@ -53,7 +53,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun workflowId(): Int = workflowId.getRequired("workflowId")
+    fun workflowId(): Long = workflowId.getRequired("workflowId")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -82,7 +82,7 @@ private constructor(
      *
      * Unlike [workflowId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("workflowId") @ExcludeMissing fun _workflowId(): JsonField<Int> = workflowId
+    @JsonProperty("workflowId") @ExcludeMissing fun _workflowId(): JsonField<Long> = workflowId
 
     /**
      * Returns the raw JSON value of [actionExecutionIndexIdentifier].
@@ -132,7 +132,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var source: JsonField<Source>? = null
-        private var workflowId: JsonField<Int>? = null
+        private var workflowId: JsonField<Long>? = null
         private var actionExecutionIndexIdentifier: JsonField<ActionExecutionIndexIdentifier> =
             JsonMissing.of()
         private var actionId: JsonField<Long> = JsonMissing.of()
@@ -159,15 +159,15 @@ private constructor(
         fun source(source: JsonField<Source>) = apply { this.source = source }
 
         /** The ID of the workflow associated with the request context. */
-        fun workflowId(workflowId: Int) = workflowId(JsonField.of(workflowId))
+        fun workflowId(workflowId: Long) = workflowId(JsonField.of(workflowId))
 
         /**
          * Sets [Builder.workflowId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.workflowId] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.workflowId] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun workflowId(workflowId: JsonField<Int>) = apply { this.workflowId = workflowId }
+        fun workflowId(workflowId: JsonField<Long>) = apply { this.workflowId = workflowId }
 
         fun actionExecutionIndexIdentifier(
             actionExecutionIndexIdentifier: ActionExecutionIndexIdentifier

@@ -18,8 +18,8 @@ import java.util.Objects
 class ExternalMeetingAvailability
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val endMillisUtc: JsonField<Int>,
-    private val startMillisUtc: JsonField<Int>,
+    private val endMillisUtc: JsonField<Long>,
+    private val startMillisUtc: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -27,10 +27,10 @@ private constructor(
     private constructor(
         @JsonProperty("endMillisUtc")
         @ExcludeMissing
-        endMillisUtc: JsonField<Int> = JsonMissing.of(),
+        endMillisUtc: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("startMillisUtc")
         @ExcludeMissing
-        startMillisUtc: JsonField<Int> = JsonMissing.of(),
+        startMillisUtc: JsonField<Long> = JsonMissing.of(),
     ) : this(endMillisUtc, startMillisUtc, mutableMapOf())
 
     /**
@@ -39,7 +39,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun endMillisUtc(): Int = endMillisUtc.getRequired("endMillisUtc")
+    fun endMillisUtc(): Long = endMillisUtc.getRequired("endMillisUtc")
 
     /**
      * The start time of the meeting availability, represented as Unix time in milliseconds.
@@ -47,14 +47,16 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun startMillisUtc(): Int = startMillisUtc.getRequired("startMillisUtc")
+    fun startMillisUtc(): Long = startMillisUtc.getRequired("startMillisUtc")
 
     /**
      * Returns the raw JSON value of [endMillisUtc].
      *
      * Unlike [endMillisUtc], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("endMillisUtc") @ExcludeMissing fun _endMillisUtc(): JsonField<Int> = endMillisUtc
+    @JsonProperty("endMillisUtc")
+    @ExcludeMissing
+    fun _endMillisUtc(): JsonField<Long> = endMillisUtc
 
     /**
      * Returns the raw JSON value of [startMillisUtc].
@@ -63,7 +65,7 @@ private constructor(
      */
     @JsonProperty("startMillisUtc")
     @ExcludeMissing
-    fun _startMillisUtc(): JsonField<Int> = startMillisUtc
+    fun _startMillisUtc(): JsonField<Long> = startMillisUtc
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -94,8 +96,8 @@ private constructor(
     /** A builder for [ExternalMeetingAvailability]. */
     class Builder internal constructor() {
 
-        private var endMillisUtc: JsonField<Int>? = null
-        private var startMillisUtc: JsonField<Int>? = null
+        private var endMillisUtc: JsonField<Long>? = null
+        private var startMillisUtc: JsonField<Long>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -106,28 +108,28 @@ private constructor(
         }
 
         /** The end time of the meeting availability, represented as Unix time in milliseconds. */
-        fun endMillisUtc(endMillisUtc: Int) = endMillisUtc(JsonField.of(endMillisUtc))
+        fun endMillisUtc(endMillisUtc: Long) = endMillisUtc(JsonField.of(endMillisUtc))
 
         /**
          * Sets [Builder.endMillisUtc] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.endMillisUtc] with a well-typed [Int] value instead.
+         * You should usually call [Builder.endMillisUtc] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun endMillisUtc(endMillisUtc: JsonField<Int>) = apply { this.endMillisUtc = endMillisUtc }
+        fun endMillisUtc(endMillisUtc: JsonField<Long>) = apply { this.endMillisUtc = endMillisUtc }
 
         /** The start time of the meeting availability, represented as Unix time in milliseconds. */
-        fun startMillisUtc(startMillisUtc: Int) = startMillisUtc(JsonField.of(startMillisUtc))
+        fun startMillisUtc(startMillisUtc: Long) = startMillisUtc(JsonField.of(startMillisUtc))
 
         /**
          * Sets [Builder.startMillisUtc] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.startMillisUtc] with a well-typed [Int] value instead.
+         * You should usually call [Builder.startMillisUtc] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun startMillisUtc(startMillisUtc: JsonField<Int>) = apply {
+        fun startMillisUtc(startMillisUtc: JsonField<Long>) = apply {
             this.startMillisUtc = startMillisUtc
         }
 

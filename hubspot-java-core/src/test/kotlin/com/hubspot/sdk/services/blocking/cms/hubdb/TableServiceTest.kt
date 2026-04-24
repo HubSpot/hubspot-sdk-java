@@ -13,7 +13,7 @@ import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.models.cms.hubdb.ColumnRequest
 import com.hubspot.sdk.models.cms.hubdb.HubDbTableCloneRequest
 import com.hubspot.sdk.models.cms.hubdb.HubDbTableV3Request
-import com.hubspot.sdk.models.cms.hubdb.Option
+import com.hubspot.sdk.models.cms.hubdb.HubdbOption
 import com.hubspot.sdk.models.cms.hubdb.SimpleUser
 import com.hubspot.sdk.models.cms.hubdb.tables.TableCloneDraftParams
 import com.hubspot.sdk.models.cms.hubdb.tables.TableDeleteVersionParams
@@ -53,7 +53,7 @@ internal class TableServiceTest {
                             .label("label")
                             .name("name")
                             .addOption(
-                                Option.builder()
+                                HubdbOption.builder()
                                     .id("id")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .label("label")
@@ -338,7 +338,7 @@ internal class TableServiceTest {
                                     .label("label")
                                     .name("name")
                                     .addOption(
-                                        Option.builder()
+                                        HubdbOption.builder()
                                             .id("id")
                                             .createdAt(
                                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")

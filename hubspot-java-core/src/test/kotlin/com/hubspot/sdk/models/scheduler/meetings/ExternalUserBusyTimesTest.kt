@@ -13,7 +13,7 @@ internal class ExternalUserBusyTimesTest {
     fun create() {
         val externalUserBusyTimes =
             ExternalUserBusyTimes.builder()
-                .addBusyTime(ExternalTimeRange.builder().end(0).start(0).build())
+                .addBusyTime(ExternalTimeRange.builder().end(0L).start(0L).build())
                 .isOffline(true)
                 .meetingsUser(
                     ExternalMeetingsUser.builder()
@@ -34,7 +34,7 @@ internal class ExternalUserBusyTimesTest {
                 .build()
 
         assertThat(externalUserBusyTimes.busyTimes())
-            .containsExactly(ExternalTimeRange.builder().end(0).start(0).build())
+            .containsExactly(ExternalTimeRange.builder().end(0L).start(0L).build())
         assertThat(externalUserBusyTimes.isOffline()).isEqualTo(true)
         assertThat(externalUserBusyTimes.meetingsUser())
             .isEqualTo(
@@ -60,7 +60,7 @@ internal class ExternalUserBusyTimesTest {
         val jsonMapper = jsonMapper()
         val externalUserBusyTimes =
             ExternalUserBusyTimes.builder()
-                .addBusyTime(ExternalTimeRange.builder().end(0).start(0).build())
+                .addBusyTime(ExternalTimeRange.builder().end(0L).start(0L).build())
                 .isOffline(true)
                 .meetingsUser(
                     ExternalMeetingsUser.builder()

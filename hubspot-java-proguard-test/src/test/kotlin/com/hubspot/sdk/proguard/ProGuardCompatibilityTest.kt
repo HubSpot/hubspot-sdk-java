@@ -92,7 +92,7 @@ internal class ProGuardCompatibilityTest {
                     .active(true)
                     .appId(0)
                     .clientId("client_id")
-                    .expiresIn(0)
+                    .expiresIn(0L)
                     .hubId(0)
                     .isPrivateDistribution(true)
                     .addScope("string")

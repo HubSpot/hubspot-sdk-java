@@ -36,6 +36,7 @@ internal class SubscriptionUpsertRequestTest {
         assertThat(subscriptionUpsertRequest.association()).isEmpty
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
         assertThat(subscriptionUpsertRequest.listMembership()).isEmpty
+        assertThat(subscriptionUpsertRequest.gdprPrivacyDeletion()).isEmpty
     }
 
     @Test
@@ -80,6 +81,7 @@ internal class SubscriptionUpsertRequestTest {
         assertThat(subscriptionUpsertRequest.association()).contains(association)
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
         assertThat(subscriptionUpsertRequest.listMembership()).isEmpty
+        assertThat(subscriptionUpsertRequest.gdprPrivacyDeletion()).isEmpty
     }
 
     @Test
@@ -124,6 +126,7 @@ internal class SubscriptionUpsertRequestTest {
         assertThat(subscriptionUpsertRequest.association()).isEmpty
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).contains(appLifecycleEvent)
         assertThat(subscriptionUpsertRequest.listMembership()).isEmpty
+        assertThat(subscriptionUpsertRequest.gdprPrivacyDeletion()).isEmpty
     }
 
     @Test
@@ -166,6 +169,7 @@ internal class SubscriptionUpsertRequestTest {
         assertThat(subscriptionUpsertRequest.association()).isEmpty
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
         assertThat(subscriptionUpsertRequest.listMembership()).contains(listMembership)
+        assertThat(subscriptionUpsertRequest.gdprPrivacyDeletion()).isEmpty
     }
 
     @Test
@@ -180,6 +184,52 @@ internal class SubscriptionUpsertRequestTest {
                     .portalId(0L)
                     .subscriptionType(
                         ListMembershipSubscriptionUpsertRequest.SubscriptionType.OBJECT
+                    )
+                    .build()
+            )
+
+        val roundtrippedSubscriptionUpsertRequest =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(subscriptionUpsertRequest),
+                jacksonTypeRef<SubscriptionUpsertRequest>(),
+            )
+
+        assertThat(roundtrippedSubscriptionUpsertRequest).isEqualTo(subscriptionUpsertRequest)
+    }
+
+    @Test
+    fun ofGdprPrivacyDeletion() {
+        val gdprPrivacyDeletion =
+            GdprPrivacyDeletionSubscriptionUpsertRequest.builder()
+                .addAction(GdprPrivacyDeletionSubscriptionUpsertRequest.Action.CREATE)
+                .objectTypeId("objectTypeId")
+                .portalId(0L)
+                .subscriptionType(
+                    GdprPrivacyDeletionSubscriptionUpsertRequest.SubscriptionType.OBJECT
+                )
+                .build()
+
+        val subscriptionUpsertRequest =
+            SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion)
+
+        assertThat(subscriptionUpsertRequest.objectSubscriptionUpsertRequest()).isEmpty
+        assertThat(subscriptionUpsertRequest.association()).isEmpty
+        assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
+        assertThat(subscriptionUpsertRequest.listMembership()).isEmpty
+        assertThat(subscriptionUpsertRequest.gdprPrivacyDeletion()).contains(gdprPrivacyDeletion)
+    }
+
+    @Test
+    fun ofGdprPrivacyDeletionRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val subscriptionUpsertRequest =
+            SubscriptionUpsertRequest.ofGdprPrivacyDeletion(
+                GdprPrivacyDeletionSubscriptionUpsertRequest.builder()
+                    .addAction(GdprPrivacyDeletionSubscriptionUpsertRequest.Action.CREATE)
+                    .objectTypeId("objectTypeId")
+                    .portalId(0L)
+                    .subscriptionType(
+                        GdprPrivacyDeletionSubscriptionUpsertRequest.SubscriptionType.OBJECT
                     )
                     .build()
             )

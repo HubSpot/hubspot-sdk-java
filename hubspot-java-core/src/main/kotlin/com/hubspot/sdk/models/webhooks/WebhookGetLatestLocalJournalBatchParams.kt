@@ -9,6 +9,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve the latest batch of webhook journal entries. This endpoint is useful for accessing the
+ * most recent data entries processed by the webhook journal. It requires specifying the number of
+ * entries to retrieve.
+ */
 class WebhookGetLatestLocalJournalBatchParams
 private constructor(
     private val count: Int?,
@@ -19,6 +24,10 @@ private constructor(
 
     fun count(): Optional<Int> = Optional.ofNullable(count)
 
+    /**
+     * The ID of the portal installation. This parameter is optional and used to filter the journal
+     * entries by a specific portal.
+     */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
     /** Additional headers to send with the request. */
@@ -72,6 +81,10 @@ private constructor(
         /** Alias for calling [Builder.count] with `count.orElse(null)`. */
         fun count(count: Optional<Int>) = count(count.getOrNull())
 
+        /**
+         * The ID of the portal installation. This parameter is optional and used to filter the
+         * journal entries by a specific portal.
+         */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId
         }

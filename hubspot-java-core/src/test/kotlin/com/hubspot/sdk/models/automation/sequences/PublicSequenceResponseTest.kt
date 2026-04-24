@@ -36,7 +36,7 @@ internal class PublicSequenceResponseTest {
                         .id("id")
                         .actionType(PublicSequenceStepResponse.ActionType.EMAIL)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .delayMillis(0)
+                        .delayMillis(0L)
                         .stepOrder(0)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .emailPattern(
@@ -111,7 +111,7 @@ internal class PublicSequenceResponseTest {
                     .id("id")
                     .actionType(PublicSequenceStepResponse.ActionType.EMAIL)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .delayMillis(0)
+                    .delayMillis(0L)
                     .stepOrder(0)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .emailPattern(
@@ -188,7 +188,7 @@ internal class PublicSequenceResponseTest {
                         .id("id")
                         .actionType(PublicSequenceStepResponse.ActionType.EMAIL)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .delayMillis(0)
+                        .delayMillis(0L)
                         .stepOrder(0)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .emailPattern(

@@ -63,7 +63,11 @@ interface MultiLanguageServiceAsync {
     ): CompletableFuture<HttpResponse> =
         attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
-    /** Create a new language variation from an existing site page */
+    /**
+     * Create a new language variation from an existing website page. The variation will be a copy
+     * of the draft state of the source page. To preview the content, you can
+     * [retrieve the draft of the source website page](/api-reference/latest/cms/pages/website-pages/drafts/get-website-page-draft).
+     */
     fun createLanguageVariation(
         params: MultiLanguageCreateLanguageVariationParams
     ): CompletableFuture<PageData> = createLanguageVariation(params, RequestOptions.none())

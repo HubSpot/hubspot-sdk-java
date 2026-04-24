@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.automation.actions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,26 +14,11 @@ internal class ArrayFieldSchemaTest {
     fun create() {
         val arrayFieldSchema =
             ArrayFieldSchema.builder()
-                .items(
-                    IntegerFieldSchema.builder()
-                        .type(IntegerFieldSchema.Type.INTEGER)
-                        .maximum(0)
-                        .minimum(0)
-                        .build()
-                )
+                .items(JsonValue.from(mapOf<String, Any>()))
                 .type(ArrayFieldSchema.Type.ARRAY)
                 .build()
 
-        assertThat(arrayFieldSchema.items())
-            .isEqualTo(
-                ArrayFieldSchema.Items.ofIntegerFieldSchema(
-                    IntegerFieldSchema.builder()
-                        .type(IntegerFieldSchema.Type.INTEGER)
-                        .maximum(0)
-                        .minimum(0)
-                        .build()
-                )
-            )
+        assertThat(arrayFieldSchema._items()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(arrayFieldSchema.type()).isEqualTo(ArrayFieldSchema.Type.ARRAY)
     }
 
@@ -41,13 +27,7 @@ internal class ArrayFieldSchemaTest {
         val jsonMapper = jsonMapper()
         val arrayFieldSchema =
             ArrayFieldSchema.builder()
-                .items(
-                    IntegerFieldSchema.builder()
-                        .type(IntegerFieldSchema.Type.INTEGER)
-                        .maximum(0)
-                        .minimum(0)
-                        .build()
-                )
+                .items(JsonValue.from(mapOf<String, Any>()))
                 .type(ArrayFieldSchema.Type.ARRAY)
                 .build()
 

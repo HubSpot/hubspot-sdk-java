@@ -7,6 +7,11 @@ import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Retrieve a list of webhook journal subscriptions for the specified API version. This endpoint
+ * provides details about each subscription, including actions, object types, and associated
+ * properties. It is useful for managing and reviewing current webhook subscriptions.
+ */
 class WebhookListJournalSubscriptionsParams
 private constructor(
     private val additionalHeaders: Headers,

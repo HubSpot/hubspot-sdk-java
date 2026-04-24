@@ -17,9 +17,9 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.AssociationDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
+import com.hubspot.sdk.models.BaseObjectTypeDefinition
 import com.hubspot.sdk.models.CollectionResponsePropertyGroupNoPaging
-import com.hubspot.sdk.models.ObjectTypeDefinition
 import com.hubspot.sdk.models.PropertyGroup
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot.sdk.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
@@ -51,6 +51,7 @@ import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeListOembedDomainsParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeListPropertiesParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeListPropertyGroupsParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeListSchemasParams
+import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeProperty
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeProviderRegistrationResponse
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeRegisterAppNameParams
 import com.hubspot.sdk.models.cms.mediabridge.MediaBridgeUpdateEventVisibilitySettingsParams
@@ -64,7 +65,6 @@ import com.hubspot.sdk.models.cms.mediabridge.MediaPlayedPercentageEvent
 import com.hubspot.sdk.models.cms.mediabridge.OEmbedDomainsCollectionResponse
 import com.hubspot.sdk.models.cms.mediabridge.ObjectDefinitionResponse
 import com.hubspot.sdk.models.cms.mediabridge.ObjectSchema
-import com.hubspot.sdk.models.cms.mediabridge.Property
 import com.hubspot.sdk.services.blocking.cms.mediabridge.BatchService
 import com.hubspot.sdk.services.blocking.cms.mediabridge.BatchServiceImpl
 import java.util.function.Consumer
@@ -89,7 +89,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun createAssociation(
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions,
-    ): AssociationDefinition =
+    ): BaseAssociationDefinition =
         // post /media-bridge/2026-03/{appId}/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).parse()
 
@@ -131,7 +131,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun createProperty(
         params: MediaBridgeCreatePropertyParams,
         requestOptions: RequestOptions,
-    ): Property =
+    ): MediaBridgeProperty =
         // post /media-bridge/2026-03/{appId}/properties/{objectType}
         withRawResponse().createProperty(params, requestOptions).parse()
 
@@ -145,7 +145,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun createVideoAssociationDefinition(
         params: MediaBridgeCreateVideoAssociationDefinitionParams,
         requestOptions: RequestOptions,
-    ): AssociationDefinition =
+    ): BaseAssociationDefinition =
         // post /media-bridge/2026-03/{appId}/settings/video-association-definition
         withRawResponse().createVideoAssociationDefinition(params, requestOptions).parse()
 
@@ -198,7 +198,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun getProperty(
         params: MediaBridgeGetPropertyParams,
         requestOptions: RequestOptions,
-    ): Property =
+    ): MediaBridgeProperty =
         // get /media-bridge/2026-03/{appId}/properties/{objectType}/{propertyName}
         withRawResponse().getProperty(params, requestOptions).parse()
 
@@ -276,7 +276,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun updateProperty(
         params: MediaBridgeUpdatePropertyParams,
         requestOptions: RequestOptions,
-    ): Property =
+    ): MediaBridgeProperty =
         // patch /media-bridge/2026-03/{appId}/properties/{objectType}/{propertyName}
         withRawResponse().updateProperty(params, requestOptions).parse()
 
@@ -290,7 +290,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun updateSchema(
         params: MediaBridgeUpdateSchemaParams,
         requestOptions: RequestOptions,
-    ): ObjectTypeDefinition =
+    ): BaseObjectTypeDefinition =
         // patch /media-bridge/2026-03/{appId}/schemas/{objectType}
         withRawResponse().updateSchema(params, requestOptions).parse()
 
@@ -320,13 +320,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
 
         override fun batch(): BatchService.WithRawResponse = batch
 
-        private val createAssociationHandler: Handler<AssociationDefinition> =
-            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
+        private val createAssociationHandler: Handler<BaseAssociationDefinition> =
+            jsonHandler<BaseAssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createAssociation(
             params: MediaBridgeCreateAssociationParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssociationDefinition> {
+        ): HttpResponseFor<BaseAssociationDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())
@@ -516,13 +516,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val createPropertyHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val createPropertyHandler: Handler<MediaBridgeProperty> =
+            jsonHandler<MediaBridgeProperty>(clientOptions.jsonMapper)
 
         override fun createProperty(
             params: MediaBridgeCreatePropertyParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<MediaBridgeProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())
@@ -591,13 +591,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val createVideoAssociationDefinitionHandler: Handler<AssociationDefinition> =
-            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
+        private val createVideoAssociationDefinitionHandler: Handler<BaseAssociationDefinition> =
+            jsonHandler<BaseAssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createVideoAssociationDefinition(
             params: MediaBridgeCreateVideoAssociationDefinitionParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssociationDefinition> {
+        ): HttpResponseFor<BaseAssociationDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -826,13 +826,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val getPropertyHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val getPropertyHandler: Handler<MediaBridgeProperty> =
+            jsonHandler<MediaBridgeProperty>(clientOptions.jsonMapper)
 
         override fun getProperty(
             params: MediaBridgeGetPropertyParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<MediaBridgeProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())
@@ -1226,13 +1226,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updatePropertyHandler: Handler<Property> =
-            jsonHandler<Property>(clientOptions.jsonMapper)
+        private val updatePropertyHandler: Handler<MediaBridgeProperty> =
+            jsonHandler<MediaBridgeProperty>(clientOptions.jsonMapper)
 
         override fun updateProperty(
             params: MediaBridgeUpdatePropertyParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Property> {
+        ): HttpResponseFor<MediaBridgeProperty> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())
@@ -1303,13 +1303,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updateSchemaHandler: Handler<ObjectTypeDefinition> =
-            jsonHandler<ObjectTypeDefinition>(clientOptions.jsonMapper)
+        private val updateSchemaHandler: Handler<BaseObjectTypeDefinition> =
+            jsonHandler<BaseObjectTypeDefinition>(clientOptions.jsonMapper)
 
         override fun updateSchema(
             params: MediaBridgeUpdateSchemaParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ObjectTypeDefinition> {
+        ): HttpResponseFor<BaseObjectTypeDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

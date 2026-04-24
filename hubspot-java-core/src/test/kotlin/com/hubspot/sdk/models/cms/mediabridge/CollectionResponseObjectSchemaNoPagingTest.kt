@@ -4,7 +4,7 @@ package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
-import com.hubspot.sdk.models.AssociationDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
@@ -23,7 +23,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                         .allowsSensitiveProperties(true)
                         .archived(true)
                         .addAssociation(
-                            AssociationDefinition.builder()
+                            BaseAssociationDefinition.builder()
                                 .id("id")
                                 .fromObjectTypeId("fromObjectTypeId")
                                 .toObjectTypeId("toObjectTypeId")
@@ -64,6 +64,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                 .calculationFormula("calculationFormula")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
+                                .currencyPropertyName("currencyPropertyName")
                                 .dataSensitivity(Property1.DataSensitivity.HIGHLY_SENSITIVE)
                                 .dateDisplayHint(Property1.DateDisplayHint.ABSOLUTE)
                                 .displayOrder(0)
@@ -80,6 +81,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                         .readOnlyOptions(true)
                                         .build()
                                 )
+                                .numberDisplayHint(Property1.NumberDisplayHint.CURRENCY)
                                 .referencedObjectType("referencedObjectType")
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)
@@ -107,7 +109,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                     .allowsSensitiveProperties(true)
                     .archived(true)
                     .addAssociation(
-                        AssociationDefinition.builder()
+                        BaseAssociationDefinition.builder()
                             .id("id")
                             .fromObjectTypeId("fromObjectTypeId")
                             .toObjectTypeId("toObjectTypeId")
@@ -148,6 +150,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                             .calculationFormula("calculationFormula")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdUserId("createdUserId")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(Property1.DataSensitivity.HIGHLY_SENSITIVE)
                             .dateDisplayHint(Property1.DateDisplayHint.ABSOLUTE)
                             .displayOrder(0)
@@ -164,6 +167,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                     .readOnlyOptions(true)
                                     .build()
                             )
+                            .numberDisplayHint(Property1.NumberDisplayHint.CURRENCY)
                             .referencedObjectType("referencedObjectType")
                             .addSensitiveDataCategory("string")
                             .showCurrencySymbol(true)
@@ -195,7 +199,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                         .allowsSensitiveProperties(true)
                         .archived(true)
                         .addAssociation(
-                            AssociationDefinition.builder()
+                            BaseAssociationDefinition.builder()
                                 .id("id")
                                 .fromObjectTypeId("fromObjectTypeId")
                                 .toObjectTypeId("toObjectTypeId")
@@ -236,6 +240,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                 .calculationFormula("calculationFormula")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
+                                .currencyPropertyName("currencyPropertyName")
                                 .dataSensitivity(Property1.DataSensitivity.HIGHLY_SENSITIVE)
                                 .dateDisplayHint(Property1.DateDisplayHint.ABSOLUTE)
                                 .displayOrder(0)
@@ -252,6 +257,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                         .readOnlyOptions(true)
                                         .build()
                                 )
+                                .numberDisplayHint(Property1.NumberDisplayHint.CURRENCY)
                                 .referencedObjectType("referencedObjectType")
                                 .addSensitiveDataCategory("string")
                                 .showCurrencySymbol(true)

@@ -18,7 +18,7 @@ internal class PreResolvedContactsTest {
                         .addContactPropertiesLeadingToMatch(
                             PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                         )
-                        .contactVid(0)
+                        .contactVid(0L)
                         .build()
                 )
                 .build()
@@ -29,7 +29,7 @@ internal class PreResolvedContactsTest {
                     .addContactPropertiesLeadingToMatch(
                         PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                     )
-                    .contactVid(0)
+                    .contactVid(0L)
                     .build()
             )
     }
@@ -44,7 +44,7 @@ internal class PreResolvedContactsTest {
                         .addContactPropertiesLeadingToMatch(
                             PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
                         )
-                        .contactVid(0)
+                        .contactVid(0L)
                         .build()
                 )
                 .build()

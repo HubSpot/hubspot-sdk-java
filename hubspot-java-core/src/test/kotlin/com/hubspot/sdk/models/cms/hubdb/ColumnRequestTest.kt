@@ -18,7 +18,7 @@ internal class ColumnRequestTest {
                 .label("label")
                 .name("name")
                 .addOption(
-                    Option.builder()
+                    HubdbOption.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .label("label")
@@ -58,7 +58,7 @@ internal class ColumnRequestTest {
         assertThat(columnRequest.name()).isEqualTo("name")
         assertThat(columnRequest.options())
             .containsExactly(
-                Option.builder()
+                HubdbOption.builder()
                     .id("id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .label("label")
@@ -102,7 +102,7 @@ internal class ColumnRequestTest {
                 .label("label")
                 .name("name")
                 .addOption(
-                    Option.builder()
+                    HubdbOption.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .label("label")

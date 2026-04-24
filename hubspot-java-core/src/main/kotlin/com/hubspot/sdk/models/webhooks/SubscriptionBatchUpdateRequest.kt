@@ -30,7 +30,7 @@ private constructor(
     ) : this(id, active, mutableMapOf())
 
     /**
-     * The ID of the webhook subscription to update.
+     * The unique identifier for the subscription. It is an integer.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -38,8 +38,7 @@ private constructor(
     fun id(): Int = id.getRequired("id")
 
     /**
-     * Whether to activate or pause the webhook subscription. If true, the subscription will send
-     * webhook notifications. If false, the subscription is paused and will not send notifications.
+     * A boolean indicating whether the subscription is active.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -102,7 +101,7 @@ private constructor(
                 subscriptionBatchUpdateRequest.additionalProperties.toMutableMap()
         }
 
-        /** The ID of the webhook subscription to update. */
+        /** The unique identifier for the subscription. It is an integer. */
         fun id(id: Int) = id(JsonField.of(id))
 
         /**
@@ -113,11 +112,7 @@ private constructor(
          */
         fun id(id: JsonField<Int>) = apply { this.id = id }
 
-        /**
-         * Whether to activate or pause the webhook subscription. If true, the subscription will
-         * send webhook notifications. If false, the subscription is paused and will not send
-         * notifications.
-         */
+        /** A boolean indicating whether the subscription is active. */
         fun active(active: Boolean) = active(JsonField.of(active))
 
         /**

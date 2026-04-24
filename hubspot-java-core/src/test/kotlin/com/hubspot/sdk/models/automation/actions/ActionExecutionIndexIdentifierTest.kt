@@ -12,17 +12,23 @@ internal class ActionExecutionIndexIdentifierTest {
     @Test
     fun create() {
         val actionExecutionIndexIdentifier =
-            ActionExecutionIndexIdentifier.builder().actionExecutionIndex(0).enrollmentId(0).build()
+            ActionExecutionIndexIdentifier.builder()
+                .actionExecutionIndex(0)
+                .enrollmentId(0L)
+                .build()
 
         assertThat(actionExecutionIndexIdentifier.actionExecutionIndex()).isEqualTo(0)
-        assertThat(actionExecutionIndexIdentifier.enrollmentId()).isEqualTo(0)
+        assertThat(actionExecutionIndexIdentifier.enrollmentId()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val actionExecutionIndexIdentifier =
-            ActionExecutionIndexIdentifier.builder().actionExecutionIndex(0).enrollmentId(0).build()
+            ActionExecutionIndexIdentifier.builder()
+                .actionExecutionIndex(0)
+                .enrollmentId(0L)
+                .build()
 
         val roundtrippedActionExecutionIndexIdentifier =
             jsonMapper.readValue(

@@ -18,17 +18,9 @@ import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepareAsync
 import com.hubspot.sdk.models.cms.pages.CollectionResponseWithTotalPageVersion
-import com.hubspot.sdk.models.cms.pages.CursorPagedResultContentFolderLong
-import com.hubspot.sdk.models.cms.pages.CursorPagedResultPageLong
 import com.hubspot.sdk.models.cms.pages.PageData
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPageFoldersByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPageFoldersParams
 import com.hubspot.sdk.models.cms.pages.PageGetLandingPageRevisionParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPagesByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetLandingPagesParams
 import com.hubspot.sdk.models.cms.pages.PageGetSitePageRevisionParams
-import com.hubspot.sdk.models.cms.pages.PageGetSitePagesByQueryParams
-import com.hubspot.sdk.models.cms.pages.PageGetSitePagesParams
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsPageAsync
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsParams
 import com.hubspot.sdk.models.cms.pages.PageListSitePageRevisionsPageAsync
@@ -97,22 +89,6 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
     override fun websitePages(): WebsitePageServiceAsync = websitePages
 
-    override fun getLandingPageFolders(
-        params: PageGetLandingPageFoldersParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        // get /cms/pages/2026-03/landing-pages/folders/cursor
-        withRawResponse().getLandingPageFolders(params, requestOptions).thenApply { it.parse() }
-
-    override fun getLandingPageFoldersByQuery(
-        params: PageGetLandingPageFoldersByQueryParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        // get /cms/pages/2026-03/landing-pages/folders/cursor/query
-        withRawResponse().getLandingPageFoldersByQuery(params, requestOptions).thenApply {
-            it.parse()
-        }
-
     override fun getLandingPageRevision(
         params: PageGetLandingPageRevisionParams,
         requestOptions: RequestOptions,
@@ -120,40 +96,12 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // get /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}
         withRawResponse().getLandingPageRevision(params, requestOptions).thenApply { it.parse() }
 
-    override fun getLandingPages(
-        params: PageGetLandingPagesParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        // get /cms/pages/2026-03/landing-pages/cursor
-        withRawResponse().getLandingPages(params, requestOptions).thenApply { it.parse() }
-
-    override fun getLandingPagesByQuery(
-        params: PageGetLandingPagesByQueryParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        // get /cms/pages/2026-03/landing-pages/cursor/query
-        withRawResponse().getLandingPagesByQuery(params, requestOptions).thenApply { it.parse() }
-
     override fun getSitePageRevision(
         params: PageGetSitePageRevisionParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PageVersion> =
         // get /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}
         withRawResponse().getSitePageRevision(params, requestOptions).thenApply { it.parse() }
-
-    override fun getSitePages(
-        params: PageGetSitePagesParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        // get /cms/pages/2026-03/site-pages/cursor
-        withRawResponse().getSitePages(params, requestOptions).thenApply { it.parse() }
-
-    override fun getSitePagesByQuery(
-        params: PageGetSitePagesByQueryParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        // get /cms/pages/2026-03/site-pages/cursor/query
-        withRawResponse().getSitePagesByQuery(params, requestOptions).thenApply { it.parse() }
 
     override fun listLandingPageRevisions(
         params: PageListLandingPageRevisionsParams,
@@ -259,82 +207,6 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
         override fun websitePages(): WebsitePageServiceAsync.WithRawResponse = websitePages
 
-        private val getLandingPageFoldersHandler: Handler<CursorPagedResultContentFolderLong> =
-            jsonHandler<CursorPagedResultContentFolderLong>(clientOptions.jsonMapper)
-
-        override fun getLandingPageFolders(
-            params: PageGetLandingPageFoldersParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        "folders",
-                        "cursor",
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getLandingPageFoldersHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val getLandingPageFoldersByQueryHandler:
-            Handler<CursorPagedResultContentFolderLong> =
-            jsonHandler<CursorPagedResultContentFolderLong>(clientOptions.jsonMapper)
-
-        override fun getLandingPageFoldersByQuery(
-            params: PageGetLandingPageFoldersByQueryParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        "folders",
-                        "cursor",
-                        "query",
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getLandingPageFoldersByQueryHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
         private val getLandingPageRevisionHandler: Handler<PageVersion> =
             jsonHandler<PageVersion>(clientOptions.jsonMapper)
 
@@ -376,66 +248,6 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val getLandingPagesHandler: Handler<CursorPagedResultPageLong> =
-            jsonHandler<CursorPagedResultPageLong>(clientOptions.jsonMapper)
-
-        override fun getLandingPages(
-            params: PageGetLandingPagesParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "cursor")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getLandingPagesHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val getLandingPagesByQueryHandler: Handler<CursorPagedResultPageLong> =
-            jsonHandler<CursorPagedResultPageLong>(clientOptions.jsonMapper)
-
-        override fun getLandingPagesByQuery(
-            params: PageGetLandingPagesByQueryParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "cursor", "query")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getLandingPagesByQueryHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
         private val getSitePageRevisionHandler: Handler<PageVersion> =
             jsonHandler<PageVersion>(clientOptions.jsonMapper)
 
@@ -468,66 +280,6 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     errorHandler.handle(response).parseable {
                         response
                             .use { getSitePageRevisionHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val getSitePagesHandler: Handler<CursorPagedResultPageLong> =
-            jsonHandler<CursorPagedResultPageLong>(clientOptions.jsonMapper)
-
-        override fun getSitePages(
-            params: PageGetSitePagesParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "pages", "2026-03", "site-pages", "cursor")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getSitePagesHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val getSitePagesByQueryHandler: Handler<CursorPagedResultPageLong> =
-            jsonHandler<CursorPagedResultPageLong>(clientOptions.jsonMapper)
-
-        override fun getSitePagesByQuery(
-            params: PageGetSitePagesByQueryParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "pages", "2026-03", "site-pages", "cursor", "query")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getSitePagesByQueryHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

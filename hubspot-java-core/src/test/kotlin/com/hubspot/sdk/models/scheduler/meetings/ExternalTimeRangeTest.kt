@@ -11,16 +11,16 @@ internal class ExternalTimeRangeTest {
 
     @Test
     fun create() {
-        val externalTimeRange = ExternalTimeRange.builder().end(0).start(0).build()
+        val externalTimeRange = ExternalTimeRange.builder().end(0L).start(0L).build()
 
-        assertThat(externalTimeRange.end()).isEqualTo(0)
-        assertThat(externalTimeRange.start()).isEqualTo(0)
+        assertThat(externalTimeRange.end()).isEqualTo(0L)
+        assertThat(externalTimeRange.start()).isEqualTo(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val externalTimeRange = ExternalTimeRange.builder().end(0).start(0).build()
+        val externalTimeRange = ExternalTimeRange.builder().end(0L).start(0L).build()
 
         val roundtrippedExternalTimeRange =
             jsonMapper.readValue(

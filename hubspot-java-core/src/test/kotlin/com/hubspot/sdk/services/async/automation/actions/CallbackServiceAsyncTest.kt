@@ -37,11 +37,11 @@ internal class CallbackServiceAsyncTest {
                             .requestContext(
                                 WorkflowsRequestContext.builder()
                                     .source(WorkflowsRequestContext.Source.WORKFLOWS)
-                                    .workflowId(0)
+                                    .workflowId(0L)
                                     .actionExecutionIndexIdentifier(
                                         ActionExecutionIndexIdentifier.builder()
                                             .actionExecutionIndex(0)
-                                            .enrollmentId(0)
+                                            .enrollmentId(0L)
                                             .build()
                                     )
                                     .actionId(0L)
@@ -77,11 +77,11 @@ internal class CallbackServiceAsyncTest {
                             .requestContext(
                                 WorkflowsRequestContext.builder()
                                     .source(WorkflowsRequestContext.Source.WORKFLOWS)
-                                    .workflowId(0)
+                                    .workflowId(0L)
                                     .actionExecutionIndexIdentifier(
                                         ActionExecutionIndexIdentifier.builder()
                                             .actionExecutionIndex(0)
-                                            .enrollmentId(0)
+                                            .enrollmentId(0L)
                                             .build()
                                     )
                                     .actionId(0L)

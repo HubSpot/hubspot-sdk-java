@@ -13,8 +13,10 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Get the list of landing pages. Supports paging and filtering. This method would be useful for an
- * integration that examined these models and used an external service to suggest edits.
+ * Retrieve a list of landing pages in your HubSpot account. This endpoint allows you to filter
+ * landing pages based on creation and update timestamps, sort them, and paginate through results.
+ * You can also choose to include archived pages or specify certain properties to be included in the
+ * response.
  */
 class LandingPageListParams
 private constructor(
@@ -34,31 +36,39 @@ private constructor(
 ) : Params {
 
     /**
-     * The paging cursor token of the last successfully read resource will be returned as the
-     * `paging.next.after` JSON property of a paged response containing more results.
+     * A cursor token for pagination. Use the value from the previous response's paging.next.after
+     * field.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
+    /** Filter landing pages created after a specific date and time. */
     fun createdAfter(): Optional<OffsetDateTime> = Optional.ofNullable(createdAfter)
 
+    /** Filter landing pages by their creation timestamp. */
     fun createdAt(): Optional<OffsetDateTime> = Optional.ofNullable(createdAt)
 
+    /** Filter landing pages created before a specific date and time. */
     fun createdBefore(): Optional<OffsetDateTime> = Optional.ofNullable(createdBefore)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
+    /** Specify which properties of the landing pages to include in the response. */
     fun property(): Optional<String> = Optional.ofNullable(property)
 
+    /** Specify the order in which results are returned. Accepts an array of strings. */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
+    /** Filter landing pages updated after a specific date and time. */
     fun updatedAfter(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAfter)
 
+    /** Filter landing pages by their last updated timestamp. */
     fun updatedAt(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAt)
 
+    /** Filter landing pages updated before a specific date and time. */
     fun updatedBefore(): Optional<OffsetDateTime> = Optional.ofNullable(updatedBefore)
 
     /** Additional headers to send with the request. */
@@ -112,8 +122,8 @@ private constructor(
         }
 
         /**
-         * The paging cursor token of the last successfully read resource will be returned as the
-         * `paging.next.after` JSON property of a paged response containing more results.
+         * A cursor token for pagination. Use the value from the previous response's
+         * paging.next.after field.
          */
         fun after(after: String?) = apply { this.after = after }
 
@@ -133,17 +143,20 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
+        /** Filter landing pages created after a specific date and time. */
         fun createdAfter(createdAfter: OffsetDateTime?) = apply { this.createdAfter = createdAfter }
 
         /** Alias for calling [Builder.createdAfter] with `createdAfter.orElse(null)`. */
         fun createdAfter(createdAfter: Optional<OffsetDateTime>) =
             createdAfter(createdAfter.getOrNull())
 
+        /** Filter landing pages by their creation timestamp. */
         fun createdAt(createdAt: OffsetDateTime?) = apply { this.createdAt = createdAt }
 
         /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<OffsetDateTime>) = createdAt(createdAt.getOrNull())
 
+        /** Filter landing pages created before a specific date and time. */
         fun createdBefore(createdBefore: OffsetDateTime?) = apply {
             this.createdBefore = createdBefore
         }
@@ -165,11 +178,13 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
+        /** Specify which properties of the landing pages to include in the response. */
         fun property(property: String?) = apply { this.property = property }
 
         /** Alias for calling [Builder.property] with `property.orElse(null)`. */
         fun property(property: Optional<String>) = property(property.getOrNull())
 
+        /** Specify the order in which results are returned. Accepts an array of strings. */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -184,17 +199,20 @@ private constructor(
             this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
         }
 
+        /** Filter landing pages updated after a specific date and time. */
         fun updatedAfter(updatedAfter: OffsetDateTime?) = apply { this.updatedAfter = updatedAfter }
 
         /** Alias for calling [Builder.updatedAfter] with `updatedAfter.orElse(null)`. */
         fun updatedAfter(updatedAfter: Optional<OffsetDateTime>) =
             updatedAfter(updatedAfter.getOrNull())
 
+        /** Filter landing pages by their last updated timestamp. */
         fun updatedAt(updatedAt: OffsetDateTime?) = apply { this.updatedAt = updatedAt }
 
         /** Alias for calling [Builder.updatedAt] with `updatedAt.orElse(null)`. */
         fun updatedAt(updatedAt: Optional<OffsetDateTime>) = updatedAt(updatedAt.getOrNull())
 
+        /** Filter landing pages updated before a specific date and time. */
         fun updatedBefore(updatedBefore: OffsetDateTime?) = apply {
             this.updatedBefore = updatedBefore
         }
