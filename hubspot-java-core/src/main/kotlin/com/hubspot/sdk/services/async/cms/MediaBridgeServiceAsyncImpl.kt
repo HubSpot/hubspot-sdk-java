@@ -17,9 +17,9 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepareAsync
-import com.hubspot.sdk.models.AssociationDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
+import com.hubspot.sdk.models.BaseObjectTypeDefinition
 import com.hubspot.sdk.models.CollectionResponsePropertyGroupNoPaging
-import com.hubspot.sdk.models.ObjectTypeDefinition
 import com.hubspot.sdk.models.PropertyGroup
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot.sdk.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
@@ -90,7 +90,7 @@ class MediaBridgeServiceAsyncImpl internal constructor(private val clientOptions
     override fun createAssociation(
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         // post /media-bridge/2026-03/{appId}/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).thenApply { it.parse() }
 
@@ -148,7 +148,7 @@ class MediaBridgeServiceAsyncImpl internal constructor(private val clientOptions
     override fun createVideoAssociationDefinition(
         params: MediaBridgeCreateVideoAssociationDefinitionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         // post /media-bridge/2026-03/{appId}/settings/video-association-definition
         withRawResponse().createVideoAssociationDefinition(params, requestOptions).thenApply {
             it.parse()
@@ -297,7 +297,7 @@ class MediaBridgeServiceAsyncImpl internal constructor(private val clientOptions
     override fun updateSchema(
         params: MediaBridgeUpdateSchemaParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<BaseObjectTypeDefinition> =
         // patch /media-bridge/2026-03/{appId}/schemas/{objectType}
         withRawResponse().updateSchema(params, requestOptions).thenApply { it.parse() }
 
@@ -327,13 +327,13 @@ class MediaBridgeServiceAsyncImpl internal constructor(private val clientOptions
 
         override fun batch(): BatchServiceAsync.WithRawResponse = batch
 
-        private val createAssociationHandler: Handler<AssociationDefinition> =
-            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
+        private val createAssociationHandler: Handler<BaseAssociationDefinition> =
+            jsonHandler<BaseAssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createAssociation(
             params: MediaBridgeCreateAssociationParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> {
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())
@@ -622,13 +622,13 @@ class MediaBridgeServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val createVideoAssociationDefinitionHandler: Handler<AssociationDefinition> =
-            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
+        private val createVideoAssociationDefinitionHandler: Handler<BaseAssociationDefinition> =
+            jsonHandler<BaseAssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createVideoAssociationDefinition(
             params: MediaBridgeCreateVideoAssociationDefinitionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> {
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -1394,13 +1394,13 @@ class MediaBridgeServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val updateSchemaHandler: Handler<ObjectTypeDefinition> =
-            jsonHandler<ObjectTypeDefinition>(clientOptions.jsonMapper)
+        private val updateSchemaHandler: Handler<BaseObjectTypeDefinition> =
+            jsonHandler<BaseObjectTypeDefinition>(clientOptions.jsonMapper)
 
         override fun updateSchema(
             params: MediaBridgeUpdateSchemaParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> {
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

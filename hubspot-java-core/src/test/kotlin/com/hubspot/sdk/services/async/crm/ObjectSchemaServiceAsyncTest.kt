@@ -88,7 +88,7 @@ internal class ObjectSchemaServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
-        val objectTypeDefinitionFuture =
+        val baseObjectTypeDefinitionFuture =
             objectSchemaServiceAsync.update(
                 ObjectSchemaUpdateParams.builder()
                     .objectType("objectType")
@@ -113,8 +113,8 @@ internal class ObjectSchemaServiceAsyncTest {
                     .build()
             )
 
-        val objectTypeDefinition = objectTypeDefinitionFuture.get()
-        objectTypeDefinition.validate()
+        val baseObjectTypeDefinition = baseObjectTypeDefinitionFuture.get()
+        baseObjectTypeDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -158,7 +158,7 @@ internal class ObjectSchemaServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectSchemaServiceAsync = client.crm().objectSchemas()
 
-        val associationDefinitionFuture =
+        val baseAssociationDefinitionFuture =
             objectSchemaServiceAsync.createAssociation(
                 ObjectSchemaCreateAssociationParams.builder()
                     .objectType("objectType")
@@ -172,8 +172,8 @@ internal class ObjectSchemaServiceAsyncTest {
                     .build()
             )
 
-        val associationDefinition = associationDefinitionFuture.get()
-        associationDefinition.validate()
+        val baseAssociationDefinition = baseAssociationDefinitionFuture.get()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")

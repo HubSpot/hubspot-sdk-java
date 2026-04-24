@@ -17,7 +17,7 @@ import java.util.Objects
 import java.util.Optional
 
 /** A HubSpot property option */
-class Option
+class BaseOption
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val hidden: JsonField<Boolean>,
@@ -133,7 +133,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [Option].
+         * Returns a mutable builder for constructing an instance of [BaseOption].
          *
          * The following fields are required:
          * ```java
@@ -145,7 +145,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [Option]. */
+    /** A builder for [BaseOption]. */
     class Builder internal constructor() {
 
         private var hidden: JsonField<Boolean>? = null
@@ -156,13 +156,13 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(option: Option) = apply {
-            hidden = option.hidden
-            label = option.label
-            value = option.value
-            description = option.description
-            displayOrder = option.displayOrder
-            additionalProperties = option.additionalProperties.toMutableMap()
+        internal fun from(baseOption: BaseOption) = apply {
+            hidden = baseOption.hidden
+            label = baseOption.label
+            value = baseOption.value
+            description = baseOption.description
+            displayOrder = baseOption.displayOrder
+            additionalProperties = baseOption.additionalProperties.toMutableMap()
         }
 
         /** Hidden options will not be displayed in HubSpot. */
@@ -248,7 +248,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [Option].
+         * Returns an immutable instance of [BaseOption].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -261,8 +261,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): Option =
-            Option(
+        fun build(): BaseOption =
+            BaseOption(
                 checkRequired("hidden", hidden),
                 checkRequired("label", label),
                 checkRequired("value", value),
@@ -274,7 +274,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Option = apply {
+    fun validate(): BaseOption = apply {
         if (validated) {
             return@apply
         }
@@ -313,7 +313,7 @@ private constructor(
             return true
         }
 
-        return other is Option &&
+        return other is BaseOption &&
             hidden == other.hidden &&
             label == other.label &&
             value == other.value &&
@@ -329,5 +329,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Option{hidden=$hidden, label=$label, value=$value, description=$description, displayOrder=$displayOrder, additionalProperties=$additionalProperties}"
+        "BaseOption{hidden=$hidden, label=$label, value=$value, description=$description, displayOrder=$displayOrder, additionalProperties=$additionalProperties}"
 }

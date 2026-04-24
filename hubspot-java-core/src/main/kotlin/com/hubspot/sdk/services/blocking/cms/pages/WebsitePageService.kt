@@ -10,7 +10,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.models.cms.ContentCloneRequestVNext
 import com.hubspot.sdk.models.cms.ContentScheduleRequestVNext
 import com.hubspot.sdk.models.cms.SetNewLanguagePrimaryRequestVNext
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import com.hubspot.sdk.models.cms.pages.websitepages.WebsitePageCloneParams
 import com.hubspot.sdk.models.cms.pages.websitepages.WebsitePageCreateParams
 import com.hubspot.sdk.models.cms.pages.websitepages.WebsitePageDeleteParams
@@ -40,29 +40,29 @@ interface WebsitePageService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebsitePageService
 
     /** Create a new website page. */
-    fun create(params: WebsitePageCreateParams): PagesPage = create(params, RequestOptions.none())
+    fun create(params: WebsitePageCreateParams): PageData = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: WebsitePageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
+    ): PageData
 
     /** @see create */
     fun create(
-        pagesPage: PagesPage,
+        pageData: PageData,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage =
-        create(WebsitePageCreateParams.builder().pagesPage(pagesPage).build(), requestOptions)
+    ): PageData =
+        create(WebsitePageCreateParams.builder().pageData(pageData).build(), requestOptions)
 
     /** @see create */
-    fun create(pagesPage: PagesPage): PagesPage = create(pagesPage, RequestOptions.none())
+    fun create(pageData: PageData): PageData = create(pageData, RequestOptions.none())
 
     /**
      * Partially updates a single website page, specified by its ID. You only need to specify the
      * column values that you are modifying.
      */
-    fun update(objectId: String, params: WebsitePageUpdateParams): PagesPage =
+    fun update(objectId: String, params: WebsitePageUpdateParams): PageData =
         update(objectId, params, RequestOptions.none())
 
     /** @see update */
@@ -70,16 +70,16 @@ interface WebsitePageService {
         objectId: String,
         params: WebsitePageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage = update(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: WebsitePageUpdateParams): PagesPage = update(params, RequestOptions.none())
+    fun update(params: WebsitePageUpdateParams): PageData = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: WebsitePageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
+    ): PageData
 
     /**
      * Retrieve all website pages. Supports paging and filtering. This method would be useful for an
@@ -129,19 +129,19 @@ interface WebsitePageService {
         delete(objectId, WebsitePageDeleteParams.none(), requestOptions)
 
     /** Create a copy of an existing website page. */
-    fun clone(params: WebsitePageCloneParams): PagesPage = clone(params, RequestOptions.none())
+    fun clone(params: WebsitePageCloneParams): PageData = clone(params, RequestOptions.none())
 
     /** @see clone */
     fun clone(
         params: WebsitePageCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
+    ): PageData
 
     /** @see clone */
     fun clone(
         contentCloneRequestVNext: ContentCloneRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage =
+    ): PageData =
         clone(
             WebsitePageCloneParams.builder()
                 .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -150,66 +150,66 @@ interface WebsitePageService {
         )
 
     /** @see clone */
-    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): PagesPage =
+    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): PageData =
         clone(contentCloneRequestVNext, RequestOptions.none())
 
     /** Retrieve a website page by its ID. */
-    fun get(objectId: String): PagesPage = get(objectId, WebsitePageGetParams.none())
+    fun get(objectId: String): PageData = get(objectId, WebsitePageGetParams.none())
 
     /** @see get */
     fun get(
         objectId: String,
         params: WebsitePageGetParams = WebsitePageGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage = get(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see get */
     fun get(
         objectId: String,
         params: WebsitePageGetParams = WebsitePageGetParams.none(),
-    ): PagesPage = get(objectId, params, RequestOptions.none())
+    ): PageData = get(objectId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: WebsitePageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
+    ): PageData
 
     /** @see get */
-    fun get(params: WebsitePageGetParams): PagesPage = get(params, RequestOptions.none())
+    fun get(params: WebsitePageGetParams): PageData = get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(objectId: String, requestOptions: RequestOptions): PagesPage =
+    fun get(objectId: String, requestOptions: RequestOptions): PageData =
         get(objectId, WebsitePageGetParams.none(), requestOptions)
 
     /** Retrieve the full draft version of a website page, specified by its ID. */
-    fun getDraft(objectId: String): PagesPage = getDraft(objectId, WebsitePageGetDraftParams.none())
+    fun getDraft(objectId: String): PageData = getDraft(objectId, WebsitePageGetDraftParams.none())
 
     /** @see getDraft */
     fun getDraft(
         objectId: String,
         params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage = getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see getDraft */
     fun getDraft(
         objectId: String,
         params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
-    ): PagesPage = getDraft(objectId, params, RequestOptions.none())
+    ): PageData = getDraft(objectId, params, RequestOptions.none())
 
     /** @see getDraft */
     fun getDraft(
         params: WebsitePageGetDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
+    ): PageData
 
     /** @see getDraft */
-    fun getDraft(params: WebsitePageGetDraftParams): PagesPage =
+    fun getDraft(params: WebsitePageGetDraftParams): PageData =
         getDraft(params, RequestOptions.none())
 
     /** @see getDraft */
-    fun getDraft(objectId: String, requestOptions: RequestOptions): PagesPage =
+    fun getDraft(objectId: String, requestOptions: RequestOptions): PageData =
         getDraft(objectId, WebsitePageGetDraftParams.none(), requestOptions)
 
     /**
@@ -301,7 +301,7 @@ interface WebsitePageService {
      * Partially update the draft version of a website page, specified by page ID. You only need to
      * specify the values for the details that you're modifying.
      */
-    fun updateDraft(objectId: String, params: WebsitePageUpdateDraftParams): PagesPage =
+    fun updateDraft(objectId: String, params: WebsitePageUpdateDraftParams): PageData =
         updateDraft(objectId, params, RequestOptions.none())
 
     /** @see updateDraft */
@@ -309,17 +309,17 @@ interface WebsitePageService {
         objectId: String,
         params: WebsitePageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage = updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see updateDraft */
-    fun updateDraft(params: WebsitePageUpdateDraftParams): PagesPage =
+    fun updateDraft(params: WebsitePageUpdateDraftParams): PageData =
         updateDraft(params, RequestOptions.none())
 
     /** @see updateDraft */
     fun updateDraft(
         params: WebsitePageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
+    ): PageData
 
     /**
      * A view of [WebsitePageService] that provides access to raw HTTP responses for each method.
@@ -340,7 +340,7 @@ interface WebsitePageService {
          * the same as [WebsitePageService.create].
          */
         @MustBeClosed
-        fun create(params: WebsitePageCreateParams): HttpResponseFor<PagesPage> =
+        fun create(params: WebsitePageCreateParams): HttpResponseFor<PageData> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -348,27 +348,27 @@ interface WebsitePageService {
         fun create(
             params: WebsitePageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
+        ): HttpResponseFor<PageData>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            pagesPage: PagesPage,
+            pageData: PageData,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
-            create(WebsitePageCreateParams.builder().pagesPage(pagesPage).build(), requestOptions)
+        ): HttpResponseFor<PageData> =
+            create(WebsitePageCreateParams.builder().pageData(pageData).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(pagesPage: PagesPage): HttpResponseFor<PagesPage> =
-            create(pagesPage, RequestOptions.none())
+        fun create(pageData: PageData): HttpResponseFor<PageData> =
+            create(pageData, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /cms/pages/2026-03/site-pages/{objectId}`, but is
          * otherwise the same as [WebsitePageService.update].
          */
         @MustBeClosed
-        fun update(objectId: String, params: WebsitePageUpdateParams): HttpResponseFor<PagesPage> =
+        fun update(objectId: String, params: WebsitePageUpdateParams): HttpResponseFor<PageData> =
             update(objectId, params, RequestOptions.none())
 
         /** @see update */
@@ -377,12 +377,12 @@ interface WebsitePageService {
             objectId: String,
             params: WebsitePageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
+        ): HttpResponseFor<PageData> =
             update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: WebsitePageUpdateParams): HttpResponseFor<PagesPage> =
+        fun update(params: WebsitePageUpdateParams): HttpResponseFor<PageData> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -390,7 +390,7 @@ interface WebsitePageService {
         fun update(
             params: WebsitePageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
+        ): HttpResponseFor<PageData>
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages`, but is otherwise the
@@ -462,7 +462,7 @@ interface WebsitePageService {
          * otherwise the same as [WebsitePageService.clone].
          */
         @MustBeClosed
-        fun clone(params: WebsitePageCloneParams): HttpResponseFor<PagesPage> =
+        fun clone(params: WebsitePageCloneParams): HttpResponseFor<PageData> =
             clone(params, RequestOptions.none())
 
         /** @see clone */
@@ -470,14 +470,14 @@ interface WebsitePageService {
         fun clone(
             params: WebsitePageCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
+        ): HttpResponseFor<PageData>
 
         /** @see clone */
         @MustBeClosed
         fun clone(
             contentCloneRequestVNext: ContentCloneRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
+        ): HttpResponseFor<PageData> =
             clone(
                 WebsitePageCloneParams.builder()
                     .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -487,7 +487,7 @@ interface WebsitePageService {
 
         /** @see clone */
         @MustBeClosed
-        fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): HttpResponseFor<PagesPage> =
+        fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): HttpResponseFor<PageData> =
             clone(contentCloneRequestVNext, RequestOptions.none())
 
         /**
@@ -495,7 +495,7 @@ interface WebsitePageService {
          * otherwise the same as [WebsitePageService.get].
          */
         @MustBeClosed
-        fun get(objectId: String): HttpResponseFor<PagesPage> =
+        fun get(objectId: String): HttpResponseFor<PageData> =
             get(objectId, WebsitePageGetParams.none())
 
         /** @see get */
@@ -504,7 +504,7 @@ interface WebsitePageService {
             objectId: String,
             params: WebsitePageGetParams = WebsitePageGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
+        ): HttpResponseFor<PageData> =
             get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see get */
@@ -512,23 +512,23 @@ interface WebsitePageService {
         fun get(
             objectId: String,
             params: WebsitePageGetParams = WebsitePageGetParams.none(),
-        ): HttpResponseFor<PagesPage> = get(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<PageData> = get(objectId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: WebsitePageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
+        ): HttpResponseFor<PageData>
 
         /** @see get */
         @MustBeClosed
-        fun get(params: WebsitePageGetParams): HttpResponseFor<PagesPage> =
+        fun get(params: WebsitePageGetParams): HttpResponseFor<PageData> =
             get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
-        fun get(objectId: String, requestOptions: RequestOptions): HttpResponseFor<PagesPage> =
+        fun get(objectId: String, requestOptions: RequestOptions): HttpResponseFor<PageData> =
             get(objectId, WebsitePageGetParams.none(), requestOptions)
 
         /**
@@ -536,7 +536,7 @@ interface WebsitePageService {
          * is otherwise the same as [WebsitePageService.getDraft].
          */
         @MustBeClosed
-        fun getDraft(objectId: String): HttpResponseFor<PagesPage> =
+        fun getDraft(objectId: String): HttpResponseFor<PageData> =
             getDraft(objectId, WebsitePageGetDraftParams.none())
 
         /** @see getDraft */
@@ -545,7 +545,7 @@ interface WebsitePageService {
             objectId: String,
             params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
+        ): HttpResponseFor<PageData> =
             getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see getDraft */
@@ -553,23 +553,23 @@ interface WebsitePageService {
         fun getDraft(
             objectId: String,
             params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
-        ): HttpResponseFor<PagesPage> = getDraft(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<PageData> = getDraft(objectId, params, RequestOptions.none())
 
         /** @see getDraft */
         @MustBeClosed
         fun getDraft(
             params: WebsitePageGetDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
+        ): HttpResponseFor<PageData>
 
         /** @see getDraft */
         @MustBeClosed
-        fun getDraft(params: WebsitePageGetDraftParams): HttpResponseFor<PagesPage> =
+        fun getDraft(params: WebsitePageGetDraftParams): HttpResponseFor<PageData> =
             getDraft(params, RequestOptions.none())
 
         /** @see getDraft */
         @MustBeClosed
-        fun getDraft(objectId: String, requestOptions: RequestOptions): HttpResponseFor<PagesPage> =
+        fun getDraft(objectId: String, requestOptions: RequestOptions): HttpResponseFor<PageData> =
             getDraft(objectId, WebsitePageGetDraftParams.none(), requestOptions)
 
         /**
@@ -691,7 +691,7 @@ interface WebsitePageService {
         fun updateDraft(
             objectId: String,
             params: WebsitePageUpdateDraftParams,
-        ): HttpResponseFor<PagesPage> = updateDraft(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<PageData> = updateDraft(objectId, params, RequestOptions.none())
 
         /** @see updateDraft */
         @MustBeClosed
@@ -699,12 +699,12 @@ interface WebsitePageService {
             objectId: String,
             params: WebsitePageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
+        ): HttpResponseFor<PageData> =
             updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see updateDraft */
         @MustBeClosed
-        fun updateDraft(params: WebsitePageUpdateDraftParams): HttpResponseFor<PagesPage> =
+        fun updateDraft(params: WebsitePageUpdateDraftParams): HttpResponseFor<PageData> =
             updateDraft(params, RequestOptions.none())
 
         /** @see updateDraft */
@@ -712,6 +712,6 @@ interface WebsitePageService {
         fun updateDraft(
             params: WebsitePageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
+        ): HttpResponseFor<PageData>
     }
 }

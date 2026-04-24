@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 
 /** The definition of an association */
-class AssociationDefinition
+class BaseAssociationDefinition
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -162,7 +162,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [AssociationDefinition].
+         * Returns a mutable builder for constructing an instance of [BaseAssociationDefinition].
          *
          * The following fields are required:
          * ```java
@@ -174,7 +174,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AssociationDefinition]. */
+    /** A builder for [BaseAssociationDefinition]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
@@ -186,14 +186,14 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(associationDefinition: AssociationDefinition) = apply {
-            id = associationDefinition.id
-            fromObjectTypeId = associationDefinition.fromObjectTypeId
-            toObjectTypeId = associationDefinition.toObjectTypeId
-            createdAt = associationDefinition.createdAt
-            name = associationDefinition.name
-            updatedAt = associationDefinition.updatedAt
-            additionalProperties = associationDefinition.additionalProperties.toMutableMap()
+        internal fun from(baseAssociationDefinition: BaseAssociationDefinition) = apply {
+            id = baseAssociationDefinition.id
+            fromObjectTypeId = baseAssociationDefinition.fromObjectTypeId
+            toObjectTypeId = baseAssociationDefinition.toObjectTypeId
+            createdAt = baseAssociationDefinition.createdAt
+            name = baseAssociationDefinition.name
+            updatedAt = baseAssociationDefinition.updatedAt
+            additionalProperties = baseAssociationDefinition.additionalProperties.toMutableMap()
         }
 
         /** The unique ID of the associated object (e.g., a contact ID). */
@@ -291,7 +291,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AssociationDefinition].
+         * Returns an immutable instance of [BaseAssociationDefinition].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -304,8 +304,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): AssociationDefinition =
-            AssociationDefinition(
+        fun build(): BaseAssociationDefinition =
+            BaseAssociationDefinition(
                 checkRequired("id", id),
                 checkRequired("fromObjectTypeId", fromObjectTypeId),
                 checkRequired("toObjectTypeId", toObjectTypeId),
@@ -318,7 +318,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): AssociationDefinition = apply {
+    fun validate(): BaseAssociationDefinition = apply {
         if (validated) {
             return@apply
         }
@@ -359,7 +359,7 @@ private constructor(
             return true
         }
 
-        return other is AssociationDefinition &&
+        return other is BaseAssociationDefinition &&
             id == other.id &&
             fromObjectTypeId == other.fromObjectTypeId &&
             toObjectTypeId == other.toObjectTypeId &&
@@ -384,5 +384,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AssociationDefinition{id=$id, fromObjectTypeId=$fromObjectTypeId, toObjectTypeId=$toObjectTypeId, createdAt=$createdAt, name=$name, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "BaseAssociationDefinition{id=$id, fromObjectTypeId=$fromObjectTypeId, toObjectTypeId=$toObjectTypeId, createdAt=$createdAt, name=$name, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

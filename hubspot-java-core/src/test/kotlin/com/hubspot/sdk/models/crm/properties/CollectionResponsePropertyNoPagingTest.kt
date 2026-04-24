@@ -4,8 +4,8 @@ package com.hubspot.sdk.models.crm.properties
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
-import com.hubspot.sdk.models.Option
-import com.hubspot.sdk.models.Property
+import com.hubspot.sdk.models.BaseOption
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -18,14 +18,14 @@ internal class CollectionResponsePropertyNoPagingTest {
         val collectionResponsePropertyNoPaging =
             CollectionResponsePropertyNoPaging.builder()
                 .addResult(
-                    Property.builder()
+                    BaseProperty.builder()
                         .description("description")
                         .fieldType("fieldType")
                         .groupName("groupName")
                         .label("label")
                         .name("name")
                         .addOption(
-                            Option.builder()
+                            BaseOption.builder()
                                 .hidden(true)
                                 .label("label")
                                 .value("value")
@@ -41,8 +41,8 @@ internal class CollectionResponsePropertyNoPagingTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
                         .currencyPropertyName("currencyPropertyName")
-                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                        .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                        .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                        .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)
                         .externalOptions(true)
                         .formField(true)
@@ -57,7 +57,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
-                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                        .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)
@@ -69,14 +69,14 @@ internal class CollectionResponsePropertyNoPagingTest {
 
         assertThat(collectionResponsePropertyNoPaging.results())
             .containsExactly(
-                Property.builder()
+                BaseProperty.builder()
                     .description("description")
                     .fieldType("fieldType")
                     .groupName("groupName")
                     .label("label")
                     .name("name")
                     .addOption(
-                        Option.builder()
+                        BaseOption.builder()
                             .hidden(true)
                             .label("label")
                             .value("value")
@@ -92,8 +92,8 @@ internal class CollectionResponsePropertyNoPagingTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdUserId("createdUserId")
                     .currencyPropertyName("currencyPropertyName")
-                    .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                    .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                    .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                    .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                     .displayOrder(0)
                     .externalOptions(true)
                     .formField(true)
@@ -108,7 +108,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                             .readOnlyOptions(true)
                             .build()
                     )
-                    .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                    .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                     .referencedObjectType("referencedObjectType")
                     .addSensitiveDataCategory("string")
                     .showCurrencySymbol(true)
@@ -124,14 +124,14 @@ internal class CollectionResponsePropertyNoPagingTest {
         val collectionResponsePropertyNoPaging =
             CollectionResponsePropertyNoPaging.builder()
                 .addResult(
-                    Property.builder()
+                    BaseProperty.builder()
                         .description("description")
                         .fieldType("fieldType")
                         .groupName("groupName")
                         .label("label")
                         .name("name")
                         .addOption(
-                            Option.builder()
+                            BaseOption.builder()
                                 .hidden(true)
                                 .label("label")
                                 .value("value")
@@ -147,8 +147,8 @@ internal class CollectionResponsePropertyNoPagingTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
                         .currencyPropertyName("currencyPropertyName")
-                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                        .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                        .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                        .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)
                         .externalOptions(true)
                         .formField(true)
@@ -163,7 +163,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
-                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                        .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)

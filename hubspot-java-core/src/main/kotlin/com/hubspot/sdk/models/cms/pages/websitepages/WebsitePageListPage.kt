@@ -7,7 +7,7 @@ import com.hubspot.sdk.core.Page
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.models.ForwardPaging
 import com.hubspot.sdk.models.cms.pages.CollectionResponseWithTotalPageForwardPaging
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import com.hubspot.sdk.services.blocking.cms.pages.WebsitePageService
 import java.util.Objects
 import java.util.Optional
@@ -19,7 +19,7 @@ private constructor(
     private val service: WebsitePageService,
     private val params: WebsitePageListParams,
     private val response: CollectionResponseWithTotalPageForwardPaging,
-) : Page<PagesPage> {
+) : Page<PageData> {
 
     /**
      * Delegates to [CollectionResponseWithTotalPageForwardPaging], but gracefully handles missing
@@ -27,7 +27,7 @@ private constructor(
      *
      * @see CollectionResponseWithTotalPageForwardPaging.results
      */
-    fun results(): List<PagesPage> =
+    fun results(): List<PageData> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun paging(): Optional<ForwardPaging> = response._paging().getOptional("paging")
 
-    override fun items(): List<PagesPage> = results()
+    override fun items(): List<PageData> = results()
 
     override fun hasNextPage(): Boolean =
         items().isNotEmpty() &&
@@ -58,7 +58,7 @@ private constructor(
 
     override fun nextPage(): WebsitePageListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<PagesPage> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PageData> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): WebsitePageListParams = params

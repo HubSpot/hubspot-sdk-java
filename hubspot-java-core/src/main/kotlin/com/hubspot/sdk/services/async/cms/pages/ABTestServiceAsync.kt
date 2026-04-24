@@ -9,7 +9,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.models.AbTestCreateRequestVNext
 import com.hubspot.sdk.models.cms.pages.AbTestEndRequestVNext
 import com.hubspot.sdk.models.cms.pages.AbTestRerunRequestVNext
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import com.hubspot.sdk.models.cms.pages.abtests.ABTestCreateLandingPageVariationParams
 import com.hubspot.sdk.models.cms.pages.abtests.ABTestCreateSitePageVariationParams
 import com.hubspot.sdk.models.cms.pages.abtests.ABTestEndLandingPageTestParams
@@ -36,19 +36,19 @@ interface ABTestServiceAsync {
     /** Create a new A/B test variation based on the information provided in the request body. */
     fun createLandingPageVariation(
         params: ABTestCreateLandingPageVariationParams
-    ): CompletableFuture<PagesPage> = createLandingPageVariation(params, RequestOptions.none())
+    ): CompletableFuture<PageData> = createLandingPageVariation(params, RequestOptions.none())
 
     /** @see createLandingPageVariation */
     fun createLandingPageVariation(
         params: ABTestCreateLandingPageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage>
+    ): CompletableFuture<PageData>
 
     /** @see createLandingPageVariation */
     fun createLandingPageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage> =
+    ): CompletableFuture<PageData> =
         createLandingPageVariation(
             ABTestCreateLandingPageVariationParams.builder()
                 .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -59,25 +59,25 @@ interface ABTestServiceAsync {
     /** @see createLandingPageVariation */
     fun createLandingPageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext
-    ): CompletableFuture<PagesPage> =
+    ): CompletableFuture<PageData> =
         createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
     /** Create a new A/B test variation based on the information provided in the request body. */
     fun createSitePageVariation(
         params: ABTestCreateSitePageVariationParams
-    ): CompletableFuture<PagesPage> = createSitePageVariation(params, RequestOptions.none())
+    ): CompletableFuture<PageData> = createSitePageVariation(params, RequestOptions.none())
 
     /** @see createSitePageVariation */
     fun createSitePageVariation(
         params: ABTestCreateSitePageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage>
+    ): CompletableFuture<PageData>
 
     /** @see createSitePageVariation */
     fun createSitePageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage> =
+    ): CompletableFuture<PageData> =
         createSitePageVariation(
             ABTestCreateSitePageVariationParams.builder()
                 .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -88,7 +88,7 @@ interface ABTestServiceAsync {
     /** @see createSitePageVariation */
     fun createSitePageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext
-    ): CompletableFuture<PagesPage> =
+    ): CompletableFuture<PageData> =
         createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
     /** End an active A/B test and designate a winner. */
@@ -219,20 +219,20 @@ interface ABTestServiceAsync {
          */
         fun createLandingPageVariation(
             params: ABTestCreateLandingPageVariationParams
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
+        ): CompletableFuture<HttpResponseFor<PageData>> =
             createLandingPageVariation(params, RequestOptions.none())
 
         /** @see createLandingPageVariation */
         fun createLandingPageVariation(
             params: ABTestCreateLandingPageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>>
+        ): CompletableFuture<HttpResponseFor<PageData>>
 
         /** @see createLandingPageVariation */
         fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
+        ): CompletableFuture<HttpResponseFor<PageData>> =
             createLandingPageVariation(
                 ABTestCreateLandingPageVariationParams.builder()
                     .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -243,7 +243,7 @@ interface ABTestServiceAsync {
         /** @see createLandingPageVariation */
         fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
+        ): CompletableFuture<HttpResponseFor<PageData>> =
             createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
         /**
@@ -253,20 +253,20 @@ interface ABTestServiceAsync {
          */
         fun createSitePageVariation(
             params: ABTestCreateSitePageVariationParams
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
+        ): CompletableFuture<HttpResponseFor<PageData>> =
             createSitePageVariation(params, RequestOptions.none())
 
         /** @see createSitePageVariation */
         fun createSitePageVariation(
             params: ABTestCreateSitePageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>>
+        ): CompletableFuture<HttpResponseFor<PageData>>
 
         /** @see createSitePageVariation */
         fun createSitePageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
+        ): CompletableFuture<HttpResponseFor<PageData>> =
             createSitePageVariation(
                 ABTestCreateSitePageVariationParams.builder()
                     .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -277,7 +277,7 @@ interface ABTestServiceAsync {
         /** @see createSitePageVariation */
         fun createSitePageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
+        ): CompletableFuture<HttpResponseFor<PageData>> =
             createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
         /**
