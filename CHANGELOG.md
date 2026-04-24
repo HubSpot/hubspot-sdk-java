@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2026-04-24)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/HubSpot/hubspot-sdk-java/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** manual updates ([156b418](https://github.com/HubSpot/hubspot-sdk-java/commit/156b4182f76a0e78407c1ace91dd2bae9a4e5e7a))
+* **api:** manual updates ([c924f99](https://github.com/HubSpot/hubspot-sdk-java/commit/c924f9930e3410de5458c45206d28b0a4635f16e))
+* **api:** manual updates ([98dd16f](https://github.com/HubSpot/hubspot-sdk-java/commit/98dd16fec381d733cb8f392e23d122660e21beb5))
+* **api:** manual updates ([01e55a1](https://github.com/HubSpot/hubspot-sdk-java/commit/01e55a1082c38d5d4d9073bb886d3a9bf7ee0521))
+
 ## 0.1.0-alpha.1 (2026-04-13)
 
 Full Changelog: [v0.0.1...v0.1.0-alpha.1](https://github.com/HubSpot/hubspot-sdk-java/compare/v0.0.1...v0.1.0-alpha.1)
