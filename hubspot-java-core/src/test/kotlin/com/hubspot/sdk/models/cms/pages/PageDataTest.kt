@@ -10,19 +10,19 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class PagesPageTest {
+internal class PageDataTest {
 
     @Test
     fun create() {
-        val pagesPage =
-            PagesPage.builder()
+        val pageData =
+            PageData.builder()
                 .id("id")
-                .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                 .abTestId("abTestId")
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .archivedInDashboard(true)
                 .addAttachedStylesheet(
-                    PagesPage.AttachedStylesheet.builder()
+                    PageData.AttachedStylesheet.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
@@ -30,11 +30,11 @@ internal class PagesPageTest {
                 .campaign("campaign")
                 .categoryId(0)
                 .contentGroupId("contentGroupId")
-                .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                .contentTypeCategory(PageData.ContentTypeCategory._0)
                 .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdById("createdById")
                 .currentlyPublished(true)
-                .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                .currentState(PageData.CurrentState.AGENT_GENERATED)
                 .domain("domain")
                 .dynamicPageDataSourceId("dynamicPageDataSourceId")
                 .dynamicPageDataSourceType(0)
@@ -48,9 +48,9 @@ internal class PagesPageTest {
                 .headHtml("headHtml")
                 .htmlTitle("htmlTitle")
                 .includeDefaultCustomCss(true)
-                .language(PagesPage.Language.AA)
+                .language(PageData.Language.AA)
                 .layoutSections(
-                    PagesPage.LayoutSections.builder()
+                    PageData.LayoutSections.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(
@@ -273,13 +273,13 @@ internal class PagesPageTest {
                 .subcategory("subcategory")
                 .templatePath("templatePath")
                 .themeSettingsValues(
-                    PagesPage.ThemeSettingsValues.builder()
+                    PageData.ThemeSettingsValues.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .translatedFromId("translatedFromId")
                 .translations(
-                    PagesPage.Translations.builder()
+                    PageData.Translations.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(
@@ -309,55 +309,55 @@ internal class PagesPageTest {
                 .url("url")
                 .useFeaturedImage(true)
                 .widgetContainers(
-                    PagesPage.WidgetContainers.builder()
+                    PageData.WidgetContainers.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .widgets(
-                    PagesPage.Widgets.builder()
+                    PageData.Widgets.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .build()
 
-        assertThat(pagesPage.id()).isEqualTo("id")
-        assertThat(pagesPage.abStatus()).isEqualTo(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
-        assertThat(pagesPage.abTestId()).isEqualTo("abTestId")
-        assertThat(pagesPage.archivedAt())
+        assertThat(pageData.id()).isEqualTo("id")
+        assertThat(pageData.abStatus()).isEqualTo(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+        assertThat(pageData.abTestId()).isEqualTo("abTestId")
+        assertThat(pageData.archivedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(pagesPage.archivedInDashboard()).isEqualTo(true)
-        assertThat(pagesPage.attachedStylesheets())
+        assertThat(pageData.archivedInDashboard()).isEqualTo(true)
+        assertThat(pageData.attachedStylesheets())
             .containsExactly(
-                PagesPage.AttachedStylesheet.builder()
+                PageData.AttachedStylesheet.builder()
                     .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
-        assertThat(pagesPage.authorName()).isEqualTo("authorName")
-        assertThat(pagesPage.campaign()).isEqualTo("campaign")
-        assertThat(pagesPage.categoryId()).isEqualTo(0)
-        assertThat(pagesPage.contentGroupId()).isEqualTo("contentGroupId")
-        assertThat(pagesPage.contentTypeCategory()).isEqualTo(PagesPage.ContentTypeCategory._0)
-        assertThat(pagesPage.created()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(pagesPage.createdById()).isEqualTo("createdById")
-        assertThat(pagesPage.currentlyPublished()).isEqualTo(true)
-        assertThat(pagesPage.currentState()).isEqualTo(PagesPage.CurrentState.AGENT_GENERATED)
-        assertThat(pagesPage.domain()).isEqualTo("domain")
-        assertThat(pagesPage.dynamicPageDataSourceId()).isEqualTo("dynamicPageDataSourceId")
-        assertThat(pagesPage.dynamicPageDataSourceType()).isEqualTo(0)
-        assertThat(pagesPage.dynamicPageHubDbTableId()).isEqualTo("dynamicPageHubDbTableId")
-        assertThat(pagesPage.enableDomainStylesheets()).isEqualTo(true)
-        assertThat(pagesPage.enableLayoutStylesheets()).isEqualTo(true)
-        assertThat(pagesPage.featuredImage()).isEqualTo("featuredImage")
-        assertThat(pagesPage.featuredImageAltText()).isEqualTo("featuredImageAltText")
-        assertThat(pagesPage.folderId()).isEqualTo("folderId")
-        assertThat(pagesPage.footerHtml()).isEqualTo("footerHtml")
-        assertThat(pagesPage.headHtml()).isEqualTo("headHtml")
-        assertThat(pagesPage.htmlTitle()).isEqualTo("htmlTitle")
-        assertThat(pagesPage.includeDefaultCustomCss()).isEqualTo(true)
-        assertThat(pagesPage.language()).isEqualTo(PagesPage.Language.AA)
-        assertThat(pagesPage.layoutSections())
+        assertThat(pageData.authorName()).isEqualTo("authorName")
+        assertThat(pageData.campaign()).isEqualTo("campaign")
+        assertThat(pageData.categoryId()).isEqualTo(0)
+        assertThat(pageData.contentGroupId()).isEqualTo("contentGroupId")
+        assertThat(pageData.contentTypeCategory()).isEqualTo(PageData.ContentTypeCategory._0)
+        assertThat(pageData.created()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(pageData.createdById()).isEqualTo("createdById")
+        assertThat(pageData.currentlyPublished()).isEqualTo(true)
+        assertThat(pageData.currentState()).isEqualTo(PageData.CurrentState.AGENT_GENERATED)
+        assertThat(pageData.domain()).isEqualTo("domain")
+        assertThat(pageData.dynamicPageDataSourceId()).isEqualTo("dynamicPageDataSourceId")
+        assertThat(pageData.dynamicPageDataSourceType()).isEqualTo(0)
+        assertThat(pageData.dynamicPageHubDbTableId()).isEqualTo("dynamicPageHubDbTableId")
+        assertThat(pageData.enableDomainStylesheets()).isEqualTo(true)
+        assertThat(pageData.enableLayoutStylesheets()).isEqualTo(true)
+        assertThat(pageData.featuredImage()).isEqualTo("featuredImage")
+        assertThat(pageData.featuredImageAltText()).isEqualTo("featuredImageAltText")
+        assertThat(pageData.folderId()).isEqualTo("folderId")
+        assertThat(pageData.footerHtml()).isEqualTo("footerHtml")
+        assertThat(pageData.headHtml()).isEqualTo("headHtml")
+        assertThat(pageData.htmlTitle()).isEqualTo("htmlTitle")
+        assertThat(pageData.includeDefaultCustomCss()).isEqualTo(true)
+        assertThat(pageData.language()).isEqualTo(PageData.Language.AA)
+        assertThat(pageData.layoutSections())
             .isEqualTo(
-                PagesPage.LayoutSections.builder()
+                PageData.LayoutSections.builder()
                     .putAdditionalProperty(
                         "foo",
                         JsonValue.from(
@@ -552,36 +552,35 @@ internal class PagesPageTest {
                     )
                     .build()
             )
-        assertThat(pagesPage.linkRelCanonicalUrl()).isEqualTo("linkRelCanonicalUrl")
-        assertThat(pagesPage.mabExperimentId()).isEqualTo("mabExperimentId")
-        assertThat(pagesPage.metaDescription()).isEqualTo("metaDescription")
-        assertThat(pagesPage.name()).isEqualTo("name")
-        assertThat(pagesPage.pageExpiryDate()).isEqualTo(0L)
-        assertThat(pagesPage.pageExpiryEnabled()).isEqualTo(true)
-        assertThat(pagesPage.pageExpiryRedirectId()).isEqualTo(0L)
-        assertThat(pagesPage.pageExpiryRedirectUrl()).isEqualTo("pageExpiryRedirectUrl")
-        assertThat(pagesPage.pageRedirected()).isEqualTo(true)
-        assertThat(pagesPage.password()).isEqualTo("password")
-        assertThat(pagesPage.publicAccessRules())
-            .containsExactly(PublicAccessRule.builder().build())
-        assertThat(pagesPage.publicAccessRulesEnabled()).isEqualTo(true)
-        assertThat(pagesPage.publishDate())
+        assertThat(pageData.linkRelCanonicalUrl()).isEqualTo("linkRelCanonicalUrl")
+        assertThat(pageData.mabExperimentId()).isEqualTo("mabExperimentId")
+        assertThat(pageData.metaDescription()).isEqualTo("metaDescription")
+        assertThat(pageData.name()).isEqualTo("name")
+        assertThat(pageData.pageExpiryDate()).isEqualTo(0L)
+        assertThat(pageData.pageExpiryEnabled()).isEqualTo(true)
+        assertThat(pageData.pageExpiryRedirectId()).isEqualTo(0L)
+        assertThat(pageData.pageExpiryRedirectUrl()).isEqualTo("pageExpiryRedirectUrl")
+        assertThat(pageData.pageRedirected()).isEqualTo(true)
+        assertThat(pageData.password()).isEqualTo("password")
+        assertThat(pageData.publicAccessRules()).containsExactly(PublicAccessRule.builder().build())
+        assertThat(pageData.publicAccessRulesEnabled()).isEqualTo(true)
+        assertThat(pageData.publishDate())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(pagesPage.publishImmediately()).isEqualTo(true)
-        assertThat(pagesPage.slug()).isEqualTo("slug")
-        assertThat(pagesPage.state()).isEqualTo("state")
-        assertThat(pagesPage.subcategory()).isEqualTo("subcategory")
-        assertThat(pagesPage.templatePath()).isEqualTo("templatePath")
-        assertThat(pagesPage.themeSettingsValues())
+        assertThat(pageData.publishImmediately()).isEqualTo(true)
+        assertThat(pageData.slug()).isEqualTo("slug")
+        assertThat(pageData.state()).isEqualTo("state")
+        assertThat(pageData.subcategory()).isEqualTo("subcategory")
+        assertThat(pageData.templatePath()).isEqualTo("templatePath")
+        assertThat(pageData.themeSettingsValues())
             .isEqualTo(
-                PagesPage.ThemeSettingsValues.builder()
+                PageData.ThemeSettingsValues.builder()
                     .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
-        assertThat(pagesPage.translatedFromId()).isEqualTo("translatedFromId")
-        assertThat(pagesPage.translations())
+        assertThat(pageData.translatedFromId()).isEqualTo("translatedFromId")
+        assertThat(pageData.translations())
             .isEqualTo(
-                PagesPage.Translations.builder()
+                PageData.Translations.builder()
                     .putAdditionalProperty(
                         "foo",
                         JsonValue.from(
@@ -606,19 +605,19 @@ internal class PagesPageTest {
                     )
                     .build()
             )
-        assertThat(pagesPage.updated()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(pagesPage.updatedById()).isEqualTo("updatedById")
-        assertThat(pagesPage.url()).isEqualTo("url")
-        assertThat(pagesPage.useFeaturedImage()).isEqualTo(true)
-        assertThat(pagesPage.widgetContainers())
+        assertThat(pageData.updated()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(pageData.updatedById()).isEqualTo("updatedById")
+        assertThat(pageData.url()).isEqualTo("url")
+        assertThat(pageData.useFeaturedImage()).isEqualTo(true)
+        assertThat(pageData.widgetContainers())
             .isEqualTo(
-                PagesPage.WidgetContainers.builder()
+                PageData.WidgetContainers.builder()
                     .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
-        assertThat(pagesPage.widgets())
+        assertThat(pageData.widgets())
             .isEqualTo(
-                PagesPage.Widgets.builder()
+                PageData.Widgets.builder()
                     .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
@@ -627,15 +626,15 @@ internal class PagesPageTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val pagesPage =
-            PagesPage.builder()
+        val pageData =
+            PageData.builder()
                 .id("id")
-                .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                 .abTestId("abTestId")
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .archivedInDashboard(true)
                 .addAttachedStylesheet(
-                    PagesPage.AttachedStylesheet.builder()
+                    PageData.AttachedStylesheet.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
@@ -643,11 +642,11 @@ internal class PagesPageTest {
                 .campaign("campaign")
                 .categoryId(0)
                 .contentGroupId("contentGroupId")
-                .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                .contentTypeCategory(PageData.ContentTypeCategory._0)
                 .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdById("createdById")
                 .currentlyPublished(true)
-                .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                .currentState(PageData.CurrentState.AGENT_GENERATED)
                 .domain("domain")
                 .dynamicPageDataSourceId("dynamicPageDataSourceId")
                 .dynamicPageDataSourceType(0)
@@ -661,9 +660,9 @@ internal class PagesPageTest {
                 .headHtml("headHtml")
                 .htmlTitle("htmlTitle")
                 .includeDefaultCustomCss(true)
-                .language(PagesPage.Language.AA)
+                .language(PageData.Language.AA)
                 .layoutSections(
-                    PagesPage.LayoutSections.builder()
+                    PageData.LayoutSections.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(
@@ -886,13 +885,13 @@ internal class PagesPageTest {
                 .subcategory("subcategory")
                 .templatePath("templatePath")
                 .themeSettingsValues(
-                    PagesPage.ThemeSettingsValues.builder()
+                    PageData.ThemeSettingsValues.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .translatedFromId("translatedFromId")
                 .translations(
-                    PagesPage.Translations.builder()
+                    PageData.Translations.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(
@@ -922,23 +921,23 @@ internal class PagesPageTest {
                 .url("url")
                 .useFeaturedImage(true)
                 .widgetContainers(
-                    PagesPage.WidgetContainers.builder()
+                    PageData.WidgetContainers.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .widgets(
-                    PagesPage.Widgets.builder()
+                    PageData.Widgets.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .build()
 
-        val roundtrippedPagesPage =
+        val roundtrippedPageData =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(pagesPage),
-                jacksonTypeRef<PagesPage>(),
+                jsonMapper.writeValueAsString(pageData),
+                jacksonTypeRef<PageData>(),
             )
 
-        assertThat(roundtrippedPagesPage).isEqualTo(pagesPage)
+        assertThat(roundtrippedPageData).isEqualTo(pageData)
     }
 }

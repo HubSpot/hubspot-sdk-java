@@ -7,20 +7,20 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import java.util.Objects
 
 /** Create a new website page. */
 class WebsitePageCreateParams
 private constructor(
-    private val pagesPage: PagesPage,
+    private val pageData: PageData,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pagesPage(): PagesPage = pagesPage
+    fun pageData(): PageData = pageData
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = pagesPage._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = pageData._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -37,7 +37,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pagesPage()
+         * .pageData()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -46,18 +46,18 @@ private constructor(
     /** A builder for [WebsitePageCreateParams]. */
     class Builder internal constructor() {
 
-        private var pagesPage: PagesPage? = null
+        private var pageData: PageData? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(websitePageCreateParams: WebsitePageCreateParams) = apply {
-            pagesPage = websitePageCreateParams.pagesPage
+            pageData = websitePageCreateParams.pageData
             additionalHeaders = websitePageCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = websitePageCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pagesPage(pagesPage: PagesPage) = apply { this.pagesPage = pagesPage }
+        fun pageData(pageData: PageData) = apply { this.pageData = pageData }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -164,20 +164,20 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pagesPage()
+         * .pageData()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): WebsitePageCreateParams =
             WebsitePageCreateParams(
-                checkRequired("pagesPage", pagesPage),
+                checkRequired("pageData", pageData),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): PagesPage = pagesPage
+    fun _body(): PageData = pageData
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -189,13 +189,13 @@ private constructor(
         }
 
         return other is WebsitePageCreateParams &&
-            pagesPage == other.pagesPage &&
+            pageData == other.pageData &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(pagesPage, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(pageData, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "WebsitePageCreateParams{pagesPage=$pagesPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "WebsitePageCreateParams{pageData=$pageData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

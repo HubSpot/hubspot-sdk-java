@@ -7,12 +7,12 @@ import com.hubspot.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class OptionTest {
+internal class BaseOptionTest {
 
     @Test
     fun create() {
-        val option =
-            Option.builder()
+        val baseOption =
+            BaseOption.builder()
                 .hidden(true)
                 .label("label")
                 .value("value")
@@ -20,18 +20,18 @@ internal class OptionTest {
                 .displayOrder(0)
                 .build()
 
-        assertThat(option.hidden()).isEqualTo(true)
-        assertThat(option.label()).isEqualTo("label")
-        assertThat(option.value()).isEqualTo("value")
-        assertThat(option.description()).contains("description")
-        assertThat(option.displayOrder()).contains(0)
+        assertThat(baseOption.hidden()).isEqualTo(true)
+        assertThat(baseOption.label()).isEqualTo("label")
+        assertThat(baseOption.value()).isEqualTo("value")
+        assertThat(baseOption.description()).contains("description")
+        assertThat(baseOption.displayOrder()).contains(0)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val option =
-            Option.builder()
+        val baseOption =
+            BaseOption.builder()
                 .hidden(true)
                 .label("label")
                 .value("value")
@@ -39,9 +39,12 @@ internal class OptionTest {
                 .displayOrder(0)
                 .build()
 
-        val roundtrippedOption =
-            jsonMapper.readValue(jsonMapper.writeValueAsString(option), jacksonTypeRef<Option>())
+        val roundtrippedBaseOption =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(baseOption),
+                jacksonTypeRef<BaseOption>(),
+            )
 
-        assertThat(roundtrippedOption).isEqualTo(option)
+        assertThat(roundtrippedBaseOption).isEqualTo(baseOption)
     }
 }

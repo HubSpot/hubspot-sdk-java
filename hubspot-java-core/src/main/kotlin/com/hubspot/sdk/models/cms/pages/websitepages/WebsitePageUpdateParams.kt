@@ -7,7 +7,7 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -20,7 +20,7 @@ class WebsitePageUpdateParams
 private constructor(
     private val objectId: String?,
     private val archived: Boolean?,
-    private val pagesPage: PagesPage,
+    private val pageData: PageData,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -30,9 +30,9 @@ private constructor(
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    fun pagesPage(): PagesPage = pagesPage
+    fun pageData(): PageData = pageData
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = pagesPage._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = pageData._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -49,7 +49,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pagesPage()
+         * .pageData()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -60,7 +60,7 @@ private constructor(
 
         private var objectId: String? = null
         private var archived: Boolean? = null
-        private var pagesPage: PagesPage? = null
+        private var pageData: PageData? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -68,7 +68,7 @@ private constructor(
         internal fun from(websitePageUpdateParams: WebsitePageUpdateParams) = apply {
             objectId = websitePageUpdateParams.objectId
             archived = websitePageUpdateParams.archived
-            pagesPage = websitePageUpdateParams.pagesPage
+            pageData = websitePageUpdateParams.pageData
             additionalHeaders = websitePageUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = websitePageUpdateParams.additionalQueryParams.toBuilder()
         }
@@ -91,7 +91,7 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        fun pagesPage(pagesPage: PagesPage) = apply { this.pagesPage = pagesPage }
+        fun pageData(pageData: PageData) = apply { this.pageData = pageData }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -198,7 +198,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pagesPage()
+         * .pageData()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -207,13 +207,13 @@ private constructor(
             WebsitePageUpdateParams(
                 objectId,
                 archived,
-                checkRequired("pagesPage", pagesPage),
+                checkRequired("pageData", pageData),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): PagesPage = pagesPage
+    fun _body(): PageData = pageData
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -239,14 +239,14 @@ private constructor(
         return other is WebsitePageUpdateParams &&
             objectId == other.objectId &&
             archived == other.archived &&
-            pagesPage == other.pagesPage &&
+            pageData == other.pageData &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectId, archived, pagesPage, additionalHeaders, additionalQueryParams)
+        Objects.hash(objectId, archived, pageData, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "WebsitePageUpdateParams{objectId=$objectId, archived=$archived, pagesPage=$pagesPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "WebsitePageUpdateParams{objectId=$objectId, archived=$archived, pageData=$pageData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -4,7 +4,7 @@ package com.hubspot.sdk.models.cms.pages.landingpages
 
 import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.models.cms.PublicAccessRule
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,15 +15,15 @@ internal class LandingPageUpdateDraftParamsTest {
     fun create() {
         LandingPageUpdateDraftParams.builder()
             .objectId("objectId")
-            .pagesPage(
-                PagesPage.builder()
+            .pageData(
+                PageData.builder()
                     .id("id")
-                    .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        PagesPage.AttachedStylesheet.builder()
+                        PageData.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -31,11 +31,11 @@ internal class LandingPageUpdateDraftParamsTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                    .contentTypeCategory(PageData.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                    .currentState(PageData.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -49,9 +49,9 @@ internal class LandingPageUpdateDraftParamsTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(PagesPage.Language.AA)
+                    .language(PageData.Language.AA)
                     .layoutSections(
-                        PagesPage.LayoutSections.builder()
+                        PageData.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -282,13 +282,13 @@ internal class LandingPageUpdateDraftParamsTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        PagesPage.ThemeSettingsValues.builder()
+                        PageData.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        PagesPage.Translations.builder()
+                        PageData.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -318,12 +318,12 @@ internal class LandingPageUpdateDraftParamsTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        PagesPage.WidgetContainers.builder()
+                        PageData.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        PagesPage.Widgets.builder()
+                        PageData.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -337,15 +337,15 @@ internal class LandingPageUpdateDraftParamsTest {
         val params =
             LandingPageUpdateDraftParams.builder()
                 .objectId("objectId")
-                .pagesPage(
-                    PagesPage.builder()
+                .pageData(
+                    PageData.builder()
                         .id("id")
-                        .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            PagesPage.AttachedStylesheet.builder()
+                            PageData.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -353,11 +353,11 @@ internal class LandingPageUpdateDraftParamsTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                        .contentTypeCategory(PageData.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                        .currentState(PageData.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -371,9 +371,9 @@ internal class LandingPageUpdateDraftParamsTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(PagesPage.Language.AA)
+                        .language(PageData.Language.AA)
                         .layoutSections(
-                            PagesPage.LayoutSections.builder()
+                            PageData.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -518,13 +518,13 @@ internal class LandingPageUpdateDraftParamsTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            PagesPage.ThemeSettingsValues.builder()
+                            PageData.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            PagesPage.Translations.builder()
+                            PageData.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -553,12 +553,12 @@ internal class LandingPageUpdateDraftParamsTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            PagesPage.WidgetContainers.builder()
+                            PageData.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            PagesPage.Widgets.builder()
+                            PageData.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -576,15 +576,15 @@ internal class LandingPageUpdateDraftParamsTest {
         val params =
             LandingPageUpdateDraftParams.builder()
                 .objectId("objectId")
-                .pagesPage(
-                    PagesPage.builder()
+                .pageData(
+                    PageData.builder()
                         .id("id")
-                        .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            PagesPage.AttachedStylesheet.builder()
+                            PageData.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -592,11 +592,11 @@ internal class LandingPageUpdateDraftParamsTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                        .contentTypeCategory(PageData.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                        .currentState(PageData.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -610,9 +610,9 @@ internal class LandingPageUpdateDraftParamsTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(PagesPage.Language.AA)
+                        .language(PageData.Language.AA)
                         .layoutSections(
-                            PagesPage.LayoutSections.builder()
+                            PageData.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -855,13 +855,13 @@ internal class LandingPageUpdateDraftParamsTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            PagesPage.ThemeSettingsValues.builder()
+                            PageData.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            PagesPage.Translations.builder()
+                            PageData.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -891,12 +891,12 @@ internal class LandingPageUpdateDraftParamsTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            PagesPage.WidgetContainers.builder()
+                            PageData.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            PagesPage.Widgets.builder()
+                            PageData.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -908,14 +908,14 @@ internal class LandingPageUpdateDraftParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                PagesPage.builder()
+                PageData.builder()
                     .id("id")
-                    .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        PagesPage.AttachedStylesheet.builder()
+                        PageData.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -923,11 +923,11 @@ internal class LandingPageUpdateDraftParamsTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                    .contentTypeCategory(PageData.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                    .currentState(PageData.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -941,9 +941,9 @@ internal class LandingPageUpdateDraftParamsTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(PagesPage.Language.AA)
+                    .language(PageData.Language.AA)
                     .layoutSections(
-                        PagesPage.LayoutSections.builder()
+                        PageData.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -1174,13 +1174,13 @@ internal class LandingPageUpdateDraftParamsTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        PagesPage.ThemeSettingsValues.builder()
+                        PageData.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        PagesPage.Translations.builder()
+                        PageData.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -1210,12 +1210,12 @@ internal class LandingPageUpdateDraftParamsTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        PagesPage.WidgetContainers.builder()
+                        PageData.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        PagesPage.Widgets.builder()
+                        PageData.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -1228,15 +1228,15 @@ internal class LandingPageUpdateDraftParamsTest {
         val params =
             LandingPageUpdateDraftParams.builder()
                 .objectId("objectId")
-                .pagesPage(
-                    PagesPage.builder()
+                .pageData(
+                    PageData.builder()
                         .id("id")
-                        .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            PagesPage.AttachedStylesheet.builder()
+                            PageData.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -1244,11 +1244,11 @@ internal class LandingPageUpdateDraftParamsTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                        .contentTypeCategory(PageData.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                        .currentState(PageData.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -1262,9 +1262,9 @@ internal class LandingPageUpdateDraftParamsTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(PagesPage.Language.AA)
+                        .language(PageData.Language.AA)
                         .layoutSections(
-                            PagesPage.LayoutSections.builder()
+                            PageData.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -1409,13 +1409,13 @@ internal class LandingPageUpdateDraftParamsTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            PagesPage.ThemeSettingsValues.builder()
+                            PageData.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            PagesPage.Translations.builder()
+                            PageData.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -1444,12 +1444,12 @@ internal class LandingPageUpdateDraftParamsTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            PagesPage.WidgetContainers.builder()
+                            PageData.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            PagesPage.Widgets.builder()
+                            PageData.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -1461,14 +1461,14 @@ internal class LandingPageUpdateDraftParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                PagesPage.builder()
+                PageData.builder()
                     .id("id")
-                    .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        PagesPage.AttachedStylesheet.builder()
+                        PageData.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -1476,11 +1476,11 @@ internal class LandingPageUpdateDraftParamsTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                    .contentTypeCategory(PageData.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                    .currentState(PageData.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -1494,9 +1494,9 @@ internal class LandingPageUpdateDraftParamsTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(PagesPage.Language.AA)
+                    .language(PageData.Language.AA)
                     .layoutSections(
-                        PagesPage.LayoutSections.builder()
+                        PageData.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -1629,13 +1629,13 @@ internal class LandingPageUpdateDraftParamsTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        PagesPage.ThemeSettingsValues.builder()
+                        PageData.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        PagesPage.Translations.builder()
+                        PageData.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -1664,12 +1664,12 @@ internal class LandingPageUpdateDraftParamsTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        PagesPage.WidgetContainers.builder()
+                        PageData.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        PagesPage.Widgets.builder()
+                        PageData.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )

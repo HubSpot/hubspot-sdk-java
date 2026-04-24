@@ -16,7 +16,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import com.hubspot.sdk.models.cms.pages.multilanguage.MultiLanguageAttachToLangGroupParams
 import com.hubspot.sdk.models.cms.pages.multilanguage.MultiLanguageCreateLanguageVariationParams
 import com.hubspot.sdk.models.cms.pages.multilanguage.MultiLanguageDetachFromLangGroupParams
@@ -46,7 +46,7 @@ class MultiLanguageServiceImpl internal constructor(private val clientOptions: C
     override fun createLanguageVariation(
         params: MultiLanguageCreateLanguageVariationParams,
         requestOptions: RequestOptions,
-    ): PagesPage =
+    ): PageData =
         // post /cms/pages/2026-03/site-pages/multi-language/create-language-variation
         withRawResponse().createLanguageVariation(params, requestOptions).parse()
 
@@ -110,13 +110,13 @@ class MultiLanguageServiceImpl internal constructor(private val clientOptions: C
             return errorHandler.handle(response)
         }
 
-        private val createLanguageVariationHandler: Handler<PagesPage> =
-            jsonHandler<PagesPage>(clientOptions.jsonMapper)
+        private val createLanguageVariationHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun createLanguageVariation(
             params: MultiLanguageCreateLanguageVariationParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PagesPage> {
+        ): HttpResponseFor<PageData> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

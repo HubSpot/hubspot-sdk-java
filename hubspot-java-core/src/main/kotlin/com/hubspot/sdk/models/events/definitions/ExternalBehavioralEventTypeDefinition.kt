@@ -15,7 +15,7 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.Property
+import com.hubspot.sdk.models.BaseProperty
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -32,7 +32,7 @@ private constructor(
     private val labels: JsonField<BehavioralEventTypeDefinitionLabels>,
     private val name: JsonField<String>,
     private val objectTypeId: JsonField<String>,
-    private val properties: JsonField<List<Property>>,
+    private val properties: JsonField<List<BaseProperty>>,
     private val comboEventRules: JsonField<ComboEventRuleBranch>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdUserId: JsonField<Int>,
@@ -67,7 +67,7 @@ private constructor(
         objectTypeId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("properties")
         @ExcludeMissing
-        properties: JsonField<List<Property>> = JsonMissing.of(),
+        properties: JsonField<List<BaseProperty>> = JsonMissing.of(),
         @JsonProperty("comboEventRules")
         @ExcludeMissing
         comboEventRules: JsonField<ComboEventRuleBranch> = JsonMissing.of(),
@@ -175,7 +175,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun properties(): List<Property> = properties.getRequired("properties")
+    fun properties(): List<BaseProperty> = properties.getRequired("properties")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -316,7 +316,7 @@ private constructor(
      */
     @JsonProperty("properties")
     @ExcludeMissing
-    fun _properties(): JsonField<List<Property>> = properties
+    fun _properties(): JsonField<List<BaseProperty>> = properties
 
     /**
      * Returns the raw JSON value of [comboEventRules].
@@ -468,7 +468,7 @@ private constructor(
         private var labels: JsonField<BehavioralEventTypeDefinitionLabels>? = null
         private var name: JsonField<String>? = null
         private var objectTypeId: JsonField<String>? = null
-        private var properties: JsonField<MutableList<Property>>? = null
+        private var properties: JsonField<MutableList<BaseProperty>>? = null
         private var comboEventRules: JsonField<ComboEventRuleBranch> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdUserId: JsonField<Int> = JsonMissing.of()
@@ -610,25 +610,25 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
-        fun properties(properties: List<Property>) = properties(JsonField.of(properties))
+        fun properties(properties: List<BaseProperty>) = properties(JsonField.of(properties))
 
         /**
          * Sets [Builder.properties] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.properties] with a well-typed `List<Property>` value
+         * You should usually call [Builder.properties] with a well-typed `List<BaseProperty>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun properties(properties: JsonField<List<Property>>) = apply {
+        fun properties(properties: JsonField<List<BaseProperty>>) = apply {
             this.properties = properties.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Property] to [properties].
+         * Adds a single [BaseProperty] to [properties].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addProperty(property: Property) = apply {
+        fun addProperty(property: BaseProperty) = apply {
             properties =
                 (properties ?: JsonField.of(mutableListOf())).also {
                     checkKnown("properties", it).add(property)

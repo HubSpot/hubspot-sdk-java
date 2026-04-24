@@ -4,10 +4,10 @@ package com.hubspot.sdk.models.crm.objectschemas
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
-import com.hubspot.sdk.models.AssociationDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
+import com.hubspot.sdk.models.BaseOption
+import com.hubspot.sdk.models.BaseProperty
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
-import com.hubspot.sdk.models.Option
-import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -23,7 +23,7 @@ internal class ObjectSchemaTest {
                 .allowsSensitiveProperties(true)
                 .archived(true)
                 .addAssociation(
-                    AssociationDefinition.builder()
+                    BaseAssociationDefinition.builder()
                         .id("id")
                         .fromObjectTypeId("fromObjectTypeId")
                         .toObjectTypeId("toObjectTypeId")
@@ -42,14 +42,14 @@ internal class ObjectSchemaTest {
                 .name("name")
                 .objectTypeId("objectTypeId")
                 .addProperty(
-                    Property.builder()
+                    BaseProperty.builder()
                         .description("description")
                         .fieldType("fieldType")
                         .groupName("groupName")
                         .label("label")
                         .name("name")
                         .addOption(
-                            Option.builder()
+                            BaseOption.builder()
                                 .hidden(true)
                                 .label("label")
                                 .value("value")
@@ -65,8 +65,8 @@ internal class ObjectSchemaTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
                         .currencyPropertyName("currencyPropertyName")
-                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                        .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                        .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                        .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)
                         .externalOptions(true)
                         .formField(true)
@@ -81,7 +81,7 @@ internal class ObjectSchemaTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
-                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                        .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)
@@ -105,7 +105,7 @@ internal class ObjectSchemaTest {
         assertThat(objectSchema.archived()).isEqualTo(true)
         assertThat(objectSchema.associations())
             .containsExactly(
-                AssociationDefinition.builder()
+                BaseAssociationDefinition.builder()
                     .id("id")
                     .fromObjectTypeId("fromObjectTypeId")
                     .toObjectTypeId("toObjectTypeId")
@@ -123,14 +123,14 @@ internal class ObjectSchemaTest {
         assertThat(objectSchema.objectTypeId()).isEqualTo("objectTypeId")
         assertThat(objectSchema.properties())
             .containsExactly(
-                Property.builder()
+                BaseProperty.builder()
                     .description("description")
                     .fieldType("fieldType")
                     .groupName("groupName")
                     .label("label")
                     .name("name")
                     .addOption(
-                        Option.builder()
+                        BaseOption.builder()
                             .hidden(true)
                             .label("label")
                             .value("value")
@@ -146,8 +146,8 @@ internal class ObjectSchemaTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdUserId("createdUserId")
                     .currencyPropertyName("currencyPropertyName")
-                    .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                    .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                    .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                    .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                     .displayOrder(0)
                     .externalOptions(true)
                     .formField(true)
@@ -162,7 +162,7 @@ internal class ObjectSchemaTest {
                             .readOnlyOptions(true)
                             .build()
                     )
-                    .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                    .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                     .referencedObjectType("referencedObjectType")
                     .addSensitiveDataCategory("string")
                     .showCurrencySymbol(true)
@@ -192,7 +192,7 @@ internal class ObjectSchemaTest {
                 .allowsSensitiveProperties(true)
                 .archived(true)
                 .addAssociation(
-                    AssociationDefinition.builder()
+                    BaseAssociationDefinition.builder()
                         .id("id")
                         .fromObjectTypeId("fromObjectTypeId")
                         .toObjectTypeId("toObjectTypeId")
@@ -211,14 +211,14 @@ internal class ObjectSchemaTest {
                 .name("name")
                 .objectTypeId("objectTypeId")
                 .addProperty(
-                    Property.builder()
+                    BaseProperty.builder()
                         .description("description")
                         .fieldType("fieldType")
                         .groupName("groupName")
                         .label("label")
                         .name("name")
                         .addOption(
-                            Option.builder()
+                            BaseOption.builder()
                                 .hidden(true)
                                 .label("label")
                                 .value("value")
@@ -234,8 +234,8 @@ internal class ObjectSchemaTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
                         .currencyPropertyName("currencyPropertyName")
-                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
-                        .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
+                        .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
+                        .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)
                         .externalOptions(true)
                         .formField(true)
@@ -250,7 +250,7 @@ internal class ObjectSchemaTest {
                                 .readOnlyOptions(true)
                                 .build()
                         )
-                        .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
+                        .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
                         .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
                         .showCurrencySymbol(true)

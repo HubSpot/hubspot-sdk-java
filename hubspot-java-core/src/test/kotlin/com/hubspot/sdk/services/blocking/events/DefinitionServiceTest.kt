@@ -118,7 +118,7 @@ internal class DefinitionServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
-        val property =
+        val baseProperty =
             definitionService.createProperty(
                 DefinitionCreatePropertyParams.builder()
                     .eventName("eventName")
@@ -142,7 +142,7 @@ internal class DefinitionServiceTest {
                     .build()
             )
 
-        property.validate()
+        baseProperty.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -203,7 +203,7 @@ internal class DefinitionServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.events().definitions()
 
-        val property =
+        val baseProperty =
             definitionService.updateProperty(
                 DefinitionUpdatePropertyParams.builder()
                     .eventName("eventName")
@@ -226,6 +226,6 @@ internal class DefinitionServiceTest {
                     .build()
             )
 
-        property.validate()
+        baseProperty.validate()
     }
 }

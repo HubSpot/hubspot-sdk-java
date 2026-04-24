@@ -7,7 +7,7 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -19,16 +19,16 @@ import kotlin.jvm.optionals.getOrNull
 class LandingPageUpdateDraftParams
 private constructor(
     private val objectId: String?,
-    private val pagesPage: PagesPage,
+    private val pageData: PageData,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun objectId(): Optional<String> = Optional.ofNullable(objectId)
 
-    fun pagesPage(): PagesPage = pagesPage
+    fun pageData(): PageData = pageData
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = pagesPage._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = pageData._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -45,7 +45,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pagesPage()
+         * .pageData()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -55,14 +55,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectId: String? = null
-        private var pagesPage: PagesPage? = null
+        private var pageData: PageData? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(landingPageUpdateDraftParams: LandingPageUpdateDraftParams) = apply {
             objectId = landingPageUpdateDraftParams.objectId
-            pagesPage = landingPageUpdateDraftParams.pagesPage
+            pageData = landingPageUpdateDraftParams.pageData
             additionalHeaders = landingPageUpdateDraftParams.additionalHeaders.toBuilder()
             additionalQueryParams = landingPageUpdateDraftParams.additionalQueryParams.toBuilder()
         }
@@ -72,7 +72,7 @@ private constructor(
         /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
         fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
 
-        fun pagesPage(pagesPage: PagesPage) = apply { this.pagesPage = pagesPage }
+        fun pageData(pageData: PageData) = apply { this.pageData = pageData }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -179,7 +179,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pagesPage()
+         * .pageData()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -187,13 +187,13 @@ private constructor(
         fun build(): LandingPageUpdateDraftParams =
             LandingPageUpdateDraftParams(
                 objectId,
-                checkRequired("pagesPage", pagesPage),
+                checkRequired("pageData", pageData),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): PagesPage = pagesPage
+    fun _body(): PageData = pageData
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -212,14 +212,14 @@ private constructor(
 
         return other is LandingPageUpdateDraftParams &&
             objectId == other.objectId &&
-            pagesPage == other.pagesPage &&
+            pageData == other.pageData &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectId, pagesPage, additionalHeaders, additionalQueryParams)
+        Objects.hash(objectId, pageData, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LandingPageUpdateDraftParams{objectId=$objectId, pagesPage=$pagesPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LandingPageUpdateDraftParams{objectId=$objectId, pageData=$pageData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

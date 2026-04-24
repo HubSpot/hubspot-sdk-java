@@ -9,17 +9,17 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ErrorDataTest {
+internal class BaseErrorTest {
 
     @Test
     fun create() {
-        val errorData =
-            ErrorData.builder()
+        val baseError =
+            BaseError.builder()
                 .category("VALIDATION_ERROR")
                 .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
                 .message("Invalid input (details will vary based on the error)")
                 .context(
-                    ErrorData.Context.builder()
+                    BaseError.Context.builder()
                         .putAdditionalProperty("0", JsonValue.from(listOf("string")))
                         .putAdditionalProperty("1", JsonValue.from(listOf("string")))
                         .putAdditionalProperty("2", JsonValue.from(listOf("string")))
@@ -136,7 +136,7 @@ internal class ErrorDataTest {
                         .build()
                 )
                 .links(
-                    ErrorData.Links.builder()
+                    BaseError.Links.builder()
                         .putAdditionalProperty(
                             "knowledge-base",
                             JsonValue.from(
@@ -148,13 +148,13 @@ internal class ErrorDataTest {
                 .subCategory("subCategory")
                 .build()
 
-        assertThat(errorData.category()).isEqualTo("VALIDATION_ERROR")
-        assertThat(errorData.correlationId()).isEqualTo("aeb5f871-7f07-4993-9211-075dc63e7cbf")
-        assertThat(errorData.message())
+        assertThat(baseError.category()).isEqualTo("VALIDATION_ERROR")
+        assertThat(baseError.correlationId()).isEqualTo("aeb5f871-7f07-4993-9211-075dc63e7cbf")
+        assertThat(baseError.message())
             .isEqualTo("Invalid input (details will vary based on the error)")
-        assertThat(errorData.context())
+        assertThat(baseError.context())
             .contains(
-                ErrorData.Context.builder()
+                BaseError.Context.builder()
                     .putAdditionalProperty("0", JsonValue.from(listOf("string")))
                     .putAdditionalProperty("1", JsonValue.from(listOf("string")))
                     .putAdditionalProperty("2", JsonValue.from(listOf("string")))
@@ -226,7 +226,7 @@ internal class ErrorDataTest {
                     .putAdditionalProperty("68", JsonValue.from(listOf("string")))
                     .build()
             )
-        assertThat(errorData.errors().getOrNull())
+        assertThat(baseError.errors().getOrNull())
             .containsExactly(
                 ErrorDetail.builder()
                     .message("message")
@@ -271,28 +271,28 @@ internal class ErrorDataTest {
                     .subCategory("subCategory")
                     .build()
             )
-        assertThat(errorData.links())
+        assertThat(baseError.links())
             .contains(
-                ErrorData.Links.builder()
+                BaseError.Links.builder()
                     .putAdditionalProperty(
                         "knowledge-base",
                         JsonValue.from("https://www.hubspot.com/products/service/knowledge-base"),
                     )
                     .build()
             )
-        assertThat(errorData.subCategory()).contains("subCategory")
+        assertThat(baseError.subCategory()).contains("subCategory")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val errorData =
-            ErrorData.builder()
+        val baseError =
+            BaseError.builder()
                 .category("VALIDATION_ERROR")
                 .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
                 .message("Invalid input (details will vary based on the error)")
                 .context(
-                    ErrorData.Context.builder()
+                    BaseError.Context.builder()
                         .putAdditionalProperty("0", JsonValue.from(listOf("string")))
                         .putAdditionalProperty("1", JsonValue.from(listOf("string")))
                         .putAdditionalProperty("2", JsonValue.from(listOf("string")))
@@ -409,7 +409,7 @@ internal class ErrorDataTest {
                         .build()
                 )
                 .links(
-                    ErrorData.Links.builder()
+                    BaseError.Links.builder()
                         .putAdditionalProperty(
                             "knowledge-base",
                             JsonValue.from(
@@ -421,12 +421,12 @@ internal class ErrorDataTest {
                 .subCategory("subCategory")
                 .build()
 
-        val roundtrippedErrorData =
+        val roundtrippedBaseError =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(errorData),
-                jacksonTypeRef<ErrorData>(),
+                jsonMapper.writeValueAsString(baseError),
+                jacksonTypeRef<BaseError>(),
             )
 
-        assertThat(roundtrippedErrorData).isEqualTo(errorData)
+        assertThat(roundtrippedBaseError).isEqualTo(baseError)
     }
 }

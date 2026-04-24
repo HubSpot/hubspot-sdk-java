@@ -14,7 +14,7 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.AssociationDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -28,7 +28,7 @@ private constructor(
     private val id: JsonField<String>,
     private val allowsSensitiveProperties: JsonField<Boolean>,
     private val archived: JsonField<Boolean>,
-    private val associations: JsonField<List<AssociationDefinition>>,
+    private val associations: JsonField<List<BaseAssociationDefinition>>,
     private val fullyQualifiedName: JsonField<String>,
     private val labels: JsonField<ObjectTypeDefinitionLabels>,
     private val name: JsonField<String>,
@@ -55,7 +55,7 @@ private constructor(
         @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("associations")
         @ExcludeMissing
-        associations: JsonField<List<AssociationDefinition>> = JsonMissing.of(),
+        associations: JsonField<List<BaseAssociationDefinition>> = JsonMissing.of(),
         @JsonProperty("fullyQualifiedName")
         @ExcludeMissing
         fullyQualifiedName: JsonField<String> = JsonMissing.of(),
@@ -141,7 +141,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun associations(): List<AssociationDefinition> = associations.getRequired("associations")
+    fun associations(): List<BaseAssociationDefinition> = associations.getRequired("associations")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -261,7 +261,7 @@ private constructor(
      */
     @JsonProperty("associations")
     @ExcludeMissing
-    fun _associations(): JsonField<List<AssociationDefinition>> = associations
+    fun _associations(): JsonField<List<BaseAssociationDefinition>> = associations
 
     /**
      * Returns the raw JSON value of [fullyQualifiedName].
@@ -432,7 +432,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var allowsSensitiveProperties: JsonField<Boolean>? = null
         private var archived: JsonField<Boolean>? = null
-        private var associations: JsonField<MutableList<AssociationDefinition>>? = null
+        private var associations: JsonField<MutableList<BaseAssociationDefinition>>? = null
         private var fullyQualifiedName: JsonField<String>? = null
         private var labels: JsonField<ObjectTypeDefinitionLabels>? = null
         private var name: JsonField<String>? = null
@@ -508,26 +508,26 @@ private constructor(
          */
         fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
-        fun associations(associations: List<AssociationDefinition>) =
+        fun associations(associations: List<BaseAssociationDefinition>) =
             associations(JsonField.of(associations))
 
         /**
          * Sets [Builder.associations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.associations] with a well-typed
-         * `List<AssociationDefinition>` value instead. This method is primarily for setting the
+         * `List<BaseAssociationDefinition>` value instead. This method is primarily for setting the
          * field to an undocumented or not yet supported value.
          */
-        fun associations(associations: JsonField<List<AssociationDefinition>>) = apply {
+        fun associations(associations: JsonField<List<BaseAssociationDefinition>>) = apply {
             this.associations = associations.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [AssociationDefinition] to [associations].
+         * Adds a single [BaseAssociationDefinition] to [associations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addAssociation(association: AssociationDefinition) = apply {
+        fun addAssociation(association: BaseAssociationDefinition) = apply {
             associations =
                 (associations ?: JsonField.of(mutableListOf())).also {
                     checkKnown("associations", it).add(association)

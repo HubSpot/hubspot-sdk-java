@@ -6,9 +6,9 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.AssociationDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
+import com.hubspot.sdk.models.BaseObjectTypeDefinition
 import com.hubspot.sdk.models.CollectionResponsePropertyGroupNoPaging
-import com.hubspot.sdk.models.ObjectTypeDefinition
 import com.hubspot.sdk.models.PropertyGroup
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanEventRequest
@@ -81,7 +81,7 @@ interface MediaBridgeServiceAsync {
     fun createAssociation(
         objectType: String,
         params: MediaBridgeCreateAssociationParams,
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
@@ -89,19 +89,20 @@ interface MediaBridgeServiceAsync {
         objectType: String,
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
     fun createAssociation(
         params: MediaBridgeCreateAssociationParams
-    ): CompletableFuture<AssociationDefinition> = createAssociation(params, RequestOptions.none())
+    ): CompletableFuture<BaseAssociationDefinition> =
+        createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociationDefinition>
+    ): CompletableFuture<BaseAssociationDefinition>
 
     /** Create an event containing the viewers attention span details for the media. */
     fun createAttentionSpanEvent(
@@ -301,7 +302,7 @@ interface MediaBridgeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PropertyGroup>
 
-    fun createVideoAssociationDefinition(appId: Int): CompletableFuture<AssociationDefinition> =
+    fun createVideoAssociationDefinition(appId: Int): CompletableFuture<BaseAssociationDefinition> =
         createVideoAssociationDefinition(
             appId,
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -313,7 +314,7 @@ interface MediaBridgeServiceAsync {
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createVideoAssociationDefinition(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see createVideoAssociationDefinition */
@@ -321,26 +322,26 @@ interface MediaBridgeServiceAsync {
         appId: Int,
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createVideoAssociationDefinition(appId, params, RequestOptions.none())
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
         params: MediaBridgeCreateVideoAssociationDefinitionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociationDefinition>
+    ): CompletableFuture<BaseAssociationDefinition>
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
         params: MediaBridgeCreateVideoAssociationDefinitionParams
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createVideoAssociationDefinition(params, RequestOptions.none())
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
         appId: Int,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createVideoAssociationDefinition(
             appId,
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -898,7 +899,7 @@ interface MediaBridgeServiceAsync {
     fun updateSchema(
         objectType: String,
         params: MediaBridgeUpdateSchemaParams,
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<BaseObjectTypeDefinition> =
         updateSchema(objectType, params, RequestOptions.none())
 
     /** @see updateSchema */
@@ -906,19 +907,19 @@ interface MediaBridgeServiceAsync {
         objectType: String,
         params: MediaBridgeUpdateSchemaParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<BaseObjectTypeDefinition> =
         updateSchema(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see updateSchema */
     fun updateSchema(
         params: MediaBridgeUpdateSchemaParams
-    ): CompletableFuture<ObjectTypeDefinition> = updateSchema(params, RequestOptions.none())
+    ): CompletableFuture<BaseObjectTypeDefinition> = updateSchema(params, RequestOptions.none())
 
     /** @see updateSchema */
     fun updateSchema(
         params: MediaBridgeUpdateSchemaParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition>
+    ): CompletableFuture<BaseObjectTypeDefinition>
 
     /** Update the name that your app will display when a user is selecting media bridge items. */
     fun updateSettings(
@@ -972,7 +973,7 @@ interface MediaBridgeServiceAsync {
         fun createAssociation(
             objectType: String,
             params: MediaBridgeCreateAssociationParams,
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -980,20 +981,20 @@ interface MediaBridgeServiceAsync {
             objectType: String,
             params: MediaBridgeCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         fun createAssociation(
             params: MediaBridgeCreateAssociationParams
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         fun createAssociation(
             params: MediaBridgeCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>>
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>>
 
         /**
          * Returns a raw HTTP response for `post /media-bridge/2026-03/events/attention-span`, but
@@ -1225,7 +1226,7 @@ interface MediaBridgeServiceAsync {
          */
         fun createVideoAssociationDefinition(
             appId: Int
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createVideoAssociationDefinition(
                 appId,
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -1237,7 +1238,7 @@ interface MediaBridgeServiceAsync {
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createVideoAssociationDefinition(
                 params.toBuilder().appId(appId).build(),
                 requestOptions,
@@ -1248,26 +1249,26 @@ interface MediaBridgeServiceAsync {
             appId: Int,
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createVideoAssociationDefinition(appId, params, RequestOptions.none())
 
         /** @see createVideoAssociationDefinition */
         fun createVideoAssociationDefinition(
             params: MediaBridgeCreateVideoAssociationDefinitionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>>
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>>
 
         /** @see createVideoAssociationDefinition */
         fun createVideoAssociationDefinition(
             params: MediaBridgeCreateVideoAssociationDefinitionParams
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createVideoAssociationDefinition(params, RequestOptions.none())
 
         /** @see createVideoAssociationDefinition */
         fun createVideoAssociationDefinition(
             appId: Int,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createVideoAssociationDefinition(
                 appId,
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -1937,7 +1938,7 @@ interface MediaBridgeServiceAsync {
         fun updateSchema(
             objectType: String,
             params: MediaBridgeUpdateSchemaParams,
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>> =
             updateSchema(objectType, params, RequestOptions.none())
 
         /** @see updateSchema */
@@ -1945,20 +1946,20 @@ interface MediaBridgeServiceAsync {
             objectType: String,
             params: MediaBridgeUpdateSchemaParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>> =
             updateSchema(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see updateSchema */
         fun updateSchema(
             params: MediaBridgeUpdateSchemaParams
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>> =
             updateSchema(params, RequestOptions.none())
 
         /** @see updateSchema */
         fun updateSchema(
             params: MediaBridgeUpdateSchemaParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>>
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>>
 
         /**
          * Returns a raw HTTP response for `put /media-bridge/2026-03/{appId}/settings`, but is

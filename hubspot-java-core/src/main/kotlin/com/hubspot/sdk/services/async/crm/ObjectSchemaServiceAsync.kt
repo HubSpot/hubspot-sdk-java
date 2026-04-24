@@ -6,8 +6,8 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.AssociationDefinition
-import com.hubspot.sdk.models.ObjectTypeDefinition
+import com.hubspot.sdk.models.BaseAssociationDefinition
+import com.hubspot.sdk.models.BaseObjectTypeDefinition
 import com.hubspot.sdk.models.crm.objectschemas.CollectionResponseObjectSchemaNoPaging
 import com.hubspot.sdk.models.crm.objectschemas.ObjectSchema
 import com.hubspot.sdk.models.crm.objectschemas.ObjectSchemaCreateAssociationParams
@@ -69,25 +69,26 @@ interface ObjectSchemaServiceAsync {
     fun update(
         objectType: String,
         params: ObjectSchemaUpdateParams,
-    ): CompletableFuture<ObjectTypeDefinition> = update(objectType, params, RequestOptions.none())
+    ): CompletableFuture<BaseObjectTypeDefinition> =
+        update(objectType, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         objectType: String,
         params: ObjectSchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<BaseObjectTypeDefinition> =
         update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ObjectSchemaUpdateParams): CompletableFuture<ObjectTypeDefinition> =
+    fun update(params: ObjectSchemaUpdateParams): CompletableFuture<BaseObjectTypeDefinition> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ObjectSchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition>
+    ): CompletableFuture<BaseObjectTypeDefinition>
 
     /**
      * Retrieve all custom object schemas, with options to include property definitions, association
@@ -157,7 +158,7 @@ interface ObjectSchemaServiceAsync {
     fun createAssociation(
         objectType: String,
         params: ObjectSchemaCreateAssociationParams,
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
@@ -165,19 +166,20 @@ interface ObjectSchemaServiceAsync {
         objectType: String,
         params: ObjectSchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociationDefinition> =
+    ): CompletableFuture<BaseAssociationDefinition> =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
     fun createAssociation(
         params: ObjectSchemaCreateAssociationParams
-    ): CompletableFuture<AssociationDefinition> = createAssociation(params, RequestOptions.none())
+    ): CompletableFuture<BaseAssociationDefinition> =
+        createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: ObjectSchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociationDefinition>
+    ): CompletableFuture<BaseAssociationDefinition>
 
     /**
      * Remove an association between two object types identified by the association identifier and
@@ -300,7 +302,7 @@ interface ObjectSchemaServiceAsync {
         fun update(
             objectType: String,
             params: ObjectSchemaUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>> =
             update(objectType, params, RequestOptions.none())
 
         /** @see update */
@@ -308,20 +310,20 @@ interface ObjectSchemaServiceAsync {
             objectType: String,
             params: ObjectSchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>> =
             update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: ObjectSchemaUpdateParams
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ObjectSchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>>
+        ): CompletableFuture<HttpResponseFor<BaseObjectTypeDefinition>>
 
         /**
          * Returns a raw HTTP response for `get /crm-object-schemas/2026-03/schemas`, but is
@@ -395,7 +397,7 @@ interface ObjectSchemaServiceAsync {
         fun createAssociation(
             objectType: String,
             params: ObjectSchemaCreateAssociationParams,
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -403,20 +405,20 @@ interface ObjectSchemaServiceAsync {
             objectType: String,
             params: ObjectSchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         fun createAssociation(
             params: ObjectSchemaCreateAssociationParams
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>> =
             createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         fun createAssociation(
             params: ObjectSchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociationDefinition>>
+        ): CompletableFuture<HttpResponseFor<BaseAssociationDefinition>>
 
         /**
          * Returns a raw HTTP response for `delete

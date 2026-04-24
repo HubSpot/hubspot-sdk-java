@@ -8,12 +8,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AssociationDefinitionTest {
+internal class BaseAssociationDefinitionTest {
 
     @Test
     fun create() {
-        val associationDefinition =
-            AssociationDefinition.builder()
+        val baseAssociationDefinition =
+            BaseAssociationDefinition.builder()
                 .id("id")
                 .fromObjectTypeId("fromObjectTypeId")
                 .toObjectTypeId("toObjectTypeId")
@@ -22,21 +22,21 @@ internal class AssociationDefinitionTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        assertThat(associationDefinition.id()).isEqualTo("id")
-        assertThat(associationDefinition.fromObjectTypeId()).isEqualTo("fromObjectTypeId")
-        assertThat(associationDefinition.toObjectTypeId()).isEqualTo("toObjectTypeId")
-        assertThat(associationDefinition.createdAt())
+        assertThat(baseAssociationDefinition.id()).isEqualTo("id")
+        assertThat(baseAssociationDefinition.fromObjectTypeId()).isEqualTo("fromObjectTypeId")
+        assertThat(baseAssociationDefinition.toObjectTypeId()).isEqualTo("toObjectTypeId")
+        assertThat(baseAssociationDefinition.createdAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(associationDefinition.name()).contains("name")
-        assertThat(associationDefinition.updatedAt())
+        assertThat(baseAssociationDefinition.name()).contains("name")
+        assertThat(baseAssociationDefinition.updatedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val associationDefinition =
-            AssociationDefinition.builder()
+        val baseAssociationDefinition =
+            BaseAssociationDefinition.builder()
                 .id("id")
                 .fromObjectTypeId("fromObjectTypeId")
                 .toObjectTypeId("toObjectTypeId")
@@ -45,12 +45,12 @@ internal class AssociationDefinitionTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        val roundtrippedAssociationDefinition =
+        val roundtrippedBaseAssociationDefinition =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(associationDefinition),
-                jacksonTypeRef<AssociationDefinition>(),
+                jsonMapper.writeValueAsString(baseAssociationDefinition),
+                jacksonTypeRef<BaseAssociationDefinition>(),
             )
 
-        assertThat(roundtrippedAssociationDefinition).isEqualTo(associationDefinition)
+        assertThat(roundtrippedBaseAssociationDefinition).isEqualTo(baseAssociationDefinition)
     }
 }

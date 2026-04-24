@@ -57,7 +57,7 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val associationDefinitionFuture =
+        val baseAssociationDefinitionFuture =
             mediaBridgeServiceAsync.createAssociation(
                 MediaBridgeCreateAssociationParams.builder()
                     .appId(0)
@@ -72,8 +72,8 @@ internal class MediaBridgeServiceAsyncTest {
                     .build()
             )
 
-        val associationDefinition = associationDefinitionFuture.get()
-        associationDefinition.validate()
+        val baseAssociationDefinition = baseAssociationDefinitionFuture.get()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -313,11 +313,11 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val associationDefinitionFuture =
+        val baseAssociationDefinitionFuture =
             mediaBridgeServiceAsync.createVideoAssociationDefinition(0)
 
-        val associationDefinition = associationDefinitionFuture.get()
-        associationDefinition.validate()
+        val baseAssociationDefinition = baseAssociationDefinitionFuture.get()
+        baseAssociationDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -721,7 +721,7 @@ internal class MediaBridgeServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val mediaBridgeServiceAsync = client.cms().mediaBridge()
 
-        val objectTypeDefinitionFuture =
+        val baseObjectTypeDefinitionFuture =
             mediaBridgeServiceAsync.updateSchema(
                 MediaBridgeUpdateSchemaParams.builder()
                     .appId(0)
@@ -747,8 +747,8 @@ internal class MediaBridgeServiceAsyncTest {
                     .build()
             )
 
-        val objectTypeDefinition = objectTypeDefinitionFuture.get()
-        objectTypeDefinition.validate()
+        val baseObjectTypeDefinition = baseObjectTypeDefinitionFuture.get()
+        baseObjectTypeDefinition.validate()
     }
 
     @Disabled("Mock server tests are disabled")

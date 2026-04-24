@@ -8,12 +8,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ObjectTypeDefinitionTest {
+internal class BaseObjectTypeDefinitionTest {
 
     @Test
     fun create() {
-        val objectTypeDefinition =
-            ObjectTypeDefinition.builder()
+        val baseObjectTypeDefinition =
+            BaseObjectTypeDefinition.builder()
                 .id("id")
                 .allowsSensitiveProperties(true)
                 .archived(true)
@@ -36,33 +36,34 @@ internal class ObjectTypeDefinitionTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        assertThat(objectTypeDefinition.id()).isEqualTo("id")
-        assertThat(objectTypeDefinition.allowsSensitiveProperties()).isEqualTo(true)
-        assertThat(objectTypeDefinition.archived()).isEqualTo(true)
-        assertThat(objectTypeDefinition.fullyQualifiedName()).isEqualTo("fullyQualifiedName")
-        assertThat(objectTypeDefinition.labels())
+        assertThat(baseObjectTypeDefinition.id()).isEqualTo("id")
+        assertThat(baseObjectTypeDefinition.allowsSensitiveProperties()).isEqualTo(true)
+        assertThat(baseObjectTypeDefinition.archived()).isEqualTo(true)
+        assertThat(baseObjectTypeDefinition.fullyQualifiedName()).isEqualTo("fullyQualifiedName")
+        assertThat(baseObjectTypeDefinition.labels())
             .isEqualTo(
                 ObjectTypeDefinitionLabels.builder().plural("plural").singular("singular").build()
             )
-        assertThat(objectTypeDefinition.name()).isEqualTo("name")
-        assertThat(objectTypeDefinition.objectTypeId()).isEqualTo("objectTypeId")
-        assertThat(objectTypeDefinition.requiredProperties()).containsExactly("string")
-        assertThat(objectTypeDefinition.searchableProperties()).containsExactly("string")
-        assertThat(objectTypeDefinition.secondaryDisplayProperties()).containsExactly("string")
-        assertThat(objectTypeDefinition.createdAt())
+        assertThat(baseObjectTypeDefinition.name()).isEqualTo("name")
+        assertThat(baseObjectTypeDefinition.objectTypeId()).isEqualTo("objectTypeId")
+        assertThat(baseObjectTypeDefinition.requiredProperties()).containsExactly("string")
+        assertThat(baseObjectTypeDefinition.searchableProperties()).containsExactly("string")
+        assertThat(baseObjectTypeDefinition.secondaryDisplayProperties()).containsExactly("string")
+        assertThat(baseObjectTypeDefinition.createdAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(objectTypeDefinition.description()).contains("description")
-        assertThat(objectTypeDefinition.portalId()).contains(0)
-        assertThat(objectTypeDefinition.primaryDisplayProperty()).contains("primaryDisplayProperty")
-        assertThat(objectTypeDefinition.updatedAt())
+        assertThat(baseObjectTypeDefinition.description()).contains("description")
+        assertThat(baseObjectTypeDefinition.portalId()).contains(0)
+        assertThat(baseObjectTypeDefinition.primaryDisplayProperty())
+            .contains("primaryDisplayProperty")
+        assertThat(baseObjectTypeDefinition.updatedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val objectTypeDefinition =
-            ObjectTypeDefinition.builder()
+        val baseObjectTypeDefinition =
+            BaseObjectTypeDefinition.builder()
                 .id("id")
                 .allowsSensitiveProperties(true)
                 .archived(true)
@@ -85,12 +86,12 @@ internal class ObjectTypeDefinitionTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        val roundtrippedObjectTypeDefinition =
+        val roundtrippedBaseObjectTypeDefinition =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(objectTypeDefinition),
-                jacksonTypeRef<ObjectTypeDefinition>(),
+                jsonMapper.writeValueAsString(baseObjectTypeDefinition),
+                jacksonTypeRef<BaseObjectTypeDefinition>(),
             )
 
-        assertThat(roundtrippedObjectTypeDefinition).isEqualTo(objectTypeDefinition)
+        assertThat(roundtrippedBaseObjectTypeDefinition).isEqualTo(baseObjectTypeDefinition)
     }
 }

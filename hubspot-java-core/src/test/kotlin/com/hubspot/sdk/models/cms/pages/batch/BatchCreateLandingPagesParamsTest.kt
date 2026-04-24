@@ -5,7 +5,7 @@ package com.hubspot.sdk.models.cms.pages.batch
 import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.models.cms.PublicAccessRule
 import com.hubspot.sdk.models.cms.pages.BatchInputPage
-import com.hubspot.sdk.models.cms.pages.PagesPage
+import com.hubspot.sdk.models.cms.pages.PageData
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,14 +18,14 @@ internal class BatchCreateLandingPagesParamsTest {
             .batchInputPage(
                 BatchInputPage.builder()
                     .addInput(
-                        PagesPage.builder()
+                        PageData.builder()
                             .id("id")
-                            .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                PagesPage.AttachedStylesheet.builder()
+                                PageData.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -36,11 +36,11 @@ internal class BatchCreateLandingPagesParamsTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                            .contentTypeCategory(PageData.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                            .currentState(PageData.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -54,9 +54,9 @@ internal class BatchCreateLandingPagesParamsTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(PagesPage.Language.AA)
+                            .language(PageData.Language.AA)
                             .layoutSections(
-                                PagesPage.LayoutSections.builder()
+                                PageData.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -310,7 +310,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                PagesPage.ThemeSettingsValues.builder()
+                                PageData.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -319,7 +319,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                PagesPage.Translations.builder()
+                                PageData.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -349,7 +349,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                PagesPage.WidgetContainers.builder()
+                                PageData.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -357,7 +357,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                     .build()
                             )
                             .widgets(
-                                PagesPage.Widgets.builder()
+                                PageData.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -378,14 +378,14 @@ internal class BatchCreateLandingPagesParamsTest {
                 .batchInputPage(
                     BatchInputPage.builder()
                         .addInput(
-                            PagesPage.builder()
+                            PageData.builder()
                                 .id("id")
-                                .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                                .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                                 .abTestId("abTestId")
                                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .archivedInDashboard(true)
                                 .addAttachedStylesheet(
-                                    PagesPage.AttachedStylesheet.builder()
+                                    PageData.AttachedStylesheet.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -396,11 +396,11 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .campaign("campaign")
                                 .categoryId(0)
                                 .contentGroupId("contentGroupId")
-                                .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                                .contentTypeCategory(PageData.ContentTypeCategory._0)
                                 .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdById("createdById")
                                 .currentlyPublished(true)
-                                .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                                .currentState(PageData.CurrentState.AGENT_GENERATED)
                                 .domain("domain")
                                 .dynamicPageDataSourceId("dynamicPageDataSourceId")
                                 .dynamicPageDataSourceType(0)
@@ -414,9 +414,9 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .headHtml("headHtml")
                                 .htmlTitle("htmlTitle")
                                 .includeDefaultCustomCss(true)
-                                .language(PagesPage.Language.AA)
+                                .language(PageData.Language.AA)
                                 .layoutSections(
-                                    PagesPage.LayoutSections.builder()
+                                    PageData.LayoutSections.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -682,7 +682,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .subcategory("subcategory")
                                 .templatePath("templatePath")
                                 .themeSettingsValues(
-                                    PagesPage.ThemeSettingsValues.builder()
+                                    PageData.ThemeSettingsValues.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -691,7 +691,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                 )
                                 .translatedFromId("translatedFromId")
                                 .translations(
-                                    PagesPage.Translations.builder()
+                                    PageData.Translations.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -722,7 +722,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .url("url")
                                 .useFeaturedImage(true)
                                 .widgetContainers(
-                                    PagesPage.WidgetContainers.builder()
+                                    PageData.WidgetContainers.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -730,7 +730,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                         .build()
                                 )
                                 .widgets(
-                                    PagesPage.Widgets.builder()
+                                    PageData.Widgets.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -749,14 +749,14 @@ internal class BatchCreateLandingPagesParamsTest {
             .isEqualTo(
                 BatchInputPage.builder()
                     .addInput(
-                        PagesPage.builder()
+                        PageData.builder()
                             .id("id")
-                            .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                PagesPage.AttachedStylesheet.builder()
+                                PageData.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -767,11 +767,11 @@ internal class BatchCreateLandingPagesParamsTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                            .contentTypeCategory(PageData.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                            .currentState(PageData.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -785,9 +785,9 @@ internal class BatchCreateLandingPagesParamsTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(PagesPage.Language.AA)
+                            .language(PageData.Language.AA)
                             .layoutSections(
-                                PagesPage.LayoutSections.builder()
+                                PageData.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1041,7 +1041,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                PagesPage.ThemeSettingsValues.builder()
+                                PageData.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1050,7 +1050,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                PagesPage.Translations.builder()
+                                PageData.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1080,7 +1080,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                PagesPage.WidgetContainers.builder()
+                                PageData.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1088,7 +1088,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                     .build()
                             )
                             .widgets(
-                                PagesPage.Widgets.builder()
+                                PageData.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1108,14 +1108,14 @@ internal class BatchCreateLandingPagesParamsTest {
                 .batchInputPage(
                     BatchInputPage.builder()
                         .addInput(
-                            PagesPage.builder()
+                            PageData.builder()
                                 .id("id")
-                                .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                                .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                                 .abTestId("abTestId")
                                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .archivedInDashboard(true)
                                 .addAttachedStylesheet(
-                                    PagesPage.AttachedStylesheet.builder()
+                                    PageData.AttachedStylesheet.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -1126,11 +1126,11 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .campaign("campaign")
                                 .categoryId(0)
                                 .contentGroupId("contentGroupId")
-                                .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                                .contentTypeCategory(PageData.ContentTypeCategory._0)
                                 .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdById("createdById")
                                 .currentlyPublished(true)
-                                .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                                .currentState(PageData.CurrentState.AGENT_GENERATED)
                                 .domain("domain")
                                 .dynamicPageDataSourceId("dynamicPageDataSourceId")
                                 .dynamicPageDataSourceType(0)
@@ -1144,9 +1144,9 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .headHtml("headHtml")
                                 .htmlTitle("htmlTitle")
                                 .includeDefaultCustomCss(true)
-                                .language(PagesPage.Language.AA)
+                                .language(PageData.Language.AA)
                                 .layoutSections(
-                                    PagesPage.LayoutSections.builder()
+                                    PageData.LayoutSections.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -1301,7 +1301,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .subcategory("subcategory")
                                 .templatePath("templatePath")
                                 .themeSettingsValues(
-                                    PagesPage.ThemeSettingsValues.builder()
+                                    PageData.ThemeSettingsValues.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -1310,7 +1310,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                 )
                                 .translatedFromId("translatedFromId")
                                 .translations(
-                                    PagesPage.Translations.builder()
+                                    PageData.Translations.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -1340,7 +1340,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                 .url("url")
                                 .useFeaturedImage(true)
                                 .widgetContainers(
-                                    PagesPage.WidgetContainers.builder()
+                                    PageData.WidgetContainers.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -1348,7 +1348,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                         .build()
                                 )
                                 .widgets(
-                                    PagesPage.Widgets.builder()
+                                    PageData.Widgets.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -1367,14 +1367,14 @@ internal class BatchCreateLandingPagesParamsTest {
             .isEqualTo(
                 BatchInputPage.builder()
                     .addInput(
-                        PagesPage.builder()
+                        PageData.builder()
                             .id("id")
-                            .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                PagesPage.AttachedStylesheet.builder()
+                                PageData.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1385,11 +1385,11 @@ internal class BatchCreateLandingPagesParamsTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(PagesPage.ContentTypeCategory._0)
+                            .contentTypeCategory(PageData.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(PagesPage.CurrentState.AGENT_GENERATED)
+                            .currentState(PageData.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -1403,9 +1403,9 @@ internal class BatchCreateLandingPagesParamsTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(PagesPage.Language.AA)
+                            .language(PageData.Language.AA)
                             .layoutSections(
-                                PagesPage.LayoutSections.builder()
+                                PageData.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1554,7 +1554,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                PagesPage.ThemeSettingsValues.builder()
+                                PageData.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1563,7 +1563,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                PagesPage.Translations.builder()
+                                PageData.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1592,7 +1592,7 @@ internal class BatchCreateLandingPagesParamsTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                PagesPage.WidgetContainers.builder()
+                                PageData.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1600,7 +1600,7 @@ internal class BatchCreateLandingPagesParamsTest {
                                     .build()
                             )
                             .widgets(
-                                PagesPage.Widgets.builder()
+                                PageData.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
