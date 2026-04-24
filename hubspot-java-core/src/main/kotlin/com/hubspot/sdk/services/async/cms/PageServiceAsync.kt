@@ -6,7 +6,6 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.cms.pages.PageData
 import com.hubspot.sdk.models.cms.pages.PageGetLandingPageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageGetSitePageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsPageAsync
@@ -19,6 +18,7 @@ import com.hubspot.sdk.models.cms.pages.PageRestoreLandingPageRevisionToDraftPar
 import com.hubspot.sdk.models.cms.pages.PageRestoreSitePageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageRestoreSitePageRevisionToDraftParams
 import com.hubspot.sdk.models.cms.pages.PageVersion
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.services.async.cms.pages.ABTestServiceAsync
 import com.hubspot.sdk.services.async.cms.pages.BatchServiceAsync
 import com.hubspot.sdk.services.async.cms.pages.FolderServiceAsync
@@ -228,7 +228,7 @@ interface PageServiceAsync {
     fun restoreLandingPageRevision(
         revisionId: String,
         params: PageRestoreLandingPageRevisionParams,
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreLandingPageRevision(revisionId, params, RequestOptions.none())
 
     /** @see restoreLandingPageRevision */
@@ -236,7 +236,7 @@ interface PageServiceAsync {
         revisionId: String,
         params: PageRestoreLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreLandingPageRevision(
             params.toBuilder().revisionId(revisionId).build(),
             requestOptions,
@@ -245,19 +245,19 @@ interface PageServiceAsync {
     /** @see restoreLandingPageRevision */
     fun restoreLandingPageRevision(
         params: PageRestoreLandingPageRevisionParams
-    ): CompletableFuture<PageData> = restoreLandingPageRevision(params, RequestOptions.none())
+    ): CompletableFuture<PagesPage> = restoreLandingPageRevision(params, RequestOptions.none())
 
     /** @see restoreLandingPageRevision */
     fun restoreLandingPageRevision(
         params: PageRestoreLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData>
+    ): CompletableFuture<PagesPage>
 
     /** Specify a previous version of a landing page to set as the page draft. */
     fun restoreLandingPageRevisionToDraft(
         revisionId: Long,
         params: PageRestoreLandingPageRevisionToDraftParams,
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
 
     /** @see restoreLandingPageRevisionToDraft */
@@ -265,7 +265,7 @@ interface PageServiceAsync {
         revisionId: Long,
         params: PageRestoreLandingPageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreLandingPageRevisionToDraft(
             params.toBuilder().revisionId(revisionId).build(),
             requestOptions,
@@ -274,20 +274,20 @@ interface PageServiceAsync {
     /** @see restoreLandingPageRevisionToDraft */
     fun restoreLandingPageRevisionToDraft(
         params: PageRestoreLandingPageRevisionToDraftParams
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreLandingPageRevisionToDraft(params, RequestOptions.none())
 
     /** @see restoreLandingPageRevisionToDraft */
     fun restoreLandingPageRevisionToDraft(
         params: PageRestoreLandingPageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData>
+    ): CompletableFuture<PagesPage>
 
     /** Restores a website page to a previous version, specified by page ID and version ID. */
     fun restoreSitePageRevision(
         revisionId: String,
         params: PageRestoreSitePageRevisionParams,
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreSitePageRevision(revisionId, params, RequestOptions.none())
 
     /** @see restoreSitePageRevision */
@@ -295,19 +295,19 @@ interface PageServiceAsync {
         revisionId: String,
         params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
     /** @see restoreSitePageRevision */
     fun restoreSitePageRevision(
         params: PageRestoreSitePageRevisionParams
-    ): CompletableFuture<PageData> = restoreSitePageRevision(params, RequestOptions.none())
+    ): CompletableFuture<PagesPage> = restoreSitePageRevision(params, RequestOptions.none())
 
     /** @see restoreSitePageRevision */
     fun restoreSitePageRevision(
         params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData>
+    ): CompletableFuture<PagesPage>
 
     /**
      * Takes a specified version of a website page and sets it as the new draft version of the page.
@@ -315,7 +315,7 @@ interface PageServiceAsync {
     fun restoreSitePageRevisionToDraft(
         revisionId: Long,
         params: PageRestoreSitePageRevisionToDraftParams,
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
 
     /** @see restoreSitePageRevisionToDraft */
@@ -323,7 +323,7 @@ interface PageServiceAsync {
         revisionId: Long,
         params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         restoreSitePageRevisionToDraft(
             params.toBuilder().revisionId(revisionId).build(),
             requestOptions,
@@ -332,13 +332,13 @@ interface PageServiceAsync {
     /** @see restoreSitePageRevisionToDraft */
     fun restoreSitePageRevisionToDraft(
         params: PageRestoreSitePageRevisionToDraftParams
-    ): CompletableFuture<PageData> = restoreSitePageRevisionToDraft(params, RequestOptions.none())
+    ): CompletableFuture<PagesPage> = restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
     /** @see restoreSitePageRevisionToDraft */
     fun restoreSitePageRevisionToDraft(
         params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData>
+    ): CompletableFuture<PagesPage>
 
     /** A view of [PageServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -567,7 +567,7 @@ interface PageServiceAsync {
         fun restoreLandingPageRevision(
             revisionId: String,
             params: PageRestoreLandingPageRevisionParams,
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreLandingPageRevision(revisionId, params, RequestOptions.none())
 
         /** @see restoreLandingPageRevision */
@@ -575,7 +575,7 @@ interface PageServiceAsync {
             revisionId: String,
             params: PageRestoreLandingPageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreLandingPageRevision(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -584,14 +584,14 @@ interface PageServiceAsync {
         /** @see restoreLandingPageRevision */
         fun restoreLandingPageRevision(
             params: PageRestoreLandingPageRevisionParams
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreLandingPageRevision(params, RequestOptions.none())
 
         /** @see restoreLandingPageRevision */
         fun restoreLandingPageRevision(
             params: PageRestoreLandingPageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>>
+        ): CompletableFuture<HttpResponseFor<PagesPage>>
 
         /**
          * Returns a raw HTTP response for `post
@@ -601,7 +601,7 @@ interface PageServiceAsync {
         fun restoreLandingPageRevisionToDraft(
             revisionId: Long,
             params: PageRestoreLandingPageRevisionToDraftParams,
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
 
         /** @see restoreLandingPageRevisionToDraft */
@@ -609,7 +609,7 @@ interface PageServiceAsync {
             revisionId: Long,
             params: PageRestoreLandingPageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreLandingPageRevisionToDraft(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -618,14 +618,14 @@ interface PageServiceAsync {
         /** @see restoreLandingPageRevisionToDraft */
         fun restoreLandingPageRevisionToDraft(
             params: PageRestoreLandingPageRevisionToDraftParams
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreLandingPageRevisionToDraft(params, RequestOptions.none())
 
         /** @see restoreLandingPageRevisionToDraft */
         fun restoreLandingPageRevisionToDraft(
             params: PageRestoreLandingPageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>>
+        ): CompletableFuture<HttpResponseFor<PagesPage>>
 
         /**
          * Returns a raw HTTP response for `post
@@ -635,7 +635,7 @@ interface PageServiceAsync {
         fun restoreSitePageRevision(
             revisionId: String,
             params: PageRestoreSitePageRevisionParams,
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreSitePageRevision(revisionId, params, RequestOptions.none())
 
         /** @see restoreSitePageRevision */
@@ -643,7 +643,7 @@ interface PageServiceAsync {
             revisionId: String,
             params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreSitePageRevision(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -652,14 +652,14 @@ interface PageServiceAsync {
         /** @see restoreSitePageRevision */
         fun restoreSitePageRevision(
             params: PageRestoreSitePageRevisionParams
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreSitePageRevision(params, RequestOptions.none())
 
         /** @see restoreSitePageRevision */
         fun restoreSitePageRevision(
             params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>>
+        ): CompletableFuture<HttpResponseFor<PagesPage>>
 
         /**
          * Returns a raw HTTP response for `post
@@ -669,7 +669,7 @@ interface PageServiceAsync {
         fun restoreSitePageRevisionToDraft(
             revisionId: Long,
             params: PageRestoreSitePageRevisionToDraftParams,
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
 
         /** @see restoreSitePageRevisionToDraft */
@@ -677,7 +677,7 @@ interface PageServiceAsync {
             revisionId: Long,
             params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreSitePageRevisionToDraft(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -686,13 +686,13 @@ interface PageServiceAsync {
         /** @see restoreSitePageRevisionToDraft */
         fun restoreSitePageRevisionToDraft(
             params: PageRestoreSitePageRevisionToDraftParams
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
         /** @see restoreSitePageRevisionToDraft */
         fun restoreSitePageRevisionToDraft(
             params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>>
+        ): CompletableFuture<HttpResponseFor<PagesPage>>
     }
 }

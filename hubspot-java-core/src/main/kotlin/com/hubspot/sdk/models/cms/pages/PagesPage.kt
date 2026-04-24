@@ -21,7 +21,7 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class PageData
+class PagesPage
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -1268,7 +1268,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [PageData].
+         * Returns a mutable builder for constructing an instance of [PagesPage].
          *
          * The following fields are required:
          * ```java
@@ -1334,7 +1334,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [PageData]. */
+    /** A builder for [PagesPage]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
@@ -1397,65 +1397,65 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(pageData: PageData) = apply {
-            id = pageData.id
-            abStatus = pageData.abStatus
-            abTestId = pageData.abTestId
-            archivedAt = pageData.archivedAt
-            archivedInDashboard = pageData.archivedInDashboard
-            attachedStylesheets = pageData.attachedStylesheets.map { it.toMutableList() }
-            authorName = pageData.authorName
-            campaign = pageData.campaign
-            categoryId = pageData.categoryId
-            contentGroupId = pageData.contentGroupId
-            contentTypeCategory = pageData.contentTypeCategory
-            created = pageData.created
-            createdById = pageData.createdById
-            currentlyPublished = pageData.currentlyPublished
-            currentState = pageData.currentState
-            domain = pageData.domain
-            dynamicPageDataSourceId = pageData.dynamicPageDataSourceId
-            dynamicPageDataSourceType = pageData.dynamicPageDataSourceType
-            dynamicPageHubDbTableId = pageData.dynamicPageHubDbTableId
-            enableDomainStylesheets = pageData.enableDomainStylesheets
-            enableLayoutStylesheets = pageData.enableLayoutStylesheets
-            featuredImage = pageData.featuredImage
-            featuredImageAltText = pageData.featuredImageAltText
-            folderId = pageData.folderId
-            footerHtml = pageData.footerHtml
-            headHtml = pageData.headHtml
-            htmlTitle = pageData.htmlTitle
-            includeDefaultCustomCss = pageData.includeDefaultCustomCss
-            language = pageData.language
-            layoutSections = pageData.layoutSections
-            linkRelCanonicalUrl = pageData.linkRelCanonicalUrl
-            mabExperimentId = pageData.mabExperimentId
-            metaDescription = pageData.metaDescription
-            name = pageData.name
-            pageExpiryDate = pageData.pageExpiryDate
-            pageExpiryEnabled = pageData.pageExpiryEnabled
-            pageExpiryRedirectId = pageData.pageExpiryRedirectId
-            pageExpiryRedirectUrl = pageData.pageExpiryRedirectUrl
-            pageRedirected = pageData.pageRedirected
-            password = pageData.password
-            publicAccessRules = pageData.publicAccessRules.map { it.toMutableList() }
-            publicAccessRulesEnabled = pageData.publicAccessRulesEnabled
-            publishDate = pageData.publishDate
-            publishImmediately = pageData.publishImmediately
-            slug = pageData.slug
-            state = pageData.state
-            subcategory = pageData.subcategory
-            templatePath = pageData.templatePath
-            themeSettingsValues = pageData.themeSettingsValues
-            translatedFromId = pageData.translatedFromId
-            translations = pageData.translations
-            updated = pageData.updated
-            updatedById = pageData.updatedById
-            url = pageData.url
-            useFeaturedImage = pageData.useFeaturedImage
-            widgetContainers = pageData.widgetContainers
-            widgets = pageData.widgets
-            additionalProperties = pageData.additionalProperties.toMutableMap()
+        internal fun from(pagesPage: PagesPage) = apply {
+            id = pagesPage.id
+            abStatus = pagesPage.abStatus
+            abTestId = pagesPage.abTestId
+            archivedAt = pagesPage.archivedAt
+            archivedInDashboard = pagesPage.archivedInDashboard
+            attachedStylesheets = pagesPage.attachedStylesheets.map { it.toMutableList() }
+            authorName = pagesPage.authorName
+            campaign = pagesPage.campaign
+            categoryId = pagesPage.categoryId
+            contentGroupId = pagesPage.contentGroupId
+            contentTypeCategory = pagesPage.contentTypeCategory
+            created = pagesPage.created
+            createdById = pagesPage.createdById
+            currentlyPublished = pagesPage.currentlyPublished
+            currentState = pagesPage.currentState
+            domain = pagesPage.domain
+            dynamicPageDataSourceId = pagesPage.dynamicPageDataSourceId
+            dynamicPageDataSourceType = pagesPage.dynamicPageDataSourceType
+            dynamicPageHubDbTableId = pagesPage.dynamicPageHubDbTableId
+            enableDomainStylesheets = pagesPage.enableDomainStylesheets
+            enableLayoutStylesheets = pagesPage.enableLayoutStylesheets
+            featuredImage = pagesPage.featuredImage
+            featuredImageAltText = pagesPage.featuredImageAltText
+            folderId = pagesPage.folderId
+            footerHtml = pagesPage.footerHtml
+            headHtml = pagesPage.headHtml
+            htmlTitle = pagesPage.htmlTitle
+            includeDefaultCustomCss = pagesPage.includeDefaultCustomCss
+            language = pagesPage.language
+            layoutSections = pagesPage.layoutSections
+            linkRelCanonicalUrl = pagesPage.linkRelCanonicalUrl
+            mabExperimentId = pagesPage.mabExperimentId
+            metaDescription = pagesPage.metaDescription
+            name = pagesPage.name
+            pageExpiryDate = pagesPage.pageExpiryDate
+            pageExpiryEnabled = pagesPage.pageExpiryEnabled
+            pageExpiryRedirectId = pagesPage.pageExpiryRedirectId
+            pageExpiryRedirectUrl = pagesPage.pageExpiryRedirectUrl
+            pageRedirected = pagesPage.pageRedirected
+            password = pagesPage.password
+            publicAccessRules = pagesPage.publicAccessRules.map { it.toMutableList() }
+            publicAccessRulesEnabled = pagesPage.publicAccessRulesEnabled
+            publishDate = pagesPage.publishDate
+            publishImmediately = pagesPage.publishImmediately
+            slug = pagesPage.slug
+            state = pagesPage.state
+            subcategory = pagesPage.subcategory
+            templatePath = pagesPage.templatePath
+            themeSettingsValues = pagesPage.themeSettingsValues
+            translatedFromId = pagesPage.translatedFromId
+            translations = pagesPage.translations
+            updated = pagesPage.updated
+            updatedById = pagesPage.updatedById
+            url = pagesPage.url
+            useFeaturedImage = pagesPage.useFeaturedImage
+            widgetContainers = pagesPage.widgetContainers
+            widgets = pagesPage.widgets
+            additionalProperties = pagesPage.additionalProperties.toMutableMap()
         }
 
         /** The unique ID of the page. */
@@ -2315,7 +2315,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [PageData].
+         * Returns an immutable instance of [PagesPage].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -2382,8 +2382,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): PageData =
-            PageData(
+        fun build(): PagesPage =
+            PagesPage(
                 checkRequired("id", id),
                 checkRequired("abStatus", abStatus),
                 checkRequired("abTestId", abTestId),
@@ -2447,7 +2447,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): PageData = apply {
+    fun validate(): PagesPage = apply {
         if (validated) {
             return@apply
         }
@@ -9097,7 +9097,7 @@ private constructor(
             return true
         }
 
-        return other is PageData &&
+        return other is PagesPage &&
             id == other.id &&
             abStatus == other.abStatus &&
             abTestId == other.abTestId &&
@@ -9224,5 +9224,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PageData{id=$id, abStatus=$abStatus, abTestId=$abTestId, archivedAt=$archivedAt, archivedInDashboard=$archivedInDashboard, attachedStylesheets=$attachedStylesheets, authorName=$authorName, campaign=$campaign, categoryId=$categoryId, contentGroupId=$contentGroupId, contentTypeCategory=$contentTypeCategory, created=$created, createdById=$createdById, currentlyPublished=$currentlyPublished, currentState=$currentState, domain=$domain, dynamicPageDataSourceId=$dynamicPageDataSourceId, dynamicPageDataSourceType=$dynamicPageDataSourceType, dynamicPageHubDbTableId=$dynamicPageHubDbTableId, enableDomainStylesheets=$enableDomainStylesheets, enableLayoutStylesheets=$enableLayoutStylesheets, featuredImage=$featuredImage, featuredImageAltText=$featuredImageAltText, folderId=$folderId, footerHtml=$footerHtml, headHtml=$headHtml, htmlTitle=$htmlTitle, includeDefaultCustomCss=$includeDefaultCustomCss, language=$language, layoutSections=$layoutSections, linkRelCanonicalUrl=$linkRelCanonicalUrl, mabExperimentId=$mabExperimentId, metaDescription=$metaDescription, name=$name, pageExpiryDate=$pageExpiryDate, pageExpiryEnabled=$pageExpiryEnabled, pageExpiryRedirectId=$pageExpiryRedirectId, pageExpiryRedirectUrl=$pageExpiryRedirectUrl, pageRedirected=$pageRedirected, password=$password, publicAccessRules=$publicAccessRules, publicAccessRulesEnabled=$publicAccessRulesEnabled, publishDate=$publishDate, publishImmediately=$publishImmediately, slug=$slug, state=$state, subcategory=$subcategory, templatePath=$templatePath, themeSettingsValues=$themeSettingsValues, translatedFromId=$translatedFromId, translations=$translations, updated=$updated, updatedById=$updatedById, url=$url, useFeaturedImage=$useFeaturedImage, widgetContainers=$widgetContainers, widgets=$widgets, additionalProperties=$additionalProperties}"
+        "PagesPage{id=$id, abStatus=$abStatus, abTestId=$abTestId, archivedAt=$archivedAt, archivedInDashboard=$archivedInDashboard, attachedStylesheets=$attachedStylesheets, authorName=$authorName, campaign=$campaign, categoryId=$categoryId, contentGroupId=$contentGroupId, contentTypeCategory=$contentTypeCategory, created=$created, createdById=$createdById, currentlyPublished=$currentlyPublished, currentState=$currentState, domain=$domain, dynamicPageDataSourceId=$dynamicPageDataSourceId, dynamicPageDataSourceType=$dynamicPageDataSourceType, dynamicPageHubDbTableId=$dynamicPageHubDbTableId, enableDomainStylesheets=$enableDomainStylesheets, enableLayoutStylesheets=$enableLayoutStylesheets, featuredImage=$featuredImage, featuredImageAltText=$featuredImageAltText, folderId=$folderId, footerHtml=$footerHtml, headHtml=$headHtml, htmlTitle=$htmlTitle, includeDefaultCustomCss=$includeDefaultCustomCss, language=$language, layoutSections=$layoutSections, linkRelCanonicalUrl=$linkRelCanonicalUrl, mabExperimentId=$mabExperimentId, metaDescription=$metaDescription, name=$name, pageExpiryDate=$pageExpiryDate, pageExpiryEnabled=$pageExpiryEnabled, pageExpiryRedirectId=$pageExpiryRedirectId, pageExpiryRedirectUrl=$pageExpiryRedirectUrl, pageRedirected=$pageRedirected, password=$password, publicAccessRules=$publicAccessRules, publicAccessRulesEnabled=$publicAccessRulesEnabled, publishDate=$publishDate, publishImmediately=$publishImmediately, slug=$slug, state=$state, subcategory=$subcategory, templatePath=$templatePath, themeSettingsValues=$themeSettingsValues, translatedFromId=$translatedFromId, translations=$translations, updated=$updated, updatedById=$updatedById, url=$url, useFeaturedImage=$useFeaturedImage, widgetContainers=$widgetContainers, widgets=$widgets, additionalProperties=$additionalProperties}"
 }

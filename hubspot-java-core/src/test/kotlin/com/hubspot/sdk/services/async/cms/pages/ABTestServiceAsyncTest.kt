@@ -17,7 +17,7 @@ internal class ABTestServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
-        val pageDataFuture =
+        val pagesPageFuture =
             abTestServiceAsync.createLandingPageVariation(
                 AbTestCreateRequestVNext.builder()
                     .contentId("contentId")
@@ -25,8 +25,8 @@ internal class ABTestServiceAsyncTest {
                     .build()
             )
 
-        val pageData = pageDataFuture.get()
-        pageData.validate()
+        val pagesPage = pagesPageFuture.get()
+        pagesPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -35,7 +35,7 @@ internal class ABTestServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
-        val pageDataFuture =
+        val pagesPageFuture =
             abTestServiceAsync.createSitePageVariation(
                 AbTestCreateRequestVNext.builder()
                     .contentId("contentId")
@@ -43,8 +43,8 @@ internal class ABTestServiceAsyncTest {
                     .build()
             )
 
-        val pageData = pageDataFuture.get()
-        pageData.validate()
+        val pagesPage = pagesPageFuture.get()
+        pagesPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")

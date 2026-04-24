@@ -17,7 +17,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepareAsync
-import com.hubspot.sdk.models.BaseProperty
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.events.definitions.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
 import com.hubspot.sdk.models.events.definitions.DefinitionCreateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionCreatePropertyParams
@@ -77,7 +77,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
     override fun createProperty(
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BaseProperty> =
+    ): CompletableFuture<Property> =
         // post /events/2026-03/event-definitions/{eventName}/property
         withRawResponse().createProperty(params, requestOptions).thenApply { it.parse() }
 
@@ -105,7 +105,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
     override fun updateProperty(
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BaseProperty> =
+    ): CompletableFuture<Property> =
         // patch /events/2026-03/event-definitions/{eventName}/property/{propertyName}
         withRawResponse().updateProperty(params, requestOptions).thenApply { it.parse() }
 
@@ -255,13 +255,13 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val createPropertyHandler: Handler<BaseProperty> =
-            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
+        private val createPropertyHandler: Handler<Property> =
+            jsonHandler<Property>(clientOptions.jsonMapper)
 
         override fun createProperty(
             params: DefinitionCreatePropertyParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> {
+        ): CompletableFuture<HttpResponseFor<Property>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventName", params.eventName().getOrNull())
@@ -386,13 +386,13 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val updatePropertyHandler: Handler<BaseProperty> =
-            jsonHandler<BaseProperty>(clientOptions.jsonMapper)
+        private val updatePropertyHandler: Handler<Property> =
+            jsonHandler<Property>(clientOptions.jsonMapper)
 
         override fun updateProperty(
             params: DefinitionUpdatePropertyParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> {
+        ): CompletableFuture<HttpResponseFor<Property>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())

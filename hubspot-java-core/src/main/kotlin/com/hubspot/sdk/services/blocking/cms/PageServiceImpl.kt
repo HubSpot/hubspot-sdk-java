@@ -18,7 +18,6 @@ import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
 import com.hubspot.sdk.models.cms.pages.CollectionResponseWithTotalPageVersion
-import com.hubspot.sdk.models.cms.pages.PageData
 import com.hubspot.sdk.models.cms.pages.PageGetLandingPageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageGetSitePageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsPage
@@ -31,6 +30,7 @@ import com.hubspot.sdk.models.cms.pages.PageRestoreLandingPageRevisionToDraftPar
 import com.hubspot.sdk.models.cms.pages.PageRestoreSitePageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageRestoreSitePageRevisionToDraftParams
 import com.hubspot.sdk.models.cms.pages.PageVersion
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.services.blocking.cms.pages.ABTestService
 import com.hubspot.sdk.services.blocking.cms.pages.ABTestServiceImpl
 import com.hubspot.sdk.services.blocking.cms.pages.BatchService
@@ -122,28 +122,28 @@ class PageServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun restoreLandingPageRevision(
         params: PageRestoreLandingPageRevisionParams,
         requestOptions: RequestOptions,
-    ): PageData =
+    ): PagesPage =
         // post /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore
         withRawResponse().restoreLandingPageRevision(params, requestOptions).parse()
 
     override fun restoreLandingPageRevisionToDraft(
         params: PageRestoreLandingPageRevisionToDraftParams,
         requestOptions: RequestOptions,
-    ): PageData =
+    ): PagesPage =
         // post /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore-to-draft
         withRawResponse().restoreLandingPageRevisionToDraft(params, requestOptions).parse()
 
     override fun restoreSitePageRevision(
         params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions,
-    ): PageData =
+    ): PagesPage =
         // post /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore
         withRawResponse().restoreSitePageRevision(params, requestOptions).parse()
 
     override fun restoreSitePageRevisionToDraft(
         params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions,
-    ): PageData =
+    ): PagesPage =
         // post /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore-to-draft
         withRawResponse().restoreSitePageRevisionToDraft(params, requestOptions).parse()
 
@@ -393,13 +393,13 @@ class PageServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val restoreLandingPageRevisionHandler: Handler<PageData> =
-            jsonHandler<PageData>(clientOptions.jsonMapper)
+        private val restoreLandingPageRevisionHandler: Handler<PagesPage> =
+            jsonHandler<PagesPage>(clientOptions.jsonMapper)
 
         override fun restoreLandingPageRevision(
             params: PageRestoreLandingPageRevisionParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PageData> {
+        ): HttpResponseFor<PagesPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())
@@ -433,13 +433,13 @@ class PageServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val restoreLandingPageRevisionToDraftHandler: Handler<PageData> =
-            jsonHandler<PageData>(clientOptions.jsonMapper)
+        private val restoreLandingPageRevisionToDraftHandler: Handler<PagesPage> =
+            jsonHandler<PagesPage>(clientOptions.jsonMapper)
 
         override fun restoreLandingPageRevisionToDraft(
             params: PageRestoreLandingPageRevisionToDraftParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PageData> {
+        ): HttpResponseFor<PagesPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())
@@ -473,13 +473,13 @@ class PageServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val restoreSitePageRevisionHandler: Handler<PageData> =
-            jsonHandler<PageData>(clientOptions.jsonMapper)
+        private val restoreSitePageRevisionHandler: Handler<PagesPage> =
+            jsonHandler<PagesPage>(clientOptions.jsonMapper)
 
         override fun restoreSitePageRevision(
             params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PageData> {
+        ): HttpResponseFor<PagesPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())
@@ -513,13 +513,13 @@ class PageServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val restoreSitePageRevisionToDraftHandler: Handler<PageData> =
-            jsonHandler<PageData>(clientOptions.jsonMapper)
+        private val restoreSitePageRevisionToDraftHandler: Handler<PagesPage> =
+            jsonHandler<PagesPage>(clientOptions.jsonMapper)
 
         override fun restoreSitePageRevisionToDraft(
             params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PageData> {
+        ): HttpResponseFor<PagesPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())

@@ -22,7 +22,7 @@ internal class PropertyServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
-        val basePropertyFuture =
+        val propertyFuture =
             propertyServiceAsync.create(
                 PropertyCreateParams.builder()
                     .objectType("objectType")
@@ -59,8 +59,8 @@ internal class PropertyServiceAsyncTest {
                     .build()
             )
 
-        val baseProperty = basePropertyFuture.get()
-        baseProperty.validate()
+        val property = propertyFuture.get()
+        property.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -69,7 +69,7 @@ internal class PropertyServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
-        val basePropertyFuture =
+        val propertyFuture =
             propertyServiceAsync.update(
                 PropertyUpdateParams.builder()
                     .objectType("objectType")
@@ -102,8 +102,8 @@ internal class PropertyServiceAsyncTest {
                     .build()
             )
 
-        val baseProperty = basePropertyFuture.get()
-        baseProperty.validate()
+        val property = propertyFuture.get()
+        property.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -150,7 +150,7 @@ internal class PropertyServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
-        val basePropertyFuture =
+        val propertyFuture =
             propertyServiceAsync.get(
                 PropertyGetParams.builder()
                     .objectType("objectType")
@@ -162,7 +162,7 @@ internal class PropertyServiceAsyncTest {
                     .build()
             )
 
-        val baseProperty = basePropertyFuture.get()
-        baseProperty.validate()
+        val property = propertyFuture.get()
+        property.validate()
     }
 }

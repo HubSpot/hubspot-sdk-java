@@ -14,7 +14,7 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.BaseError
+import com.hubspot.sdk.models.ErrorData
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -23,7 +23,7 @@ class ImportResult
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val duplicateRows: JsonField<Int>,
-    private val errors: JsonField<List<BaseError>>,
+    private val errors: JsonField<List<ErrorData>>,
     private val rowLimitExceeded: JsonField<Boolean>,
     private val rowsImported: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -36,7 +36,7 @@ private constructor(
         duplicateRows: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("errors")
         @ExcludeMissing
-        errors: JsonField<List<BaseError>> = JsonMissing.of(),
+        errors: JsonField<List<ErrorData>> = JsonMissing.of(),
         @JsonProperty("rowLimitExceeded")
         @ExcludeMissing
         rowLimitExceeded: JsonField<Boolean> = JsonMissing.of(),
@@ -59,7 +59,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun errors(): List<BaseError> = errors.getRequired("errors")
+    fun errors(): List<ErrorData> = errors.getRequired("errors")
 
     /**
      * Specifies whether row limit exceeded during import
@@ -91,7 +91,7 @@ private constructor(
      *
      * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<BaseError>> = errors
+    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<ErrorData>> = errors
 
     /**
      * Returns the raw JSON value of [rowLimitExceeded].
@@ -142,7 +142,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var duplicateRows: JsonField<Int>? = null
-        private var errors: JsonField<MutableList<BaseError>>? = null
+        private var errors: JsonField<MutableList<ErrorData>>? = null
         private var rowLimitExceeded: JsonField<Boolean>? = null
         private var rowsImported: JsonField<Int>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -171,25 +171,25 @@ private constructor(
         }
 
         /** List of errors during import */
-        fun errors(errors: List<BaseError>) = errors(JsonField.of(errors))
+        fun errors(errors: List<ErrorData>) = errors(JsonField.of(errors))
 
         /**
          * Sets [Builder.errors] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.errors] with a well-typed `List<BaseError>` value
+         * You should usually call [Builder.errors] with a well-typed `List<ErrorData>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun errors(errors: JsonField<List<BaseError>>) = apply {
+        fun errors(errors: JsonField<List<ErrorData>>) = apply {
             this.errors = errors.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [BaseError] to [errors].
+         * Adds a single [ErrorData] to [errors].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addError(error: BaseError) = apply {
+        fun addError(error: ErrorData) = apply {
             errors =
                 (errors ?: JsonField.of(mutableListOf())).also {
                     checkKnown("errors", it).add(error)
