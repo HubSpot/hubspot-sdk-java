@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class BaseObjectTypeDefinition
+class ObjectTypeDefinition
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -339,7 +339,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [BaseObjectTypeDefinition].
+         * Returns a mutable builder for constructing an instance of [ObjectTypeDefinition].
          *
          * The following fields are required:
          * ```java
@@ -358,7 +358,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [BaseObjectTypeDefinition]. */
+    /** A builder for [ObjectTypeDefinition]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
@@ -379,26 +379,25 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(baseObjectTypeDefinition: BaseObjectTypeDefinition) = apply {
-            id = baseObjectTypeDefinition.id
-            allowsSensitiveProperties = baseObjectTypeDefinition.allowsSensitiveProperties
-            archived = baseObjectTypeDefinition.archived
-            fullyQualifiedName = baseObjectTypeDefinition.fullyQualifiedName
-            labels = baseObjectTypeDefinition.labels
-            name = baseObjectTypeDefinition.name
-            objectTypeId = baseObjectTypeDefinition.objectTypeId
-            requiredProperties =
-                baseObjectTypeDefinition.requiredProperties.map { it.toMutableList() }
+        internal fun from(objectTypeDefinition: ObjectTypeDefinition) = apply {
+            id = objectTypeDefinition.id
+            allowsSensitiveProperties = objectTypeDefinition.allowsSensitiveProperties
+            archived = objectTypeDefinition.archived
+            fullyQualifiedName = objectTypeDefinition.fullyQualifiedName
+            labels = objectTypeDefinition.labels
+            name = objectTypeDefinition.name
+            objectTypeId = objectTypeDefinition.objectTypeId
+            requiredProperties = objectTypeDefinition.requiredProperties.map { it.toMutableList() }
             searchableProperties =
-                baseObjectTypeDefinition.searchableProperties.map { it.toMutableList() }
+                objectTypeDefinition.searchableProperties.map { it.toMutableList() }
             secondaryDisplayProperties =
-                baseObjectTypeDefinition.secondaryDisplayProperties.map { it.toMutableList() }
-            createdAt = baseObjectTypeDefinition.createdAt
-            description = baseObjectTypeDefinition.description
-            portalId = baseObjectTypeDefinition.portalId
-            primaryDisplayProperty = baseObjectTypeDefinition.primaryDisplayProperty
-            updatedAt = baseObjectTypeDefinition.updatedAt
-            additionalProperties = baseObjectTypeDefinition.additionalProperties.toMutableMap()
+                objectTypeDefinition.secondaryDisplayProperties.map { it.toMutableList() }
+            createdAt = objectTypeDefinition.createdAt
+            description = objectTypeDefinition.description
+            portalId = objectTypeDefinition.portalId
+            primaryDisplayProperty = objectTypeDefinition.primaryDisplayProperty
+            updatedAt = objectTypeDefinition.updatedAt
+            additionalProperties = objectTypeDefinition.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -641,7 +640,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [BaseObjectTypeDefinition].
+         * Returns an immutable instance of [ObjectTypeDefinition].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -661,8 +660,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): BaseObjectTypeDefinition =
-            BaseObjectTypeDefinition(
+        fun build(): ObjectTypeDefinition =
+            ObjectTypeDefinition(
                 checkRequired("id", id),
                 checkRequired("allowsSensitiveProperties", allowsSensitiveProperties),
                 checkRequired("archived", archived),
@@ -688,7 +687,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): BaseObjectTypeDefinition = apply {
+    fun validate(): ObjectTypeDefinition = apply {
         if (validated) {
             return@apply
         }
@@ -747,7 +746,7 @@ private constructor(
             return true
         }
 
-        return other is BaseObjectTypeDefinition &&
+        return other is ObjectTypeDefinition &&
             id == other.id &&
             allowsSensitiveProperties == other.allowsSensitiveProperties &&
             archived == other.archived &&
@@ -790,5 +789,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BaseObjectTypeDefinition{id=$id, allowsSensitiveProperties=$allowsSensitiveProperties, archived=$archived, fullyQualifiedName=$fullyQualifiedName, labels=$labels, name=$name, objectTypeId=$objectTypeId, requiredProperties=$requiredProperties, searchableProperties=$searchableProperties, secondaryDisplayProperties=$secondaryDisplayProperties, createdAt=$createdAt, description=$description, portalId=$portalId, primaryDisplayProperty=$primaryDisplayProperty, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "ObjectTypeDefinition{id=$id, allowsSensitiveProperties=$allowsSensitiveProperties, archived=$archived, fullyQualifiedName=$fullyQualifiedName, labels=$labels, name=$name, objectTypeId=$objectTypeId, requiredProperties=$requiredProperties, searchableProperties=$searchableProperties, secondaryDisplayProperties=$secondaryDisplayProperties, createdAt=$createdAt, description=$description, portalId=$portalId, primaryDisplayProperty=$primaryDisplayProperty, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

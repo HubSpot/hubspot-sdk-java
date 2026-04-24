@@ -7,9 +7,9 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.BaseAssociationDefinition
-import com.hubspot.sdk.models.BaseObjectTypeDefinition
+import com.hubspot.sdk.models.AssociationDefinition
 import com.hubspot.sdk.models.CollectionResponsePropertyGroupNoPaging
+import com.hubspot.sdk.models.ObjectTypeDefinition
 import com.hubspot.sdk.models.PropertyGroup
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanEventRequest
@@ -81,25 +81,25 @@ interface MediaBridgeService {
     fun createAssociation(
         objectType: String,
         params: MediaBridgeCreateAssociationParams,
-    ): BaseAssociationDefinition = createAssociation(objectType, params, RequestOptions.none())
+    ): AssociationDefinition = createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         objectType: String,
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseAssociationDefinition =
+    ): AssociationDefinition =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
-    fun createAssociation(params: MediaBridgeCreateAssociationParams): BaseAssociationDefinition =
+    fun createAssociation(params: MediaBridgeCreateAssociationParams): AssociationDefinition =
         createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseAssociationDefinition
+    ): AssociationDefinition
 
     /** Create an event containing the viewers attention span details for the media. */
     fun createAttentionSpanEvent(
@@ -286,7 +286,7 @@ interface MediaBridgeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PropertyGroup
 
-    fun createVideoAssociationDefinition(appId: Int): BaseAssociationDefinition =
+    fun createVideoAssociationDefinition(appId: Int): AssociationDefinition =
         createVideoAssociationDefinition(
             appId,
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -298,7 +298,7 @@ interface MediaBridgeService {
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseAssociationDefinition =
+    ): AssociationDefinition =
         createVideoAssociationDefinition(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see createVideoAssociationDefinition */
@@ -306,25 +306,25 @@ interface MediaBridgeService {
         appId: Int,
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
-    ): BaseAssociationDefinition =
+    ): AssociationDefinition =
         createVideoAssociationDefinition(appId, params, RequestOptions.none())
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
         params: MediaBridgeCreateVideoAssociationDefinitionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseAssociationDefinition
+    ): AssociationDefinition
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
         params: MediaBridgeCreateVideoAssociationDefinitionParams
-    ): BaseAssociationDefinition = createVideoAssociationDefinition(params, RequestOptions.none())
+    ): AssociationDefinition = createVideoAssociationDefinition(params, RequestOptions.none())
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
         appId: Int,
         requestOptions: RequestOptions,
-    ): BaseAssociationDefinition =
+    ): AssociationDefinition =
         createVideoAssociationDefinition(
             appId,
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -845,25 +845,25 @@ interface MediaBridgeService {
     fun updateSchema(
         objectType: String,
         params: MediaBridgeUpdateSchemaParams,
-    ): BaseObjectTypeDefinition = updateSchema(objectType, params, RequestOptions.none())
+    ): ObjectTypeDefinition = updateSchema(objectType, params, RequestOptions.none())
 
     /** @see updateSchema */
     fun updateSchema(
         objectType: String,
         params: MediaBridgeUpdateSchemaParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseObjectTypeDefinition =
+    ): ObjectTypeDefinition =
         updateSchema(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see updateSchema */
-    fun updateSchema(params: MediaBridgeUpdateSchemaParams): BaseObjectTypeDefinition =
+    fun updateSchema(params: MediaBridgeUpdateSchemaParams): ObjectTypeDefinition =
         updateSchema(params, RequestOptions.none())
 
     /** @see updateSchema */
     fun updateSchema(
         params: MediaBridgeUpdateSchemaParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseObjectTypeDefinition
+    ): ObjectTypeDefinition
 
     /** Update the name that your app will display when a user is selecting media bridge items. */
     fun updateSettings(
@@ -916,7 +916,7 @@ interface MediaBridgeService {
         fun createAssociation(
             objectType: String,
             params: MediaBridgeCreateAssociationParams,
-        ): HttpResponseFor<BaseAssociationDefinition> =
+        ): HttpResponseFor<AssociationDefinition> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -925,22 +925,21 @@ interface MediaBridgeService {
             objectType: String,
             params: MediaBridgeCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseAssociationDefinition> =
+        ): HttpResponseFor<AssociationDefinition> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: MediaBridgeCreateAssociationParams
-        ): HttpResponseFor<BaseAssociationDefinition> =
-            createAssociation(params, RequestOptions.none())
+        ): HttpResponseFor<AssociationDefinition> = createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: MediaBridgeCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseAssociationDefinition>
+        ): HttpResponseFor<AssociationDefinition>
 
         /**
          * Returns a raw HTTP response for `post /media-bridge/2026-03/events/attention-span`, but
@@ -1196,9 +1195,7 @@ interface MediaBridgeService {
          * the same as [MediaBridgeService.createVideoAssociationDefinition].
          */
         @MustBeClosed
-        fun createVideoAssociationDefinition(
-            appId: Int
-        ): HttpResponseFor<BaseAssociationDefinition> =
+        fun createVideoAssociationDefinition(appId: Int): HttpResponseFor<AssociationDefinition> =
             createVideoAssociationDefinition(
                 appId,
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -1211,7 +1208,7 @@ interface MediaBridgeService {
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseAssociationDefinition> =
+        ): HttpResponseFor<AssociationDefinition> =
             createVideoAssociationDefinition(
                 params.toBuilder().appId(appId).build(),
                 requestOptions,
@@ -1223,7 +1220,7 @@ interface MediaBridgeService {
             appId: Int,
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
-        ): HttpResponseFor<BaseAssociationDefinition> =
+        ): HttpResponseFor<AssociationDefinition> =
             createVideoAssociationDefinition(appId, params, RequestOptions.none())
 
         /** @see createVideoAssociationDefinition */
@@ -1231,13 +1228,13 @@ interface MediaBridgeService {
         fun createVideoAssociationDefinition(
             params: MediaBridgeCreateVideoAssociationDefinitionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseAssociationDefinition>
+        ): HttpResponseFor<AssociationDefinition>
 
         /** @see createVideoAssociationDefinition */
         @MustBeClosed
         fun createVideoAssociationDefinition(
             params: MediaBridgeCreateVideoAssociationDefinitionParams
-        ): HttpResponseFor<BaseAssociationDefinition> =
+        ): HttpResponseFor<AssociationDefinition> =
             createVideoAssociationDefinition(params, RequestOptions.none())
 
         /** @see createVideoAssociationDefinition */
@@ -1245,7 +1242,7 @@ interface MediaBridgeService {
         fun createVideoAssociationDefinition(
             appId: Int,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BaseAssociationDefinition> =
+        ): HttpResponseFor<AssociationDefinition> =
             createVideoAssociationDefinition(
                 appId,
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -1976,7 +1973,7 @@ interface MediaBridgeService {
         fun updateSchema(
             objectType: String,
             params: MediaBridgeUpdateSchemaParams,
-        ): HttpResponseFor<BaseObjectTypeDefinition> =
+        ): HttpResponseFor<ObjectTypeDefinition> =
             updateSchema(objectType, params, RequestOptions.none())
 
         /** @see updateSchema */
@@ -1985,21 +1982,21 @@ interface MediaBridgeService {
             objectType: String,
             params: MediaBridgeUpdateSchemaParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseObjectTypeDefinition> =
+        ): HttpResponseFor<ObjectTypeDefinition> =
             updateSchema(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see updateSchema */
         @MustBeClosed
         fun updateSchema(
             params: MediaBridgeUpdateSchemaParams
-        ): HttpResponseFor<BaseObjectTypeDefinition> = updateSchema(params, RequestOptions.none())
+        ): HttpResponseFor<ObjectTypeDefinition> = updateSchema(params, RequestOptions.none())
 
         /** @see updateSchema */
         @MustBeClosed
         fun updateSchema(
             params: MediaBridgeUpdateSchemaParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseObjectTypeDefinition>
+        ): HttpResponseFor<ObjectTypeDefinition>
 
         /**
          * Returns a raw HTTP response for `put /media-bridge/2026-03/{appId}/settings`, but is

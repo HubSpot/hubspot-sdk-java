@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class BaseError
+class ErrorData
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val category: JsonField<String>,
@@ -173,7 +173,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [BaseError].
+         * Returns a mutable builder for constructing an instance of [ErrorData].
          *
          * The following fields are required:
          * ```java
@@ -185,7 +185,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [BaseError]. */
+    /** A builder for [ErrorData]. */
     class Builder internal constructor() {
 
         private var category: JsonField<String>? = null
@@ -198,15 +198,15 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(baseError: BaseError) = apply {
-            category = baseError.category
-            correlationId = baseError.correlationId
-            message = baseError.message
-            context = baseError.context
-            errors = baseError.errors.map { it.toMutableList() }
-            links = baseError.links
-            subCategory = baseError.subCategory
-            additionalProperties = baseError.additionalProperties.toMutableMap()
+        internal fun from(errorData: ErrorData) = apply {
+            category = errorData.category
+            correlationId = errorData.correlationId
+            message = errorData.message
+            context = errorData.context
+            errors = errorData.errors.map { it.toMutableList() }
+            links = errorData.links
+            subCategory = errorData.subCategory
+            additionalProperties = errorData.additionalProperties.toMutableMap()
         }
 
         /** The error category */
@@ -334,7 +334,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [BaseError].
+         * Returns an immutable instance of [ErrorData].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -347,8 +347,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): BaseError =
-            BaseError(
+        fun build(): ErrorData =
+            ErrorData(
                 checkRequired("category", category),
                 checkRequired("correlationId", correlationId),
                 checkRequired("message", message),
@@ -362,7 +362,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): BaseError = apply {
+    fun validate(): ErrorData = apply {
         if (validated) {
             return@apply
         }
@@ -608,7 +608,7 @@ private constructor(
             return true
         }
 
-        return other is BaseError &&
+        return other is ErrorData &&
             category == other.category &&
             correlationId == other.correlationId &&
             message == other.message &&
@@ -635,5 +635,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BaseError{category=$category, correlationId=$correlationId, message=$message, context=$context, errors=$errors, links=$links, subCategory=$subCategory, additionalProperties=$additionalProperties}"
+        "ErrorData{category=$category, correlationId=$correlationId, message=$message, context=$context, errors=$errors, links=$links, subCategory=$subCategory, additionalProperties=$additionalProperties}"
 }

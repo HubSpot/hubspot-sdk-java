@@ -9,19 +9,19 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class BasePropertyTest {
+internal class PropertyTest {
 
     @Test
     fun create() {
-        val baseProperty =
-            BaseProperty.builder()
+        val property =
+            Property.builder()
                 .description("description")
                 .fieldType("fieldType")
                 .groupName("groupName")
                 .label("label")
                 .name("name")
                 .addOption(
-                    BaseOption.builder()
+                    Option.builder()
                         .hidden(true)
                         .label("label")
                         .value("value")
@@ -37,8 +37,8 @@ internal class BasePropertyTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdUserId("createdUserId")
                 .currencyPropertyName("currencyPropertyName")
-                .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
-                .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
+                .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
+                .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                 .displayOrder(0)
                 .externalOptions(true)
                 .formField(true)
@@ -53,7 +53,7 @@ internal class BasePropertyTest {
                         .readOnlyOptions(true)
                         .build()
                 )
-                .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
+                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                 .referencedObjectType("referencedObjectType")
                 .addSensitiveDataCategory("string")
                 .showCurrencySymbol(true)
@@ -61,14 +61,14 @@ internal class BasePropertyTest {
                 .updatedUserId("updatedUserId")
                 .build()
 
-        assertThat(baseProperty.description()).isEqualTo("description")
-        assertThat(baseProperty.fieldType()).isEqualTo("fieldType")
-        assertThat(baseProperty.groupName()).isEqualTo("groupName")
-        assertThat(baseProperty.label()).isEqualTo("label")
-        assertThat(baseProperty.name()).isEqualTo("name")
-        assertThat(baseProperty.options())
+        assertThat(property.description()).isEqualTo("description")
+        assertThat(property.fieldType()).isEqualTo("fieldType")
+        assertThat(property.groupName()).isEqualTo("groupName")
+        assertThat(property.label()).isEqualTo("label")
+        assertThat(property.name()).isEqualTo("name")
+        assertThat(property.options())
             .containsExactly(
-                BaseOption.builder()
+                Option.builder()
                     .hidden(true)
                     .label("label")
                     .value("value")
@@ -76,26 +76,23 @@ internal class BasePropertyTest {
                     .displayOrder(0)
                     .build()
             )
-        assertThat(baseProperty.type()).isEqualTo("type")
-        assertThat(baseProperty.archived()).contains(true)
-        assertThat(baseProperty.archivedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(baseProperty.calculated()).contains(true)
-        assertThat(baseProperty.calculationFormula()).contains("calculationFormula")
-        assertThat(baseProperty.createdAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(baseProperty.createdUserId()).contains("createdUserId")
-        assertThat(baseProperty.currencyPropertyName()).contains("currencyPropertyName")
-        assertThat(baseProperty.dataSensitivity())
-            .contains(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
-        assertThat(baseProperty.dateDisplayHint()).contains(BaseProperty.DateDisplayHint.ABSOLUTE)
-        assertThat(baseProperty.displayOrder()).contains(0)
-        assertThat(baseProperty.externalOptions()).contains(true)
-        assertThat(baseProperty.formField()).contains(true)
-        assertThat(baseProperty.hasUniqueValue()).contains(true)
-        assertThat(baseProperty.hidden()).contains(false)
-        assertThat(baseProperty.hubSpotDefined()).contains(true)
-        assertThat(baseProperty.modificationMetadata())
+        assertThat(property.type()).isEqualTo("type")
+        assertThat(property.archived()).contains(true)
+        assertThat(property.archivedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(property.calculated()).contains(true)
+        assertThat(property.calculationFormula()).contains("calculationFormula")
+        assertThat(property.createdAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(property.createdUserId()).contains("createdUserId")
+        assertThat(property.currencyPropertyName()).contains("currencyPropertyName")
+        assertThat(property.dataSensitivity()).contains(Property.DataSensitivity.HIGHLY_SENSITIVE)
+        assertThat(property.dateDisplayHint()).contains(Property.DateDisplayHint.ABSOLUTE)
+        assertThat(property.displayOrder()).contains(0)
+        assertThat(property.externalOptions()).contains(true)
+        assertThat(property.formField()).contains(true)
+        assertThat(property.hasUniqueValue()).contains(true)
+        assertThat(property.hidden()).contains(false)
+        assertThat(property.hubSpotDefined()).contains(true)
+        assertThat(property.modificationMetadata())
             .contains(
                 PropertyModificationMetadata.builder()
                     .archivable(true)
@@ -104,28 +101,26 @@ internal class BasePropertyTest {
                     .readOnlyOptions(true)
                     .build()
             )
-        assertThat(baseProperty.numberDisplayHint())
-            .contains(BaseProperty.NumberDisplayHint.CURRENCY)
-        assertThat(baseProperty.referencedObjectType()).contains("referencedObjectType")
-        assertThat(baseProperty.sensitiveDataCategories().getOrNull()).containsExactly("string")
-        assertThat(baseProperty.showCurrencySymbol()).contains(true)
-        assertThat(baseProperty.updatedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(baseProperty.updatedUserId()).contains("updatedUserId")
+        assertThat(property.numberDisplayHint()).contains(Property.NumberDisplayHint.CURRENCY)
+        assertThat(property.referencedObjectType()).contains("referencedObjectType")
+        assertThat(property.sensitiveDataCategories().getOrNull()).containsExactly("string")
+        assertThat(property.showCurrencySymbol()).contains(true)
+        assertThat(property.updatedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(property.updatedUserId()).contains("updatedUserId")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val baseProperty =
-            BaseProperty.builder()
+        val property =
+            Property.builder()
                 .description("description")
                 .fieldType("fieldType")
                 .groupName("groupName")
                 .label("label")
                 .name("name")
                 .addOption(
-                    BaseOption.builder()
+                    Option.builder()
                         .hidden(true)
                         .label("label")
                         .value("value")
@@ -141,8 +136,8 @@ internal class BasePropertyTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdUserId("createdUserId")
                 .currencyPropertyName("currencyPropertyName")
-                .dataSensitivity(BaseProperty.DataSensitivity.HIGHLY_SENSITIVE)
-                .dateDisplayHint(BaseProperty.DateDisplayHint.ABSOLUTE)
+                .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
+                .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                 .displayOrder(0)
                 .externalOptions(true)
                 .formField(true)
@@ -157,7 +152,7 @@ internal class BasePropertyTest {
                         .readOnlyOptions(true)
                         .build()
                 )
-                .numberDisplayHint(BaseProperty.NumberDisplayHint.CURRENCY)
+                .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                 .referencedObjectType("referencedObjectType")
                 .addSensitiveDataCategory("string")
                 .showCurrencySymbol(true)
@@ -165,12 +160,12 @@ internal class BasePropertyTest {
                 .updatedUserId("updatedUserId")
                 .build()
 
-        val roundtrippedBaseProperty =
+        val roundtrippedProperty =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(baseProperty),
-                jacksonTypeRef<BaseProperty>(),
+                jsonMapper.writeValueAsString(property),
+                jacksonTypeRef<Property>(),
             )
 
-        assertThat(roundtrippedBaseProperty).isEqualTo(baseProperty)
+        assertThat(roundtrippedProperty).isEqualTo(property)
     }
 }

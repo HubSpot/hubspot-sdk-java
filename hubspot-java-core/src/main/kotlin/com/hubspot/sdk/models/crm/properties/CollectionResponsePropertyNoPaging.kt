@@ -14,7 +14,7 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.BaseProperty
+import com.hubspot.sdk.models.Property
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class CollectionResponsePropertyNoPaging
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val results: JsonField<List<BaseProperty>>,
+    private val results: JsonField<List<Property>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -30,21 +30,21 @@ private constructor(
     private constructor(
         @JsonProperty("results")
         @ExcludeMissing
-        results: JsonField<List<BaseProperty>> = JsonMissing.of()
+        results: JsonField<List<Property>> = JsonMissing.of()
     ) : this(results, mutableMapOf())
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun results(): List<BaseProperty> = results.getRequired("results")
+    fun results(): List<Property> = results.getRequired("results")
 
     /**
      * Returns the raw JSON value of [results].
      *
      * Unlike [results], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<BaseProperty>> = results
+    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<Property>> = results
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -75,7 +75,7 @@ private constructor(
     /** A builder for [CollectionResponsePropertyNoPaging]. */
     class Builder internal constructor() {
 
-        private var results: JsonField<MutableList<BaseProperty>>? = null
+        private var results: JsonField<MutableList<Property>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -86,25 +86,25 @@ private constructor(
                     collectionResponsePropertyNoPaging.additionalProperties.toMutableMap()
             }
 
-        fun results(results: List<BaseProperty>) = results(JsonField.of(results))
+        fun results(results: List<Property>) = results(JsonField.of(results))
 
         /**
          * Sets [Builder.results] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.results] with a well-typed `List<BaseProperty>` value
+         * You should usually call [Builder.results] with a well-typed `List<Property>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun results(results: JsonField<List<BaseProperty>>) = apply {
+        fun results(results: JsonField<List<Property>>) = apply {
             this.results = results.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [BaseProperty] to [results].
+         * Adds a single [Property] to [results].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResult(result: BaseProperty) = apply {
+        fun addResult(result: Property) = apply {
             results =
                 (results ?: JsonField.of(mutableListOf())).also {
                     checkKnown("results", it).add(result)

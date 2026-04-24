@@ -17,14 +17,14 @@ internal class BatchInputPageTest {
         val batchInputPage =
             BatchInputPage.builder()
                 .addInput(
-                    PageData.builder()
+                    PagesPage.builder()
                         .id("id")
-                        .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            PageData.AttachedStylesheet.builder()
+                            PagesPage.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -32,11 +32,11 @@ internal class BatchInputPageTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(PageData.ContentTypeCategory._0)
+                        .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(PageData.CurrentState.AGENT_GENERATED)
+                        .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -50,9 +50,9 @@ internal class BatchInputPageTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(PageData.Language.AA)
+                        .language(PagesPage.Language.AA)
                         .layoutSections(
-                            PageData.LayoutSections.builder()
+                            PagesPage.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -295,13 +295,13 @@ internal class BatchInputPageTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            PageData.ThemeSettingsValues.builder()
+                            PagesPage.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            PageData.Translations.builder()
+                            PagesPage.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -331,12 +331,12 @@ internal class BatchInputPageTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            PageData.WidgetContainers.builder()
+                            PagesPage.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            PageData.Widgets.builder()
+                            PagesPage.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -346,14 +346,14 @@ internal class BatchInputPageTest {
 
         assertThat(batchInputPage.inputs())
             .containsExactly(
-                PageData.builder()
+                PagesPage.builder()
                     .id("id")
-                    .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        PageData.AttachedStylesheet.builder()
+                        PagesPage.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -361,11 +361,11 @@ internal class BatchInputPageTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(PageData.ContentTypeCategory._0)
+                    .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(PageData.CurrentState.AGENT_GENERATED)
+                    .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -379,9 +379,9 @@ internal class BatchInputPageTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(PageData.Language.AA)
+                    .language(PagesPage.Language.AA)
                     .layoutSections(
-                        PageData.LayoutSections.builder()
+                        PagesPage.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -612,13 +612,13 @@ internal class BatchInputPageTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        PageData.ThemeSettingsValues.builder()
+                        PagesPage.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        PageData.Translations.builder()
+                        PagesPage.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -648,12 +648,12 @@ internal class BatchInputPageTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        PageData.WidgetContainers.builder()
+                        PagesPage.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        PageData.Widgets.builder()
+                        PagesPage.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -667,14 +667,14 @@ internal class BatchInputPageTest {
         val batchInputPage =
             BatchInputPage.builder()
                 .addInput(
-                    PageData.builder()
+                    PagesPage.builder()
                         .id("id")
-                        .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            PageData.AttachedStylesheet.builder()
+                            PagesPage.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -682,11 +682,11 @@ internal class BatchInputPageTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(PageData.ContentTypeCategory._0)
+                        .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(PageData.CurrentState.AGENT_GENERATED)
+                        .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -700,9 +700,9 @@ internal class BatchInputPageTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(PageData.Language.AA)
+                        .language(PagesPage.Language.AA)
                         .layoutSections(
-                            PageData.LayoutSections.builder()
+                            PagesPage.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -945,13 +945,13 @@ internal class BatchInputPageTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            PageData.ThemeSettingsValues.builder()
+                            PagesPage.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            PageData.Translations.builder()
+                            PagesPage.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -981,12 +981,12 @@ internal class BatchInputPageTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            PageData.WidgetContainers.builder()
+                            PagesPage.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            PageData.Widgets.builder()
+                            PagesPage.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )

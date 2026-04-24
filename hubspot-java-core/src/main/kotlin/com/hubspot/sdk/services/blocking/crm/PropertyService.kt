@@ -7,7 +7,7 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.BaseProperty
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.crm.properties.CollectionResponsePropertyNoPaging
 import com.hubspot.sdk.models.crm.properties.PropertyCreateParams
 import com.hubspot.sdk.models.crm.properties.PropertyDeleteParams
@@ -37,7 +37,7 @@ interface PropertyService {
     fun groups(): GroupService
 
     /** Create and return a copy of a new property for the specified object type. */
-    fun create(objectType: String, params: PropertyCreateParams): BaseProperty =
+    fun create(objectType: String, params: PropertyCreateParams): Property =
         create(objectType, params, RequestOptions.none())
 
     /** @see create */
@@ -45,22 +45,22 @@ interface PropertyService {
         objectType: String,
         params: PropertyCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty = create(params.toBuilder().objectType(objectType).build(), requestOptions)
+    ): Property = create(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see create */
-    fun create(params: PropertyCreateParams): BaseProperty = create(params, RequestOptions.none())
+    fun create(params: PropertyCreateParams): Property = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: PropertyCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty
+    ): Property
 
     /**
      * Perform a partial update of a property identified by { propertyName }. Provided fields will
      * be overwritten.
      */
-    fun update(propertyName: String, params: PropertyUpdateParams): BaseProperty =
+    fun update(propertyName: String, params: PropertyUpdateParams): Property =
         update(propertyName, params, RequestOptions.none())
 
     /** @see update */
@@ -68,16 +68,16 @@ interface PropertyService {
         propertyName: String,
         params: PropertyUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty = update(params.toBuilder().propertyName(propertyName).build(), requestOptions)
+    ): Property = update(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
     /** @see update */
-    fun update(params: PropertyUpdateParams): BaseProperty = update(params, RequestOptions.none())
+    fun update(params: PropertyUpdateParams): Property = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PropertyUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty
+    ): Property
 
     /** Read all existing properties for the specified object type and HubSpot account. */
     fun list(objectType: String): CollectionResponsePropertyNoPaging =
@@ -132,7 +132,7 @@ interface PropertyService {
     fun delete(params: PropertyDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** Read a property identified by {propertyName}. */
-    fun get(propertyName: String, params: PropertyGetParams): BaseProperty =
+    fun get(propertyName: String, params: PropertyGetParams): Property =
         get(propertyName, params, RequestOptions.none())
 
     /** @see get */
@@ -140,16 +140,16 @@ interface PropertyService {
         propertyName: String,
         params: PropertyGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty = get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
+    ): Property = get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
     /** @see get */
-    fun get(params: PropertyGetParams): BaseProperty = get(params, RequestOptions.none())
+    fun get(params: PropertyGetParams): Property = get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PropertyGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty
+    ): Property
 
     /** A view of [PropertyService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -170,10 +170,8 @@ interface PropertyService {
          * otherwise the same as [PropertyService.create].
          */
         @MustBeClosed
-        fun create(
-            objectType: String,
-            params: PropertyCreateParams,
-        ): HttpResponseFor<BaseProperty> = create(objectType, params, RequestOptions.none())
+        fun create(objectType: String, params: PropertyCreateParams): HttpResponseFor<Property> =
+            create(objectType, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
@@ -181,12 +179,12 @@ interface PropertyService {
             objectType: String,
             params: PropertyCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty> =
+        ): HttpResponseFor<Property> =
             create(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(params: PropertyCreateParams): HttpResponseFor<BaseProperty> =
+        fun create(params: PropertyCreateParams): HttpResponseFor<Property> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -194,7 +192,7 @@ interface PropertyService {
         fun create(
             params: PropertyCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty>
+        ): HttpResponseFor<Property>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -202,10 +200,8 @@ interface PropertyService {
          * [PropertyService.update].
          */
         @MustBeClosed
-        fun update(
-            propertyName: String,
-            params: PropertyUpdateParams,
-        ): HttpResponseFor<BaseProperty> = update(propertyName, params, RequestOptions.none())
+        fun update(propertyName: String, params: PropertyUpdateParams): HttpResponseFor<Property> =
+            update(propertyName, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -213,12 +209,12 @@ interface PropertyService {
             propertyName: String,
             params: PropertyUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty> =
+        ): HttpResponseFor<Property> =
             update(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: PropertyUpdateParams): HttpResponseFor<BaseProperty> =
+        fun update(params: PropertyUpdateParams): HttpResponseFor<Property> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -226,7 +222,7 @@ interface PropertyService {
         fun update(
             params: PropertyUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty>
+        ): HttpResponseFor<Property>
 
         /**
          * Returns a raw HTTP response for `get /crm/properties/2026-03/{objectType}`, but is
@@ -309,7 +305,7 @@ interface PropertyService {
          * [PropertyService.get].
          */
         @MustBeClosed
-        fun get(propertyName: String, params: PropertyGetParams): HttpResponseFor<BaseProperty> =
+        fun get(propertyName: String, params: PropertyGetParams): HttpResponseFor<Property> =
             get(propertyName, params, RequestOptions.none())
 
         /** @see get */
@@ -318,12 +314,12 @@ interface PropertyService {
             propertyName: String,
             params: PropertyGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty> =
+        ): HttpResponseFor<Property> =
             get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
-        fun get(params: PropertyGetParams): HttpResponseFor<BaseProperty> =
+        fun get(params: PropertyGetParams): HttpResponseFor<Property> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -331,6 +327,6 @@ interface PropertyService {
         fun get(
             params: PropertyGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty>
+        ): HttpResponseFor<Property>
     }
 }

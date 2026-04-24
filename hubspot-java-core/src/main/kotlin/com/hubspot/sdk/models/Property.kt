@@ -22,7 +22,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** A HubSpot property */
-class BaseProperty
+class Property
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val description: JsonField<String>,
@@ -30,7 +30,7 @@ private constructor(
     private val groupName: JsonField<String>,
     private val label: JsonField<String>,
     private val name: JsonField<String>,
-    private val options: JsonField<List<BaseOption>>,
+    private val options: JsonField<List<Option>>,
     private val type: JsonField<String>,
     private val archived: JsonField<Boolean>,
     private val archivedAt: JsonField<OffsetDateTime>,
@@ -68,7 +68,7 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("options")
         @ExcludeMissing
-        options: JsonField<List<BaseOption>> = JsonMissing.of(),
+        options: JsonField<List<Option>> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
         @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("archivedAt")
@@ -210,7 +210,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun options(): List<BaseOption> = options.getRequired("options")
+    fun options(): List<Option> = options.getRequired("options")
 
     /**
      * The property data type.
@@ -454,7 +454,7 @@ private constructor(
      *
      * Unlike [options], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("options") @ExcludeMissing fun _options(): JsonField<List<BaseOption>> = options
+    @JsonProperty("options") @ExcludeMissing fun _options(): JsonField<List<Option>> = options
 
     /**
      * Returns the raw JSON value of [type].
@@ -673,7 +673,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [BaseProperty].
+         * Returns a mutable builder for constructing an instance of [Property].
          *
          * The following fields are required:
          * ```java
@@ -689,7 +689,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [BaseProperty]. */
+    /** A builder for [Property]. */
     class Builder internal constructor() {
 
         private var description: JsonField<String>? = null
@@ -697,7 +697,7 @@ private constructor(
         private var groupName: JsonField<String>? = null
         private var label: JsonField<String>? = null
         private var name: JsonField<String>? = null
-        private var options: JsonField<MutableList<BaseOption>>? = null
+        private var options: JsonField<MutableList<Option>>? = null
         private var type: JsonField<String>? = null
         private var archived: JsonField<Boolean> = JsonMissing.of()
         private var archivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -724,38 +724,37 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(baseProperty: BaseProperty) = apply {
-            description = baseProperty.description
-            fieldType = baseProperty.fieldType
-            groupName = baseProperty.groupName
-            label = baseProperty.label
-            name = baseProperty.name
-            options = baseProperty.options.map { it.toMutableList() }
-            type = baseProperty.type
-            archived = baseProperty.archived
-            archivedAt = baseProperty.archivedAt
-            calculated = baseProperty.calculated
-            calculationFormula = baseProperty.calculationFormula
-            createdAt = baseProperty.createdAt
-            createdUserId = baseProperty.createdUserId
-            currencyPropertyName = baseProperty.currencyPropertyName
-            dataSensitivity = baseProperty.dataSensitivity
-            dateDisplayHint = baseProperty.dateDisplayHint
-            displayOrder = baseProperty.displayOrder
-            externalOptions = baseProperty.externalOptions
-            formField = baseProperty.formField
-            hasUniqueValue = baseProperty.hasUniqueValue
-            hidden = baseProperty.hidden
-            hubSpotDefined = baseProperty.hubSpotDefined
-            modificationMetadata = baseProperty.modificationMetadata
-            numberDisplayHint = baseProperty.numberDisplayHint
-            referencedObjectType = baseProperty.referencedObjectType
-            sensitiveDataCategories =
-                baseProperty.sensitiveDataCategories.map { it.toMutableList() }
-            showCurrencySymbol = baseProperty.showCurrencySymbol
-            updatedAt = baseProperty.updatedAt
-            updatedUserId = baseProperty.updatedUserId
-            additionalProperties = baseProperty.additionalProperties.toMutableMap()
+        internal fun from(property: Property) = apply {
+            description = property.description
+            fieldType = property.fieldType
+            groupName = property.groupName
+            label = property.label
+            name = property.name
+            options = property.options.map { it.toMutableList() }
+            type = property.type
+            archived = property.archived
+            archivedAt = property.archivedAt
+            calculated = property.calculated
+            calculationFormula = property.calculationFormula
+            createdAt = property.createdAt
+            createdUserId = property.createdUserId
+            currencyPropertyName = property.currencyPropertyName
+            dataSensitivity = property.dataSensitivity
+            dateDisplayHint = property.dateDisplayHint
+            displayOrder = property.displayOrder
+            externalOptions = property.externalOptions
+            formField = property.formField
+            hasUniqueValue = property.hasUniqueValue
+            hidden = property.hidden
+            hubSpotDefined = property.hubSpotDefined
+            modificationMetadata = property.modificationMetadata
+            numberDisplayHint = property.numberDisplayHint
+            referencedObjectType = property.referencedObjectType
+            sensitiveDataCategories = property.sensitiveDataCategories.map { it.toMutableList() }
+            showCurrencySymbol = property.showCurrencySymbol
+            updatedAt = property.updatedAt
+            updatedUserId = property.updatedUserId
+            additionalProperties = property.additionalProperties.toMutableMap()
         }
 
         /** A description of the property that will be shown as help text in HubSpot. */
@@ -822,25 +821,25 @@ private constructor(
          * A list of valid options for the property. This field is required for enumerated
          * properties, but will be empty for other property types.
          */
-        fun options(options: List<BaseOption>) = options(JsonField.of(options))
+        fun options(options: List<Option>) = options(JsonField.of(options))
 
         /**
          * Sets [Builder.options] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.options] with a well-typed `List<BaseOption>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.options] with a well-typed `List<Option>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun options(options: JsonField<List<BaseOption>>) = apply {
+        fun options(options: JsonField<List<Option>>) = apply {
             this.options = options.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [BaseOption] to [options].
+         * Adds a single [Option] to [options].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addOption(option: BaseOption) = apply {
+        fun addOption(option: Option) = apply {
             options =
                 (options ?: JsonField.of(mutableListOf())).also {
                     checkKnown("options", it).add(option)
@@ -1222,7 +1221,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [BaseProperty].
+         * Returns an immutable instance of [Property].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -1239,8 +1238,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): BaseProperty =
-            BaseProperty(
+        fun build(): Property =
+            Property(
                 checkRequired("description", description),
                 checkRequired("fieldType", fieldType),
                 checkRequired("groupName", groupName),
@@ -1276,7 +1275,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): BaseProperty = apply {
+    fun validate(): Property = apply {
         if (validated) {
             return@apply
         }
@@ -1804,7 +1803,7 @@ private constructor(
             return true
         }
 
-        return other is BaseProperty &&
+        return other is Property &&
             description == other.description &&
             fieldType == other.fieldType &&
             groupName == other.groupName &&
@@ -1875,5 +1874,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BaseProperty{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, currencyPropertyName=$currencyPropertyName, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, modificationMetadata=$modificationMetadata, numberDisplayHint=$numberDisplayHint, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
+        "Property{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, currencyPropertyName=$currencyPropertyName, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, modificationMetadata=$modificationMetadata, numberDisplayHint=$numberDisplayHint, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
 }
