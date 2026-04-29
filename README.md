@@ -312,7 +312,6 @@ import com.hubspot.sdk.models.PublicObjectId;
 import com.hubspot.sdk.models.crm.SimplePublicObject;
 import com.hubspot.sdk.models.crm.objects.PublicAssociationsForObject;
 import com.hubspot.sdk.models.crm.objects.SimplePublicObjectInputForCreate;
-import com.hubspot.sdk.models.crm.objects.contacts.ContactCreateParams;
 
 SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
     .addAssociation(PublicAssociationsForObject.builder()
