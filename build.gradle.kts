@@ -1,5 +1,5 @@
 plugins {
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
     id("org.jetbrains.dokka") version "2.0.0"
 }
 
@@ -39,11 +39,17 @@ tasks.named("dokkaJavadocCollector").configure {
 nexusPublishing {
     repositories {
         sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
 
-            username.set(System.getenv("SONATYPE_USERNAME"))
-            password.set(System.getenv("SONATYPE_PASSWORD"))
+            username.set(
+                (findProperty("mavenCentralUsername") as String?)
+                    ?: System.getenv("SONATYPE_USERNAME"),
+            )
+            password.set(
+                (findProperty("mavenCentralPassword") as String?)
+                    ?: System.getenv("SONATYPE_PASSWORD"),
+            )
         }
     }
 }
