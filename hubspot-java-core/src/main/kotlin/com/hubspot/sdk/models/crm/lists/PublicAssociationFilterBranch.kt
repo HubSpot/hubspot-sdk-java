@@ -789,6 +789,14 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+     *   expected type.
+     */
     fun validate(): PublicAssociationFilterBranch = apply {
         if (validated) {
             return@apply
@@ -899,6 +907,35 @@ private constructor(
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.hubspot.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = filterBranch.accept(new FilterBranch.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitOr(PublicOrFilterBranch or) {
+         *         return Optional.of(or.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws HubSpotInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 or != null -> visitor.visitOr(or)
@@ -914,6 +951,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): FilterBranch = apply {
             if (validated) {
                 return@apply
@@ -1286,6 +1332,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): FilterBranchType = apply {
             if (validated) {
                 return@apply
@@ -1514,6 +1569,35 @@ private constructor(
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.hubspot.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = filter.accept(new Filter.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitProperty(PublicPropertyFilter property) {
+         *         return Optional.of(property.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws HubSpotInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 property != null -> visitor.visitProperty(property)
@@ -1546,6 +1630,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Filter = apply {
             if (validated) {
                 return@apply

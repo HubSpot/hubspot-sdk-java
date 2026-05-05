@@ -509,6 +509,14 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+     *   expected type.
+     */
     fun validate(): AllPropertyTypesOperation = apply {
         if (validated) {
             return@apply
@@ -574,6 +582,35 @@ private constructor(
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.hubspot.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = coalescingRefineBy.accept(new CoalescingRefineBy.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitNumOccurrences(NumOccurrencesRefineBy numOccurrences) {
+         *         return Optional.of(numOccurrences.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws HubSpotInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 numOccurrences != null -> visitor.visitNumOccurrences(numOccurrences)
@@ -583,6 +620,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): CoalescingRefineBy = apply {
             if (validated) {
                 return@apply
@@ -833,6 +879,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Operator = apply {
             if (validated) {
                 return@apply
@@ -955,6 +1010,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): PropertyType = apply {
             if (validated) {
                 return@apply
@@ -1063,6 +1127,35 @@ private constructor(
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.hubspot.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = pruningRefineBy.accept(new PruningRefineBy.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitRelativeComparativeTimestamp(RelativeComparativeTimestampRefineBy relativeComparativeTimestamp) {
+         *         return Optional.of(relativeComparativeTimestamp.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws HubSpotInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 relativeComparativeTimestamp != null ->
@@ -1081,6 +1174,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): PruningRefineBy = apply {
             if (validated) {
                 return@apply
