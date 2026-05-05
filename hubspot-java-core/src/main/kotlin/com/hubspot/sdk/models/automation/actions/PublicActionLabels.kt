@@ -470,6 +470,14 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+     *   expected type.
+     */
     fun validate(): PublicActionLabels = apply {
         if (validated) {
             return@apply
@@ -571,6 +579,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): ExecutionRules = apply {
             if (validated) {
                 return@apply
@@ -674,6 +691,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): InputFieldDescriptions = apply {
             if (validated) {
                 return@apply
@@ -776,6 +802,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): InputFieldLabels = apply {
             if (validated) {
                 return@apply
@@ -879,6 +914,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): InputFieldOptionLabels = apply {
             if (validated) {
                 return@apply
@@ -981,6 +1025,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): OutputFieldLabels = apply {
             if (validated) {
                 return@apply
