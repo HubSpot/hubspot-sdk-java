@@ -5,12 +5,16 @@ package com.hubspot.sdk.errors
 import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
+import com.hubspot.sdk.core.jsonMapper
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class BadRequestException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    HubSpotServiceException("400: $body", cause) {
+    HubSpotServiceException(
+        "400: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 400
 
