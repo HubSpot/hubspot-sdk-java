@@ -80,6 +80,9 @@ private constructor(
     /**
      * Whether to call `validate` on every response before returning it.
      *
+     * Setting this to `true` is _not_ forwards compatible with new types from the API for existing
+     * fields.
+     *
      * Defaults to false, which means the shape of the response will not be validated upfront.
      * Instead, validation will only occur for the parts of the response that are accessed.
      */
@@ -265,6 +268,9 @@ private constructor(
         /**
          * Whether to call `validate` on every response before returning it.
          *
+         * Setting this to `true` is _not_ forwards compatible with new types from the API for
+         * existing fields.
+         *
          * Defaults to false, which means the shape of the response will not be validated upfront.
          * Instead, validation will only occur for the parts of the response that are accessed.
          */
@@ -415,6 +421,14 @@ private constructor(
         fun fromEnv() = apply {
             (System.getProperty("hubspot.baseUrl") ?: System.getenv("HUBSPOT_BASE_URL"))?.let {
                 baseUrl(it)
+            }
+            System.getenv("HUBSPOT_CUSTOM_HEADERS")?.let { customHeadersEnv ->
+                for (line in customHeadersEnv.split("\n")) {
+                    val colon = line.indexOf(':')
+                    if (colon >= 0) {
+                        putHeader(line.substring(0, colon).trim(), line.substring(colon + 1).trim())
+                    }
+                }
             }
         }
 

@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot.sdk/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot.sdk/hubspot-java/0.1.0-alpha.2)
-[![javadoc](https://javadoc.io/badge2/com.hubspot.sdk/hubspot-java/0.1.0-alpha.2/javadoc.svg)](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.2)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot.sdk/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3)
+[![javadoc](https://javadoc.io/badge2/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3/javadoc.svg)](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.2).
+The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [developers.hubspot.com](https://deve
 ### Gradle
 
 ```kotlin
-implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.2")
+implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.3")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.2")
 <dependency>
   <groupId>com.hubspot.sdk</groupId>
   <artifactId>hubspot-java</artifactId>
-  <version>0.1.0-alpha.2</version>
+  <version>0.1.0-alpha.3</version>
 </dependency>
 ```
 
@@ -312,7 +312,6 @@ import com.hubspot.sdk.models.PublicObjectId;
 import com.hubspot.sdk.models.crm.SimplePublicObject;
 import com.hubspot.sdk.models.crm.objects.PublicAssociationsForObject;
 import com.hubspot.sdk.models.crm.objects.SimplePublicObjectInputForCreate;
-import com.hubspot.sdk.models.crm.objects.contacts.ContactCreateParams;
 
 SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
     .addAssociation(PublicAssociationsForObject.builder()
@@ -799,7 +798,9 @@ In rare cases, the API may return a response that doesn't match the expected typ
 
 By default, the SDK will not throw an exception in this case. It will throw [`HubSpotInvalidDataException`](hubspot-java-core/src/main/kotlin/com/hubspot/sdk/errors/HubSpotInvalidDataException.kt) only if you directly access the property.
 
-If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
+Validating the response is _not_ forwards compatible with new types from the API for existing fields.
+
+If you would still prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```java
 import com.hubspot.sdk.models.crm.objects.SimplePublicObjectWithAssociations;
