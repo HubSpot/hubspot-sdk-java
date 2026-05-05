@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2026-05-05)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/HubSpot/hubspot-sdk-java/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **client:** more robust error parsing ([f6dd878](https://github.com/HubSpot/hubspot-sdk-java/commit/f6dd878bb046e4c2ff6f1ed442abcca205c96d1e))
+* support setting headers via env ([60eaf6b](https://github.com/HubSpot/hubspot-sdk-java/commit/60eaf6bea52c1f98081ae35cc23ab670a176d757))
+
+
+### Performance Improvements
+
+* **client:** create one json mapper ([53af0a7](https://github.com/HubSpot/hubspot-sdk-java/commit/53af0a708032d203da579ce17f708436a3ab258c))
+
+
+### Chores
+
+* **internal:** codegen related update ([56e25ee](https://github.com/HubSpot/hubspot-sdk-java/commit/56e25ee7fc891b6230a017b2030f49eea67fb708))
+* remove duplicated dokka setup ([6d37366](https://github.com/HubSpot/hubspot-sdk-java/commit/6d373661eeae06fcdb86056c25acf17a6a39449b))
+
+
+### Documentation
+
+* clarify forwards compat behavior ([a0f8e51](https://github.com/HubSpot/hubspot-sdk-java/commit/a0f8e51103f73a2c6c6965120ee548660aa7bccd))
+
 ## 0.1.0-alpha.2 (2026-04-24)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/HubSpot/hubspot-sdk-java/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
