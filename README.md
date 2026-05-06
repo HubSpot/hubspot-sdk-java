@@ -579,6 +579,22 @@ HubSpotClient client = HubSpotOkHttpClient.builder()
     .build();
 ```
 
+If the proxy responds with `407 Proxy Authentication Required`, supply credentials by also configuring `proxyAuthenticator`:
+
+```java
+import com.hubspot.sdk.client.HubSpotClient;
+import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.sdk.core.http.ProxyAuthenticator;
+
+HubSpotClient client = HubSpotOkHttpClient.builder()
+    .fromEnv()
+    .proxy(...)
+    // Or a custom implementation of `ProxyAuthenticator`.
+    .proxyAuthenticator(ProxyAuthenticator.basic("username", "password"))
+    .accessToken("My Access Token")
+    .build();
+```
+
 ### Connection pooling
 
 To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
