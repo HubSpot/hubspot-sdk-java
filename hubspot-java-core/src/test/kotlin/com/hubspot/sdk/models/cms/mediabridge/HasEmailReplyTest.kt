@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,28 +16,14 @@ internal class HasEmailReplyTest {
         val hasEmailReply =
             HasEmailReply.builder()
                 .operator(HasEmailReply.Operator.HAS_EMAIL_REPLY)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(true)
                 .build()
 
         assertThat(hasEmailReply.operator()).isEqualTo(HasEmailReply.Operator.HAS_EMAIL_REPLY)
         assertThat(hasEmailReply.inputs().getOrNull())
-            .containsExactly(
-                HasEmailReply.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(hasEmailReply.propertyName()).contains("propertyName")
         assertThat(hasEmailReply.value()).contains(true)
     }
@@ -47,13 +34,7 @@ internal class HasEmailReplyTest {
         val hasEmailReply =
             HasEmailReply.builder()
                 .operator(HasEmailReply.Operator.HAS_EMAIL_REPLY)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(true)
                 .build()

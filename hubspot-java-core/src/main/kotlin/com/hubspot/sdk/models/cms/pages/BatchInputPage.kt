@@ -21,13 +21,15 @@ import kotlin.jvm.optionals.getOrNull
 class BatchInputPage
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val inputs: JsonField<List<PageData>>,
+    private val inputs: JsonField<List<PagesPage>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("inputs") @ExcludeMissing inputs: JsonField<List<PageData>> = JsonMissing.of()
+        @JsonProperty("inputs")
+        @ExcludeMissing
+        inputs: JsonField<List<PagesPage>> = JsonMissing.of()
     ) : this(inputs, mutableMapOf())
 
     /**
@@ -36,14 +38,14 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun inputs(): List<PageData> = inputs.getRequired("inputs")
+    fun inputs(): List<PagesPage> = inputs.getRequired("inputs")
 
     /**
      * Returns the raw JSON value of [inputs].
      *
      * Unlike [inputs], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("inputs") @ExcludeMissing fun _inputs(): JsonField<List<PageData>> = inputs
+    @JsonProperty("inputs") @ExcludeMissing fun _inputs(): JsonField<List<PagesPage>> = inputs
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -73,7 +75,7 @@ private constructor(
     /** A builder for [BatchInputPage]. */
     class Builder internal constructor() {
 
-        private var inputs: JsonField<MutableList<PageData>>? = null
+        private var inputs: JsonField<MutableList<PagesPage>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -83,25 +85,25 @@ private constructor(
         }
 
         /** Pages to input. */
-        fun inputs(inputs: List<PageData>) = inputs(JsonField.of(inputs))
+        fun inputs(inputs: List<PagesPage>) = inputs(JsonField.of(inputs))
 
         /**
          * Sets [Builder.inputs] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.inputs] with a well-typed `List<PageData>` value
+         * You should usually call [Builder.inputs] with a well-typed `List<PagesPage>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun inputs(inputs: JsonField<List<PageData>>) = apply {
+        fun inputs(inputs: JsonField<List<PagesPage>>) = apply {
             this.inputs = inputs.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [PageData] to [inputs].
+         * Adds a single [PagesPage] to [inputs].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addInput(input: PageData) = apply {
+        fun addInput(input: PagesPage) = apply {
             inputs =
                 (inputs ?: JsonField.of(mutableListOf())).also {
                     checkKnown("inputs", it).add(input)

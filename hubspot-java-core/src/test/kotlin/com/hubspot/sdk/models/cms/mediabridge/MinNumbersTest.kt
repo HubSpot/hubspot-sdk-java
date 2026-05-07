@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,28 +16,14 @@ internal class MinNumbersTest {
         val minNumbers =
             MinNumbers.builder()
                 .operator(MinNumbers.Operator.MIN_NUMBERS)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
 
         assertThat(minNumbers.operator()).isEqualTo(MinNumbers.Operator.MIN_NUMBERS)
         assertThat(minNumbers.inputs().getOrNull())
-            .containsExactly(
-                MinNumbers.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(minNumbers.propertyName()).contains("propertyName")
         assertThat(minNumbers.value()).contains(0.0)
     }
@@ -47,13 +34,7 @@ internal class MinNumbersTest {
         val minNumbers =
             MinNumbers.builder()
                 .operator(MinNumbers.Operator.MIN_NUMBERS)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,13 +17,7 @@ internal class AddNumbersTest {
             AddNumbers.builder()
                 .enclosedInParentheses(true)
                 .operator(AddNumbers.Operator.ADD_NUMBERS)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
@@ -30,15 +25,7 @@ internal class AddNumbersTest {
         assertThat(addNumbers.enclosedInParentheses()).isEqualTo(true)
         assertThat(addNumbers.operator()).isEqualTo(AddNumbers.Operator.ADD_NUMBERS)
         assertThat(addNumbers.inputs().getOrNull())
-            .containsExactly(
-                AddNumbers.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(addNumbers.propertyName()).contains("propertyName")
         assertThat(addNumbers.value()).contains(0.0)
     }
@@ -50,13 +37,7 @@ internal class AddNumbersTest {
             AddNumbers.builder()
                 .enclosedInParentheses(true)
                 .operator(AddNumbers.Operator.ADD_NUMBERS)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

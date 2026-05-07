@@ -14,21 +14,34 @@ import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 
 class CardMigrateViewsResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val message: JsonField<String>,
+    private val endedAt: JsonField<Long>,
+    private val remainingPortalCount: JsonField<Long>,
+    private val startedAt: JsonField<Long>,
+    private val totalPortalCount: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("message") @ExcludeMissing message: JsonField<String> = JsonMissing.of()
-    ) : this(message, mutableMapOf())
+        @JsonProperty("message") @ExcludeMissing message: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("endedAt") @ExcludeMissing endedAt: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("remainingPortalCount")
+        @ExcludeMissing
+        remainingPortalCount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("startedAt") @ExcludeMissing startedAt: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("totalPortalCount")
+        @ExcludeMissing
+        totalPortalCount: JsonField<Long> = JsonMissing.of(),
+    ) : this(message, endedAt, remainingPortalCount, startedAt, totalPortalCount, mutableMapOf())
 
     /**
-     * A human readable message describing the error along with remediation steps where appropriate
+     * A human readable message describing the progress of the migration.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -36,11 +49,78 @@ private constructor(
     fun message(): String = message.getRequired("message")
 
     /**
+     * The timestamp for when the migration ended.
+     *
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endedAt(): Optional<Long> = endedAt.getOptional("endedAt")
+
+    /**
+     * The number of portals that remain to be swapped from the Legacy CRM Card to the App Card
+     *
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun remainingPortalCount(): Optional<Long> =
+        remainingPortalCount.getOptional("remainingPortalCount")
+
+    /**
+     * The timestamp for when the migration started.
+     *
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun startedAt(): Optional<Long> = startedAt.getOptional("startedAt")
+
+    /**
+     * The total number of portals that have access to the Legacy CRM Card
+     *
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun totalPortalCount(): Optional<Long> = totalPortalCount.getOptional("totalPortalCount")
+
+    /**
      * Returns the raw JSON value of [message].
      *
      * Unlike [message], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("message") @ExcludeMissing fun _message(): JsonField<String> = message
+
+    /**
+     * Returns the raw JSON value of [endedAt].
+     *
+     * Unlike [endedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("endedAt") @ExcludeMissing fun _endedAt(): JsonField<Long> = endedAt
+
+    /**
+     * Returns the raw JSON value of [remainingPortalCount].
+     *
+     * Unlike [remainingPortalCount], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("remainingPortalCount")
+    @ExcludeMissing
+    fun _remainingPortalCount(): JsonField<Long> = remainingPortalCount
+
+    /**
+     * Returns the raw JSON value of [startedAt].
+     *
+     * Unlike [startedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("startedAt") @ExcludeMissing fun _startedAt(): JsonField<Long> = startedAt
+
+    /**
+     * Returns the raw JSON value of [totalPortalCount].
+     *
+     * Unlike [totalPortalCount], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("totalPortalCount")
+    @ExcludeMissing
+    fun _totalPortalCount(): JsonField<Long> = totalPortalCount
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -71,18 +151,23 @@ private constructor(
     class Builder internal constructor() {
 
         private var message: JsonField<String>? = null
+        private var endedAt: JsonField<Long> = JsonMissing.of()
+        private var remainingPortalCount: JsonField<Long> = JsonMissing.of()
+        private var startedAt: JsonField<Long> = JsonMissing.of()
+        private var totalPortalCount: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(cardMigrateViewsResponse: CardMigrateViewsResponse) = apply {
             message = cardMigrateViewsResponse.message
+            endedAt = cardMigrateViewsResponse.endedAt
+            remainingPortalCount = cardMigrateViewsResponse.remainingPortalCount
+            startedAt = cardMigrateViewsResponse.startedAt
+            totalPortalCount = cardMigrateViewsResponse.totalPortalCount
             additionalProperties = cardMigrateViewsResponse.additionalProperties.toMutableMap()
         }
 
-        /**
-         * A human readable message describing the error along with remediation steps where
-         * appropriate
-         */
+        /** A human readable message describing the progress of the migration. */
         fun message(message: String) = message(JsonField.of(message))
 
         /**
@@ -92,6 +177,60 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun message(message: JsonField<String>) = apply { this.message = message }
+
+        /** The timestamp for when the migration ended. */
+        fun endedAt(endedAt: Long) = endedAt(JsonField.of(endedAt))
+
+        /**
+         * Sets [Builder.endedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endedAt] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun endedAt(endedAt: JsonField<Long>) = apply { this.endedAt = endedAt }
+
+        /**
+         * The number of portals that remain to be swapped from the Legacy CRM Card to the App Card
+         */
+        fun remainingPortalCount(remainingPortalCount: Long) =
+            remainingPortalCount(JsonField.of(remainingPortalCount))
+
+        /**
+         * Sets [Builder.remainingPortalCount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.remainingPortalCount] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun remainingPortalCount(remainingPortalCount: JsonField<Long>) = apply {
+            this.remainingPortalCount = remainingPortalCount
+        }
+
+        /** The timestamp for when the migration started. */
+        fun startedAt(startedAt: Long) = startedAt(JsonField.of(startedAt))
+
+        /**
+         * Sets [Builder.startedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.startedAt] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun startedAt(startedAt: JsonField<Long>) = apply { this.startedAt = startedAt }
+
+        /** The total number of portals that have access to the Legacy CRM Card */
+        fun totalPortalCount(totalPortalCount: Long) =
+            totalPortalCount(JsonField.of(totalPortalCount))
+
+        /**
+         * Sets [Builder.totalPortalCount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.totalPortalCount] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun totalPortalCount(totalPortalCount: JsonField<Long>) = apply {
+            this.totalPortalCount = totalPortalCount
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -127,6 +266,10 @@ private constructor(
         fun build(): CardMigrateViewsResponse =
             CardMigrateViewsResponse(
                 checkRequired("message", message),
+                endedAt,
+                remainingPortalCount,
+                startedAt,
+                totalPortalCount,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -147,6 +290,10 @@ private constructor(
         }
 
         message()
+        endedAt()
+        remainingPortalCount()
+        startedAt()
+        totalPortalCount()
         validated = true
     }
 
@@ -163,7 +310,13 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic internal fun validity(): Int = (if (message.asKnown().isPresent) 1 else 0)
+    @JvmSynthetic
+    internal fun validity(): Int =
+        (if (message.asKnown().isPresent) 1 else 0) +
+            (if (endedAt.asKnown().isPresent) 1 else 0) +
+            (if (remainingPortalCount.asKnown().isPresent) 1 else 0) +
+            (if (startedAt.asKnown().isPresent) 1 else 0) +
+            (if (totalPortalCount.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -172,13 +325,26 @@ private constructor(
 
         return other is CardMigrateViewsResponse &&
             message == other.message &&
+            endedAt == other.endedAt &&
+            remainingPortalCount == other.remainingPortalCount &&
+            startedAt == other.startedAt &&
+            totalPortalCount == other.totalPortalCount &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(message, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            message,
+            endedAt,
+            remainingPortalCount,
+            startedAt,
+            totalPortalCount,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardMigrateViewsResponse{message=$message, additionalProperties=$additionalProperties}"
+        "CardMigrateViewsResponse{message=$message, endedAt=$endedAt, remainingPortalCount=$remainingPortalCount, startedAt=$startedAt, totalPortalCount=$totalPortalCount, additionalProperties=$additionalProperties}"
 }

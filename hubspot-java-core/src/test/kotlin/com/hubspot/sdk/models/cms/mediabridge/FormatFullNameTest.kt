@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,28 +16,14 @@ internal class FormatFullNameTest {
         val formatFullName =
             FormatFullName.builder()
                 .operator(FormatFullName.Operator.FORMAT_FULL_NAME)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()
 
         assertThat(formatFullName.operator()).isEqualTo(FormatFullName.Operator.FORMAT_FULL_NAME)
         assertThat(formatFullName.inputs().getOrNull())
-            .containsExactly(
-                FormatFullName.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(formatFullName.propertyName()).contains("propertyName")
         assertThat(formatFullName.value()).contains("value")
     }
@@ -47,13 +34,7 @@ internal class FormatFullNameTest {
         val formatFullName =
             FormatFullName.builder()
                 .operator(FormatFullName.Operator.FORMAT_FULL_NAME)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()

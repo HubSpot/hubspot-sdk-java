@@ -22,7 +22,7 @@ internal class PropertyServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertyService = client.crm().properties()
 
-        val baseProperty =
+        val property =
             propertyService.create(
                 PropertyCreateParams.builder()
                     .objectType("objectType")
@@ -59,7 +59,7 @@ internal class PropertyServiceTest {
                     .build()
             )
 
-        baseProperty.validate()
+        property.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -68,7 +68,7 @@ internal class PropertyServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertyService = client.crm().properties()
 
-        val baseProperty =
+        val property =
             propertyService.update(
                 PropertyUpdateParams.builder()
                     .objectType("objectType")
@@ -101,7 +101,7 @@ internal class PropertyServiceTest {
                     .build()
             )
 
-        baseProperty.validate()
+        property.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -144,7 +144,7 @@ internal class PropertyServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertyService = client.crm().properties()
 
-        val baseProperty =
+        val property =
             propertyService.get(
                 PropertyGetParams.builder()
                     .objectType("objectType")
@@ -156,6 +156,6 @@ internal class PropertyServiceTest {
                     .build()
             )
 
-        baseProperty.validate()
+        property.validate()
     }
 }

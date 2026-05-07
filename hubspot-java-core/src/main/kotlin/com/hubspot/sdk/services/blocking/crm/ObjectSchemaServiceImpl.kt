@@ -17,8 +17,8 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.BaseAssociationDefinition
-import com.hubspot.sdk.models.BaseObjectTypeDefinition
+import com.hubspot.sdk.models.AssociationDefinition
+import com.hubspot.sdk.models.ObjectTypeDefinition
 import com.hubspot.sdk.models.crm.objectschemas.CollectionResponseObjectSchemaNoPaging
 import com.hubspot.sdk.models.crm.objectschemas.ObjectSchema
 import com.hubspot.sdk.models.crm.objectschemas.ObjectSchemaCreateAssociationParams
@@ -59,7 +59,7 @@ class ObjectSchemaServiceImpl internal constructor(private val clientOptions: Cl
     override fun update(
         params: ObjectSchemaUpdateParams,
         requestOptions: RequestOptions,
-    ): BaseObjectTypeDefinition =
+    ): ObjectTypeDefinition =
         // patch /crm-object-schemas/2026-03/schemas/{objectType}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -78,7 +78,7 @@ class ObjectSchemaServiceImpl internal constructor(private val clientOptions: Cl
     override fun createAssociation(
         params: ObjectSchemaCreateAssociationParams,
         requestOptions: RequestOptions,
-    ): BaseAssociationDefinition =
+    ): AssociationDefinition =
         // post /crm-object-schemas/2026-03/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).parse()
 
@@ -142,13 +142,13 @@ class ObjectSchemaServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val updateHandler: Handler<BaseObjectTypeDefinition> =
-            jsonHandler<BaseObjectTypeDefinition>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ObjectTypeDefinition> =
+            jsonHandler<ObjectTypeDefinition>(clientOptions.jsonMapper)
 
         override fun update(
             params: ObjectSchemaUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BaseObjectTypeDefinition> {
+        ): HttpResponseFor<ObjectTypeDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())
@@ -234,13 +234,13 @@ class ObjectSchemaServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val createAssociationHandler: Handler<BaseAssociationDefinition> =
-            jsonHandler<BaseAssociationDefinition>(clientOptions.jsonMapper)
+        private val createAssociationHandler: Handler<AssociationDefinition> =
+            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createAssociation(
             params: ObjectSchemaCreateAssociationParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BaseAssociationDefinition> {
+        ): HttpResponseFor<AssociationDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

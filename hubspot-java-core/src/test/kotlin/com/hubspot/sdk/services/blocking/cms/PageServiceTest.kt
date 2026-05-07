@@ -85,7 +85,7 @@ internal class PageServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val pageService = client.cms().pages()
 
-        val pageData =
+        val pagesPage =
             pageService.restoreLandingPageRevision(
                 PageRestoreLandingPageRevisionParams.builder()
                     .objectId("objectId")
@@ -93,7 +93,7 @@ internal class PageServiceTest {
                     .build()
             )
 
-        pageData.validate()
+        pagesPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -102,7 +102,7 @@ internal class PageServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val pageService = client.cms().pages()
 
-        val pageData =
+        val pagesPage =
             pageService.restoreLandingPageRevisionToDraft(
                 PageRestoreLandingPageRevisionToDraftParams.builder()
                     .objectId("objectId")
@@ -110,7 +110,7 @@ internal class PageServiceTest {
                     .build()
             )
 
-        pageData.validate()
+        pagesPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -119,7 +119,7 @@ internal class PageServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val pageService = client.cms().pages()
 
-        val pageData =
+        val pagesPage =
             pageService.restoreSitePageRevision(
                 PageRestoreSitePageRevisionParams.builder()
                     .objectId("objectId")
@@ -127,7 +127,7 @@ internal class PageServiceTest {
                     .build()
             )
 
-        pageData.validate()
+        pagesPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -136,7 +136,7 @@ internal class PageServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val pageService = client.cms().pages()
 
-        val pageData =
+        val pagesPage =
             pageService.restoreSitePageRevisionToDraft(
                 PageRestoreSitePageRevisionToDraftParams.builder()
                     .objectId("objectId")
@@ -144,6 +144,6 @@ internal class PageServiceTest {
                     .build()
             )
 
-        pageData.validate()
+        pagesPage.validate()
     }
 }

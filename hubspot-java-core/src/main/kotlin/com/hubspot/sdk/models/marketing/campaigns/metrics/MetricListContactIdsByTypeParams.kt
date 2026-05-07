@@ -33,11 +33,17 @@ private constructor(
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
+    /**
+     * The end date for fetching contact data, in YYYY-MM-DD format. Optional. Example: 2000-01-27
+     */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
+    /**
+     * The start date for fetching contact data, in YYYY-MM-DD format. Optional. Example: 2000-01-20
+     */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -104,6 +110,10 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
+        /**
+         * The end date for fetching contact data, in YYYY-MM-DD format. Optional. Example:
+         * 2000-01-27
+         */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
@@ -122,6 +132,10 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
+        /**
+         * The start date for fetching contact data, in YYYY-MM-DD format. Optional. Example:
+         * 2000-01-20
+         */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

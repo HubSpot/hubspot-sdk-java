@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -18,13 +19,7 @@ internal class ExtractMostRecentPlainTextEmailReplyTest {
                     ExtractMostRecentPlainTextEmailReply.Operator
                         .EXTRACT_MOST_RECENT_PLAIN_TEXT_EMAIL_REPLY
                 )
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()
@@ -35,15 +30,7 @@ internal class ExtractMostRecentPlainTextEmailReplyTest {
                     .EXTRACT_MOST_RECENT_PLAIN_TEXT_EMAIL_REPLY
             )
         assertThat(extractMostRecentPlainTextEmailReply.inputs().getOrNull())
-            .containsExactly(
-                ExtractMostRecentPlainTextEmailReply.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(extractMostRecentPlainTextEmailReply.propertyName()).contains("propertyName")
         assertThat(extractMostRecentPlainTextEmailReply.value()).contains("value")
     }
@@ -57,13 +44,7 @@ internal class ExtractMostRecentPlainTextEmailReplyTest {
                     ExtractMostRecentPlainTextEmailReply.Operator
                         .EXTRACT_MOST_RECENT_PLAIN_TEXT_EMAIL_REPLY
                 )
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()

@@ -7,7 +7,6 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.cms.pages.PageData
 import com.hubspot.sdk.models.cms.pages.PageGetLandingPageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageGetSitePageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageListLandingPageRevisionsPage
@@ -20,6 +19,7 @@ import com.hubspot.sdk.models.cms.pages.PageRestoreLandingPageRevisionToDraftPar
 import com.hubspot.sdk.models.cms.pages.PageRestoreSitePageRevisionParams
 import com.hubspot.sdk.models.cms.pages.PageRestoreSitePageRevisionToDraftParams
 import com.hubspot.sdk.models.cms.pages.PageVersion
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.services.blocking.cms.pages.ABTestService
 import com.hubspot.sdk.services.blocking.cms.pages.BatchService
 import com.hubspot.sdk.services.blocking.cms.pages.FolderService
@@ -215,41 +215,41 @@ interface PageService {
     fun restoreLandingPageRevision(
         revisionId: String,
         params: PageRestoreLandingPageRevisionParams,
-    ): PageData = restoreLandingPageRevision(revisionId, params, RequestOptions.none())
+    ): PagesPage = restoreLandingPageRevision(revisionId, params, RequestOptions.none())
 
     /** @see restoreLandingPageRevision */
     fun restoreLandingPageRevision(
         revisionId: String,
         params: PageRestoreLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData =
+    ): PagesPage =
         restoreLandingPageRevision(
             params.toBuilder().revisionId(revisionId).build(),
             requestOptions,
         )
 
     /** @see restoreLandingPageRevision */
-    fun restoreLandingPageRevision(params: PageRestoreLandingPageRevisionParams): PageData =
+    fun restoreLandingPageRevision(params: PageRestoreLandingPageRevisionParams): PagesPage =
         restoreLandingPageRevision(params, RequestOptions.none())
 
     /** @see restoreLandingPageRevision */
     fun restoreLandingPageRevision(
         params: PageRestoreLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData
+    ): PagesPage
 
     /** Specify a previous version of a landing page to set as the page draft. */
     fun restoreLandingPageRevisionToDraft(
         revisionId: Long,
         params: PageRestoreLandingPageRevisionToDraftParams,
-    ): PageData = restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
+    ): PagesPage = restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
 
     /** @see restoreLandingPageRevisionToDraft */
     fun restoreLandingPageRevisionToDraft(
         revisionId: Long,
         params: PageRestoreLandingPageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData =
+    ): PagesPage =
         restoreLandingPageRevisionToDraft(
             params.toBuilder().revisionId(revisionId).build(),
             requestOptions,
@@ -258,37 +258,37 @@ interface PageService {
     /** @see restoreLandingPageRevisionToDraft */
     fun restoreLandingPageRevisionToDraft(
         params: PageRestoreLandingPageRevisionToDraftParams
-    ): PageData = restoreLandingPageRevisionToDraft(params, RequestOptions.none())
+    ): PagesPage = restoreLandingPageRevisionToDraft(params, RequestOptions.none())
 
     /** @see restoreLandingPageRevisionToDraft */
     fun restoreLandingPageRevisionToDraft(
         params: PageRestoreLandingPageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData
+    ): PagesPage
 
     /** Restores a website page to a previous version, specified by page ID and version ID. */
     fun restoreSitePageRevision(
         revisionId: String,
         params: PageRestoreSitePageRevisionParams,
-    ): PageData = restoreSitePageRevision(revisionId, params, RequestOptions.none())
+    ): PagesPage = restoreSitePageRevision(revisionId, params, RequestOptions.none())
 
     /** @see restoreSitePageRevision */
     fun restoreSitePageRevision(
         revisionId: String,
         params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData =
+    ): PagesPage =
         restoreSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
     /** @see restoreSitePageRevision */
-    fun restoreSitePageRevision(params: PageRestoreSitePageRevisionParams): PageData =
+    fun restoreSitePageRevision(params: PageRestoreSitePageRevisionParams): PagesPage =
         restoreSitePageRevision(params, RequestOptions.none())
 
     /** @see restoreSitePageRevision */
     fun restoreSitePageRevision(
         params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData
+    ): PagesPage
 
     /**
      * Takes a specified version of a website page and sets it as the new draft version of the page.
@@ -296,28 +296,29 @@ interface PageService {
     fun restoreSitePageRevisionToDraft(
         revisionId: Long,
         params: PageRestoreSitePageRevisionToDraftParams,
-    ): PageData = restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
+    ): PagesPage = restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
 
     /** @see restoreSitePageRevisionToDraft */
     fun restoreSitePageRevisionToDraft(
         revisionId: Long,
         params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData =
+    ): PagesPage =
         restoreSitePageRevisionToDraft(
             params.toBuilder().revisionId(revisionId).build(),
             requestOptions,
         )
 
     /** @see restoreSitePageRevisionToDraft */
-    fun restoreSitePageRevisionToDraft(params: PageRestoreSitePageRevisionToDraftParams): PageData =
-        restoreSitePageRevisionToDraft(params, RequestOptions.none())
+    fun restoreSitePageRevisionToDraft(
+        params: PageRestoreSitePageRevisionToDraftParams
+    ): PagesPage = restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
     /** @see restoreSitePageRevisionToDraft */
     fun restoreSitePageRevisionToDraft(
         params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData
+    ): PagesPage
 
     /** A view of [PageService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -566,7 +567,7 @@ interface PageService {
         fun restoreLandingPageRevision(
             revisionId: String,
             params: PageRestoreLandingPageRevisionParams,
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreLandingPageRevision(revisionId, params, RequestOptions.none())
 
         /** @see restoreLandingPageRevision */
@@ -575,7 +576,7 @@ interface PageService {
             revisionId: String,
             params: PageRestoreLandingPageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreLandingPageRevision(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -585,14 +586,14 @@ interface PageService {
         @MustBeClosed
         fun restoreLandingPageRevision(
             params: PageRestoreLandingPageRevisionParams
-        ): HttpResponseFor<PageData> = restoreLandingPageRevision(params, RequestOptions.none())
+        ): HttpResponseFor<PagesPage> = restoreLandingPageRevision(params, RequestOptions.none())
 
         /** @see restoreLandingPageRevision */
         @MustBeClosed
         fun restoreLandingPageRevision(
             params: PageRestoreLandingPageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData>
+        ): HttpResponseFor<PagesPage>
 
         /**
          * Returns a raw HTTP response for `post
@@ -603,7 +604,7 @@ interface PageService {
         fun restoreLandingPageRevisionToDraft(
             revisionId: Long,
             params: PageRestoreLandingPageRevisionToDraftParams,
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
 
         /** @see restoreLandingPageRevisionToDraft */
@@ -612,7 +613,7 @@ interface PageService {
             revisionId: Long,
             params: PageRestoreLandingPageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreLandingPageRevisionToDraft(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -622,7 +623,7 @@ interface PageService {
         @MustBeClosed
         fun restoreLandingPageRevisionToDraft(
             params: PageRestoreLandingPageRevisionToDraftParams
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreLandingPageRevisionToDraft(params, RequestOptions.none())
 
         /** @see restoreLandingPageRevisionToDraft */
@@ -630,7 +631,7 @@ interface PageService {
         fun restoreLandingPageRevisionToDraft(
             params: PageRestoreLandingPageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData>
+        ): HttpResponseFor<PagesPage>
 
         /**
          * Returns a raw HTTP response for `post
@@ -641,7 +642,7 @@ interface PageService {
         fun restoreSitePageRevision(
             revisionId: String,
             params: PageRestoreSitePageRevisionParams,
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreSitePageRevision(revisionId, params, RequestOptions.none())
 
         /** @see restoreSitePageRevision */
@@ -650,7 +651,7 @@ interface PageService {
             revisionId: String,
             params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreSitePageRevision(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -660,14 +661,14 @@ interface PageService {
         @MustBeClosed
         fun restoreSitePageRevision(
             params: PageRestoreSitePageRevisionParams
-        ): HttpResponseFor<PageData> = restoreSitePageRevision(params, RequestOptions.none())
+        ): HttpResponseFor<PagesPage> = restoreSitePageRevision(params, RequestOptions.none())
 
         /** @see restoreSitePageRevision */
         @MustBeClosed
         fun restoreSitePageRevision(
             params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData>
+        ): HttpResponseFor<PagesPage>
 
         /**
          * Returns a raw HTTP response for `post
@@ -678,7 +679,7 @@ interface PageService {
         fun restoreSitePageRevisionToDraft(
             revisionId: Long,
             params: PageRestoreSitePageRevisionToDraftParams,
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
 
         /** @see restoreSitePageRevisionToDraft */
@@ -687,7 +688,7 @@ interface PageService {
             revisionId: Long,
             params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             restoreSitePageRevisionToDraft(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
@@ -697,13 +698,14 @@ interface PageService {
         @MustBeClosed
         fun restoreSitePageRevisionToDraft(
             params: PageRestoreSitePageRevisionToDraftParams
-        ): HttpResponseFor<PageData> = restoreSitePageRevisionToDraft(params, RequestOptions.none())
+        ): HttpResponseFor<PagesPage> =
+            restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
         /** @see restoreSitePageRevisionToDraft */
         @MustBeClosed
         fun restoreSitePageRevisionToDraft(
             params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData>
+        ): HttpResponseFor<PagesPage>
     }
 }

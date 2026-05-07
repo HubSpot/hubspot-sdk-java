@@ -22,6 +22,11 @@ private constructor(
 
     fun campaignGuid(): Optional<String> = Optional.ofNullable(campaignGuid)
 
+    /**
+     * The revenue attribution model used to calculate deal revenue credit. Defaults to LINEAR if
+     * not specified. Enum values: LINEAR, FIRST_INTERACTION, LAST_INTERACTION, FULL_PATH, U_SHAPED,
+     * W_SHAPED, TIME_DECAY, J_SHAPED, INVERSE_J_SHAPED
+     */
     fun attributionModel(): Optional<String> = Optional.ofNullable(attributionModel)
 
     /** End date to fetch attribution data, YYYY-MM-DD */
@@ -76,6 +81,11 @@ private constructor(
         /** Alias for calling [Builder.campaignGuid] with `campaignGuid.orElse(null)`. */
         fun campaignGuid(campaignGuid: Optional<String>) = campaignGuid(campaignGuid.getOrNull())
 
+        /**
+         * The revenue attribution model used to calculate deal revenue credit. Defaults to LINEAR
+         * if not specified. Enum values: LINEAR, FIRST_INTERACTION, LAST_INTERACTION, FULL_PATH,
+         * U_SHAPED, W_SHAPED, TIME_DECAY, J_SHAPED, INVERSE_J_SHAPED
+         */
         fun attributionModel(attributionModel: String?) = apply {
             this.attributionModel = attributionModel
         }

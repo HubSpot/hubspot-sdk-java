@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,28 +16,13 @@ internal class YearTest {
         val year =
             Year.builder()
                 .operator(Year.Operator.YEAR)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
 
         assertThat(year.operator()).isEqualTo(Year.Operator.YEAR)
-        assertThat(year.inputs().getOrNull())
-            .containsExactly(
-                Year.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(year.inputs().getOrNull()).containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(year.propertyName()).contains("propertyName")
         assertThat(year.value()).contains(0.0)
     }
@@ -47,13 +33,7 @@ internal class YearTest {
         val year =
             Year.builder()
                 .operator(Year.Operator.YEAR)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

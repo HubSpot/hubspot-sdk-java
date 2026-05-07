@@ -30,10 +30,26 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /**
+     * End date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch the
+     * metrics associated with the assets for a specified period. If not provided, no asset metrics
+     * will be fetched. Example: 2024-01-27
+     */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
+    /**
+     * A comma-separated list of the properties to be returned in the response. If any of the
+     * specified properties has empty value on the requested object(s), they will be ignored and not
+     * returned in response. If this parameter is empty, the response will include an empty
+     * properties map. Example: hs_name, hs_campaign_status, hs_notes
+     */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
+    /**
+     * Start date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch the
+     * metrics associated with the assets for a specified period. If not provided, no asset metrics
+     * will be fetched. Example: 2023-01-20
+     */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     fun batchInputPublicCampaignReadInput(): BatchInputPublicCampaignReadInput =
@@ -83,11 +99,22 @@ private constructor(
             additionalQueryParams = batchGetParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * End date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch the
+         * metrics associated with the assets for a specified period. If not provided, no asset
+         * metrics will be fetched. Example: 2024-01-27
+         */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
+        /**
+         * A comma-separated list of the properties to be returned in the response. If any of the
+         * specified properties has empty value on the requested object(s), they will be ignored and
+         * not returned in response. If this parameter is empty, the response will include an empty
+         * properties map. Example: hs_name, hs_campaign_status, hs_notes
+         */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -104,6 +131,11 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
+        /**
+         * Start date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch
+         * the metrics associated with the assets for a specified period. If not provided, no asset
+         * metrics will be fetched. Example: 2023-01-20
+         */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

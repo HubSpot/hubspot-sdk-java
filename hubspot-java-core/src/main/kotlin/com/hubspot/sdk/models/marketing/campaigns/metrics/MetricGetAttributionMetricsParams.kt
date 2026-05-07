@@ -24,8 +24,16 @@ private constructor(
 
     fun campaignGuid(): Optional<String> = Optional.ofNullable(campaignGuid)
 
+    /**
+     * The end date for fetching attribution data, in YYYY-MM-DD format. Optional. Example:
+     * 2000-01-27
+     */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
+    /**
+     * The start date for fetching attribution data, in YYYY-MM-DD format. Optional. Example:
+     * 2000-01-20
+     */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -72,11 +80,19 @@ private constructor(
         /** Alias for calling [Builder.campaignGuid] with `campaignGuid.orElse(null)`. */
         fun campaignGuid(campaignGuid: Optional<String>) = campaignGuid(campaignGuid.getOrNull())
 
+        /**
+         * The end date for fetching attribution data, in YYYY-MM-DD format. Optional. Example:
+         * 2000-01-27
+         */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
+        /**
+         * The start date for fetching attribution data, in YYYY-MM-DD format. Optional. Example:
+         * 2000-01-20
+         */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

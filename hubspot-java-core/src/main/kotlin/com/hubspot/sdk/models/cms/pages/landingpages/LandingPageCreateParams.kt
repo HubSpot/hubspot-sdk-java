@@ -7,20 +7,20 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
-import com.hubspot.sdk.models.cms.pages.PageData
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import java.util.Objects
 
 /** Create a new landing page. */
 class LandingPageCreateParams
 private constructor(
-    private val pageData: PageData,
+    private val pagesPage: PagesPage,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pageData(): PageData = pageData
+    fun pagesPage(): PagesPage = pagesPage
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = pageData._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = pagesPage._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -37,7 +37,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pageData()
+         * .pagesPage()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -46,18 +46,18 @@ private constructor(
     /** A builder for [LandingPageCreateParams]. */
     class Builder internal constructor() {
 
-        private var pageData: PageData? = null
+        private var pagesPage: PagesPage? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(landingPageCreateParams: LandingPageCreateParams) = apply {
-            pageData = landingPageCreateParams.pageData
+            pagesPage = landingPageCreateParams.pagesPage
             additionalHeaders = landingPageCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = landingPageCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pageData(pageData: PageData) = apply { this.pageData = pageData }
+        fun pagesPage(pagesPage: PagesPage) = apply { this.pagesPage = pagesPage }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -164,20 +164,20 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .pageData()
+         * .pagesPage()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): LandingPageCreateParams =
             LandingPageCreateParams(
-                checkRequired("pageData", pageData),
+                checkRequired("pagesPage", pagesPage),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): PageData = pageData
+    fun _body(): PagesPage = pagesPage
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -189,13 +189,13 @@ private constructor(
         }
 
         return other is LandingPageCreateParams &&
-            pageData == other.pageData &&
+            pagesPage == other.pagesPage &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(pageData, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(pagesPage, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LandingPageCreateParams{pageData=$pageData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LandingPageCreateParams{pagesPage=$pagesPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

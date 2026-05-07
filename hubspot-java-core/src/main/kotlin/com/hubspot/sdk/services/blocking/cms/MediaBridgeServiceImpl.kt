@@ -17,9 +17,9 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.BaseAssociationDefinition
-import com.hubspot.sdk.models.BaseObjectTypeDefinition
+import com.hubspot.sdk.models.AssociationDefinition
 import com.hubspot.sdk.models.CollectionResponsePropertyGroupNoPaging
+import com.hubspot.sdk.models.ObjectTypeDefinition
 import com.hubspot.sdk.models.PropertyGroup
 import com.hubspot.sdk.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot.sdk.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
@@ -89,7 +89,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun createAssociation(
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions,
-    ): BaseAssociationDefinition =
+    ): AssociationDefinition =
         // post /media-bridge/2026-03/{appId}/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).parse()
 
@@ -145,7 +145,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun createVideoAssociationDefinition(
         params: MediaBridgeCreateVideoAssociationDefinitionParams,
         requestOptions: RequestOptions,
-    ): BaseAssociationDefinition =
+    ): AssociationDefinition =
         // post /media-bridge/2026-03/{appId}/settings/video-association-definition
         withRawResponse().createVideoAssociationDefinition(params, requestOptions).parse()
 
@@ -290,7 +290,7 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun updateSchema(
         params: MediaBridgeUpdateSchemaParams,
         requestOptions: RequestOptions,
-    ): BaseObjectTypeDefinition =
+    ): ObjectTypeDefinition =
         // patch /media-bridge/2026-03/{appId}/schemas/{objectType}
         withRawResponse().updateSchema(params, requestOptions).parse()
 
@@ -320,13 +320,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
 
         override fun batch(): BatchService.WithRawResponse = batch
 
-        private val createAssociationHandler: Handler<BaseAssociationDefinition> =
-            jsonHandler<BaseAssociationDefinition>(clientOptions.jsonMapper)
+        private val createAssociationHandler: Handler<AssociationDefinition> =
+            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createAssociation(
             params: MediaBridgeCreateAssociationParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BaseAssociationDefinition> {
+        ): HttpResponseFor<AssociationDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())
@@ -591,13 +591,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val createVideoAssociationDefinitionHandler: Handler<BaseAssociationDefinition> =
-            jsonHandler<BaseAssociationDefinition>(clientOptions.jsonMapper)
+        private val createVideoAssociationDefinitionHandler: Handler<AssociationDefinition> =
+            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createVideoAssociationDefinition(
             params: MediaBridgeCreateVideoAssociationDefinitionParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BaseAssociationDefinition> {
+        ): HttpResponseFor<AssociationDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -1303,13 +1303,13 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updateSchemaHandler: Handler<BaseObjectTypeDefinition> =
-            jsonHandler<BaseObjectTypeDefinition>(clientOptions.jsonMapper)
+        private val updateSchemaHandler: Handler<ObjectTypeDefinition> =
+            jsonHandler<ObjectTypeDefinition>(clientOptions.jsonMapper)
 
         override fun updateSchema(
             params: MediaBridgeUpdateSchemaParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BaseObjectTypeDefinition> {
+        ): HttpResponseFor<ObjectTypeDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

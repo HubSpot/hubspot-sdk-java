@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,13 +16,7 @@ internal class TimeBetweenSkipWeekendsTest {
         val timeBetweenSkipWeekends =
             TimeBetweenSkipWeekends.builder()
                 .operator(TimeBetweenSkipWeekends.Operator.TIME_BETWEEN_SKIP_WEEKENDS)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
@@ -29,15 +24,7 @@ internal class TimeBetweenSkipWeekendsTest {
         assertThat(timeBetweenSkipWeekends.operator())
             .isEqualTo(TimeBetweenSkipWeekends.Operator.TIME_BETWEEN_SKIP_WEEKENDS)
         assertThat(timeBetweenSkipWeekends.inputs().getOrNull())
-            .containsExactly(
-                TimeBetweenSkipWeekends.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(timeBetweenSkipWeekends.propertyName()).contains("propertyName")
         assertThat(timeBetweenSkipWeekends.value()).contains(0.0)
     }
@@ -48,13 +35,7 @@ internal class TimeBetweenSkipWeekendsTest {
         val timeBetweenSkipWeekends =
             TimeBetweenSkipWeekends.builder()
                 .operator(TimeBetweenSkipWeekends.Operator.TIME_BETWEEN_SKIP_WEEKENDS)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

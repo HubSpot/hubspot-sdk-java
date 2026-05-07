@@ -25,6 +25,7 @@ class ChirpAiContextObject
 private constructor(
     private val applicationGroup: JsonField<String>,
     private val applicationId: JsonField<String>,
+    private val isPrivate: JsonField<Boolean>,
     private val metadata: JsonField<Metadata>,
     private val otelContextHolder: JsonField<OtelContextHolder>,
     private val unstructuredSources: JsonField<List<UnstructuredSource>>,
@@ -44,6 +45,7 @@ private constructor(
         @JsonProperty("applicationId")
         @ExcludeMissing
         applicationId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("isPrivate") @ExcludeMissing isPrivate: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("otelContextHolder")
         @ExcludeMissing
@@ -67,6 +69,7 @@ private constructor(
     ) : this(
         applicationGroup,
         applicationId,
+        isPrivate,
         metadata,
         otelContextHolder,
         unstructuredSources,
@@ -93,6 +96,12 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun applicationId(): String = applicationId.getRequired("applicationId")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun isPrivate(): Boolean = isPrivate.getRequired("isPrivate")
 
     /**
      * Additional metadata related to the context, represented as key-value pairs.
@@ -171,6 +180,13 @@ private constructor(
     @JsonProperty("applicationId")
     @ExcludeMissing
     fun _applicationId(): JsonField<String> = applicationId
+
+    /**
+     * Returns the raw JSON value of [isPrivate].
+     *
+     * Unlike [isPrivate], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("isPrivate") @ExcludeMissing fun _isPrivate(): JsonField<Boolean> = isPrivate
 
     /**
      * Returns the raw JSON value of [metadata].
@@ -261,6 +277,7 @@ private constructor(
          * ```java
          * .applicationGroup()
          * .applicationId()
+         * .isPrivate()
          * .metadata()
          * .otelContextHolder()
          * .unstructuredSources()
@@ -274,6 +291,7 @@ private constructor(
 
         private var applicationGroup: JsonField<String>? = null
         private var applicationId: JsonField<String>? = null
+        private var isPrivate: JsonField<Boolean>? = null
         private var metadata: JsonField<Metadata>? = null
         private var otelContextHolder: JsonField<OtelContextHolder>? = null
         private var unstructuredSources: JsonField<MutableList<UnstructuredSource>>? = null
@@ -288,6 +306,7 @@ private constructor(
         internal fun from(chirpAiContextObject: ChirpAiContextObject) = apply {
             applicationGroup = chirpAiContextObject.applicationGroup
             applicationId = chirpAiContextObject.applicationId
+            isPrivate = chirpAiContextObject.isPrivate
             metadata = chirpAiContextObject.metadata
             otelContextHolder = chirpAiContextObject.otelContextHolder
             unstructuredSources =
@@ -328,6 +347,17 @@ private constructor(
         fun applicationId(applicationId: JsonField<String>) = apply {
             this.applicationId = applicationId
         }
+
+        fun isPrivate(isPrivate: Boolean) = isPrivate(JsonField.of(isPrivate))
+
+        /**
+         * Sets [Builder.isPrivate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.isPrivate] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun isPrivate(isPrivate: JsonField<Boolean>) = apply { this.isPrivate = isPrivate }
 
         /** Additional metadata related to the context, represented as key-value pairs. */
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
@@ -474,6 +504,7 @@ private constructor(
          * ```java
          * .applicationGroup()
          * .applicationId()
+         * .isPrivate()
          * .metadata()
          * .otelContextHolder()
          * .unstructuredSources()
@@ -485,6 +516,7 @@ private constructor(
             ChirpAiContextObject(
                 checkRequired("applicationGroup", applicationGroup),
                 checkRequired("applicationId", applicationId),
+                checkRequired("isPrivate", isPrivate),
                 checkRequired("metadata", metadata),
                 checkRequired("otelContextHolder", otelContextHolder),
                 checkRequired("unstructuredSources", unstructuredSources).map { it.toImmutable() },
@@ -514,6 +546,7 @@ private constructor(
 
         applicationGroup()
         applicationId()
+        isPrivate()
         metadata().validate()
         otelContextHolder().validate()
         unstructuredSources().forEach { it.validate() }
@@ -542,6 +575,7 @@ private constructor(
     internal fun validity(): Int =
         (if (applicationGroup.asKnown().isPresent) 1 else 0) +
             (if (applicationId.asKnown().isPresent) 1 else 0) +
+            (if (isPrivate.asKnown().isPresent) 1 else 0) +
             (metadata.asKnown().getOrNull()?.validity() ?: 0) +
             (otelContextHolder.asKnown().getOrNull()?.validity() ?: 0) +
             (unstructuredSources.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -1030,6 +1064,7 @@ private constructor(
         return other is ChirpAiContextObject &&
             applicationGroup == other.applicationGroup &&
             applicationId == other.applicationId &&
+            isPrivate == other.isPrivate &&
             metadata == other.metadata &&
             otelContextHolder == other.otelContextHolder &&
             unstructuredSources == other.unstructuredSources &&
@@ -1045,6 +1080,7 @@ private constructor(
         Objects.hash(
             applicationGroup,
             applicationId,
+            isPrivate,
             metadata,
             otelContextHolder,
             unstructuredSources,
@@ -1060,5 +1096,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChirpAiContextObject{applicationGroup=$applicationGroup, applicationId=$applicationId, metadata=$metadata, otelContextHolder=$otelContextHolder, unstructuredSources=$unstructuredSources, complianceIds=$complianceIds, conversationId=$conversationId, featureId=$featureId, inferenceId=$inferenceId, trajectoryId=$trajectoryId, additionalProperties=$additionalProperties}"
+        "ChirpAiContextObject{applicationGroup=$applicationGroup, applicationId=$applicationId, isPrivate=$isPrivate, metadata=$metadata, otelContextHolder=$otelContextHolder, unstructuredSources=$unstructuredSources, complianceIds=$complianceIds, conversationId=$conversationId, featureId=$featureId, inferenceId=$inferenceId, trajectoryId=$trajectoryId, additionalProperties=$additionalProperties}"
 }
