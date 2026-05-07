@@ -7,7 +7,7 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.BaseProperty
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.events.BatchedBehavioralEventHttpCompletionRequest
 import com.hubspot.sdk.models.events.definitions.DefinitionCreateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionCreatePropertyParams
@@ -134,7 +134,7 @@ interface DefinitionService {
         delete(eventName, DefinitionDeleteParams.none(), requestOptions)
 
     /** Create a new property for an existing event definition. */
-    fun createProperty(eventName: String, params: DefinitionCreatePropertyParams): BaseProperty =
+    fun createProperty(eventName: String, params: DefinitionCreatePropertyParams): Property =
         createProperty(eventName, params, RequestOptions.none())
 
     /** @see createProperty */
@@ -142,18 +142,17 @@ interface DefinitionService {
         eventName: String,
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty =
-        createProperty(params.toBuilder().eventName(eventName).build(), requestOptions)
+    ): Property = createProperty(params.toBuilder().eventName(eventName).build(), requestOptions)
 
     /** @see createProperty */
-    fun createProperty(params: DefinitionCreatePropertyParams): BaseProperty =
+    fun createProperty(params: DefinitionCreatePropertyParams): Property =
         createProperty(params, RequestOptions.none())
 
     /** @see createProperty */
     fun createProperty(
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty
+    ): Property
 
     /** Delete an existing property from a custom event definition. */
     fun deleteProperty(propertyName: String, params: DefinitionDeletePropertyParams) =
@@ -240,7 +239,7 @@ interface DefinitionService {
     ) = sendBatch(batchedBehavioralEventHttpCompletionRequest, RequestOptions.none())
 
     /** Update an existing property in a custom event definition. */
-    fun updateProperty(propertyName: String, params: DefinitionUpdatePropertyParams): BaseProperty =
+    fun updateProperty(propertyName: String, params: DefinitionUpdatePropertyParams): Property =
         updateProperty(propertyName, params, RequestOptions.none())
 
     /** @see updateProperty */
@@ -248,18 +247,18 @@ interface DefinitionService {
         propertyName: String,
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty =
+    ): Property =
         updateProperty(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
     /** @see updateProperty */
-    fun updateProperty(params: DefinitionUpdatePropertyParams): BaseProperty =
+    fun updateProperty(params: DefinitionUpdatePropertyParams): Property =
         updateProperty(params, RequestOptions.none())
 
     /** @see updateProperty */
     fun updateProperty(
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BaseProperty
+    ): Property
 
     /** A view of [DefinitionService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -420,7 +419,7 @@ interface DefinitionService {
         fun createProperty(
             eventName: String,
             params: DefinitionCreatePropertyParams,
-        ): HttpResponseFor<BaseProperty> = createProperty(eventName, params, RequestOptions.none())
+        ): HttpResponseFor<Property> = createProperty(eventName, params, RequestOptions.none())
 
         /** @see createProperty */
         @MustBeClosed
@@ -428,12 +427,12 @@ interface DefinitionService {
             eventName: String,
             params: DefinitionCreatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty> =
+        ): HttpResponseFor<Property> =
             createProperty(params.toBuilder().eventName(eventName).build(), requestOptions)
 
         /** @see createProperty */
         @MustBeClosed
-        fun createProperty(params: DefinitionCreatePropertyParams): HttpResponseFor<BaseProperty> =
+        fun createProperty(params: DefinitionCreatePropertyParams): HttpResponseFor<Property> =
             createProperty(params, RequestOptions.none())
 
         /** @see createProperty */
@@ -441,7 +440,7 @@ interface DefinitionService {
         fun createProperty(
             params: DefinitionCreatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty>
+        ): HttpResponseFor<Property>
 
         /**
          * Returns a raw HTTP response for `delete
@@ -569,8 +568,7 @@ interface DefinitionService {
         fun updateProperty(
             propertyName: String,
             params: DefinitionUpdatePropertyParams,
-        ): HttpResponseFor<BaseProperty> =
-            updateProperty(propertyName, params, RequestOptions.none())
+        ): HttpResponseFor<Property> = updateProperty(propertyName, params, RequestOptions.none())
 
         /** @see updateProperty */
         @MustBeClosed
@@ -578,12 +576,12 @@ interface DefinitionService {
             propertyName: String,
             params: DefinitionUpdatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty> =
+        ): HttpResponseFor<Property> =
             updateProperty(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
         /** @see updateProperty */
         @MustBeClosed
-        fun updateProperty(params: DefinitionUpdatePropertyParams): HttpResponseFor<BaseProperty> =
+        fun updateProperty(params: DefinitionUpdatePropertyParams): HttpResponseFor<Property> =
             updateProperty(params, RequestOptions.none())
 
         /** @see updateProperty */
@@ -591,6 +589,6 @@ interface DefinitionService {
         fun updateProperty(
             params: DefinitionUpdatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BaseProperty>
+        ): HttpResponseFor<Property>
     }
 }

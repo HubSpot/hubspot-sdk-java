@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,28 +16,14 @@ internal class UpperCaseTest {
         val upperCase =
             UpperCase.builder()
                 .operator(UpperCase.Operator.UPPER_CASE)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()
 
         assertThat(upperCase.operator()).isEqualTo(UpperCase.Operator.UPPER_CASE)
         assertThat(upperCase.inputs().getOrNull())
-            .containsExactly(
-                UpperCase.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(upperCase.propertyName()).contains("propertyName")
         assertThat(upperCase.value()).contains("value")
     }
@@ -47,13 +34,7 @@ internal class UpperCaseTest {
         val upperCase =
             UpperCase.builder()
                 .operator(UpperCase.Operator.UPPER_CASE)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()

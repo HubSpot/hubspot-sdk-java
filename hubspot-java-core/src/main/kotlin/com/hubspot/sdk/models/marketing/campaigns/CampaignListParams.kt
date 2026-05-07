@@ -34,10 +34,16 @@ private constructor(
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
+    /** Filter campaigns by name. Optional. */
     fun name(): Optional<String> = Optional.ofNullable(name)
 
+    /**
+     * A comma-separated list of properties to include in the response. Unrecognized properties are
+     * ignored. Optional. Example: hs_name, hs_budget,hs_notes
+     */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
+    /** The property to sort results by. Optional. */
     fun sort(): Optional<String> = Optional.ofNullable(sort)
 
     /** Additional headers to send with the request. */
@@ -100,11 +106,16 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
+        /** Filter campaigns by name. Optional. */
         fun name(name: String?) = apply { this.name = name }
 
         /** Alias for calling [Builder.name] with `name.orElse(null)`. */
         fun name(name: Optional<String>) = name(name.getOrNull())
 
+        /**
+         * A comma-separated list of properties to include in the response. Unrecognized properties
+         * are ignored. Optional. Example: hs_name, hs_budget,hs_notes
+         */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -121,6 +132,7 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
+        /** The property to sort results by. Optional. */
         fun sort(sort: String?) = apply { this.sort = sort }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */

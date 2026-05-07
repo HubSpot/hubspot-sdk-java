@@ -6,7 +6,7 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
-import com.hubspot.sdk.models.BaseProperty
+import com.hubspot.sdk.models.Property
 import com.hubspot.sdk.models.events.BatchedBehavioralEventHttpCompletionRequest
 import com.hubspot.sdk.models.events.definitions.DefinitionCreateParams
 import com.hubspot.sdk.models.events.definitions.DefinitionCreatePropertyParams
@@ -148,25 +148,25 @@ interface DefinitionServiceAsync {
     fun createProperty(
         eventName: String,
         params: DefinitionCreatePropertyParams,
-    ): CompletableFuture<BaseProperty> = createProperty(eventName, params, RequestOptions.none())
+    ): CompletableFuture<Property> = createProperty(eventName, params, RequestOptions.none())
 
     /** @see createProperty */
     fun createProperty(
         eventName: String,
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BaseProperty> =
+    ): CompletableFuture<Property> =
         createProperty(params.toBuilder().eventName(eventName).build(), requestOptions)
 
     /** @see createProperty */
-    fun createProperty(params: DefinitionCreatePropertyParams): CompletableFuture<BaseProperty> =
+    fun createProperty(params: DefinitionCreatePropertyParams): CompletableFuture<Property> =
         createProperty(params, RequestOptions.none())
 
     /** @see createProperty */
     fun createProperty(
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BaseProperty>
+    ): CompletableFuture<Property>
 
     /** Delete an existing property from a custom event definition. */
     fun deleteProperty(
@@ -262,25 +262,25 @@ interface DefinitionServiceAsync {
     fun updateProperty(
         propertyName: String,
         params: DefinitionUpdatePropertyParams,
-    ): CompletableFuture<BaseProperty> = updateProperty(propertyName, params, RequestOptions.none())
+    ): CompletableFuture<Property> = updateProperty(propertyName, params, RequestOptions.none())
 
     /** @see updateProperty */
     fun updateProperty(
         propertyName: String,
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BaseProperty> =
+    ): CompletableFuture<Property> =
         updateProperty(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
     /** @see updateProperty */
-    fun updateProperty(params: DefinitionUpdatePropertyParams): CompletableFuture<BaseProperty> =
+    fun updateProperty(params: DefinitionUpdatePropertyParams): CompletableFuture<Property> =
         updateProperty(params, RequestOptions.none())
 
     /** @see updateProperty */
     fun updateProperty(
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BaseProperty>
+    ): CompletableFuture<Property>
 
     /**
      * A view of [DefinitionServiceAsync] that provides access to raw HTTP responses for each
@@ -433,7 +433,7 @@ interface DefinitionServiceAsync {
         fun createProperty(
             eventName: String,
             params: DefinitionCreatePropertyParams,
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> =
+        ): CompletableFuture<HttpResponseFor<Property>> =
             createProperty(eventName, params, RequestOptions.none())
 
         /** @see createProperty */
@@ -441,20 +441,20 @@ interface DefinitionServiceAsync {
             eventName: String,
             params: DefinitionCreatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> =
+        ): CompletableFuture<HttpResponseFor<Property>> =
             createProperty(params.toBuilder().eventName(eventName).build(), requestOptions)
 
         /** @see createProperty */
         fun createProperty(
             params: DefinitionCreatePropertyParams
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> =
+        ): CompletableFuture<HttpResponseFor<Property>> =
             createProperty(params, RequestOptions.none())
 
         /** @see createProperty */
         fun createProperty(
             params: DefinitionCreatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BaseProperty>>
+        ): CompletableFuture<HttpResponseFor<Property>>
 
         /**
          * Returns a raw HTTP response for `delete
@@ -571,7 +571,7 @@ interface DefinitionServiceAsync {
         fun updateProperty(
             propertyName: String,
             params: DefinitionUpdatePropertyParams,
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> =
+        ): CompletableFuture<HttpResponseFor<Property>> =
             updateProperty(propertyName, params, RequestOptions.none())
 
         /** @see updateProperty */
@@ -579,19 +579,19 @@ interface DefinitionServiceAsync {
             propertyName: String,
             params: DefinitionUpdatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> =
+        ): CompletableFuture<HttpResponseFor<Property>> =
             updateProperty(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
         /** @see updateProperty */
         fun updateProperty(
             params: DefinitionUpdatePropertyParams
-        ): CompletableFuture<HttpResponseFor<BaseProperty>> =
+        ): CompletableFuture<HttpResponseFor<Property>> =
             updateProperty(params, RequestOptions.none())
 
         /** @see updateProperty */
         fun updateProperty(
             params: DefinitionUpdatePropertyParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BaseProperty>>
+        ): CompletableFuture<HttpResponseFor<Property>>
     }
 }

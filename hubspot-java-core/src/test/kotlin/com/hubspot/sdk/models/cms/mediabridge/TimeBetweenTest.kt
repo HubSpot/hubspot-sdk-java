@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,28 +16,14 @@ internal class TimeBetweenTest {
         val timeBetween =
             TimeBetween.builder()
                 .operator(TimeBetween.Operator.TIME_BETWEEN)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
 
         assertThat(timeBetween.operator()).isEqualTo(TimeBetween.Operator.TIME_BETWEEN)
         assertThat(timeBetween.inputs().getOrNull())
-            .containsExactly(
-                TimeBetween.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(timeBetween.propertyName()).contains("propertyName")
         assertThat(timeBetween.value()).contains(0.0)
     }
@@ -47,13 +34,7 @@ internal class TimeBetweenTest {
         val timeBetween =
             TimeBetween.builder()
                 .operator(TimeBetween.Operator.TIME_BETWEEN)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

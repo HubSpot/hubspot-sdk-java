@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Swaps a Legacy CRM Card with an App Card in views. Reference the "Migrate a legacy CRM card to an
+ * app card" docs for more information
+ */
 class CardsDevMigrateViewsParams
 private constructor(
     private val appId: Int?,

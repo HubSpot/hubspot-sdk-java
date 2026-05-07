@@ -10,7 +10,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.models.AbTestCreateRequestVNext
 import com.hubspot.sdk.models.cms.pages.AbTestEndRequestVNext
 import com.hubspot.sdk.models.cms.pages.AbTestRerunRequestVNext
-import com.hubspot.sdk.models.cms.pages.PageData
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.models.cms.pages.abtests.ABTestCreateLandingPageVariationParams
 import com.hubspot.sdk.models.cms.pages.abtests.ABTestCreateSitePageVariationParams
 import com.hubspot.sdk.models.cms.pages.abtests.ABTestEndLandingPageTestParams
@@ -34,20 +34,20 @@ interface ABTestService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ABTestService
 
     /** Create a new A/B test variation based on the information provided in the request body. */
-    fun createLandingPageVariation(params: ABTestCreateLandingPageVariationParams): PageData =
+    fun createLandingPageVariation(params: ABTestCreateLandingPageVariationParams): PagesPage =
         createLandingPageVariation(params, RequestOptions.none())
 
     /** @see createLandingPageVariation */
     fun createLandingPageVariation(
         params: ABTestCreateLandingPageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData
+    ): PagesPage
 
     /** @see createLandingPageVariation */
     fun createLandingPageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData =
+    ): PagesPage =
         createLandingPageVariation(
             ABTestCreateLandingPageVariationParams.builder()
                 .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -56,24 +56,24 @@ interface ABTestService {
         )
 
     /** @see createLandingPageVariation */
-    fun createLandingPageVariation(abTestCreateRequestVNext: AbTestCreateRequestVNext): PageData =
+    fun createLandingPageVariation(abTestCreateRequestVNext: AbTestCreateRequestVNext): PagesPage =
         createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
     /** Create a new A/B test variation based on the information provided in the request body. */
-    fun createSitePageVariation(params: ABTestCreateSitePageVariationParams): PageData =
+    fun createSitePageVariation(params: ABTestCreateSitePageVariationParams): PagesPage =
         createSitePageVariation(params, RequestOptions.none())
 
     /** @see createSitePageVariation */
     fun createSitePageVariation(
         params: ABTestCreateSitePageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData
+    ): PagesPage
 
     /** @see createSitePageVariation */
     fun createSitePageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageData =
+    ): PagesPage =
         createSitePageVariation(
             ABTestCreateSitePageVariationParams.builder()
                 .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -82,7 +82,7 @@ interface ABTestService {
         )
 
     /** @see createSitePageVariation */
-    fun createSitePageVariation(abTestCreateRequestVNext: AbTestCreateRequestVNext): PageData =
+    fun createSitePageVariation(abTestCreateRequestVNext: AbTestCreateRequestVNext): PagesPage =
         createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
     /** End an active A/B test and designate a winner. */
@@ -207,21 +207,21 @@ interface ABTestService {
         @MustBeClosed
         fun createLandingPageVariation(
             params: ABTestCreateLandingPageVariationParams
-        ): HttpResponseFor<PageData> = createLandingPageVariation(params, RequestOptions.none())
+        ): HttpResponseFor<PagesPage> = createLandingPageVariation(params, RequestOptions.none())
 
         /** @see createLandingPageVariation */
         @MustBeClosed
         fun createLandingPageVariation(
             params: ABTestCreateLandingPageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData>
+        ): HttpResponseFor<PagesPage>
 
         /** @see createLandingPageVariation */
         @MustBeClosed
         fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             createLandingPageVariation(
                 ABTestCreateLandingPageVariationParams.builder()
                     .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -233,7 +233,7 @@ interface ABTestService {
         @MustBeClosed
         fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
         /**
@@ -244,21 +244,21 @@ interface ABTestService {
         @MustBeClosed
         fun createSitePageVariation(
             params: ABTestCreateSitePageVariationParams
-        ): HttpResponseFor<PageData> = createSitePageVariation(params, RequestOptions.none())
+        ): HttpResponseFor<PagesPage> = createSitePageVariation(params, RequestOptions.none())
 
         /** @see createSitePageVariation */
         @MustBeClosed
         fun createSitePageVariation(
             params: ABTestCreateSitePageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData>
+        ): HttpResponseFor<PagesPage>
 
         /** @see createSitePageVariation */
         @MustBeClosed
         fun createSitePageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             createSitePageVariation(
                 ABTestCreateSitePageVariationParams.builder()
                     .abTestCreateRequestVNext(abTestCreateRequestVNext)
@@ -270,7 +270,7 @@ interface ABTestService {
         @MustBeClosed
         fun createSitePageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext
-        ): HttpResponseFor<PageData> =
+        ): HttpResponseFor<PagesPage> =
             createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
         /**

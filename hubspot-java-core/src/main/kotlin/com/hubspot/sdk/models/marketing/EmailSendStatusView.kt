@@ -617,6 +617,8 @@ private constructor(
 
             @JvmField val CANCELLED_ABUSE = of("CANCELLED_ABUSE")
 
+            @JvmField val CONTACT_VIEW_PERMISSION = of("CONTACT_VIEW_PERMISSION")
+
             @JvmField val CORRUPT_INPUT = of("CORRUPT_INPUT")
 
             @JvmField val EMAIL_DISABLED = of("EMAIL_DISABLED")
@@ -713,6 +715,7 @@ private constructor(
             BRAND_RECIPIENT_FATIGUE_SUPPRESSED,
             CAMPAIGN_CANCELLED,
             CANCELLED_ABUSE,
+            CONTACT_VIEW_PERMISSION,
             CORRUPT_INPUT,
             EMAIL_DISABLED,
             EMAIL_UNCONFIRMED,
@@ -774,6 +777,7 @@ private constructor(
             BRAND_RECIPIENT_FATIGUE_SUPPRESSED,
             CAMPAIGN_CANCELLED,
             CANCELLED_ABUSE,
+            CONTACT_VIEW_PERMISSION,
             CORRUPT_INPUT,
             EMAIL_DISABLED,
             EMAIL_UNCONFIRMED,
@@ -838,6 +842,7 @@ private constructor(
                 BRAND_RECIPIENT_FATIGUE_SUPPRESSED -> Value.BRAND_RECIPIENT_FATIGUE_SUPPRESSED
                 CAMPAIGN_CANCELLED -> Value.CAMPAIGN_CANCELLED
                 CANCELLED_ABUSE -> Value.CANCELLED_ABUSE
+                CONTACT_VIEW_PERMISSION -> Value.CONTACT_VIEW_PERMISSION
                 CORRUPT_INPUT -> Value.CORRUPT_INPUT
                 EMAIL_DISABLED -> Value.EMAIL_DISABLED
                 EMAIL_UNCONFIRMED -> Value.EMAIL_UNCONFIRMED
@@ -901,6 +906,7 @@ private constructor(
                 BRAND_RECIPIENT_FATIGUE_SUPPRESSED -> Known.BRAND_RECIPIENT_FATIGUE_SUPPRESSED
                 CAMPAIGN_CANCELLED -> Known.CAMPAIGN_CANCELLED
                 CANCELLED_ABUSE -> Known.CANCELLED_ABUSE
+                CONTACT_VIEW_PERMISSION -> Known.CONTACT_VIEW_PERMISSION
                 CORRUPT_INPUT -> Known.CORRUPT_INPUT
                 EMAIL_DISABLED -> Known.EMAIL_DISABLED
                 EMAIL_UNCONFIRMED -> Known.EMAIL_UNCONFIRMED

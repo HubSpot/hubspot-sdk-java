@@ -18,6 +18,7 @@ internal class StandaloneRequestContextTest {
                     ChirpAiContextObject.builder()
                         .applicationGroup("applicationGroup")
                         .applicationId("applicationId")
+                        .isPrivate(true)
                         .metadata(
                             ChirpAiContextObject.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -56,6 +57,7 @@ internal class StandaloneRequestContextTest {
                 ChirpAiContextObject.builder()
                     .applicationGroup("applicationGroup")
                     .applicationId("applicationId")
+                    .isPrivate(true)
                     .metadata(
                         ChirpAiContextObject.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -99,6 +101,7 @@ internal class StandaloneRequestContextTest {
                     ChirpAiContextObject.builder()
                         .applicationGroup("applicationGroup")
                         .applicationId("applicationId")
+                        .isPrivate(true)
                         .metadata(
                             ChirpAiContextObject.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))

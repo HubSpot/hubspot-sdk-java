@@ -77,6 +77,8 @@ private constructor(
     fun completedAt(): OffsetDateTime = completedAt.getRequired("completedAt")
 
     /**
+     * The list of successfully retrieved campaigns with their associated assets.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -100,6 +102,9 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
+     * The list of errors for individual campaign reads that failed within the batch (e.g., campaign
+     * not found, permission denied). Only included when non-empty.
+     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -268,6 +273,7 @@ private constructor(
             this.completedAt = completedAt
         }
 
+        /** The list of successfully retrieved campaigns with their associated assets. */
         fun results(results: List<PublicCampaignWithAssets>) = results(JsonField.of(results))
 
         /**
@@ -319,6 +325,10 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /**
+         * The list of errors for individual campaign reads that failed within the batch (e.g.,
+         * campaign not found, permission denied). Only included when non-empty.
+         */
         fun errors(errors: List<StandardError>) = errors(JsonField.of(errors))
 
         /**
