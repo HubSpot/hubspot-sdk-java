@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,28 +16,14 @@ internal class MoreThanTest {
         val moreThan =
             MoreThan.builder()
                 .operator(MoreThan.Operator.MORE_THAN)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(true)
                 .build()
 
         assertThat(moreThan.operator()).isEqualTo(MoreThan.Operator.MORE_THAN)
         assertThat(moreThan.inputs().getOrNull())
-            .containsExactly(
-                MoreThan.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(moreThan.propertyName()).contains("propertyName")
         assertThat(moreThan.value()).contains(true)
     }
@@ -47,13 +34,7 @@ internal class MoreThanTest {
         val moreThan =
             MoreThan.builder()
                 .operator(MoreThan.Operator.MORE_THAN)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(true)
                 .build()

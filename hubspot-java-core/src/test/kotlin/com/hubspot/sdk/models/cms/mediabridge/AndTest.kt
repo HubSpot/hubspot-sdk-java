@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,29 +17,14 @@ internal class AndTest {
             And.builder()
                 .enclosedInParentheses(true)
                 .operator(And.Operator.AND)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(true)
                 .build()
 
         assertThat(and.enclosedInParentheses()).isEqualTo(true)
         assertThat(and.operator()).isEqualTo(And.Operator.AND)
-        assertThat(and.inputs().getOrNull())
-            .containsExactly(
-                And.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+        assertThat(and.inputs().getOrNull()).containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(and.propertyName()).contains("propertyName")
         assertThat(and.value()).contains(true)
     }
@@ -50,13 +36,7 @@ internal class AndTest {
             And.builder()
                 .enclosedInParentheses(true)
                 .operator(And.Operator.AND)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value(true)
                 .build()

@@ -37,11 +37,21 @@ private constructor(
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
+    /**
+     * End date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch the
+     * metrics associated with the assets for a specified period. If not provided, no asset metrics
+     * will be fetched. Example: 2024-01-27
+     */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<String> = Optional.ofNullable(limit)
 
+    /**
+     * Start date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch the
+     * metrics associated with the assets for a specified period. If not provided, no asset metrics
+     * will be fetched. Example: 2023-01-20
+     */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -105,6 +115,11 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
+        /**
+         * End date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch the
+         * metrics associated with the assets for a specified period. If not provided, no asset
+         * metrics will be fetched. Example: 2024-01-27
+         */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
@@ -116,6 +131,11 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<String>) = limit(limit.getOrNull())
 
+        /**
+         * Start date to fetch asset metrics, formatted as YYYY-MM-DD. This date is used to fetch
+         * the metrics associated with the assets for a specified period. If not provided, no asset
+         * metrics will be fetched. Example: 2023-01-20
+         */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

@@ -16,6 +16,7 @@ internal class ChirpAiContextObjectTest {
             ChirpAiContextObject.builder()
                 .applicationGroup("applicationGroup")
                 .applicationId("applicationId")
+                .isPrivate(true)
                 .metadata(
                     ChirpAiContextObject.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -47,6 +48,7 @@ internal class ChirpAiContextObjectTest {
 
         assertThat(chirpAiContextObject.applicationGroup()).isEqualTo("applicationGroup")
         assertThat(chirpAiContextObject.applicationId()).isEqualTo("applicationId")
+        assertThat(chirpAiContextObject.isPrivate()).isEqualTo(true)
         assertThat(chirpAiContextObject.metadata())
             .isEqualTo(
                 ChirpAiContextObject.Metadata.builder()
@@ -86,6 +88,7 @@ internal class ChirpAiContextObjectTest {
             ChirpAiContextObject.builder()
                 .applicationGroup("applicationGroup")
                 .applicationId("applicationId")
+                .isPrivate(true)
                 .metadata(
                     ChirpAiContextObject.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

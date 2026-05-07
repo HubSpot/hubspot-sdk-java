@@ -28,10 +28,21 @@ private constructor(
 
     fun campaignGuid(): Optional<String> = Optional.ofNullable(campaignGuid)
 
+    /**
+     * The end date for fetching asset metrics, in YYYY-MM-DD format. Optional. Example: 2000-01-27
+     */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
+    /**
+     * A comma-separated list of properties to include in the response. Unrecognized properties are
+     * ignored. Optional. Example: hs_name,hs_budget, hs_notes
+     */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
+    /**
+     * The start date for fetching asset metrics, in YYYY-MM-DD format. Optional. Example:
+     * 2000-01-20
+     */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -75,11 +86,19 @@ private constructor(
         /** Alias for calling [Builder.campaignGuid] with `campaignGuid.orElse(null)`. */
         fun campaignGuid(campaignGuid: Optional<String>) = campaignGuid(campaignGuid.getOrNull())
 
+        /**
+         * The end date for fetching asset metrics, in YYYY-MM-DD format. Optional. Example:
+         * 2000-01-27
+         */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
+        /**
+         * A comma-separated list of properties to include in the response. Unrecognized properties
+         * are ignored. Optional. Example: hs_name,hs_budget, hs_notes
+         */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -96,6 +115,10 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
+        /**
+         * The start date for fetching asset metrics, in YYYY-MM-DD format. Optional. Example:
+         * 2000-01-20
+         */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

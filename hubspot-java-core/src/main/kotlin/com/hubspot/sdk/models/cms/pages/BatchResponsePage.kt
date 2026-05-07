@@ -25,7 +25,7 @@ class BatchResponsePage
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val completedAt: JsonField<OffsetDateTime>,
-    private val results: JsonField<List<PageData>>,
+    private val results: JsonField<List<PagesPage>>,
     private val startedAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val links: JsonField<Links>,
@@ -40,7 +40,7 @@ private constructor(
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("results")
         @ExcludeMissing
-        results: JsonField<List<PageData>> = JsonMissing.of(),
+        results: JsonField<List<PagesPage>> = JsonMissing.of(),
         @JsonProperty("startedAt")
         @ExcludeMissing
         startedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -65,7 +65,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun results(): List<PageData> = results.getRequired("results")
+    fun results(): List<PagesPage> = results.getRequired("results")
 
     /**
      * Time of batch operation start.
@@ -113,7 +113,7 @@ private constructor(
      *
      * Unlike [results], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<PageData>> = results
+    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<PagesPage>> = results
 
     /**
      * Returns the raw JSON value of [startedAt].
@@ -179,7 +179,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var completedAt: JsonField<OffsetDateTime>? = null
-        private var results: JsonField<MutableList<PageData>>? = null
+        private var results: JsonField<MutableList<PagesPage>>? = null
         private var startedAt: JsonField<OffsetDateTime>? = null
         private var status: JsonField<Status>? = null
         private var links: JsonField<Links> = JsonMissing.of()
@@ -212,25 +212,25 @@ private constructor(
         }
 
         /** Results of batch operation. */
-        fun results(results: List<PageData>) = results(JsonField.of(results))
+        fun results(results: List<PagesPage>) = results(JsonField.of(results))
 
         /**
          * Sets [Builder.results] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.results] with a well-typed `List<PageData>` value
+         * You should usually call [Builder.results] with a well-typed `List<PagesPage>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun results(results: JsonField<List<PageData>>) = apply {
+        fun results(results: JsonField<List<PagesPage>>) = apply {
             this.results = results.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [PageData] to [results].
+         * Adds a single [PagesPage] to [results].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResult(result: PageData) = apply {
+        fun addResult(result: PagesPage) = apply {
             results =
                 (results ?: JsonField.of(mutableListOf())).also {
                     checkKnown("results", it).add(result)

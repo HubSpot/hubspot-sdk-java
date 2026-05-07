@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,13 +16,7 @@ internal class FormatSearchablePhoneNumberTest {
         val formatSearchablePhoneNumber =
             FormatSearchablePhoneNumber.builder()
                 .operator(FormatSearchablePhoneNumber.Operator.FORMAT_SEARCHABLE_PHONE_NUMBER)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()
@@ -29,15 +24,7 @@ internal class FormatSearchablePhoneNumberTest {
         assertThat(formatSearchablePhoneNumber.operator())
             .isEqualTo(FormatSearchablePhoneNumber.Operator.FORMAT_SEARCHABLE_PHONE_NUMBER)
         assertThat(formatSearchablePhoneNumber.inputs().getOrNull())
-            .containsExactly(
-                FormatSearchablePhoneNumber.Input.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(formatSearchablePhoneNumber.propertyName()).contains("propertyName")
         assertThat(formatSearchablePhoneNumber.value()).contains("value")
     }
@@ -48,13 +35,7 @@ internal class FormatSearchablePhoneNumberTest {
         val formatSearchablePhoneNumber =
             FormatSearchablePhoneNumber.builder()
                 .operator(FormatSearchablePhoneNumber.Operator.FORMAT_SEARCHABLE_PHONE_NUMBER)
-                .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                .addInput(JsonValue.from(mapOf<String, Any>()))
                 .propertyName("propertyName")
                 .value("value")
                 .build()

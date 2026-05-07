@@ -10,7 +10,7 @@ import com.hubspot.sdk.models.cms.PublicAccessRule
 import com.hubspot.sdk.models.cms.pages.BatchInputContentFolder
 import com.hubspot.sdk.models.cms.pages.BatchInputPage
 import com.hubspot.sdk.models.cms.pages.ContentFolder
-import com.hubspot.sdk.models.cms.pages.PageData
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.models.cms.pages.batch.BatchGetLandingPagesParams
 import com.hubspot.sdk.models.cms.pages.batch.BatchGetSitePagesParams
 import com.hubspot.sdk.models.cms.pages.batch.BatchUpdateFoldersParams
@@ -59,14 +59,14 @@ internal class BatchServiceAsyncTest {
             batchServiceAsync.createLandingPages(
                 BatchInputPage.builder()
                     .addInput(
-                        PageData.builder()
+                        PagesPage.builder()
                             .id("id")
-                            .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                PageData.AttachedStylesheet.builder()
+                                PagesPage.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -77,11 +77,11 @@ internal class BatchServiceAsyncTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(PageData.ContentTypeCategory._0)
+                            .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(PageData.CurrentState.AGENT_GENERATED)
+                            .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -95,9 +95,9 @@ internal class BatchServiceAsyncTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(PageData.Language.AA)
+                            .language(PagesPage.Language.AA)
                             .layoutSections(
-                                PageData.LayoutSections.builder()
+                                PagesPage.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -351,7 +351,7 @@ internal class BatchServiceAsyncTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                PageData.ThemeSettingsValues.builder()
+                                PagesPage.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -360,7 +360,7 @@ internal class BatchServiceAsyncTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                PageData.Translations.builder()
+                                PagesPage.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -390,7 +390,7 @@ internal class BatchServiceAsyncTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                PageData.WidgetContainers.builder()
+                                PagesPage.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -398,7 +398,7 @@ internal class BatchServiceAsyncTest {
                                     .build()
                             )
                             .widgets(
-                                PageData.Widgets.builder()
+                                PagesPage.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -424,14 +424,14 @@ internal class BatchServiceAsyncTest {
             batchServiceAsync.createSitePages(
                 BatchInputPage.builder()
                     .addInput(
-                        PageData.builder()
+                        PagesPage.builder()
                             .id("id")
-                            .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                PageData.AttachedStylesheet.builder()
+                                PagesPage.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -442,11 +442,11 @@ internal class BatchServiceAsyncTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(PageData.ContentTypeCategory._0)
+                            .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(PageData.CurrentState.AGENT_GENERATED)
+                            .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -460,9 +460,9 @@ internal class BatchServiceAsyncTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(PageData.Language.AA)
+                            .language(PagesPage.Language.AA)
                             .layoutSections(
-                                PageData.LayoutSections.builder()
+                                PagesPage.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -716,7 +716,7 @@ internal class BatchServiceAsyncTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                PageData.ThemeSettingsValues.builder()
+                                PagesPage.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -725,7 +725,7 @@ internal class BatchServiceAsyncTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                PageData.Translations.builder()
+                                PagesPage.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -755,7 +755,7 @@ internal class BatchServiceAsyncTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                PageData.WidgetContainers.builder()
+                                PagesPage.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -763,7 +763,7 @@ internal class BatchServiceAsyncTest {
                                     .build()
                             )
                             .widgets(
-                                PageData.Widgets.builder()
+                                PagesPage.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),

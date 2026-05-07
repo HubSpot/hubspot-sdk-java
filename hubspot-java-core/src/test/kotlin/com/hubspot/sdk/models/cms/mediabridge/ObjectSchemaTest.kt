@@ -4,7 +4,7 @@ package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
-import com.hubspot.sdk.models.BaseAssociationDefinition
+import com.hubspot.sdk.models.AssociationDefinition
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
 import com.hubspot.sdk.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
@@ -21,7 +21,7 @@ internal class ObjectSchemaTest {
                 .allowsSensitiveProperties(true)
                 .archived(true)
                 .addAssociation(
-                    BaseAssociationDefinition.builder()
+                    AssociationDefinition.builder()
                         .id("id")
                         .fromObjectTypeId("fromObjectTypeId")
                         .toObjectTypeId("toObjectTypeId")
@@ -103,7 +103,7 @@ internal class ObjectSchemaTest {
         assertThat(objectSchema.archived()).isEqualTo(true)
         assertThat(objectSchema.associations())
             .containsExactly(
-                BaseAssociationDefinition.builder()
+                AssociationDefinition.builder()
                     .id("id")
                     .fromObjectTypeId("fromObjectTypeId")
                     .toObjectTypeId("toObjectTypeId")
@@ -190,7 +190,7 @@ internal class ObjectSchemaTest {
                 .allowsSensitiveProperties(true)
                 .archived(true)
                 .addAssociation(
-                    BaseAssociationDefinition.builder()
+                    AssociationDefinition.builder()
                         .id("id")
                         .fromObjectTypeId("fromObjectTypeId")
                         .toObjectTypeId("toObjectTypeId")

@@ -53,18 +53,6 @@ internal class ChannelIntegrationMessageEggTest {
                 .inReplyToId("inReplyToId")
                 .integrationIdempotencyId("integrationIdempotencyId")
                 .integrationThreadId("integrationThreadId")
-                .preResolvedContacts(
-                    PreResolvedContacts.builder()
-                        .addContact(
-                            PreResolvedContact.builder()
-                                .addContactPropertiesLeadingToMatch(
-                                    PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
-                                )
-                                .contactVid(0L)
-                                .build()
-                        )
-                        .build()
-                )
                 .richText("richText")
                 .build()
 
@@ -116,19 +104,6 @@ internal class ChannelIntegrationMessageEggTest {
             .contains("integrationIdempotencyId")
         assertThat(channelIntegrationMessageEgg.integrationThreadId())
             .contains("integrationThreadId")
-        assertThat(channelIntegrationMessageEgg.preResolvedContacts())
-            .contains(
-                PreResolvedContacts.builder()
-                    .addContact(
-                        PreResolvedContact.builder()
-                            .addContactPropertiesLeadingToMatch(
-                                PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
-                            )
-                            .contactVid(0L)
-                            .build()
-                    )
-                    .build()
-            )
         assertThat(channelIntegrationMessageEgg.richText()).contains("richText")
     }
 
@@ -176,18 +151,6 @@ internal class ChannelIntegrationMessageEggTest {
                 .inReplyToId("inReplyToId")
                 .integrationIdempotencyId("integrationIdempotencyId")
                 .integrationThreadId("integrationThreadId")
-                .preResolvedContacts(
-                    PreResolvedContacts.builder()
-                        .addContact(
-                            PreResolvedContact.builder()
-                                .addContactPropertiesLeadingToMatch(
-                                    PreResolvedContact.ContactPropertiesLeadingToMatch.ADDRESS
-                                )
-                                .contactVid(0L)
-                                .build()
-                        )
-                        .build()
-                )
                 .richText("richText")
                 .build()
 

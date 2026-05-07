@@ -186,6 +186,10 @@ interface CardsDevServiceAsync {
     ): CompletableFuture<IntegratorCardPayloadResponse> =
         getSampleResponse(CardsDevGetSampleResponseParams.none(), requestOptions)
 
+    /**
+     * Swaps a Legacy CRM Card with an App Card in views. Reference the "Migrate a legacy CRM card
+     * to an app card" docs for more information
+     */
     fun migrateViews(
         appId: Int,
         params: CardsDevMigrateViewsParams,

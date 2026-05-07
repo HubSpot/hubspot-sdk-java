@@ -11,7 +11,7 @@ import com.hubspot.sdk.models.cms.DetachFromLangGroupRequestVNext
 import com.hubspot.sdk.models.cms.SetNewLanguagePrimaryRequestVNext
 import com.hubspot.sdk.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot.sdk.models.cms.pages.ContentLanguageCloneRequestVNext
-import com.hubspot.sdk.models.cms.pages.PageData
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.models.cms.pages.multilanguage.MultiLanguageAttachToLangGroupParams
 import com.hubspot.sdk.models.cms.pages.multilanguage.MultiLanguageCreateLanguageVariationParams
 import com.hubspot.sdk.models.cms.pages.multilanguage.MultiLanguageDetachFromLangGroupParams
@@ -70,19 +70,19 @@ interface MultiLanguageServiceAsync {
      */
     fun createLanguageVariation(
         params: MultiLanguageCreateLanguageVariationParams
-    ): CompletableFuture<PageData> = createLanguageVariation(params, RequestOptions.none())
+    ): CompletableFuture<PagesPage> = createLanguageVariation(params, RequestOptions.none())
 
     /** @see createLanguageVariation */
     fun createLanguageVariation(
         params: MultiLanguageCreateLanguageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData>
+    ): CompletableFuture<PagesPage>
 
     /** @see createLanguageVariation */
     fun createLanguageVariation(
         contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         createLanguageVariation(
             MultiLanguageCreateLanguageVariationParams.builder()
                 .contentLanguageCloneRequestVNext(contentLanguageCloneRequestVNext)
@@ -93,7 +93,7 @@ interface MultiLanguageServiceAsync {
     /** @see createLanguageVariation */
     fun createLanguageVariation(
         contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext
-    ): CompletableFuture<PageData> =
+    ): CompletableFuture<PagesPage> =
         createLanguageVariation(contentLanguageCloneRequestVNext, RequestOptions.none())
 
     /** Detach a website page from a multi-language group. */
@@ -237,20 +237,20 @@ interface MultiLanguageServiceAsync {
          */
         fun createLanguageVariation(
             params: MultiLanguageCreateLanguageVariationParams
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             createLanguageVariation(params, RequestOptions.none())
 
         /** @see createLanguageVariation */
         fun createLanguageVariation(
             params: MultiLanguageCreateLanguageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>>
+        ): CompletableFuture<HttpResponseFor<PagesPage>>
 
         /** @see createLanguageVariation */
         fun createLanguageVariation(
             contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             createLanguageVariation(
                 MultiLanguageCreateLanguageVariationParams.builder()
                     .contentLanguageCloneRequestVNext(contentLanguageCloneRequestVNext)
@@ -261,7 +261,7 @@ interface MultiLanguageServiceAsync {
         /** @see createLanguageVariation */
         fun createLanguageVariation(
             contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext
-        ): CompletableFuture<HttpResponseFor<PageData>> =
+        ): CompletableFuture<HttpResponseFor<PagesPage>> =
             createLanguageVariation(contentLanguageCloneRequestVNext, RequestOptions.none())
 
         /**

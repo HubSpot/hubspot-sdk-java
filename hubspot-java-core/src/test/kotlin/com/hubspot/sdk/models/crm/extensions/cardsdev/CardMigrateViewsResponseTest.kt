@@ -11,15 +11,33 @@ internal class CardMigrateViewsResponseTest {
 
     @Test
     fun create() {
-        val cardMigrateViewsResponse = CardMigrateViewsResponse.builder().message("message").build()
+        val cardMigrateViewsResponse =
+            CardMigrateViewsResponse.builder()
+                .message("message")
+                .endedAt(0L)
+                .remainingPortalCount(0L)
+                .startedAt(0L)
+                .totalPortalCount(0L)
+                .build()
 
         assertThat(cardMigrateViewsResponse.message()).isEqualTo("message")
+        assertThat(cardMigrateViewsResponse.endedAt()).contains(0L)
+        assertThat(cardMigrateViewsResponse.remainingPortalCount()).contains(0L)
+        assertThat(cardMigrateViewsResponse.startedAt()).contains(0L)
+        assertThat(cardMigrateViewsResponse.totalPortalCount()).contains(0L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val cardMigrateViewsResponse = CardMigrateViewsResponse.builder().message("message").build()
+        val cardMigrateViewsResponse =
+            CardMigrateViewsResponse.builder()
+                .message("message")
+                .endedAt(0L)
+                .remainingPortalCount(0L)
+                .startedAt(0L)
+                .totalPortalCount(0L)
+                .build()
 
         val roundtrippedCardMigrateViewsResponse =
             jsonMapper.readValue(

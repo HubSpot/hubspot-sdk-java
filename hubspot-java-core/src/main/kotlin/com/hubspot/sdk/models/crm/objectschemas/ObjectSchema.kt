@@ -14,9 +14,9 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.BaseAssociationDefinition
-import com.hubspot.sdk.models.BaseProperty
+import com.hubspot.sdk.models.AssociationDefinition
 import com.hubspot.sdk.models.ObjectTypeDefinitionLabels
+import com.hubspot.sdk.models.Property
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -29,12 +29,12 @@ private constructor(
     private val id: JsonField<String>,
     private val allowsSensitiveProperties: JsonField<Boolean>,
     private val archived: JsonField<Boolean>,
-    private val associations: JsonField<List<BaseAssociationDefinition>>,
+    private val associations: JsonField<List<AssociationDefinition>>,
     private val fullyQualifiedName: JsonField<String>,
     private val labels: JsonField<ObjectTypeDefinitionLabels>,
     private val name: JsonField<String>,
     private val objectTypeId: JsonField<String>,
-    private val properties: JsonField<List<BaseProperty>>,
+    private val properties: JsonField<List<Property>>,
     private val requiredProperties: JsonField<List<String>>,
     private val searchableProperties: JsonField<List<String>>,
     private val secondaryDisplayProperties: JsonField<List<String>>,
@@ -56,7 +56,7 @@ private constructor(
         @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("associations")
         @ExcludeMissing
-        associations: JsonField<List<BaseAssociationDefinition>> = JsonMissing.of(),
+        associations: JsonField<List<AssociationDefinition>> = JsonMissing.of(),
         @JsonProperty("fullyQualifiedName")
         @ExcludeMissing
         fullyQualifiedName: JsonField<String> = JsonMissing.of(),
@@ -69,7 +69,7 @@ private constructor(
         objectTypeId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("properties")
         @ExcludeMissing
-        properties: JsonField<List<BaseProperty>> = JsonMissing.of(),
+        properties: JsonField<List<Property>> = JsonMissing.of(),
         @JsonProperty("requiredProperties")
         @ExcludeMissing
         requiredProperties: JsonField<List<String>> = JsonMissing.of(),
@@ -146,7 +146,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun associations(): List<BaseAssociationDefinition> = associations.getRequired("associations")
+    fun associations(): List<AssociationDefinition> = associations.getRequired("associations")
 
     /**
      * An assigned unique ID for the object, including portal ID and object name.
@@ -182,7 +182,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun properties(): List<BaseProperty> = properties.getRequired("properties")
+    fun properties(): List<Property> = properties.getRequired("properties")
 
     /**
      * The names of properties that should be **required** when creating an object of this type.
@@ -286,7 +286,7 @@ private constructor(
      */
     @JsonProperty("associations")
     @ExcludeMissing
-    fun _associations(): JsonField<List<BaseAssociationDefinition>> = associations
+    fun _associations(): JsonField<List<AssociationDefinition>> = associations
 
     /**
      * Returns the raw JSON value of [fullyQualifiedName].
@@ -330,7 +330,7 @@ private constructor(
      */
     @JsonProperty("properties")
     @ExcludeMissing
-    fun _properties(): JsonField<List<BaseProperty>> = properties
+    fun _properties(): JsonField<List<Property>> = properties
 
     /**
      * Returns the raw JSON value of [requiredProperties].
@@ -457,12 +457,12 @@ private constructor(
         private var id: JsonField<String>? = null
         private var allowsSensitiveProperties: JsonField<Boolean>? = null
         private var archived: JsonField<Boolean>? = null
-        private var associations: JsonField<MutableList<BaseAssociationDefinition>>? = null
+        private var associations: JsonField<MutableList<AssociationDefinition>>? = null
         private var fullyQualifiedName: JsonField<String>? = null
         private var labels: JsonField<ObjectTypeDefinitionLabels>? = null
         private var name: JsonField<String>? = null
         private var objectTypeId: JsonField<String>? = null
-        private var properties: JsonField<MutableList<BaseProperty>>? = null
+        private var properties: JsonField<MutableList<Property>>? = null
         private var requiredProperties: JsonField<MutableList<String>>? = null
         private var searchableProperties: JsonField<MutableList<String>>? = null
         private var secondaryDisplayProperties: JsonField<MutableList<String>>? = null
@@ -537,26 +537,26 @@ private constructor(
         fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
         /** Associations defined for a given object type. */
-        fun associations(associations: List<BaseAssociationDefinition>) =
+        fun associations(associations: List<AssociationDefinition>) =
             associations(JsonField.of(associations))
 
         /**
          * Sets [Builder.associations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.associations] with a well-typed
-         * `List<BaseAssociationDefinition>` value instead. This method is primarily for setting the
+         * `List<AssociationDefinition>` value instead. This method is primarily for setting the
          * field to an undocumented or not yet supported value.
          */
-        fun associations(associations: JsonField<List<BaseAssociationDefinition>>) = apply {
+        fun associations(associations: JsonField<List<AssociationDefinition>>) = apply {
             this.associations = associations.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [BaseAssociationDefinition] to [associations].
+         * Adds a single [AssociationDefinition] to [associations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addAssociation(association: BaseAssociationDefinition) = apply {
+        fun addAssociation(association: AssociationDefinition) = apply {
             associations =
                 (associations ?: JsonField.of(mutableListOf())).also {
                     checkKnown("associations", it).add(association)
@@ -614,25 +614,25 @@ private constructor(
         }
 
         /** Properties defined for this object type. */
-        fun properties(properties: List<BaseProperty>) = properties(JsonField.of(properties))
+        fun properties(properties: List<Property>) = properties(JsonField.of(properties))
 
         /**
          * Sets [Builder.properties] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.properties] with a well-typed `List<BaseProperty>` value
+         * You should usually call [Builder.properties] with a well-typed `List<Property>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun properties(properties: JsonField<List<BaseProperty>>) = apply {
+        fun properties(properties: JsonField<List<Property>>) = apply {
             this.properties = properties.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [BaseProperty] to [properties].
+         * Adds a single [Property] to [properties].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addProperty(property: BaseProperty) = apply {
+        fun addProperty(property: Property) = apply {
             properties =
                 (properties ?: JsonField.of(mutableListOf())).also {
                     checkKnown("properties", it).add(property)

@@ -4,7 +4,7 @@ package com.hubspot.sdk.models.cms.pages.websitepages
 
 import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.models.cms.PublicAccessRule
-import com.hubspot.sdk.models.cms.pages.PageData
+import com.hubspot.sdk.models.cms.pages.PagesPage
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,15 +14,15 @@ internal class WebsitePageCreateParamsTest {
     @Test
     fun create() {
         WebsitePageCreateParams.builder()
-            .pageData(
-                PageData.builder()
+            .pagesPage(
+                PagesPage.builder()
                     .id("id")
-                    .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        PageData.AttachedStylesheet.builder()
+                        PagesPage.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -30,11 +30,11 @@ internal class WebsitePageCreateParamsTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(PageData.ContentTypeCategory._0)
+                    .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(PageData.CurrentState.AGENT_GENERATED)
+                    .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -48,9 +48,9 @@ internal class WebsitePageCreateParamsTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(PageData.Language.AA)
+                    .language(PagesPage.Language.AA)
                     .layoutSections(
-                        PageData.LayoutSections.builder()
+                        PagesPage.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -281,13 +281,13 @@ internal class WebsitePageCreateParamsTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        PageData.ThemeSettingsValues.builder()
+                        PagesPage.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        PageData.Translations.builder()
+                        PagesPage.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -317,12 +317,12 @@ internal class WebsitePageCreateParamsTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        PageData.WidgetContainers.builder()
+                        PagesPage.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        PageData.Widgets.builder()
+                        PagesPage.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -335,15 +335,15 @@ internal class WebsitePageCreateParamsTest {
     fun body() {
         val params =
             WebsitePageCreateParams.builder()
-                .pageData(
-                    PageData.builder()
+                .pagesPage(
+                    PagesPage.builder()
                         .id("id")
-                        .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            PageData.AttachedStylesheet.builder()
+                            PagesPage.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -351,11 +351,11 @@ internal class WebsitePageCreateParamsTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(PageData.ContentTypeCategory._0)
+                        .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(PageData.CurrentState.AGENT_GENERATED)
+                        .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -369,9 +369,9 @@ internal class WebsitePageCreateParamsTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(PageData.Language.AA)
+                        .language(PagesPage.Language.AA)
                         .layoutSections(
-                            PageData.LayoutSections.builder()
+                            PagesPage.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -614,13 +614,13 @@ internal class WebsitePageCreateParamsTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            PageData.ThemeSettingsValues.builder()
+                            PagesPage.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            PageData.Translations.builder()
+                            PagesPage.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -650,12 +650,12 @@ internal class WebsitePageCreateParamsTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            PageData.WidgetContainers.builder()
+                            PagesPage.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            PageData.Widgets.builder()
+                            PagesPage.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -667,14 +667,14 @@ internal class WebsitePageCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                PageData.builder()
+                PagesPage.builder()
                     .id("id")
-                    .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        PageData.AttachedStylesheet.builder()
+                        PagesPage.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -682,11 +682,11 @@ internal class WebsitePageCreateParamsTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(PageData.ContentTypeCategory._0)
+                    .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(PageData.CurrentState.AGENT_GENERATED)
+                    .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -700,9 +700,9 @@ internal class WebsitePageCreateParamsTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(PageData.Language.AA)
+                    .language(PagesPage.Language.AA)
                     .layoutSections(
-                        PageData.LayoutSections.builder()
+                        PagesPage.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -933,13 +933,13 @@ internal class WebsitePageCreateParamsTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        PageData.ThemeSettingsValues.builder()
+                        PagesPage.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        PageData.Translations.builder()
+                        PagesPage.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -969,12 +969,12 @@ internal class WebsitePageCreateParamsTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        PageData.WidgetContainers.builder()
+                        PagesPage.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        PageData.Widgets.builder()
+                        PagesPage.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -986,15 +986,15 @@ internal class WebsitePageCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             WebsitePageCreateParams.builder()
-                .pageData(
-                    PageData.builder()
+                .pagesPage(
+                    PagesPage.builder()
                         .id("id")
-                        .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            PageData.AttachedStylesheet.builder()
+                            PagesPage.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -1002,11 +1002,11 @@ internal class WebsitePageCreateParamsTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(PageData.ContentTypeCategory._0)
+                        .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(PageData.CurrentState.AGENT_GENERATED)
+                        .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -1020,9 +1020,9 @@ internal class WebsitePageCreateParamsTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(PageData.Language.AA)
+                        .language(PagesPage.Language.AA)
                         .layoutSections(
-                            PageData.LayoutSections.builder()
+                            PagesPage.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -1167,13 +1167,13 @@ internal class WebsitePageCreateParamsTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            PageData.ThemeSettingsValues.builder()
+                            PagesPage.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            PageData.Translations.builder()
+                            PagesPage.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -1202,12 +1202,12 @@ internal class WebsitePageCreateParamsTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            PageData.WidgetContainers.builder()
+                            PagesPage.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            PageData.Widgets.builder()
+                            PagesPage.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -1219,14 +1219,14 @@ internal class WebsitePageCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                PageData.builder()
+                PagesPage.builder()
                     .id("id")
-                    .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(PagesPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        PageData.AttachedStylesheet.builder()
+                        PagesPage.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -1234,11 +1234,11 @@ internal class WebsitePageCreateParamsTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(PageData.ContentTypeCategory._0)
+                    .contentTypeCategory(PagesPage.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(PageData.CurrentState.AGENT_GENERATED)
+                    .currentState(PagesPage.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -1252,9 +1252,9 @@ internal class WebsitePageCreateParamsTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(PageData.Language.AA)
+                    .language(PagesPage.Language.AA)
                     .layoutSections(
-                        PageData.LayoutSections.builder()
+                        PagesPage.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -1387,13 +1387,13 @@ internal class WebsitePageCreateParamsTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        PageData.ThemeSettingsValues.builder()
+                        PagesPage.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        PageData.Translations.builder()
+                        PagesPage.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -1422,12 +1422,12 @@ internal class WebsitePageCreateParamsTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        PageData.WidgetContainers.builder()
+                        PagesPage.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        PageData.Widgets.builder()
+                        PagesPage.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
