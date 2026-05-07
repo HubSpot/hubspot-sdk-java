@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot.sdk/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3)
-[![javadoc](https://javadoc.io/badge2/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3/javadoc.svg)](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot.sdk/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot.sdk/hubspot-java/0.1.0-alpha.4)
+[![javadoc](https://javadoc.io/badge2/com.hubspot.sdk/hubspot-java/0.1.0-alpha.4/javadoc.svg)](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.4)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.3).
+The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.4).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [developers.hubspot.com](https://deve
 ### Gradle
 
 ```kotlin
-implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.3")
+implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.4")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.3")
 <dependency>
   <groupId>com.hubspot.sdk</groupId>
   <artifactId>hubspot-java</artifactId>
-  <version>0.1.0-alpha.3</version>
+  <version>0.1.0-alpha.4</version>
 </dependency>
 ```
 
@@ -575,6 +575,22 @@ HubSpotClient client = HubSpotOkHttpClient.builder()
         "https://example.com", 8080
       )
     ))
+    .accessToken("My Access Token")
+    .build();
+```
+
+If the proxy responds with `407 Proxy Authentication Required`, supply credentials by also configuring `proxyAuthenticator`:
+
+```java
+import com.hubspot.sdk.client.HubSpotClient;
+import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.sdk.core.http.ProxyAuthenticator;
+
+HubSpotClient client = HubSpotOkHttpClient.builder()
+    .fromEnv()
+    .proxy(...)
+    // Or a custom implementation of `ProxyAuthenticator`.
+    .proxyAuthenticator(ProxyAuthenticator.basic("username", "password"))
     .accessToken("My Access Token")
     .build();
 ```
