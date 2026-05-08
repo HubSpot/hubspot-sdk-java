@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.hubspot.sdk.client.HubSpotClient
 import com.hubspot.sdk.client.HubSpotClientImpl
 import com.hubspot.sdk.core.ClientOptions
+import com.hubspot.sdk.core.LogLevel
 import com.hubspot.sdk.core.Sleeper
 import com.hubspot.sdk.core.Timeout
 import com.hubspot.sdk.core.http.AsyncStreamResponse
@@ -289,6 +290,15 @@ class HubSpotOkHttpClient private constructor() {
          * Defaults to 2.
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        /**
+         * The level at which to log request and response information.
+         *
+         * [fromEnv] will set the level from environment variables. See [LogLevel.fromEnv].
+         *
+         * Defaults to [LogLevel.fromEnv].
+         */
+        fun logLevel(logLevel: LogLevel) = apply { clientOptions.logLevel(logLevel) }
 
         fun accessToken(accessToken: String?) = apply { clientOptions.accessToken(accessToken) }
 
