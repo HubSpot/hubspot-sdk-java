@@ -468,8 +468,6 @@ while (true) {
 
 ## Logging
 
-The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
-
 Enable logging by setting the `HUBSPOT_LOG` environment variable to `info`:
 
 ```sh
@@ -480,6 +478,20 @@ Or to `debug` for more verbose logging:
 
 ```sh
 export HUBSPOT_LOG=debug
+```
+
+Or configure the client manually using the `logLevel` method:
+
+```java
+import com.hubspot.sdk.client.HubSpotClient;
+import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient;
+import com.hubspot.sdk.core.LogLevel;
+
+HubSpotClient client = HubSpotOkHttpClient.builder()
+    .fromEnv()
+    .logLevel(LogLevel.INFO)
+    .accessToken("My Access Token")
+    .build();
 ```
 
 ## ProGuard and R8
