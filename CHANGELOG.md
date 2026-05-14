@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2026-05-14)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/HubSpot/hubspot-sdk-java/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* **client:** improve logging ([173cea3](https://github.com/HubSpot/hubspot-sdk-java/commit/173cea363bc7dc0d904ece4f9497dc473f165467))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([eb4db5c](https://github.com/HubSpot/hubspot-sdk-java/commit/eb4db5cde17cde3a9084b100df3c03290ac1eda4))
+
 ## 0.1.0-alpha.5 (2026-05-07)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/HubSpot/hubspot-sdk-java/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
