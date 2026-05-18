@@ -13,11 +13,11 @@ internal class StringFieldSchemaTest {
     fun create() {
         val stringFieldSchema =
             StringFieldSchema.builder()
-                .type(StringFieldSchema.Type.STRING)
+                .type(StringFieldSchema.Type.ARRAY)
                 .format(StringFieldSchema.Format.DATE)
                 .build()
 
-        assertThat(stringFieldSchema.type()).isEqualTo(StringFieldSchema.Type.STRING)
+        assertThat(stringFieldSchema.type()).isEqualTo(StringFieldSchema.Type.ARRAY)
         assertThat(stringFieldSchema.format()).contains(StringFieldSchema.Format.DATE)
     }
 
@@ -26,7 +26,7 @@ internal class StringFieldSchemaTest {
         val jsonMapper = jsonMapper()
         val stringFieldSchema =
             StringFieldSchema.builder()
-                .type(StringFieldSchema.Type.STRING)
+                .type(StringFieldSchema.Type.ARRAY)
                 .format(StringFieldSchema.Format.DATE)
                 .build()
 

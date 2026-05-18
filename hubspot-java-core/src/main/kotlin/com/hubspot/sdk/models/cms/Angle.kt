@@ -215,23 +215,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val DEG = of("deg")
+            @JvmField val DEGREES = of("DEGREES")
 
-            @JvmField val GRAD = of("grad")
+            @JvmField val GRADIANS = of("GRADIANS")
 
-            @JvmField val RAD = of("rad")
+            @JvmField val RADIANS = of("RADIANS")
 
-            @JvmField val TURN = of("turn")
+            @JvmField val TURNS = of("TURNS")
 
             @JvmStatic fun of(value: String) = Units(JsonField.of(value))
         }
 
         /** An enum containing [Units]'s known values. */
         enum class Known {
-            DEG,
-            GRAD,
-            RAD,
-            TURN,
+            DEGREES,
+            GRADIANS,
+            RADIANS,
+            TURNS,
         }
 
         /**
@@ -244,10 +244,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            DEG,
-            GRAD,
-            RAD,
-            TURN,
+            DEGREES,
+            GRADIANS,
+            RADIANS,
+            TURNS,
             /** An enum member indicating that [Units] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -261,10 +261,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                DEG -> Value.DEG
-                GRAD -> Value.GRAD
-                RAD -> Value.RAD
-                TURN -> Value.TURN
+                DEGREES -> Value.DEGREES
+                GRADIANS -> Value.GRADIANS
+                RADIANS -> Value.RADIANS
+                TURNS -> Value.TURNS
                 else -> Value._UNKNOWN
             }
 
@@ -279,10 +279,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                DEG -> Known.DEG
-                GRAD -> Known.GRAD
-                RAD -> Known.RAD
-                TURN -> Known.TURN
+                DEGREES -> Known.DEGREES
+                GRADIANS -> Known.GRADIANS
+                RADIANS -> Known.RADIANS
+                TURNS -> Known.TURNS
                 else -> throw HubSpotInvalidDataException("Unknown Units: $value")
             }
 

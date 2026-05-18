@@ -16,9 +16,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepareAsync
 import com.hubspot.sdk.models.cms.sitesearch.IndexedData
-import com.hubspot.sdk.models.cms.sitesearch.PublicSearchResults
 import com.hubspot.sdk.models.cms.sitesearch.SiteSearchGetIndexedDataParams
-import com.hubspot.sdk.models.cms.sitesearch.SiteSearchSearchParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -41,13 +39,6 @@ class SiteSearchServiceAsyncImpl internal constructor(private val clientOptions:
     ): CompletableFuture<IndexedData> =
         // get /cms/site-search/2026-03/indexed-data/{contentId}
         withRawResponse().getIndexedData(params, requestOptions).thenApply { it.parse() }
-
-    override fun search(
-        params: SiteSearchSearchParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PublicSearchResults> =
-        // get /cms/site-search/2026-03/search
-        withRawResponse().search(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SiteSearchServiceAsync.WithRawResponse {
@@ -92,36 +83,6 @@ class SiteSearchServiceAsyncImpl internal constructor(private val clientOptions:
                     errorHandler.handle(response).parseable {
                         response
                             .use { getIndexedDataHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val searchHandler: Handler<PublicSearchResults> =
-            jsonHandler<PublicSearchResults>(clientOptions.jsonMapper)
-
-        override fun search(
-            params: SiteSearchSearchParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicSearchResults>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "site-search", "2026-03", "search")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { searchHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -3,8 +3,8 @@
 package com.hubspot.sdk.models.crm.associations.batch
 
 import com.hubspot.sdk.models.PublicObjectId
-import com.hubspot.sdk.models.crm.associations.BatchInputPublicDefaultAssociationMultiPost
-import com.hubspot.sdk.models.crm.associations.PublicDefaultAssociationMultiPost
+import com.hubspot.sdk.models.crm.BatchInputPublicDefaultAssociationMultiPost
+import com.hubspot.sdk.models.crm.PublicDefaultAssociationMultiPost
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

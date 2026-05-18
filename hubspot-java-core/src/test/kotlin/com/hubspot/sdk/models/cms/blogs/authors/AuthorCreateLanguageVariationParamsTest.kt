@@ -37,6 +37,7 @@ internal class AuthorCreateLanguageVariationParamsTest {
                     )
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
             .build()
@@ -72,6 +73,7 @@ internal class AuthorCreateLanguageVariationParamsTest {
                         )
                         .language("language")
                         .primaryLanguage("primaryLanguage")
+                        .usePublished(true)
                         .build()
                 )
                 .build()
@@ -105,6 +107,7 @@ internal class AuthorCreateLanguageVariationParamsTest {
                     )
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
     }

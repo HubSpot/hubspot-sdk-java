@@ -11,16 +11,16 @@ internal class SizeTest {
 
     @Test
     fun create() {
-        val size = Size.builder().units(Size.Units.PERCENT).value(0.0).build()
+        val size = Size.builder().units(Size.Units.CH).value(0.0).build()
 
-        assertThat(size.units()).isEqualTo(Size.Units.PERCENT)
+        assertThat(size.units()).isEqualTo(Size.Units.CH)
         assertThat(size.value()).isEqualTo(0.0)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val size = Size.builder().units(Size.Units.PERCENT).value(0.0).build()
+        val size = Size.builder().units(Size.Units.CH).value(0.0).build()
 
         val roundtrippedSize =
             jsonMapper.readValue(jsonMapper.writeValueAsString(size), jacksonTypeRef<Size>())

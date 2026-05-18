@@ -17,6 +17,7 @@ internal class MultiLanguageCreateLanguageVariationParamsTest {
                     .language("language")
                     .primaryLanguage("primaryLanguage")
                     .slug("slug")
+                    .usePublished(true)
                     .build()
             )
             .build()
@@ -32,6 +33,7 @@ internal class MultiLanguageCreateLanguageVariationParamsTest {
                         .language("language")
                         .primaryLanguage("primaryLanguage")
                         .slug("slug")
+                        .usePublished(true)
                         .build()
                 )
                 .build()
@@ -45,6 +47,7 @@ internal class MultiLanguageCreateLanguageVariationParamsTest {
                     .language("language")
                     .primaryLanguage("primaryLanguage")
                     .slug("slug")
+                    .usePublished(true)
                     .build()
             )
     }

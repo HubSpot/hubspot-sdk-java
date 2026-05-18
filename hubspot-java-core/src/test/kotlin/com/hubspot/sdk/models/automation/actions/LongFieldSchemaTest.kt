@@ -13,12 +13,12 @@ internal class LongFieldSchemaTest {
     fun create() {
         val longFieldSchema =
             LongFieldSchema.builder()
-                .type(LongFieldSchema.Type.LONG)
+                .type(LongFieldSchema.Type.ARRAY)
                 .maximum(0L)
                 .minimum(0L)
                 .build()
 
-        assertThat(longFieldSchema.type()).isEqualTo(LongFieldSchema.Type.LONG)
+        assertThat(longFieldSchema.type()).isEqualTo(LongFieldSchema.Type.ARRAY)
         assertThat(longFieldSchema.maximum()).contains(0L)
         assertThat(longFieldSchema.minimum()).contains(0L)
     }
@@ -28,7 +28,7 @@ internal class LongFieldSchemaTest {
         val jsonMapper = jsonMapper()
         val longFieldSchema =
             LongFieldSchema.builder()
-                .type(LongFieldSchema.Type.LONG)
+                .type(LongFieldSchema.Type.ARRAY)
                 .maximum(0L)
                 .minimum(0L)
                 .build()

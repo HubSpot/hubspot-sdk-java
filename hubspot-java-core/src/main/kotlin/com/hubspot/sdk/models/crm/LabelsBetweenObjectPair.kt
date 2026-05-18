@@ -48,7 +48,7 @@ private constructor(
     ) : this(fromObjectId, fromObjectTypeId, labels, toObjectId, toObjectTypeId, mutableMapOf())
 
     /**
-     * The ID of the source object in the association.
+     * Source unique ID of the object.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -56,7 +56,7 @@ private constructor(
     fun fromObjectId(): String = fromObjectId.getRequired("fromObjectId")
 
     /**
-     * The type ID of the source object in the association.
+     * Source object type.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -64,15 +64,13 @@ private constructor(
     fun fromObjectTypeId(): String = fromObjectTypeId.getRequired("fromObjectTypeId")
 
     /**
-     * An array of labels associated with the relationship between the objects.
-     *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun labels(): List<String> = labels.getRequired("labels")
 
     /**
-     * The ID of the target object in the association.
+     * Target unique ID of the object.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -80,7 +78,7 @@ private constructor(
     fun toObjectId(): String = toObjectId.getRequired("toObjectId")
 
     /**
-     * The type ID of the target object in the association.
+     * Target object type.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -178,7 +176,7 @@ private constructor(
             additionalProperties = labelsBetweenObjectPair.additionalProperties.toMutableMap()
         }
 
-        /** The ID of the source object in the association. */
+        /** Source unique ID of the object. */
         fun fromObjectId(fromObjectId: String) = fromObjectId(JsonField.of(fromObjectId))
 
         /**
@@ -192,7 +190,7 @@ private constructor(
             this.fromObjectId = fromObjectId
         }
 
-        /** The type ID of the source object in the association. */
+        /** Source object type. */
         fun fromObjectTypeId(fromObjectTypeId: String) =
             fromObjectTypeId(JsonField.of(fromObjectTypeId))
 
@@ -207,7 +205,6 @@ private constructor(
             this.fromObjectTypeId = fromObjectTypeId
         }
 
-        /** An array of labels associated with the relationship between the objects. */
         fun labels(labels: List<String>) = labels(JsonField.of(labels))
 
         /**
@@ -233,7 +230,7 @@ private constructor(
                 }
         }
 
-        /** The ID of the target object in the association. */
+        /** Target unique ID of the object. */
         fun toObjectId(toObjectId: String) = toObjectId(JsonField.of(toObjectId))
 
         /**
@@ -245,7 +242,7 @@ private constructor(
          */
         fun toObjectId(toObjectId: JsonField<String>) = apply { this.toObjectId = toObjectId }
 
-        /** The type ID of the target object in the association. */
+        /** Target object type. */
         fun toObjectTypeId(toObjectTypeId: String) = toObjectTypeId(JsonField.of(toObjectTypeId))
 
         /**

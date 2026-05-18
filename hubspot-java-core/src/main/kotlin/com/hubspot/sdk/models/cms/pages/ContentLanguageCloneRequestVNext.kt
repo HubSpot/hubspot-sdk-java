@@ -22,6 +22,7 @@ private constructor(
     private val id: JsonField<String>,
     private val language: JsonField<String>,
     private val primaryLanguage: JsonField<String>,
+    private val usePublished: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -32,7 +33,10 @@ private constructor(
         @JsonProperty("primaryLanguage")
         @ExcludeMissing
         primaryLanguage: JsonField<String> = JsonMissing.of(),
-    ) : this(id, language, primaryLanguage, mutableMapOf())
+        @JsonProperty("usePublished")
+        @ExcludeMissing
+        usePublished: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(id, language, primaryLanguage, usePublished, mutableMapOf())
 
     /**
      * ID of content to clone.
@@ -59,6 +63,12 @@ private constructor(
     fun primaryLanguage(): Optional<String> = primaryLanguage.getOptional("primaryLanguage")
 
     /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun usePublished(): Optional<Boolean> = usePublished.getOptional("usePublished")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -80,6 +90,15 @@ private constructor(
     @JsonProperty("primaryLanguage")
     @ExcludeMissing
     fun _primaryLanguage(): JsonField<String> = primaryLanguage
+
+    /**
+     * Returns the raw JSON value of [usePublished].
+     *
+     * Unlike [usePublished], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("usePublished")
+    @ExcludeMissing
+    fun _usePublished(): JsonField<Boolean> = usePublished
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -113,6 +132,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var language: JsonField<String> = JsonMissing.of()
         private var primaryLanguage: JsonField<String> = JsonMissing.of()
+        private var usePublished: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -121,6 +141,7 @@ private constructor(
                 id = contentLanguageCloneRequestVNext.id
                 language = contentLanguageCloneRequestVNext.language
                 primaryLanguage = contentLanguageCloneRequestVNext.primaryLanguage
+                usePublished = contentLanguageCloneRequestVNext.usePublished
                 additionalProperties =
                     contentLanguageCloneRequestVNext.additionalProperties.toMutableMap()
             }
@@ -162,6 +183,19 @@ private constructor(
             this.primaryLanguage = primaryLanguage
         }
 
+        fun usePublished(usePublished: Boolean) = usePublished(JsonField.of(usePublished))
+
+        /**
+         * Sets [Builder.usePublished] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.usePublished] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun usePublished(usePublished: JsonField<Boolean>) = apply {
+            this.usePublished = usePublished
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -198,6 +232,7 @@ private constructor(
                 checkRequired("id", id),
                 language,
                 primaryLanguage,
+                usePublished,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -220,6 +255,7 @@ private constructor(
         id()
         language()
         primaryLanguage()
+        usePublished()
         validated = true
     }
 
@@ -240,7 +276,8 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (language.asKnown().isPresent) 1 else 0) +
-            (if (primaryLanguage.asKnown().isPresent) 1 else 0)
+            (if (primaryLanguage.asKnown().isPresent) 1 else 0) +
+            (if (usePublished.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -251,15 +288,16 @@ private constructor(
             id == other.id &&
             language == other.language &&
             primaryLanguage == other.primaryLanguage &&
+            usePublished == other.usePublished &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(id, language, primaryLanguage, additionalProperties)
+        Objects.hash(id, language, primaryLanguage, usePublished, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ContentLanguageCloneRequestVNext{id=$id, language=$language, primaryLanguage=$primaryLanguage, additionalProperties=$additionalProperties}"
+        "ContentLanguageCloneRequestVNext{id=$id, language=$language, primaryLanguage=$primaryLanguage, usePublished=$usePublished, additionalProperties=$additionalProperties}"
 }

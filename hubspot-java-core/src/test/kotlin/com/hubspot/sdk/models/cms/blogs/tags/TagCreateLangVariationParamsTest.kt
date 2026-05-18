@@ -16,6 +16,7 @@ internal class TagCreateLangVariationParamsTest {
                     .name("name")
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
             .build()
@@ -31,6 +32,7 @@ internal class TagCreateLangVariationParamsTest {
                         .name("name")
                         .language("language")
                         .primaryLanguage("primaryLanguage")
+                        .usePublished(true)
                         .build()
                 )
                 .build()
@@ -44,6 +46,7 @@ internal class TagCreateLangVariationParamsTest {
                     .name("name")
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
     }

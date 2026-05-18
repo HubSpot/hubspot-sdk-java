@@ -7,9 +7,7 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.models.cms.sitesearch.IndexedData
-import com.hubspot.sdk.models.cms.sitesearch.PublicSearchResults
 import com.hubspot.sdk.models.cms.sitesearch.SiteSearchGetIndexedDataParams
-import com.hubspot.sdk.models.cms.sitesearch.SiteSearchSearchParams
 import java.util.function.Consumer
 
 interface SiteSearchService {
@@ -59,28 +57,6 @@ interface SiteSearchService {
     /** @see getIndexedData */
     fun getIndexedData(contentId: String, requestOptions: RequestOptions): IndexedData =
         getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
-
-    /**
-     * Returns any website content matching the given search criteria for a given HubSpot account.
-     * Searches can be filtered by content type, domain, or URL path. Includes options for weighing
-     * results by recency and popularity, along with language support.
-     */
-    fun search(): PublicSearchResults = search(SiteSearchSearchParams.none())
-
-    /** @see search */
-    fun search(
-        params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSearchResults
-
-    /** @see search */
-    fun search(
-        params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-    ): PublicSearchResults = search(params, RequestOptions.none())
-
-    /** @see search */
-    fun search(requestOptions: RequestOptions): PublicSearchResults =
-        search(SiteSearchSearchParams.none(), requestOptions)
 
     /** A view of [SiteSearchService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -137,30 +113,5 @@ interface SiteSearchService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<IndexedData> =
             getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/site-search/2026-03/search`, but is otherwise
-         * the same as [SiteSearchService.search].
-         */
-        @MustBeClosed
-        fun search(): HttpResponseFor<PublicSearchResults> = search(SiteSearchSearchParams.none())
-
-        /** @see search */
-        @MustBeClosed
-        fun search(
-            params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSearchResults>
-
-        /** @see search */
-        @MustBeClosed
-        fun search(
-            params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-        ): HttpResponseFor<PublicSearchResults> = search(params, RequestOptions.none())
-
-        /** @see search */
-        @MustBeClosed
-        fun search(requestOptions: RequestOptions): HttpResponseFor<PublicSearchResults> =
-            search(SiteSearchSearchParams.none(), requestOptions)
     }
 }

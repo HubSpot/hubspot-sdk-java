@@ -16,11 +16,13 @@ internal class ContentLanguageCloneRequestVNextTest {
                 .id("id")
                 .language("language")
                 .primaryLanguage("primaryLanguage")
+                .usePublished(true)
                 .build()
 
         assertThat(contentLanguageCloneRequestVNext.id()).isEqualTo("id")
         assertThat(contentLanguageCloneRequestVNext.language()).contains("language")
         assertThat(contentLanguageCloneRequestVNext.primaryLanguage()).contains("primaryLanguage")
+        assertThat(contentLanguageCloneRequestVNext.usePublished()).contains(true)
     }
 
     @Test
@@ -31,6 +33,7 @@ internal class ContentLanguageCloneRequestVNextTest {
                 .id("id")
                 .language("language")
                 .primaryLanguage("primaryLanguage")
+                .usePublished(true)
                 .build()
 
         val roundtrippedContentLanguageCloneRequestVNext =

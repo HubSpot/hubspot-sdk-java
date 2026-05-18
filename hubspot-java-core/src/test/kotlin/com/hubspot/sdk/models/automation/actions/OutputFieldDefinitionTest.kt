@@ -31,7 +31,7 @@ internal class OutputFieldDefinitionTest {
                         )
                         .schema(
                             IntegerFieldSchema.builder()
-                                .type(IntegerFieldSchema.Type.INTEGER)
+                                .type(IntegerFieldSchema.Type.ARRAY)
                                 .maximum(0)
                                 .minimum(0)
                                 .build()
@@ -69,7 +69,7 @@ internal class OutputFieldDefinitionTest {
                     )
                     .schema(
                         IntegerFieldSchema.builder()
-                            .type(IntegerFieldSchema.Type.INTEGER)
+                            .type(IntegerFieldSchema.Type.ARRAY)
                             .maximum(0)
                             .minimum(0)
                             .build()
@@ -109,7 +109,7 @@ internal class OutputFieldDefinitionTest {
                         )
                         .schema(
                             IntegerFieldSchema.builder()
-                                .type(IntegerFieldSchema.Type.INTEGER)
+                                .type(IntegerFieldSchema.Type.ARRAY)
                                 .maximum(0)
                                 .minimum(0)
                                 .build()

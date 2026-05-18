@@ -7,8 +7,9 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
+import com.hubspot.sdk.models.crm.BatchResponseLabelsBetweenObjectPair
+import com.hubspot.sdk.models.crm.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot.sdk.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot.sdk.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchDeleteLabelsParams
@@ -30,28 +31,29 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
+    /** Batch create associations for objects */
     fun create(
-        toObjectId: String,
+        toObjectType: String,
         params: BatchCreateParams,
-    ): BatchResponsePublicDefaultAssociation = create(toObjectId, params, RequestOptions.none())
+    ): BatchResponseLabelsBetweenObjectPair = create(toObjectType, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        toObjectId: String,
+        toObjectType: String,
         params: BatchCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponsePublicDefaultAssociation =
-        create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+    ): BatchResponseLabelsBetweenObjectPair =
+        create(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see create */
-    fun create(params: BatchCreateParams): BatchResponsePublicDefaultAssociation =
+    fun create(params: BatchCreateParams): BatchResponseLabelsBetweenObjectPair =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: BatchCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponsePublicDefaultAssociation
+    ): BatchResponseLabelsBetweenObjectPair
 
     /** Batch delete associations for objects */
     fun delete(toObjectType: String, params: BatchDeleteParams) =
@@ -159,31 +161,31 @@ interface BatchService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `put
-         * /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [BatchService.create].
+         * Returns a raw HTTP response for `post
+         * /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/create`, but is otherwise
+         * the same as [BatchService.create].
          */
         @MustBeClosed
         fun create(
-            toObjectId: String,
+            toObjectType: String,
             params: BatchCreateParams,
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            create(toObjectId, params, RequestOptions.none())
+        ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair> =
+            create(toObjectType, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            toObjectId: String,
+            toObjectType: String,
             params: BatchCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair> =
+            create(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: BatchCreateParams
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+        ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -191,7 +193,7 @@ interface BatchService {
         fun create(
             params: BatchCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation>
+        ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair>
 
         /**
          * Returns a raw HTTP response for `post

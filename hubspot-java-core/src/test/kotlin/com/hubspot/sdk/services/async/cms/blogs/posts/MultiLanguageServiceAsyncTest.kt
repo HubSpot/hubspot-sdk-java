@@ -60,7 +60,11 @@ internal class MultiLanguageServiceAsyncTest {
 
         val responseFuture =
             multiLanguageServiceAsync.createLangVariation(
-                BlogPostLanguageCloneRequestVNext.builder().id("id").language("language").build()
+                BlogPostLanguageCloneRequestVNext.builder()
+                    .id("id")
+                    .language("language")
+                    .usePublished(true)
+                    .build()
             )
 
         val response = responseFuture.get()

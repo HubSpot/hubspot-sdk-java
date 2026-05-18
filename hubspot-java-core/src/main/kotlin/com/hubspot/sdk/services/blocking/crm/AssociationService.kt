@@ -7,15 +7,17 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
+import com.hubspot.sdk.models.crm.BatchResponsePublicDefaultAssociation
 import com.hubspot.sdk.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot.sdk.models.crm.LabelsBetweenObjectPair
+import com.hubspot.sdk.models.crm.ReportCreationResponse
+import com.hubspot.sdk.models.crm.associations.AssociationCreateParams
 import com.hubspot.sdk.models.crm.associations.AssociationDeleteParams
 import com.hubspot.sdk.models.crm.associations.AssociationListPage
 import com.hubspot.sdk.models.crm.associations.AssociationListParams
 import com.hubspot.sdk.models.crm.associations.AssociationRequestHighUsageReportParams
 import com.hubspot.sdk.models.crm.associations.AssociationSearchParams
-import com.hubspot.sdk.models.crm.associations.AssociationUpdateAssociationLabelsParams
-import com.hubspot.sdk.models.crm.associations.ReportCreationResponse
+import com.hubspot.sdk.models.crm.associations.AssociationUpdateLabelsParams
 import com.hubspot.sdk.services.blocking.crm.associations.BatchService
 import java.util.function.Consumer
 
@@ -34,6 +36,30 @@ interface AssociationService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssociationService
 
     fun batch(): BatchService
+
+    /** Create the default (most generic) association type between two object types */
+    fun create(
+        toObjectId: String,
+        params: AssociationCreateParams,
+    ): BatchResponsePublicDefaultAssociation = create(toObjectId, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        toObjectId: String,
+        params: AssociationCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponsePublicDefaultAssociation =
+        create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: AssociationCreateParams): BatchResponsePublicDefaultAssociation =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: AssociationCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponsePublicDefaultAssociation
 
     /**
      * Retrieve all associations between a specific record and an object type. Limit 500 per call.
@@ -59,6 +85,7 @@ interface AssociationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AssociationListPage
 
+    /** deletes all associations between two records. */
     fun delete(toObjectId: String, params: AssociationDeleteParams) =
         delete(toObjectId, params, RequestOptions.none())
 
@@ -144,27 +171,27 @@ interface AssociationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponseWithTotalSimplePublicObject
 
-    fun updateAssociationLabels(
+    /** Set association labels between two records. */
+    fun updateLabels(
         toObjectId: String,
-        params: AssociationUpdateAssociationLabelsParams,
-    ): LabelsBetweenObjectPair = updateAssociationLabels(toObjectId, params, RequestOptions.none())
+        params: AssociationUpdateLabelsParams,
+    ): LabelsBetweenObjectPair = updateLabels(toObjectId, params, RequestOptions.none())
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
+    /** @see updateLabels */
+    fun updateLabels(
         toObjectId: String,
-        params: AssociationUpdateAssociationLabelsParams,
+        params: AssociationUpdateLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LabelsBetweenObjectPair =
-        updateAssociationLabels(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        updateLabels(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
-        params: AssociationUpdateAssociationLabelsParams
-    ): LabelsBetweenObjectPair = updateAssociationLabels(params, RequestOptions.none())
+    /** @see updateLabels */
+    fun updateLabels(params: AssociationUpdateLabelsParams): LabelsBetweenObjectPair =
+        updateLabels(params, RequestOptions.none())
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
-        params: AssociationUpdateAssociationLabelsParams,
+    /** @see updateLabels */
+    fun updateLabels(
+        params: AssociationUpdateLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LabelsBetweenObjectPair
 
@@ -183,6 +210,41 @@ interface AssociationService {
         ): AssociationService.WithRawResponse
 
         fun batch(): BatchService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `put
+         * /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}`,
+         * but is otherwise the same as [AssociationService.create].
+         */
+        @MustBeClosed
+        fun create(
+            toObjectId: String,
+            params: AssociationCreateParams,
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+            create(toObjectId, params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            toObjectId: String,
+            params: AssociationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+            create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: AssociationCreateParams
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: AssociationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation>
 
         /**
          * Returns a raw HTTP response for `get
@@ -336,38 +398,34 @@ interface AssociationService {
         /**
          * Returns a raw HTTP response for `put
          * /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [AssociationService.updateAssociationLabels].
+         * but is otherwise the same as [AssociationService.updateLabels].
          */
         @MustBeClosed
-        fun updateAssociationLabels(
+        fun updateLabels(
             toObjectId: String,
-            params: AssociationUpdateAssociationLabelsParams,
+            params: AssociationUpdateLabelsParams,
         ): HttpResponseFor<LabelsBetweenObjectPair> =
-            updateAssociationLabels(toObjectId, params, RequestOptions.none())
+            updateLabels(toObjectId, params, RequestOptions.none())
 
-        /** @see updateAssociationLabels */
+        /** @see updateLabels */
         @MustBeClosed
-        fun updateAssociationLabels(
+        fun updateLabels(
             toObjectId: String,
-            params: AssociationUpdateAssociationLabelsParams,
+            params: AssociationUpdateLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LabelsBetweenObjectPair> =
-            updateAssociationLabels(
-                params.toBuilder().toObjectId(toObjectId).build(),
-                requestOptions,
-            )
+            updateLabels(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-        /** @see updateAssociationLabels */
+        /** @see updateLabels */
         @MustBeClosed
-        fun updateAssociationLabels(
-            params: AssociationUpdateAssociationLabelsParams
-        ): HttpResponseFor<LabelsBetweenObjectPair> =
-            updateAssociationLabels(params, RequestOptions.none())
+        fun updateLabels(
+            params: AssociationUpdateLabelsParams
+        ): HttpResponseFor<LabelsBetweenObjectPair> = updateLabels(params, RequestOptions.none())
 
-        /** @see updateAssociationLabels */
+        /** @see updateLabels */
         @MustBeClosed
-        fun updateAssociationLabels(
-            params: AssociationUpdateAssociationLabelsParams,
+        fun updateLabels(
+            params: AssociationUpdateLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LabelsBetweenObjectPair>
     }

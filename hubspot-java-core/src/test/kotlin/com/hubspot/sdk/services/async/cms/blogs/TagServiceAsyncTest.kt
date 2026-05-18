@@ -186,6 +186,7 @@ internal class TagServiceAsyncTest {
                     .name("name")
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
 

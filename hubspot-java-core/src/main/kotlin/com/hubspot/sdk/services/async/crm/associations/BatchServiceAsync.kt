@@ -6,8 +6,9 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
+import com.hubspot.sdk.models.crm.BatchResponseLabelsBetweenObjectPair
+import com.hubspot.sdk.models.crm.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot.sdk.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot.sdk.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchDeleteLabelsParams
@@ -30,31 +31,30 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
+    /** Batch create associations for objects */
     fun create(
-        toObjectId: String,
+        toObjectType: String,
         params: BatchCreateParams,
-    ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
-        create(toObjectId, params, RequestOptions.none())
+    ): CompletableFuture<BatchResponseLabelsBetweenObjectPair> =
+        create(toObjectType, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        toObjectId: String,
+        toObjectType: String,
         params: BatchCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
-        create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+    ): CompletableFuture<BatchResponseLabelsBetweenObjectPair> =
+        create(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see create */
-    fun create(
-        params: BatchCreateParams
-    ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
+    fun create(params: BatchCreateParams): CompletableFuture<BatchResponseLabelsBetweenObjectPair> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: BatchCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponsePublicDefaultAssociation>
+    ): CompletableFuture<BatchResponseLabelsBetweenObjectPair>
 
     /** Batch delete associations for objects */
     fun delete(toObjectType: String, params: BatchDeleteParams): CompletableFuture<Void?> =
@@ -177,35 +177,35 @@ interface BatchServiceAsync {
         ): BatchServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `put
-         * /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [BatchServiceAsync.create].
+         * Returns a raw HTTP response for `post
+         * /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/create`, but is otherwise
+         * the same as [BatchServiceAsync.create].
          */
         fun create(
-            toObjectId: String,
+            toObjectType: String,
             params: BatchCreateParams,
-        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
-            create(toObjectId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<BatchResponseLabelsBetweenObjectPair>> =
+            create(toObjectType, params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            toObjectId: String,
+            toObjectType: String,
             params: BatchCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
-            create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<BatchResponseLabelsBetweenObjectPair>> =
+            create(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see create */
         fun create(
             params: BatchCreateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
+        ): CompletableFuture<HttpResponseFor<BatchResponseLabelsBetweenObjectPair>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: BatchCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>>
+        ): CompletableFuture<HttpResponseFor<BatchResponseLabelsBetweenObjectPair>>
 
         /**
          * Returns a raw HTTP response for `post

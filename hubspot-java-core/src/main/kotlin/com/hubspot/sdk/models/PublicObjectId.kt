@@ -29,7 +29,7 @@ private constructor(
     ) : this(id, mutableMapOf())
 
     /**
-     * ID of the object
+     * The unique identifier for the public object.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -80,7 +80,7 @@ private constructor(
             additionalProperties = publicObjectId.additionalProperties.toMutableMap()
         }
 
-        /** ID of the object */
+        /** The unique identifier for the public object. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**

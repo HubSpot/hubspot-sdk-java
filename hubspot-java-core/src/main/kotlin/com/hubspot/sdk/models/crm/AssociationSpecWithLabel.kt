@@ -36,8 +36,7 @@ private constructor(
     ) : this(category, typeId, label, mutableMapOf())
 
     /**
-     * The category of the association, such as HUBSPOT_DEFINED, USER_DEFINED, or
-     * INTEGRATOR_DEFINED.
+     * Association category. Can be HUBSPOT_DEFINED, USER_DEFINED, INTEGRATOR_DEFINED or WORK
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -45,7 +44,8 @@ private constructor(
     fun category(): Category = category.getRequired("category")
 
     /**
-     * The unique identifier for the type of association.
+     * An integer value used to uniquely identify a specific association type within its Association
+     * Category.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -53,7 +53,8 @@ private constructor(
     fun typeId(): Int = typeId.getRequired("typeId")
 
     /**
-     * A label describing the association between two objects.
+     * An optional descriptor that provides additional context about the relationship between
+     * associated records, such as "Mentor" and "Mentee".
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -124,8 +125,7 @@ private constructor(
         }
 
         /**
-         * The category of the association, such as HUBSPOT_DEFINED, USER_DEFINED, or
-         * INTEGRATOR_DEFINED.
+         * Association category. Can be HUBSPOT_DEFINED, USER_DEFINED, INTEGRATOR_DEFINED or WORK
          */
         fun category(category: Category) = category(JsonField.of(category))
 
@@ -138,7 +138,10 @@ private constructor(
          */
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
-        /** The unique identifier for the type of association. */
+        /**
+         * An integer value used to uniquely identify a specific association type within its
+         * Association Category.
+         */
         fun typeId(typeId: Int) = typeId(JsonField.of(typeId))
 
         /**
@@ -149,7 +152,10 @@ private constructor(
          */
         fun typeId(typeId: JsonField<Int>) = apply { this.typeId = typeId }
 
-        /** A label describing the association between two objects. */
+        /**
+         * An optional descriptor that provides additional context about the relationship between
+         * associated records, such as "Mentor" and "Mentee".
+         */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -241,10 +247,7 @@ private constructor(
             (if (typeId.asKnown().isPresent) 1 else 0) +
             (if (label.asKnown().isPresent) 1 else 0)
 
-    /**
-     * The category of the association, such as HUBSPOT_DEFINED, USER_DEFINED, or
-     * INTEGRATOR_DEFINED.
-     */
+    /** Association category. Can be HUBSPOT_DEFINED, USER_DEFINED, INTEGRATOR_DEFINED or WORK */
     class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

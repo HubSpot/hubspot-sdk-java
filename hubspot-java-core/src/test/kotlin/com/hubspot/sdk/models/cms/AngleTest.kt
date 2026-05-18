@@ -11,16 +11,16 @@ internal class AngleTest {
 
     @Test
     fun create() {
-        val angle = Angle.builder().units(Angle.Units.DEG).value(0.0).build()
+        val angle = Angle.builder().units(Angle.Units.DEGREES).value(0.0).build()
 
-        assertThat(angle.units()).isEqualTo(Angle.Units.DEG)
+        assertThat(angle.units()).isEqualTo(Angle.Units.DEGREES)
         assertThat(angle.value()).isEqualTo(0.0)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val angle = Angle.builder().units(Angle.Units.DEG).value(0.0).build()
+        val angle = Angle.builder().units(Angle.Units.DEGREES).value(0.0).build()
 
         val roundtrippedAngle =
             jsonMapper.readValue(jsonMapper.writeValueAsString(angle), jacksonTypeRef<Angle>())

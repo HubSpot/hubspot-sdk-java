@@ -208,46 +208,45 @@ private constructor(
 
         companion object {
 
-            @JvmField val PERCENT = of("%")
+            @JvmField val CH = of("CH")
 
-            @JvmField val CH = of("ch")
+            @JvmField val CM = of("CM")
 
-            @JvmField val CM = of("cm")
+            @JvmField val EM = of("EM")
 
-            @JvmField val EM = of("em")
+            @JvmField val EX = of("EX")
 
-            @JvmField val EX = of("ex")
+            @JvmField val IN = of("IN")
 
-            @JvmField val IN = of("in")
+            @JvmField val LH = of("LH")
 
-            @JvmField val LH = of("lh")
+            @JvmField val MM = of("MM")
 
-            @JvmField val MM = of("mm")
+            @JvmField val PC = of("PC")
 
-            @JvmField val PC = of("pc")
+            @JvmField val PERCENTAGE = of("PERCENTAGE")
 
-            @JvmField val PT = of("pt")
+            @JvmField val PT = of("PT")
 
-            @JvmField val PX = of("px")
+            @JvmField val PX = of("PX")
 
             @JvmField val Q = of("Q")
 
-            @JvmField val REM = of("rem")
+            @JvmField val REM = of("REM")
 
-            @JvmField val VH = of("vh")
+            @JvmField val VH = of("VH")
 
-            @JvmField val VMAX = of("vmax")
+            @JvmField val VMAX = of("VMAX")
 
-            @JvmField val VMIN = of("vmin")
+            @JvmField val VMIN = of("VMIN")
 
-            @JvmField val VW = of("vw")
+            @JvmField val VW = of("VW")
 
             @JvmStatic fun of(value: String) = Units(JsonField.of(value))
         }
 
         /** An enum containing [Units]'s known values. */
         enum class Known {
-            PERCENT,
             CH,
             CM,
             EM,
@@ -256,6 +255,7 @@ private constructor(
             LH,
             MM,
             PC,
+            PERCENTAGE,
             PT,
             PX,
             Q,
@@ -276,7 +276,6 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PERCENT,
             CH,
             CM,
             EM,
@@ -285,6 +284,7 @@ private constructor(
             LH,
             MM,
             PC,
+            PERCENTAGE,
             PT,
             PX,
             Q,
@@ -306,7 +306,6 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PERCENT -> Value.PERCENT
                 CH -> Value.CH
                 CM -> Value.CM
                 EM -> Value.EM
@@ -315,6 +314,7 @@ private constructor(
                 LH -> Value.LH
                 MM -> Value.MM
                 PC -> Value.PC
+                PERCENTAGE -> Value.PERCENTAGE
                 PT -> Value.PT
                 PX -> Value.PX
                 Q -> Value.Q
@@ -337,7 +337,6 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PERCENT -> Known.PERCENT
                 CH -> Known.CH
                 CM -> Known.CM
                 EM -> Known.EM
@@ -346,6 +345,7 @@ private constructor(
                 LH -> Known.LH
                 MM -> Known.MM
                 PC -> Known.PC
+                PERCENTAGE -> Known.PERCENTAGE
                 PT -> Known.PT
                 PX -> Known.PX
                 Q -> Known.Q

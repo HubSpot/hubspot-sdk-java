@@ -83,7 +83,7 @@ internal class PostUpdateParamsTest {
                                                                 mapOf(
                                                                     "angle" to
                                                                         mapOf(
-                                                                            "units" to "deg",
+                                                                            "units" to "DEGREES",
                                                                             "value" to 0,
                                                                         ),
                                                                     "colors" to
@@ -128,14 +128,14 @@ internal class PostUpdateParamsTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -145,28 +145,28 @@ internal class PostUpdateParamsTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "left" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "right" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -184,7 +184,10 @@ internal class PostUpdateParamsTest {
                                                 "backgroundGradient" to
                                                     mapOf(
                                                         "angle" to
-                                                            mapOf("units" to "deg", "value" to 0),
+                                                            mapOf(
+                                                                "units" to "DEGREES",
+                                                                "value" to 0,
+                                                            ),
                                                         "colors" to
                                                             listOf(
                                                                 mapOf(
@@ -223,12 +226,12 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -236,22 +239,22 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "left" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "right" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -409,7 +412,8 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -465,7 +469,7 @@ internal class PostUpdateParamsTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -653,7 +657,8 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -702,14 +707,14 @@ internal class PostUpdateParamsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -719,28 +724,28 @@ internal class PostUpdateParamsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "left" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "right" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -764,7 +769,7 @@ internal class PostUpdateParamsTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -805,12 +810,12 @@ internal class PostUpdateParamsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -818,22 +823,22 @@ internal class PostUpdateParamsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "left" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "right" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -995,7 +1000,8 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -1051,7 +1057,7 @@ internal class PostUpdateParamsTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -1239,7 +1245,8 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -1288,14 +1295,14 @@ internal class PostUpdateParamsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -1305,28 +1312,28 @@ internal class PostUpdateParamsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "left" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "right" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -1350,7 +1357,7 @@ internal class PostUpdateParamsTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -1391,12 +1398,12 @@ internal class PostUpdateParamsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -1404,22 +1411,22 @@ internal class PostUpdateParamsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "left" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "right" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -1574,7 +1581,7 @@ internal class PostUpdateParamsTest {
                                                                 mapOf(
                                                                     "angle" to
                                                                         mapOf(
-                                                                            "units" to "deg",
+                                                                            "units" to "DEGREES",
                                                                             "value" to 0,
                                                                         ),
                                                                     "colors" to
@@ -1619,14 +1626,14 @@ internal class PostUpdateParamsTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -1636,28 +1643,28 @@ internal class PostUpdateParamsTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "left" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "right" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -1675,7 +1682,10 @@ internal class PostUpdateParamsTest {
                                                 "backgroundGradient" to
                                                     mapOf(
                                                         "angle" to
-                                                            mapOf("units" to "deg", "value" to 0),
+                                                            mapOf(
+                                                                "units" to "DEGREES",
+                                                                "value" to 0,
+                                                            ),
                                                         "colors" to
                                                             listOf(
                                                                 mapOf(
@@ -1714,12 +1724,12 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -1727,22 +1737,22 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "left" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "right" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -1899,7 +1909,8 @@ internal class PostUpdateParamsTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -1955,7 +1966,7 @@ internal class PostUpdateParamsTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -2135,7 +2146,7 @@ internal class PostUpdateParamsTest {
                                                                 mapOf(
                                                                     "angle" to
                                                                         mapOf(
-                                                                            "units" to "deg",
+                                                                            "units" to "DEGREES",
                                                                             "value" to 0,
                                                                         ),
                                                                     "colors" to
@@ -2181,7 +2192,10 @@ internal class PostUpdateParamsTest {
                                                 "backgroundGradient" to
                                                     mapOf(
                                                         "angle" to
-                                                            mapOf("units" to "deg", "value" to 0),
+                                                            mapOf(
+                                                                "units" to "DEGREES",
+                                                                "value" to 0,
+                                                            ),
                                                         "colors" to
                                                             listOf(
                                                                 mapOf(

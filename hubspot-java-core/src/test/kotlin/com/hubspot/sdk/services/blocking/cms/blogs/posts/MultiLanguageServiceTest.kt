@@ -59,7 +59,11 @@ internal class MultiLanguageServiceTest {
 
         val response =
             multiLanguageService.createLangVariation(
-                BlogPostLanguageCloneRequestVNext.builder().id("id").language("language").build()
+                BlogPostLanguageCloneRequestVNext.builder()
+                    .id("id")
+                    .language("language")
+                    .usePublished(true)
+                    .build()
             )
 
         assertThat(response.body()).hasContent("abc")

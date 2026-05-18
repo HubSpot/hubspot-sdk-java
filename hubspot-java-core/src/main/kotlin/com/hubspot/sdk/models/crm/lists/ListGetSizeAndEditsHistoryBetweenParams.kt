@@ -5,6 +5,8 @@ package com.hubspot.sdk.models.crm.lists
 import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -12,17 +14,17 @@ import kotlin.jvm.optionals.getOrNull
 class ListGetSizeAndEditsHistoryBetweenParams
 private constructor(
     private val listId: String?,
-    private val endDate: String?,
-    private val startDate: String?,
+    private val endDate: OffsetDateTime?,
+    private val startDate: OffsetDateTime?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun listId(): Optional<String> = Optional.ofNullable(listId)
 
-    fun endDate(): Optional<String> = Optional.ofNullable(endDate)
+    fun endDate(): Optional<OffsetDateTime> = Optional.ofNullable(endDate)
 
-    fun startDate(): Optional<String> = Optional.ofNullable(startDate)
+    fun startDate(): Optional<OffsetDateTime> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -47,8 +49,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var listId: String? = null
-        private var endDate: String? = null
-        private var startDate: String? = null
+        private var endDate: OffsetDateTime? = null
+        private var startDate: OffsetDateTime? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -70,15 +72,15 @@ private constructor(
         /** Alias for calling [Builder.listId] with `listId.orElse(null)`. */
         fun listId(listId: Optional<String>) = listId(listId.getOrNull())
 
-        fun endDate(endDate: String?) = apply { this.endDate = endDate }
+        fun endDate(endDate: OffsetDateTime?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
-        fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
+        fun endDate(endDate: Optional<OffsetDateTime>) = endDate(endDate.getOrNull())
 
-        fun startDate(startDate: String?) = apply { this.startDate = startDate }
+        fun startDate(startDate: OffsetDateTime?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */
-        fun startDate(startDate: Optional<String>) = startDate(startDate.getOrNull())
+        fun startDate(startDate: Optional<OffsetDateTime>) = startDate(startDate.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -204,8 +206,10 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                endDate?.let { put("endDate", it) }
-                startDate?.let { put("startDate", it) }
+                endDate?.let { put("endDate", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
+                startDate?.let {
+                    put("startDate", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
                 putAll(additionalQueryParams)
             }
             .build()

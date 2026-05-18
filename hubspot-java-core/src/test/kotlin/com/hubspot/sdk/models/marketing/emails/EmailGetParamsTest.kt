@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.marketing.emails
 
 import com.hubspot.sdk.core.http.QueryParams
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,9 +13,9 @@ internal class EmailGetParamsTest {
     fun create() {
         EmailGetParams.builder()
             .addEmailId(0L)
-            .endTimestamp("endTimestamp")
+            .endTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .property("property")
-            .startTimestamp("startTimestamp")
+            .startTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
 
@@ -23,9 +24,9 @@ internal class EmailGetParamsTest {
         val params =
             EmailGetParams.builder()
                 .addEmailId(0L)
-                .endTimestamp("endTimestamp")
+                .endTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .property("property")
-                .startTimestamp("startTimestamp")
+                .startTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         val queryParams = params._queryParams()
@@ -34,9 +35,9 @@ internal class EmailGetParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("emailIds", listOf("0").joinToString(","))
-                    .put("endTimestamp", "endTimestamp")
+                    .put("endTimestamp", "2019-12-27T18:11:19.117Z")
                     .put("property", "property")
-                    .put("startTimestamp", "startTimestamp")
+                    .put("startTimestamp", "2019-12-27T18:11:19.117Z")
                     .build()
             )
     }

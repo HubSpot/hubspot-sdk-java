@@ -13,12 +13,12 @@ internal class IntegerFieldSchemaTest {
     fun create() {
         val integerFieldSchema =
             IntegerFieldSchema.builder()
-                .type(IntegerFieldSchema.Type.INTEGER)
+                .type(IntegerFieldSchema.Type.ARRAY)
                 .maximum(0)
                 .minimum(0)
                 .build()
 
-        assertThat(integerFieldSchema.type()).isEqualTo(IntegerFieldSchema.Type.INTEGER)
+        assertThat(integerFieldSchema.type()).isEqualTo(IntegerFieldSchema.Type.ARRAY)
         assertThat(integerFieldSchema.maximum()).contains(0)
         assertThat(integerFieldSchema.minimum()).contains(0)
     }
@@ -28,7 +28,7 @@ internal class IntegerFieldSchemaTest {
         val jsonMapper = jsonMapper()
         val integerFieldSchema =
             IntegerFieldSchema.builder()
-                .type(IntegerFieldSchema.Type.INTEGER)
+                .type(IntegerFieldSchema.Type.ARRAY)
                 .maximum(0)
                 .minimum(0)
                 .build()
