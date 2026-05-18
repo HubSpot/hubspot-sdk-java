@@ -2,6 +2,10 @@
 
 package com.hubspot.sdk.models.crm.associations.batch
 
+import com.hubspot.sdk.models.AssociationSpec
+import com.hubspot.sdk.models.PublicObjectId
+import com.hubspot.sdk.models.crm.BatchInputPublicAssociationMultiPost
+import com.hubspot.sdk.models.crm.PublicAssociationMultiPost
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -11,9 +15,25 @@ internal class BatchCreateParamsTest {
     fun create() {
         BatchCreateParams.builder()
             .fromObjectType("fromObjectType")
-            .fromObjectId("fromObjectId")
             .toObjectType("toObjectType")
-            .toObjectId("toObjectId")
+            .batchInputPublicAssociationMultiPost(
+                BatchInputPublicAssociationMultiPost.builder()
+                    .addInput(
+                        PublicAssociationMultiPost.builder()
+                            .from(PublicObjectId.builder().id("id").build())
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                    )
+                                    .associationTypeId(0)
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
             .build()
     }
 
@@ -22,16 +42,79 @@ internal class BatchCreateParamsTest {
         val params =
             BatchCreateParams.builder()
                 .fromObjectType("fromObjectType")
-                .fromObjectId("fromObjectId")
                 .toObjectType("toObjectType")
-                .toObjectId("toObjectId")
+                .batchInputPublicAssociationMultiPost(
+                    BatchInputPublicAssociationMultiPost.builder()
+                        .addInput(
+                            PublicAssociationMultiPost.builder()
+                                .from(PublicObjectId.builder().id("id").build())
+                                .to(PublicObjectId.builder().id("id").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("fromObjectType")
-        assertThat(params._pathParam(1)).isEqualTo("fromObjectId")
-        assertThat(params._pathParam(2)).isEqualTo("toObjectType")
-        assertThat(params._pathParam(3)).isEqualTo("toObjectId")
+        assertThat(params._pathParam(1)).isEqualTo("toObjectType")
         // out-of-bound path param
-        assertThat(params._pathParam(4)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            BatchCreateParams.builder()
+                .fromObjectType("fromObjectType")
+                .toObjectType("toObjectType")
+                .batchInputPublicAssociationMultiPost(
+                    BatchInputPublicAssociationMultiPost.builder()
+                        .addInput(
+                            PublicAssociationMultiPost.builder()
+                                .from(PublicObjectId.builder().id("id").build())
+                                .to(PublicObjectId.builder().id("id").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                BatchInputPublicAssociationMultiPost.builder()
+                    .addInput(
+                        PublicAssociationMultiPost.builder()
+                            .from(PublicObjectId.builder().id("id").build())
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                    )
+                                    .associationTypeId(0)
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
     }
 }

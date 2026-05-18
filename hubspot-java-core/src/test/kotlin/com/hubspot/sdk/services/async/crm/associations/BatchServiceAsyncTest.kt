@@ -5,14 +5,14 @@ package com.hubspot.sdk.services.async.crm.associations
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot.sdk.models.AssociationSpec
 import com.hubspot.sdk.models.PublicObjectId
-import com.hubspot.sdk.models.crm.associations.BatchInputPublicAssociationMultiArchive
-import com.hubspot.sdk.models.crm.associations.BatchInputPublicAssociationMultiPost
-import com.hubspot.sdk.models.crm.associations.BatchInputPublicDefaultAssociationMultiPost
-import com.hubspot.sdk.models.crm.associations.BatchInputPublicFetchAssociationsBatchRequest
-import com.hubspot.sdk.models.crm.associations.PublicAssociationMultiArchive
-import com.hubspot.sdk.models.crm.associations.PublicAssociationMultiPost
-import com.hubspot.sdk.models.crm.associations.PublicDefaultAssociationMultiPost
-import com.hubspot.sdk.models.crm.associations.PublicFetchAssociationsBatchRequest
+import com.hubspot.sdk.models.crm.BatchInputPublicAssociationMultiArchive
+import com.hubspot.sdk.models.crm.BatchInputPublicAssociationMultiPost
+import com.hubspot.sdk.models.crm.BatchInputPublicDefaultAssociationMultiPost
+import com.hubspot.sdk.models.crm.BatchInputPublicFetchAssociationsBatchRequest
+import com.hubspot.sdk.models.crm.PublicAssociationMultiArchive
+import com.hubspot.sdk.models.crm.PublicAssociationMultiPost
+import com.hubspot.sdk.models.crm.PublicDefaultAssociationMultiPost
+import com.hubspot.sdk.models.crm.PublicFetchAssociationsBatchRequest
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchDeleteLabelsParams
@@ -29,19 +29,34 @@ internal class BatchServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
-        val batchResponsePublicDefaultAssociationFuture =
+        val batchResponseLabelsBetweenObjectPairFuture =
             batchServiceAsync.create(
                 BatchCreateParams.builder()
                     .fromObjectType("fromObjectType")
-                    .fromObjectId("fromObjectId")
                     .toObjectType("toObjectType")
-                    .toObjectId("toObjectId")
+                    .batchInputPublicAssociationMultiPost(
+                        BatchInputPublicAssociationMultiPost.builder()
+                            .addInput(
+                                PublicAssociationMultiPost.builder()
+                                    .from(PublicObjectId.builder().id("id").build())
+                                    .to(PublicObjectId.builder().id("id").build())
+                                    .addType(
+                                        AssociationSpec.builder()
+                                            .associationCategory(
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                            )
+                                            .associationTypeId(0)
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .build()
             )
 
-        val batchResponsePublicDefaultAssociation =
-            batchResponsePublicDefaultAssociationFuture.get()
-        batchResponsePublicDefaultAssociation.validate()
+        val batchResponseLabelsBetweenObjectPair = batchResponseLabelsBetweenObjectPairFuture.get()
+        batchResponseLabelsBetweenObjectPair.validate()
     }
 
     @Disabled("Mock server tests are disabled")

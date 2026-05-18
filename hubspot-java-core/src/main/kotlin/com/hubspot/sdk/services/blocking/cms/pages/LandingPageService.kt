@@ -13,15 +13,17 @@ import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageDeleteParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListPage
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPagePushDraftLiveParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageResetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageScheduleParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateParams
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.AbTestService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.BatchService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.DraftService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.FolderService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.MultiLanguageService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.RevisionService
 import java.util.function.Consumer
 
 interface LandingPageService {
@@ -37,6 +39,18 @@ interface LandingPageService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LandingPageService
+
+    fun abTest(): AbTestService
+
+    fun batch(): BatchService
+
+    fun draft(): DraftService
+
+    fun folders(): FolderService
+
+    fun multiLanguage(): MultiLanguageService
+
+    fun revisions(): RevisionService
 
     /** Create a new landing page. */
     fun create(params: LandingPageCreateParams): PagesPage = create(params, RequestOptions.none())
@@ -183,99 +197,6 @@ interface LandingPageService {
     fun get(objectId: String, requestOptions: RequestOptions): PagesPage =
         get(objectId, LandingPageGetParams.none(), requestOptions)
 
-    /** Retrieve the full draft version of a landing page, specified by page ID. */
-    fun getDraft(objectId: String): PagesPage = getDraft(objectId, LandingPageGetDraftParams.none())
-
-    /** @see getDraft */
-    fun getDraft(
-        objectId: String,
-        params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage = getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see getDraft */
-    fun getDraft(
-        objectId: String,
-        params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-    ): PagesPage = getDraft(objectId, params, RequestOptions.none())
-
-    /** @see getDraft */
-    fun getDraft(
-        params: LandingPageGetDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
-
-    /** @see getDraft */
-    fun getDraft(params: LandingPageGetDraftParams): PagesPage =
-        getDraft(params, RequestOptions.none())
-
-    /** @see getDraft */
-    fun getDraft(objectId: String, requestOptions: RequestOptions): PagesPage =
-        getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
-
-    /**
-     * Take any changes from the draft version of the Landing Page and apply them to the live
-     * version.
-     */
-    fun pushDraftLive(objectId: String) =
-        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(
-        objectId: String,
-        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(
-        objectId: String,
-        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-    ) = pushDraftLive(objectId, params, RequestOptions.none())
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(
-        params: LandingPagePushDraftLiveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(params: LandingPagePushDraftLiveParams) =
-        pushDraftLive(params, RequestOptions.none())
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(objectId: String, requestOptions: RequestOptions) =
-        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
-
-    /** Discards any edits and resets the draft to match the live version. */
-    fun resetDraft(objectId: String) = resetDraft(objectId, LandingPageResetDraftParams.none())
-
-    /** @see resetDraft */
-    fun resetDraft(
-        objectId: String,
-        params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see resetDraft */
-    fun resetDraft(
-        objectId: String,
-        params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-    ) = resetDraft(objectId, params, RequestOptions.none())
-
-    /** @see resetDraft */
-    fun resetDraft(
-        params: LandingPageResetDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see resetDraft */
-    fun resetDraft(params: LandingPageResetDraftParams) = resetDraft(params, RequestOptions.none())
-
-    /** @see resetDraft */
-    fun resetDraft(objectId: String, requestOptions: RequestOptions) =
-        resetDraft(objectId, LandingPageResetDraftParams.none(), requestOptions)
-
     /** Schedule a landing page to be published. */
     fun schedule(params: LandingPageScheduleParams) = schedule(params, RequestOptions.none())
 
@@ -302,30 +223,6 @@ interface LandingPageService {
         schedule(contentScheduleRequestVNext, RequestOptions.none())
 
     /**
-     * Partially updates the draft version of a single landing page, specified by its ID. You only
-     * need to specify the column values that you are modifying.
-     */
-    fun updateDraft(objectId: String, params: LandingPageUpdateDraftParams): PagesPage =
-        updateDraft(objectId, params, RequestOptions.none())
-
-    /** @see updateDraft */
-    fun updateDraft(
-        objectId: String,
-        params: LandingPageUpdateDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage = updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see updateDraft */
-    fun updateDraft(params: LandingPageUpdateDraftParams): PagesPage =
-        updateDraft(params, RequestOptions.none())
-
-    /** @see updateDraft */
-    fun updateDraft(
-        params: LandingPageUpdateDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PagesPage
-
-    /**
      * A view of [LandingPageService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
@@ -338,6 +235,18 @@ interface LandingPageService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): LandingPageService.WithRawResponse
+
+        fun abTest(): AbTestService.WithRawResponse
+
+        fun batch(): BatchService.WithRawResponse
+
+        fun draft(): DraftService.WithRawResponse
+
+        fun folders(): FolderService.WithRawResponse
+
+        fun multiLanguage(): MultiLanguageService.WithRawResponse
+
+        fun revisions(): RevisionService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages`, but is otherwise
@@ -536,130 +445,6 @@ interface LandingPageService {
             get(objectId, LandingPageGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/{objectId}/draft`,
-         * but is otherwise the same as [LandingPageService.getDraft].
-         */
-        @MustBeClosed
-        fun getDraft(objectId: String): HttpResponseFor<PagesPage> =
-            getDraft(objectId, LandingPageGetDraftParams.none())
-
-        /** @see getDraft */
-        @MustBeClosed
-        fun getDraft(
-            objectId: String,
-            params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
-            getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see getDraft */
-        @MustBeClosed
-        fun getDraft(
-            objectId: String,
-            params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-        ): HttpResponseFor<PagesPage> = getDraft(objectId, params, RequestOptions.none())
-
-        /** @see getDraft */
-        @MustBeClosed
-        fun getDraft(
-            params: LandingPageGetDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
-
-        /** @see getDraft */
-        @MustBeClosed
-        fun getDraft(params: LandingPageGetDraftParams): HttpResponseFor<PagesPage> =
-            getDraft(params, RequestOptions.none())
-
-        /** @see getDraft */
-        @MustBeClosed
-        fun getDraft(objectId: String, requestOptions: RequestOptions): HttpResponseFor<PagesPage> =
-            getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/{objectId}/draft/push-live`, but is otherwise the same
-         * as [LandingPageService.pushDraftLive].
-         */
-        @MustBeClosed
-        fun pushDraftLive(objectId: String): HttpResponse =
-            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
-
-        /** @see pushDraftLive */
-        @MustBeClosed
-        fun pushDraftLive(
-            objectId: String,
-            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see pushDraftLive */
-        @MustBeClosed
-        fun pushDraftLive(
-            objectId: String,
-            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-        ): HttpResponse = pushDraftLive(objectId, params, RequestOptions.none())
-
-        /** @see pushDraftLive */
-        @MustBeClosed
-        fun pushDraftLive(
-            params: LandingPagePushDraftLiveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see pushDraftLive */
-        @MustBeClosed
-        fun pushDraftLive(params: LandingPagePushDraftLiveParams): HttpResponse =
-            pushDraftLive(params, RequestOptions.none())
-
-        /** @see pushDraftLive */
-        @MustBeClosed
-        fun pushDraftLive(objectId: String, requestOptions: RequestOptions): HttpResponse =
-            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/{objectId}/draft/reset`, but is otherwise the same as
-         * [LandingPageService.resetDraft].
-         */
-        @MustBeClosed
-        fun resetDraft(objectId: String): HttpResponse =
-            resetDraft(objectId, LandingPageResetDraftParams.none())
-
-        /** @see resetDraft */
-        @MustBeClosed
-        fun resetDraft(
-            objectId: String,
-            params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see resetDraft */
-        @MustBeClosed
-        fun resetDraft(
-            objectId: String,
-            params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-        ): HttpResponse = resetDraft(objectId, params, RequestOptions.none())
-
-        /** @see resetDraft */
-        @MustBeClosed
-        fun resetDraft(
-            params: LandingPageResetDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see resetDraft */
-        @MustBeClosed
-        fun resetDraft(params: LandingPageResetDraftParams): HttpResponse =
-            resetDraft(params, RequestOptions.none())
-
-        /** @see resetDraft */
-        @MustBeClosed
-        fun resetDraft(objectId: String, requestOptions: RequestOptions): HttpResponse =
-            resetDraft(objectId, LandingPageResetDraftParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/schedule`, but is
          * otherwise the same as [LandingPageService.schedule].
          */
@@ -691,37 +476,5 @@ interface LandingPageService {
         @MustBeClosed
         fun schedule(contentScheduleRequestVNext: ContentScheduleRequestVNext): HttpResponse =
             schedule(contentScheduleRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `patch
-         * /cms/pages/2026-03/landing-pages/{objectId}/draft`, but is otherwise the same as
-         * [LandingPageService.updateDraft].
-         */
-        @MustBeClosed
-        fun updateDraft(
-            objectId: String,
-            params: LandingPageUpdateDraftParams,
-        ): HttpResponseFor<PagesPage> = updateDraft(objectId, params, RequestOptions.none())
-
-        /** @see updateDraft */
-        @MustBeClosed
-        fun updateDraft(
-            objectId: String,
-            params: LandingPageUpdateDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage> =
-            updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see updateDraft */
-        @MustBeClosed
-        fun updateDraft(params: LandingPageUpdateDraftParams): HttpResponseFor<PagesPage> =
-            updateDraft(params, RequestOptions.none())
-
-        /** @see updateDraft */
-        @MustBeClosed
-        fun updateDraft(
-            params: LandingPageUpdateDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PagesPage>
     }
 }

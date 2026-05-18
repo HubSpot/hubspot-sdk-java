@@ -16,9 +16,7 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
 import com.hubspot.sdk.models.cms.sitesearch.IndexedData
-import com.hubspot.sdk.models.cms.sitesearch.PublicSearchResults
 import com.hubspot.sdk.models.cms.sitesearch.SiteSearchGetIndexedDataParams
-import com.hubspot.sdk.models.cms.sitesearch.SiteSearchSearchParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -40,13 +38,6 @@ class SiteSearchServiceImpl internal constructor(private val clientOptions: Clie
     ): IndexedData =
         // get /cms/site-search/2026-03/indexed-data/{contentId}
         withRawResponse().getIndexedData(params, requestOptions).parse()
-
-    override fun search(
-        params: SiteSearchSearchParams,
-        requestOptions: RequestOptions,
-    ): PublicSearchResults =
-        // get /cms/site-search/2026-03/search
-        withRawResponse().search(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SiteSearchService.WithRawResponse {
@@ -89,33 +80,6 @@ class SiteSearchServiceImpl internal constructor(private val clientOptions: Clie
             return errorHandler.handle(response).parseable {
                 response
                     .use { getIndexedDataHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val searchHandler: Handler<PublicSearchResults> =
-            jsonHandler<PublicSearchResults>(clientOptions.jsonMapper)
-
-        override fun search(
-            params: SiteSearchSearchParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PublicSearchResults> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "site-search", "2026-03", "search")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { searchHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

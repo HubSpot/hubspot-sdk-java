@@ -7,14 +7,34 @@ import com.hubspot.sdk.models.AssociationSpec
 import com.hubspot.sdk.models.crm.Filter
 import com.hubspot.sdk.models.crm.FilterGroup
 import com.hubspot.sdk.models.crm.PublicObjectSearchRequest
+import com.hubspot.sdk.models.crm.associations.AssociationCreateParams
 import com.hubspot.sdk.models.crm.associations.AssociationDeleteParams
 import com.hubspot.sdk.models.crm.associations.AssociationListParams
 import com.hubspot.sdk.models.crm.associations.AssociationSearchParams
-import com.hubspot.sdk.models.crm.associations.AssociationUpdateAssociationLabelsParams
+import com.hubspot.sdk.models.crm.associations.AssociationUpdateLabelsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class AssociationServiceTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun create() {
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
+        val associationService = client.crm().associations()
+
+        val batchResponsePublicDefaultAssociation =
+            associationService.create(
+                AssociationCreateParams.builder()
+                    .fromObjectType("fromObjectType")
+                    .fromObjectId("fromObjectId")
+                    .toObjectType("toObjectType")
+                    .toObjectId("toObjectId")
+                    .build()
+            )
+
+        batchResponsePublicDefaultAssociation.validate()
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test
@@ -101,13 +121,13 @@ internal class AssociationServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun updateAssociationLabels() {
+    fun updateLabels() {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val associationService = client.crm().associations()
 
         val labelsBetweenObjectPair =
-            associationService.updateAssociationLabels(
-                AssociationUpdateAssociationLabelsParams.builder()
+            associationService.updateLabels(
+                AssociationUpdateLabelsParams.builder()
                     .objectType("objectType")
                     .objectId("objectId")
                     .toObjectType("toObjectType")

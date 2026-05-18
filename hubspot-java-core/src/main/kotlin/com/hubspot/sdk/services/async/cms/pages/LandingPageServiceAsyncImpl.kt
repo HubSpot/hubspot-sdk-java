@@ -22,15 +22,23 @@ import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageDeleteParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListPageAsync
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPagePushDraftLiveParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageResetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageScheduleParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateParams
+import com.hubspot.sdk.services.async.cms.pages.landingpages.AbTestServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.AbTestServiceAsyncImpl
+import com.hubspot.sdk.services.async.cms.pages.landingpages.BatchServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.BatchServiceAsyncImpl
+import com.hubspot.sdk.services.async.cms.pages.landingpages.DraftServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.DraftServiceAsyncImpl
+import com.hubspot.sdk.services.async.cms.pages.landingpages.FolderServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.FolderServiceAsyncImpl
+import com.hubspot.sdk.services.async.cms.pages.landingpages.MultiLanguageServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.MultiLanguageServiceAsyncImpl
+import com.hubspot.sdk.services.async.cms.pages.landingpages.RevisionServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.RevisionServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -42,10 +50,36 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
         WithRawResponseImpl(clientOptions)
     }
 
+    private val abTest: AbTestServiceAsync by lazy { AbTestServiceAsyncImpl(clientOptions) }
+
+    private val batch: BatchServiceAsync by lazy { BatchServiceAsyncImpl(clientOptions) }
+
+    private val draft: DraftServiceAsync by lazy { DraftServiceAsyncImpl(clientOptions) }
+
+    private val folders: FolderServiceAsync by lazy { FolderServiceAsyncImpl(clientOptions) }
+
+    private val multiLanguage: MultiLanguageServiceAsync by lazy {
+        MultiLanguageServiceAsyncImpl(clientOptions)
+    }
+
+    private val revisions: RevisionServiceAsync by lazy { RevisionServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): LandingPageServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): LandingPageServiceAsync =
         LandingPageServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun abTest(): AbTestServiceAsync = abTest
+
+    override fun batch(): BatchServiceAsync = batch
+
+    override fun draft(): DraftServiceAsync = draft
+
+    override fun folders(): FolderServiceAsync = folders
+
+    override fun multiLanguage(): MultiLanguageServiceAsync = multiLanguage
+
+    override fun revisions(): RevisionServiceAsync = revisions
 
     override fun create(
         params: LandingPageCreateParams,
@@ -89,27 +123,6 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
         // get /cms/pages/2026-03/landing-pages/{objectId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
-    override fun getDraft(
-        params: LandingPageGetDraftParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PagesPage> =
-        // get /cms/pages/2026-03/landing-pages/{objectId}/draft
-        withRawResponse().getDraft(params, requestOptions).thenApply { it.parse() }
-
-    override fun pushDraftLive(
-        params: LandingPagePushDraftLiveParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // post /cms/pages/2026-03/landing-pages/{objectId}/draft/push-live
-        withRawResponse().pushDraftLive(params, requestOptions).thenAccept {}
-
-    override fun resetDraft(
-        params: LandingPageResetDraftParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // post /cms/pages/2026-03/landing-pages/{objectId}/draft/reset
-        withRawResponse().resetDraft(params, requestOptions).thenAccept {}
-
     override fun schedule(
         params: LandingPageScheduleParams,
         requestOptions: RequestOptions,
@@ -117,18 +130,35 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
         // post /cms/pages/2026-03/landing-pages/schedule
         withRawResponse().schedule(params, requestOptions).thenAccept {}
 
-    override fun updateDraft(
-        params: LandingPageUpdateDraftParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PagesPage> =
-        // patch /cms/pages/2026-03/landing-pages/{objectId}/draft
-        withRawResponse().updateDraft(params, requestOptions).thenApply { it.parse() }
-
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LandingPageServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        private val abTest: AbTestServiceAsync.WithRawResponse by lazy {
+            AbTestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val batch: BatchServiceAsync.WithRawResponse by lazy {
+            BatchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val draft: DraftServiceAsync.WithRawResponse by lazy {
+            DraftServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val folders: FolderServiceAsync.WithRawResponse by lazy {
+            FolderServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val multiLanguage: MultiLanguageServiceAsync.WithRawResponse by lazy {
+            MultiLanguageServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val revisions: RevisionServiceAsync.WithRawResponse by lazy {
+            RevisionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -136,6 +166,18 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
             LandingPageServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun abTest(): AbTestServiceAsync.WithRawResponse = abTest
+
+        override fun batch(): BatchServiceAsync.WithRawResponse = batch
+
+        override fun draft(): DraftServiceAsync.WithRawResponse = draft
+
+        override fun folders(): FolderServiceAsync.WithRawResponse = folders
+
+        override fun multiLanguage(): MultiLanguageServiceAsync.WithRawResponse = multiLanguage
+
+        override fun revisions(): RevisionServiceAsync.WithRawResponse = revisions
 
         private val createHandler: Handler<PagesPage> =
             jsonHandler<PagesPage>(clientOptions.jsonMapper)
@@ -349,116 +391,6 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val getDraftHandler: Handler<PagesPage> =
-            jsonHandler<PagesPage>(clientOptions.jsonMapper)
-
-        override fun getDraft(
-            params: LandingPageGetDraftParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PagesPage>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getDraftHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val pushDraftLiveHandler: Handler<Void?> = emptyHandler()
-
-        override fun pushDraftLive(
-            params: LandingPagePushDraftLiveParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                        "push-live",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { pushDraftLiveHandler.handle(it) }
-                    }
-                }
-        }
-
-        private val resetDraftHandler: Handler<Void?> = emptyHandler()
-
-        override fun resetDraft(
-            params: LandingPageResetDraftParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                        "reset",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { resetDraftHandler.handle(it) }
-                    }
-                }
-        }
-
         private val scheduleHandler: Handler<Void?> = emptyHandler()
 
         override fun schedule(
@@ -479,47 +411,6 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { scheduleHandler.handle(it) }
-                    }
-                }
-        }
-
-        private val updateDraftHandler: Handler<PagesPage> =
-            jsonHandler<PagesPage>(clientOptions.jsonMapper)
-
-        override fun updateDraft(
-            params: LandingPageUpdateDraftParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PagesPage>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { updateDraftHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
                     }
                 }
         }

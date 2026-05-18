@@ -22,15 +22,23 @@ import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageDeleteParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListPage
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPagePushDraftLiveParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageResetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageScheduleParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateParams
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.AbTestService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.AbTestServiceImpl
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.BatchService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.BatchServiceImpl
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.DraftService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.DraftServiceImpl
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.FolderService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.FolderServiceImpl
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.MultiLanguageService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.MultiLanguageServiceImpl
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.RevisionService
+import com.hubspot.sdk.services.blocking.cms.pages.landingpages.RevisionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -41,10 +49,36 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
         WithRawResponseImpl(clientOptions)
     }
 
+    private val abTest: AbTestService by lazy { AbTestServiceImpl(clientOptions) }
+
+    private val batch: BatchService by lazy { BatchServiceImpl(clientOptions) }
+
+    private val draft: DraftService by lazy { DraftServiceImpl(clientOptions) }
+
+    private val folders: FolderService by lazy { FolderServiceImpl(clientOptions) }
+
+    private val multiLanguage: MultiLanguageService by lazy {
+        MultiLanguageServiceImpl(clientOptions)
+    }
+
+    private val revisions: RevisionService by lazy { RevisionServiceImpl(clientOptions) }
+
     override fun withRawResponse(): LandingPageService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): LandingPageService =
         LandingPageServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun abTest(): AbTestService = abTest
+
+    override fun batch(): BatchService = batch
+
+    override fun draft(): DraftService = draft
+
+    override fun folders(): FolderService = folders
+
+    override fun multiLanguage(): MultiLanguageService = multiLanguage
+
+    override fun revisions(): RevisionService = revisions
 
     override fun create(
         params: LandingPageCreateParams,
@@ -80,37 +114,10 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
         // get /cms/pages/2026-03/landing-pages/{objectId}
         withRawResponse().get(params, requestOptions).parse()
 
-    override fun getDraft(
-        params: LandingPageGetDraftParams,
-        requestOptions: RequestOptions,
-    ): PagesPage =
-        // get /cms/pages/2026-03/landing-pages/{objectId}/draft
-        withRawResponse().getDraft(params, requestOptions).parse()
-
-    override fun pushDraftLive(
-        params: LandingPagePushDraftLiveParams,
-        requestOptions: RequestOptions,
-    ) {
-        // post /cms/pages/2026-03/landing-pages/{objectId}/draft/push-live
-        withRawResponse().pushDraftLive(params, requestOptions)
-    }
-
-    override fun resetDraft(params: LandingPageResetDraftParams, requestOptions: RequestOptions) {
-        // post /cms/pages/2026-03/landing-pages/{objectId}/draft/reset
-        withRawResponse().resetDraft(params, requestOptions)
-    }
-
     override fun schedule(params: LandingPageScheduleParams, requestOptions: RequestOptions) {
         // post /cms/pages/2026-03/landing-pages/schedule
         withRawResponse().schedule(params, requestOptions)
     }
-
-    override fun updateDraft(
-        params: LandingPageUpdateDraftParams,
-        requestOptions: RequestOptions,
-    ): PagesPage =
-        // patch /cms/pages/2026-03/landing-pages/{objectId}/draft
-        withRawResponse().updateDraft(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LandingPageService.WithRawResponse {
@@ -118,12 +125,48 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val abTest: AbTestService.WithRawResponse by lazy {
+            AbTestServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val batch: BatchService.WithRawResponse by lazy {
+            BatchServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val draft: DraftService.WithRawResponse by lazy {
+            DraftServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val folders: FolderService.WithRawResponse by lazy {
+            FolderServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val multiLanguage: MultiLanguageService.WithRawResponse by lazy {
+            MultiLanguageServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val revisions: RevisionService.WithRawResponse by lazy {
+            RevisionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): LandingPageService.WithRawResponse =
             LandingPageServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun abTest(): AbTestService.WithRawResponse = abTest
+
+        override fun batch(): BatchService.WithRawResponse = batch
+
+        override fun draft(): DraftService.WithRawResponse = draft
+
+        override fun folders(): FolderService.WithRawResponse = folders
+
+        override fun multiLanguage(): MultiLanguageService.WithRawResponse = multiLanguage
+
+        override fun revisions(): RevisionService.WithRawResponse = revisions
 
         private val createHandler: Handler<PagesPage> =
             jsonHandler<PagesPage>(clientOptions.jsonMapper)
@@ -318,107 +361,6 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val getDraftHandler: Handler<PagesPage> =
-            jsonHandler<PagesPage>(clientOptions.jsonMapper)
-
-        override fun getDraft(
-            params: LandingPageGetDraftParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PagesPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { getDraftHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val pushDraftLiveHandler: Handler<Void?> = emptyHandler()
-
-        override fun pushDraftLive(
-            params: LandingPagePushDraftLiveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                        "push-live",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { pushDraftLiveHandler.handle(it) }
-            }
-        }
-
-        private val resetDraftHandler: Handler<Void?> = emptyHandler()
-
-        override fun resetDraft(
-            params: LandingPageResetDraftParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                        "reset",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { resetDraftHandler.handle(it) }
-            }
-        }
-
         private val scheduleHandler: Handler<Void?> = emptyHandler()
 
         override fun schedule(
@@ -437,44 +379,6 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { scheduleHandler.handle(it) }
-            }
-        }
-
-        private val updateDraftHandler: Handler<PagesPage> =
-            jsonHandler<PagesPage>(clientOptions.jsonMapper)
-
-        override fun updateDraft(
-            params: LandingPageUpdateDraftParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PagesPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        params._pathParam(0),
-                        "draft",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateDraftHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
             }
         }
     }

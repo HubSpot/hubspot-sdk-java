@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.crm.lists
 
 import com.hubspot.sdk.core.http.QueryParams
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,8 +13,8 @@ internal class ListGetSizeAndEditsHistoryBetweenParamsTest {
     fun create() {
         ListGetSizeAndEditsHistoryBetweenParams.builder()
             .listId("listId")
-            .endDate("endDate")
-            .startDate("startDate")
+            .endDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .startDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
 
@@ -31,8 +32,8 @@ internal class ListGetSizeAndEditsHistoryBetweenParamsTest {
         val params =
             ListGetSizeAndEditsHistoryBetweenParams.builder()
                 .listId("listId")
-                .endDate("endDate")
-                .startDate("startDate")
+                .endDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .startDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         val queryParams = params._queryParams()
@@ -40,8 +41,8 @@ internal class ListGetSizeAndEditsHistoryBetweenParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("endDate", "endDate")
-                    .put("startDate", "startDate")
+                    .put("endDate", "2019-12-27T18:11:19.117Z")
+                    .put("startDate", "2019-12-27T18:11:19.117Z")
                     .build()
             )
     }

@@ -61,6 +61,7 @@ internal class MultiLanguageServiceAsyncTest {
                     .language("language")
                     .primaryLanguage("primaryLanguage")
                     .slug("slug")
+                    .usePublished(true)
                     .build()
             )
 

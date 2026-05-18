@@ -224,6 +224,7 @@ internal class AuthorServiceAsyncTest {
                     )
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
 

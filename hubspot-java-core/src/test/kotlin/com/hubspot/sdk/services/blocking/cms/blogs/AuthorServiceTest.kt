@@ -217,6 +217,7 @@ internal class AuthorServiceTest {
                     )
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
 

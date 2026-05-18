@@ -12,7 +12,11 @@ internal class MultiLanguageCreateLangVariationParamsTest {
     fun create() {
         MultiLanguageCreateLangVariationParams.builder()
             .blogPostLanguageCloneRequestVNext(
-                BlogPostLanguageCloneRequestVNext.builder().id("id").language("language").build()
+                BlogPostLanguageCloneRequestVNext.builder()
+                    .id("id")
+                    .language("language")
+                    .usePublished(true)
+                    .build()
             )
             .build()
     }
@@ -25,6 +29,7 @@ internal class MultiLanguageCreateLangVariationParamsTest {
                     BlogPostLanguageCloneRequestVNext.builder()
                         .id("id")
                         .language("language")
+                        .usePublished(true)
                         .build()
                 )
                 .build()
@@ -33,7 +38,11 @@ internal class MultiLanguageCreateLangVariationParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                BlogPostLanguageCloneRequestVNext.builder().id("id").language("language").build()
+                BlogPostLanguageCloneRequestVNext.builder()
+                    .id("id")
+                    .language("language")
+                    .usePublished(true)
+                    .build()
             )
     }
 

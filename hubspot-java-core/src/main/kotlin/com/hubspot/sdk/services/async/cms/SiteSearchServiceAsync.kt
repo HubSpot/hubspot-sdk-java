@@ -6,9 +6,7 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.models.cms.sitesearch.IndexedData
-import com.hubspot.sdk.models.cms.sitesearch.PublicSearchResults
 import com.hubspot.sdk.models.cms.sitesearch.SiteSearchGetIndexedDataParams
-import com.hubspot.sdk.models.cms.sitesearch.SiteSearchSearchParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -65,28 +63,6 @@ interface SiteSearchServiceAsync {
         getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
 
     /**
-     * Returns any website content matching the given search criteria for a given HubSpot account.
-     * Searches can be filtered by content type, domain, or URL path. Includes options for weighing
-     * results by recency and popularity, along with language support.
-     */
-    fun search(): CompletableFuture<PublicSearchResults> = search(SiteSearchSearchParams.none())
-
-    /** @see search */
-    fun search(
-        params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSearchResults>
-
-    /** @see search */
-    fun search(
-        params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-    ): CompletableFuture<PublicSearchResults> = search(params, RequestOptions.none())
-
-    /** @see search */
-    fun search(requestOptions: RequestOptions): CompletableFuture<PublicSearchResults> =
-        search(SiteSearchSearchParams.none(), requestOptions)
-
-    /**
      * A view of [SiteSearchServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -141,30 +117,5 @@ interface SiteSearchServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<IndexedData>> =
             getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/site-search/2026-03/search`, but is otherwise
-         * the same as [SiteSearchServiceAsync.search].
-         */
-        fun search(): CompletableFuture<HttpResponseFor<PublicSearchResults>> =
-            search(SiteSearchSearchParams.none())
-
-        /** @see search */
-        fun search(
-            params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSearchResults>>
-
-        /** @see search */
-        fun search(
-            params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-        ): CompletableFuture<HttpResponseFor<PublicSearchResults>> =
-            search(params, RequestOptions.none())
-
-        /** @see search */
-        fun search(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PublicSearchResults>> =
-            search(SiteSearchSearchParams.none(), requestOptions)
     }
 }

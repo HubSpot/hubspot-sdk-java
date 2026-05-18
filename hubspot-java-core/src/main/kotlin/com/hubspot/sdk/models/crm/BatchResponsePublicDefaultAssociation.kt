@@ -92,7 +92,7 @@ private constructor(
     fun startedAt(): OffsetDateTime = startedAt.getRequired("startedAt")
 
     /**
-     * The status of the batch processing request: "PENDING", "PROCESSING", "CANCELLED", or
+     * The status of the batch processing request. Can be: "PENDING", "PROCESSING", "CANCELED", or
      * "COMPLETE".
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
@@ -115,7 +115,7 @@ private constructor(
     fun links(): Optional<Links> = links.getOptional("links")
 
     /**
-     * The number of errors encountered during the batch processing.
+     * The total number of errors that occurred during the operation.
      *
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -304,8 +304,8 @@ private constructor(
         fun startedAt(startedAt: JsonField<OffsetDateTime>) = apply { this.startedAt = startedAt }
 
         /**
-         * The status of the batch processing request: "PENDING", "PROCESSING", "CANCELLED", or
-         * "COMPLETE".
+         * The status of the batch processing request. Can be: "PENDING", "PROCESSING", "CANCELED",
+         * or "COMPLETE".
          */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -353,7 +353,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
-        /** The number of errors encountered during the batch processing. */
+        /** The total number of errors that occurred during the operation. */
         fun numErrors(numErrors: Int) = numErrors(JsonField.of(numErrors))
 
         /**
@@ -477,7 +477,7 @@ private constructor(
             (if (requestedAt.asKnown().isPresent) 1 else 0)
 
     /**
-     * The status of the batch processing request: "PENDING", "PROCESSING", "CANCELLED", or
+     * The status of the batch processing request. Can be: "PENDING", "PROCESSING", "CANCELED", or
      * "COMPLETE".
      */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {

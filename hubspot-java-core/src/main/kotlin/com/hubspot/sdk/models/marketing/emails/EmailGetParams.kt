@@ -6,6 +6,8 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
 import com.hubspot.sdk.core.toImmutable
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -17,20 +19,20 @@ import kotlin.jvm.optionals.getOrNull
 class EmailGetParams
 private constructor(
     private val emailIds: List<Long>?,
-    private val endTimestamp: String?,
+    private val endTimestamp: OffsetDateTime?,
     private val property: String?,
-    private val startTimestamp: String?,
+    private val startTimestamp: OffsetDateTime?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun emailIds(): Optional<List<Long>> = Optional.ofNullable(emailIds)
 
-    fun endTimestamp(): Optional<String> = Optional.ofNullable(endTimestamp)
+    fun endTimestamp(): Optional<OffsetDateTime> = Optional.ofNullable(endTimestamp)
 
     fun property(): Optional<String> = Optional.ofNullable(property)
 
-    fun startTimestamp(): Optional<String> = Optional.ofNullable(startTimestamp)
+    fun startTimestamp(): Optional<OffsetDateTime> = Optional.ofNullable(startTimestamp)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -52,9 +54,9 @@ private constructor(
     class Builder internal constructor() {
 
         private var emailIds: MutableList<Long>? = null
-        private var endTimestamp: String? = null
+        private var endTimestamp: OffsetDateTime? = null
         private var property: String? = null
-        private var startTimestamp: String? = null
+        private var startTimestamp: OffsetDateTime? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -82,20 +84,23 @@ private constructor(
             emailIds = (emailIds ?: mutableListOf()).apply { add(emailId) }
         }
 
-        fun endTimestamp(endTimestamp: String?) = apply { this.endTimestamp = endTimestamp }
+        fun endTimestamp(endTimestamp: OffsetDateTime?) = apply { this.endTimestamp = endTimestamp }
 
         /** Alias for calling [Builder.endTimestamp] with `endTimestamp.orElse(null)`. */
-        fun endTimestamp(endTimestamp: Optional<String>) = endTimestamp(endTimestamp.getOrNull())
+        fun endTimestamp(endTimestamp: Optional<OffsetDateTime>) =
+            endTimestamp(endTimestamp.getOrNull())
 
         fun property(property: String?) = apply { this.property = property }
 
         /** Alias for calling [Builder.property] with `property.orElse(null)`. */
         fun property(property: Optional<String>) = property(property.getOrNull())
 
-        fun startTimestamp(startTimestamp: String?) = apply { this.startTimestamp = startTimestamp }
+        fun startTimestamp(startTimestamp: OffsetDateTime?) = apply {
+            this.startTimestamp = startTimestamp
+        }
 
         /** Alias for calling [Builder.startTimestamp] with `startTimestamp.orElse(null)`. */
-        fun startTimestamp(startTimestamp: Optional<String>) =
+        fun startTimestamp(startTimestamp: Optional<OffsetDateTime>) =
             startTimestamp(startTimestamp.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -218,9 +223,13 @@ private constructor(
         QueryParams.builder()
             .apply {
                 emailIds?.let { put("emailIds", it.joinToString(",") { it.toString() }) }
-                endTimestamp?.let { put("endTimestamp", it) }
+                endTimestamp?.let {
+                    put("endTimestamp", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
                 property?.let { put("property", it) }
-                startTimestamp?.let { put("startTimestamp", it) }
+                startTimestamp?.let {
+                    put("startTimestamp", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
                 putAll(additionalQueryParams)
             }
             .build()
