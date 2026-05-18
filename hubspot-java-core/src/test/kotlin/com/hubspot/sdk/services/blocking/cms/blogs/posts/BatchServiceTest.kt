@@ -111,7 +111,7 @@ internal class BatchServiceTest {
                                                                             "angle" to
                                                                                 mapOf(
                                                                                     "units" to
-                                                                                        "deg",
+                                                                                        "DEGREES",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "colors" to
@@ -162,14 +162,14 @@ internal class BatchServiceTest {
                                                                                             "bottom" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "top" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
@@ -179,28 +179,28 @@ internal class BatchServiceTest {
                                                                                             "bottom" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "left" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "right" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "top" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
@@ -224,7 +224,7 @@ internal class BatchServiceTest {
                                                             mapOf(
                                                                 "angle" to
                                                                     mapOf(
-                                                                        "units" to "deg",
+                                                                        "units" to "DEGREES",
                                                                         "value" to 0,
                                                                     ),
                                                                 "colors" to
@@ -268,13 +268,13 @@ internal class BatchServiceTest {
                                                                                 "bottom" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "top" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                             ),
@@ -283,25 +283,25 @@ internal class BatchServiceTest {
                                                                                 "bottom" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "left" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "right" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "top" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                             ),

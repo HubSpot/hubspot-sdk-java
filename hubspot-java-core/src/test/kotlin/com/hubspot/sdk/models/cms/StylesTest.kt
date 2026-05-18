@@ -17,7 +17,7 @@ internal class StylesTest {
                 .backgroundColor(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build())
                 .backgroundGradient(
                     Gradient.builder()
-                        .angle(Angle.builder().units(Angle.Units.DEG).value(0.0).build())
+                        .angle(Angle.builder().units(Angle.Units.DEGREES).value(0.0).build())
                         .addColor(
                             ColorStop.builder()
                                 .color(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build())
@@ -51,15 +51,15 @@ internal class StylesTest {
                                     "hidden" to true,
                                     "margin" to
                                         mapOf(
-                                            "bottom" to mapOf("units" to "%", "value" to 0),
-                                            "top" to mapOf("units" to "%", "value" to 0),
+                                            "bottom" to mapOf("units" to "CH", "value" to 0),
+                                            "top" to mapOf("units" to "CH", "value" to 0),
                                         ),
                                     "padding" to
                                         mapOf(
-                                            "bottom" to mapOf("units" to "%", "value" to 0),
-                                            "left" to mapOf("units" to "%", "value" to 0),
-                                            "right" to mapOf("units" to "%", "value" to 0),
-                                            "top" to mapOf("units" to "%", "value" to 0),
+                                            "bottom" to mapOf("units" to "CH", "value" to 0),
+                                            "left" to mapOf("units" to "CH", "value" to 0),
+                                            "right" to mapOf("units" to "CH", "value" to 0),
+                                            "top" to mapOf("units" to "CH", "value" to 0),
                                         ),
                                 )
                             ),
@@ -73,7 +73,7 @@ internal class StylesTest {
         assertThat(styles.backgroundGradient())
             .isEqualTo(
                 Gradient.builder()
-                    .angle(Angle.builder().units(Angle.Units.DEG).value(0.0).build())
+                    .angle(Angle.builder().units(Angle.Units.DEGREES).value(0.0).build())
                     .addColor(
                         ColorStop.builder()
                             .color(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build())
@@ -109,15 +109,15 @@ internal class StylesTest {
                                 "hidden" to true,
                                 "margin" to
                                     mapOf(
-                                        "bottom" to mapOf("units" to "%", "value" to 0),
-                                        "top" to mapOf("units" to "%", "value" to 0),
+                                        "bottom" to mapOf("units" to "CH", "value" to 0),
+                                        "top" to mapOf("units" to "CH", "value" to 0),
                                     ),
                                 "padding" to
                                     mapOf(
-                                        "bottom" to mapOf("units" to "%", "value" to 0),
-                                        "left" to mapOf("units" to "%", "value" to 0),
-                                        "right" to mapOf("units" to "%", "value" to 0),
-                                        "top" to mapOf("units" to "%", "value" to 0),
+                                        "bottom" to mapOf("units" to "CH", "value" to 0),
+                                        "left" to mapOf("units" to "CH", "value" to 0),
+                                        "right" to mapOf("units" to "CH", "value" to 0),
+                                        "top" to mapOf("units" to "CH", "value" to 0),
                                     ),
                             )
                         ),
@@ -134,7 +134,7 @@ internal class StylesTest {
                 .backgroundColor(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build())
                 .backgroundGradient(
                     Gradient.builder()
-                        .angle(Angle.builder().units(Angle.Units.DEG).value(0.0).build())
+                        .angle(Angle.builder().units(Angle.Units.DEGREES).value(0.0).build())
                         .addColor(
                             ColorStop.builder()
                                 .color(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build())
@@ -168,15 +168,15 @@ internal class StylesTest {
                                     "hidden" to true,
                                     "margin" to
                                         mapOf(
-                                            "bottom" to mapOf("units" to "%", "value" to 0),
-                                            "top" to mapOf("units" to "%", "value" to 0),
+                                            "bottom" to mapOf("units" to "CH", "value" to 0),
+                                            "top" to mapOf("units" to "CH", "value" to 0),
                                         ),
                                     "padding" to
                                         mapOf(
-                                            "bottom" to mapOf("units" to "%", "value" to 0),
-                                            "left" to mapOf("units" to "%", "value" to 0),
-                                            "right" to mapOf("units" to "%", "value" to 0),
-                                            "top" to mapOf("units" to "%", "value" to 0),
+                                            "bottom" to mapOf("units" to "CH", "value" to 0),
+                                            "left" to mapOf("units" to "CH", "value" to 0),
+                                            "right" to mapOf("units" to "CH", "value" to 0),
+                                            "top" to mapOf("units" to "CH", "value" to 0),
                                         ),
                                 )
                             ),

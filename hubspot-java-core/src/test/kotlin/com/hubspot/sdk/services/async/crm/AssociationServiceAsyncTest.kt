@@ -7,14 +7,36 @@ import com.hubspot.sdk.models.AssociationSpec
 import com.hubspot.sdk.models.crm.Filter
 import com.hubspot.sdk.models.crm.FilterGroup
 import com.hubspot.sdk.models.crm.PublicObjectSearchRequest
+import com.hubspot.sdk.models.crm.associations.AssociationCreateParams
 import com.hubspot.sdk.models.crm.associations.AssociationDeleteParams
 import com.hubspot.sdk.models.crm.associations.AssociationListParams
 import com.hubspot.sdk.models.crm.associations.AssociationSearchParams
-import com.hubspot.sdk.models.crm.associations.AssociationUpdateAssociationLabelsParams
+import com.hubspot.sdk.models.crm.associations.AssociationUpdateLabelsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class AssociationServiceAsyncTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun create() {
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val associationServiceAsync = client.crm().associations()
+
+        val batchResponsePublicDefaultAssociationFuture =
+            associationServiceAsync.create(
+                AssociationCreateParams.builder()
+                    .fromObjectType("fromObjectType")
+                    .fromObjectId("fromObjectId")
+                    .toObjectType("toObjectType")
+                    .toObjectId("toObjectId")
+                    .build()
+            )
+
+        val batchResponsePublicDefaultAssociation =
+            batchResponsePublicDefaultAssociationFuture.get()
+        batchResponsePublicDefaultAssociation.validate()
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test
@@ -108,13 +130,13 @@ internal class AssociationServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun updateAssociationLabels() {
+    fun updateLabels() {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val associationServiceAsync = client.crm().associations()
 
         val labelsBetweenObjectPairFuture =
-            associationServiceAsync.updateAssociationLabels(
-                AssociationUpdateAssociationLabelsParams.builder()
+            associationServiceAsync.updateLabels(
+                AssociationUpdateLabelsParams.builder()
                     .objectType("objectType")
                     .objectId("objectId")
                     .toObjectType("toObjectType")

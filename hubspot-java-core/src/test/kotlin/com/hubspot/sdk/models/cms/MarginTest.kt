@@ -13,14 +13,13 @@ internal class MarginTest {
     fun create() {
         val margin =
             Margin.builder()
-                .bottom(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
-                .top(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .bottom(Size.builder().units(Size.Units.CH).value(0.0).build())
+                .top(Size.builder().units(Size.Units.CH).value(0.0).build())
                 .build()
 
         assertThat(margin.bottom())
-            .isEqualTo(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
-        assertThat(margin.top())
-            .isEqualTo(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+            .isEqualTo(Size.builder().units(Size.Units.CH).value(0.0).build())
+        assertThat(margin.top()).isEqualTo(Size.builder().units(Size.Units.CH).value(0.0).build())
     }
 
     @Test
@@ -28,8 +27,8 @@ internal class MarginTest {
         val jsonMapper = jsonMapper()
         val margin =
             Margin.builder()
-                .bottom(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
-                .top(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .bottom(Size.builder().units(Size.Units.CH).value(0.0).build())
+                .top(Size.builder().units(Size.Units.CH).value(0.0).build())
                 .build()
 
         val roundtrippedMargin =

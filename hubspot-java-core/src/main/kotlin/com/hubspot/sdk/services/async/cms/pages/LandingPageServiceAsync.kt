@@ -12,15 +12,17 @@ import com.hubspot.sdk.models.cms.pages.PagesPage
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageDeleteParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListPageAsync
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageListParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPagePushDraftLiveParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageResetDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageScheduleParams
-import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateDraftParams
 import com.hubspot.sdk.models.cms.pages.landingpages.LandingPageUpdateParams
+import com.hubspot.sdk.services.async.cms.pages.landingpages.AbTestServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.BatchServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.DraftServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.FolderServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.MultiLanguageServiceAsync
+import com.hubspot.sdk.services.async.cms.pages.landingpages.RevisionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -37,6 +39,18 @@ interface LandingPageServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LandingPageServiceAsync
+
+    fun abTest(): AbTestServiceAsync
+
+    fun batch(): BatchServiceAsync
+
+    fun draft(): DraftServiceAsync
+
+    fun folders(): FolderServiceAsync
+
+    fun multiLanguage(): MultiLanguageServiceAsync
+
+    fun revisions(): RevisionServiceAsync
 
     /** Create a new landing page. */
     fun create(params: LandingPageCreateParams): CompletableFuture<PagesPage> =
@@ -197,105 +211,6 @@ interface LandingPageServiceAsync {
     fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<PagesPage> =
         get(objectId, LandingPageGetParams.none(), requestOptions)
 
-    /** Retrieve the full draft version of a landing page, specified by page ID. */
-    fun getDraft(objectId: String): CompletableFuture<PagesPage> =
-        getDraft(objectId, LandingPageGetDraftParams.none())
-
-    /** @see getDraft */
-    fun getDraft(
-        objectId: String,
-        params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage> =
-        getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see getDraft */
-    fun getDraft(
-        objectId: String,
-        params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-    ): CompletableFuture<PagesPage> = getDraft(objectId, params, RequestOptions.none())
-
-    /** @see getDraft */
-    fun getDraft(
-        params: LandingPageGetDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage>
-
-    /** @see getDraft */
-    fun getDraft(params: LandingPageGetDraftParams): CompletableFuture<PagesPage> =
-        getDraft(params, RequestOptions.none())
-
-    /** @see getDraft */
-    fun getDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<PagesPage> =
-        getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
-
-    /**
-     * Take any changes from the draft version of the Landing Page and apply them to the live
-     * version.
-     */
-    fun pushDraftLive(objectId: String): CompletableFuture<Void?> =
-        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(
-        objectId: String,
-        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(
-        objectId: String,
-        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-    ): CompletableFuture<Void?> = pushDraftLive(objectId, params, RequestOptions.none())
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(
-        params: LandingPagePushDraftLiveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(params: LandingPagePushDraftLiveParams): CompletableFuture<Void?> =
-        pushDraftLive(params, RequestOptions.none())
-
-    /** @see pushDraftLive */
-    fun pushDraftLive(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
-
-    /** Discards any edits and resets the draft to match the live version. */
-    fun resetDraft(objectId: String): CompletableFuture<Void?> =
-        resetDraft(objectId, LandingPageResetDraftParams.none())
-
-    /** @see resetDraft */
-    fun resetDraft(
-        objectId: String,
-        params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see resetDraft */
-    fun resetDraft(
-        objectId: String,
-        params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-    ): CompletableFuture<Void?> = resetDraft(objectId, params, RequestOptions.none())
-
-    /** @see resetDraft */
-    fun resetDraft(
-        params: LandingPageResetDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see resetDraft */
-    fun resetDraft(params: LandingPageResetDraftParams): CompletableFuture<Void?> =
-        resetDraft(params, RequestOptions.none())
-
-    /** @see resetDraft */
-    fun resetDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        resetDraft(objectId, LandingPageResetDraftParams.none(), requestOptions)
-
     /** Schedule a landing page to be published. */
     fun schedule(params: LandingPageScheduleParams): CompletableFuture<Void?> =
         schedule(params, RequestOptions.none())
@@ -324,33 +239,6 @@ interface LandingPageServiceAsync {
     ): CompletableFuture<Void?> = schedule(contentScheduleRequestVNext, RequestOptions.none())
 
     /**
-     * Partially updates the draft version of a single landing page, specified by its ID. You only
-     * need to specify the column values that you are modifying.
-     */
-    fun updateDraft(
-        objectId: String,
-        params: LandingPageUpdateDraftParams,
-    ): CompletableFuture<PagesPage> = updateDraft(objectId, params, RequestOptions.none())
-
-    /** @see updateDraft */
-    fun updateDraft(
-        objectId: String,
-        params: LandingPageUpdateDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage> =
-        updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see updateDraft */
-    fun updateDraft(params: LandingPageUpdateDraftParams): CompletableFuture<PagesPage> =
-        updateDraft(params, RequestOptions.none())
-
-    /** @see updateDraft */
-    fun updateDraft(
-        params: LandingPageUpdateDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PagesPage>
-
-    /**
      * A view of [LandingPageServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -364,6 +252,18 @@ interface LandingPageServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): LandingPageServiceAsync.WithRawResponse
+
+        fun abTest(): AbTestServiceAsync.WithRawResponse
+
+        fun batch(): BatchServiceAsync.WithRawResponse
+
+        fun draft(): DraftServiceAsync.WithRawResponse
+
+        fun folders(): FolderServiceAsync.WithRawResponse
+
+        fun multiLanguage(): MultiLanguageServiceAsync.WithRawResponse
+
+        fun revisions(): RevisionServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages`, but is otherwise
@@ -551,124 +451,6 @@ interface LandingPageServiceAsync {
             get(objectId, LandingPageGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/{objectId}/draft`,
-         * but is otherwise the same as [LandingPageServiceAsync.getDraft].
-         */
-        fun getDraft(objectId: String): CompletableFuture<HttpResponseFor<PagesPage>> =
-            getDraft(objectId, LandingPageGetDraftParams.none())
-
-        /** @see getDraft */
-        fun getDraft(
-            objectId: String,
-            params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
-            getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see getDraft */
-        fun getDraft(
-            objectId: String,
-            params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
-            getDraft(objectId, params, RequestOptions.none())
-
-        /** @see getDraft */
-        fun getDraft(
-            params: LandingPageGetDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>>
-
-        /** @see getDraft */
-        fun getDraft(
-            params: LandingPageGetDraftParams
-        ): CompletableFuture<HttpResponseFor<PagesPage>> = getDraft(params, RequestOptions.none())
-
-        /** @see getDraft */
-        fun getDraft(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
-            getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/{objectId}/draft/push-live`, but is otherwise the same
-         * as [LandingPageServiceAsync.pushDraftLive].
-         */
-        fun pushDraftLive(objectId: String): CompletableFuture<HttpResponse> =
-            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
-
-        /** @see pushDraftLive */
-        fun pushDraftLive(
-            objectId: String,
-            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see pushDraftLive */
-        fun pushDraftLive(
-            objectId: String,
-            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
-        ): CompletableFuture<HttpResponse> = pushDraftLive(objectId, params, RequestOptions.none())
-
-        /** @see pushDraftLive */
-        fun pushDraftLive(
-            params: LandingPagePushDraftLiveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see pushDraftLive */
-        fun pushDraftLive(params: LandingPagePushDraftLiveParams): CompletableFuture<HttpResponse> =
-            pushDraftLive(params, RequestOptions.none())
-
-        /** @see pushDraftLive */
-        fun pushDraftLive(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> =
-            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/{objectId}/draft/reset`, but is otherwise the same as
-         * [LandingPageServiceAsync.resetDraft].
-         */
-        fun resetDraft(objectId: String): CompletableFuture<HttpResponse> =
-            resetDraft(objectId, LandingPageResetDraftParams.none())
-
-        /** @see resetDraft */
-        fun resetDraft(
-            objectId: String,
-            params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see resetDraft */
-        fun resetDraft(
-            objectId: String,
-            params: LandingPageResetDraftParams = LandingPageResetDraftParams.none(),
-        ): CompletableFuture<HttpResponse> = resetDraft(objectId, params, RequestOptions.none())
-
-        /** @see resetDraft */
-        fun resetDraft(
-            params: LandingPageResetDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see resetDraft */
-        fun resetDraft(params: LandingPageResetDraftParams): CompletableFuture<HttpResponse> =
-            resetDraft(params, RequestOptions.none())
-
-        /** @see resetDraft */
-        fun resetDraft(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> =
-            resetDraft(objectId, LandingPageResetDraftParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/schedule`, but is
          * otherwise the same as [LandingPageServiceAsync.schedule].
          */
@@ -698,36 +480,5 @@ interface LandingPageServiceAsync {
             contentScheduleRequestVNext: ContentScheduleRequestVNext
         ): CompletableFuture<HttpResponse> =
             schedule(contentScheduleRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `patch
-         * /cms/pages/2026-03/landing-pages/{objectId}/draft`, but is otherwise the same as
-         * [LandingPageServiceAsync.updateDraft].
-         */
-        fun updateDraft(
-            objectId: String,
-            params: LandingPageUpdateDraftParams,
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
-            updateDraft(objectId, params, RequestOptions.none())
-
-        /** @see updateDraft */
-        fun updateDraft(
-            objectId: String,
-            params: LandingPageUpdateDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
-            updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see updateDraft */
-        fun updateDraft(
-            params: LandingPageUpdateDraftParams
-        ): CompletableFuture<HttpResponseFor<PagesPage>> =
-            updateDraft(params, RequestOptions.none())
-
-        /** @see updateDraft */
-        fun updateDraft(
-            params: LandingPageUpdateDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PagesPage>>
     }
 }

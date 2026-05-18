@@ -219,6 +219,18 @@ private constructor(
 
         companion object {
 
+            @JvmField val ARRAY = of("ARRAY")
+
+            @JvmField val BOOLEAN = of("BOOLEAN")
+
+            @JvmField val DOUBLE = of("DOUBLE")
+
+            @JvmField val INTEGER = of("INTEGER")
+
+            @JvmField val LONG = of("LONG")
+
+            @JvmField val OBJECT = of("OBJECT")
+
             @JvmField val STRING = of("STRING")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
@@ -226,7 +238,13 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            STRING
+            ARRAY,
+            BOOLEAN,
+            DOUBLE,
+            INTEGER,
+            LONG,
+            OBJECT,
+            STRING,
         }
 
         /**
@@ -239,6 +257,12 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            ARRAY,
+            BOOLEAN,
+            DOUBLE,
+            INTEGER,
+            LONG,
+            OBJECT,
             STRING,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -253,6 +277,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                ARRAY -> Value.ARRAY
+                BOOLEAN -> Value.BOOLEAN
+                DOUBLE -> Value.DOUBLE
+                INTEGER -> Value.INTEGER
+                LONG -> Value.LONG
+                OBJECT -> Value.OBJECT
                 STRING -> Value.STRING
                 else -> Value._UNKNOWN
             }
@@ -268,6 +298,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                ARRAY -> Known.ARRAY
+                BOOLEAN -> Known.BOOLEAN
+                DOUBLE -> Known.DOUBLE
+                INTEGER -> Known.INTEGER
+                LONG -> Known.LONG
+                OBJECT -> Known.OBJECT
                 STRING -> Known.STRING
                 else -> throw HubSpotInvalidDataException("Unknown Type: $value")
             }

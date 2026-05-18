@@ -6,6 +6,8 @@ import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
 import com.hubspot.sdk.models.conversations.customchannels.ChannelIntegrationMessageEgg
 import com.hubspot.sdk.models.conversations.customchannels.ChannelIntegrationParticipant
 import com.hubspot.sdk.models.conversations.customchannels.FileAttachment
+import com.hubspot.sdk.models.conversations.customchannels.PreResolvedContact
+import com.hubspot.sdk.models.conversations.customchannels.PreResolvedContacts
 import com.hubspot.sdk.models.conversations.customchannels.PublicChannelIntegrationMessageUpdateRequest
 import com.hubspot.sdk.models.conversations.customchannels.PublicDeliveryIdentifier
 import com.hubspot.sdk.models.conversations.customchannels.messages.MessageCreateParams
@@ -76,6 +78,19 @@ internal class MessageServiceTest {
                             .inReplyToId("inReplyToId")
                             .integrationIdempotencyId("integrationIdempotencyId")
                             .integrationThreadId("integrationThreadId")
+                            .preResolvedContacts(
+                                PreResolvedContacts.builder()
+                                    .addContact(
+                                        PreResolvedContact.builder()
+                                            .addContactPropertiesLeadingToMatch(
+                                                PreResolvedContact.ContactPropertiesLeadingToMatch
+                                                    .ADDRESS
+                                            )
+                                            .contactVid(0L)
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .richText("richText")
                             .build()
                     )

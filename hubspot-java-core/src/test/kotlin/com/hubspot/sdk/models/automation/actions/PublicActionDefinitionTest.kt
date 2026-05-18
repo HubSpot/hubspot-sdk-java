@@ -120,7 +120,7 @@ internal class PublicActionDefinitionTest {
                                 )
                                 .schema(
                                     IntegerFieldSchema.builder()
-                                        .type(IntegerFieldSchema.Type.INTEGER)
+                                        .type(IntegerFieldSchema.Type.ARRAY)
                                         .maximum(0)
                                         .minimum(0)
                                         .build()
@@ -251,7 +251,7 @@ internal class PublicActionDefinitionTest {
                             )
                             .schema(
                                 IntegerFieldSchema.builder()
-                                    .type(IntegerFieldSchema.Type.INTEGER)
+                                    .type(IntegerFieldSchema.Type.ARRAY)
                                     .maximum(0)
                                     .minimum(0)
                                     .build()
@@ -382,7 +382,7 @@ internal class PublicActionDefinitionTest {
                                 )
                                 .schema(
                                     IntegerFieldSchema.builder()
-                                        .type(IntegerFieldSchema.Type.INTEGER)
+                                        .type(IntegerFieldSchema.Type.ARRAY)
                                         .maximum(0)
                                         .minimum(0)
                                         .build()

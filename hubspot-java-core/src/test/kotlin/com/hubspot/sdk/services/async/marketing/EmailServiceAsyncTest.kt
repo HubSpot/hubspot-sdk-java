@@ -625,9 +625,9 @@ internal class EmailServiceAsyncTest {
             emailServiceAsync.get(
                 EmailGetParams.builder()
                     .addEmailId(0L)
-                    .endTimestamp("endTimestamp")
+                    .endTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .property("property")
-                    .startTimestamp("startTimestamp")
+                    .startTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
 
@@ -680,9 +680,9 @@ internal class EmailServiceAsyncTest {
             emailServiceAsync.getHistogram(
                 EmailGetHistogramParams.builder()
                     .addEmailId(0L)
-                    .endTimestamp("endTimestamp")
+                    .endTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .interval(EmailGetHistogramParams.Interval.DAY)
-                    .startTimestamp("startTimestamp")
+                    .startTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
 

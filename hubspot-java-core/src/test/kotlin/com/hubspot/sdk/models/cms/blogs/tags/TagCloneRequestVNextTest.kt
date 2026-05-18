@@ -17,12 +17,14 @@ internal class TagCloneRequestVNextTest {
                 .name("name")
                 .language("language")
                 .primaryLanguage("primaryLanguage")
+                .usePublished(true)
                 .build()
 
         assertThat(tagCloneRequestVNext.id()).isEqualTo("id")
         assertThat(tagCloneRequestVNext.name()).isEqualTo("name")
         assertThat(tagCloneRequestVNext.language()).contains("language")
         assertThat(tagCloneRequestVNext.primaryLanguage()).contains("primaryLanguage")
+        assertThat(tagCloneRequestVNext.usePublished()).contains(true)
     }
 
     @Test
@@ -34,6 +36,7 @@ internal class TagCloneRequestVNextTest {
                 .name("name")
                 .language("language")
                 .primaryLanguage("primaryLanguage")
+                .usePublished(true)
                 .build()
 
         val roundtrippedTagCloneRequestVNext =

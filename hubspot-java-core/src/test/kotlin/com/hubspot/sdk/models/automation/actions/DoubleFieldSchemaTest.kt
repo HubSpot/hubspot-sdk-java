@@ -13,12 +13,12 @@ internal class DoubleFieldSchemaTest {
     fun create() {
         val doubleFieldSchema =
             DoubleFieldSchema.builder()
-                .type(DoubleFieldSchema.Type.DOUBLE)
+                .type(DoubleFieldSchema.Type.ARRAY)
                 .maximum(0.0)
                 .minimum(0.0)
                 .build()
 
-        assertThat(doubleFieldSchema.type()).isEqualTo(DoubleFieldSchema.Type.DOUBLE)
+        assertThat(doubleFieldSchema.type()).isEqualTo(DoubleFieldSchema.Type.ARRAY)
         assertThat(doubleFieldSchema.maximum()).contains(0.0)
         assertThat(doubleFieldSchema.minimum()).contains(0.0)
     }
@@ -28,7 +28,7 @@ internal class DoubleFieldSchemaTest {
         val jsonMapper = jsonMapper()
         val doubleFieldSchema =
             DoubleFieldSchema.builder()
-                .type(DoubleFieldSchema.Type.DOUBLE)
+                .type(DoubleFieldSchema.Type.ARRAY)
                 .maximum(0.0)
                 .minimum(0.0)
                 .build()

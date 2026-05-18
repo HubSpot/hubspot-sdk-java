@@ -29,7 +29,7 @@ internal class FieldTypeDefinitionTest {
                 )
                 .schema(
                     IntegerFieldSchema.builder()
-                        .type(IntegerFieldSchema.Type.INTEGER)
+                        .type(IntegerFieldSchema.Type.ARRAY)
                         .maximum(0)
                         .minimum(0)
                         .build()
@@ -63,7 +63,7 @@ internal class FieldTypeDefinitionTest {
             .isEqualTo(
                 FieldTypeDefinition.Schema.ofIntegerField(
                     IntegerFieldSchema.builder()
-                        .type(IntegerFieldSchema.Type.INTEGER)
+                        .type(IntegerFieldSchema.Type.ARRAY)
                         .maximum(0)
                         .minimum(0)
                         .build()
@@ -103,7 +103,7 @@ internal class FieldTypeDefinitionTest {
                 )
                 .schema(
                     IntegerFieldSchema.builder()
-                        .type(IntegerFieldSchema.Type.INTEGER)
+                        .type(IntegerFieldSchema.Type.ARRAY)
                         .maximum(0)
                         .minimum(0)
                         .build()

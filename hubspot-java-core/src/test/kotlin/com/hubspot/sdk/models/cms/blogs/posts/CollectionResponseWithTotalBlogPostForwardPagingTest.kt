@@ -85,7 +85,8 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -134,14 +135,14 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -151,28 +152,28 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "left" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "right" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -196,7 +197,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -237,12 +238,12 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -250,22 +251,22 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "left" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "right" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -424,7 +425,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                 mapOf(
                                                                     "angle" to
                                                                         mapOf(
-                                                                            "units" to "deg",
+                                                                            "units" to "DEGREES",
                                                                             "value" to 0,
                                                                         ),
                                                                     "colors" to
@@ -469,14 +470,14 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -486,28 +487,28 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "left" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "right" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -525,7 +526,10 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                 "backgroundGradient" to
                                                     mapOf(
                                                         "angle" to
-                                                            mapOf("units" to "deg", "value" to 0),
+                                                            mapOf(
+                                                                "units" to "DEGREES",
+                                                                "value" to 0,
+                                                            ),
                                                         "colors" to
                                                             listOf(
                                                                 mapOf(
@@ -564,12 +568,12 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -577,22 +581,22 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "left" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "right" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -756,7 +760,8 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -805,14 +810,14 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -822,28 +827,28 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "left" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "right" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -867,7 +872,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -908,12 +913,12 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -921,22 +926,22 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "left" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "right" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),

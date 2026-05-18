@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** deletes all associations between two records. */
 class AssociationDeleteParams
 private constructor(
     private val objectType: String,

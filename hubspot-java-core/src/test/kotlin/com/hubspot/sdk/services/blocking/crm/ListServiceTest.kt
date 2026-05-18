@@ -42,6 +42,7 @@ import com.hubspot.sdk.models.crm.lists.PublicPropertyFilter
 import com.hubspot.sdk.models.crm.lists.PublicRestrictedFilterBranch
 import com.hubspot.sdk.models.crm.lists.PublicUnifiedEventsFilterBranch
 import com.hubspot.sdk.models.crm.lists.RecordIdInput
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -687,8 +688,8 @@ internal class ListServiceTest {
             listService.getSizeAndEditsHistoryBetween(
                 ListGetSizeAndEditsHistoryBetweenParams.builder()
                     .listId("listId")
-                    .endDate("endDate")
-                    .startDate("startDate")
+                    .endDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .startDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
 

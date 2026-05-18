@@ -13,7 +13,7 @@ internal class GradientTest {
     fun create() {
         val gradient =
             Gradient.builder()
-                .angle(Angle.builder().units(Angle.Units.DEG).value(0.0).build())
+                .angle(Angle.builder().units(Angle.Units.DEGREES).value(0.0).build())
                 .addColor(
                     ColorStop.builder()
                         .color(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build())
@@ -28,7 +28,7 @@ internal class GradientTest {
                 .build()
 
         assertThat(gradient.angle())
-            .isEqualTo(Angle.builder().units(Angle.Units.DEG).value(0.0).build())
+            .isEqualTo(Angle.builder().units(Angle.Units.DEGREES).value(0.0).build())
         assertThat(gradient.colors())
             .containsExactly(
                 ColorStop.builder().color(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build()).build()
@@ -47,7 +47,7 @@ internal class GradientTest {
         val jsonMapper = jsonMapper()
         val gradient =
             Gradient.builder()
-                .angle(Angle.builder().units(Angle.Units.DEG).value(0.0).build())
+                .angle(Angle.builder().units(Angle.Units.DEGREES).value(0.0).build())
                 .addColor(
                     ColorStop.builder()
                         .color(RgbaColor.builder().a(0.0).b(0).g(0).r(0).build())

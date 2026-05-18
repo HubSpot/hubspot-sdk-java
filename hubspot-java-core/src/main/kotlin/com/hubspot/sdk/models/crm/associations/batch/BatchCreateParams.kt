@@ -7,32 +7,30 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
-import com.hubspot.sdk.core.toImmutable
+import com.hubspot.sdk.models.crm.BatchInputPublicAssociationMultiPost
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Batch create associations for objects */
 class BatchCreateParams
 private constructor(
     private val fromObjectType: String,
-    private val fromObjectId: String,
-    private val toObjectType: String,
-    private val toObjectId: String?,
+    private val toObjectType: String?,
+    private val batchInputPublicAssociationMultiPost: BatchInputPublicAssociationMultiPost,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     fun fromObjectType(): String = fromObjectType
 
-    fun fromObjectId(): String = fromObjectId
+    fun toObjectType(): Optional<String> = Optional.ofNullable(toObjectType)
 
-    fun toObjectType(): String = toObjectType
+    fun batchInputPublicAssociationMultiPost(): BatchInputPublicAssociationMultiPost =
+        batchInputPublicAssociationMultiPost
 
-    fun toObjectId(): Optional<String> = Optional.ofNullable(toObjectId)
-
-    /** Additional body properties to send with the request. */
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        batchInputPublicAssociationMultiPost._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -50,8 +48,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .fromObjectType()
-         * .fromObjectId()
-         * .toObjectType()
+         * .batchInputPublicAssociationMultiPost()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -61,34 +58,34 @@ private constructor(
     class Builder internal constructor() {
 
         private var fromObjectType: String? = null
-        private var fromObjectId: String? = null
         private var toObjectType: String? = null
-        private var toObjectId: String? = null
+        private var batchInputPublicAssociationMultiPost: BatchInputPublicAssociationMultiPost? =
+            null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(batchCreateParams: BatchCreateParams) = apply {
             fromObjectType = batchCreateParams.fromObjectType
-            fromObjectId = batchCreateParams.fromObjectId
             toObjectType = batchCreateParams.toObjectType
-            toObjectId = batchCreateParams.toObjectId
+            batchInputPublicAssociationMultiPost =
+                batchCreateParams.batchInputPublicAssociationMultiPost
             additionalHeaders = batchCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = batchCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = batchCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun fromObjectType(fromObjectType: String) = apply { this.fromObjectType = fromObjectType }
 
-        fun fromObjectId(fromObjectId: String) = apply { this.fromObjectId = fromObjectId }
+        fun toObjectType(toObjectType: String?) = apply { this.toObjectType = toObjectType }
 
-        fun toObjectType(toObjectType: String) = apply { this.toObjectType = toObjectType }
+        /** Alias for calling [Builder.toObjectType] with `toObjectType.orElse(null)`. */
+        fun toObjectType(toObjectType: Optional<String>) = toObjectType(toObjectType.getOrNull())
 
-        fun toObjectId(toObjectId: String?) = apply { this.toObjectId = toObjectId }
-
-        /** Alias for calling [Builder.toObjectId] with `toObjectId.orElse(null)`. */
-        fun toObjectId(toObjectId: Optional<String>) = toObjectId(toObjectId.getOrNull())
+        fun batchInputPublicAssociationMultiPost(
+            batchInputPublicAssociationMultiPost: BatchInputPublicAssociationMultiPost
+        ) = apply {
+            this.batchInputPublicAssociationMultiPost = batchInputPublicAssociationMultiPost
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -188,28 +185,6 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
-        }
-
         /**
          * Returns an immutable instance of [BatchCreateParams].
          *
@@ -218,8 +193,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .fromObjectType()
-         * .fromObjectId()
-         * .toObjectType()
+         * .batchInputPublicAssociationMultiPost()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -227,24 +201,22 @@ private constructor(
         fun build(): BatchCreateParams =
             BatchCreateParams(
                 checkRequired("fromObjectType", fromObjectType),
-                checkRequired("fromObjectId", fromObjectId),
-                checkRequired("toObjectType", toObjectType),
-                toObjectId,
+                toObjectType,
+                checkRequired(
+                    "batchInputPublicAssociationMultiPost",
+                    batchInputPublicAssociationMultiPost,
+                ),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
-    fun _body(): Optional<Map<String, JsonValue>> =
-        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
+    fun _body(): BatchInputPublicAssociationMultiPost = batchInputPublicAssociationMultiPost
 
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> fromObjectType
-            1 -> fromObjectId
-            2 -> toObjectType
-            3 -> toObjectId ?: ""
+            1 -> toObjectType ?: ""
             else -> ""
         }
 
@@ -259,25 +231,21 @@ private constructor(
 
         return other is BatchCreateParams &&
             fromObjectType == other.fromObjectType &&
-            fromObjectId == other.fromObjectId &&
             toObjectType == other.toObjectType &&
-            toObjectId == other.toObjectId &&
+            batchInputPublicAssociationMultiPost == other.batchInputPublicAssociationMultiPost &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams &&
-            additionalBodyProperties == other.additionalBodyProperties
+            additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
         Objects.hash(
             fromObjectType,
-            fromObjectId,
             toObjectType,
-            toObjectId,
+            batchInputPublicAssociationMultiPost,
             additionalHeaders,
             additionalQueryParams,
-            additionalBodyProperties,
         )
 
     override fun toString() =
-        "BatchCreateParams{fromObjectType=$fromObjectType, fromObjectId=$fromObjectId, toObjectType=$toObjectType, toObjectId=$toObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "BatchCreateParams{fromObjectType=$fromObjectType, toObjectType=$toObjectType, batchInputPublicAssociationMultiPost=$batchInputPublicAssociationMultiPost, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

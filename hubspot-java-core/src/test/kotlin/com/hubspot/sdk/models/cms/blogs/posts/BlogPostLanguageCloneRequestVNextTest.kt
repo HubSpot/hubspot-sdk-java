@@ -12,17 +12,26 @@ internal class BlogPostLanguageCloneRequestVNextTest {
     @Test
     fun create() {
         val blogPostLanguageCloneRequestVNext =
-            BlogPostLanguageCloneRequestVNext.builder().id("id").language("language").build()
+            BlogPostLanguageCloneRequestVNext.builder()
+                .id("id")
+                .language("language")
+                .usePublished(true)
+                .build()
 
         assertThat(blogPostLanguageCloneRequestVNext.id()).isEqualTo("id")
         assertThat(blogPostLanguageCloneRequestVNext.language()).contains("language")
+        assertThat(blogPostLanguageCloneRequestVNext.usePublished()).contains(true)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val blogPostLanguageCloneRequestVNext =
-            BlogPostLanguageCloneRequestVNext.builder().id("id").language("language").build()
+            BlogPostLanguageCloneRequestVNext.builder()
+                .id("id")
+                .language("language")
+                .usePublished(true)
+                .build()
 
         val roundtrippedBlogPostLanguageCloneRequestVNext =
             jsonMapper.readValue(

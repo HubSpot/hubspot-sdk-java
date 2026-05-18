@@ -93,7 +93,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                 "angle" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "deg",
+                                                                                            "DEGREES",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "colors" to
@@ -148,14 +148,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                                 "bottom" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "top" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
@@ -165,28 +165,28 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                                 "bottom" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "left" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "right" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "top" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
@@ -210,7 +210,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                 mapOf(
                                                                     "angle" to
                                                                         mapOf(
-                                                                            "units" to "deg",
+                                                                            "units" to "DEGREES",
                                                                             "value" to 0,
                                                                         ),
                                                                     "colors" to
@@ -255,14 +255,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -272,28 +272,28 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "left" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "right" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -477,7 +477,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                             "angle" to
                                                                                 mapOf(
                                                                                     "units" to
-                                                                                        "deg",
+                                                                                        "DEGREES",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "colors" to
@@ -528,14 +528,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                             "bottom" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "top" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
@@ -545,28 +545,28 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                             "bottom" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "left" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "right" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
                                                                                             "top" to
                                                                                                 mapOf(
                                                                                                     "units" to
-                                                                                                        "%",
+                                                                                                        "CH",
                                                                                                     "value" to
                                                                                                         0,
                                                                                                 ),
@@ -590,7 +590,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                             mapOf(
                                                                 "angle" to
                                                                     mapOf(
-                                                                        "units" to "deg",
+                                                                        "units" to "DEGREES",
                                                                         "value" to 0,
                                                                     ),
                                                                 "colors" to
@@ -634,13 +634,13 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                 "bottom" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "top" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                             ),
@@ -649,25 +649,25 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                 "bottom" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "left" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "right" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "top" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "%",
+                                                                                            "CH",
                                                                                         "value" to 0,
                                                                                     ),
                                                                             ),
@@ -851,7 +851,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                 "angle" to
                                                                                     mapOf(
                                                                                         "units" to
-                                                                                            "deg",
+                                                                                            "DEGREES",
                                                                                         "value" to 0,
                                                                                     ),
                                                                                 "colors" to
@@ -906,14 +906,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                                 "bottom" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "top" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
@@ -923,28 +923,28 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                                 "bottom" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "left" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "right" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
                                                                                                 "top" to
                                                                                                     mapOf(
                                                                                                         "units" to
-                                                                                                            "%",
+                                                                                                            "CH",
                                                                                                         "value" to
                                                                                                             0,
                                                                                                     ),
@@ -968,7 +968,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                 mapOf(
                                                                     "angle" to
                                                                         mapOf(
-                                                                            "units" to "deg",
+                                                                            "units" to "DEGREES",
                                                                             "value" to 0,
                                                                         ),
                                                                     "colors" to
@@ -1013,14 +1013,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -1030,28 +1030,28 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "left" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "right" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),

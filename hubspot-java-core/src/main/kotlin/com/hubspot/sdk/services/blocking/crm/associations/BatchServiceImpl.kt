@@ -17,8 +17,9 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
+import com.hubspot.sdk.models.crm.BatchResponseLabelsBetweenObjectPair
+import com.hubspot.sdk.models.crm.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot.sdk.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot.sdk.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchCreateParams
 import com.hubspot.sdk.models.crm.associations.batch.BatchDeleteLabelsParams
@@ -42,9 +43,8 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun create(
         params: BatchCreateParams,
         requestOptions: RequestOptions,
-    ): BatchResponsePublicDefaultAssociation =
-        // put
-        // /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}
+    ): BatchResponseLabelsBetweenObjectPair =
+        // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/create
         withRawResponse().create(params, requestOptions).parse()
 
     override fun delete(params: BatchDeleteParams, requestOptions: RequestOptions) {
@@ -84,32 +84,30 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<BatchResponsePublicDefaultAssociation> =
-            jsonHandler<BatchResponsePublicDefaultAssociation>(clientOptions.jsonMapper)
+        private val createHandler: Handler<BatchResponseLabelsBetweenObjectPair> =
+            jsonHandler<BatchResponseLabelsBetweenObjectPair>(clientOptions.jsonMapper)
 
         override fun create(
             params: BatchCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> {
+        ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("toObjectId", params.toObjectId().getOrNull())
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.PUT)
+                    .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "crm",
-                        "objects",
+                        "associations",
                         "2026-03",
                         params._pathParam(0),
                         params._pathParam(1),
-                        "associations",
-                        "default",
-                        params._pathParam(2),
-                        params._pathParam(3),
+                        "batch",
+                        "create",
                     )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

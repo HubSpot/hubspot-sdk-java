@@ -87,7 +87,8 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -136,14 +137,14 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -153,28 +154,28 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "left" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "right" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -198,7 +199,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -239,12 +240,12 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -252,22 +253,22 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "left" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "right" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -590,7 +591,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                 mapOf(
                                                                     "angle" to
                                                                         mapOf(
-                                                                            "units" to "deg",
+                                                                            "units" to "DEGREES",
                                                                             "value" to 0,
                                                                         ),
                                                                     "colors" to
@@ -635,14 +636,14 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -652,28 +653,28 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                                     "bottom" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "left" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "right" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
                                                                                     "top" to
                                                                                         mapOf(
                                                                                             "units" to
-                                                                                                "%",
+                                                                                                "CH",
                                                                                             "value" to
                                                                                                 0,
                                                                                         ),
@@ -691,7 +692,10 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                 "backgroundGradient" to
                                                     mapOf(
                                                         "angle" to
-                                                            mapOf("units" to "deg", "value" to 0),
+                                                            mapOf(
+                                                                "units" to "DEGREES",
+                                                                "value" to 0,
+                                                            ),
                                                         "colors" to
                                                             listOf(
                                                                 mapOf(
@@ -730,12 +734,12 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -743,22 +747,22 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                     mapOf(
                                                                         "bottom" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "left" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "right" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "top" to
                                                                             mapOf(
-                                                                                "units" to "%",
+                                                                                "units" to "CH",
                                                                                 "value" to 0,
                                                                             ),
                                                                     ),
@@ -993,7 +997,8 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                     mapOf(
                                                                         "angle" to
                                                                             mapOf(
-                                                                                "units" to "deg",
+                                                                                "units" to
+                                                                                    "DEGREES",
                                                                                 "value" to 0,
                                                                             ),
                                                                         "colors" to
@@ -1042,14 +1047,14 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -1059,28 +1064,28 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                                         "bottom" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "left" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "right" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
                                                                                         "top" to
                                                                                             mapOf(
                                                                                                 "units" to
-                                                                                                    "%",
+                                                                                                    "CH",
                                                                                                 "value" to
                                                                                                     0,
                                                                                             ),
@@ -1104,7 +1109,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                         mapOf(
                                                             "angle" to
                                                                 mapOf(
-                                                                    "units" to "deg",
+                                                                    "units" to "DEGREES",
                                                                     "value" to 0,
                                                                 ),
                                                             "colors" to
@@ -1145,12 +1150,12 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),
@@ -1158,22 +1163,22 @@ internal class BatchResponseBlogPostWithErrorsTest {
                                                                         mapOf(
                                                                             "bottom" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "left" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "right" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                             "top" to
                                                                                 mapOf(
-                                                                                    "units" to "%",
+                                                                                    "units" to "CH",
                                                                                     "value" to 0,
                                                                                 ),
                                                                         ),

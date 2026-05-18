@@ -177,6 +177,7 @@ internal class TagServiceTest {
                     .name("name")
                     .language("language")
                     .primaryLanguage("primaryLanguage")
+                    .usePublished(true)
                     .build()
             )
 

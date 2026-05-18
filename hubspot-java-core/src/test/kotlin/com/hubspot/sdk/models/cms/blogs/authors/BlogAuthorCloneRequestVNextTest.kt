@@ -38,6 +38,7 @@ internal class BlogAuthorCloneRequestVNextTest {
                 )
                 .language("language")
                 .primaryLanguage("primaryLanguage")
+                .usePublished(true)
                 .build()
 
         assertThat(blogAuthorCloneRequestVNext.id()).isEqualTo("id")
@@ -65,6 +66,7 @@ internal class BlogAuthorCloneRequestVNextTest {
             )
         assertThat(blogAuthorCloneRequestVNext.language()).contains("language")
         assertThat(blogAuthorCloneRequestVNext.primaryLanguage()).contains("primaryLanguage")
+        assertThat(blogAuthorCloneRequestVNext.usePublished()).contains(true)
     }
 
     @Test
@@ -96,6 +98,7 @@ internal class BlogAuthorCloneRequestVNextTest {
                 )
                 .language("language")
                 .primaryLanguage("primaryLanguage")
+                .usePublished(true)
                 .build()
 
         val roundtrippedBlogAuthorCloneRequestVNext =

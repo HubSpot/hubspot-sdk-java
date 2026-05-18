@@ -17,16 +17,18 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
+import com.hubspot.sdk.models.crm.BatchResponsePublicDefaultAssociation
 import com.hubspot.sdk.models.crm.CollectionResponseMultiAssociatedObjectWithLabelForwardPaging
 import com.hubspot.sdk.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot.sdk.models.crm.LabelsBetweenObjectPair
+import com.hubspot.sdk.models.crm.ReportCreationResponse
+import com.hubspot.sdk.models.crm.associations.AssociationCreateParams
 import com.hubspot.sdk.models.crm.associations.AssociationDeleteParams
 import com.hubspot.sdk.models.crm.associations.AssociationListPage
 import com.hubspot.sdk.models.crm.associations.AssociationListParams
 import com.hubspot.sdk.models.crm.associations.AssociationRequestHighUsageReportParams
 import com.hubspot.sdk.models.crm.associations.AssociationSearchParams
-import com.hubspot.sdk.models.crm.associations.AssociationUpdateAssociationLabelsParams
-import com.hubspot.sdk.models.crm.associations.ReportCreationResponse
+import com.hubspot.sdk.models.crm.associations.AssociationUpdateLabelsParams
 import com.hubspot.sdk.services.blocking.crm.associations.BatchService
 import com.hubspot.sdk.services.blocking.crm.associations.BatchServiceImpl
 import java.util.function.Consumer
@@ -47,6 +49,14 @@ class AssociationServiceImpl internal constructor(private val clientOptions: Cli
         AssociationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun batch(): BatchService = batch
+
+    override fun create(
+        params: AssociationCreateParams,
+        requestOptions: RequestOptions,
+    ): BatchResponsePublicDefaultAssociation =
+        // put
+        // /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}
+        withRawResponse().create(params, requestOptions).parse()
 
     override fun list(
         params: AssociationListParams,
@@ -75,12 +85,12 @@ class AssociationServiceImpl internal constructor(private val clientOptions: Cli
         // post /crm/objects/2026-03/{objectType}/search
         withRawResponse().search(params, requestOptions).parse()
 
-    override fun updateAssociationLabels(
-        params: AssociationUpdateAssociationLabelsParams,
+    override fun updateLabels(
+        params: AssociationUpdateLabelsParams,
         requestOptions: RequestOptions,
     ): LabelsBetweenObjectPair =
         // put /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}
-        withRawResponse().updateAssociationLabels(params, requestOptions).parse()
+        withRawResponse().updateLabels(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AssociationService.WithRawResponse {
@@ -100,6 +110,47 @@ class AssociationServiceImpl internal constructor(private val clientOptions: Cli
             )
 
         override fun batch(): BatchService.WithRawResponse = batch
+
+        private val createHandler: Handler<BatchResponsePublicDefaultAssociation> =
+            jsonHandler<BatchResponsePublicDefaultAssociation>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: AssociationCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectId", params.toObjectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "objects",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "associations",
+                        "default",
+                        params._pathParam(2),
+                        params._pathParam(3),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val listHandler:
             Handler<CollectionResponseMultiAssociatedObjectWithLabelForwardPaging> =
@@ -251,11 +302,11 @@ class AssociationServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updateAssociationLabelsHandler: Handler<LabelsBetweenObjectPair> =
+        private val updateLabelsHandler: Handler<LabelsBetweenObjectPair> =
             jsonHandler<LabelsBetweenObjectPair>(clientOptions.jsonMapper)
 
-        override fun updateAssociationLabels(
-            params: AssociationUpdateAssociationLabelsParams,
+        override fun updateLabels(
+            params: AssociationUpdateLabelsParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<LabelsBetweenObjectPair> {
             // We check here instead of in the params builder because this can be specified
@@ -282,7 +333,7 @@ class AssociationServiceImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { updateAssociationLabelsHandler.handle(it) }
+                    .use { updateLabelsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
