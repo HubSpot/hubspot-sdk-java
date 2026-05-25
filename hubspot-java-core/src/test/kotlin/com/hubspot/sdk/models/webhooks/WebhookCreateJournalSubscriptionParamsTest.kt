@@ -2,6 +2,8 @@
 
 package com.hubspot.sdk.models.webhooks
 
+import com.hubspot.sdk.models.ObjectSubscriptionUpsertRequest
+import com.hubspot.sdk.models.SubscriptionUpsertRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

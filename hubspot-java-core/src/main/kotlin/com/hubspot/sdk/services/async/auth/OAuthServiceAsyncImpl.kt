@@ -19,6 +19,7 @@ import com.hubspot.sdk.models.auth.oauth.OAuthCreateTokenParams
 import com.hubspot.sdk.models.auth.oauth.OAuthIntrospectTokenParams
 import com.hubspot.sdk.models.auth.oauth.OAuthRevokeTokenParams
 import com.hubspot.sdk.models.auth.oauth.TokenInfoResponseBaseIf
+import com.hubspot.sdk.models.auth.oauth.TokenResponseIf
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -37,9 +38,9 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun createToken(
         params: OAuthCreateTokenParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<TokenResponseIf> =
         // post /oauth/2026-03/token
-        withRawResponse().createToken(params, requestOptions)
+        withRawResponse().createToken(params, requestOptions).thenApply { it.parse() }
 
     override fun introspectToken(
         params: OAuthIntrospectTokenParams,
@@ -68,23 +69,35 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        private val createTokenHandler: Handler<TokenResponseIf> =
+            jsonHandler<TokenResponseIf>(clientOptions.jsonMapper)
+
         override fun createToken(
             params: OAuthCreateTokenParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<TokenResponseIf>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("oauth", "2026-03", "token")
-                    .putHeader("Accept", "*/*")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createTokenHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
 
         private val introspectTokenHandler: Handler<TokenInfoResponseBaseIf> =

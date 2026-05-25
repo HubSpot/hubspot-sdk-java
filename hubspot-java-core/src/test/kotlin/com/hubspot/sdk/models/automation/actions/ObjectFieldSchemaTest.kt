@@ -15,11 +15,11 @@ internal class ObjectFieldSchemaTest {
         val objectFieldSchema =
             ObjectFieldSchema.builder()
                 .properties(JsonValue.from(mapOf<String, Any>()))
-                .type(ObjectFieldSchema.Type.ARRAY)
+                .type(ObjectFieldSchema.Type.OBJECT)
                 .build()
 
         assertThat(objectFieldSchema._properties()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(objectFieldSchema.type()).isEqualTo(ObjectFieldSchema.Type.ARRAY)
+        assertThat(objectFieldSchema.type()).isEqualTo(ObjectFieldSchema.Type.OBJECT)
     }
 
     @Test
@@ -28,7 +28,7 @@ internal class ObjectFieldSchemaTest {
         val objectFieldSchema =
             ObjectFieldSchema.builder()
                 .properties(JsonValue.from(mapOf<String, Any>()))
-                .type(ObjectFieldSchema.Type.ARRAY)
+                .type(ObjectFieldSchema.Type.OBJECT)
                 .build()
 
         val roundtrippedObjectFieldSchema =

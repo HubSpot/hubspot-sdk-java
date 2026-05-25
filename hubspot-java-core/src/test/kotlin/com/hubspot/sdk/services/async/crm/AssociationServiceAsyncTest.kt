@@ -4,7 +4,7 @@ package com.hubspot.sdk.services.async.crm
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot.sdk.models.AssociationSpec
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import com.hubspot.sdk.models.crm.PublicObjectSearchRequest
 import com.hubspot.sdk.models.crm.associations.AssociationCreateParams
@@ -104,8 +104,8 @@ internal class AssociationServiceAsyncTest {
                             .addFilterGroup(
                                 FilterGroup.builder()
                                     .addFilter(
-                                        Filter.builder()
-                                            .operator(Filter.Operator.BETWEEN)
+                                        CrmFilter.builder()
+                                            .operator(CrmFilter.Operator.BETWEEN)
                                             .propertyName("propertyName")
                                             .highValue("highValue")
                                             .value("value")

@@ -257,9 +257,9 @@ These methods return [`HttpResponse`](hubspot-java-core/src/main/kotlin/com/hubs
 
 ```java
 import com.hubspot.sdk.core.http.HttpResponse;
-import com.hubspot.sdk.models.auth.oauth.OAuthCreateTokenParams;
+import com.hubspot.sdk.models.auth.oauth.OAuthRevokeTokenParams;
 
-HttpResponse response = client.auth().oauth().createToken();
+HttpResponse response = client.auth().oauth().revokeToken();
 ```
 
 To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
@@ -270,7 +270,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-try (HttpResponse response = client.auth().oauth().createToken(params)) {
+try (HttpResponse response = client.auth().oauth().revokeToken(params)) {
     Files.copy(
         response.body(),
         Paths.get(path),
@@ -289,7 +289,7 @@ import com.hubspot.sdk.core.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-try (HttpResponse response = client.auth().oauth().createToken(params)) {
+try (HttpResponse response = client.auth().oauth().revokeToken(params)) {
     response.body().transferTo(Files.newOutputStream(Paths.get(path)));
 } catch (Exception e) {
     System.out.println("Something went wrong!");

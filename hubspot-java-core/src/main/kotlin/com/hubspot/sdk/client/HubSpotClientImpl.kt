@@ -34,6 +34,8 @@ import com.hubspot.sdk.services.blocking.SettingService
 import com.hubspot.sdk.services.blocking.SettingServiceImpl
 import com.hubspot.sdk.services.blocking.WebhookService
 import com.hubspot.sdk.services.blocking.WebhookServiceImpl
+import com.hubspot.sdk.services.blocking.WebhooksJournalService
+import com.hubspot.sdk.services.blocking.WebhooksJournalServiceImpl
 import java.util.function.Consumer
 
 class HubSpotClientImpl(private val clientOptions: ClientOptions) : HubSpotClient {
@@ -95,6 +97,10 @@ class HubSpotClientImpl(private val clientOptions: ClientOptions) : HubSpotClien
 
     private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptionsWithUserAgent) }
 
+    private val webhooksJournal: WebhooksJournalService by lazy {
+        WebhooksJournalServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): HubSpotClientAsync = async
 
     override fun withRawResponse(): HubSpotClient.WithRawResponse = withRawResponse
@@ -132,6 +138,8 @@ class HubSpotClientImpl(private val clientOptions: ClientOptions) : HubSpotClien
     override fun settings(): SettingService = settings
 
     override fun webhooks(): WebhookService = webhooks
+
+    override fun webhooksJournal(): WebhooksJournalService = webhooksJournal
 
     override fun close() = clientOptions.close()
 
@@ -199,6 +207,10 @@ class HubSpotClientImpl(private val clientOptions: ClientOptions) : HubSpotClien
             WebhookServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val webhooksJournal: WebhooksJournalService.WithRawResponse by lazy {
+            WebhooksJournalServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): HubSpotClient.WithRawResponse =
@@ -236,5 +248,7 @@ class HubSpotClientImpl(private val clientOptions: ClientOptions) : HubSpotClien
         override fun settings(): SettingService.WithRawResponse = settings
 
         override fun webhooks(): WebhookService.WithRawResponse = webhooks
+
+        override fun webhooksJournal(): WebhooksJournalService.WithRawResponse = webhooksJournal
     }
 }

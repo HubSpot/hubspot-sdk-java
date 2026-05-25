@@ -7,26 +7,24 @@ import com.hubspot.sdk.core.ClientOptions
 import com.hubspot.sdk.core.RequestOptions
 import com.hubspot.sdk.core.http.HttpResponse
 import com.hubspot.sdk.core.http.HttpResponseFor
+import com.hubspot.sdk.models.AppLifecycleEventSubscriptionUpsertRequest
+import com.hubspot.sdk.models.AssociationSubscriptionUpsertRequest
 import com.hubspot.sdk.models.BatchInputString
-import com.hubspot.sdk.models.webhooks.AppLifecycleEventSubscriptionUpsertRequest
-import com.hubspot.sdk.models.webhooks.AssociationSubscriptionUpsertRequest
-import com.hubspot.sdk.models.webhooks.BatchResponseJournalFetchResponse
+import com.hubspot.sdk.models.BatchResponseJournalFetchResponse
+import com.hubspot.sdk.models.CrmObjectSnapshotBatchRequest
+import com.hubspot.sdk.models.CrmObjectSnapshotBatchResponse
+import com.hubspot.sdk.models.FilterCreateRequest
+import com.hubspot.sdk.models.FilterCreateResponse
+import com.hubspot.sdk.models.FilterResponse
+import com.hubspot.sdk.models.GdprPrivacyDeletionSubscriptionUpsertRequest
+import com.hubspot.sdk.models.ListMembershipSubscriptionUpsertRequest
+import com.hubspot.sdk.models.ObjectSubscriptionUpsertRequest
+import com.hubspot.sdk.models.SnapshotStatusResponse
+import com.hubspot.sdk.models.SubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.BatchResponseSubscriptionResponse
-import com.hubspot.sdk.models.webhooks.CollectionResponseSubscriptionResponseNoPaging
-import com.hubspot.sdk.models.webhooks.CrmObjectSnapshotBatchRequest
-import com.hubspot.sdk.models.webhooks.CrmObjectSnapshotBatchResponse
-import com.hubspot.sdk.models.webhooks.FilterCreateRequest
-import com.hubspot.sdk.models.webhooks.FilterCreateResponse
-import com.hubspot.sdk.models.webhooks.FilterResponse
-import com.hubspot.sdk.models.webhooks.GdprPrivacyDeletionSubscriptionUpsertRequest
-import com.hubspot.sdk.models.webhooks.ListMembershipSubscriptionUpsertRequest
-import com.hubspot.sdk.models.webhooks.ObjectSubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.SettingsResponse
-import com.hubspot.sdk.models.webhooks.SnapshotStatusResponse
 import com.hubspot.sdk.models.webhooks.SubscriptionListResponse
 import com.hubspot.sdk.models.webhooks.SubscriptionResponse
-import com.hubspot.sdk.models.webhooks.SubscriptionResponse1
-import com.hubspot.sdk.models.webhooks.SubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.WebhookCreateBatchEventSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookCreateCrmSnapshotsParams
 import com.hubspot.sdk.models.webhooks.WebhookCreateEventSubscriptionParams
@@ -62,6 +60,8 @@ import com.hubspot.sdk.models.webhooks.WebhookListJournalSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionFiltersParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateSettingsParams
+import com.hubspot.sdk.models.webhooksjournal.CollectionResponseSubscriptionResponseNoPaging
+import com.hubspot.sdk.models.webhooksjournal.SubscriptionResponse
 import java.util.function.Consumer
 
 interface WebhookService {
@@ -106,11 +106,10 @@ interface WebhookService {
     ): BatchResponseSubscriptionResponse
 
     /**
-     * Create a batch of CRM object snapshots for the specified portal. This endpoint allows you to
-     * capture the state of CRM objects at a specific point in time, which can be useful for
-     * auditing or historical analysis. The request requires a list of CRM object snapshot requests,
-     * each specifying the portal ID, object ID, object type ID, and properties to include in the
-     * snapshot.
+     * Create a batch of CRM object snapshots in HubSpot. This endpoint is used to capture the
+     * current state of specified CRM objects for later reference or analysis. It requires a JSON
+     * payload containing the details of the CRM objects to snapshot. This operation is exempt from
+     * daily and ten-secondly rate limits.
      */
     fun createCrmSnapshots(
         params: WebhookCreateCrmSnapshotsParams
@@ -166,26 +165,27 @@ interface WebhookService {
     ): SubscriptionResponse
 
     /**
-     * Create a new webhook subscription for the specified portal in the HubSpot account. This
-     * endpoint allows you to define the subscription details, including the types of events you
-     * want to subscribe to. The request body must include the necessary subscription information as
-     * defined by the SubscriptionUpsertRequest schema.
+     * Create a new subscription in the Webhooks Journal for the specified version. This endpoint
+     * allows you to define the subscription details by providing the necessary information in the
+     * request body. It supports various types of subscriptions, including object, association,
+     * event, app lifecycle event, list membership, and GDPR privacy deletion. Ensure that all
+     * required fields are included in the request to successfully create a subscription.
      */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams
-    ): SubscriptionResponse1 = createJournalSubscription(params, RequestOptions.none())
+    ): SubscriptionResponse = createJournalSubscription(params, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1
+    ): SubscriptionResponse
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         subscriptionUpsertRequest: SubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(
             WebhookCreateJournalSubscriptionParams.builder()
                 .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -196,14 +196,14 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         subscriptionUpsertRequest: SubscriptionUpsertRequest
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                 objectSubscriptionUpsertRequest
@@ -214,14 +214,14 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         association: AssociationSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofAssociation(association),
             requestOptions,
@@ -230,13 +230,13 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         association: AssociationSubscriptionUpsertRequest
-    ): SubscriptionResponse1 = createJournalSubscription(association, RequestOptions.none())
+    ): SubscriptionResponse = createJournalSubscription(association, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
             requestOptions,
@@ -245,13 +245,13 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-    ): SubscriptionResponse1 = createJournalSubscription(appLifecycleEvent, RequestOptions.none())
+    ): SubscriptionResponse = createJournalSubscription(appLifecycleEvent, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         listMembership: ListMembershipSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofListMembership(listMembership),
             requestOptions,
@@ -260,13 +260,13 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         listMembership: ListMembershipSubscriptionUpsertRequest
-    ): SubscriptionResponse1 = createJournalSubscription(listMembership, RequestOptions.none())
+    ): SubscriptionResponse = createJournalSubscription(listMembership, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
             requestOptions,
@@ -275,13 +275,13 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-    ): SubscriptionResponse1 = createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
+    ): SubscriptionResponse = createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
     /**
-     * Create a new filter for a webhook subscription in your HubSpot account. This endpoint allows
-     * you to define specific conditions that a webhook event must meet to trigger the subscription.
-     * It is useful for managing and customizing the behavior of webhook subscriptions based on
-     * specific criteria.
+     * Create a new filter for a specific webhook subscription in the HubSpot account. This endpoint
+     * allows you to define conditions that determine when a webhook should be triggered. The filter
+     * is associated with a subscription identified by its ID, and the request must include the
+     * filter details.
      */
     fun createSubscriptionFilter(
         params: WebhookCreateSubscriptionFilterParams
@@ -336,7 +336,8 @@ interface WebhookService {
 
     /**
      * Delete a specific webhook journal subscription using its unique identifier. This operation is
-     * useful for managing and cleaning up subscriptions that are no longer needed or relevant.
+     * useful for managing and cleaning up subscriptions that are no longer needed in your HubSpot
+     * account.
      */
     fun deleteJournalSubscription(subscriptionId: Long) =
         deleteJournalSubscription(subscriptionId, WebhookDeleteJournalSubscriptionParams.none())
@@ -380,8 +381,9 @@ interface WebhookService {
 
     /**
      * Delete a webhook journal subscription for a specific portal. This operation removes the
-     * subscription associated with the given portalId, and no content is returned upon successful
-     * deletion.
+     * subscription associated with the given portalId, ensuring that no further webhook events are
+     * sent for this portal. Use this endpoint to manage and clean up subscriptions that are no
+     * longer needed.
      */
     fun deleteJournalSubscriptionForPortal(portalId: Long) =
         deleteJournalSubscriptionForPortal(
@@ -461,9 +463,9 @@ interface WebhookService {
         deleteSettings(appId, WebhookDeleteSettingsParams.none(), requestOptions)
 
     /**
-     * Delete a specific filter associated with a webhook journal subscription. This operation is
-     * useful for managing and cleaning up filters that are no longer needed in your subscription
-     * setup. The endpoint requires the unique identifier of the filter to be deleted.
+     * Remove a specific filter from the webhooks journal subscriptions. This operation is useful
+     * for managing and cleaning up filters that are no longer needed. Once deleted, the filter
+     * cannot be recovered.
      */
     fun deleteSubscriptionFilter(filterId: Long) =
         deleteSubscriptionFilter(filterId, WebhookDeleteSubscriptionFilterParams.none())
@@ -501,9 +503,9 @@ interface WebhookService {
         )
 
     /**
-     * Retrieve the earliest batch of webhook journal entries up to the specified count. This
-     * endpoint is useful for fetching historical webhook data in batches, allowing you to process
-     * or analyze the earliest entries first.
+     * Retrieve the earliest batch of webhook journal entries for a specified count. This endpoint
+     * is useful for accessing historical webhook data in batches, allowing you to process or
+     * analyze older entries. The number of entries retrieved is determined by the count parameter.
      */
     fun getEarliestJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getEarliestJournalBatch(count, WebhookGetEarliestJournalBatchParams.none())
@@ -542,9 +544,9 @@ interface WebhookService {
         getEarliestJournalBatch(count, WebhookGetEarliestJournalBatchParams.none(), requestOptions)
 
     /**
-     * Retrieve the earliest entry from the webhooks journal for the specified version. This
-     * endpoint is useful for accessing the oldest records available in the journal, which can be
-     * helpful for auditing or historical data analysis.
+     * Retrieve the earliest entry from the webhooks journal for the specified portal. This endpoint
+     * is useful for accessing the first recorded webhook event in the journal, which can be helpful
+     * for auditing or debugging purposes.
      */
     @MustBeClosed
     fun getEarliestJournalEntry(): HttpResponse =
@@ -569,9 +571,10 @@ interface WebhookService {
         getEarliestJournalEntry(WebhookGetEarliestJournalEntryParams.none(), requestOptions)
 
     /**
-     * Retrieve the earliest batch of webhook journal entries based on the specified count. This
-     * endpoint is useful for fetching a specific number of the earliest entries in the webhook
-     * journal for analysis or processing.
+     * Retrieve the earliest batch of webhook journal entries. This endpoint is useful for accessing
+     * the oldest available data in the webhook journal, allowing users to process or analyze
+     * historical webhook events. The number of entries to fetch is specified by the 'count' path
+     * parameter.
      */
     fun getEarliestLocalJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getEarliestLocalJournalBatch(count, WebhookGetEarliestLocalJournalBatchParams.none())
@@ -617,9 +620,9 @@ interface WebhookService {
         )
 
     /**
-     * Retrieve the earliest entry from the webhooks journal for the specified portal. This endpoint
-     * is useful for accessing the oldest records in the journal, which can be helpful for auditing
-     * or tracking purposes.
+     * Retrieve the earliest webhook journal entries for the specified portal. This endpoint can be
+     * used to access the oldest records available in the webhook journal, which may be useful for
+     * auditing or historical analysis.
      */
     @MustBeClosed
     fun getEarliestLocalJournalEntry(): HttpResponse =
@@ -676,9 +679,10 @@ interface WebhookService {
     ): SubscriptionResponse
 
     /**
-     * Perform a batch read operation on the webhooks journal for the specified date. This endpoint
-     * allows you to retrieve multiple entries from the webhooks journal in a single request, which
-     * can be useful for processing large amounts of data efficiently.
+     * Execute a batch read operation on the webhooks journal for the specified date, 2026-03. This
+     * endpoint allows you to retrieve multiple entries from the webhooks journal in a single
+     * request, which can be useful for processing large amounts of data efficiently. Ensure that
+     * the request body is provided in the required format.
      */
     fun getJournalBatchByRequest(
         params: WebhookGetJournalBatchByRequestParams
@@ -710,8 +714,8 @@ interface WebhookService {
 
     /**
      * Retrieve a batch of webhook journal entries starting from a specified offset. This endpoint
-     * allows you to fetch a specified number of entries, making it useful for paginating through
-     * large sets of webhook journal data.
+     * allows you to fetch a defined number of entries, which can be useful for processing large
+     * datasets in manageable chunks.
      */
     fun getJournalBatchFromOffset(
         count: Int,
@@ -739,9 +743,10 @@ interface WebhookService {
     ): BatchResponseJournalFetchResponse
 
     /**
-     * Retrieve the status of a specific webhook journal entry using its status ID. This endpoint is
-     * useful for checking the current state of a webhook process, such as whether it is pending, in
-     * progress, completed, failed, or expired.
+     * Retrieve the status of a specific webhook journal entry using its unique status ID. This
+     * endpoint provides detailed information about the status, including whether it is pending, in
+     * progress, completed, failed, or expired. It is useful for monitoring and managing the state
+     * of webhook journal entries.
      */
     fun getJournalStatus(statusId: String): SnapshotStatusResponse =
         getJournalStatus(statusId, WebhookGetJournalStatusParams.none())
@@ -776,10 +781,10 @@ interface WebhookService {
 
     /**
      * Retrieve details of a specific webhook subscription using its unique identifier. This
-     * endpoint is useful for obtaining information about a particular subscription's configuration
-     * and status within the HubSpot account.
+     * endpoint is useful for obtaining information about a particular subscription, such as its
+     * actions, object type, and associated properties.
      */
-    fun getJournalSubscription(subscriptionId: Long): SubscriptionResponse1 =
+    fun getJournalSubscription(subscriptionId: Long): SubscriptionResponse =
         getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
     /** @see getJournalSubscription */
@@ -787,7 +792,7 @@ interface WebhookService {
         subscriptionId: Long,
         params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         getJournalSubscription(
             params.toBuilder().subscriptionId(subscriptionId).build(),
             requestOptions,
@@ -797,23 +802,23 @@ interface WebhookService {
     fun getJournalSubscription(
         subscriptionId: Long,
         params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
-    ): SubscriptionResponse1 = getJournalSubscription(subscriptionId, params, RequestOptions.none())
+    ): SubscriptionResponse = getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
     /** @see getJournalSubscription */
     fun getJournalSubscription(
         params: WebhookGetJournalSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse1
+    ): SubscriptionResponse
 
     /** @see getJournalSubscription */
-    fun getJournalSubscription(params: WebhookGetJournalSubscriptionParams): SubscriptionResponse1 =
+    fun getJournalSubscription(params: WebhookGetJournalSubscriptionParams): SubscriptionResponse =
         getJournalSubscription(params, RequestOptions.none())
 
     /** @see getJournalSubscription */
     fun getJournalSubscription(
         subscriptionId: Long,
         requestOptions: RequestOptions,
-    ): SubscriptionResponse1 =
+    ): SubscriptionResponse =
         getJournalSubscription(
             subscriptionId,
             WebhookGetJournalSubscriptionParams.none(),
@@ -821,9 +826,9 @@ interface WebhookService {
         )
 
     /**
-     * Retrieve the latest batch of webhook journal entries. This endpoint allows you to specify the
-     * number of entries to fetch, providing a way to access recent webhook activity within your
-     * HubSpot account.
+     * Retrieve the latest batch of webhook journal entries up to the specified count. This endpoint
+     * is useful for fetching recent webhook data for analysis or processing. The count parameter
+     * determines the maximum number of entries to return.
      */
     fun getLatestJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getLatestJournalBatch(count, WebhookGetLatestJournalBatchParams.none())
@@ -863,9 +868,8 @@ interface WebhookService {
 
     /**
      * Retrieve the latest entries from the webhooks journal for the specified portal. This endpoint
-     * is useful for accessing the most recent webhook events processed by your HubSpot account. It
-     * allows you to filter the results by the portal ID to ensure you are retrieving data relevant
-     * to a specific installation.
+     * is useful for accessing the most recent webhook events and their statuses, allowing you to
+     * monitor and debug webhook activity effectively.
      */
     @MustBeClosed
     fun getLatestJournalEntry(): HttpResponse =
@@ -890,9 +894,9 @@ interface WebhookService {
         getLatestJournalEntry(WebhookGetLatestJournalEntryParams.none(), requestOptions)
 
     /**
-     * Retrieve the latest batch of webhook journal entries. This endpoint is useful for accessing
-     * the most recent data entries processed by the webhook journal. It requires specifying the
-     * number of entries to retrieve.
+     * Retrieve the latest batch of webhook journal entries. This endpoint allows you to specify the
+     * number of entries to fetch, providing a way to access the most recent webhook events
+     * processed by your HubSpot account.
      */
     fun getLatestLocalJournalBatch(count: Int): BatchResponseJournalFetchResponse =
         getLatestLocalJournalBatch(count, WebhookGetLatestLocalJournalBatchParams.none())
@@ -938,8 +942,8 @@ interface WebhookService {
 
     /**
      * Retrieve the latest entries from the webhooks journal for the specified portal. This endpoint
-     * is useful for accessing the most recent webhook events that have been logged, allowing you to
-     * process or analyze them as needed.
+     * is useful for accessing the most recent webhook events that have been logged, allowing for
+     * real-time monitoring or debugging of webhook activities.
      */
     @MustBeClosed
     fun getLatestLocalJournalEntry(): HttpResponse =
@@ -966,10 +970,9 @@ interface WebhookService {
         getLatestLocalJournalEntry(WebhookGetLatestLocalJournalEntryParams.none(), requestOptions)
 
     /**
-     * Perform a batch read operation on the webhooks journal. This endpoint allows you to read
-     * multiple entries from the journal in a single request. It requires a JSON request body
-     * specifying the inputs to be read. The response includes the results of the batch read
-     * operation, and may return multiple statuses if there are errors.
+     * Execute a batch read operation on the webhooks journal. This endpoint allows you to retrieve
+     * a batch of webhook journal entries by providing the necessary input data. It is useful for
+     * processing multiple records in a single request, streamlining data retrieval tasks.
      */
     fun getLocalJournalBatchByRequest(
         params: WebhookGetLocalJournalBatchByRequestParams
@@ -1002,8 +1005,8 @@ interface WebhookService {
 
     /**
      * Retrieve a batch of webhook journal entries starting from a specified offset. This endpoint
-     * allows you to fetch a defined number of entries, facilitating the processing of webhook data
-     * in manageable chunks.
+     * is useful for paginating through large sets of webhook data. The number of entries returned
+     * is determined by the 'count' parameter.
      */
     fun getLocalJournalBatchFromOffset(
         count: Int,
@@ -1033,7 +1036,8 @@ interface WebhookService {
 
     /**
      * Retrieve the status of a specific webhook journal entry using its unique status ID. This
-     * endpoint is useful for monitoring the progress or completion of webhook processing tasks.
+     * endpoint is useful for monitoring the progress or outcome of webhook journal entries,
+     * allowing you to check if an entry is pending, in progress, completed, failed, or expired.
      */
     fun getLocalJournalStatus(statusId: String): SnapshotStatusResponse =
         getLocalJournalStatus(statusId, WebhookGetLocalJournalStatusParams.none())
@@ -1070,9 +1074,9 @@ interface WebhookService {
         getLocalJournalStatus(statusId, WebhookGetLocalJournalStatusParams.none(), requestOptions)
 
     /**
-     * Retrieve the next batch of webhook journal entries starting from a specified offset. This
-     * endpoint is useful for paginating through large sets of webhook data, allowing you to
-     * continue fetching entries from where you last left off.
+     * Retrieve the next set of entries from the webhooks journal starting from a specified offset.
+     * This endpoint is useful for paginating through journal entries to process or analyze webhook
+     * events sequentially.
      */
     @MustBeClosed
     fun getNextJournalEntries(offset: String): HttpResponse =
@@ -1113,8 +1117,8 @@ interface WebhookService {
 
     /**
      * Retrieve the next set of webhook journal entries starting from a specified offset. This
-     * endpoint is useful for paginating through webhook journal data in a sequential manner,
-     * allowing you to fetch entries beyond a given point.
+     * endpoint is useful for paginating through large sets of webhook data, allowing you to
+     * continue from where a previous request left off.
      */
     @MustBeClosed
     fun getNextLocalJournalEntries(offset: String): HttpResponse =
@@ -1194,9 +1198,9 @@ interface WebhookService {
         getSettings(appId, WebhookGetSettingsParams.none(), requestOptions)
 
     /**
-     * Retrieve details of a specific filter associated with a webhook subscription in the HubSpot
-     * account. This endpoint is useful for accessing the configuration and conditions of a filter
-     * by its unique identifier.
+     * Retrieve a specific filter associated with a webhook journal subscription. This endpoint
+     * allows you to access the details of the filter identified by the filterId, which is useful
+     * for managing and understanding the conditions applied to webhook events.
      */
     fun getSubscriptionFilter(filterId: Long): FilterResponse =
         getSubscriptionFilter(filterId, WebhookGetSubscriptionFilterParams.none())
@@ -1266,9 +1270,9 @@ interface WebhookService {
         listEventSubscriptions(appId, WebhookListEventSubscriptionsParams.none(), requestOptions)
 
     /**
-     * Retrieve a list of webhook journal subscriptions for the specified API version. This endpoint
-     * provides details about each subscription, including actions, object types, and associated
-     * properties. It is useful for managing and reviewing current webhook subscriptions.
+     * Retrieve a list of webhook journal subscriptions for the specified version. This endpoint
+     * allows you to view all active subscriptions without pagination. It is useful for monitoring
+     * and managing webhook subscriptions in your HubSpot account.
      */
     fun listJournalSubscriptions(): CollectionResponseSubscriptionResponseNoPaging =
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
@@ -1293,9 +1297,9 @@ interface WebhookService {
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
     /**
-     * Retrieve the filters associated with a specific webhook subscription in the HubSpot account.
-     * This endpoint is useful for obtaining detailed information about the filters applied to a
-     * given subscription, identified by its subscription ID.
+     * Retrieve the filters associated with a specific webhook subscription. This endpoint allows
+     * you to view the filters applied to a subscription, which can help in managing and
+     * understanding the conditions set for webhook events.
      */
     fun listSubscriptionFilters(subscriptionId: Long): List<FilterResponse> =
         listSubscriptionFilters(subscriptionId, WebhookListSubscriptionFiltersParams.none())
@@ -1511,7 +1515,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             params: WebhookCreateJournalSubscriptionParams
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(params, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1519,14 +1523,14 @@ interface WebhookService {
         fun createJournalSubscription(
             params: WebhookCreateJournalSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1>
+        ): HttpResponseFor<SubscriptionResponse>
 
         /** @see createJournalSubscription */
         @MustBeClosed
         fun createJournalSubscription(
             subscriptionUpsertRequest: SubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(
                 WebhookCreateJournalSubscriptionParams.builder()
                     .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -1538,7 +1542,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             subscriptionUpsertRequest: SubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1546,7 +1550,7 @@ interface WebhookService {
         fun createJournalSubscription(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                     objectSubscriptionUpsertRequest
@@ -1558,7 +1562,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1566,7 +1570,7 @@ interface WebhookService {
         fun createJournalSubscription(
             association: AssociationSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofAssociation(association),
                 requestOptions,
@@ -1576,7 +1580,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             association: AssociationSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(association, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1584,7 +1588,7 @@ interface WebhookService {
         fun createJournalSubscription(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
                 requestOptions,
@@ -1594,7 +1598,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(appLifecycleEvent, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1602,7 +1606,7 @@ interface WebhookService {
         fun createJournalSubscription(
             listMembership: ListMembershipSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofListMembership(listMembership),
                 requestOptions,
@@ -1612,7 +1616,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             listMembership: ListMembershipSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(listMembership, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1620,7 +1624,7 @@ interface WebhookService {
         fun createJournalSubscription(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
                 requestOptions,
@@ -1630,7 +1634,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
         /**
@@ -2241,7 +2245,7 @@ interface WebhookService {
          * [WebhookService.getJournalSubscription].
          */
         @MustBeClosed
-        fun getJournalSubscription(subscriptionId: Long): HttpResponseFor<SubscriptionResponse1> =
+        fun getJournalSubscription(subscriptionId: Long): HttpResponseFor<SubscriptionResponse> =
             getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
         /** @see getJournalSubscription */
@@ -2251,7 +2255,7 @@ interface WebhookService {
             params: WebhookGetJournalSubscriptionParams =
                 WebhookGetJournalSubscriptionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             getJournalSubscription(
                 params.toBuilder().subscriptionId(subscriptionId).build(),
                 requestOptions,
@@ -2262,7 +2266,7 @@ interface WebhookService {
         fun getJournalSubscription(
             subscriptionId: Long,
             params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
         /** @see getJournalSubscription */
@@ -2270,13 +2274,13 @@ interface WebhookService {
         fun getJournalSubscription(
             params: WebhookGetJournalSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse1>
+        ): HttpResponseFor<SubscriptionResponse>
 
         /** @see getJournalSubscription */
         @MustBeClosed
         fun getJournalSubscription(
             params: WebhookGetJournalSubscriptionParams
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             getJournalSubscription(params, RequestOptions.none())
 
         /** @see getJournalSubscription */
@@ -2284,7 +2288,7 @@ interface WebhookService {
         fun getJournalSubscription(
             subscriptionId: Long,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse1> =
+        ): HttpResponseFor<SubscriptionResponse> =
             getJournalSubscription(
                 subscriptionId,
                 WebhookGetJournalSubscriptionParams.none(),

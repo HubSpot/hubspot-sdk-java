@@ -37,7 +37,6 @@ import com.hubspot.sdk.models.crm.lists.PublicNotAllFilterBranch
 import com.hubspot.sdk.models.crm.lists.PublicNotAnyFilterBranch
 import com.hubspot.sdk.models.crm.lists.PublicNumOccurrencesRefineBy
 import com.hubspot.sdk.models.crm.lists.PublicOrFilterBranch
-import com.hubspot.sdk.models.crm.lists.PublicPropertyAssociationFilterBranch
 import com.hubspot.sdk.models.crm.lists.PublicPropertyFilter
 import com.hubspot.sdk.models.crm.lists.PublicRestrictedFilterBranch
 import com.hubspot.sdk.models.crm.lists.PublicUnifiedEventsFilterBranch
@@ -80,72 +79,25 @@ internal class ListServiceAsyncTest {
                                                                     .builder()
                                                                     .eventTypeId("eventTypeId")
                                                                     .addFilterBranch(
-                                                                        PublicPropertyAssociationFilterBranch
+                                                                        PublicAssociationFilterBranch
                                                                             .builder()
+                                                                            .associationCategory(
+                                                                                "associationCategory"
+                                                                            )
+                                                                            .associationTypeId(0)
                                                                             .addFilterBranch(
-                                                                                PublicAssociationFilterBranch
+                                                                                PublicOrFilterBranch
                                                                                     .builder()
-                                                                                    .associationCategory(
-                                                                                        "associationCategory"
-                                                                                    )
-                                                                                    .associationTypeId(
-                                                                                        0
-                                                                                    )
-                                                                                    .addFilterBranch(
-                                                                                        PublicOrFilterBranch
-                                                                                            .builder()
-                                                                                            .filterBranches(
-                                                                                                listOf()
-                                                                                            )
-                                                                                            .filterBranchOperator(
-                                                                                                "filterBranchOperator"
-                                                                                            )
-                                                                                            .filterBranchType(
-                                                                                                PublicOrFilterBranch
-                                                                                                    .FilterBranchType
-                                                                                                    .OR
-                                                                                            )
-                                                                                            .addFilter(
-                                                                                                PublicPropertyFilter
-                                                                                                    .builder()
-                                                                                                    .filterType(
-                                                                                                        PublicPropertyFilter
-                                                                                                            .FilterType
-                                                                                                            .PROPERTY
-                                                                                                    )
-                                                                                                    .operation(
-                                                                                                        PublicBoolPropertyOperation
-                                                                                                            .builder()
-                                                                                                            .includeObjectsWithNoValueSet(
-                                                                                                                true
-                                                                                                            )
-                                                                                                            .operationType(
-                                                                                                                PublicBoolPropertyOperation
-                                                                                                                    .OperationType
-                                                                                                                    .BOOL
-                                                                                                            )
-                                                                                                            .operator(
-                                                                                                                "operator"
-                                                                                                            )
-                                                                                                            .value(
-                                                                                                                true
-                                                                                                            )
-                                                                                                            .build()
-                                                                                                    )
-                                                                                                    .property(
-                                                                                                        "property"
-                                                                                                    )
-                                                                                                    .build()
-                                                                                            )
-                                                                                            .build()
+                                                                                    .filterBranches(
+                                                                                        listOf()
                                                                                     )
                                                                                     .filterBranchOperator(
                                                                                         "filterBranchOperator"
                                                                                     )
                                                                                     .filterBranchType(
-                                                                                        PublicAssociationFilterBranch
+                                                                                        PublicOrFilterBranch
                                                                                             .FilterBranchType
-                                                                                            .ASSOCIATION
+                                                                                            .OR
                                                                                     )
                                                                                     .addFilter(
                                                                                         PublicPropertyFilter
@@ -179,21 +131,15 @@ internal class ListServiceAsyncTest {
                                                                                             )
                                                                                             .build()
                                                                                     )
-                                                                                    .objectTypeId(
-                                                                                        "objectTypeId"
-                                                                                    )
-                                                                                    .operator(
-                                                                                        "operator"
-                                                                                    )
                                                                                     .build()
                                                                             )
                                                                             .filterBranchOperator(
                                                                                 "filterBranchOperator"
                                                                             )
                                                                             .filterBranchType(
-                                                                                PublicPropertyAssociationFilterBranch
+                                                                                PublicAssociationFilterBranch
                                                                                     .FilterBranchType
-                                                                                    .PROPERTY_ASSOCIATION
+                                                                                    .ASSOCIATION
                                                                             )
                                                                             .addFilter(
                                                                                 PublicPropertyFilter
@@ -231,9 +177,6 @@ internal class ListServiceAsyncTest {
                                                                                 "objectTypeId"
                                                                             )
                                                                             .operator("operator")
-                                                                            .propertyWithObjectId(
-                                                                                "propertyWithObjectId"
-                                                                            )
                                                                             .build()
                                                                     )
                                                                     .filterBranchOperator(
@@ -891,72 +834,27 @@ internal class ListServiceAsyncTest {
                                                                                 "eventTypeId"
                                                                             )
                                                                             .addFilterBranch(
-                                                                                PublicPropertyAssociationFilterBranch
+                                                                                PublicAssociationFilterBranch
                                                                                     .builder()
+                                                                                    .associationCategory(
+                                                                                        "associationCategory"
+                                                                                    )
+                                                                                    .associationTypeId(
+                                                                                        0
+                                                                                    )
                                                                                     .addFilterBranch(
-                                                                                        PublicAssociationFilterBranch
+                                                                                        PublicOrFilterBranch
                                                                                             .builder()
-                                                                                            .associationCategory(
-                                                                                                "associationCategory"
-                                                                                            )
-                                                                                            .associationTypeId(
-                                                                                                0
-                                                                                            )
-                                                                                            .addFilterBranch(
-                                                                                                PublicOrFilterBranch
-                                                                                                    .builder()
-                                                                                                    .filterBranches(
-                                                                                                        listOf()
-                                                                                                    )
-                                                                                                    .filterBranchOperator(
-                                                                                                        "filterBranchOperator"
-                                                                                                    )
-                                                                                                    .filterBranchType(
-                                                                                                        PublicOrFilterBranch
-                                                                                                            .FilterBranchType
-                                                                                                            .OR
-                                                                                                    )
-                                                                                                    .addFilter(
-                                                                                                        PublicPropertyFilter
-                                                                                                            .builder()
-                                                                                                            .filterType(
-                                                                                                                PublicPropertyFilter
-                                                                                                                    .FilterType
-                                                                                                                    .PROPERTY
-                                                                                                            )
-                                                                                                            .operation(
-                                                                                                                PublicBoolPropertyOperation
-                                                                                                                    .builder()
-                                                                                                                    .includeObjectsWithNoValueSet(
-                                                                                                                        true
-                                                                                                                    )
-                                                                                                                    .operationType(
-                                                                                                                        PublicBoolPropertyOperation
-                                                                                                                            .OperationType
-                                                                                                                            .BOOL
-                                                                                                                    )
-                                                                                                                    .operator(
-                                                                                                                        "operator"
-                                                                                                                    )
-                                                                                                                    .value(
-                                                                                                                        true
-                                                                                                                    )
-                                                                                                                    .build()
-                                                                                                            )
-                                                                                                            .property(
-                                                                                                                "property"
-                                                                                                            )
-                                                                                                            .build()
-                                                                                                    )
-                                                                                                    .build()
+                                                                                            .filterBranches(
+                                                                                                listOf()
                                                                                             )
                                                                                             .filterBranchOperator(
                                                                                                 "filterBranchOperator"
                                                                                             )
                                                                                             .filterBranchType(
-                                                                                                PublicAssociationFilterBranch
+                                                                                                PublicOrFilterBranch
                                                                                                     .FilterBranchType
-                                                                                                    .ASSOCIATION
+                                                                                                    .OR
                                                                                             )
                                                                                             .addFilter(
                                                                                                 PublicPropertyFilter
@@ -990,21 +888,15 @@ internal class ListServiceAsyncTest {
                                                                                                     )
                                                                                                     .build()
                                                                                             )
-                                                                                            .objectTypeId(
-                                                                                                "objectTypeId"
-                                                                                            )
-                                                                                            .operator(
-                                                                                                "operator"
-                                                                                            )
                                                                                             .build()
                                                                                     )
                                                                                     .filterBranchOperator(
                                                                                         "filterBranchOperator"
                                                                                     )
                                                                                     .filterBranchType(
-                                                                                        PublicPropertyAssociationFilterBranch
+                                                                                        PublicAssociationFilterBranch
                                                                                             .FilterBranchType
-                                                                                            .PROPERTY_ASSOCIATION
+                                                                                            .ASSOCIATION
                                                                                     )
                                                                                     .addFilter(
                                                                                         PublicPropertyFilter
@@ -1043,9 +935,6 @@ internal class ListServiceAsyncTest {
                                                                                     )
                                                                                     .operator(
                                                                                         "operator"
-                                                                                    )
-                                                                                    .propertyWithObjectId(
-                                                                                        "propertyWithObjectId"
                                                                                     )
                                                                                     .build()
                                                                             )

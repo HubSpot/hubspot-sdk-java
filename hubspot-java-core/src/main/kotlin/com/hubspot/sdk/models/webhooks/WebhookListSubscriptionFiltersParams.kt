@@ -10,9 +10,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the filters associated with a specific webhook subscription in the HubSpot account. This
- * endpoint is useful for obtaining detailed information about the filters applied to a given
- * subscription, identified by its subscription ID.
+ * Retrieve the filters associated with a specific webhook subscription. This endpoint allows you to
+ * view the filters applied to a subscription, which can help in managing and understanding the
+ * conditions set for webhook events.
  */
 class WebhookListSubscriptionFiltersParams
 private constructor(

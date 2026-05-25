@@ -17,8 +17,8 @@ internal class PublicObjectSearchRequestTest {
                 .addFilterGroup(
                     FilterGroup.builder()
                         .addFilter(
-                            Filter.builder()
-                                .operator(Filter.Operator.BETWEEN)
+                            CrmFilter.builder()
+                                .operator(CrmFilter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")
@@ -38,8 +38,8 @@ internal class PublicObjectSearchRequestTest {
             .containsExactly(
                 FilterGroup.builder()
                     .addFilter(
-                        Filter.builder()
-                            .operator(Filter.Operator.BETWEEN)
+                        CrmFilter.builder()
+                            .operator(CrmFilter.Operator.BETWEEN)
                             .propertyName("propertyName")
                             .highValue("highValue")
                             .value("value")
@@ -63,8 +63,8 @@ internal class PublicObjectSearchRequestTest {
                 .addFilterGroup(
                     FilterGroup.builder()
                         .addFilter(
-                            Filter.builder()
-                                .operator(Filter.Operator.BETWEEN)
+                            CrmFilter.builder()
+                                .operator(CrmFilter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")

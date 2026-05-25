@@ -11,9 +11,8 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Retrieve the latest entries from the webhooks journal for the specified portal. This endpoint is
- * useful for accessing the most recent webhook events processed by your HubSpot account. It allows
- * you to filter the results by the portal ID to ensure you are retrieving data relevant to a
- * specific installation.
+ * useful for accessing the most recent webhook events and their statuses, allowing you to monitor
+ * and debug webhook activity effectively.
  */
 class WebhookGetLatestJournalEntryParams
 private constructor(
@@ -22,7 +21,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The ID of the portal installation to filter the journal entries. It is an integer value. */
+    /**
+     * The unique identifier of the portal installation for which to retrieve the latest journal
+     * entries. This parameter is optional and should be an integer.
+     */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
     /** Additional headers to send with the request. */
@@ -61,7 +63,8 @@ private constructor(
             }
 
         /**
-         * The ID of the portal installation to filter the journal entries. It is an integer value.
+         * The unique identifier of the portal installation for which to retrieve the latest journal
+         * entries. This parameter is optional and should be an integer.
          */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId

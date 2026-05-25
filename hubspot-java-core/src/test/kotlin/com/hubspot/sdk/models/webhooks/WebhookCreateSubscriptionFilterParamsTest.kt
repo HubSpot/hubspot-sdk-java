@@ -2,6 +2,9 @@
 
 package com.hubspot.sdk.models.webhooks
 
+import com.hubspot.sdk.models.Condition
+import com.hubspot.sdk.models.Filter
+import com.hubspot.sdk.models.FilterCreateRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

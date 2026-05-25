@@ -3,7 +3,7 @@
 package com.hubspot.sdk.services.async.crm
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClientAsync
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import com.hubspot.sdk.models.crm.exports.PublicCrmSearchRequest
 import com.hubspot.sdk.models.crm.exports.PublicExportViewRequest
@@ -27,10 +27,10 @@ internal class ExportServiceAsyncTest {
                     )
                     .exportName("exportName")
                     .exportType(PublicExportViewRequest.ExportType.VIEW)
-                    .format(PublicExportViewRequest.Format.XLS)
+                    .format(PublicExportViewRequest.Format.CSV)
                     .includeLabeledAssociations(true)
                     .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                    .language(PublicExportViewRequest.Language.EN)
+                    .language(PublicExportViewRequest.Language.AF_ZA)
                     .addObjectProperty("string")
                     .objectType("objectType")
                     .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
@@ -39,8 +39,8 @@ internal class ExportServiceAsyncTest {
                             .addFilterGroup(
                                 FilterGroup.builder()
                                     .addFilter(
-                                        Filter.builder()
-                                            .operator(Filter.Operator.BETWEEN)
+                                        CrmFilter.builder()
+                                            .operator(CrmFilter.Operator.BETWEEN)
                                             .propertyName("propertyName")
                                             .highValue("highValue")
                                             .value("value")
@@ -50,8 +50,8 @@ internal class ExportServiceAsyncTest {
                                     .build()
                             )
                             .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
+                                CrmFilter.builder()
+                                    .operator(CrmFilter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .highValue("highValue")
                                     .value("value")

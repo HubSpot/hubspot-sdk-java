@@ -4,7 +4,7 @@ package com.hubspot.sdk.models.crm.exports
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,8 +18,8 @@ internal class PublicCrmSearchRequestTest {
                 .addFilterGroup(
                     FilterGroup.builder()
                         .addFilter(
-                            Filter.builder()
-                                .operator(Filter.Operator.BETWEEN)
+                            CrmFilter.builder()
+                                .operator(CrmFilter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")
@@ -29,8 +29,8 @@ internal class PublicCrmSearchRequestTest {
                         .build()
                 )
                 .addFilter(
-                    Filter.builder()
-                        .operator(Filter.Operator.BETWEEN)
+                    CrmFilter.builder()
+                        .operator(CrmFilter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")
@@ -45,8 +45,8 @@ internal class PublicCrmSearchRequestTest {
             .containsExactly(
                 FilterGroup.builder()
                     .addFilter(
-                        Filter.builder()
-                            .operator(Filter.Operator.BETWEEN)
+                        CrmFilter.builder()
+                            .operator(CrmFilter.Operator.BETWEEN)
                             .propertyName("propertyName")
                             .highValue("highValue")
                             .value("value")
@@ -57,8 +57,8 @@ internal class PublicCrmSearchRequestTest {
             )
         assertThat(publicCrmSearchRequest.filters())
             .containsExactly(
-                Filter.builder()
-                    .operator(Filter.Operator.BETWEEN)
+                CrmFilter.builder()
+                    .operator(CrmFilter.Operator.BETWEEN)
                     .propertyName("propertyName")
                     .highValue("highValue")
                     .value("value")
@@ -77,8 +77,8 @@ internal class PublicCrmSearchRequestTest {
                 .addFilterGroup(
                     FilterGroup.builder()
                         .addFilter(
-                            Filter.builder()
-                                .operator(Filter.Operator.BETWEEN)
+                            CrmFilter.builder()
+                                .operator(CrmFilter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")
@@ -88,8 +88,8 @@ internal class PublicCrmSearchRequestTest {
                         .build()
                 )
                 .addFilter(
-                    Filter.builder()
-                        .operator(Filter.Operator.BETWEEN)
+                    CrmFilter.builder()
+                        .operator(CrmFilter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")

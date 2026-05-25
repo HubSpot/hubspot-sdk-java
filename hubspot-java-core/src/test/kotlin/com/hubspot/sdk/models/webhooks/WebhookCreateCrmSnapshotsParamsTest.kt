@@ -2,6 +2,8 @@
 
 package com.hubspot.sdk.models.webhooks
 
+import com.hubspot.sdk.models.CrmObjectSnapshotBatchRequest
+import com.hubspot.sdk.models.CrmObjectSnapshotRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

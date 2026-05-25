@@ -853,6 +853,8 @@ private constructor(
 
             @JvmField val AUTHORIZATION_CODE = of("authorization_code")
 
+            @JvmField val CLIENT_CREDENTIALS = of("client_credentials")
+
             @JvmField val REFRESH_TOKEN = of("refresh_token")
 
             @JvmStatic fun of(value: String) = GrantType(JsonField.of(value))
@@ -861,6 +863,7 @@ private constructor(
         /** An enum containing [GrantType]'s known values. */
         enum class Known {
             AUTHORIZATION_CODE,
+            CLIENT_CREDENTIALS,
             REFRESH_TOKEN,
         }
 
@@ -875,6 +878,7 @@ private constructor(
          */
         enum class Value {
             AUTHORIZATION_CODE,
+            CLIENT_CREDENTIALS,
             REFRESH_TOKEN,
             /**
              * An enum member indicating that [GrantType] was instantiated with an unknown value.
@@ -892,6 +896,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 AUTHORIZATION_CODE -> Value.AUTHORIZATION_CODE
+                CLIENT_CREDENTIALS -> Value.CLIENT_CREDENTIALS
                 REFRESH_TOKEN -> Value.REFRESH_TOKEN
                 else -> Value._UNKNOWN
             }
@@ -908,6 +913,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 AUTHORIZATION_CODE -> Known.AUTHORIZATION_CODE
+                CLIENT_CREDENTIALS -> Known.CLIENT_CREDENTIALS
                 REFRESH_TOKEN -> Known.REFRESH_TOKEN
                 else -> throw HubSpotInvalidDataException("Unknown GrantType: $value")
             }
