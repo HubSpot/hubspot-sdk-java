@@ -2,7 +2,7 @@
 
 package com.hubspot.sdk.models.crm.exports
 
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -20,10 +20,10 @@ internal class ExportCreateAsyncParamsTest {
                     )
                     .exportName("exportName")
                     .exportType(PublicExportViewRequest.ExportType.VIEW)
-                    .format(PublicExportViewRequest.Format.XLS)
+                    .format(PublicExportViewRequest.Format.CSV)
                     .includeLabeledAssociations(true)
                     .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                    .language(PublicExportViewRequest.Language.EN)
+                    .language(PublicExportViewRequest.Language.AF_ZA)
                     .addObjectProperty("string")
                     .objectType("objectType")
                     .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
@@ -32,8 +32,8 @@ internal class ExportCreateAsyncParamsTest {
                             .addFilterGroup(
                                 FilterGroup.builder()
                                     .addFilter(
-                                        Filter.builder()
-                                            .operator(Filter.Operator.BETWEEN)
+                                        CrmFilter.builder()
+                                            .operator(CrmFilter.Operator.BETWEEN)
                                             .propertyName("propertyName")
                                             .highValue("highValue")
                                             .value("value")
@@ -43,8 +43,8 @@ internal class ExportCreateAsyncParamsTest {
                                     .build()
                             )
                             .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
+                                CrmFilter.builder()
+                                    .operator(CrmFilter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .highValue("highValue")
                                     .value("value")
@@ -72,10 +72,10 @@ internal class ExportCreateAsyncParamsTest {
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
-                        .format(PublicExportViewRequest.Format.XLS)
+                        .format(PublicExportViewRequest.Format.CSV)
                         .includeLabeledAssociations(true)
                         .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                        .language(PublicExportViewRequest.Language.EN)
+                        .language(PublicExportViewRequest.Language.AF_ZA)
                         .addObjectProperty("string")
                         .objectType("objectType")
                         .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
@@ -84,8 +84,8 @@ internal class ExportCreateAsyncParamsTest {
                                 .addFilterGroup(
                                     FilterGroup.builder()
                                         .addFilter(
-                                            Filter.builder()
-                                                .operator(Filter.Operator.BETWEEN)
+                                            CrmFilter.builder()
+                                                .operator(CrmFilter.Operator.BETWEEN)
                                                 .propertyName("propertyName")
                                                 .highValue("highValue")
                                                 .value("value")
@@ -95,8 +95,8 @@ internal class ExportCreateAsyncParamsTest {
                                         .build()
                                 )
                                 .addFilter(
-                                    Filter.builder()
-                                        .operator(Filter.Operator.BETWEEN)
+                                    CrmFilter.builder()
+                                        .operator(CrmFilter.Operator.BETWEEN)
                                         .propertyName("propertyName")
                                         .highValue("highValue")
                                         .value("value")
@@ -123,10 +123,10 @@ internal class ExportCreateAsyncParamsTest {
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
-                        .format(PublicExportViewRequest.Format.XLS)
+                        .format(PublicExportViewRequest.Format.CSV)
                         .includeLabeledAssociations(true)
                         .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                        .language(PublicExportViewRequest.Language.EN)
+                        .language(PublicExportViewRequest.Language.AF_ZA)
                         .addObjectProperty("string")
                         .objectType("objectType")
                         .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
@@ -135,8 +135,8 @@ internal class ExportCreateAsyncParamsTest {
                                 .addFilterGroup(
                                     FilterGroup.builder()
                                         .addFilter(
-                                            Filter.builder()
-                                                .operator(Filter.Operator.BETWEEN)
+                                            CrmFilter.builder()
+                                                .operator(CrmFilter.Operator.BETWEEN)
                                                 .propertyName("propertyName")
                                                 .highValue("highValue")
                                                 .value("value")
@@ -146,8 +146,8 @@ internal class ExportCreateAsyncParamsTest {
                                         .build()
                                 )
                                 .addFilter(
-                                    Filter.builder()
-                                        .operator(Filter.Operator.BETWEEN)
+                                    CrmFilter.builder()
+                                        .operator(CrmFilter.Operator.BETWEEN)
                                         .propertyName("propertyName")
                                         .highValue("highValue")
                                         .value("value")
@@ -175,10 +175,10 @@ internal class ExportCreateAsyncParamsTest {
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
-                        .format(PublicExportViewRequest.Format.XLS)
+                        .format(PublicExportViewRequest.Format.CSV)
                         .includeLabeledAssociations(true)
                         .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                        .language(PublicExportViewRequest.Language.EN)
+                        .language(PublicExportViewRequest.Language.AF_ZA)
                         .addObjectProperty("string")
                         .objectType("objectType")
                         .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
@@ -198,10 +198,10 @@ internal class ExportCreateAsyncParamsTest {
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
-                        .format(PublicExportViewRequest.Format.XLS)
+                        .format(PublicExportViewRequest.Format.CSV)
                         .includeLabeledAssociations(true)
                         .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                        .language(PublicExportViewRequest.Language.EN)
+                        .language(PublicExportViewRequest.Language.AF_ZA)
                         .addObjectProperty("string")
                         .objectType("objectType")
                         .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)

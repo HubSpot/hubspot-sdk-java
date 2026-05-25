@@ -598,13 +598,6 @@ private constructor(
         fun filterBranch(unifiedEvents: PublicUnifiedEventsFilterBranch) =
             filterBranch(FilterBranch.ofUnifiedEvents(unifiedEvents))
 
-        /**
-         * Alias for calling [filterBranch] with
-         * `FilterBranch.ofPropertyAssociation(propertyAssociation)`.
-         */
-        fun filterBranch(propertyAssociation: PublicPropertyAssociationFilterBranch) =
-            filterBranch(FilterBranch.ofPropertyAssociation(propertyAssociation))
-
         /** Alias for calling [filterBranch] with `FilterBranch.ofAssociation(association)`. */
         fun filterBranch(association: PublicAssociationFilterBranch) =
             filterBranch(FilterBranch.ofAssociation(association))
@@ -825,7 +818,6 @@ private constructor(
         private val notAny: PublicNotAnyFilterBranch? = null,
         private val restricted: PublicRestrictedFilterBranch? = null,
         private val unifiedEvents: PublicUnifiedEventsFilterBranch? = null,
-        private val propertyAssociation: PublicPropertyAssociationFilterBranch? = null,
         private val association: PublicAssociationFilterBranch? = null,
         private val _json: JsonValue? = null,
     ) {
@@ -843,9 +835,6 @@ private constructor(
         fun unifiedEvents(): Optional<PublicUnifiedEventsFilterBranch> =
             Optional.ofNullable(unifiedEvents)
 
-        fun propertyAssociation(): Optional<PublicPropertyAssociationFilterBranch> =
-            Optional.ofNullable(propertyAssociation)
-
         fun association(): Optional<PublicAssociationFilterBranch> =
             Optional.ofNullable(association)
 
@@ -861,8 +850,6 @@ private constructor(
 
         fun isUnifiedEvents(): Boolean = unifiedEvents != null
 
-        fun isPropertyAssociation(): Boolean = propertyAssociation != null
-
         fun isAssociation(): Boolean = association != null
 
         fun asOr(): PublicOrFilterBranch = or.getOrThrow("or")
@@ -877,9 +864,6 @@ private constructor(
 
         fun asUnifiedEvents(): PublicUnifiedEventsFilterBranch =
             unifiedEvents.getOrThrow("unifiedEvents")
-
-        fun asPropertyAssociation(): PublicPropertyAssociationFilterBranch =
-            propertyAssociation.getOrThrow("propertyAssociation")
 
         fun asAssociation(): PublicAssociationFilterBranch = association.getOrThrow("association")
 
@@ -922,7 +906,6 @@ private constructor(
                 notAny != null -> visitor.visitNotAny(notAny)
                 restricted != null -> visitor.visitRestricted(restricted)
                 unifiedEvents != null -> visitor.visitUnifiedEvents(unifiedEvents)
-                propertyAssociation != null -> visitor.visitPropertyAssociation(propertyAssociation)
                 association != null -> visitor.visitAssociation(association)
                 else -> visitor.unknown(_json)
             }
@@ -971,12 +954,6 @@ private constructor(
                         unifiedEvents.validate()
                     }
 
-                    override fun visitPropertyAssociation(
-                        propertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) {
-                        propertyAssociation.validate()
-                    }
-
                     override fun visitAssociation(association: PublicAssociationFilterBranch) {
                         association.validate()
                     }
@@ -1018,10 +995,6 @@ private constructor(
                         unifiedEvents: PublicUnifiedEventsFilterBranch
                     ) = unifiedEvents.validity()
 
-                    override fun visitPropertyAssociation(
-                        propertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) = propertyAssociation.validity()
-
                     override fun visitAssociation(association: PublicAssociationFilterBranch) =
                         association.validity()
 
@@ -1041,21 +1014,11 @@ private constructor(
                 notAny == other.notAny &&
                 restricted == other.restricted &&
                 unifiedEvents == other.unifiedEvents &&
-                propertyAssociation == other.propertyAssociation &&
                 association == other.association
         }
 
         override fun hashCode(): Int =
-            Objects.hash(
-                or,
-                and,
-                notAll,
-                notAny,
-                restricted,
-                unifiedEvents,
-                propertyAssociation,
-                association,
-            )
+            Objects.hash(or, and, notAll, notAny, restricted, unifiedEvents, association)
 
         override fun toString(): String =
             when {
@@ -1065,8 +1028,6 @@ private constructor(
                 notAny != null -> "FilterBranch{notAny=$notAny}"
                 restricted != null -> "FilterBranch{restricted=$restricted}"
                 unifiedEvents != null -> "FilterBranch{unifiedEvents=$unifiedEvents}"
-                propertyAssociation != null ->
-                    "FilterBranch{propertyAssociation=$propertyAssociation}"
                 association != null -> "FilterBranch{association=$association}"
                 _json != null -> "FilterBranch{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid FilterBranch")
@@ -1093,10 +1054,6 @@ private constructor(
                 FilterBranch(unifiedEvents = unifiedEvents)
 
             @JvmStatic
-            fun ofPropertyAssociation(propertyAssociation: PublicPropertyAssociationFilterBranch) =
-                FilterBranch(propertyAssociation = propertyAssociation)
-
-            @JvmStatic
             fun ofAssociation(association: PublicAssociationFilterBranch) =
                 FilterBranch(association = association)
         }
@@ -1118,10 +1075,6 @@ private constructor(
             fun visitRestricted(restricted: PublicRestrictedFilterBranch): T
 
             fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilterBranch): T
-
-            fun visitPropertyAssociation(
-                propertyAssociation: PublicPropertyAssociationFilterBranch
-            ): T
 
             fun visitAssociation(association: PublicAssociationFilterBranch): T
 
@@ -1181,14 +1134,6 @@ private constructor(
                             ?.let { FilterBranch(unifiedEvents = it, _json = json) }
                             ?: FilterBranch(_json = json)
                     }
-                    "PROPERTY_ASSOCIATION" -> {
-                        return tryDeserialize(
-                                node,
-                                jacksonTypeRef<PublicPropertyAssociationFilterBranch>(),
-                            )
-                            ?.let { FilterBranch(propertyAssociation = it, _json = json) }
-                            ?: FilterBranch(_json = json)
-                    }
                     "ASSOCIATION" -> {
                         return tryDeserialize(node, jacksonTypeRef<PublicAssociationFilterBranch>())
                             ?.let { FilterBranch(association = it, _json = json) }
@@ -1214,8 +1159,6 @@ private constructor(
                     value.notAny != null -> generator.writeObject(value.notAny)
                     value.restricted != null -> generator.writeObject(value.restricted)
                     value.unifiedEvents != null -> generator.writeObject(value.unifiedEvents)
-                    value.propertyAssociation != null ->
-                        generator.writeObject(value.propertyAssociation)
                     value.association != null -> generator.writeObject(value.association)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid FilterBranch")

@@ -980,20 +980,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val CSV = of("CSV")
+
             @JvmField val XLS = of("XLS")
 
             @JvmField val XLSX = of("XLSX")
-
-            @JvmField val CSV = of("CSV")
 
             @JvmStatic fun of(value: String) = Format(JsonField.of(value))
         }
 
         /** An enum containing [Format]'s known values. */
         enum class Known {
+            CSV,
             XLS,
             XLSX,
-            CSV,
         }
 
         /**
@@ -1006,9 +1006,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            CSV,
             XLS,
             XLSX,
-            CSV,
             /** An enum member indicating that [Format] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1022,9 +1022,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                CSV -> Value.CSV
                 XLS -> Value.XLS
                 XLSX -> Value.XLSX
-                CSV -> Value.CSV
                 else -> Value._UNKNOWN
             }
 
@@ -1039,9 +1039,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                CSV -> Known.CSV
                 XLS -> Known.XLS
                 XLSX -> Known.XLSX
-                CSV -> Known.CSV
                 else -> throw HubSpotInvalidDataException("Unknown Format: $value")
             }
 
@@ -1120,62 +1120,146 @@ private constructor(
 
         companion object {
 
-            @JvmField val EN = of("EN")
+            @JvmField val AF_ZA = of("AF_ZA")
 
-            @JvmField val DE = of("DE")
+            @JvmField val AR_EG = of("AR_EG")
 
-            @JvmField val ES = of("ES")
+            @JvmField val BG = of("BG")
 
-            @JvmField val FR = of("FR")
+            @JvmField val BN = of("BN")
 
-            @JvmField val JA = of("JA")
+            @JvmField val CA_ES = of("CA_ES")
 
-            @JvmField val NL = of("NL")
-
-            @JvmField val PT_BR = of("PT_BR")
-
-            @JvmField val IT = of("IT")
-
-            @JvmField val PL = of("PL")
-
-            @JvmField val SV = of("SV")
-
-            @JvmField val FI = of("FI")
-
-            @JvmField val ZH_TW = of("ZH_TW")
+            @JvmField val CS = of("CS")
 
             @JvmField val DA_DK = of("DA_DK")
 
-            @JvmField val NO = of("NO")
+            @JvmField val DE = of("DE")
+
+            @JvmField val EL_GR = of("EL_GR")
+
+            @JvmField val EN = of("EN")
+
+            @JvmField val EN_GB = of("EN_GB")
+
+            @JvmField val ES = of("ES")
+
+            @JvmField val ES_MX = of("ES_MX")
+
+            @JvmField val ET_EE = of("ET_EE")
+
+            @JvmField val FI = of("FI")
+
+            @JvmField val FR = of("FR")
+
+            @JvmField val FR_CA = of("FR_CA")
+
+            @JvmField val HE_IL = of("HE_IL")
+
+            @JvmField val HI_IN = of("HI_IN")
+
+            @JvmField val HR = of("HR")
+
+            @JvmField val HU = of("HU")
+
+            @JvmField val ID = of("ID")
+
+            @JvmField val IT = of("IT")
+
+            @JvmField val JA = of("JA")
 
             @JvmField val KO_KR = of("KO_KR")
 
+            @JvmField val LT_LT = of("LT_LT")
+
+            @JvmField val MS = of("MS")
+
+            @JvmField val NL = of("NL")
+
+            @JvmField val NO = of("NO")
+
+            @JvmField val PL = of("PL")
+
+            @JvmField val PT_BR = of("PT_BR")
+
+            @JvmField val PT_PT = of("PT_PT")
+
+            @JvmField val RO = of("RO")
+
+            @JvmField val RU = of("RU")
+
+            @JvmField val SK_SK = of("SK_SK")
+
+            @JvmField val SL = of("SL")
+
+            @JvmField val SV = of("SV")
+
             @JvmField val TH = of("TH")
 
+            @JvmField val TL = of("TL")
+
+            @JvmField val TR = of("TR")
+
+            @JvmField val UK = of("UK")
+
+            @JvmField val VI_VN = of("VI_VN")
+
             @JvmField val ZH_CN = of("ZH_CN")
+
+            @JvmField val ZH_HK = of("ZH_HK")
+
+            @JvmField val ZH_TW = of("ZH_TW")
 
             @JvmStatic fun of(value: String) = Language(JsonField.of(value))
         }
 
         /** An enum containing [Language]'s known values. */
         enum class Known {
-            EN,
-            DE,
-            ES,
-            FR,
-            JA,
-            NL,
-            PT_BR,
-            IT,
-            PL,
-            SV,
-            FI,
-            ZH_TW,
+            AF_ZA,
+            AR_EG,
+            BG,
+            BN,
+            CA_ES,
+            CS,
             DA_DK,
-            NO,
+            DE,
+            EL_GR,
+            EN,
+            EN_GB,
+            ES,
+            ES_MX,
+            ET_EE,
+            FI,
+            FR,
+            FR_CA,
+            HE_IL,
+            HI_IN,
+            HR,
+            HU,
+            ID,
+            IT,
+            JA,
             KO_KR,
+            LT_LT,
+            MS,
+            NL,
+            NO,
+            PL,
+            PT_BR,
+            PT_PT,
+            RO,
+            RU,
+            SK_SK,
+            SL,
+            SV,
             TH,
+            TL,
+            TR,
+            UK,
+            VI_VN,
             ZH_CN,
+            ZH_HK,
+            ZH_TW,
         }
 
         /**
@@ -1188,23 +1272,51 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            EN,
-            DE,
-            ES,
-            FR,
-            JA,
-            NL,
-            PT_BR,
-            IT,
-            PL,
-            SV,
-            FI,
-            ZH_TW,
+            AF_ZA,
+            AR_EG,
+            BG,
+            BN,
+            CA_ES,
+            CS,
             DA_DK,
-            NO,
+            DE,
+            EL_GR,
+            EN,
+            EN_GB,
+            ES,
+            ES_MX,
+            ET_EE,
+            FI,
+            FR,
+            FR_CA,
+            HE_IL,
+            HI_IN,
+            HR,
+            HU,
+            ID,
+            IT,
+            JA,
             KO_KR,
+            LT_LT,
+            MS,
+            NL,
+            NO,
+            PL,
+            PT_BR,
+            PT_PT,
+            RO,
+            RU,
+            SK_SK,
+            SL,
+            SV,
             TH,
+            TL,
+            TR,
+            UK,
+            VI_VN,
             ZH_CN,
+            ZH_HK,
+            ZH_TW,
             /** An enum member indicating that [Language] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1218,23 +1330,51 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                EN -> Value.EN
-                DE -> Value.DE
-                ES -> Value.ES
-                FR -> Value.FR
-                JA -> Value.JA
-                NL -> Value.NL
-                PT_BR -> Value.PT_BR
-                IT -> Value.IT
-                PL -> Value.PL
-                SV -> Value.SV
-                FI -> Value.FI
-                ZH_TW -> Value.ZH_TW
+                AF_ZA -> Value.AF_ZA
+                AR_EG -> Value.AR_EG
+                BG -> Value.BG
+                BN -> Value.BN
+                CA_ES -> Value.CA_ES
+                CS -> Value.CS
                 DA_DK -> Value.DA_DK
-                NO -> Value.NO
+                DE -> Value.DE
+                EL_GR -> Value.EL_GR
+                EN -> Value.EN
+                EN_GB -> Value.EN_GB
+                ES -> Value.ES
+                ES_MX -> Value.ES_MX
+                ET_EE -> Value.ET_EE
+                FI -> Value.FI
+                FR -> Value.FR
+                FR_CA -> Value.FR_CA
+                HE_IL -> Value.HE_IL
+                HI_IN -> Value.HI_IN
+                HR -> Value.HR
+                HU -> Value.HU
+                ID -> Value.ID
+                IT -> Value.IT
+                JA -> Value.JA
                 KO_KR -> Value.KO_KR
+                LT_LT -> Value.LT_LT
+                MS -> Value.MS
+                NL -> Value.NL
+                NO -> Value.NO
+                PL -> Value.PL
+                PT_BR -> Value.PT_BR
+                PT_PT -> Value.PT_PT
+                RO -> Value.RO
+                RU -> Value.RU
+                SK_SK -> Value.SK_SK
+                SL -> Value.SL
+                SV -> Value.SV
                 TH -> Value.TH
+                TL -> Value.TL
+                TR -> Value.TR
+                UK -> Value.UK
+                VI_VN -> Value.VI_VN
                 ZH_CN -> Value.ZH_CN
+                ZH_HK -> Value.ZH_HK
+                ZH_TW -> Value.ZH_TW
                 else -> Value._UNKNOWN
             }
 
@@ -1249,23 +1389,51 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                EN -> Known.EN
-                DE -> Known.DE
-                ES -> Known.ES
-                FR -> Known.FR
-                JA -> Known.JA
-                NL -> Known.NL
-                PT_BR -> Known.PT_BR
-                IT -> Known.IT
-                PL -> Known.PL
-                SV -> Known.SV
-                FI -> Known.FI
-                ZH_TW -> Known.ZH_TW
+                AF_ZA -> Known.AF_ZA
+                AR_EG -> Known.AR_EG
+                BG -> Known.BG
+                BN -> Known.BN
+                CA_ES -> Known.CA_ES
+                CS -> Known.CS
                 DA_DK -> Known.DA_DK
-                NO -> Known.NO
+                DE -> Known.DE
+                EL_GR -> Known.EL_GR
+                EN -> Known.EN
+                EN_GB -> Known.EN_GB
+                ES -> Known.ES
+                ES_MX -> Known.ES_MX
+                ET_EE -> Known.ET_EE
+                FI -> Known.FI
+                FR -> Known.FR
+                FR_CA -> Known.FR_CA
+                HE_IL -> Known.HE_IL
+                HI_IN -> Known.HI_IN
+                HR -> Known.HR
+                HU -> Known.HU
+                ID -> Known.ID
+                IT -> Known.IT
+                JA -> Known.JA
                 KO_KR -> Known.KO_KR
+                LT_LT -> Known.LT_LT
+                MS -> Known.MS
+                NL -> Known.NL
+                NO -> Known.NO
+                PL -> Known.PL
+                PT_BR -> Known.PT_BR
+                PT_PT -> Known.PT_PT
+                RO -> Known.RO
+                RU -> Known.RU
+                SK_SK -> Known.SK_SK
+                SL -> Known.SL
+                SV -> Known.SV
                 TH -> Known.TH
+                TL -> Known.TL
+                TR -> Known.TR
+                UK -> Known.UK
+                VI_VN -> Known.VI_VN
                 ZH_CN -> Known.ZH_CN
+                ZH_HK -> Known.ZH_HK
+                ZH_TW -> Known.ZH_TW
                 else -> throw HubSpotInvalidDataException("Unknown Language: $value")
             }
 

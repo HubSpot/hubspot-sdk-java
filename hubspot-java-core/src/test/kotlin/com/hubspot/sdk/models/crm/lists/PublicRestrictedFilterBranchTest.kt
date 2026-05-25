@@ -25,70 +25,21 @@ internal class PublicRestrictedFilterBranchTest {
                                                     PublicUnifiedEventsFilterBranch.builder()
                                                         .eventTypeId("eventTypeId")
                                                         .addFilterBranch(
-                                                            PublicPropertyAssociationFilterBranch
-                                                                .builder()
+                                                            PublicAssociationFilterBranch.builder()
+                                                                .associationCategory(
+                                                                    "associationCategory"
+                                                                )
+                                                                .associationTypeId(0)
                                                                 .addFilterBranch(
-                                                                    PublicAssociationFilterBranch
-                                                                        .builder()
-                                                                        .associationCategory(
-                                                                            "associationCategory"
-                                                                        )
-                                                                        .associationTypeId(0)
-                                                                        .addFilterBranch(
-                                                                            PublicOrFilterBranch
-                                                                                .builder()
-                                                                                .filterBranches(
-                                                                                    listOf()
-                                                                                )
-                                                                                .filterBranchOperator(
-                                                                                    "filterBranchOperator"
-                                                                                )
-                                                                                .filterBranchType(
-                                                                                    PublicOrFilterBranch
-                                                                                        .FilterBranchType
-                                                                                        .OR
-                                                                                )
-                                                                                .addFilter(
-                                                                                    PublicPropertyFilter
-                                                                                        .builder()
-                                                                                        .filterType(
-                                                                                            PublicPropertyFilter
-                                                                                                .FilterType
-                                                                                                .PROPERTY
-                                                                                        )
-                                                                                        .operation(
-                                                                                            PublicBoolPropertyOperation
-                                                                                                .builder()
-                                                                                                .includeObjectsWithNoValueSet(
-                                                                                                    true
-                                                                                                )
-                                                                                                .operationType(
-                                                                                                    PublicBoolPropertyOperation
-                                                                                                        .OperationType
-                                                                                                        .BOOL
-                                                                                                )
-                                                                                                .operator(
-                                                                                                    "operator"
-                                                                                                )
-                                                                                                .value(
-                                                                                                    true
-                                                                                                )
-                                                                                                .build()
-                                                                                        )
-                                                                                        .property(
-                                                                                            "property"
-                                                                                        )
-                                                                                        .build()
-                                                                                )
-                                                                                .build()
-                                                                        )
+                                                                    PublicOrFilterBranch.builder()
+                                                                        .filterBranches(listOf())
                                                                         .filterBranchOperator(
                                                                             "filterBranchOperator"
                                                                         )
                                                                         .filterBranchType(
-                                                                            PublicAssociationFilterBranch
+                                                                            PublicOrFilterBranch
                                                                                 .FilterBranchType
-                                                                                .ASSOCIATION
+                                                                                .OR
                                                                         )
                                                                         .addFilter(
                                                                             PublicPropertyFilter
@@ -120,19 +71,15 @@ internal class PublicRestrictedFilterBranchTest {
                                                                                 )
                                                                                 .build()
                                                                         )
-                                                                        .objectTypeId(
-                                                                            "objectTypeId"
-                                                                        )
-                                                                        .operator("operator")
                                                                         .build()
                                                                 )
                                                                 .filterBranchOperator(
                                                                     "filterBranchOperator"
                                                                 )
                                                                 .filterBranchType(
-                                                                    PublicPropertyAssociationFilterBranch
+                                                                    PublicAssociationFilterBranch
                                                                         .FilterBranchType
-                                                                        .PROPERTY_ASSOCIATION
+                                                                        .ASSOCIATION
                                                                 )
                                                                 .addFilter(
                                                                     PublicPropertyFilter.builder()
@@ -163,9 +110,6 @@ internal class PublicRestrictedFilterBranchTest {
                                                                 )
                                                                 .objectTypeId("objectTypeId")
                                                                 .operator("operator")
-                                                                .propertyWithObjectId(
-                                                                    "propertyWithObjectId"
-                                                                )
                                                                 .build()
                                                         )
                                                         .filterBranchOperator(
@@ -353,70 +297,21 @@ internal class PublicRestrictedFilterBranchTest {
                                                     PublicUnifiedEventsFilterBranch.builder()
                                                         .eventTypeId("eventTypeId")
                                                         .addFilterBranch(
-                                                            PublicPropertyAssociationFilterBranch
-                                                                .builder()
+                                                            PublicAssociationFilterBranch.builder()
+                                                                .associationCategory(
+                                                                    "associationCategory"
+                                                                )
+                                                                .associationTypeId(0)
                                                                 .addFilterBranch(
-                                                                    PublicAssociationFilterBranch
-                                                                        .builder()
-                                                                        .associationCategory(
-                                                                            "associationCategory"
-                                                                        )
-                                                                        .associationTypeId(0)
-                                                                        .addFilterBranch(
-                                                                            PublicOrFilterBranch
-                                                                                .builder()
-                                                                                .filterBranches(
-                                                                                    listOf()
-                                                                                )
-                                                                                .filterBranchOperator(
-                                                                                    "filterBranchOperator"
-                                                                                )
-                                                                                .filterBranchType(
-                                                                                    PublicOrFilterBranch
-                                                                                        .FilterBranchType
-                                                                                        .OR
-                                                                                )
-                                                                                .addFilter(
-                                                                                    PublicPropertyFilter
-                                                                                        .builder()
-                                                                                        .filterType(
-                                                                                            PublicPropertyFilter
-                                                                                                .FilterType
-                                                                                                .PROPERTY
-                                                                                        )
-                                                                                        .operation(
-                                                                                            PublicBoolPropertyOperation
-                                                                                                .builder()
-                                                                                                .includeObjectsWithNoValueSet(
-                                                                                                    true
-                                                                                                )
-                                                                                                .operationType(
-                                                                                                    PublicBoolPropertyOperation
-                                                                                                        .OperationType
-                                                                                                        .BOOL
-                                                                                                )
-                                                                                                .operator(
-                                                                                                    "operator"
-                                                                                                )
-                                                                                                .value(
-                                                                                                    true
-                                                                                                )
-                                                                                                .build()
-                                                                                        )
-                                                                                        .property(
-                                                                                            "property"
-                                                                                        )
-                                                                                        .build()
-                                                                                )
-                                                                                .build()
-                                                                        )
+                                                                    PublicOrFilterBranch.builder()
+                                                                        .filterBranches(listOf())
                                                                         .filterBranchOperator(
                                                                             "filterBranchOperator"
                                                                         )
                                                                         .filterBranchType(
-                                                                            PublicAssociationFilterBranch
+                                                                            PublicOrFilterBranch
                                                                                 .FilterBranchType
-                                                                                .ASSOCIATION
+                                                                                .OR
                                                                         )
                                                                         .addFilter(
                                                                             PublicPropertyFilter
@@ -448,19 +343,15 @@ internal class PublicRestrictedFilterBranchTest {
                                                                                 )
                                                                                 .build()
                                                                         )
-                                                                        .objectTypeId(
-                                                                            "objectTypeId"
-                                                                        )
-                                                                        .operator("operator")
                                                                         .build()
                                                                 )
                                                                 .filterBranchOperator(
                                                                     "filterBranchOperator"
                                                                 )
                                                                 .filterBranchType(
-                                                                    PublicPropertyAssociationFilterBranch
+                                                                    PublicAssociationFilterBranch
                                                                         .FilterBranchType
-                                                                        .PROPERTY_ASSOCIATION
+                                                                        .ASSOCIATION
                                                                 )
                                                                 .addFilter(
                                                                     PublicPropertyFilter.builder()
@@ -491,9 +382,6 @@ internal class PublicRestrictedFilterBranchTest {
                                                                 )
                                                                 .objectTypeId("objectTypeId")
                                                                 .operator("operator")
-                                                                .propertyWithObjectId(
-                                                                    "propertyWithObjectId"
-                                                                )
                                                                 .build()
                                                         )
                                                         .filterBranchOperator(
@@ -690,70 +578,21 @@ internal class PublicRestrictedFilterBranchTest {
                                                     PublicUnifiedEventsFilterBranch.builder()
                                                         .eventTypeId("eventTypeId")
                                                         .addFilterBranch(
-                                                            PublicPropertyAssociationFilterBranch
-                                                                .builder()
+                                                            PublicAssociationFilterBranch.builder()
+                                                                .associationCategory(
+                                                                    "associationCategory"
+                                                                )
+                                                                .associationTypeId(0)
                                                                 .addFilterBranch(
-                                                                    PublicAssociationFilterBranch
-                                                                        .builder()
-                                                                        .associationCategory(
-                                                                            "associationCategory"
-                                                                        )
-                                                                        .associationTypeId(0)
-                                                                        .addFilterBranch(
-                                                                            PublicOrFilterBranch
-                                                                                .builder()
-                                                                                .filterBranches(
-                                                                                    listOf()
-                                                                                )
-                                                                                .filterBranchOperator(
-                                                                                    "filterBranchOperator"
-                                                                                )
-                                                                                .filterBranchType(
-                                                                                    PublicOrFilterBranch
-                                                                                        .FilterBranchType
-                                                                                        .OR
-                                                                                )
-                                                                                .addFilter(
-                                                                                    PublicPropertyFilter
-                                                                                        .builder()
-                                                                                        .filterType(
-                                                                                            PublicPropertyFilter
-                                                                                                .FilterType
-                                                                                                .PROPERTY
-                                                                                        )
-                                                                                        .operation(
-                                                                                            PublicBoolPropertyOperation
-                                                                                                .builder()
-                                                                                                .includeObjectsWithNoValueSet(
-                                                                                                    true
-                                                                                                )
-                                                                                                .operationType(
-                                                                                                    PublicBoolPropertyOperation
-                                                                                                        .OperationType
-                                                                                                        .BOOL
-                                                                                                )
-                                                                                                .operator(
-                                                                                                    "operator"
-                                                                                                )
-                                                                                                .value(
-                                                                                                    true
-                                                                                                )
-                                                                                                .build()
-                                                                                        )
-                                                                                        .property(
-                                                                                            "property"
-                                                                                        )
-                                                                                        .build()
-                                                                                )
-                                                                                .build()
-                                                                        )
+                                                                    PublicOrFilterBranch.builder()
+                                                                        .filterBranches(listOf())
                                                                         .filterBranchOperator(
                                                                             "filterBranchOperator"
                                                                         )
                                                                         .filterBranchType(
-                                                                            PublicAssociationFilterBranch
+                                                                            PublicOrFilterBranch
                                                                                 .FilterBranchType
-                                                                                .ASSOCIATION
+                                                                                .OR
                                                                         )
                                                                         .addFilter(
                                                                             PublicPropertyFilter
@@ -785,19 +624,15 @@ internal class PublicRestrictedFilterBranchTest {
                                                                                 )
                                                                                 .build()
                                                                         )
-                                                                        .objectTypeId(
-                                                                            "objectTypeId"
-                                                                        )
-                                                                        .operator("operator")
                                                                         .build()
                                                                 )
                                                                 .filterBranchOperator(
                                                                     "filterBranchOperator"
                                                                 )
                                                                 .filterBranchType(
-                                                                    PublicPropertyAssociationFilterBranch
+                                                                    PublicAssociationFilterBranch
                                                                         .FilterBranchType
-                                                                        .PROPERTY_ASSOCIATION
+                                                                        .ASSOCIATION
                                                                 )
                                                                 .addFilter(
                                                                     PublicPropertyFilter.builder()
@@ -828,9 +663,6 @@ internal class PublicRestrictedFilterBranchTest {
                                                                 )
                                                                 .objectTypeId("objectTypeId")
                                                                 .operator("operator")
-                                                                .propertyWithObjectId(
-                                                                    "propertyWithObjectId"
-                                                                )
                                                                 .build()
                                                         )
                                                         .filterBranchOperator(

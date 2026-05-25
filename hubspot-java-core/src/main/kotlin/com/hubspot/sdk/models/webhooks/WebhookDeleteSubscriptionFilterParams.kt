@@ -12,9 +12,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Delete a specific filter associated with a webhook journal subscription. This operation is useful
- * for managing and cleaning up filters that are no longer needed in your subscription setup. The
- * endpoint requires the unique identifier of the filter to be deleted.
+ * Remove a specific filter from the webhooks journal subscriptions. This operation is useful for
+ * managing and cleaning up filters that are no longer needed. Once deleted, the filter cannot be
+ * recovered.
  */
 class WebhookDeleteSubscriptionFilterParams
 private constructor(

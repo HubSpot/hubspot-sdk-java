@@ -61,6 +61,7 @@ private constructor(
     private val readScopeName: JsonField<String>,
     private val singularForm: JsonField<String>,
     private val status: JsonField<Status>,
+    private val visibilities: JsonField<List<Visibility>>,
     private val visibility: JsonField<Visibility>,
     private val writeScopeName: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -166,6 +167,9 @@ private constructor(
         @ExcludeMissing
         singularForm: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("visibilities")
+        @ExcludeMissing
+        visibilities: JsonField<List<Visibility>> = JsonMissing.of(),
         @JsonProperty("visibility")
         @ExcludeMissing
         visibility: JsonField<Visibility> = JsonMissing.of(),
@@ -211,6 +215,7 @@ private constructor(
         readScopeName,
         singularForm,
         status,
+        visibilities,
         visibility,
         writeScopeName,
         mutableMapOf(),
@@ -453,6 +458,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun status(): Optional<Status> = status.getOptional("status")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun visibilities(): Optional<List<Visibility>> = visibilities.getOptional("visibilities")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -805,6 +816,15 @@ private constructor(
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
+     * Returns the raw JSON value of [visibilities].
+     *
+     * Unlike [visibilities], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("visibilities")
+    @ExcludeMissing
+    fun _visibilities(): JsonField<List<Visibility>> = visibilities
+
+    /**
      * Returns the raw JSON value of [visibility].
      *
      * Unlike [visibility], this method doesn't throw if the JSON field has an unexpected type.
@@ -912,6 +932,7 @@ private constructor(
         private var readScopeName: JsonField<String> = JsonMissing.of()
         private var singularForm: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var visibilities: JsonField<MutableList<Visibility>>? = null
         private var visibility: JsonField<Visibility> = JsonMissing.of()
         private var writeScopeName: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -958,6 +979,7 @@ private constructor(
             readScopeName = inboundDbObjectType.readScopeName
             singularForm = inboundDbObjectType.singularForm
             status = inboundDbObjectType.status
+            visibilities = inboundDbObjectType.visibilities.map { it.toMutableList() }
             visibility = inboundDbObjectType.visibility
             writeScopeName = inboundDbObjectType.writeScopeName
             additionalProperties = inboundDbObjectType.additionalProperties.toMutableMap()
@@ -1506,6 +1528,31 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        fun visibilities(visibilities: List<Visibility>) = visibilities(JsonField.of(visibilities))
+
+        /**
+         * Sets [Builder.visibilities] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.visibilities] with a well-typed `List<Visibility>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun visibilities(visibilities: JsonField<List<Visibility>>) = apply {
+            this.visibilities = visibilities.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [Visibility] to [visibilities].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addVisibility(visibility: Visibility) = apply {
+            visibilities =
+                (visibilities ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("visibilities", it).add(visibility)
+                }
+        }
+
         fun visibility(visibility: Visibility) = visibility(JsonField.of(visibility))
 
         /**
@@ -1631,6 +1678,7 @@ private constructor(
                 readScopeName,
                 singularForm,
                 status,
+                (visibilities ?: JsonMissing.of()).map { it.toImmutable() },
                 visibility,
                 writeScopeName,
                 additionalProperties.toMutableMap(),
@@ -1690,6 +1738,7 @@ private constructor(
         readScopeName()
         singularForm()
         status().ifPresent { it.validate() }
+        visibilities().ifPresent { it.forEach { it.validate() } }
         visibility().ifPresent { it.validate() }
         writeScopeName()
         validated = true
@@ -1748,6 +1797,7 @@ private constructor(
             (if (readScopeName.asKnown().isPresent) 1 else 0) +
             (if (singularForm.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
+            (visibilities.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (visibility.asKnown().getOrNull()?.validity() ?: 0) +
             (if (writeScopeName.asKnown().isPresent) 1 else 0)
 
@@ -2239,6 +2289,154 @@ private constructor(
 
             @JvmField val CUSTOMER_FACING = of("Customer-facing")
 
+            @JvmField val INTERNAL_ONLY = of("Internal only")
+
+            @JvmField val CUSTOMER_FACING_UI = of("Customer-facing UI")
+
+            @JvmField val CUSTOMER_FACING_PUBLIC_API = of("Customer-facing public API")
+
+            @JvmStatic fun of(value: String) = Visibility(JsonField.of(value))
+        }
+
+        /** An enum containing [Visibility]'s known values. */
+        enum class Known {
+            CUSTOMER_FACING,
+            INTERNAL_ONLY,
+            CUSTOMER_FACING_UI,
+            CUSTOMER_FACING_PUBLIC_API,
+        }
+
+        /**
+         * An enum containing [Visibility]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Visibility] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            CUSTOMER_FACING,
+            INTERNAL_ONLY,
+            CUSTOMER_FACING_UI,
+            CUSTOMER_FACING_PUBLIC_API,
+            /**
+             * An enum member indicating that [Visibility] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                CUSTOMER_FACING -> Value.CUSTOMER_FACING
+                INTERNAL_ONLY -> Value.INTERNAL_ONLY
+                CUSTOMER_FACING_UI -> Value.CUSTOMER_FACING_UI
+                CUSTOMER_FACING_PUBLIC_API -> Value.CUSTOMER_FACING_PUBLIC_API
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                CUSTOMER_FACING -> Known.CUSTOMER_FACING
+                INTERNAL_ONLY -> Known.INTERNAL_ONLY
+                CUSTOMER_FACING_UI -> Known.CUSTOMER_FACING_UI
+                CUSTOMER_FACING_PUBLIC_API -> Known.CUSTOMER_FACING_PUBLIC_API
+                else -> throw HubSpotInvalidDataException("Unknown Visibility: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Visibility = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubSpotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Visibility && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    class Visibility @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val CUSTOMER_FACING = of("Customer-facing")
+
             @JvmField val CUSTOMER_FACING_PUBLIC_API = of("Customer-facing public API")
 
             @JvmField val CUSTOMER_FACING_UI = of("Customer-facing UI")
@@ -2415,6 +2613,7 @@ private constructor(
             readScopeName == other.readScopeName &&
             singularForm == other.singularForm &&
             status == other.status &&
+            visibilities == other.visibilities &&
             visibility == other.visibility &&
             writeScopeName == other.writeScopeName &&
             additionalProperties == other.additionalProperties
@@ -2460,6 +2659,7 @@ private constructor(
             readScopeName,
             singularForm,
             status,
+            visibilities,
             visibility,
             writeScopeName,
             additionalProperties,
@@ -2469,5 +2669,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundDbObjectType{id=$id, allowsSensitiveProperties=$allowsSensitiveProperties, createDatePropertyName=$createDatePropertyName, defaultSearchPropertyNames=$defaultSearchPropertyNames, deleted=$deleted, fullyQualifiedName=$fullyQualifiedName, hasCustomProperties=$hasCustomProperties, hasDefaultProperties=$hasDefaultProperties, hasExternalObjectIds=$hasExternalObjectIds, hasOwners=$hasOwners, hasPipelines=$hasPipelines, indexedForFiltersAndReports=$indexedForFiltersAndReports, lastModifiedPropertyName=$lastModifiedPropertyName, metaType=$metaType, metaTypeId=$metaTypeId, name=$name, objectTypeId=$objectTypeId, objectTypeIdString=$objectTypeIdString, permissioningType=$permissioningType, pipelinePropertyName=$pipelinePropertyName, pipelineStagePropertyName=$pipelineStagePropertyName, requiredProperties=$requiredProperties, restorable=$restorable, scopeMappings=$scopeMappings, secondaryDisplayLabelPropertyNames=$secondaryDisplayLabelPropertyNames, accessScopeName=$accessScopeName, createdAt=$createdAt, description=$description, integrationAppId=$integrationAppId, janusGroup=$janusGroup, ownerPortalId=$ownerPortalId, pipelineCloseDatePropertyName=$pipelineCloseDatePropertyName, pipelineTimeToClosePropertyName=$pipelineTimeToClosePropertyName, pluralForm=$pluralForm, primaryDisplayLabelPropertyName=$primaryDisplayLabelPropertyName, readScopeName=$readScopeName, singularForm=$singularForm, status=$status, visibility=$visibility, writeScopeName=$writeScopeName, additionalProperties=$additionalProperties}"
+        "InboundDbObjectType{id=$id, allowsSensitiveProperties=$allowsSensitiveProperties, createDatePropertyName=$createDatePropertyName, defaultSearchPropertyNames=$defaultSearchPropertyNames, deleted=$deleted, fullyQualifiedName=$fullyQualifiedName, hasCustomProperties=$hasCustomProperties, hasDefaultProperties=$hasDefaultProperties, hasExternalObjectIds=$hasExternalObjectIds, hasOwners=$hasOwners, hasPipelines=$hasPipelines, indexedForFiltersAndReports=$indexedForFiltersAndReports, lastModifiedPropertyName=$lastModifiedPropertyName, metaType=$metaType, metaTypeId=$metaTypeId, name=$name, objectTypeId=$objectTypeId, objectTypeIdString=$objectTypeIdString, permissioningType=$permissioningType, pipelinePropertyName=$pipelinePropertyName, pipelineStagePropertyName=$pipelineStagePropertyName, requiredProperties=$requiredProperties, restorable=$restorable, scopeMappings=$scopeMappings, secondaryDisplayLabelPropertyNames=$secondaryDisplayLabelPropertyNames, accessScopeName=$accessScopeName, createdAt=$createdAt, description=$description, integrationAppId=$integrationAppId, janusGroup=$janusGroup, ownerPortalId=$ownerPortalId, pipelineCloseDatePropertyName=$pipelineCloseDatePropertyName, pipelineTimeToClosePropertyName=$pipelineTimeToClosePropertyName, pluralForm=$pluralForm, primaryDisplayLabelPropertyName=$primaryDisplayLabelPropertyName, readScopeName=$readScopeName, singularForm=$singularForm, status=$status, visibilities=$visibilities, visibility=$visibility, writeScopeName=$writeScopeName, additionalProperties=$additionalProperties}"
 }

@@ -10,9 +10,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the latest batch of webhook journal entries. This endpoint is useful for accessing the
- * most recent data entries processed by the webhook journal. It requires specifying the number of
- * entries to retrieve.
+ * Retrieve the latest batch of webhook journal entries. This endpoint allows you to specify the
+ * number of entries to fetch, providing a way to access the most recent webhook events processed by
+ * your HubSpot account.
  */
 class WebhookGetLatestLocalJournalBatchParams
 private constructor(
@@ -25,8 +25,8 @@ private constructor(
     fun count(): Optional<Int> = Optional.ofNullable(count)
 
     /**
-     * The ID of the portal installation. This parameter is optional and used to filter the journal
-     * entries by a specific portal.
+     * The ID of the portal where the webhook journal is installed. This parameter is optional and
+     * used to specify the target portal.
      */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
@@ -82,8 +82,8 @@ private constructor(
         fun count(count: Optional<Int>) = count(count.getOrNull())
 
         /**
-         * The ID of the portal installation. This parameter is optional and used to filter the
-         * journal entries by a specific portal.
+         * The ID of the portal where the webhook journal is installed. This parameter is optional
+         * and used to specify the target portal.
          */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId

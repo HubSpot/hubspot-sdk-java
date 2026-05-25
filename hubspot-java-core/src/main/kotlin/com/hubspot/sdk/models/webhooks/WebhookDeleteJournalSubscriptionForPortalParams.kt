@@ -13,8 +13,9 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Delete a webhook journal subscription for a specific portal. This operation removes the
- * subscription associated with the given portalId, and no content is returned upon successful
- * deletion.
+ * subscription associated with the given portalId, ensuring that no further webhook events are sent
+ * for this portal. Use this endpoint to manage and clean up subscriptions that are no longer
+ * needed.
  */
 class WebhookDeleteJournalSubscriptionForPortalParams
 private constructor(

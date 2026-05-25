@@ -11,8 +11,8 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Retrieve details of a specific webhook subscription using its unique identifier. This endpoint is
- * useful for obtaining information about a particular subscription's configuration and status
- * within the HubSpot account.
+ * useful for obtaining information about a particular subscription, such as its actions, object
+ * type, and associated properties.
  */
 class WebhookGetJournalSubscriptionParams
 private constructor(

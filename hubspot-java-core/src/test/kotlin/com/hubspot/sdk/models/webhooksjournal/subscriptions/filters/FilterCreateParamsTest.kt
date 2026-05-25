@@ -1,0 +1,126 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.sdk.models.webhooksjournal.subscriptions.filters
+
+import com.hubspot.sdk.models.Condition
+import com.hubspot.sdk.models.Filter
+import com.hubspot.sdk.models.FilterCreateRequest
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class FilterCreateParamsTest {
+
+    @Test
+    fun create() {
+        FilterCreateParams.builder()
+            .filterCreateRequest(
+                FilterCreateRequest.builder()
+                    .filter(
+                        Filter.builder()
+                            .addCondition(
+                                Condition.builder()
+                                    .filterType(Condition.FilterType.CRM_OBJECT_PROPERTY)
+                                    .operator(Condition.Operator.CONTAINS)
+                                    .property("property")
+                                    .value("value")
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .subscriptionId(0L)
+                    .build()
+            )
+            .build()
+    }
+
+    @Test
+    fun body() {
+        val params =
+            FilterCreateParams.builder()
+                .filterCreateRequest(
+                    FilterCreateRequest.builder()
+                        .filter(
+                            Filter.builder()
+                                .addCondition(
+                                    Condition.builder()
+                                        .filterType(Condition.FilterType.CRM_OBJECT_PROPERTY)
+                                        .operator(Condition.Operator.CONTAINS)
+                                        .property("property")
+                                        .value("value")
+                                        .addValue("string")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .subscriptionId(0L)
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                FilterCreateRequest.builder()
+                    .filter(
+                        Filter.builder()
+                            .addCondition(
+                                Condition.builder()
+                                    .filterType(Condition.FilterType.CRM_OBJECT_PROPERTY)
+                                    .operator(Condition.Operator.CONTAINS)
+                                    .property("property")
+                                    .value("value")
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .subscriptionId(0L)
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            FilterCreateParams.builder()
+                .filterCreateRequest(
+                    FilterCreateRequest.builder()
+                        .filter(
+                            Filter.builder()
+                                .addCondition(
+                                    Condition.builder()
+                                        .filterType(Condition.FilterType.CRM_OBJECT_PROPERTY)
+                                        .operator(Condition.Operator.CONTAINS)
+                                        .property("property")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .subscriptionId(0L)
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                FilterCreateRequest.builder()
+                    .filter(
+                        Filter.builder()
+                            .addCondition(
+                                Condition.builder()
+                                    .filterType(Condition.FilterType.CRM_OBJECT_PROPERTY)
+                                    .operator(Condition.Operator.CONTAINS)
+                                    .property("property")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .subscriptionId(0L)
+                    .build()
+            )
+    }
+}

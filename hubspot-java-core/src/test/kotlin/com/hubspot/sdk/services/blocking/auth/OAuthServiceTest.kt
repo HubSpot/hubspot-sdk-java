@@ -21,17 +21,13 @@ import org.junit.jupiter.api.parallel.ResourceLock
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class OAuthServiceTest {
 
+    @Disabled("Mock server tests are disabled")
     @Test
-    fun createToken(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("My Access Token")
-                .build()
+    fun createToken() {
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val oauthService = client.auth().oauth()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
 
-        val response =
+        val tokenResponseIf =
             oauthService.createToken(
                 OAuthCreateTokenParams.builder()
                     .clientId("client_id")
@@ -45,7 +41,7 @@ internal class OAuthServiceTest {
                     .build()
             )
 
-        assertThat(response.body()).hasContent("abc")
+        tokenResponseIf.validate()
     }
 
     @Disabled("Mock server tests are disabled")

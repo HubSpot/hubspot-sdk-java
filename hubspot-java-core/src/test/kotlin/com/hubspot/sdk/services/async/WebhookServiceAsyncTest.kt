@@ -10,13 +10,13 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot.sdk.models.BatchInputString
+import com.hubspot.sdk.models.Condition
+import com.hubspot.sdk.models.CrmObjectSnapshotBatchRequest
+import com.hubspot.sdk.models.CrmObjectSnapshotRequest
+import com.hubspot.sdk.models.Filter
+import com.hubspot.sdk.models.FilterCreateRequest
+import com.hubspot.sdk.models.ObjectSubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.BatchInputSubscriptionBatchUpdateRequest
-import com.hubspot.sdk.models.webhooks.Condition
-import com.hubspot.sdk.models.webhooks.CrmObjectSnapshotBatchRequest
-import com.hubspot.sdk.models.webhooks.CrmObjectSnapshotRequest
-import com.hubspot.sdk.models.webhooks.Filter
-import com.hubspot.sdk.models.webhooks.FilterCreateRequest
-import com.hubspot.sdk.models.webhooks.ObjectSubscriptionUpsertRequest
 import com.hubspot.sdk.models.webhooks.SettingsChangeRequest
 import com.hubspot.sdk.models.webhooks.SubscriptionBatchUpdateRequest
 import com.hubspot.sdk.models.webhooks.SubscriptionCreateRequest
@@ -133,7 +133,7 @@ internal class WebhookServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val webhookServiceAsync = client.webhooks()
 
-        val subscriptionResponse1Future =
+        val subscriptionResponseFuture =
             webhookServiceAsync.createJournalSubscription(
                 ObjectSubscriptionUpsertRequest.builder()
                     .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
@@ -145,8 +145,8 @@ internal class WebhookServiceAsyncTest {
                     .build()
             )
 
-        val subscriptionResponse1 = subscriptionResponse1Future.get()
-        subscriptionResponse1.validate()
+        val subscriptionResponse = subscriptionResponseFuture.get()
+        subscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -379,10 +379,10 @@ internal class WebhookServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val webhookServiceAsync = client.webhooks()
 
-        val subscriptionResponse1Future = webhookServiceAsync.getJournalSubscription(0L)
+        val subscriptionResponseFuture = webhookServiceAsync.getJournalSubscription(0L)
 
-        val subscriptionResponse1 = subscriptionResponse1Future.get()
-        subscriptionResponse1.validate()
+        val subscriptionResponse = subscriptionResponseFuture.get()
+        subscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")

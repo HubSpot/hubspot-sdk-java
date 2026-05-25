@@ -13,9 +13,10 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Perform a batch read operation on the webhooks journal for the specified date. This endpoint
- * allows you to retrieve multiple entries from the webhooks journal in a single request, which can
- * be useful for processing large amounts of data efficiently.
+ * Execute a batch read operation on the webhooks journal for the specified date, 2026-03. This
+ * endpoint allows you to retrieve multiple entries from the webhooks journal in a single request,
+ * which can be useful for processing large amounts of data efficiently. Ensure that the request
+ * body is provided in the required format.
  */
 class WebhookGetJournalBatchByRequestParams
 private constructor(
@@ -25,7 +26,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The ID of the portal where the webhooks are installed. This is an integer value. */
+    /**
+     * An integer representing the ID of the portal installation for which the webhooks journal data
+     * should be retrieved.
+     */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
     fun batchInputString(): BatchInputString = batchInputString
@@ -74,7 +78,10 @@ private constructor(
                 webhookGetJournalBatchByRequestParams.additionalQueryParams.toBuilder()
         }
 
-        /** The ID of the portal where the webhooks are installed. This is an integer value. */
+        /**
+         * An integer representing the ID of the portal installation for which the webhooks journal
+         * data should be retrieved.
+         */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId
         }

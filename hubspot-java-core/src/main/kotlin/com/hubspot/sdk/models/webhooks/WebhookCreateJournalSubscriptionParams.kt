@@ -6,13 +6,20 @@ import com.hubspot.sdk.core.Params
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.http.Headers
 import com.hubspot.sdk.core.http.QueryParams
+import com.hubspot.sdk.models.AppLifecycleEventSubscriptionUpsertRequest
+import com.hubspot.sdk.models.AssociationSubscriptionUpsertRequest
+import com.hubspot.sdk.models.GdprPrivacyDeletionSubscriptionUpsertRequest
+import com.hubspot.sdk.models.ListMembershipSubscriptionUpsertRequest
+import com.hubspot.sdk.models.ObjectSubscriptionUpsertRequest
+import com.hubspot.sdk.models.SubscriptionUpsertRequest
 import java.util.Objects
 
 /**
- * Create a new webhook subscription for the specified portal in the HubSpot account. This endpoint
- * allows you to define the subscription details, including the types of events you want to
- * subscribe to. The request body must include the necessary subscription information as defined by
- * the SubscriptionUpsertRequest schema.
+ * Create a new subscription in the Webhooks Journal for the specified version. This endpoint allows
+ * you to define the subscription details by providing the necessary information in the request
+ * body. It supports various types of subscriptions, including object, association, event, app
+ * lifecycle event, list membership, and GDPR privacy deletion. Ensure that all required fields are
+ * included in the request to successfully create a subscription.
  */
 class WebhookCreateJournalSubscriptionParams
 private constructor(

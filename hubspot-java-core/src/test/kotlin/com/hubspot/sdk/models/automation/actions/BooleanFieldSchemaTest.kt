@@ -12,16 +12,16 @@ internal class BooleanFieldSchemaTest {
     @Test
     fun create() {
         val booleanFieldSchema =
-            BooleanFieldSchema.builder().type(BooleanFieldSchema.Type.ARRAY).build()
+            BooleanFieldSchema.builder().type(BooleanFieldSchema.Type.BOOLEAN).build()
 
-        assertThat(booleanFieldSchema.type()).isEqualTo(BooleanFieldSchema.Type.ARRAY)
+        assertThat(booleanFieldSchema.type()).isEqualTo(BooleanFieldSchema.Type.BOOLEAN)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val booleanFieldSchema =
-            BooleanFieldSchema.builder().type(BooleanFieldSchema.Type.ARRAY).build()
+            BooleanFieldSchema.builder().type(BooleanFieldSchema.Type.BOOLEAN).build()
 
         val roundtrippedBooleanFieldSchema =
             jsonMapper.readValue(

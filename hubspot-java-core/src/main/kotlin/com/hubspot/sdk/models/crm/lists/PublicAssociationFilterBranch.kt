@@ -355,13 +355,6 @@ private constructor(
         fun addFilterBranch(unifiedEvents: PublicUnifiedEventsFilterBranch) =
             addFilterBranch(FilterBranch.ofUnifiedEvents(unifiedEvents))
 
-        /**
-         * Alias for calling [addFilterBranch] with
-         * `FilterBranch.ofPropertyAssociation(propertyAssociation)`.
-         */
-        fun addFilterBranch(propertyAssociation: PublicPropertyAssociationFilterBranch) =
-            addFilterBranch(FilterBranch.ofPropertyAssociation(propertyAssociation))
-
         /** Alias for calling [addFilterBranch] with `FilterBranch.ofAssociation(association)`. */
         fun addFilterBranch(association: PublicAssociationFilterBranch) =
             addFilterBranch(FilterBranch.ofAssociation(association))
@@ -479,27 +472,6 @@ private constructor(
          */
         fun addFilter(communicationSubscription: PublicCommunicationSubscriptionFilter) =
             addFilter(Filter.ofCommunicationSubscription(communicationSubscription))
-
-        /** Alias for calling [addFilter] with `Filter.ofCampaignInfluenced(campaignInfluenced)`. */
-        fun addFilter(campaignInfluenced: PublicCampaignInfluencedFilter) =
-            addFilter(Filter.ofCampaignInfluenced(campaignInfluenced))
-
-        /**
-         * Alias for calling [addFilter] with the following:
-         * ```java
-         * PublicCampaignInfluencedFilter.builder()
-         *     .filterType(PublicCampaignInfluencedFilter.FilterType.CAMPAIGN_INFLUENCED)
-         *     .campaignId(campaignId)
-         *     .build()
-         * ```
-         */
-        fun addCampaignInfluencedFilter(campaignId: String) =
-            addFilter(
-                PublicCampaignInfluencedFilter.builder()
-                    .filterType(PublicCampaignInfluencedFilter.FilterType.CAMPAIGN_INFLUENCED)
-                    .campaignId(campaignId)
-                    .build()
-            )
 
         /** Alias for calling [addFilter] with `Filter.ofSurveyMonkey(surveyMonkey)`. */
         fun addFilter(surveyMonkey: PublicSurveyMonkeyFilter) =
@@ -659,10 +631,6 @@ private constructor(
         /** Alias for calling [addFilter] with `Filter.ofInList(inList)`. */
         fun addFilter(inList: PublicInListFilter) = addFilter(Filter.ofInList(inList))
 
-        /** Alias for calling [addFilter] with `Filter.ofNumAssociations(numAssociations)`. */
-        fun addFilter(numAssociations: PublicNumAssociationsFilter) =
-            addFilter(Filter.ofNumAssociations(numAssociations))
-
         /** Alias for calling [addFilter] with `Filter.ofUnifiedEvents(unifiedEvents)`. */
         fun addFilter(unifiedEvents: PublicUnifiedEventsFilter) =
             addFilter(Filter.ofUnifiedEvents(unifiedEvents))
@@ -683,12 +651,6 @@ private constructor(
                     .filterLines(filterLines)
                     .build()
             )
-
-        /**
-         * Alias for calling [addFilter] with `Filter.ofPropertyAssociation(propertyAssociation)`.
-         */
-        fun addFilter(propertyAssociation: PublicPropertyAssociationInListFilter) =
-            addFilter(Filter.ofPropertyAssociation(propertyAssociation))
 
         /** Alias for calling [addFilter] with `Filter.ofConstant(constant)`. */
         fun addFilter(constant: PublicConstantFilter) = addFilter(Filter.ofConstant(constant))
@@ -847,7 +809,6 @@ private constructor(
         private val notAny: PublicNotAnyFilterBranch? = null,
         private val restricted: PublicRestrictedFilterBranch? = null,
         private val unifiedEvents: PublicUnifiedEventsFilterBranch? = null,
-        private val propertyAssociation: PublicPropertyAssociationFilterBranch? = null,
         private val association: PublicAssociationFilterBranch? = null,
         private val _json: JsonValue? = null,
     ) {
@@ -865,9 +826,6 @@ private constructor(
         fun unifiedEvents(): Optional<PublicUnifiedEventsFilterBranch> =
             Optional.ofNullable(unifiedEvents)
 
-        fun propertyAssociation(): Optional<PublicPropertyAssociationFilterBranch> =
-            Optional.ofNullable(propertyAssociation)
-
         fun association(): Optional<PublicAssociationFilterBranch> =
             Optional.ofNullable(association)
 
@@ -883,8 +841,6 @@ private constructor(
 
         fun isUnifiedEvents(): Boolean = unifiedEvents != null
 
-        fun isPropertyAssociation(): Boolean = propertyAssociation != null
-
         fun isAssociation(): Boolean = association != null
 
         fun asOr(): PublicOrFilterBranch = or.getOrThrow("or")
@@ -899,9 +855,6 @@ private constructor(
 
         fun asUnifiedEvents(): PublicUnifiedEventsFilterBranch =
             unifiedEvents.getOrThrow("unifiedEvents")
-
-        fun asPropertyAssociation(): PublicPropertyAssociationFilterBranch =
-            propertyAssociation.getOrThrow("propertyAssociation")
 
         fun asAssociation(): PublicAssociationFilterBranch = association.getOrThrow("association")
 
@@ -944,7 +897,6 @@ private constructor(
                 notAny != null -> visitor.visitNotAny(notAny)
                 restricted != null -> visitor.visitRestricted(restricted)
                 unifiedEvents != null -> visitor.visitUnifiedEvents(unifiedEvents)
-                propertyAssociation != null -> visitor.visitPropertyAssociation(propertyAssociation)
                 association != null -> visitor.visitAssociation(association)
                 else -> visitor.unknown(_json)
             }
@@ -993,12 +945,6 @@ private constructor(
                         unifiedEvents.validate()
                     }
 
-                    override fun visitPropertyAssociation(
-                        propertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) {
-                        propertyAssociation.validate()
-                    }
-
                     override fun visitAssociation(association: PublicAssociationFilterBranch) {
                         association.validate()
                     }
@@ -1040,10 +986,6 @@ private constructor(
                         unifiedEvents: PublicUnifiedEventsFilterBranch
                     ) = unifiedEvents.validity()
 
-                    override fun visitPropertyAssociation(
-                        propertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) = propertyAssociation.validity()
-
                     override fun visitAssociation(association: PublicAssociationFilterBranch) =
                         association.validity()
 
@@ -1063,21 +1005,11 @@ private constructor(
                 notAny == other.notAny &&
                 restricted == other.restricted &&
                 unifiedEvents == other.unifiedEvents &&
-                propertyAssociation == other.propertyAssociation &&
                 association == other.association
         }
 
         override fun hashCode(): Int =
-            Objects.hash(
-                or,
-                and,
-                notAll,
-                notAny,
-                restricted,
-                unifiedEvents,
-                propertyAssociation,
-                association,
-            )
+            Objects.hash(or, and, notAll, notAny, restricted, unifiedEvents, association)
 
         override fun toString(): String =
             when {
@@ -1087,8 +1019,6 @@ private constructor(
                 notAny != null -> "FilterBranch{notAny=$notAny}"
                 restricted != null -> "FilterBranch{restricted=$restricted}"
                 unifiedEvents != null -> "FilterBranch{unifiedEvents=$unifiedEvents}"
-                propertyAssociation != null ->
-                    "FilterBranch{propertyAssociation=$propertyAssociation}"
                 association != null -> "FilterBranch{association=$association}"
                 _json != null -> "FilterBranch{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid FilterBranch")
@@ -1115,10 +1045,6 @@ private constructor(
                 FilterBranch(unifiedEvents = unifiedEvents)
 
             @JvmStatic
-            fun ofPropertyAssociation(propertyAssociation: PublicPropertyAssociationFilterBranch) =
-                FilterBranch(propertyAssociation = propertyAssociation)
-
-            @JvmStatic
             fun ofAssociation(association: PublicAssociationFilterBranch) =
                 FilterBranch(association = association)
         }
@@ -1140,10 +1066,6 @@ private constructor(
             fun visitRestricted(restricted: PublicRestrictedFilterBranch): T
 
             fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilterBranch): T
-
-            fun visitPropertyAssociation(
-                propertyAssociation: PublicPropertyAssociationFilterBranch
-            ): T
 
             fun visitAssociation(association: PublicAssociationFilterBranch): T
 
@@ -1203,14 +1125,6 @@ private constructor(
                             ?.let { FilterBranch(unifiedEvents = it, _json = json) }
                             ?: FilterBranch(_json = json)
                     }
-                    "PROPERTY_ASSOCIATION" -> {
-                        return tryDeserialize(
-                                node,
-                                jacksonTypeRef<PublicPropertyAssociationFilterBranch>(),
-                            )
-                            ?.let { FilterBranch(propertyAssociation = it, _json = json) }
-                            ?: FilterBranch(_json = json)
-                    }
                     "ASSOCIATION" -> {
                         return tryDeserialize(node, jacksonTypeRef<PublicAssociationFilterBranch>())
                             ?.let { FilterBranch(association = it, _json = json) }
@@ -1236,8 +1150,6 @@ private constructor(
                     value.notAny != null -> generator.writeObject(value.notAny)
                     value.restricted != null -> generator.writeObject(value.restricted)
                     value.unifiedEvents != null -> generator.writeObject(value.unifiedEvents)
-                    value.propertyAssociation != null ->
-                        generator.writeObject(value.propertyAssociation)
                     value.association != null -> generator.writeObject(value.association)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid FilterBranch")
@@ -1393,7 +1305,6 @@ private constructor(
         private val integrationEvent: PublicIntegrationEventFilter? = null,
         private val emailSubscription: PublicEmailSubscriptionFilter? = null,
         private val communicationSubscription: PublicCommunicationSubscriptionFilter? = null,
-        private val campaignInfluenced: PublicCampaignInfluencedFilter? = null,
         private val surveyMonkey: PublicSurveyMonkeyFilter? = null,
         private val surveyMonkeyValue: PublicSurveyMonkeyValueFilter? = null,
         private val webinar: PublicWebinarFilter? = null,
@@ -1402,9 +1313,7 @@ private constructor(
         private val adsSearch: PublicAdsSearchFilter? = null,
         private val adsTime: PublicAdsTimeFilter? = null,
         private val inList: PublicInListFilter? = null,
-        private val numAssociations: PublicNumAssociationsFilter? = null,
         private val unifiedEvents: PublicUnifiedEventsFilter? = null,
-        private val propertyAssociation: PublicPropertyAssociationInListFilter? = null,
         private val constant: PublicConstantFilter? = null,
         private val _json: JsonValue? = null,
     ) {
@@ -1435,9 +1344,6 @@ private constructor(
         fun communicationSubscription(): Optional<PublicCommunicationSubscriptionFilter> =
             Optional.ofNullable(communicationSubscription)
 
-        fun campaignInfluenced(): Optional<PublicCampaignInfluencedFilter> =
-            Optional.ofNullable(campaignInfluenced)
-
         fun surveyMonkey(): Optional<PublicSurveyMonkeyFilter> = Optional.ofNullable(surveyMonkey)
 
         fun surveyMonkeyValue(): Optional<PublicSurveyMonkeyValueFilter> =
@@ -1455,14 +1361,8 @@ private constructor(
 
         fun inList(): Optional<PublicInListFilter> = Optional.ofNullable(inList)
 
-        fun numAssociations(): Optional<PublicNumAssociationsFilter> =
-            Optional.ofNullable(numAssociations)
-
         fun unifiedEvents(): Optional<PublicUnifiedEventsFilter> =
             Optional.ofNullable(unifiedEvents)
-
-        fun propertyAssociation(): Optional<PublicPropertyAssociationInListFilter> =
-            Optional.ofNullable(propertyAssociation)
 
         fun constant(): Optional<PublicConstantFilter> = Optional.ofNullable(constant)
 
@@ -1486,8 +1386,6 @@ private constructor(
 
         fun isCommunicationSubscription(): Boolean = communicationSubscription != null
 
-        fun isCampaignInfluenced(): Boolean = campaignInfluenced != null
-
         fun isSurveyMonkey(): Boolean = surveyMonkey != null
 
         fun isSurveyMonkeyValue(): Boolean = surveyMonkeyValue != null
@@ -1504,11 +1402,7 @@ private constructor(
 
         fun isInList(): Boolean = inList != null
 
-        fun isNumAssociations(): Boolean = numAssociations != null
-
         fun isUnifiedEvents(): Boolean = unifiedEvents != null
-
-        fun isPropertyAssociation(): Boolean = propertyAssociation != null
 
         fun isConstant(): Boolean = constant != null
 
@@ -1537,9 +1431,6 @@ private constructor(
         fun asCommunicationSubscription(): PublicCommunicationSubscriptionFilter =
             communicationSubscription.getOrThrow("communicationSubscription")
 
-        fun asCampaignInfluenced(): PublicCampaignInfluencedFilter =
-            campaignInfluenced.getOrThrow("campaignInfluenced")
-
         fun asSurveyMonkey(): PublicSurveyMonkeyFilter = surveyMonkey.getOrThrow("surveyMonkey")
 
         fun asSurveyMonkeyValue(): PublicSurveyMonkeyValueFilter =
@@ -1557,13 +1448,7 @@ private constructor(
 
         fun asInList(): PublicInListFilter = inList.getOrThrow("inList")
 
-        fun asNumAssociations(): PublicNumAssociationsFilter =
-            numAssociations.getOrThrow("numAssociations")
-
         fun asUnifiedEvents(): PublicUnifiedEventsFilter = unifiedEvents.getOrThrow("unifiedEvents")
-
-        fun asPropertyAssociation(): PublicPropertyAssociationInListFilter =
-            propertyAssociation.getOrThrow("propertyAssociation")
 
         fun asConstant(): PublicConstantFilter = constant.getOrThrow("constant")
 
@@ -1612,7 +1497,6 @@ private constructor(
                 emailSubscription != null -> visitor.visitEmailSubscription(emailSubscription)
                 communicationSubscription != null ->
                     visitor.visitCommunicationSubscription(communicationSubscription)
-                campaignInfluenced != null -> visitor.visitCampaignInfluenced(campaignInfluenced)
                 surveyMonkey != null -> visitor.visitSurveyMonkey(surveyMonkey)
                 surveyMonkeyValue != null -> visitor.visitSurveyMonkeyValue(surveyMonkeyValue)
                 webinar != null -> visitor.visitWebinar(webinar)
@@ -1621,9 +1505,7 @@ private constructor(
                 adsSearch != null -> visitor.visitAdsSearch(adsSearch)
                 adsTime != null -> visitor.visitAdsTime(adsTime)
                 inList != null -> visitor.visitInList(inList)
-                numAssociations != null -> visitor.visitNumAssociations(numAssociations)
                 unifiedEvents != null -> visitor.visitUnifiedEvents(unifiedEvents)
-                propertyAssociation != null -> visitor.visitPropertyAssociation(propertyAssociation)
                 constant != null -> visitor.visitConstant(constant)
                 else -> visitor.unknown(_json)
             }
@@ -1694,12 +1576,6 @@ private constructor(
                         communicationSubscription.validate()
                     }
 
-                    override fun visitCampaignInfluenced(
-                        campaignInfluenced: PublicCampaignInfluencedFilter
-                    ) {
-                        campaignInfluenced.validate()
-                    }
-
                     override fun visitSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter) {
                         surveyMonkey.validate()
                     }
@@ -1734,20 +1610,8 @@ private constructor(
                         inList.validate()
                     }
 
-                    override fun visitNumAssociations(
-                        numAssociations: PublicNumAssociationsFilter
-                    ) {
-                        numAssociations.validate()
-                    }
-
                     override fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter) {
                         unifiedEvents.validate()
-                    }
-
-                    override fun visitPropertyAssociation(
-                        propertyAssociation: PublicPropertyAssociationInListFilter
-                    ) {
-                        propertyAssociation.validate()
                     }
 
                     override fun visitConstant(constant: PublicConstantFilter) {
@@ -1807,10 +1671,6 @@ private constructor(
                         communicationSubscription: PublicCommunicationSubscriptionFilter
                     ) = communicationSubscription.validity()
 
-                    override fun visitCampaignInfluenced(
-                        campaignInfluenced: PublicCampaignInfluencedFilter
-                    ) = campaignInfluenced.validity()
-
                     override fun visitSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter) =
                         surveyMonkey.validity()
 
@@ -1833,16 +1693,8 @@ private constructor(
 
                     override fun visitInList(inList: PublicInListFilter) = inList.validity()
 
-                    override fun visitNumAssociations(
-                        numAssociations: PublicNumAssociationsFilter
-                    ) = numAssociations.validity()
-
                     override fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter) =
                         unifiedEvents.validity()
-
-                    override fun visitPropertyAssociation(
-                        propertyAssociation: PublicPropertyAssociationInListFilter
-                    ) = propertyAssociation.validity()
 
                     override fun visitConstant(constant: PublicConstantFilter) = constant.validity()
 
@@ -1866,7 +1718,6 @@ private constructor(
                 integrationEvent == other.integrationEvent &&
                 emailSubscription == other.emailSubscription &&
                 communicationSubscription == other.communicationSubscription &&
-                campaignInfluenced == other.campaignInfluenced &&
                 surveyMonkey == other.surveyMonkey &&
                 surveyMonkeyValue == other.surveyMonkeyValue &&
                 webinar == other.webinar &&
@@ -1875,9 +1726,7 @@ private constructor(
                 adsSearch == other.adsSearch &&
                 adsTime == other.adsTime &&
                 inList == other.inList &&
-                numAssociations == other.numAssociations &&
                 unifiedEvents == other.unifiedEvents &&
-                propertyAssociation == other.propertyAssociation &&
                 constant == other.constant
         }
 
@@ -1893,7 +1742,6 @@ private constructor(
                 integrationEvent,
                 emailSubscription,
                 communicationSubscription,
-                campaignInfluenced,
                 surveyMonkey,
                 surveyMonkeyValue,
                 webinar,
@@ -1902,9 +1750,7 @@ private constructor(
                 adsSearch,
                 adsTime,
                 inList,
-                numAssociations,
                 unifiedEvents,
-                propertyAssociation,
                 constant,
             )
 
@@ -1921,7 +1767,6 @@ private constructor(
                 emailSubscription != null -> "Filter{emailSubscription=$emailSubscription}"
                 communicationSubscription != null ->
                     "Filter{communicationSubscription=$communicationSubscription}"
-                campaignInfluenced != null -> "Filter{campaignInfluenced=$campaignInfluenced}"
                 surveyMonkey != null -> "Filter{surveyMonkey=$surveyMonkey}"
                 surveyMonkeyValue != null -> "Filter{surveyMonkeyValue=$surveyMonkeyValue}"
                 webinar != null -> "Filter{webinar=$webinar}"
@@ -1930,9 +1775,7 @@ private constructor(
                 adsSearch != null -> "Filter{adsSearch=$adsSearch}"
                 adsTime != null -> "Filter{adsTime=$adsTime}"
                 inList != null -> "Filter{inList=$inList}"
-                numAssociations != null -> "Filter{numAssociations=$numAssociations}"
                 unifiedEvents != null -> "Filter{unifiedEvents=$unifiedEvents}"
-                propertyAssociation != null -> "Filter{propertyAssociation=$propertyAssociation}"
                 constant != null -> "Filter{constant=$constant}"
                 _json != null -> "Filter{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Filter")
@@ -1975,10 +1818,6 @@ private constructor(
             ) = Filter(communicationSubscription = communicationSubscription)
 
             @JvmStatic
-            fun ofCampaignInfluenced(campaignInfluenced: PublicCampaignInfluencedFilter) =
-                Filter(campaignInfluenced = campaignInfluenced)
-
-            @JvmStatic
             fun ofSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter) =
                 Filter(surveyMonkey = surveyMonkey)
 
@@ -2002,16 +1841,8 @@ private constructor(
             @JvmStatic fun ofInList(inList: PublicInListFilter) = Filter(inList = inList)
 
             @JvmStatic
-            fun ofNumAssociations(numAssociations: PublicNumAssociationsFilter) =
-                Filter(numAssociations = numAssociations)
-
-            @JvmStatic
             fun ofUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter) =
                 Filter(unifiedEvents = unifiedEvents)
-
-            @JvmStatic
-            fun ofPropertyAssociation(propertyAssociation: PublicPropertyAssociationInListFilter) =
-                Filter(propertyAssociation = propertyAssociation)
 
             @JvmStatic fun ofConstant(constant: PublicConstantFilter) = Filter(constant = constant)
         }
@@ -2041,8 +1872,6 @@ private constructor(
                 communicationSubscription: PublicCommunicationSubscriptionFilter
             ): T
 
-            fun visitCampaignInfluenced(campaignInfluenced: PublicCampaignInfluencedFilter): T
-
             fun visitSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter): T
 
             fun visitSurveyMonkeyValue(surveyMonkeyValue: PublicSurveyMonkeyValueFilter): T
@@ -2059,13 +1888,7 @@ private constructor(
 
             fun visitInList(inList: PublicInListFilter): T
 
-            fun visitNumAssociations(numAssociations: PublicNumAssociationsFilter): T
-
             fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter): T
-
-            fun visitPropertyAssociation(
-                propertyAssociation: PublicPropertyAssociationInListFilter
-            ): T
 
             fun visitConstant(constant: PublicConstantFilter): T
 
@@ -2144,14 +1967,6 @@ private constructor(
                             ?.let { Filter(communicationSubscription = it, _json = json) }
                             ?: Filter(_json = json)
                     }
-                    "CAMPAIGN_INFLUENCED" -> {
-                        return tryDeserialize(
-                                node,
-                                jacksonTypeRef<PublicCampaignInfluencedFilter>(),
-                            )
-                            ?.let { Filter(campaignInfluenced = it, _json = json) }
-                            ?: Filter(_json = json)
-                    }
                     "SURVEY_MONKEY" -> {
                         return tryDeserialize(node, jacksonTypeRef<PublicSurveyMonkeyFilter>())
                             ?.let { Filter(surveyMonkey = it, _json = json) }
@@ -2191,22 +2006,9 @@ private constructor(
                             Filter(inList = it, _json = json)
                         } ?: Filter(_json = json)
                     }
-                    "NUM_ASSOCIATIONS" -> {
-                        return tryDeserialize(node, jacksonTypeRef<PublicNumAssociationsFilter>())
-                            ?.let { Filter(numAssociations = it, _json = json) }
-                            ?: Filter(_json = json)
-                    }
                     "UNIFIED_EVENTS" -> {
                         return tryDeserialize(node, jacksonTypeRef<PublicUnifiedEventsFilter>())
                             ?.let { Filter(unifiedEvents = it, _json = json) }
-                            ?: Filter(_json = json)
-                    }
-                    "PROPERTY_ASSOCIATION" -> {
-                        return tryDeserialize(
-                                node,
-                                jacksonTypeRef<PublicPropertyAssociationInListFilter>(),
-                            )
-                            ?.let { Filter(propertyAssociation = it, _json = json) }
                             ?: Filter(_json = json)
                     }
                     "CONSTANT" -> {
@@ -2241,8 +2043,6 @@ private constructor(
                         generator.writeObject(value.emailSubscription)
                     value.communicationSubscription != null ->
                         generator.writeObject(value.communicationSubscription)
-                    value.campaignInfluenced != null ->
-                        generator.writeObject(value.campaignInfluenced)
                     value.surveyMonkey != null -> generator.writeObject(value.surveyMonkey)
                     value.surveyMonkeyValue != null ->
                         generator.writeObject(value.surveyMonkeyValue)
@@ -2252,10 +2052,7 @@ private constructor(
                     value.adsSearch != null -> generator.writeObject(value.adsSearch)
                     value.adsTime != null -> generator.writeObject(value.adsTime)
                     value.inList != null -> generator.writeObject(value.inList)
-                    value.numAssociations != null -> generator.writeObject(value.numAssociations)
                     value.unifiedEvents != null -> generator.writeObject(value.unifiedEvents)
-                    value.propertyAssociation != null ->
-                        generator.writeObject(value.propertyAssociation)
                     value.constant != null -> generator.writeObject(value.constant)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Filter")

@@ -18,6 +18,7 @@ import com.hubspot.sdk.services.async.MetaServiceAsync
 import com.hubspot.sdk.services.async.SchedulerServiceAsync
 import com.hubspot.sdk.services.async.SettingServiceAsync
 import com.hubspot.sdk.services.async.WebhookServiceAsync
+import com.hubspot.sdk.services.async.WebhooksJournalServiceAsync
 import java.util.function.Consumer
 
 /**
@@ -86,6 +87,8 @@ interface HubSpotClientAsync {
 
     fun webhooks(): WebhookServiceAsync
 
+    fun webhooksJournal(): WebhooksJournalServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -142,5 +145,7 @@ interface HubSpotClientAsync {
         fun settings(): SettingServiceAsync.WithRawResponse
 
         fun webhooks(): WebhookServiceAsync.WithRawResponse
+
+        fun webhooksJournal(): WebhooksJournalServiceAsync.WithRawResponse
     }
 }

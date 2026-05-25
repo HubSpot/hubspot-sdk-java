@@ -5,9 +5,8 @@ package com.hubspot.sdk.proguard
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
 import com.hubspot.sdk.core.jsonMapper
-import com.hubspot.sdk.models.auth.oauth.PublicAccessTokenInfoResponse
-import com.hubspot.sdk.models.auth.oauth.SignedAccessToken
-import com.hubspot.sdk.models.auth.oauth.TokenInfoResponseBaseIf
+import com.hubspot.sdk.models.ObjectSubscriptionUpsertRequest
+import com.hubspot.sdk.models.SubscriptionUpsertRequest
 import com.hubspot.sdk.models.crm.objects.contacts.PublicGdprDeleteInput
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -65,6 +64,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.scheduler()).isNotNull()
         assertThat(client.settings()).isNotNull()
         assertThat(client.webhooks()).isNotNull()
+        assertThat(client.webhooksJournal()).isNotNull()
     }
 
     @Test
@@ -83,52 +83,26 @@ internal class ProGuardCompatibilityTest {
     }
 
     @Test
-    fun tokenInfoResponseBaseIfRoundtrip() {
+    fun subscriptionUpsertRequestRoundtrip() {
         val jsonMapper = jsonMapper()
-        val tokenInfoResponseBaseIf =
-            TokenInfoResponseBaseIf.ofPublicAccessTokenInfoResponse(
-                PublicAccessTokenInfoResponse.builder()
-                    .token("token")
-                    .active(true)
-                    .appId(0)
-                    .clientId("client_id")
-                    .expiresIn(0L)
-                    .hubId(0)
-                    .isPrivateDistribution(true)
-                    .addScope("string")
-                    .signedAccessToken(
-                        SignedAccessToken.builder()
-                            .appId(0)
-                            .expiresAt(0L)
-                            .hubId(0)
-                            .hublet("hublet")
-                            .installingUserId(0)
-                            .isPrivateDistribution(true)
-                            .isServiceAccount(true)
-                            .isUserLevel(true)
-                            .newSignature("newSignature")
-                            .scopes("scopes")
-                            .scopeToScopeGroupPks("scopeToScopeGroupPks")
-                            .signature("signature")
-                            .trialScopes("trialScopes")
-                            .trialScopeToScopeGroupPks("trialScopeToScopeGroupPks")
-                            .userId(0)
-                            .build()
-                    )
-                    .tokenType("token_type")
-                    .tokenUse(PublicAccessTokenInfoResponse.TokenUse.ACCESS_TOKEN)
-                    .userId(0)
-                    .hubDomain("hub_domain")
-                    .user("user")
+        val subscriptionUpsertRequest =
+            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
+                ObjectSubscriptionUpsertRequest.builder()
+                    .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
+                    .addObjectId(0L)
+                    .objectTypeId("objectTypeId")
+                    .portalId(0L)
+                    .addProperty("string")
+                    .subscriptionType(ObjectSubscriptionUpsertRequest.SubscriptionType.OBJECT)
                     .build()
             )
 
-        val roundtrippedTokenInfoResponseBaseIf =
+        val roundtrippedSubscriptionUpsertRequest =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(tokenInfoResponseBaseIf),
-                jacksonTypeRef<TokenInfoResponseBaseIf>(),
+                jsonMapper.writeValueAsString(subscriptionUpsertRequest),
+                jacksonTypeRef<SubscriptionUpsertRequest>(),
             )
 
-        assertThat(roundtrippedTokenInfoResponseBaseIf).isEqualTo(tokenInfoResponseBaseIf)
+        assertThat(roundtrippedSubscriptionUpsertRequest).isEqualTo(subscriptionUpsertRequest)
     }
 }
