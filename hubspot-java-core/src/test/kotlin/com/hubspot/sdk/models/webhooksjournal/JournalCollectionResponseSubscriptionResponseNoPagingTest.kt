@@ -9,23 +9,25 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class CollectionResponseSubscriptionResponseNoPagingTest {
+internal class JournalCollectionResponseSubscriptionResponseNoPagingTest {
 
     @Test
     fun create() {
-        val collectionResponseSubscriptionResponseNoPaging =
-            CollectionResponseSubscriptionResponseNoPaging.builder()
+        val journalCollectionResponseSubscriptionResponseNoPaging =
+            JournalCollectionResponseSubscriptionResponseNoPaging.builder()
                 .addResult(
-                    SubscriptionResponse.builder()
+                    JournalSubscriptionResponse.builder()
                         .id(0L)
-                        .addAction(SubscriptionResponse.Action.CREATE)
+                        .addAction(JournalSubscriptionResponse.Action.CREATE)
                         .appId(0L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .objectTypeId("objectTypeId")
-                        .subscriptionType(SubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
+                        .subscriptionType(
+                            JournalSubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT
+                        )
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .actionOverrides(
-                            SubscriptionResponse.ActionOverrides.builder()
+                            JournalSubscriptionResponse.ActionOverrides.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -50,18 +52,20 @@ internal class CollectionResponseSubscriptionResponseNoPagingTest {
                 )
                 .build()
 
-        assertThat(collectionResponseSubscriptionResponseNoPaging.results())
+        assertThat(journalCollectionResponseSubscriptionResponseNoPaging.results())
             .containsExactly(
-                SubscriptionResponse.builder()
+                JournalSubscriptionResponse.builder()
                     .id(0L)
-                    .addAction(SubscriptionResponse.Action.CREATE)
+                    .addAction(JournalSubscriptionResponse.Action.CREATE)
                     .appId(0L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .objectTypeId("objectTypeId")
-                    .subscriptionType(SubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
+                    .subscriptionType(
+                        JournalSubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT
+                    )
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .actionOverrides(
-                        SubscriptionResponse.ActionOverrides.builder()
+                        JournalSubscriptionResponse.ActionOverrides.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -89,19 +93,21 @@ internal class CollectionResponseSubscriptionResponseNoPagingTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val collectionResponseSubscriptionResponseNoPaging =
-            CollectionResponseSubscriptionResponseNoPaging.builder()
+        val journalCollectionResponseSubscriptionResponseNoPaging =
+            JournalCollectionResponseSubscriptionResponseNoPaging.builder()
                 .addResult(
-                    SubscriptionResponse.builder()
+                    JournalSubscriptionResponse.builder()
                         .id(0L)
-                        .addAction(SubscriptionResponse.Action.CREATE)
+                        .addAction(JournalSubscriptionResponse.Action.CREATE)
                         .appId(0L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .objectTypeId("objectTypeId")
-                        .subscriptionType(SubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
+                        .subscriptionType(
+                            JournalSubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT
+                        )
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .actionOverrides(
-                            SubscriptionResponse.ActionOverrides.builder()
+                            JournalSubscriptionResponse.ActionOverrides.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -126,13 +132,15 @@ internal class CollectionResponseSubscriptionResponseNoPagingTest {
                 )
                 .build()
 
-        val roundtrippedCollectionResponseSubscriptionResponseNoPaging =
+        val roundtrippedJournalCollectionResponseSubscriptionResponseNoPaging =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(collectionResponseSubscriptionResponseNoPaging),
-                jacksonTypeRef<CollectionResponseSubscriptionResponseNoPaging>(),
+                jsonMapper.writeValueAsString(
+                    journalCollectionResponseSubscriptionResponseNoPaging
+                ),
+                jacksonTypeRef<JournalCollectionResponseSubscriptionResponseNoPaging>(),
             )
 
-        assertThat(roundtrippedCollectionResponseSubscriptionResponseNoPaging)
-            .isEqualTo(collectionResponseSubscriptionResponseNoPaging)
+        assertThat(roundtrippedJournalCollectionResponseSubscriptionResponseNoPaging)
+            .isEqualTo(journalCollectionResponseSubscriptionResponseNoPaging)
     }
 }

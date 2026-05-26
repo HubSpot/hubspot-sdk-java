@@ -13,8 +13,8 @@ import com.hubspot.sdk.models.GdprPrivacyDeletionSubscriptionUpsertRequest
 import com.hubspot.sdk.models.ListMembershipSubscriptionUpsertRequest
 import com.hubspot.sdk.models.ObjectSubscriptionUpsertRequest
 import com.hubspot.sdk.models.SubscriptionUpsertRequest
-import com.hubspot.sdk.models.webhooksjournal.CollectionResponseSubscriptionResponseNoPaging
-import com.hubspot.sdk.models.webhooksjournal.SubscriptionResponse
+import com.hubspot.sdk.models.webhooksjournal.JournalCollectionResponseSubscriptionResponseNoPaging
+import com.hubspot.sdk.models.webhooksjournal.JournalSubscriptionResponse
 import com.hubspot.sdk.models.webhooksjournal.subscriptions.SubscriptionCreateParams
 import com.hubspot.sdk.models.webhooksjournal.subscriptions.SubscriptionDeleteForPortalParams
 import com.hubspot.sdk.models.webhooksjournal.subscriptions.SubscriptionDeleteParams
@@ -46,20 +46,20 @@ interface SubscriptionService {
      * event, app lifecycle event, list membership, and GDPR privacy deletion. Ensure that all
      * required fields are included in the request to successfully create a subscription.
      */
-    fun create(params: SubscriptionCreateParams): SubscriptionResponse =
+    fun create(params: SubscriptionCreateParams): JournalSubscriptionResponse =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: SubscriptionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse
+    ): JournalSubscriptionResponse
 
     /** @see create */
     fun create(
         subscriptionUpsertRequest: SubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         create(
             SubscriptionCreateParams.builder()
                 .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -68,14 +68,14 @@ interface SubscriptionService {
         )
 
     /** @see create */
-    fun create(subscriptionUpsertRequest: SubscriptionUpsertRequest): SubscriptionResponse =
+    fun create(subscriptionUpsertRequest: SubscriptionUpsertRequest): JournalSubscriptionResponse =
         create(subscriptionUpsertRequest, RequestOptions.none())
 
     /** @see create */
     fun create(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         create(
             SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                 objectSubscriptionUpsertRequest
@@ -86,74 +86,78 @@ interface SubscriptionService {
     /** @see create */
     fun create(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-    ): SubscriptionResponse = create(objectSubscriptionUpsertRequest, RequestOptions.none())
+    ): JournalSubscriptionResponse = create(objectSubscriptionUpsertRequest, RequestOptions.none())
 
     /** @see create */
     fun create(
         association: AssociationSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         create(SubscriptionUpsertRequest.ofAssociation(association), requestOptions)
 
     /** @see create */
-    fun create(association: AssociationSubscriptionUpsertRequest): SubscriptionResponse =
+    fun create(association: AssociationSubscriptionUpsertRequest): JournalSubscriptionResponse =
         create(association, RequestOptions.none())
 
     /** @see create */
     fun create(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         create(SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent), requestOptions)
 
     /** @see create */
     fun create(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-    ): SubscriptionResponse = create(appLifecycleEvent, RequestOptions.none())
+    ): JournalSubscriptionResponse = create(appLifecycleEvent, RequestOptions.none())
 
     /** @see create */
     fun create(
         listMembership: ListMembershipSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         create(SubscriptionUpsertRequest.ofListMembership(listMembership), requestOptions)
 
     /** @see create */
-    fun create(listMembership: ListMembershipSubscriptionUpsertRequest): SubscriptionResponse =
-        create(listMembership, RequestOptions.none())
+    fun create(
+        listMembership: ListMembershipSubscriptionUpsertRequest
+    ): JournalSubscriptionResponse = create(listMembership, RequestOptions.none())
 
     /** @see create */
     fun create(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         create(SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion), requestOptions)
 
     /** @see create */
     fun create(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-    ): SubscriptionResponse = create(gdprPrivacyDeletion, RequestOptions.none())
+    ): JournalSubscriptionResponse = create(gdprPrivacyDeletion, RequestOptions.none())
 
     /**
      * Retrieve a list of webhook journal subscriptions for the specified version. This endpoint
      * allows you to view all active subscriptions without pagination. It is useful for monitoring
      * and managing webhook subscriptions in your HubSpot account.
      */
-    fun list(): CollectionResponseSubscriptionResponseNoPaging = list(SubscriptionListParams.none())
+    fun list(): JournalCollectionResponseSubscriptionResponseNoPaging =
+        list(SubscriptionListParams.none())
 
     /** @see list */
     fun list(
         params: SubscriptionListParams = SubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseSubscriptionResponseNoPaging
+    ): JournalCollectionResponseSubscriptionResponseNoPaging
 
     /** @see list */
     fun list(
         params: SubscriptionListParams = SubscriptionListParams.none()
-    ): CollectionResponseSubscriptionResponseNoPaging = list(params, RequestOptions.none())
+    ): JournalCollectionResponseSubscriptionResponseNoPaging = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CollectionResponseSubscriptionResponseNoPaging =
+    fun list(
+        requestOptions: RequestOptions
+    ): JournalCollectionResponseSubscriptionResponseNoPaging =
         list(SubscriptionListParams.none(), requestOptions)
 
     /**
@@ -230,7 +234,7 @@ interface SubscriptionService {
      * endpoint is useful for obtaining information about a particular subscription, such as its
      * actions, object type, and associated properties.
      */
-    fun get(subscriptionId: Long): SubscriptionResponse =
+    fun get(subscriptionId: Long): JournalSubscriptionResponse =
         get(subscriptionId, SubscriptionGetParams.none())
 
     /** @see get */
@@ -238,27 +242,27 @@ interface SubscriptionService {
         subscriptionId: Long,
         params: SubscriptionGetParams = SubscriptionGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         get(params.toBuilder().subscriptionId(subscriptionId).build(), requestOptions)
 
     /** @see get */
     fun get(
         subscriptionId: Long,
         params: SubscriptionGetParams = SubscriptionGetParams.none(),
-    ): SubscriptionResponse = get(subscriptionId, params, RequestOptions.none())
+    ): JournalSubscriptionResponse = get(subscriptionId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: SubscriptionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse
+    ): JournalSubscriptionResponse
 
     /** @see get */
-    fun get(params: SubscriptionGetParams): SubscriptionResponse =
+    fun get(params: SubscriptionGetParams): JournalSubscriptionResponse =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(subscriptionId: Long, requestOptions: RequestOptions): SubscriptionResponse =
+    fun get(subscriptionId: Long, requestOptions: RequestOptions): JournalSubscriptionResponse =
         get(subscriptionId, SubscriptionGetParams.none(), requestOptions)
 
     /**
@@ -282,7 +286,7 @@ interface SubscriptionService {
          * otherwise the same as [SubscriptionService.create].
          */
         @MustBeClosed
-        fun create(params: SubscriptionCreateParams): HttpResponseFor<SubscriptionResponse> =
+        fun create(params: SubscriptionCreateParams): HttpResponseFor<JournalSubscriptionResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -290,14 +294,14 @@ interface SubscriptionService {
         fun create(
             params: SubscriptionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse>
+        ): HttpResponseFor<JournalSubscriptionResponse>
 
         /** @see create */
         @MustBeClosed
         fun create(
             subscriptionUpsertRequest: SubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(
                 SubscriptionCreateParams.builder()
                     .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -309,7 +313,7 @@ interface SubscriptionService {
         @MustBeClosed
         fun create(
             subscriptionUpsertRequest: SubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(subscriptionUpsertRequest, RequestOptions.none())
 
         /** @see create */
@@ -317,7 +321,7 @@ interface SubscriptionService {
         fun create(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(
                 SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                     objectSubscriptionUpsertRequest
@@ -329,7 +333,7 @@ interface SubscriptionService {
         @MustBeClosed
         fun create(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(objectSubscriptionUpsertRequest, RequestOptions.none())
 
         /** @see create */
@@ -337,49 +341,51 @@ interface SubscriptionService {
         fun create(
             association: AssociationSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(SubscriptionUpsertRequest.ofAssociation(association), requestOptions)
 
         /** @see create */
         @MustBeClosed
         fun create(
             association: AssociationSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> = create(association, RequestOptions.none())
+        ): HttpResponseFor<JournalSubscriptionResponse> = create(association, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent), requestOptions)
 
         /** @see create */
         @MustBeClosed
         fun create(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> = create(appLifecycleEvent, RequestOptions.none())
+        ): HttpResponseFor<JournalSubscriptionResponse> =
+            create(appLifecycleEvent, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             listMembership: ListMembershipSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(SubscriptionUpsertRequest.ofListMembership(listMembership), requestOptions)
 
         /** @see create */
         @MustBeClosed
         fun create(
             listMembership: ListMembershipSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> = create(listMembership, RequestOptions.none())
+        ): HttpResponseFor<JournalSubscriptionResponse> =
+            create(listMembership, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(
                 SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
                 requestOptions,
@@ -389,7 +395,7 @@ interface SubscriptionService {
         @MustBeClosed
         fun create(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             create(gdprPrivacyDeletion, RequestOptions.none())
 
         /**
@@ -397,7 +403,7 @@ interface SubscriptionService {
          * otherwise the same as [SubscriptionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+        fun list(): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging> =
             list(SubscriptionListParams.none())
 
         /** @see list */
@@ -405,20 +411,20 @@ interface SubscriptionService {
         fun list(
             params: SubscriptionListParams = SubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>
+        ): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SubscriptionListParams = SubscriptionListParams.none()
-        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+        ): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+        ): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging> =
             list(SubscriptionListParams.none(), requestOptions)
 
         /**
@@ -511,7 +517,7 @@ interface SubscriptionService {
          * [SubscriptionService.get].
          */
         @MustBeClosed
-        fun get(subscriptionId: Long): HttpResponseFor<SubscriptionResponse> =
+        fun get(subscriptionId: Long): HttpResponseFor<JournalSubscriptionResponse> =
             get(subscriptionId, SubscriptionGetParams.none())
 
         /** @see get */
@@ -520,7 +526,7 @@ interface SubscriptionService {
             subscriptionId: Long,
             params: SubscriptionGetParams = SubscriptionGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             get(params.toBuilder().subscriptionId(subscriptionId).build(), requestOptions)
 
         /** @see get */
@@ -528,7 +534,7 @@ interface SubscriptionService {
         fun get(
             subscriptionId: Long,
             params: SubscriptionGetParams = SubscriptionGetParams.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             get(subscriptionId, params, RequestOptions.none())
 
         /** @see get */
@@ -536,11 +542,11 @@ interface SubscriptionService {
         fun get(
             params: SubscriptionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse>
+        ): HttpResponseFor<JournalSubscriptionResponse>
 
         /** @see get */
         @MustBeClosed
-        fun get(params: SubscriptionGetParams): HttpResponseFor<SubscriptionResponse> =
+        fun get(params: SubscriptionGetParams): HttpResponseFor<JournalSubscriptionResponse> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -548,7 +554,7 @@ interface SubscriptionService {
         fun get(
             subscriptionId: Long,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             get(subscriptionId, SubscriptionGetParams.none(), requestOptions)
     }
 }

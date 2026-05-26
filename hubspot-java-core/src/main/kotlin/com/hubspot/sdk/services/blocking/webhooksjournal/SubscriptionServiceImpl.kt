@@ -17,8 +17,8 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.core.http.json
 import com.hubspot.sdk.core.http.parseable
 import com.hubspot.sdk.core.prepare
-import com.hubspot.sdk.models.webhooksjournal.CollectionResponseSubscriptionResponseNoPaging
-import com.hubspot.sdk.models.webhooksjournal.SubscriptionResponse
+import com.hubspot.sdk.models.webhooksjournal.JournalCollectionResponseSubscriptionResponseNoPaging
+import com.hubspot.sdk.models.webhooksjournal.JournalSubscriptionResponse
 import com.hubspot.sdk.models.webhooksjournal.subscriptions.SubscriptionCreateParams
 import com.hubspot.sdk.models.webhooksjournal.subscriptions.SubscriptionDeleteForPortalParams
 import com.hubspot.sdk.models.webhooksjournal.subscriptions.SubscriptionDeleteParams
@@ -48,14 +48,14 @@ class SubscriptionServiceImpl internal constructor(private val clientOptions: Cl
     override fun create(
         params: SubscriptionCreateParams,
         requestOptions: RequestOptions,
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         // post /webhooks-journal/subscriptions/2026-03
         withRawResponse().create(params, requestOptions).parse()
 
     override fun list(
         params: SubscriptionListParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseSubscriptionResponseNoPaging =
+    ): JournalCollectionResponseSubscriptionResponseNoPaging =
         // get /webhooks-journal/subscriptions/2026-03
         withRawResponse().list(params, requestOptions).parse()
 
@@ -75,7 +75,7 @@ class SubscriptionServiceImpl internal constructor(private val clientOptions: Cl
     override fun get(
         params: SubscriptionGetParams,
         requestOptions: RequestOptions,
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         // get /webhooks-journal/subscriptions/2026-03/{subscriptionId}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -98,13 +98,13 @@ class SubscriptionServiceImpl internal constructor(private val clientOptions: Cl
 
         override fun filters(): FilterService.WithRawResponse = filters
 
-        private val createHandler: Handler<SubscriptionResponse> =
-            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<JournalSubscriptionResponse> =
+            jsonHandler<JournalSubscriptionResponse>(clientOptions.jsonMapper)
 
         override fun create(
             params: SubscriptionCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse> {
+        ): HttpResponseFor<JournalSubscriptionResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -126,13 +126,15 @@ class SubscriptionServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<CollectionResponseSubscriptionResponseNoPaging> =
-            jsonHandler<CollectionResponseSubscriptionResponseNoPaging>(clientOptions.jsonMapper)
+        private val listHandler: Handler<JournalCollectionResponseSubscriptionResponseNoPaging> =
+            jsonHandler<JournalCollectionResponseSubscriptionResponseNoPaging>(
+                clientOptions.jsonMapper
+            )
 
         override fun list(
             params: SubscriptionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> {
+        ): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -212,13 +214,13 @@ class SubscriptionServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val getHandler: Handler<SubscriptionResponse> =
-            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<JournalSubscriptionResponse> =
+            jsonHandler<JournalSubscriptionResponse>(clientOptions.jsonMapper)
 
         override fun get(
             params: SubscriptionGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse> {
+        ): HttpResponseFor<JournalSubscriptionResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("subscriptionId", params.subscriptionId().getOrNull())

@@ -15,7 +15,7 @@ internal class SubscriptionServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val subscriptionService = client.webhooksJournal().subscriptions()
 
-        val subscriptionResponse =
+        val journalSubscriptionResponse =
             subscriptionService.create(
                 ObjectSubscriptionUpsertRequest.builder()
                     .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
@@ -27,7 +27,7 @@ internal class SubscriptionServiceTest {
                     .build()
             )
 
-        subscriptionResponse.validate()
+        journalSubscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -36,9 +36,9 @@ internal class SubscriptionServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val subscriptionService = client.webhooksJournal().subscriptions()
 
-        val collectionResponseSubscriptionResponseNoPaging = subscriptionService.list()
+        val journalCollectionResponseSubscriptionResponseNoPaging = subscriptionService.list()
 
-        collectionResponseSubscriptionResponseNoPaging.validate()
+        journalCollectionResponseSubscriptionResponseNoPaging.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -65,8 +65,8 @@ internal class SubscriptionServiceTest {
         val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val subscriptionService = client.webhooksJournal().subscriptions()
 
-        val subscriptionResponse = subscriptionService.get(0L)
+        val journalSubscriptionResponse = subscriptionService.get(0L)
 
-        subscriptionResponse.validate()
+        journalSubscriptionResponse.validate()
     }
 }

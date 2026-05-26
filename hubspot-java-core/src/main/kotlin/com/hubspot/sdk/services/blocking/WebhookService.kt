@@ -60,8 +60,8 @@ import com.hubspot.sdk.models.webhooks.WebhookListJournalSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionFiltersParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateSettingsParams
-import com.hubspot.sdk.models.webhooksjournal.CollectionResponseSubscriptionResponseNoPaging
-import com.hubspot.sdk.models.webhooksjournal.SubscriptionResponse
+import com.hubspot.sdk.models.webhooksjournal.JournalCollectionResponseSubscriptionResponseNoPaging
+import com.hubspot.sdk.models.webhooksjournal.JournalSubscriptionResponse
 import java.util.function.Consumer
 
 interface WebhookService {
@@ -173,19 +173,19 @@ interface WebhookService {
      */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams
-    ): SubscriptionResponse = createJournalSubscription(params, RequestOptions.none())
+    ): JournalSubscriptionResponse = createJournalSubscription(params, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse
+    ): JournalSubscriptionResponse
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         subscriptionUpsertRequest: SubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(
             WebhookCreateJournalSubscriptionParams.builder()
                 .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -196,14 +196,14 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         subscriptionUpsertRequest: SubscriptionUpsertRequest
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                 objectSubscriptionUpsertRequest
@@ -214,14 +214,14 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         association: AssociationSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofAssociation(association),
             requestOptions,
@@ -230,13 +230,13 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         association: AssociationSubscriptionUpsertRequest
-    ): SubscriptionResponse = createJournalSubscription(association, RequestOptions.none())
+    ): JournalSubscriptionResponse = createJournalSubscription(association, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
             requestOptions,
@@ -245,13 +245,14 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-    ): SubscriptionResponse = createJournalSubscription(appLifecycleEvent, RequestOptions.none())
+    ): JournalSubscriptionResponse =
+        createJournalSubscription(appLifecycleEvent, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         listMembership: ListMembershipSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofListMembership(listMembership),
             requestOptions,
@@ -260,13 +261,14 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         listMembership: ListMembershipSubscriptionUpsertRequest
-    ): SubscriptionResponse = createJournalSubscription(listMembership, RequestOptions.none())
+    ): JournalSubscriptionResponse =
+        createJournalSubscription(listMembership, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
             requestOptions,
@@ -275,7 +277,8 @@ interface WebhookService {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-    ): SubscriptionResponse = createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
+    ): JournalSubscriptionResponse =
+        createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
     /**
      * Create a new filter for a specific webhook subscription in the HubSpot account. This endpoint
@@ -784,7 +787,7 @@ interface WebhookService {
      * endpoint is useful for obtaining information about a particular subscription, such as its
      * actions, object type, and associated properties.
      */
-    fun getJournalSubscription(subscriptionId: Long): SubscriptionResponse =
+    fun getJournalSubscription(subscriptionId: Long): JournalSubscriptionResponse =
         getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
     /** @see getJournalSubscription */
@@ -792,7 +795,7 @@ interface WebhookService {
         subscriptionId: Long,
         params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         getJournalSubscription(
             params.toBuilder().subscriptionId(subscriptionId).build(),
             requestOptions,
@@ -802,23 +805,25 @@ interface WebhookService {
     fun getJournalSubscription(
         subscriptionId: Long,
         params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
-    ): SubscriptionResponse = getJournalSubscription(subscriptionId, params, RequestOptions.none())
+    ): JournalSubscriptionResponse =
+        getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
     /** @see getJournalSubscription */
     fun getJournalSubscription(
         params: WebhookGetJournalSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SubscriptionResponse
+    ): JournalSubscriptionResponse
 
     /** @see getJournalSubscription */
-    fun getJournalSubscription(params: WebhookGetJournalSubscriptionParams): SubscriptionResponse =
-        getJournalSubscription(params, RequestOptions.none())
+    fun getJournalSubscription(
+        params: WebhookGetJournalSubscriptionParams
+    ): JournalSubscriptionResponse = getJournalSubscription(params, RequestOptions.none())
 
     /** @see getJournalSubscription */
     fun getJournalSubscription(
         subscriptionId: Long,
         requestOptions: RequestOptions,
-    ): SubscriptionResponse =
+    ): JournalSubscriptionResponse =
         getJournalSubscription(
             subscriptionId,
             WebhookGetJournalSubscriptionParams.none(),
@@ -1274,7 +1279,7 @@ interface WebhookService {
      * allows you to view all active subscriptions without pagination. It is useful for monitoring
      * and managing webhook subscriptions in your HubSpot account.
      */
-    fun listJournalSubscriptions(): CollectionResponseSubscriptionResponseNoPaging =
+    fun listJournalSubscriptions(): JournalCollectionResponseSubscriptionResponseNoPaging =
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
 
     /** @see listJournalSubscriptions */
@@ -1282,18 +1287,18 @@ interface WebhookService {
         params: WebhookListJournalSubscriptionsParams =
             WebhookListJournalSubscriptionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseSubscriptionResponseNoPaging
+    ): JournalCollectionResponseSubscriptionResponseNoPaging
 
     /** @see listJournalSubscriptions */
     fun listJournalSubscriptions(
         params: WebhookListJournalSubscriptionsParams = WebhookListJournalSubscriptionsParams.none()
-    ): CollectionResponseSubscriptionResponseNoPaging =
+    ): JournalCollectionResponseSubscriptionResponseNoPaging =
         listJournalSubscriptions(params, RequestOptions.none())
 
     /** @see listJournalSubscriptions */
     fun listJournalSubscriptions(
         requestOptions: RequestOptions
-    ): CollectionResponseSubscriptionResponseNoPaging =
+    ): JournalCollectionResponseSubscriptionResponseNoPaging =
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
     /**
@@ -1515,7 +1520,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             params: WebhookCreateJournalSubscriptionParams
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(params, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1523,14 +1528,14 @@ interface WebhookService {
         fun createJournalSubscription(
             params: WebhookCreateJournalSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse>
+        ): HttpResponseFor<JournalSubscriptionResponse>
 
         /** @see createJournalSubscription */
         @MustBeClosed
         fun createJournalSubscription(
             subscriptionUpsertRequest: SubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(
                 WebhookCreateJournalSubscriptionParams.builder()
                     .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -1542,7 +1547,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             subscriptionUpsertRequest: SubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1550,7 +1555,7 @@ interface WebhookService {
         fun createJournalSubscription(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                     objectSubscriptionUpsertRequest
@@ -1562,7 +1567,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1570,7 +1575,7 @@ interface WebhookService {
         fun createJournalSubscription(
             association: AssociationSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofAssociation(association),
                 requestOptions,
@@ -1580,7 +1585,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             association: AssociationSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(association, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1588,7 +1593,7 @@ interface WebhookService {
         fun createJournalSubscription(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
                 requestOptions,
@@ -1598,7 +1603,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(appLifecycleEvent, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1606,7 +1611,7 @@ interface WebhookService {
         fun createJournalSubscription(
             listMembership: ListMembershipSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofListMembership(listMembership),
                 requestOptions,
@@ -1616,7 +1621,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             listMembership: ListMembershipSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(listMembership, RequestOptions.none())
 
         /** @see createJournalSubscription */
@@ -1624,7 +1629,7 @@ interface WebhookService {
         fun createJournalSubscription(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
                 requestOptions,
@@ -1634,7 +1639,7 @@ interface WebhookService {
         @MustBeClosed
         fun createJournalSubscription(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
         /**
@@ -2245,7 +2250,9 @@ interface WebhookService {
          * [WebhookService.getJournalSubscription].
          */
         @MustBeClosed
-        fun getJournalSubscription(subscriptionId: Long): HttpResponseFor<SubscriptionResponse> =
+        fun getJournalSubscription(
+            subscriptionId: Long
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
         /** @see getJournalSubscription */
@@ -2255,7 +2262,7 @@ interface WebhookService {
             params: WebhookGetJournalSubscriptionParams =
                 WebhookGetJournalSubscriptionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             getJournalSubscription(
                 params.toBuilder().subscriptionId(subscriptionId).build(),
                 requestOptions,
@@ -2266,7 +2273,7 @@ interface WebhookService {
         fun getJournalSubscription(
             subscriptionId: Long,
             params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
         /** @see getJournalSubscription */
@@ -2274,13 +2281,13 @@ interface WebhookService {
         fun getJournalSubscription(
             params: WebhookGetJournalSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SubscriptionResponse>
+        ): HttpResponseFor<JournalSubscriptionResponse>
 
         /** @see getJournalSubscription */
         @MustBeClosed
         fun getJournalSubscription(
             params: WebhookGetJournalSubscriptionParams
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             getJournalSubscription(params, RequestOptions.none())
 
         /** @see getJournalSubscription */
@@ -2288,7 +2295,7 @@ interface WebhookService {
         fun getJournalSubscription(
             subscriptionId: Long,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SubscriptionResponse> =
+        ): HttpResponseFor<JournalSubscriptionResponse> =
             getJournalSubscription(
                 subscriptionId,
                 WebhookGetJournalSubscriptionParams.none(),
@@ -2828,7 +2835,7 @@ interface WebhookService {
          */
         @MustBeClosed
         fun listJournalSubscriptions():
-            HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+            HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging> =
             listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
 
         /** @see listJournalSubscriptions */
@@ -2837,21 +2844,21 @@ interface WebhookService {
             params: WebhookListJournalSubscriptionsParams =
                 WebhookListJournalSubscriptionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>
+        ): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging>
 
         /** @see listJournalSubscriptions */
         @MustBeClosed
         fun listJournalSubscriptions(
             params: WebhookListJournalSubscriptionsParams =
                 WebhookListJournalSubscriptionsParams.none()
-        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+        ): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging> =
             listJournalSubscriptions(params, RequestOptions.none())
 
         /** @see listJournalSubscriptions */
         @MustBeClosed
         fun listJournalSubscriptions(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+        ): HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging> =
             listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
         /**

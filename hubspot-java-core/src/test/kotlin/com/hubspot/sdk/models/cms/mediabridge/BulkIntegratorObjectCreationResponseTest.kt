@@ -73,8 +73,8 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "readScopeName" to "readScopeName",
                                             "singularForm" to "singularForm",
                                             "status" to "Deprecated",
-                                            "visibilities" to listOf("Customer-facing"),
                                             "visibility" to "Customer-facing",
+                                            "visibility_values" to listOf("Customer-facing"),
                                             "writeScopeName" to "writeScopeName",
                                         ),
                                     "properties" to
@@ -321,8 +321,8 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                         "readScopeName" to "readScopeName",
                                         "singularForm" to "singularForm",
                                         "status" to "Deprecated",
-                                        "visibilities" to listOf("Customer-facing"),
                                         "visibility" to "Customer-facing",
+                                        "visibility_values" to listOf("Customer-facing"),
                                         "writeScopeName" to "writeScopeName",
                                     ),
                                 "properties" to
@@ -562,8 +562,8 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "readScopeName" to "readScopeName",
                                             "singularForm" to "singularForm",
                                             "status" to "Deprecated",
-                                            "visibilities" to listOf("Customer-facing"),
                                             "visibility" to "Customer-facing",
+                                            "visibility_values" to listOf("Customer-facing"),
                                             "writeScopeName" to "writeScopeName",
                                         ),
                                     "properties" to

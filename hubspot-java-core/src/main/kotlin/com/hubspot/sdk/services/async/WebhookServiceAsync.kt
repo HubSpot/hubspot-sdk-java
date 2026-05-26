@@ -59,8 +59,8 @@ import com.hubspot.sdk.models.webhooks.WebhookListJournalSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionFiltersParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateSettingsParams
-import com.hubspot.sdk.models.webhooksjournal.CollectionResponseSubscriptionResponseNoPaging
-import com.hubspot.sdk.models.webhooksjournal.SubscriptionResponse
+import com.hubspot.sdk.models.webhooksjournal.JournalCollectionResponseSubscriptionResponseNoPaging
+import com.hubspot.sdk.models.webhooksjournal.JournalSubscriptionResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -176,20 +176,20 @@ interface WebhookServiceAsync {
      */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(params, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse>
+    ): CompletableFuture<JournalSubscriptionResponse>
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         subscriptionUpsertRequest: SubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(
             WebhookCreateJournalSubscriptionParams.builder()
                 .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -200,14 +200,14 @@ interface WebhookServiceAsync {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         subscriptionUpsertRequest: SubscriptionUpsertRequest
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                 objectSubscriptionUpsertRequest
@@ -218,14 +218,14 @@ interface WebhookServiceAsync {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         association: AssociationSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofAssociation(association),
             requestOptions,
@@ -234,14 +234,14 @@ interface WebhookServiceAsync {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         association: AssociationSubscriptionUpsertRequest
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(association, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
             requestOptions,
@@ -250,14 +250,14 @@ interface WebhookServiceAsync {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(appLifecycleEvent, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         listMembership: ListMembershipSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofListMembership(listMembership),
             requestOptions,
@@ -266,14 +266,14 @@ interface WebhookServiceAsync {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         listMembership: ListMembershipSubscriptionUpsertRequest
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(listMembership, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(
             SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
             requestOptions,
@@ -282,7 +282,7 @@ interface WebhookServiceAsync {
     /** @see createJournalSubscription */
     fun createJournalSubscription(
         gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
     /**
@@ -821,7 +821,9 @@ interface WebhookServiceAsync {
      * endpoint is useful for obtaining information about a particular subscription, such as its
      * actions, object type, and associated properties.
      */
-    fun getJournalSubscription(subscriptionId: Long): CompletableFuture<SubscriptionResponse> =
+    fun getJournalSubscription(
+        subscriptionId: Long
+    ): CompletableFuture<JournalSubscriptionResponse> =
         getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
     /** @see getJournalSubscription */
@@ -829,7 +831,7 @@ interface WebhookServiceAsync {
         subscriptionId: Long,
         params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         getJournalSubscription(
             params.toBuilder().subscriptionId(subscriptionId).build(),
             requestOptions,
@@ -839,26 +841,26 @@ interface WebhookServiceAsync {
     fun getJournalSubscription(
         subscriptionId: Long,
         params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
     /** @see getJournalSubscription */
     fun getJournalSubscription(
         params: WebhookGetJournalSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SubscriptionResponse>
+    ): CompletableFuture<JournalSubscriptionResponse>
 
     /** @see getJournalSubscription */
     fun getJournalSubscription(
         params: WebhookGetJournalSubscriptionParams
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         getJournalSubscription(params, RequestOptions.none())
 
     /** @see getJournalSubscription */
     fun getJournalSubscription(
         subscriptionId: Long,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         getJournalSubscription(
             subscriptionId,
             WebhookGetJournalSubscriptionParams.none(),
@@ -1325,7 +1327,7 @@ interface WebhookServiceAsync {
      * and managing webhook subscriptions in your HubSpot account.
      */
     fun listJournalSubscriptions():
-        CompletableFuture<CollectionResponseSubscriptionResponseNoPaging> =
+        CompletableFuture<JournalCollectionResponseSubscriptionResponseNoPaging> =
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
 
     /** @see listJournalSubscriptions */
@@ -1333,18 +1335,18 @@ interface WebhookServiceAsync {
         params: WebhookListJournalSubscriptionsParams =
             WebhookListJournalSubscriptionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseSubscriptionResponseNoPaging>
+    ): CompletableFuture<JournalCollectionResponseSubscriptionResponseNoPaging>
 
     /** @see listJournalSubscriptions */
     fun listJournalSubscriptions(
         params: WebhookListJournalSubscriptionsParams = WebhookListJournalSubscriptionsParams.none()
-    ): CompletableFuture<CollectionResponseSubscriptionResponseNoPaging> =
+    ): CompletableFuture<JournalCollectionResponseSubscriptionResponseNoPaging> =
         listJournalSubscriptions(params, RequestOptions.none())
 
     /** @see listJournalSubscriptions */
     fun listJournalSubscriptions(
         requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseSubscriptionResponseNoPaging> =
+    ): CompletableFuture<JournalCollectionResponseSubscriptionResponseNoPaging> =
         listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
     /**
@@ -1564,20 +1566,20 @@ interface WebhookServiceAsync {
          */
         fun createJournalSubscription(
             params: WebhookCreateJournalSubscriptionParams
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(params, RequestOptions.none())
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             params: WebhookCreateJournalSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>>
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>>
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             subscriptionUpsertRequest: SubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(
                 WebhookCreateJournalSubscriptionParams.builder()
                     .subscriptionUpsertRequest(subscriptionUpsertRequest)
@@ -1588,14 +1590,14 @@ interface WebhookServiceAsync {
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             subscriptionUpsertRequest: SubscriptionUpsertRequest
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
                     objectSubscriptionUpsertRequest
@@ -1606,14 +1608,14 @@ interface WebhookServiceAsync {
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             association: AssociationSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofAssociation(association),
                 requestOptions,
@@ -1622,14 +1624,14 @@ interface WebhookServiceAsync {
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             association: AssociationSubscriptionUpsertRequest
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(association, RequestOptions.none())
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
                 requestOptions,
@@ -1638,14 +1640,14 @@ interface WebhookServiceAsync {
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(appLifecycleEvent, RequestOptions.none())
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             listMembership: ListMembershipSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofListMembership(listMembership),
                 requestOptions,
@@ -1654,14 +1656,14 @@ interface WebhookServiceAsync {
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             listMembership: ListMembershipSubscriptionUpsertRequest
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(listMembership, RequestOptions.none())
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(
                 SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion),
                 requestOptions,
@@ -1670,7 +1672,7 @@ interface WebhookServiceAsync {
         /** @see createJournalSubscription */
         fun createJournalSubscription(
             gdprPrivacyDeletion: GdprPrivacyDeletionSubscriptionUpsertRequest
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             createJournalSubscription(gdprPrivacyDeletion, RequestOptions.none())
 
         /**
@@ -2234,7 +2236,7 @@ interface WebhookServiceAsync {
          */
         fun getJournalSubscription(
             subscriptionId: Long
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             getJournalSubscription(subscriptionId, WebhookGetJournalSubscriptionParams.none())
 
         /** @see getJournalSubscription */
@@ -2243,7 +2245,7 @@ interface WebhookServiceAsync {
             params: WebhookGetJournalSubscriptionParams =
                 WebhookGetJournalSubscriptionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             getJournalSubscription(
                 params.toBuilder().subscriptionId(subscriptionId).build(),
                 requestOptions,
@@ -2253,26 +2255,26 @@ interface WebhookServiceAsync {
         fun getJournalSubscription(
             subscriptionId: Long,
             params: WebhookGetJournalSubscriptionParams = WebhookGetJournalSubscriptionParams.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             getJournalSubscription(subscriptionId, params, RequestOptions.none())
 
         /** @see getJournalSubscription */
         fun getJournalSubscription(
             params: WebhookGetJournalSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>>
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>>
 
         /** @see getJournalSubscription */
         fun getJournalSubscription(
             params: WebhookGetJournalSubscriptionParams
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             getJournalSubscription(params, RequestOptions.none())
 
         /** @see getJournalSubscription */
         fun getJournalSubscription(
             subscriptionId: Long,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> =
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
             getJournalSubscription(
                 subscriptionId,
                 WebhookGetJournalSubscriptionParams.none(),
@@ -2769,28 +2771,31 @@ interface WebhookServiceAsync {
          * otherwise the same as [WebhookServiceAsync.listJournalSubscriptions].
          */
         fun listJournalSubscriptions():
-            CompletableFuture<HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>> =
-            listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
+            CompletableFuture<
+                HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging>
+            > = listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
 
         /** @see listJournalSubscriptions */
         fun listJournalSubscriptions(
             params: WebhookListJournalSubscriptionsParams =
                 WebhookListJournalSubscriptionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>>
+        ): CompletableFuture<HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging>>
 
         /** @see listJournalSubscriptions */
         fun listJournalSubscriptions(
             params: WebhookListJournalSubscriptionsParams =
                 WebhookListJournalSubscriptionsParams.none()
-        ): CompletableFuture<HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>> =
-            listJournalSubscriptions(params, RequestOptions.none())
+        ): CompletableFuture<
+            HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging>
+        > = listJournalSubscriptions(params, RequestOptions.none())
 
         /** @see listJournalSubscriptions */
         fun listJournalSubscriptions(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>> =
-            listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
+        ): CompletableFuture<
+            HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging>
+        > = listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

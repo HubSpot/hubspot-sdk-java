@@ -133,7 +133,7 @@ internal class WebhookServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val webhookServiceAsync = client.webhooks()
 
-        val subscriptionResponseFuture =
+        val journalSubscriptionResponseFuture =
             webhookServiceAsync.createJournalSubscription(
                 ObjectSubscriptionUpsertRequest.builder()
                     .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
@@ -145,8 +145,8 @@ internal class WebhookServiceAsyncTest {
                     .build()
             )
 
-        val subscriptionResponse = subscriptionResponseFuture.get()
-        subscriptionResponse.validate()
+        val journalSubscriptionResponse = journalSubscriptionResponseFuture.get()
+        journalSubscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -379,10 +379,10 @@ internal class WebhookServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val webhookServiceAsync = client.webhooks()
 
-        val subscriptionResponseFuture = webhookServiceAsync.getJournalSubscription(0L)
+        val journalSubscriptionResponseFuture = webhookServiceAsync.getJournalSubscription(0L)
 
-        val subscriptionResponse = subscriptionResponseFuture.get()
-        subscriptionResponse.validate()
+        val journalSubscriptionResponse = journalSubscriptionResponseFuture.get()
+        journalSubscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -592,12 +592,12 @@ internal class WebhookServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val webhookServiceAsync = client.webhooks()
 
-        val collectionResponseSubscriptionResponseNoPagingFuture =
+        val journalCollectionResponseSubscriptionResponseNoPagingFuture =
             webhookServiceAsync.listJournalSubscriptions()
 
-        val collectionResponseSubscriptionResponseNoPaging =
-            collectionResponseSubscriptionResponseNoPagingFuture.get()
-        collectionResponseSubscriptionResponseNoPaging.validate()
+        val journalCollectionResponseSubscriptionResponseNoPaging =
+            journalCollectionResponseSubscriptionResponseNoPagingFuture.get()
+        journalCollectionResponseSubscriptionResponseNoPaging.validate()
     }
 
     @Disabled("Mock server tests are disabled")

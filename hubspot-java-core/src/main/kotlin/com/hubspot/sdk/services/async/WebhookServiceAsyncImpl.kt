@@ -61,8 +61,8 @@ import com.hubspot.sdk.models.webhooks.WebhookListJournalSubscriptionsParams
 import com.hubspot.sdk.models.webhooks.WebhookListSubscriptionFiltersParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateEventSubscriptionParams
 import com.hubspot.sdk.models.webhooks.WebhookUpdateSettingsParams
-import com.hubspot.sdk.models.webhooksjournal.CollectionResponseSubscriptionResponseNoPaging
-import com.hubspot.sdk.models.webhooksjournal.SubscriptionResponse
+import com.hubspot.sdk.models.webhooksjournal.JournalCollectionResponseSubscriptionResponseNoPaging
+import com.hubspot.sdk.models.webhooksjournal.JournalSubscriptionResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -105,7 +105,7 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun createJournalSubscription(
         params: WebhookCreateJournalSubscriptionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         // post /webhooks-journal/subscriptions/2026-03
         withRawResponse().createJournalSubscription(params, requestOptions).thenApply { it.parse() }
 
@@ -212,7 +212,7 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun getJournalSubscription(
         params: WebhookGetJournalSubscriptionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SubscriptionResponse> =
+    ): CompletableFuture<JournalSubscriptionResponse> =
         // get /webhooks-journal/subscriptions/2026-03/{subscriptionId}
         withRawResponse().getJournalSubscription(params, requestOptions).thenApply { it.parse() }
 
@@ -309,7 +309,7 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun listJournalSubscriptions(
         params: WebhookListJournalSubscriptionsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseSubscriptionResponseNoPaging> =
+    ): CompletableFuture<JournalCollectionResponseSubscriptionResponseNoPaging> =
         // get /webhooks-journal/subscriptions/2026-03
         withRawResponse().listJournalSubscriptions(params, requestOptions).thenApply { it.parse() }
 
@@ -454,13 +454,13 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val createJournalSubscriptionHandler: Handler<SubscriptionResponse> =
-            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
+        private val createJournalSubscriptionHandler: Handler<JournalSubscriptionResponse> =
+            jsonHandler<JournalSubscriptionResponse>(clientOptions.jsonMapper)
 
         override fun createJournalSubscription(
             params: WebhookCreateJournalSubscriptionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> {
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -941,13 +941,13 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val getJournalSubscriptionHandler: Handler<SubscriptionResponse> =
-            jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
+        private val getJournalSubscriptionHandler: Handler<JournalSubscriptionResponse> =
+            jsonHandler<JournalSubscriptionResponse>(clientOptions.jsonMapper)
 
         override fun getJournalSubscription(
             params: WebhookGetJournalSubscriptionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SubscriptionResponse>> {
+        ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("subscriptionId", params.subscriptionId().getOrNull())
@@ -1376,13 +1376,17 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
         }
 
         private val listJournalSubscriptionsHandler:
-            Handler<CollectionResponseSubscriptionResponseNoPaging> =
-            jsonHandler<CollectionResponseSubscriptionResponseNoPaging>(clientOptions.jsonMapper)
+            Handler<JournalCollectionResponseSubscriptionResponseNoPaging> =
+            jsonHandler<JournalCollectionResponseSubscriptionResponseNoPaging>(
+                clientOptions.jsonMapper
+            )
 
         override fun listJournalSubscriptions(
             params: WebhookListJournalSubscriptionsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>> {
+        ): CompletableFuture<
+            HttpResponseFor<JournalCollectionResponseSubscriptionResponseNoPaging>
+        > {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

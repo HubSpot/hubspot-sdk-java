@@ -15,7 +15,7 @@ internal class SubscriptionServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val subscriptionServiceAsync = client.webhooksJournal().subscriptions()
 
-        val subscriptionResponseFuture =
+        val journalSubscriptionResponseFuture =
             subscriptionServiceAsync.create(
                 ObjectSubscriptionUpsertRequest.builder()
                     .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
@@ -27,8 +27,8 @@ internal class SubscriptionServiceAsyncTest {
                     .build()
             )
 
-        val subscriptionResponse = subscriptionResponseFuture.get()
-        subscriptionResponse.validate()
+        val journalSubscriptionResponse = journalSubscriptionResponseFuture.get()
+        journalSubscriptionResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -37,11 +37,12 @@ internal class SubscriptionServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val subscriptionServiceAsync = client.webhooksJournal().subscriptions()
 
-        val collectionResponseSubscriptionResponseNoPagingFuture = subscriptionServiceAsync.list()
+        val journalCollectionResponseSubscriptionResponseNoPagingFuture =
+            subscriptionServiceAsync.list()
 
-        val collectionResponseSubscriptionResponseNoPaging =
-            collectionResponseSubscriptionResponseNoPagingFuture.get()
-        collectionResponseSubscriptionResponseNoPaging.validate()
+        val journalCollectionResponseSubscriptionResponseNoPaging =
+            journalCollectionResponseSubscriptionResponseNoPagingFuture.get()
+        journalCollectionResponseSubscriptionResponseNoPaging.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -72,9 +73,9 @@ internal class SubscriptionServiceAsyncTest {
         val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val subscriptionServiceAsync = client.webhooksJournal().subscriptions()
 
-        val subscriptionResponseFuture = subscriptionServiceAsync.get(0L)
+        val journalSubscriptionResponseFuture = subscriptionServiceAsync.get(0L)
 
-        val subscriptionResponse = subscriptionResponseFuture.get()
-        subscriptionResponse.validate()
+        val journalSubscriptionResponse = journalSubscriptionResponseFuture.get()
+        journalSubscriptionResponse.validate()
     }
 }
