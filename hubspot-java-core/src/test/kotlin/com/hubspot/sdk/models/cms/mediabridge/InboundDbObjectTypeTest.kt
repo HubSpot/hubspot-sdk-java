@@ -58,8 +58,8 @@ internal class InboundDbObjectTypeTest {
                 .readScopeName("readScopeName")
                 .singularForm("singularForm")
                 .status(InboundDbObjectType.Status.DEPRECATED)
-                .addVisibility(InboundDbObjectType.Visibility.CUSTOMER_FACING)
                 .visibility(InboundDbObjectType.Visibility.CUSTOMER_FACING)
+                .addVisibilityValue(InboundDbObjectType.VisibilityValue.CUSTOMER_FACING)
                 .writeScopeName("writeScopeName")
                 .build()
 
@@ -115,10 +115,10 @@ internal class InboundDbObjectTypeTest {
         assertThat(inboundDbObjectType.readScopeName()).contains("readScopeName")
         assertThat(inboundDbObjectType.singularForm()).contains("singularForm")
         assertThat(inboundDbObjectType.status()).contains(InboundDbObjectType.Status.DEPRECATED)
-        assertThat(inboundDbObjectType.visibilities().getOrNull())
-            .containsExactly(InboundDbObjectType.Visibility.CUSTOMER_FACING)
         assertThat(inboundDbObjectType.visibility())
             .contains(InboundDbObjectType.Visibility.CUSTOMER_FACING)
+        assertThat(inboundDbObjectType.visibilityValues().getOrNull())
+            .containsExactly(InboundDbObjectType.VisibilityValue.CUSTOMER_FACING)
         assertThat(inboundDbObjectType.writeScopeName()).contains("writeScopeName")
     }
 
@@ -171,8 +171,8 @@ internal class InboundDbObjectTypeTest {
                 .readScopeName("readScopeName")
                 .singularForm("singularForm")
                 .status(InboundDbObjectType.Status.DEPRECATED)
-                .addVisibility(InboundDbObjectType.Visibility.CUSTOMER_FACING)
                 .visibility(InboundDbObjectType.Visibility.CUSTOMER_FACING)
+                .addVisibilityValue(InboundDbObjectType.VisibilityValue.CUSTOMER_FACING)
                 .writeScopeName("writeScopeName")
                 .build()
 

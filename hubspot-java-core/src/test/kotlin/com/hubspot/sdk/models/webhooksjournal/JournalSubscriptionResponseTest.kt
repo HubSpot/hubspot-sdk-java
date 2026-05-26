@@ -10,21 +10,21 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class SubscriptionResponseTest {
+internal class JournalSubscriptionResponseTest {
 
     @Test
     fun create() {
-        val subscriptionResponse =
-            SubscriptionResponse.builder()
+        val journalSubscriptionResponse =
+            JournalSubscriptionResponse.builder()
                 .id(0L)
-                .addAction(SubscriptionResponse.Action.CREATE)
+                .addAction(JournalSubscriptionResponse.Action.CREATE)
                 .appId(0L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .objectTypeId("objectTypeId")
-                .subscriptionType(SubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
+                .subscriptionType(JournalSubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .actionOverrides(
-                    SubscriptionResponse.ActionOverrides.builder()
+                    JournalSubscriptionResponse.ActionOverrides.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(
@@ -47,20 +47,20 @@ internal class SubscriptionResponseTest {
                 .addProperty("string")
                 .build()
 
-        assertThat(subscriptionResponse.id()).isEqualTo(0L)
-        assertThat(subscriptionResponse.actions())
-            .containsExactly(SubscriptionResponse.Action.CREATE)
-        assertThat(subscriptionResponse.appId()).isEqualTo(0L)
-        assertThat(subscriptionResponse.createdAt())
+        assertThat(journalSubscriptionResponse.id()).isEqualTo(0L)
+        assertThat(journalSubscriptionResponse.actions())
+            .containsExactly(JournalSubscriptionResponse.Action.CREATE)
+        assertThat(journalSubscriptionResponse.appId()).isEqualTo(0L)
+        assertThat(journalSubscriptionResponse.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(subscriptionResponse.objectTypeId()).isEqualTo("objectTypeId")
-        assertThat(subscriptionResponse.subscriptionType())
-            .isEqualTo(SubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
-        assertThat(subscriptionResponse.updatedAt())
+        assertThat(journalSubscriptionResponse.objectTypeId()).isEqualTo("objectTypeId")
+        assertThat(journalSubscriptionResponse.subscriptionType())
+            .isEqualTo(JournalSubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
+        assertThat(journalSubscriptionResponse.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(subscriptionResponse.actionOverrides())
+        assertThat(journalSubscriptionResponse.actionOverrides())
             .contains(
-                SubscriptionResponse.ActionOverrides.builder()
+                JournalSubscriptionResponse.ActionOverrides.builder()
                     .putAdditionalProperty(
                         "foo",
                         JsonValue.from(
@@ -74,31 +74,31 @@ internal class SubscriptionResponseTest {
                     )
                     .build()
             )
-        assertThat(subscriptionResponse.associatedObjectTypeIds().getOrNull())
+        assertThat(journalSubscriptionResponse.associatedObjectTypeIds().getOrNull())
             .containsExactly("string")
-        assertThat(subscriptionResponse.createdBy()).contains(0L)
-        assertThat(subscriptionResponse.deletedAt())
+        assertThat(journalSubscriptionResponse.createdBy()).contains(0L)
+        assertThat(journalSubscriptionResponse.deletedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(subscriptionResponse.listIds().getOrNull()).containsExactly(0L)
-        assertThat(subscriptionResponse.objectIds().getOrNull()).containsExactly(0L)
-        assertThat(subscriptionResponse.portalId()).contains(0L)
-        assertThat(subscriptionResponse.properties().getOrNull()).containsExactly("string")
+        assertThat(journalSubscriptionResponse.listIds().getOrNull()).containsExactly(0L)
+        assertThat(journalSubscriptionResponse.objectIds().getOrNull()).containsExactly(0L)
+        assertThat(journalSubscriptionResponse.portalId()).contains(0L)
+        assertThat(journalSubscriptionResponse.properties().getOrNull()).containsExactly("string")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val subscriptionResponse =
-            SubscriptionResponse.builder()
+        val journalSubscriptionResponse =
+            JournalSubscriptionResponse.builder()
                 .id(0L)
-                .addAction(SubscriptionResponse.Action.CREATE)
+                .addAction(JournalSubscriptionResponse.Action.CREATE)
                 .appId(0L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .objectTypeId("objectTypeId")
-                .subscriptionType(SubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
+                .subscriptionType(JournalSubscriptionResponse.SubscriptionType.APP_LIFECYCLE_EVENT)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .actionOverrides(
-                    SubscriptionResponse.ActionOverrides.builder()
+                    JournalSubscriptionResponse.ActionOverrides.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(
@@ -121,12 +121,12 @@ internal class SubscriptionResponseTest {
                 .addProperty("string")
                 .build()
 
-        val roundtrippedSubscriptionResponse =
+        val roundtrippedJournalSubscriptionResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(subscriptionResponse),
-                jacksonTypeRef<SubscriptionResponse>(),
+                jsonMapper.writeValueAsString(journalSubscriptionResponse),
+                jacksonTypeRef<JournalSubscriptionResponse>(),
             )
 
-        assertThat(roundtrippedSubscriptionResponse).isEqualTo(subscriptionResponse)
+        assertThat(roundtrippedJournalSubscriptionResponse).isEqualTo(journalSubscriptionResponse)
     }
 }

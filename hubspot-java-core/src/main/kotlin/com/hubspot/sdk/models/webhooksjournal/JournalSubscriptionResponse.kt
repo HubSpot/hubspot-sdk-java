@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class SubscriptionResponse
+class JournalSubscriptionResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<Long>,
@@ -367,7 +367,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [SubscriptionResponse].
+         * Returns a mutable builder for constructing an instance of [JournalSubscriptionResponse].
          *
          * The following fields are required:
          * ```java
@@ -383,7 +383,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [SubscriptionResponse]. */
+    /** A builder for [JournalSubscriptionResponse]. */
     class Builder internal constructor() {
 
         private var id: JsonField<Long>? = null
@@ -404,24 +404,24 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(subscriptionResponse: SubscriptionResponse) = apply {
-            id = subscriptionResponse.id
-            actions = subscriptionResponse.actions.map { it.toMutableList() }
-            appId = subscriptionResponse.appId
-            createdAt = subscriptionResponse.createdAt
-            objectTypeId = subscriptionResponse.objectTypeId
-            subscriptionType = subscriptionResponse.subscriptionType
-            updatedAt = subscriptionResponse.updatedAt
-            actionOverrides = subscriptionResponse.actionOverrides
+        internal fun from(journalSubscriptionResponse: JournalSubscriptionResponse) = apply {
+            id = journalSubscriptionResponse.id
+            actions = journalSubscriptionResponse.actions.map { it.toMutableList() }
+            appId = journalSubscriptionResponse.appId
+            createdAt = journalSubscriptionResponse.createdAt
+            objectTypeId = journalSubscriptionResponse.objectTypeId
+            subscriptionType = journalSubscriptionResponse.subscriptionType
+            updatedAt = journalSubscriptionResponse.updatedAt
+            actionOverrides = journalSubscriptionResponse.actionOverrides
             associatedObjectTypeIds =
-                subscriptionResponse.associatedObjectTypeIds.map { it.toMutableList() }
-            createdBy = subscriptionResponse.createdBy
-            deletedAt = subscriptionResponse.deletedAt
-            listIds = subscriptionResponse.listIds.map { it.toMutableList() }
-            objectIds = subscriptionResponse.objectIds.map { it.toMutableList() }
-            portalId = subscriptionResponse.portalId
-            properties = subscriptionResponse.properties.map { it.toMutableList() }
-            additionalProperties = subscriptionResponse.additionalProperties.toMutableMap()
+                journalSubscriptionResponse.associatedObjectTypeIds.map { it.toMutableList() }
+            createdBy = journalSubscriptionResponse.createdBy
+            deletedAt = journalSubscriptionResponse.deletedAt
+            listIds = journalSubscriptionResponse.listIds.map { it.toMutableList() }
+            objectIds = journalSubscriptionResponse.objectIds.map { it.toMutableList() }
+            portalId = journalSubscriptionResponse.portalId
+            properties = journalSubscriptionResponse.properties.map { it.toMutableList() }
+            additionalProperties = journalSubscriptionResponse.additionalProperties.toMutableMap()
         }
 
         /** The unique identifier for the subscription, represented as an integer. */
@@ -727,7 +727,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [SubscriptionResponse].
+         * Returns an immutable instance of [JournalSubscriptionResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -744,8 +744,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): SubscriptionResponse =
-            SubscriptionResponse(
+        fun build(): JournalSubscriptionResponse =
+            JournalSubscriptionResponse(
                 checkRequired("id", id),
                 checkRequired("actions", actions).map { it.toImmutable() },
                 checkRequired("appId", appId),
@@ -775,7 +775,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): SubscriptionResponse = apply {
+    fun validate(): JournalSubscriptionResponse = apply {
         if (validated) {
             return@apply
         }
@@ -1313,7 +1313,7 @@ private constructor(
             return true
         }
 
-        return other is SubscriptionResponse &&
+        return other is JournalSubscriptionResponse &&
             id == other.id &&
             actions == other.actions &&
             appId == other.appId &&
@@ -1356,5 +1356,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SubscriptionResponse{id=$id, actions=$actions, appId=$appId, createdAt=$createdAt, objectTypeId=$objectTypeId, subscriptionType=$subscriptionType, updatedAt=$updatedAt, actionOverrides=$actionOverrides, associatedObjectTypeIds=$associatedObjectTypeIds, createdBy=$createdBy, deletedAt=$deletedAt, listIds=$listIds, objectIds=$objectIds, portalId=$portalId, properties=$properties, additionalProperties=$additionalProperties}"
+        "JournalSubscriptionResponse{id=$id, actions=$actions, appId=$appId, createdAt=$createdAt, objectTypeId=$objectTypeId, subscriptionType=$subscriptionType, updatedAt=$updatedAt, actionOverrides=$actionOverrides, associatedObjectTypeIds=$associatedObjectTypeIds, createdBy=$createdBy, deletedAt=$deletedAt, listIds=$listIds, objectIds=$objectIds, portalId=$portalId, properties=$properties, additionalProperties=$additionalProperties}"
 }

@@ -18,10 +18,10 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class CollectionResponseSubscriptionResponseNoPaging
+class JournalCollectionResponseSubscriptionResponseNoPaging
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val results: JsonField<List<SubscriptionResponse>>,
+    private val results: JsonField<List<JournalSubscriptionResponse>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -29,7 +29,7 @@ private constructor(
     private constructor(
         @JsonProperty("results")
         @ExcludeMissing
-        results: JsonField<List<SubscriptionResponse>> = JsonMissing.of()
+        results: JsonField<List<JournalSubscriptionResponse>> = JsonMissing.of()
     ) : this(results, mutableMapOf())
 
     /**
@@ -39,7 +39,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun results(): List<SubscriptionResponse> = results.getRequired("results")
+    fun results(): List<JournalSubscriptionResponse> = results.getRequired("results")
 
     /**
      * Returns the raw JSON value of [results].
@@ -48,7 +48,7 @@ private constructor(
      */
     @JsonProperty("results")
     @ExcludeMissing
-    fun _results(): JsonField<List<SubscriptionResponse>> = results
+    fun _results(): JsonField<List<JournalSubscriptionResponse>> = results
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -66,7 +66,7 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [CollectionResponseSubscriptionResponseNoPaging].
+         * [JournalCollectionResponseSubscriptionResponseNoPaging].
          *
          * The following fields are required:
          * ```java
@@ -76,46 +76,49 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [CollectionResponseSubscriptionResponseNoPaging]. */
+    /** A builder for [JournalCollectionResponseSubscriptionResponseNoPaging]. */
     class Builder internal constructor() {
 
-        private var results: JsonField<MutableList<SubscriptionResponse>>? = null
+        private var results: JsonField<MutableList<JournalSubscriptionResponse>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
-            collectionResponseSubscriptionResponseNoPaging:
-                CollectionResponseSubscriptionResponseNoPaging
+            journalCollectionResponseSubscriptionResponseNoPaging:
+                JournalCollectionResponseSubscriptionResponseNoPaging
         ) = apply {
             results =
-                collectionResponseSubscriptionResponseNoPaging.results.map { it.toMutableList() }
+                journalCollectionResponseSubscriptionResponseNoPaging.results.map {
+                    it.toMutableList()
+                }
             additionalProperties =
-                collectionResponseSubscriptionResponseNoPaging.additionalProperties.toMutableMap()
+                journalCollectionResponseSubscriptionResponseNoPaging.additionalProperties
+                    .toMutableMap()
         }
 
         /**
          * An array of subscription responses, where each item contains details about a specific
          * subscription. Each item follows the SubscriptionResponse schema.
          */
-        fun results(results: List<SubscriptionResponse>) = results(JsonField.of(results))
+        fun results(results: List<JournalSubscriptionResponse>) = results(JsonField.of(results))
 
         /**
          * Sets [Builder.results] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.results] with a well-typed `List<SubscriptionResponse>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.results] with a well-typed
+         * `List<JournalSubscriptionResponse>` value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
-        fun results(results: JsonField<List<SubscriptionResponse>>) = apply {
+        fun results(results: JsonField<List<JournalSubscriptionResponse>>) = apply {
             this.results = results.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [SubscriptionResponse] to [results].
+         * Adds a single [JournalSubscriptionResponse] to [results].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResult(result: SubscriptionResponse) = apply {
+        fun addResult(result: JournalSubscriptionResponse) = apply {
             results =
                 (results ?: JsonField.of(mutableListOf())).also {
                     checkKnown("results", it).add(result)
@@ -142,7 +145,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CollectionResponseSubscriptionResponseNoPaging].
+         * Returns an immutable instance of [JournalCollectionResponseSubscriptionResponseNoPaging].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -153,8 +156,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): CollectionResponseSubscriptionResponseNoPaging =
-            CollectionResponseSubscriptionResponseNoPaging(
+        fun build(): JournalCollectionResponseSubscriptionResponseNoPaging =
+            JournalCollectionResponseSubscriptionResponseNoPaging(
                 checkRequired("results", results).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
@@ -170,7 +173,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): CollectionResponseSubscriptionResponseNoPaging = apply {
+    fun validate(): JournalCollectionResponseSubscriptionResponseNoPaging = apply {
         if (validated) {
             return@apply
         }
@@ -201,7 +204,7 @@ private constructor(
             return true
         }
 
-        return other is CollectionResponseSubscriptionResponseNoPaging &&
+        return other is JournalCollectionResponseSubscriptionResponseNoPaging &&
             results == other.results &&
             additionalProperties == other.additionalProperties
     }
@@ -211,5 +214,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CollectionResponseSubscriptionResponseNoPaging{results=$results, additionalProperties=$additionalProperties}"
+        "JournalCollectionResponseSubscriptionResponseNoPaging{results=$results, additionalProperties=$additionalProperties}"
 }
