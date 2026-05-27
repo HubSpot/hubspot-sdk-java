@@ -887,6 +887,8 @@ private constructor(
 
             @JvmField val HS_SOURCE_PORTAL_ID = of("hs_source_portal_id")
 
+            @JvmField val HS_SOURCED_CONTACT_ORIGIN = of("hs_sourced_contact_origin")
+
             @JvmField val HS_STATE_CODE = of("hs_state_code")
 
             @JvmField val HS_SUB_ROLE = of("hs_sub_role")
@@ -1427,6 +1429,7 @@ private constructor(
             HS_SOCIAL_TWITTER_CLICKS,
             HS_SOURCE_OBJECT_ID,
             HS_SOURCE_PORTAL_ID,
+            HS_SOURCED_CONTACT_ORIGIN,
             HS_STATE_CODE,
             HS_SUB_ROLE,
             HS_TESTPURGE,
@@ -1830,6 +1833,7 @@ private constructor(
             HS_SOCIAL_TWITTER_CLICKS,
             HS_SOURCE_OBJECT_ID,
             HS_SOURCE_PORTAL_ID,
+            HS_SOURCED_CONTACT_ORIGIN,
             HS_STATE_CODE,
             HS_SUB_ROLE,
             HS_TESTPURGE,
@@ -2262,6 +2266,7 @@ private constructor(
                 HS_SOCIAL_TWITTER_CLICKS -> Value.HS_SOCIAL_TWITTER_CLICKS
                 HS_SOURCE_OBJECT_ID -> Value.HS_SOURCE_OBJECT_ID
                 HS_SOURCE_PORTAL_ID -> Value.HS_SOURCE_PORTAL_ID
+                HS_SOURCED_CONTACT_ORIGIN -> Value.HS_SOURCED_CONTACT_ORIGIN
                 HS_STATE_CODE -> Value.HS_STATE_CODE
                 HS_SUB_ROLE -> Value.HS_SUB_ROLE
                 HS_TESTPURGE -> Value.HS_TESTPURGE
@@ -2704,6 +2709,7 @@ private constructor(
                 HS_SOCIAL_TWITTER_CLICKS -> Known.HS_SOCIAL_TWITTER_CLICKS
                 HS_SOURCE_OBJECT_ID -> Known.HS_SOURCE_OBJECT_ID
                 HS_SOURCE_PORTAL_ID -> Known.HS_SOURCE_PORTAL_ID
+                HS_SOURCED_CONTACT_ORIGIN -> Known.HS_SOURCED_CONTACT_ORIGIN
                 HS_STATE_CODE -> Known.HS_STATE_CODE
                 HS_SUB_ROLE -> Known.HS_SUB_ROLE
                 HS_TESTPURGE -> Known.HS_TESTPURGE

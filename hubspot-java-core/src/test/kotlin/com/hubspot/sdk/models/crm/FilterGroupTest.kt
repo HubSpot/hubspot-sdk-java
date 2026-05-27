@@ -14,8 +14,8 @@ internal class FilterGroupTest {
         val filterGroup =
             FilterGroup.builder()
                 .addFilter(
-                    Filter.builder()
-                        .operator(Filter.Operator.BETWEEN)
+                    CrmFilter.builder()
+                        .operator(CrmFilter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")
@@ -26,8 +26,8 @@ internal class FilterGroupTest {
 
         assertThat(filterGroup.filters())
             .containsExactly(
-                Filter.builder()
-                    .operator(Filter.Operator.BETWEEN)
+                CrmFilter.builder()
+                    .operator(CrmFilter.Operator.BETWEEN)
                     .propertyName("propertyName")
                     .highValue("highValue")
                     .value("value")
@@ -42,8 +42,8 @@ internal class FilterGroupTest {
         val filterGroup =
             FilterGroup.builder()
                 .addFilter(
-                    Filter.builder()
-                        .operator(Filter.Operator.BETWEEN)
+                    CrmFilter.builder()
+                        .operator(CrmFilter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")

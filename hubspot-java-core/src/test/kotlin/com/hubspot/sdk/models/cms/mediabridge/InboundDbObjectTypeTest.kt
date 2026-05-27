@@ -4,6 +4,7 @@ package com.hubspot.sdk.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -58,6 +59,7 @@ internal class InboundDbObjectTypeTest {
                 .singularForm("singularForm")
                 .status(InboundDbObjectType.Status.DEPRECATED)
                 .visibility(InboundDbObjectType.Visibility.CUSTOMER_FACING)
+                .addVisibilityValue(InboundDbObjectType.VisibilityValue.CUSTOMER_FACING)
                 .writeScopeName("writeScopeName")
                 .build()
 
@@ -115,6 +117,8 @@ internal class InboundDbObjectTypeTest {
         assertThat(inboundDbObjectType.status()).contains(InboundDbObjectType.Status.DEPRECATED)
         assertThat(inboundDbObjectType.visibility())
             .contains(InboundDbObjectType.Visibility.CUSTOMER_FACING)
+        assertThat(inboundDbObjectType.visibilityValues().getOrNull())
+            .containsExactly(InboundDbObjectType.VisibilityValue.CUSTOMER_FACING)
         assertThat(inboundDbObjectType.writeScopeName()).contains("writeScopeName")
     }
 
@@ -168,6 +172,7 @@ internal class InboundDbObjectTypeTest {
                 .singularForm("singularForm")
                 .status(InboundDbObjectType.Status.DEPRECATED)
                 .visibility(InboundDbObjectType.Visibility.CUSTOMER_FACING)
+                .addVisibilityValue(InboundDbObjectType.VisibilityValue.CUSTOMER_FACING)
                 .writeScopeName("writeScopeName")
                 .build()
 

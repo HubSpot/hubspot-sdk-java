@@ -14,7 +14,7 @@ import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.toImmutable
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import java.util.Collections
 import java.util.Objects
@@ -25,7 +25,7 @@ class PublicCrmSearchRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val filterGroups: JsonField<List<FilterGroup>>,
-    private val filters: JsonField<List<Filter>>,
+    private val filters: JsonField<List<CrmFilter>>,
     private val sorts: JsonField<List<String>>,
     private val query: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -38,7 +38,7 @@ private constructor(
         filterGroups: JsonField<List<FilterGroup>> = JsonMissing.of(),
         @JsonProperty("filters")
         @ExcludeMissing
-        filters: JsonField<List<Filter>> = JsonMissing.of(),
+        filters: JsonField<List<CrmFilter>> = JsonMissing.of(),
         @JsonProperty("sorts") @ExcludeMissing sorts: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("query") @ExcludeMissing query: JsonField<String> = JsonMissing.of(),
     ) : this(filterGroups, filters, sorts, query, mutableMapOf())
@@ -53,7 +53,7 @@ private constructor(
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun filters(): List<Filter> = filters.getRequired("filters")
+    fun filters(): List<CrmFilter> = filters.getRequired("filters")
 
     /**
      * Defines the order in which the CRM records should be returned.
@@ -85,7 +85,7 @@ private constructor(
      *
      * Unlike [filters], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("filters") @ExcludeMissing fun _filters(): JsonField<List<Filter>> = filters
+    @JsonProperty("filters") @ExcludeMissing fun _filters(): JsonField<List<CrmFilter>> = filters
 
     /**
      * Returns the raw JSON value of [sorts].
@@ -132,7 +132,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var filterGroups: JsonField<MutableList<FilterGroup>>? = null
-        private var filters: JsonField<MutableList<Filter>>? = null
+        private var filters: JsonField<MutableList<CrmFilter>>? = null
         private var sorts: JsonField<MutableList<String>>? = null
         private var query: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -171,25 +171,25 @@ private constructor(
                 }
         }
 
-        fun filters(filters: List<Filter>) = filters(JsonField.of(filters))
+        fun filters(filters: List<CrmFilter>) = filters(JsonField.of(filters))
 
         /**
          * Sets [Builder.filters] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.filters] with a well-typed `List<Filter>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.filters] with a well-typed `List<CrmFilter>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun filters(filters: JsonField<List<Filter>>) = apply {
+        fun filters(filters: JsonField<List<CrmFilter>>) = apply {
             this.filters = filters.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Filter] to [filters].
+         * Adds a single [CrmFilter] to [filters].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addFilter(filter: Filter) = apply {
+        fun addFilter(filter: CrmFilter) = apply {
             filters =
                 (filters ?: JsonField.of(mutableListOf())).also {
                     checkKnown("filters", it).add(filter)

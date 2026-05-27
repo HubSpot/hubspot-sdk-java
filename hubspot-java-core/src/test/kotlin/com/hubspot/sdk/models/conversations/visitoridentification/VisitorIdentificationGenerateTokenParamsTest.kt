@@ -2,6 +2,7 @@
 
 package com.hubspot.sdk.models.conversations.visitoridentification
 
+import com.hubspot.sdk.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,6 +14,11 @@ internal class VisitorIdentificationGenerateTokenParamsTest {
             .identificationTokenGenerationRequest(
                 IdentificationTokenGenerationRequest.builder()
                     .email("email")
+                    .hsCustomerAgentContext(
+                        IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .firstName("firstName")
                     .lastName("lastName")
                     .build()
@@ -27,6 +33,11 @@ internal class VisitorIdentificationGenerateTokenParamsTest {
                 .identificationTokenGenerationRequest(
                     IdentificationTokenGenerationRequest.builder()
                         .email("email")
+                        .hsCustomerAgentContext(
+                            IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
                         .firstName("firstName")
                         .lastName("lastName")
                         .build()
@@ -39,6 +50,11 @@ internal class VisitorIdentificationGenerateTokenParamsTest {
             .isEqualTo(
                 IdentificationTokenGenerationRequest.builder()
                     .email("email")
+                    .hsCustomerAgentContext(
+                        IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .firstName("firstName")
                     .lastName("lastName")
                     .build()
@@ -50,13 +66,29 @@ internal class VisitorIdentificationGenerateTokenParamsTest {
         val params =
             VisitorIdentificationGenerateTokenParams.builder()
                 .identificationTokenGenerationRequest(
-                    IdentificationTokenGenerationRequest.builder().email("email").build()
+                    IdentificationTokenGenerationRequest.builder()
+                        .email("email")
+                        .hsCustomerAgentContext(
+                            IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
                 )
                 .build()
 
         val body = params._body()
 
         assertThat(body)
-            .isEqualTo(IdentificationTokenGenerationRequest.builder().email("email").build())
+            .isEqualTo(
+                IdentificationTokenGenerationRequest.builder()
+                    .email("email")
+                    .hsCustomerAgentContext(
+                        IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .build()
+            )
     }
 }

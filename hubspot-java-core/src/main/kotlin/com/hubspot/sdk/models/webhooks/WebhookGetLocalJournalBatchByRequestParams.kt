@@ -13,10 +13,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Perform a batch read operation on the webhooks journal. This endpoint allows you to read multiple
- * entries from the journal in a single request. It requires a JSON request body specifying the
- * inputs to be read. The response includes the results of the batch read operation, and may return
- * multiple statuses if there are errors.
+ * Execute a batch read operation on the webhooks journal. This endpoint allows you to retrieve a
+ * batch of webhook journal entries by providing the necessary input data. It is useful for
+ * processing multiple records in a single request, streamlining data retrieval tasks.
  */
 class WebhookGetLocalJournalBatchByRequestParams
 private constructor(
@@ -28,7 +27,7 @@ private constructor(
 
     /**
      * The ID of the portal where the webhooks are installed. This parameter is optional and is used
-     * to specify the target portal.
+     * to specify the target portal for the operation.
      */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
@@ -81,7 +80,7 @@ private constructor(
 
         /**
          * The ID of the portal where the webhooks are installed. This parameter is optional and is
-         * used to specify the target portal.
+         * used to specify the target portal for the operation.
          */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId

@@ -1138,6 +1138,8 @@ private constructor(
 
             @JvmField val BOT = of("BOT")
 
+            @JvmField val BREEZE_AGENT = of("BREEZE_AGENT")
+
             @JvmField val CALCULATED = of("CALCULATED")
 
             @JvmField val CENTRAL_EXCHANGE_RATES = of("CENTRAL_EXCHANGE_RATES")
@@ -1185,6 +1187,8 @@ private constructor(
             @JvmField val DEFAULT = of("DEFAULT")
 
             @JvmField val DELETE_OBJECTS = of("DELETE_OBJECTS")
+
+            @JvmField val DI_WRITE_TO_CRM = of("DI_WRITE_TO_CRM")
 
             @JvmField val EMAIL = of("EMAIL")
 
@@ -1352,6 +1356,7 @@ private constructor(
             BIDEN,
             BILLING,
             BOT,
+            BREEZE_AGENT,
             CALCULATED,
             CENTRAL_EXCHANGE_RATES,
             CHATSPOT,
@@ -1376,6 +1381,7 @@ private constructor(
             DEALS,
             DEFAULT,
             DELETE_OBJECTS,
+            DI_WRITE_TO_CRM,
             EMAIL,
             EMAIL_INBOX_IMPORT,
             EMAIL_INTEGRATION,
@@ -1480,6 +1486,7 @@ private constructor(
             BIDEN,
             BILLING,
             BOT,
+            BREEZE_AGENT,
             CALCULATED,
             CENTRAL_EXCHANGE_RATES,
             CHATSPOT,
@@ -1504,6 +1511,7 @@ private constructor(
             DEALS,
             DEFAULT,
             DELETE_OBJECTS,
+            DI_WRITE_TO_CRM,
             EMAIL,
             EMAIL_INBOX_IMPORT,
             EMAIL_INTEGRATION,
@@ -1609,6 +1617,7 @@ private constructor(
                 BIDEN -> Value.BIDEN
                 BILLING -> Value.BILLING
                 BOT -> Value.BOT
+                BREEZE_AGENT -> Value.BREEZE_AGENT
                 CALCULATED -> Value.CALCULATED
                 CENTRAL_EXCHANGE_RATES -> Value.CENTRAL_EXCHANGE_RATES
                 CHATSPOT -> Value.CHATSPOT
@@ -1633,6 +1642,7 @@ private constructor(
                 DEALS -> Value.DEALS
                 DEFAULT -> Value.DEFAULT
                 DELETE_OBJECTS -> Value.DELETE_OBJECTS
+                DI_WRITE_TO_CRM -> Value.DI_WRITE_TO_CRM
                 EMAIL -> Value.EMAIL
                 EMAIL_INBOX_IMPORT -> Value.EMAIL_INBOX_IMPORT
                 EMAIL_INTEGRATION -> Value.EMAIL_INTEGRATION
@@ -1739,6 +1749,7 @@ private constructor(
                 BIDEN -> Known.BIDEN
                 BILLING -> Known.BILLING
                 BOT -> Known.BOT
+                BREEZE_AGENT -> Known.BREEZE_AGENT
                 CALCULATED -> Known.CALCULATED
                 CENTRAL_EXCHANGE_RATES -> Known.CENTRAL_EXCHANGE_RATES
                 CHATSPOT -> Known.CHATSPOT
@@ -1763,6 +1774,7 @@ private constructor(
                 DEALS -> Known.DEALS
                 DEFAULT -> Known.DEFAULT
                 DELETE_OBJECTS -> Known.DELETE_OBJECTS
+                DI_WRITE_TO_CRM -> Known.DI_WRITE_TO_CRM
                 EMAIL -> Known.EMAIL
                 EMAIL_INBOX_IMPORT -> Known.EMAIL_INBOX_IMPORT
                 EMAIL_INTEGRATION -> Known.EMAIL_INTEGRATION

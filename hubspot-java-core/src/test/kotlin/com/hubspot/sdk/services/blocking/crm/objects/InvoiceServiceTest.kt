@@ -6,7 +6,7 @@ import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
 import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.models.AssociationSpec
 import com.hubspot.sdk.models.PublicObjectId
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import com.hubspot.sdk.models.crm.PublicObjectSearchRequest
 import com.hubspot.sdk.models.crm.objects.PublicAssociationsForObject
@@ -132,8 +132,8 @@ internal class InvoiceServiceTest {
                     .addFilterGroup(
                         FilterGroup.builder()
                             .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
+                                CrmFilter.builder()
+                                    .operator(CrmFilter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .highValue("highValue")
                                     .value("value")

@@ -21,27 +21,29 @@ import kotlin.jvm.optionals.getOrNull
 class FilterGroup
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val filters: JsonField<List<Filter>>,
+    private val filters: JsonField<List<CrmFilter>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("filters") @ExcludeMissing filters: JsonField<List<Filter>> = JsonMissing.of()
+        @JsonProperty("filters")
+        @ExcludeMissing
+        filters: JsonField<List<CrmFilter>> = JsonMissing.of()
     ) : this(filters, mutableMapOf())
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun filters(): List<Filter> = filters.getRequired("filters")
+    fun filters(): List<CrmFilter> = filters.getRequired("filters")
 
     /**
      * Returns the raw JSON value of [filters].
      *
      * Unlike [filters], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("filters") @ExcludeMissing fun _filters(): JsonField<List<Filter>> = filters
+    @JsonProperty("filters") @ExcludeMissing fun _filters(): JsonField<List<CrmFilter>> = filters
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -71,7 +73,7 @@ private constructor(
     /** A builder for [FilterGroup]. */
     class Builder internal constructor() {
 
-        private var filters: JsonField<MutableList<Filter>>? = null
+        private var filters: JsonField<MutableList<CrmFilter>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -80,25 +82,25 @@ private constructor(
             additionalProperties = filterGroup.additionalProperties.toMutableMap()
         }
 
-        fun filters(filters: List<Filter>) = filters(JsonField.of(filters))
+        fun filters(filters: List<CrmFilter>) = filters(JsonField.of(filters))
 
         /**
          * Sets [Builder.filters] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.filters] with a well-typed `List<Filter>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.filters] with a well-typed `List<CrmFilter>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun filters(filters: JsonField<List<Filter>>) = apply {
+        fun filters(filters: JsonField<List<CrmFilter>>) = apply {
             this.filters = filters.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Filter] to [filters].
+         * Adds a single [CrmFilter] to [filters].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addFilter(filter: Filter) = apply {
+        fun addFilter(filter: CrmFilter) = apply {
             filters =
                 (filters ?: JsonField.of(mutableListOf())).also {
                     checkKnown("filters", it).add(filter)

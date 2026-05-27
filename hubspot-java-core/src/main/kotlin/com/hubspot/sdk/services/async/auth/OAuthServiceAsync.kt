@@ -10,6 +10,7 @@ import com.hubspot.sdk.models.auth.oauth.OAuthCreateTokenParams
 import com.hubspot.sdk.models.auth.oauth.OAuthIntrospectTokenParams
 import com.hubspot.sdk.models.auth.oauth.OAuthRevokeTokenParams
 import com.hubspot.sdk.models.auth.oauth.TokenInfoResponseBaseIf
+import com.hubspot.sdk.models.auth.oauth.TokenResponseIf
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -28,21 +29,22 @@ interface OAuthServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthServiceAsync
 
     /** Authenticates a client and returns access and refresh tokens. */
-    fun createToken(): CompletableFuture<HttpResponse> = createToken(OAuthCreateTokenParams.none())
+    fun createToken(): CompletableFuture<TokenResponseIf> =
+        createToken(OAuthCreateTokenParams.none())
 
     /** @see createToken */
     fun createToken(
         params: OAuthCreateTokenParams = OAuthCreateTokenParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
+    ): CompletableFuture<TokenResponseIf>
 
     /** @see createToken */
     fun createToken(
         params: OAuthCreateTokenParams = OAuthCreateTokenParams.none()
-    ): CompletableFuture<HttpResponse> = createToken(params, RequestOptions.none())
+    ): CompletableFuture<TokenResponseIf> = createToken(params, RequestOptions.none())
 
     /** @see createToken */
-    fun createToken(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+    fun createToken(requestOptions: RequestOptions): CompletableFuture<TokenResponseIf> =
         createToken(OAuthCreateTokenParams.none(), requestOptions)
 
     /** Returns validity and metadata for access and refresh tokens. */
@@ -100,22 +102,25 @@ interface OAuthServiceAsync {
          * Returns a raw HTTP response for `post /oauth/2026-03/token`, but is otherwise the same as
          * [OAuthServiceAsync.createToken].
          */
-        fun createToken(): CompletableFuture<HttpResponse> =
+        fun createToken(): CompletableFuture<HttpResponseFor<TokenResponseIf>> =
             createToken(OAuthCreateTokenParams.none())
 
         /** @see createToken */
         fun createToken(
             params: OAuthCreateTokenParams = OAuthCreateTokenParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<TokenResponseIf>>
 
         /** @see createToken */
         fun createToken(
             params: OAuthCreateTokenParams = OAuthCreateTokenParams.none()
-        ): CompletableFuture<HttpResponse> = createToken(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<TokenResponseIf>> =
+            createToken(params, RequestOptions.none())
 
         /** @see createToken */
-        fun createToken(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        fun createToken(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<TokenResponseIf>> =
             createToken(OAuthCreateTokenParams.none(), requestOptions)
 
         /**

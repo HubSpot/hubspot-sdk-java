@@ -1,0 +1,61 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot.sdk.models
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class CrmObjectSnapshotBatchRequestTest {
+
+    @Test
+    fun create() {
+        val crmObjectSnapshotBatchRequest =
+            CrmObjectSnapshotBatchRequest.builder()
+                .addSnapshotRequest(
+                    CrmObjectSnapshotRequest.builder()
+                        .objectId(0L)
+                        .objectTypeId("objectTypeId")
+                        .portalId(0L)
+                        .addProperty("string")
+                        .build()
+                )
+                .build()
+
+        assertThat(crmObjectSnapshotBatchRequest.snapshotRequests())
+            .containsExactly(
+                CrmObjectSnapshotRequest.builder()
+                    .objectId(0L)
+                    .objectTypeId("objectTypeId")
+                    .portalId(0L)
+                    .addProperty("string")
+                    .build()
+            )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val crmObjectSnapshotBatchRequest =
+            CrmObjectSnapshotBatchRequest.builder()
+                .addSnapshotRequest(
+                    CrmObjectSnapshotRequest.builder()
+                        .objectId(0L)
+                        .objectTypeId("objectTypeId")
+                        .portalId(0L)
+                        .addProperty("string")
+                        .build()
+                )
+                .build()
+
+        val roundtrippedCrmObjectSnapshotBatchRequest =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(crmObjectSnapshotBatchRequest),
+                jacksonTypeRef<CrmObjectSnapshotBatchRequest>(),
+            )
+
+        assertThat(roundtrippedCrmObjectSnapshotBatchRequest)
+            .isEqualTo(crmObjectSnapshotBatchRequest)
+    }
+}

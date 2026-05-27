@@ -13,7 +13,8 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Delete a specific webhook journal subscription using its unique identifier. This operation is
- * useful for managing and cleaning up subscriptions that are no longer needed or relevant.
+ * useful for managing and cleaning up subscriptions that are no longer needed in your HubSpot
+ * account.
  */
 class WebhookDeleteJournalSubscriptionParams
 private constructor(

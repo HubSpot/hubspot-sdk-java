@@ -12,8 +12,8 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Retrieve a batch of webhook journal entries starting from a specified offset. This endpoint
- * allows you to fetch a specified number of entries, making it useful for paginating through large
- * sets of webhook journal data.
+ * allows you to fetch a defined number of entries, which can be useful for processing large
+ * datasets in manageable chunks.
  */
 class WebhookGetJournalBatchFromOffsetParams
 private constructor(
@@ -28,10 +28,7 @@ private constructor(
 
     fun count(): Optional<Int> = Optional.ofNullable(count)
 
-    /**
-     * The ID of the portal installation. This is an integer value used to specify the portal
-     * context for the request.
-     */
+    /** The ID of the portal installation. This is an integer value. */
     fun installPortalId(): Optional<Int> = Optional.ofNullable(installPortalId)
 
     /** Additional headers to send with the request. */
@@ -91,10 +88,7 @@ private constructor(
         /** Alias for calling [Builder.count] with `count.orElse(null)`. */
         fun count(count: Optional<Int>) = count(count.getOrNull())
 
-        /**
-         * The ID of the portal installation. This is an integer value used to specify the portal
-         * context for the request.
-         */
+        /** The ID of the portal installation. This is an integer value. */
         fun installPortalId(installPortalId: Int?) = apply {
             this.installPortalId = installPortalId
         }

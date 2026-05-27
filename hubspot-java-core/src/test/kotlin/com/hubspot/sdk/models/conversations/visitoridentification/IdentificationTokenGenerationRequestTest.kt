@@ -3,6 +3,7 @@
 package com.hubspot.sdk.models.conversations.visitoridentification
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,11 +15,22 @@ internal class IdentificationTokenGenerationRequestTest {
         val identificationTokenGenerationRequest =
             IdentificationTokenGenerationRequest.builder()
                 .email("email")
+                .hsCustomerAgentContext(
+                    IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .firstName("firstName")
                 .lastName("lastName")
                 .build()
 
         assertThat(identificationTokenGenerationRequest.email()).isEqualTo("email")
+        assertThat(identificationTokenGenerationRequest.hsCustomerAgentContext())
+            .isEqualTo(
+                IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(identificationTokenGenerationRequest.firstName()).contains("firstName")
         assertThat(identificationTokenGenerationRequest.lastName()).contains("lastName")
     }
@@ -29,6 +41,11 @@ internal class IdentificationTokenGenerationRequestTest {
         val identificationTokenGenerationRequest =
             IdentificationTokenGenerationRequest.builder()
                 .email("email")
+                .hsCustomerAgentContext(
+                    IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .firstName("firstName")
                 .lastName("lastName")
                 .build()

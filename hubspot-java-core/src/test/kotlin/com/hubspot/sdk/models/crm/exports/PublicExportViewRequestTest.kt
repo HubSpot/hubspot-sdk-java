@@ -4,7 +4,7 @@ package com.hubspot.sdk.models.crm.exports
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.jsonMapper
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -21,10 +21,10 @@ internal class PublicExportViewRequestTest {
                 )
                 .exportName("exportName")
                 .exportType(PublicExportViewRequest.ExportType.VIEW)
-                .format(PublicExportViewRequest.Format.XLS)
+                .format(PublicExportViewRequest.Format.CSV)
                 .includeLabeledAssociations(true)
                 .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                .language(PublicExportViewRequest.Language.EN)
+                .language(PublicExportViewRequest.Language.AF_ZA)
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
@@ -33,8 +33,8 @@ internal class PublicExportViewRequestTest {
                         .addFilterGroup(
                             FilterGroup.builder()
                                 .addFilter(
-                                    Filter.builder()
-                                        .operator(Filter.Operator.BETWEEN)
+                                    CrmFilter.builder()
+                                        .operator(CrmFilter.Operator.BETWEEN)
                                         .propertyName("propertyName")
                                         .highValue("highValue")
                                         .value("value")
@@ -44,8 +44,8 @@ internal class PublicExportViewRequestTest {
                                 .build()
                         )
                         .addFilter(
-                            Filter.builder()
-                                .operator(Filter.Operator.BETWEEN)
+                            CrmFilter.builder()
+                                .operator(CrmFilter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")
@@ -64,12 +64,12 @@ internal class PublicExportViewRequestTest {
         assertThat(publicExportViewRequest.exportName()).isEqualTo("exportName")
         assertThat(publicExportViewRequest.exportType())
             .isEqualTo(PublicExportViewRequest.ExportType.VIEW)
-        assertThat(publicExportViewRequest.format()).isEqualTo(PublicExportViewRequest.Format.XLS)
+        assertThat(publicExportViewRequest.format()).isEqualTo(PublicExportViewRequest.Format.CSV)
         assertThat(publicExportViewRequest.includeLabeledAssociations()).isEqualTo(true)
         assertThat(publicExportViewRequest.includePrimaryDisplayPropertyForAssociatedObjects())
             .isEqualTo(true)
         assertThat(publicExportViewRequest.language())
-            .isEqualTo(PublicExportViewRequest.Language.EN)
+            .isEqualTo(PublicExportViewRequest.Language.AF_ZA)
         assertThat(publicExportViewRequest.objectProperties()).containsExactly("string")
         assertThat(publicExportViewRequest.objectType()).isEqualTo("objectType")
         assertThat(publicExportViewRequest.overrideAssociatedObjectsPerDefinitionPerRowLimit())
@@ -80,8 +80,8 @@ internal class PublicExportViewRequestTest {
                     .addFilterGroup(
                         FilterGroup.builder()
                             .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
+                                CrmFilter.builder()
+                                    .operator(CrmFilter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .highValue("highValue")
                                     .value("value")
@@ -91,8 +91,8 @@ internal class PublicExportViewRequestTest {
                             .build()
                     )
                     .addFilter(
-                        Filter.builder()
-                            .operator(Filter.Operator.BETWEEN)
+                        CrmFilter.builder()
+                            .operator(CrmFilter.Operator.BETWEEN)
                             .propertyName("propertyName")
                             .highValue("highValue")
                             .value("value")
@@ -116,10 +116,10 @@ internal class PublicExportViewRequestTest {
                 )
                 .exportName("exportName")
                 .exportType(PublicExportViewRequest.ExportType.VIEW)
-                .format(PublicExportViewRequest.Format.XLS)
+                .format(PublicExportViewRequest.Format.CSV)
                 .includeLabeledAssociations(true)
                 .includePrimaryDisplayPropertyForAssociatedObjects(true)
-                .language(PublicExportViewRequest.Language.EN)
+                .language(PublicExportViewRequest.Language.AF_ZA)
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
@@ -128,8 +128,8 @@ internal class PublicExportViewRequestTest {
                         .addFilterGroup(
                             FilterGroup.builder()
                                 .addFilter(
-                                    Filter.builder()
-                                        .operator(Filter.Operator.BETWEEN)
+                                    CrmFilter.builder()
+                                        .operator(CrmFilter.Operator.BETWEEN)
                                         .propertyName("propertyName")
                                         .highValue("highValue")
                                         .value("value")
@@ -139,8 +139,8 @@ internal class PublicExportViewRequestTest {
                                 .build()
                         )
                         .addFilter(
-                            Filter.builder()
-                                .operator(Filter.Operator.BETWEEN)
+                            CrmFilter.builder()
+                                .operator(CrmFilter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")

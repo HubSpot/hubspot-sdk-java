@@ -10,10 +10,14 @@ import com.hubspot.sdk.core.http.HttpResponseFor
 import com.hubspot.sdk.models.cms.urlredirects.UrlMapping
 import com.hubspot.sdk.models.cms.urlredirects.UrlMappingCreateRequestBody
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectCreateParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectCreateUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectDeleteParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectDeleteUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectGetParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectGetUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListPage
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListUrlMappingsParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.util.function.Consumer
 
@@ -130,6 +134,62 @@ interface UrlRedirectService {
     fun delete(urlRedirectId: String, requestOptions: RequestOptions) =
         delete(urlRedirectId, UrlRedirectDeleteParams.none(), requestOptions)
 
+    @MustBeClosed
+    fun createUrlMapping(params: UrlRedirectCreateUrlMappingParams): HttpResponse =
+        createUrlMapping(params, RequestOptions.none())
+
+    /** @see createUrlMapping */
+    @MustBeClosed
+    fun createUrlMapping(
+        params: UrlRedirectCreateUrlMappingParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see createUrlMapping */
+    @MustBeClosed
+    fun createUrlMapping(
+        urlMapping: UrlMapping,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse =
+        createUrlMapping(
+            UrlRedirectCreateUrlMappingParams.builder().urlMapping(urlMapping).build(),
+            requestOptions,
+        )
+
+    /** @see createUrlMapping */
+    @MustBeClosed
+    fun createUrlMapping(urlMapping: UrlMapping): HttpResponse =
+        createUrlMapping(urlMapping, RequestOptions.none())
+
+    fun deleteUrlMapping(id: Long) = deleteUrlMapping(id, UrlRedirectDeleteUrlMappingParams.none())
+
+    /** @see deleteUrlMapping */
+    fun deleteUrlMapping(
+        id: Long,
+        params: UrlRedirectDeleteUrlMappingParams = UrlRedirectDeleteUrlMappingParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = deleteUrlMapping(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see deleteUrlMapping */
+    fun deleteUrlMapping(
+        id: Long,
+        params: UrlRedirectDeleteUrlMappingParams = UrlRedirectDeleteUrlMappingParams.none(),
+    ) = deleteUrlMapping(id, params, RequestOptions.none())
+
+    /** @see deleteUrlMapping */
+    fun deleteUrlMapping(
+        params: UrlRedirectDeleteUrlMappingParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see deleteUrlMapping */
+    fun deleteUrlMapping(params: UrlRedirectDeleteUrlMappingParams) =
+        deleteUrlMapping(params, RequestOptions.none())
+
+    /** @see deleteUrlMapping */
+    fun deleteUrlMapping(id: Long, requestOptions: RequestOptions) =
+        deleteUrlMapping(id, UrlRedirectDeleteUrlMappingParams.none(), requestOptions)
+
     /** Returns the details for a single existing URL redirect by ID. */
     fun get(urlRedirectId: String): UrlMapping = get(urlRedirectId, UrlRedirectGetParams.none())
 
@@ -158,6 +218,63 @@ interface UrlRedirectService {
     /** @see get */
     fun get(urlRedirectId: String, requestOptions: RequestOptions): UrlMapping =
         get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun getUrlMapping(id: Long): HttpResponse =
+        getUrlMapping(id, UrlRedirectGetUrlMappingParams.none())
+
+    /** @see getUrlMapping */
+    @MustBeClosed
+    fun getUrlMapping(
+        id: Long,
+        params: UrlRedirectGetUrlMappingParams = UrlRedirectGetUrlMappingParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse = getUrlMapping(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see getUrlMapping */
+    @MustBeClosed
+    fun getUrlMapping(
+        id: Long,
+        params: UrlRedirectGetUrlMappingParams = UrlRedirectGetUrlMappingParams.none(),
+    ): HttpResponse = getUrlMapping(id, params, RequestOptions.none())
+
+    /** @see getUrlMapping */
+    @MustBeClosed
+    fun getUrlMapping(
+        params: UrlRedirectGetUrlMappingParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see getUrlMapping */
+    @MustBeClosed
+    fun getUrlMapping(params: UrlRedirectGetUrlMappingParams): HttpResponse =
+        getUrlMapping(params, RequestOptions.none())
+
+    /** @see getUrlMapping */
+    @MustBeClosed
+    fun getUrlMapping(id: Long, requestOptions: RequestOptions): HttpResponse =
+        getUrlMapping(id, UrlRedirectGetUrlMappingParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun listUrlMappings(): HttpResponse = listUrlMappings(UrlRedirectListUrlMappingsParams.none())
+
+    /** @see listUrlMappings */
+    @MustBeClosed
+    fun listUrlMappings(
+        params: UrlRedirectListUrlMappingsParams = UrlRedirectListUrlMappingsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listUrlMappings */
+    @MustBeClosed
+    fun listUrlMappings(
+        params: UrlRedirectListUrlMappingsParams = UrlRedirectListUrlMappingsParams.none()
+    ): HttpResponse = listUrlMappings(params, RequestOptions.none())
+
+    /** @see listUrlMappings */
+    @MustBeClosed
+    fun listUrlMappings(requestOptions: RequestOptions): HttpResponse =
+        listUrlMappings(UrlRedirectListUrlMappingsParams.none(), requestOptions)
 
     /**
      * A view of [UrlRedirectService] that provides access to raw HTTP responses for each method.
@@ -305,6 +422,77 @@ interface UrlRedirectService {
             delete(urlRedirectId, UrlRedirectDeleteParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `post /cms/url-redirects/2026-03/url-mappings`, but is
+         * otherwise the same as [UrlRedirectService.createUrlMapping].
+         */
+        @MustBeClosed
+        fun createUrlMapping(params: UrlRedirectCreateUrlMappingParams): HttpResponse =
+            createUrlMapping(params, RequestOptions.none())
+
+        /** @see createUrlMapping */
+        @MustBeClosed
+        fun createUrlMapping(
+            params: UrlRedirectCreateUrlMappingParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see createUrlMapping */
+        @MustBeClosed
+        fun createUrlMapping(
+            urlMapping: UrlMapping,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            createUrlMapping(
+                UrlRedirectCreateUrlMappingParams.builder().urlMapping(urlMapping).build(),
+                requestOptions,
+            )
+
+        /** @see createUrlMapping */
+        @MustBeClosed
+        fun createUrlMapping(urlMapping: UrlMapping): HttpResponse =
+            createUrlMapping(urlMapping, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `delete /cms/url-redirects/2026-03/url-mappings/{id}`,
+         * but is otherwise the same as [UrlRedirectService.deleteUrlMapping].
+         */
+        @MustBeClosed
+        fun deleteUrlMapping(id: Long): HttpResponse =
+            deleteUrlMapping(id, UrlRedirectDeleteUrlMappingParams.none())
+
+        /** @see deleteUrlMapping */
+        @MustBeClosed
+        fun deleteUrlMapping(
+            id: Long,
+            params: UrlRedirectDeleteUrlMappingParams = UrlRedirectDeleteUrlMappingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = deleteUrlMapping(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see deleteUrlMapping */
+        @MustBeClosed
+        fun deleteUrlMapping(
+            id: Long,
+            params: UrlRedirectDeleteUrlMappingParams = UrlRedirectDeleteUrlMappingParams.none(),
+        ): HttpResponse = deleteUrlMapping(id, params, RequestOptions.none())
+
+        /** @see deleteUrlMapping */
+        @MustBeClosed
+        fun deleteUrlMapping(
+            params: UrlRedirectDeleteUrlMappingParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see deleteUrlMapping */
+        @MustBeClosed
+        fun deleteUrlMapping(params: UrlRedirectDeleteUrlMappingParams): HttpResponse =
+            deleteUrlMapping(params, RequestOptions.none())
+
+        /** @see deleteUrlMapping */
+        @MustBeClosed
+        fun deleteUrlMapping(id: Long, requestOptions: RequestOptions): HttpResponse =
+            deleteUrlMapping(id, UrlRedirectDeleteUrlMappingParams.none(), requestOptions)
+
+        /**
          * Returns a raw HTTP response for `get /cms/url-redirects/2026-03/{urlRedirectId}`, but is
          * otherwise the same as [UrlRedirectService.get].
          */
@@ -347,5 +535,71 @@ interface UrlRedirectService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<UrlMapping> =
             get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/url-redirects/2026-03/url-mappings/{id}`, but
+         * is otherwise the same as [UrlRedirectService.getUrlMapping].
+         */
+        @MustBeClosed
+        fun getUrlMapping(id: Long): HttpResponse =
+            getUrlMapping(id, UrlRedirectGetUrlMappingParams.none())
+
+        /** @see getUrlMapping */
+        @MustBeClosed
+        fun getUrlMapping(
+            id: Long,
+            params: UrlRedirectGetUrlMappingParams = UrlRedirectGetUrlMappingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = getUrlMapping(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see getUrlMapping */
+        @MustBeClosed
+        fun getUrlMapping(
+            id: Long,
+            params: UrlRedirectGetUrlMappingParams = UrlRedirectGetUrlMappingParams.none(),
+        ): HttpResponse = getUrlMapping(id, params, RequestOptions.none())
+
+        /** @see getUrlMapping */
+        @MustBeClosed
+        fun getUrlMapping(
+            params: UrlRedirectGetUrlMappingParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see getUrlMapping */
+        @MustBeClosed
+        fun getUrlMapping(params: UrlRedirectGetUrlMappingParams): HttpResponse =
+            getUrlMapping(params, RequestOptions.none())
+
+        /** @see getUrlMapping */
+        @MustBeClosed
+        fun getUrlMapping(id: Long, requestOptions: RequestOptions): HttpResponse =
+            getUrlMapping(id, UrlRedirectGetUrlMappingParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/url-redirects/2026-03/url-mappings`, but is
+         * otherwise the same as [UrlRedirectService.listUrlMappings].
+         */
+        @MustBeClosed
+        fun listUrlMappings(): HttpResponse =
+            listUrlMappings(UrlRedirectListUrlMappingsParams.none())
+
+        /** @see listUrlMappings */
+        @MustBeClosed
+        fun listUrlMappings(
+            params: UrlRedirectListUrlMappingsParams = UrlRedirectListUrlMappingsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listUrlMappings */
+        @MustBeClosed
+        fun listUrlMappings(
+            params: UrlRedirectListUrlMappingsParams = UrlRedirectListUrlMappingsParams.none()
+        ): HttpResponse = listUrlMappings(params, RequestOptions.none())
+
+        /** @see listUrlMappings */
+        @MustBeClosed
+        fun listUrlMappings(requestOptions: RequestOptions): HttpResponse =
+            listUrlMappings(UrlRedirectListUrlMappingsParams.none(), requestOptions)
     }
 }

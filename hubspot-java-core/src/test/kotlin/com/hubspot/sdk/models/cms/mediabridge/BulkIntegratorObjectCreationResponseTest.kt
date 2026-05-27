@@ -74,6 +74,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "singularForm" to "singularForm",
                                             "status" to "Deprecated",
                                             "visibility" to "Customer-facing",
+                                            "visibility_values" to listOf("Customer-facing"),
                                             "writeScopeName" to "writeScopeName",
                                         ),
                                     "properties" to
@@ -321,6 +322,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                         "singularForm" to "singularForm",
                                         "status" to "Deprecated",
                                         "visibility" to "Customer-facing",
+                                        "visibility_values" to listOf("Customer-facing"),
                                         "writeScopeName" to "writeScopeName",
                                     ),
                                 "properties" to
@@ -561,6 +563,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "singularForm" to "singularForm",
                                             "status" to "Deprecated",
                                             "visibility" to "Customer-facing",
+                                            "visibility_values" to listOf("Customer-facing"),
                                             "writeScopeName" to "writeScopeName",
                                         ),
                                     "properties" to

@@ -11,6 +11,7 @@ import com.hubspot.sdk.models.auth.oauth.OAuthCreateTokenParams
 import com.hubspot.sdk.models.auth.oauth.OAuthIntrospectTokenParams
 import com.hubspot.sdk.models.auth.oauth.OAuthRevokeTokenParams
 import com.hubspot.sdk.models.auth.oauth.TokenInfoResponseBaseIf
+import com.hubspot.sdk.models.auth.oauth.TokenResponseIf
 import java.util.function.Consumer
 
 interface OAuthService {
@@ -28,23 +29,21 @@ interface OAuthService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthService
 
     /** Authenticates a client and returns access and refresh tokens. */
-    @MustBeClosed fun createToken(): HttpResponse = createToken(OAuthCreateTokenParams.none())
+    fun createToken(): TokenResponseIf = createToken(OAuthCreateTokenParams.none())
 
     /** @see createToken */
-    @MustBeClosed
     fun createToken(
         params: OAuthCreateTokenParams = OAuthCreateTokenParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
+    ): TokenResponseIf
 
     /** @see createToken */
-    @MustBeClosed
-    fun createToken(params: OAuthCreateTokenParams = OAuthCreateTokenParams.none()): HttpResponse =
-        createToken(params, RequestOptions.none())
+    fun createToken(
+        params: OAuthCreateTokenParams = OAuthCreateTokenParams.none()
+    ): TokenResponseIf = createToken(params, RequestOptions.none())
 
     /** @see createToken */
-    @MustBeClosed
-    fun createToken(requestOptions: RequestOptions): HttpResponse =
+    fun createToken(requestOptions: RequestOptions): TokenResponseIf =
         createToken(OAuthCreateTokenParams.none(), requestOptions)
 
     /** Returns validity and metadata for access and refresh tokens. */
@@ -100,24 +99,26 @@ interface OAuthService {
          * Returns a raw HTTP response for `post /oauth/2026-03/token`, but is otherwise the same as
          * [OAuthService.createToken].
          */
-        @MustBeClosed fun createToken(): HttpResponse = createToken(OAuthCreateTokenParams.none())
+        @MustBeClosed
+        fun createToken(): HttpResponseFor<TokenResponseIf> =
+            createToken(OAuthCreateTokenParams.none())
 
         /** @see createToken */
         @MustBeClosed
         fun createToken(
             params: OAuthCreateTokenParams = OAuthCreateTokenParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<TokenResponseIf>
 
         /** @see createToken */
         @MustBeClosed
         fun createToken(
             params: OAuthCreateTokenParams = OAuthCreateTokenParams.none()
-        ): HttpResponse = createToken(params, RequestOptions.none())
+        ): HttpResponseFor<TokenResponseIf> = createToken(params, RequestOptions.none())
 
         /** @see createToken */
         @MustBeClosed
-        fun createToken(requestOptions: RequestOptions): HttpResponse =
+        fun createToken(requestOptions: RequestOptions): HttpResponseFor<TokenResponseIf> =
             createToken(OAuthCreateTokenParams.none(), requestOptions)
 
         /**

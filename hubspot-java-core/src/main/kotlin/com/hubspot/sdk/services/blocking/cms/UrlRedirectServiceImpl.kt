@@ -20,10 +20,14 @@ import com.hubspot.sdk.core.prepare
 import com.hubspot.sdk.models.cms.urlredirects.CollectionResponseWithTotalUrlMappingForwardPaging
 import com.hubspot.sdk.models.cms.urlredirects.UrlMapping
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectCreateParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectCreateUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectDeleteParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectDeleteUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectGetParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectGetUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListPage
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListUrlMappingsParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -66,9 +70,38 @@ class UrlRedirectServiceImpl internal constructor(private val clientOptions: Cli
         withRawResponse().delete(params, requestOptions)
     }
 
+    override fun createUrlMapping(
+        params: UrlRedirectCreateUrlMappingParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // post /cms/url-redirects/2026-03/url-mappings
+        withRawResponse().createUrlMapping(params, requestOptions)
+
+    override fun deleteUrlMapping(
+        params: UrlRedirectDeleteUrlMappingParams,
+        requestOptions: RequestOptions,
+    ) {
+        // delete /cms/url-redirects/2026-03/url-mappings/{id}
+        withRawResponse().deleteUrlMapping(params, requestOptions)
+    }
+
     override fun get(params: UrlRedirectGetParams, requestOptions: RequestOptions): UrlMapping =
         // get /cms/url-redirects/2026-03/{urlRedirectId}
         withRawResponse().get(params, requestOptions).parse()
+
+    override fun getUrlMapping(
+        params: UrlRedirectGetUrlMappingParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/url-redirects/2026-03/url-mappings/{id}
+        withRawResponse().getUrlMapping(params, requestOptions)
+
+    override fun listUrlMappings(
+        params: UrlRedirectListUrlMappingsParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/url-redirects/2026-03/url-mappings
+        withRawResponse().listUrlMappings(params, requestOptions)
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UrlRedirectService.WithRawResponse {
@@ -202,6 +235,54 @@ class UrlRedirectServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
+        override fun createUrlMapping(
+            params: UrlRedirectCreateUrlMappingParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "url-redirects", "2026-03", "url-mappings")
+                    .putHeader("Accept", "*/*")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        private val deleteUrlMappingHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteUrlMapping(
+            params: UrlRedirectDeleteUrlMappingParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "url-redirects",
+                        "2026-03",
+                        "url-mappings",
+                        params._pathParam(0),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteUrlMappingHandler.handle(it) }
+            }
+        }
+
         private val getHandler: Handler<UrlMapping> =
             jsonHandler<UrlMapping>(clientOptions.jsonMapper)
 
@@ -230,6 +311,49 @@ class UrlRedirectServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
             }
+        }
+
+        override fun getUrlMapping(
+            params: UrlRedirectGetUrlMappingParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "url-redirects",
+                        "2026-03",
+                        "url-mappings",
+                        params._pathParam(0),
+                    )
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun listUrlMappings(
+            params: UrlRedirectListUrlMappingsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "url-redirects", "2026-03", "url-mappings")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
         }
     }
 }

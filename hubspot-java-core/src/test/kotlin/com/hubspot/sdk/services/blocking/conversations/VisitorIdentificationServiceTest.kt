@@ -3,6 +3,7 @@
 package com.hubspot.sdk.services.blocking.conversations
 
 import com.hubspot.sdk.client.okhttp.HubSpotOkHttpClient
+import com.hubspot.sdk.core.JsonValue
 import com.hubspot.sdk.models.conversations.visitoridentification.IdentificationTokenGenerationRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -19,6 +20,11 @@ internal class VisitorIdentificationServiceTest {
             visitorIdentificationService.generateToken(
                 IdentificationTokenGenerationRequest.builder()
                     .email("email")
+                    .hsCustomerAgentContext(
+                        IdentificationTokenGenerationRequest.HsCustomerAgentContext.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .firstName("firstName")
                     .lastName("lastName")
                     .build()

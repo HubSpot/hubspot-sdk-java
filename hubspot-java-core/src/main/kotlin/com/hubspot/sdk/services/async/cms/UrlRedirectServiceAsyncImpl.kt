@@ -20,10 +20,14 @@ import com.hubspot.sdk.core.prepareAsync
 import com.hubspot.sdk.models.cms.urlredirects.CollectionResponseWithTotalUrlMappingForwardPaging
 import com.hubspot.sdk.models.cms.urlredirects.UrlMapping
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectCreateParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectCreateUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectDeleteParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectDeleteUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectGetParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectGetUrlMappingParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListPageAsync
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListParams
+import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectListUrlMappingsParams
 import com.hubspot.sdk.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -69,12 +73,40 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
         // delete /cms/url-redirects/2026-03/{urlRedirectId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
+    override fun createUrlMapping(
+        params: UrlRedirectCreateUrlMappingParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // post /cms/url-redirects/2026-03/url-mappings
+        withRawResponse().createUrlMapping(params, requestOptions)
+
+    override fun deleteUrlMapping(
+        params: UrlRedirectDeleteUrlMappingParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /cms/url-redirects/2026-03/url-mappings/{id}
+        withRawResponse().deleteUrlMapping(params, requestOptions).thenAccept {}
+
     override fun get(
         params: UrlRedirectGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UrlMapping> =
         // get /cms/url-redirects/2026-03/{urlRedirectId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+
+    override fun getUrlMapping(
+        params: UrlRedirectGetUrlMappingParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/url-redirects/2026-03/url-mappings/{id}
+        withRawResponse().getUrlMapping(params, requestOptions)
+
+    override fun listUrlMappings(
+        params: UrlRedirectListUrlMappingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/url-redirects/2026-03/url-mappings
+        withRawResponse().listUrlMappings(params, requestOptions)
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UrlRedirectServiceAsync.WithRawResponse {
@@ -221,6 +253,58 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
+        override fun createUrlMapping(
+            params: UrlRedirectCreateUrlMappingParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "url-redirects", "2026-03", "url-mappings")
+                    .putHeader("Accept", "*/*")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        private val deleteUrlMappingHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteUrlMapping(
+            params: UrlRedirectDeleteUrlMappingParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "url-redirects",
+                        "2026-03",
+                        "url-mappings",
+                        params._pathParam(0),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteUrlMappingHandler.handle(it) }
+                    }
+                }
+        }
+
         private val getHandler: Handler<UrlMapping> =
             jsonHandler<UrlMapping>(clientOptions.jsonMapper)
 
@@ -252,6 +336,51 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                             }
                     }
                 }
+        }
+
+        override fun getUrlMapping(
+            params: UrlRedirectGetUrlMappingParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "url-redirects",
+                        "2026-03",
+                        "url-mappings",
+                        params._pathParam(0),
+                    )
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun listUrlMappings(
+            params: UrlRedirectListUrlMappingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "url-redirects", "2026-03", "url-mappings")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
         }
     }
 }

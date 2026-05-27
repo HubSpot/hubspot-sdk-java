@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot.sdk/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot.sdk/hubspot-java/0.1.0-alpha.7)
-[![javadoc](https://javadoc.io/badge2/com.hubspot.sdk/hubspot-java/0.1.0-alpha.7/javadoc.svg)](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.7)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hubspot.sdk/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot.sdk/hubspot-java/0.1.0-alpha.8)
+[![javadoc](https://javadoc.io/badge2/com.hubspot.sdk/hubspot-java/0.1.0-alpha.8/javadoc.svg)](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.8)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.7).
+The REST API documentation can be found on [developers.hubspot.com](https://developers.hubspot.com/docs/api-reference/overview). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.hubspot.sdk/hubspot-java/0.1.0-alpha.8).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [developers.hubspot.com](https://deve
 ### Gradle
 
 ```kotlin
-implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.7")
+implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.8")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.hubspot.sdk:hubspot-java:0.1.0-alpha.7")
 <dependency>
   <groupId>com.hubspot.sdk</groupId>
   <artifactId>hubspot-java</artifactId>
-  <version>0.1.0-alpha.7</version>
+  <version>0.1.0-alpha.8</version>
 </dependency>
 ```
 
@@ -257,9 +257,9 @@ These methods return [`HttpResponse`](hubspot-java-core/src/main/kotlin/com/hubs
 
 ```java
 import com.hubspot.sdk.core.http.HttpResponse;
-import com.hubspot.sdk.models.auth.oauth.OAuthCreateTokenParams;
+import com.hubspot.sdk.models.auth.oauth.OAuthRevokeTokenParams;
 
-HttpResponse response = client.auth().oauth().createToken();
+HttpResponse response = client.auth().oauth().revokeToken();
 ```
 
 To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
@@ -270,7 +270,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-try (HttpResponse response = client.auth().oauth().createToken(params)) {
+try (HttpResponse response = client.auth().oauth().revokeToken(params)) {
     Files.copy(
         response.body(),
         Paths.get(path),
@@ -289,7 +289,7 @@ import com.hubspot.sdk.core.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-try (HttpResponse response = client.auth().oauth().createToken(params)) {
+try (HttpResponse response = client.auth().oauth().revokeToken(params)) {
     response.body().transferTo(Files.newOutputStream(Paths.get(path)));
 } catch (Exception e) {
     System.out.println("Something went wrong!");

@@ -2,7 +2,7 @@
 
 package com.hubspot.sdk.models.crm.objects.meetings
 
-import com.hubspot.sdk.models.crm.Filter
+import com.hubspot.sdk.models.crm.CrmFilter
 import com.hubspot.sdk.models.crm.FilterGroup
 import com.hubspot.sdk.models.crm.PublicObjectSearchRequest
 import org.assertj.core.api.Assertions.assertThat
@@ -19,8 +19,8 @@ internal class MeetingSearchParamsTest {
                     .addFilterGroup(
                         FilterGroup.builder()
                             .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
+                                CrmFilter.builder()
+                                    .operator(CrmFilter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .highValue("highValue")
                                     .value("value")
@@ -48,8 +48,8 @@ internal class MeetingSearchParamsTest {
                         .addFilterGroup(
                             FilterGroup.builder()
                                 .addFilter(
-                                    Filter.builder()
-                                        .operator(Filter.Operator.BETWEEN)
+                                    CrmFilter.builder()
+                                        .operator(CrmFilter.Operator.BETWEEN)
                                         .propertyName("propertyName")
                                         .highValue("highValue")
                                         .value("value")
@@ -75,8 +75,8 @@ internal class MeetingSearchParamsTest {
                     .addFilterGroup(
                         FilterGroup.builder()
                             .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
+                                CrmFilter.builder()
+                                    .operator(CrmFilter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .highValue("highValue")
                                     .value("value")
@@ -103,8 +103,8 @@ internal class MeetingSearchParamsTest {
                         .addFilterGroup(
                             FilterGroup.builder()
                                 .addFilter(
-                                    Filter.builder()
-                                        .operator(Filter.Operator.BETWEEN)
+                                    CrmFilter.builder()
+                                        .operator(CrmFilter.Operator.BETWEEN)
                                         .propertyName("propertyName")
                                         .build()
                                 )
@@ -126,8 +126,8 @@ internal class MeetingSearchParamsTest {
                     .addFilterGroup(
                         FilterGroup.builder()
                             .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
+                                CrmFilter.builder()
+                                    .operator(CrmFilter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .build()
                             )
