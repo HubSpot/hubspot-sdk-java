@@ -41,7 +41,7 @@ internal class PublicTimePointOperationTest {
         assertThat(publicTimePointOperation.operator()).isEqualTo("operator")
         assertThat(publicTimePointOperation.timePoint())
             .isEqualTo(
-                PublicTimePointOperation.TimePoint.ofPublicDate(
+                PublicTimePointOperation.TimePoint.ofDate(
                     PublicDatePoint.builder()
                         .day(0)
                         .month(0)

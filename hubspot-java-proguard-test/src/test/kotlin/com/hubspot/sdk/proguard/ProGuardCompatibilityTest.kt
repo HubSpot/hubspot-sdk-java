@@ -86,7 +86,7 @@ internal class ProGuardCompatibilityTest {
     fun subscriptionUpsertRequestRoundtrip() {
         val jsonMapper = jsonMapper()
         val subscriptionUpsertRequest =
-            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
+            SubscriptionUpsertRequest.ofObject(
                 ObjectSubscriptionUpsertRequest.builder()
                     .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
                     .addObjectId(0L)

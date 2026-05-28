@@ -3754,6 +3754,10 @@ private constructor(
 
             @JvmField val BA = of("ba")
 
+            @JvmField val BAL = of("bal")
+
+            @JvmField val BAL_PK = of("bal-pk")
+
             @JvmField val BAS = of("bas")
 
             @JvmField val BAS_CM = of("bas-cm")
@@ -3783,6 +3787,10 @@ private constructor(
             @JvmField val BHO_IN = of("bho-in")
 
             @JvmField val BI = of("bi")
+
+            @JvmField val BLO = of("blo")
+
+            @JvmField val BLO_BJ = of("blo-bj")
 
             @JvmField val BM = of("bm")
 
@@ -3859,6 +3867,10 @@ private constructor(
             @JvmField val CS = of("cs")
 
             @JvmField val CS_CZ = of("cs-cz")
+
+            @JvmField val CSW = of("csw")
+
+            @JvmField val CSW_CA = of("csw-ca")
 
             @JvmField val CU = of("cu")
 
@@ -3990,6 +4002,8 @@ private constructor(
 
             @JvmField val EN_CY = of("en-cy")
 
+            @JvmField val EN_CZ = of("en-cz")
+
             @JvmField val EN_DE = of("en-de")
 
             @JvmField val EN_DG = of("en-dg")
@@ -4028,11 +4042,15 @@ private constructor(
 
             @JvmField val EN_GM = of("en-gm")
 
+            @JvmField val EN_GS = of("en-gs")
+
             @JvmField val EN_GU = of("en-gu")
 
             @JvmField val EN_GY = of("en-gy")
 
             @JvmField val EN_HK = of("en-hk")
+
+            @JvmField val EN_HU = of("en-hu")
 
             @JvmField val EN_ID = of("en-id")
 
@@ -4045,6 +4063,8 @@ private constructor(
             @JvmField val EN_IN = of("en-in")
 
             @JvmField val EN_IO = of("en-io")
+
+            @JvmField val EN_IT = of("en-it")
 
             @JvmField val EN_JE = of("en-je")
 
@@ -4096,6 +4116,8 @@ private constructor(
 
             @JvmField val EN_NL = of("en-nl")
 
+            @JvmField val EN_NO = of("en-no")
+
             @JvmField val EN_NR = of("en-nr")
 
             @JvmField val EN_NU = of("en-nu")
@@ -4108,6 +4130,8 @@ private constructor(
 
             @JvmField val EN_PK = of("en-pk")
 
+            @JvmField val EN_PL = of("en-pl")
+
             @JvmField val EN_PN = of("en-pn")
 
             @JvmField val EN_PR = of("en-pr")
@@ -4115,6 +4139,8 @@ private constructor(
             @JvmField val EN_PT = of("en-pt")
 
             @JvmField val EN_PW = of("en-pw")
+
+            @JvmField val EN_RO = of("en-ro")
 
             @JvmField val EN_RW = of("en-rw")
 
@@ -4131,6 +4157,8 @@ private constructor(
             @JvmField val EN_SH = of("en-sh")
 
             @JvmField val EN_SI = of("en-si")
+
+            @JvmField val EN_SK = of("en-sk")
 
             @JvmField val EN_SL = of("en-sl")
 
@@ -4414,6 +4442,10 @@ private constructor(
 
             @JvmField val GA_IE = of("ga-ie")
 
+            @JvmField val GAA = of("gaa")
+
+            @JvmField val GAA_GH = of("gaa-gh")
+
             @JvmField val GD = of("gd")
 
             @JvmField val GD_GB = of("gd-gb")
@@ -4480,6 +4512,8 @@ private constructor(
 
             @JvmField val HT = of("ht")
 
+            @JvmField val HT_HT = of("ht-ht")
+
             @JvmField val HU = of("hu")
 
             @JvmField val HU_HU = of("hu-hu")
@@ -4499,6 +4533,8 @@ private constructor(
             @JvmField val ID_ID = of("id-id")
 
             @JvmField val IE = of("ie")
+
+            @JvmField val IE_EE = of("ie-ee")
 
             @JvmField val IG = of("ig")
 
@@ -4610,6 +4646,8 @@ private constructor(
 
             @JvmField val KO = of("ko")
 
+            @JvmField val KO_CN = of("ko-cn")
+
             @JvmField val KO_KP = of("ko-kp")
 
             @JvmField val KO_KR = of("ko-kr")
@@ -4646,6 +4684,10 @@ private constructor(
 
             @JvmField val KW_GB = of("kw-gb")
 
+            @JvmField val KXV = of("kxv")
+
+            @JvmField val KXV_IN = of("kxv-in")
+
             @JvmField val KY = of("ky")
 
             @JvmField val KY_KG = of("ky-kg")
@@ -4666,9 +4708,17 @@ private constructor(
 
             @JvmField val LI = of("li")
 
+            @JvmField val LIJ = of("lij")
+
+            @JvmField val LIJ_IT = of("lij-it")
+
             @JvmField val LKT = of("lkt")
 
             @JvmField val LKT_US = of("lkt-us")
+
+            @JvmField val LMO = of("lmo")
+
+            @JvmField val LMO_IT = of("lmo-it")
 
             @JvmField val LN = of("ln")
 
@@ -4862,7 +4912,15 @@ private constructor(
 
             @JvmField val NO_NO = of("no-no")
 
+            @JvmField val NQO = of("nqo")
+
+            @JvmField val NQO_GN = of("nqo-gn")
+
             @JvmField val NR = of("nr")
+
+            @JvmField val NSO = of("nso")
+
+            @JvmField val NSO_ZA = of("nso-za")
 
             @JvmField val NUS = of("nus")
 
@@ -5122,6 +5180,10 @@ private constructor(
 
             @JvmField val ST = of("st")
 
+            @JvmField val ST_LS = of("st-ls")
+
+            @JvmField val ST_ZA = of("st-za")
+
             @JvmField val SU = of("su")
 
             @JvmField val SU_ID = of("su-id")
@@ -5145,6 +5207,16 @@ private constructor(
             @JvmField val SW_UG = of("sw-ug")
 
             @JvmField val SY = of("sy")
+
+            @JvmField val SYR = of("syr")
+
+            @JvmField val SYR_IQ = of("syr-iq")
+
+            @JvmField val SYR_SY = of("syr-sy")
+
+            @JvmField val SZL = of("szl")
+
+            @JvmField val SZL_PL = of("szl-pl")
 
             @JvmField val TA = of("ta")
 
@@ -5187,6 +5259,10 @@ private constructor(
             @JvmField val TL = of("tl")
 
             @JvmField val TN = of("tn")
+
+            @JvmField val TN_BW = of("tn-bw")
+
+            @JvmField val TN_ZA = of("tn-za")
 
             @JvmField val TO = of("to")
 
@@ -5246,9 +5322,17 @@ private constructor(
 
             @JvmField val VE = of("ve")
 
+            @JvmField val VEC = of("vec")
+
+            @JvmField val VEC_IT = of("vec-it")
+
             @JvmField val VI = of("vi")
 
             @JvmField val VI_VN = of("vi-vn")
+
+            @JvmField val VMW = of("vmw")
+
+            @JvmField val VMW_MZ = of("vmw-mz")
 
             @JvmField val VO = of("vo")
 
@@ -5272,6 +5356,10 @@ private constructor(
 
             @JvmField val XH_ZA = of("xh-za")
 
+            @JvmField val XNR = of("xnr")
+
+            @JvmField val XNR_IN = of("xnr-in")
+
             @JvmField val XOG = of("xog")
 
             @JvmField val XOG_UG = of("xog-ug")
@@ -5283,6 +5371,8 @@ private constructor(
             @JvmField val YI = of("yi")
 
             @JvmField val YI_001 = of("yi-001")
+
+            @JvmField val YI_UA = of("yi-ua")
 
             @JvmField val YO = of("yo")
 
@@ -5304,7 +5394,11 @@ private constructor(
 
             @JvmField val YUE_HK = of("yue-hk")
 
+            @JvmField val YUE_MO = of("yue-mo")
+
             @JvmField val ZA = of("za")
+
+            @JvmField val ZA_CN = of("za-cn")
 
             @JvmField val ZGH = of("zgh")
 
@@ -5321,6 +5415,8 @@ private constructor(
             @JvmField val ZH_HK = of("zh-hk")
 
             @JvmField val ZH_MO = of("zh-mo")
+
+            @JvmField val ZH_MY = of("zh-my")
 
             @JvmField val ZH_SG = of("zh-sg")
 
@@ -5390,6 +5486,8 @@ private constructor(
             AZ,
             AZ_AZ,
             BA,
+            BAL,
+            BAL_PK,
             BAS,
             BAS_CM,
             BE,
@@ -5405,6 +5503,8 @@ private constructor(
             BHO,
             BHO_IN,
             BI,
+            BLO,
+            BLO_BJ,
             BM,
             BM_ML,
             BN,
@@ -5443,6 +5543,8 @@ private constructor(
             CR,
             CS,
             CS_CZ,
+            CSW,
+            CSW_CA,
             CU,
             CU_RU,
             CV,
@@ -5508,6 +5610,7 @@ private constructor(
             EN_CN,
             EN_CX,
             EN_CY,
+            EN_CZ,
             EN_DE,
             EN_DG,
             EN_DK,
@@ -5527,15 +5630,18 @@ private constructor(
             EN_GH,
             EN_GI,
             EN_GM,
+            EN_GS,
             EN_GU,
             EN_GY,
             EN_HK,
+            EN_HU,
             EN_ID,
             EN_IE,
             EN_IL,
             EN_IM,
             EN_IN,
             EN_IO,
+            EN_IT,
             EN_JE,
             EN_JM,
             EN_KE,
@@ -5561,16 +5667,19 @@ private constructor(
             EN_NF,
             EN_NG,
             EN_NL,
+            EN_NO,
             EN_NR,
             EN_NU,
             EN_NZ,
             EN_PG,
             EN_PH,
             EN_PK,
+            EN_PL,
             EN_PN,
             EN_PR,
             EN_PT,
             EN_PW,
+            EN_RO,
             EN_RW,
             EN_SB,
             EN_SC,
@@ -5579,6 +5688,7 @@ private constructor(
             EN_SG,
             EN_SH,
             EN_SI,
+            EN_SK,
             EN_SL,
             EN_SS,
             EN_SX,
@@ -5720,6 +5830,8 @@ private constructor(
             GA,
             GA_GB,
             GA_IE,
+            GAA,
+            GAA_GH,
             GD,
             GD_GB,
             GL,
@@ -5753,6 +5865,7 @@ private constructor(
             HSB,
             HSB_DE,
             HT,
+            HT_HT,
             HU,
             HU_HU,
             HY,
@@ -5763,6 +5876,7 @@ private constructor(
             ID,
             ID_ID,
             IE,
+            IE_EE,
             IG,
             IG_NG,
             II,
@@ -5818,6 +5932,7 @@ private constructor(
             KN,
             KN_IN,
             KO,
+            KO_CN,
             KO_KP,
             KO_KR,
             KOK,
@@ -5836,6 +5951,8 @@ private constructor(
             KV,
             KW,
             KW_GB,
+            KXV,
+            KXV_IN,
             KY,
             KY_KG,
             LA,
@@ -5846,8 +5963,12 @@ private constructor(
             LG,
             LG_UG,
             LI,
+            LIJ,
+            LIJ_IT,
             LKT,
             LKT_US,
+            LMO,
+            LMO_IT,
             LN,
             LN_AO,
             LN_CD,
@@ -5944,7 +6065,11 @@ private constructor(
             NNH_CM,
             NO,
             NO_NO,
+            NQO,
+            NQO_GN,
             NR,
+            NSO,
+            NSO_ZA,
             NUS,
             NUS_SS,
             NV,
@@ -6074,6 +6199,8 @@ private constructor(
             SR_XK,
             SS,
             ST,
+            ST_LS,
+            ST_ZA,
             SU,
             SU_ID,
             SV,
@@ -6086,6 +6213,11 @@ private constructor(
             SW_TZ,
             SW_UG,
             SY,
+            SYR,
+            SYR_IQ,
+            SYR_SY,
+            SZL,
+            SZL_PL,
             TA,
             TA_IN,
             TA_LK,
@@ -6107,6 +6239,8 @@ private constructor(
             TK_TM,
             TL,
             TN,
+            TN_BW,
+            TN_ZA,
             TO,
             TO_TO,
             TOK,
@@ -6136,8 +6270,12 @@ private constructor(
             VAI,
             VAI_LR,
             VE,
+            VEC,
+            VEC_IT,
             VI,
             VI_VN,
+            VMW,
+            VMW_MZ,
             VO,
             VO_001,
             VUN,
@@ -6149,12 +6287,15 @@ private constructor(
             WO_SN,
             XH,
             XH_ZA,
+            XNR,
+            XNR_IN,
             XOG,
             XOG_UG,
             YAV,
             YAV_CM,
             YI,
             YI_001,
+            YI_UA,
             YO,
             YO_BJ,
             YO_NG,
@@ -6165,7 +6306,9 @@ private constructor(
             YUE,
             YUE_CN,
             YUE_HK,
+            YUE_MO,
             ZA,
+            ZA_CN,
             ZGH,
             ZGH_MA,
             ZH,
@@ -6174,6 +6317,7 @@ private constructor(
             ZH_HANT,
             ZH_HK,
             ZH_MO,
+            ZH_MY,
             ZH_SG,
             ZH_TW,
             ZU,
@@ -6245,6 +6389,8 @@ private constructor(
             AZ,
             AZ_AZ,
             BA,
+            BAL,
+            BAL_PK,
             BAS,
             BAS_CM,
             BE,
@@ -6260,6 +6406,8 @@ private constructor(
             BHO,
             BHO_IN,
             BI,
+            BLO,
+            BLO_BJ,
             BM,
             BM_ML,
             BN,
@@ -6298,6 +6446,8 @@ private constructor(
             CR,
             CS,
             CS_CZ,
+            CSW,
+            CSW_CA,
             CU,
             CU_RU,
             CV,
@@ -6363,6 +6513,7 @@ private constructor(
             EN_CN,
             EN_CX,
             EN_CY,
+            EN_CZ,
             EN_DE,
             EN_DG,
             EN_DK,
@@ -6382,15 +6533,18 @@ private constructor(
             EN_GH,
             EN_GI,
             EN_GM,
+            EN_GS,
             EN_GU,
             EN_GY,
             EN_HK,
+            EN_HU,
             EN_ID,
             EN_IE,
             EN_IL,
             EN_IM,
             EN_IN,
             EN_IO,
+            EN_IT,
             EN_JE,
             EN_JM,
             EN_KE,
@@ -6416,16 +6570,19 @@ private constructor(
             EN_NF,
             EN_NG,
             EN_NL,
+            EN_NO,
             EN_NR,
             EN_NU,
             EN_NZ,
             EN_PG,
             EN_PH,
             EN_PK,
+            EN_PL,
             EN_PN,
             EN_PR,
             EN_PT,
             EN_PW,
+            EN_RO,
             EN_RW,
             EN_SB,
             EN_SC,
@@ -6434,6 +6591,7 @@ private constructor(
             EN_SG,
             EN_SH,
             EN_SI,
+            EN_SK,
             EN_SL,
             EN_SS,
             EN_SX,
@@ -6575,6 +6733,8 @@ private constructor(
             GA,
             GA_GB,
             GA_IE,
+            GAA,
+            GAA_GH,
             GD,
             GD_GB,
             GL,
@@ -6608,6 +6768,7 @@ private constructor(
             HSB,
             HSB_DE,
             HT,
+            HT_HT,
             HU,
             HU_HU,
             HY,
@@ -6618,6 +6779,7 @@ private constructor(
             ID,
             ID_ID,
             IE,
+            IE_EE,
             IG,
             IG_NG,
             II,
@@ -6673,6 +6835,7 @@ private constructor(
             KN,
             KN_IN,
             KO,
+            KO_CN,
             KO_KP,
             KO_KR,
             KOK,
@@ -6691,6 +6854,8 @@ private constructor(
             KV,
             KW,
             KW_GB,
+            KXV,
+            KXV_IN,
             KY,
             KY_KG,
             LA,
@@ -6701,8 +6866,12 @@ private constructor(
             LG,
             LG_UG,
             LI,
+            LIJ,
+            LIJ_IT,
             LKT,
             LKT_US,
+            LMO,
+            LMO_IT,
             LN,
             LN_AO,
             LN_CD,
@@ -6799,7 +6968,11 @@ private constructor(
             NNH_CM,
             NO,
             NO_NO,
+            NQO,
+            NQO_GN,
             NR,
+            NSO,
+            NSO_ZA,
             NUS,
             NUS_SS,
             NV,
@@ -6929,6 +7102,8 @@ private constructor(
             SR_XK,
             SS,
             ST,
+            ST_LS,
+            ST_ZA,
             SU,
             SU_ID,
             SV,
@@ -6941,6 +7116,11 @@ private constructor(
             SW_TZ,
             SW_UG,
             SY,
+            SYR,
+            SYR_IQ,
+            SYR_SY,
+            SZL,
+            SZL_PL,
             TA,
             TA_IN,
             TA_LK,
@@ -6962,6 +7142,8 @@ private constructor(
             TK_TM,
             TL,
             TN,
+            TN_BW,
+            TN_ZA,
             TO,
             TO_TO,
             TOK,
@@ -6991,8 +7173,12 @@ private constructor(
             VAI,
             VAI_LR,
             VE,
+            VEC,
+            VEC_IT,
             VI,
             VI_VN,
+            VMW,
+            VMW_MZ,
             VO,
             VO_001,
             VUN,
@@ -7004,12 +7190,15 @@ private constructor(
             WO_SN,
             XH,
             XH_ZA,
+            XNR,
+            XNR_IN,
             XOG,
             XOG_UG,
             YAV,
             YAV_CM,
             YI,
             YI_001,
+            YI_UA,
             YO,
             YO_BJ,
             YO_NG,
@@ -7020,7 +7209,9 @@ private constructor(
             YUE,
             YUE_CN,
             YUE_HK,
+            YUE_MO,
             ZA,
+            ZA_CN,
             ZGH,
             ZGH_MA,
             ZH,
@@ -7029,6 +7220,7 @@ private constructor(
             ZH_HANT,
             ZH_HK,
             ZH_MO,
+            ZH_MY,
             ZH_SG,
             ZH_TW,
             ZU,
@@ -7101,6 +7293,8 @@ private constructor(
                 AZ -> Value.AZ
                 AZ_AZ -> Value.AZ_AZ
                 BA -> Value.BA
+                BAL -> Value.BAL
+                BAL_PK -> Value.BAL_PK
                 BAS -> Value.BAS
                 BAS_CM -> Value.BAS_CM
                 BE -> Value.BE
@@ -7116,6 +7310,8 @@ private constructor(
                 BHO -> Value.BHO
                 BHO_IN -> Value.BHO_IN
                 BI -> Value.BI
+                BLO -> Value.BLO
+                BLO_BJ -> Value.BLO_BJ
                 BM -> Value.BM
                 BM_ML -> Value.BM_ML
                 BN -> Value.BN
@@ -7154,6 +7350,8 @@ private constructor(
                 CR -> Value.CR
                 CS -> Value.CS
                 CS_CZ -> Value.CS_CZ
+                CSW -> Value.CSW
+                CSW_CA -> Value.CSW_CA
                 CU -> Value.CU
                 CU_RU -> Value.CU_RU
                 CV -> Value.CV
@@ -7219,6 +7417,7 @@ private constructor(
                 EN_CN -> Value.EN_CN
                 EN_CX -> Value.EN_CX
                 EN_CY -> Value.EN_CY
+                EN_CZ -> Value.EN_CZ
                 EN_DE -> Value.EN_DE
                 EN_DG -> Value.EN_DG
                 EN_DK -> Value.EN_DK
@@ -7238,15 +7437,18 @@ private constructor(
                 EN_GH -> Value.EN_GH
                 EN_GI -> Value.EN_GI
                 EN_GM -> Value.EN_GM
+                EN_GS -> Value.EN_GS
                 EN_GU -> Value.EN_GU
                 EN_GY -> Value.EN_GY
                 EN_HK -> Value.EN_HK
+                EN_HU -> Value.EN_HU
                 EN_ID -> Value.EN_ID
                 EN_IE -> Value.EN_IE
                 EN_IL -> Value.EN_IL
                 EN_IM -> Value.EN_IM
                 EN_IN -> Value.EN_IN
                 EN_IO -> Value.EN_IO
+                EN_IT -> Value.EN_IT
                 EN_JE -> Value.EN_JE
                 EN_JM -> Value.EN_JM
                 EN_KE -> Value.EN_KE
@@ -7272,16 +7474,19 @@ private constructor(
                 EN_NF -> Value.EN_NF
                 EN_NG -> Value.EN_NG
                 EN_NL -> Value.EN_NL
+                EN_NO -> Value.EN_NO
                 EN_NR -> Value.EN_NR
                 EN_NU -> Value.EN_NU
                 EN_NZ -> Value.EN_NZ
                 EN_PG -> Value.EN_PG
                 EN_PH -> Value.EN_PH
                 EN_PK -> Value.EN_PK
+                EN_PL -> Value.EN_PL
                 EN_PN -> Value.EN_PN
                 EN_PR -> Value.EN_PR
                 EN_PT -> Value.EN_PT
                 EN_PW -> Value.EN_PW
+                EN_RO -> Value.EN_RO
                 EN_RW -> Value.EN_RW
                 EN_SB -> Value.EN_SB
                 EN_SC -> Value.EN_SC
@@ -7290,6 +7495,7 @@ private constructor(
                 EN_SG -> Value.EN_SG
                 EN_SH -> Value.EN_SH
                 EN_SI -> Value.EN_SI
+                EN_SK -> Value.EN_SK
                 EN_SL -> Value.EN_SL
                 EN_SS -> Value.EN_SS
                 EN_SX -> Value.EN_SX
@@ -7431,6 +7637,8 @@ private constructor(
                 GA -> Value.GA
                 GA_GB -> Value.GA_GB
                 GA_IE -> Value.GA_IE
+                GAA -> Value.GAA
+                GAA_GH -> Value.GAA_GH
                 GD -> Value.GD
                 GD_GB -> Value.GD_GB
                 GL -> Value.GL
@@ -7464,6 +7672,7 @@ private constructor(
                 HSB -> Value.HSB
                 HSB_DE -> Value.HSB_DE
                 HT -> Value.HT
+                HT_HT -> Value.HT_HT
                 HU -> Value.HU
                 HU_HU -> Value.HU_HU
                 HY -> Value.HY
@@ -7474,6 +7683,7 @@ private constructor(
                 ID -> Value.ID
                 ID_ID -> Value.ID_ID
                 IE -> Value.IE
+                IE_EE -> Value.IE_EE
                 IG -> Value.IG
                 IG_NG -> Value.IG_NG
                 II -> Value.II
@@ -7529,6 +7739,7 @@ private constructor(
                 KN -> Value.KN
                 KN_IN -> Value.KN_IN
                 KO -> Value.KO
+                KO_CN -> Value.KO_CN
                 KO_KP -> Value.KO_KP
                 KO_KR -> Value.KO_KR
                 KOK -> Value.KOK
@@ -7547,6 +7758,8 @@ private constructor(
                 KV -> Value.KV
                 KW -> Value.KW
                 KW_GB -> Value.KW_GB
+                KXV -> Value.KXV
+                KXV_IN -> Value.KXV_IN
                 KY -> Value.KY
                 KY_KG -> Value.KY_KG
                 LA -> Value.LA
@@ -7557,8 +7770,12 @@ private constructor(
                 LG -> Value.LG
                 LG_UG -> Value.LG_UG
                 LI -> Value.LI
+                LIJ -> Value.LIJ
+                LIJ_IT -> Value.LIJ_IT
                 LKT -> Value.LKT
                 LKT_US -> Value.LKT_US
+                LMO -> Value.LMO
+                LMO_IT -> Value.LMO_IT
                 LN -> Value.LN
                 LN_AO -> Value.LN_AO
                 LN_CD -> Value.LN_CD
@@ -7655,7 +7872,11 @@ private constructor(
                 NNH_CM -> Value.NNH_CM
                 NO -> Value.NO
                 NO_NO -> Value.NO_NO
+                NQO -> Value.NQO
+                NQO_GN -> Value.NQO_GN
                 NR -> Value.NR
+                NSO -> Value.NSO
+                NSO_ZA -> Value.NSO_ZA
                 NUS -> Value.NUS
                 NUS_SS -> Value.NUS_SS
                 NV -> Value.NV
@@ -7785,6 +8006,8 @@ private constructor(
                 SR_XK -> Value.SR_XK
                 SS -> Value.SS
                 ST -> Value.ST
+                ST_LS -> Value.ST_LS
+                ST_ZA -> Value.ST_ZA
                 SU -> Value.SU
                 SU_ID -> Value.SU_ID
                 SV -> Value.SV
@@ -7797,6 +8020,11 @@ private constructor(
                 SW_TZ -> Value.SW_TZ
                 SW_UG -> Value.SW_UG
                 SY -> Value.SY
+                SYR -> Value.SYR
+                SYR_IQ -> Value.SYR_IQ
+                SYR_SY -> Value.SYR_SY
+                SZL -> Value.SZL
+                SZL_PL -> Value.SZL_PL
                 TA -> Value.TA
                 TA_IN -> Value.TA_IN
                 TA_LK -> Value.TA_LK
@@ -7818,6 +8046,8 @@ private constructor(
                 TK_TM -> Value.TK_TM
                 TL -> Value.TL
                 TN -> Value.TN
+                TN_BW -> Value.TN_BW
+                TN_ZA -> Value.TN_ZA
                 TO -> Value.TO
                 TO_TO -> Value.TO_TO
                 TOK -> Value.TOK
@@ -7847,8 +8077,12 @@ private constructor(
                 VAI -> Value.VAI
                 VAI_LR -> Value.VAI_LR
                 VE -> Value.VE
+                VEC -> Value.VEC
+                VEC_IT -> Value.VEC_IT
                 VI -> Value.VI
                 VI_VN -> Value.VI_VN
+                VMW -> Value.VMW
+                VMW_MZ -> Value.VMW_MZ
                 VO -> Value.VO
                 VO_001 -> Value.VO_001
                 VUN -> Value.VUN
@@ -7860,12 +8094,15 @@ private constructor(
                 WO_SN -> Value.WO_SN
                 XH -> Value.XH
                 XH_ZA -> Value.XH_ZA
+                XNR -> Value.XNR
+                XNR_IN -> Value.XNR_IN
                 XOG -> Value.XOG
                 XOG_UG -> Value.XOG_UG
                 YAV -> Value.YAV
                 YAV_CM -> Value.YAV_CM
                 YI -> Value.YI
                 YI_001 -> Value.YI_001
+                YI_UA -> Value.YI_UA
                 YO -> Value.YO
                 YO_BJ -> Value.YO_BJ
                 YO_NG -> Value.YO_NG
@@ -7876,7 +8113,9 @@ private constructor(
                 YUE -> Value.YUE
                 YUE_CN -> Value.YUE_CN
                 YUE_HK -> Value.YUE_HK
+                YUE_MO -> Value.YUE_MO
                 ZA -> Value.ZA
+                ZA_CN -> Value.ZA_CN
                 ZGH -> Value.ZGH
                 ZGH_MA -> Value.ZGH_MA
                 ZH -> Value.ZH
@@ -7885,6 +8124,7 @@ private constructor(
                 ZH_HANT -> Value.ZH_HANT
                 ZH_HK -> Value.ZH_HK
                 ZH_MO -> Value.ZH_MO
+                ZH_MY -> Value.ZH_MY
                 ZH_SG -> Value.ZH_SG
                 ZH_TW -> Value.ZH_TW
                 ZU -> Value.ZU
@@ -7958,6 +8198,8 @@ private constructor(
                 AZ -> Known.AZ
                 AZ_AZ -> Known.AZ_AZ
                 BA -> Known.BA
+                BAL -> Known.BAL
+                BAL_PK -> Known.BAL_PK
                 BAS -> Known.BAS
                 BAS_CM -> Known.BAS_CM
                 BE -> Known.BE
@@ -7973,6 +8215,8 @@ private constructor(
                 BHO -> Known.BHO
                 BHO_IN -> Known.BHO_IN
                 BI -> Known.BI
+                BLO -> Known.BLO
+                BLO_BJ -> Known.BLO_BJ
                 BM -> Known.BM
                 BM_ML -> Known.BM_ML
                 BN -> Known.BN
@@ -8011,6 +8255,8 @@ private constructor(
                 CR -> Known.CR
                 CS -> Known.CS
                 CS_CZ -> Known.CS_CZ
+                CSW -> Known.CSW
+                CSW_CA -> Known.CSW_CA
                 CU -> Known.CU
                 CU_RU -> Known.CU_RU
                 CV -> Known.CV
@@ -8076,6 +8322,7 @@ private constructor(
                 EN_CN -> Known.EN_CN
                 EN_CX -> Known.EN_CX
                 EN_CY -> Known.EN_CY
+                EN_CZ -> Known.EN_CZ
                 EN_DE -> Known.EN_DE
                 EN_DG -> Known.EN_DG
                 EN_DK -> Known.EN_DK
@@ -8095,15 +8342,18 @@ private constructor(
                 EN_GH -> Known.EN_GH
                 EN_GI -> Known.EN_GI
                 EN_GM -> Known.EN_GM
+                EN_GS -> Known.EN_GS
                 EN_GU -> Known.EN_GU
                 EN_GY -> Known.EN_GY
                 EN_HK -> Known.EN_HK
+                EN_HU -> Known.EN_HU
                 EN_ID -> Known.EN_ID
                 EN_IE -> Known.EN_IE
                 EN_IL -> Known.EN_IL
                 EN_IM -> Known.EN_IM
                 EN_IN -> Known.EN_IN
                 EN_IO -> Known.EN_IO
+                EN_IT -> Known.EN_IT
                 EN_JE -> Known.EN_JE
                 EN_JM -> Known.EN_JM
                 EN_KE -> Known.EN_KE
@@ -8129,16 +8379,19 @@ private constructor(
                 EN_NF -> Known.EN_NF
                 EN_NG -> Known.EN_NG
                 EN_NL -> Known.EN_NL
+                EN_NO -> Known.EN_NO
                 EN_NR -> Known.EN_NR
                 EN_NU -> Known.EN_NU
                 EN_NZ -> Known.EN_NZ
                 EN_PG -> Known.EN_PG
                 EN_PH -> Known.EN_PH
                 EN_PK -> Known.EN_PK
+                EN_PL -> Known.EN_PL
                 EN_PN -> Known.EN_PN
                 EN_PR -> Known.EN_PR
                 EN_PT -> Known.EN_PT
                 EN_PW -> Known.EN_PW
+                EN_RO -> Known.EN_RO
                 EN_RW -> Known.EN_RW
                 EN_SB -> Known.EN_SB
                 EN_SC -> Known.EN_SC
@@ -8147,6 +8400,7 @@ private constructor(
                 EN_SG -> Known.EN_SG
                 EN_SH -> Known.EN_SH
                 EN_SI -> Known.EN_SI
+                EN_SK -> Known.EN_SK
                 EN_SL -> Known.EN_SL
                 EN_SS -> Known.EN_SS
                 EN_SX -> Known.EN_SX
@@ -8288,6 +8542,8 @@ private constructor(
                 GA -> Known.GA
                 GA_GB -> Known.GA_GB
                 GA_IE -> Known.GA_IE
+                GAA -> Known.GAA
+                GAA_GH -> Known.GAA_GH
                 GD -> Known.GD
                 GD_GB -> Known.GD_GB
                 GL -> Known.GL
@@ -8321,6 +8577,7 @@ private constructor(
                 HSB -> Known.HSB
                 HSB_DE -> Known.HSB_DE
                 HT -> Known.HT
+                HT_HT -> Known.HT_HT
                 HU -> Known.HU
                 HU_HU -> Known.HU_HU
                 HY -> Known.HY
@@ -8331,6 +8588,7 @@ private constructor(
                 ID -> Known.ID
                 ID_ID -> Known.ID_ID
                 IE -> Known.IE
+                IE_EE -> Known.IE_EE
                 IG -> Known.IG
                 IG_NG -> Known.IG_NG
                 II -> Known.II
@@ -8386,6 +8644,7 @@ private constructor(
                 KN -> Known.KN
                 KN_IN -> Known.KN_IN
                 KO -> Known.KO
+                KO_CN -> Known.KO_CN
                 KO_KP -> Known.KO_KP
                 KO_KR -> Known.KO_KR
                 KOK -> Known.KOK
@@ -8404,6 +8663,8 @@ private constructor(
                 KV -> Known.KV
                 KW -> Known.KW
                 KW_GB -> Known.KW_GB
+                KXV -> Known.KXV
+                KXV_IN -> Known.KXV_IN
                 KY -> Known.KY
                 KY_KG -> Known.KY_KG
                 LA -> Known.LA
@@ -8414,8 +8675,12 @@ private constructor(
                 LG -> Known.LG
                 LG_UG -> Known.LG_UG
                 LI -> Known.LI
+                LIJ -> Known.LIJ
+                LIJ_IT -> Known.LIJ_IT
                 LKT -> Known.LKT
                 LKT_US -> Known.LKT_US
+                LMO -> Known.LMO
+                LMO_IT -> Known.LMO_IT
                 LN -> Known.LN
                 LN_AO -> Known.LN_AO
                 LN_CD -> Known.LN_CD
@@ -8512,7 +8777,11 @@ private constructor(
                 NNH_CM -> Known.NNH_CM
                 NO -> Known.NO
                 NO_NO -> Known.NO_NO
+                NQO -> Known.NQO
+                NQO_GN -> Known.NQO_GN
                 NR -> Known.NR
+                NSO -> Known.NSO
+                NSO_ZA -> Known.NSO_ZA
                 NUS -> Known.NUS
                 NUS_SS -> Known.NUS_SS
                 NV -> Known.NV
@@ -8642,6 +8911,8 @@ private constructor(
                 SR_XK -> Known.SR_XK
                 SS -> Known.SS
                 ST -> Known.ST
+                ST_LS -> Known.ST_LS
+                ST_ZA -> Known.ST_ZA
                 SU -> Known.SU
                 SU_ID -> Known.SU_ID
                 SV -> Known.SV
@@ -8654,6 +8925,11 @@ private constructor(
                 SW_TZ -> Known.SW_TZ
                 SW_UG -> Known.SW_UG
                 SY -> Known.SY
+                SYR -> Known.SYR
+                SYR_IQ -> Known.SYR_IQ
+                SYR_SY -> Known.SYR_SY
+                SZL -> Known.SZL
+                SZL_PL -> Known.SZL_PL
                 TA -> Known.TA
                 TA_IN -> Known.TA_IN
                 TA_LK -> Known.TA_LK
@@ -8675,6 +8951,8 @@ private constructor(
                 TK_TM -> Known.TK_TM
                 TL -> Known.TL
                 TN -> Known.TN
+                TN_BW -> Known.TN_BW
+                TN_ZA -> Known.TN_ZA
                 TO -> Known.TO
                 TO_TO -> Known.TO_TO
                 TOK -> Known.TOK
@@ -8704,8 +8982,12 @@ private constructor(
                 VAI -> Known.VAI
                 VAI_LR -> Known.VAI_LR
                 VE -> Known.VE
+                VEC -> Known.VEC
+                VEC_IT -> Known.VEC_IT
                 VI -> Known.VI
                 VI_VN -> Known.VI_VN
+                VMW -> Known.VMW
+                VMW_MZ -> Known.VMW_MZ
                 VO -> Known.VO
                 VO_001 -> Known.VO_001
                 VUN -> Known.VUN
@@ -8717,12 +8999,15 @@ private constructor(
                 WO_SN -> Known.WO_SN
                 XH -> Known.XH
                 XH_ZA -> Known.XH_ZA
+                XNR -> Known.XNR
+                XNR_IN -> Known.XNR_IN
                 XOG -> Known.XOG
                 XOG_UG -> Known.XOG_UG
                 YAV -> Known.YAV
                 YAV_CM -> Known.YAV_CM
                 YI -> Known.YI
                 YI_001 -> Known.YI_001
+                YI_UA -> Known.YI_UA
                 YO -> Known.YO
                 YO_BJ -> Known.YO_BJ
                 YO_NG -> Known.YO_NG
@@ -8733,7 +9018,9 @@ private constructor(
                 YUE -> Known.YUE
                 YUE_CN -> Known.YUE_CN
                 YUE_HK -> Known.YUE_HK
+                YUE_MO -> Known.YUE_MO
                 ZA -> Known.ZA
+                ZA_CN -> Known.ZA_CN
                 ZGH -> Known.ZGH
                 ZGH_MA -> Known.ZGH_MA
                 ZH -> Known.ZH
@@ -8742,6 +9029,7 @@ private constructor(
                 ZH_HANT -> Known.ZH_HANT
                 ZH_HK -> Known.ZH_HK
                 ZH_MO -> Known.ZH_MO
+                ZH_MY -> Known.ZH_MY
                 ZH_SG -> Known.ZH_SG
                 ZH_TW -> Known.ZH_TW
                 ZU -> Known.ZU

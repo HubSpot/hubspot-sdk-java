@@ -38,7 +38,7 @@ internal class PublicCtaAnalyticsFilterTest {
         assertThat(publicCtaAnalyticsFilter.operator()).isEqualTo("operator")
         assertThat(publicCtaAnalyticsFilter.coalescingRefineBy())
             .contains(
-                PublicCtaAnalyticsFilter.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicCtaAnalyticsFilter.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)
@@ -48,7 +48,7 @@ internal class PublicCtaAnalyticsFilterTest {
             )
         assertThat(publicCtaAnalyticsFilter.pruningRefineBy())
             .contains(
-                PublicCtaAnalyticsFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicCtaAnalyticsFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

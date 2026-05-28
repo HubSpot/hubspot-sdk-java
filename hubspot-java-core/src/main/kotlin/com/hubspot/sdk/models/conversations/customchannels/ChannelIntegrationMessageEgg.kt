@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
@@ -399,12 +398,43 @@ private constructor(
         /** Alias for calling [addAttachment] with `Attachment.ofFile(file)`. */
         fun addAttachment(file: FileAttachment) = addAttachment(Attachment.ofFile(file))
 
+        /**
+         * Alias for calling [addAttachment] with the following:
+         * ```java
+         * FileAttachment.builder()
+         *     .type(FileAttachment.Type.FILE)
+         *     .fileId(fileId)
+         *     .build()
+         * ```
+         */
+        fun addFileAttachment(fileId: String) =
+            addAttachment(
+                FileAttachment.builder().type(FileAttachment.Type.FILE).fileId(fileId).build()
+            )
+
         /** Alias for calling [addAttachment] with `Attachment.ofLocation(location)`. */
         fun addAttachment(location: LocationAttachment) =
             addAttachment(Attachment.ofLocation(location))
 
         /** Alias for calling [addAttachment] with `Attachment.ofContact(contact)`. */
         fun addAttachment(contact: ContactAttachment) = addAttachment(Attachment.ofContact(contact))
+
+        /**
+         * Alias for calling [addAttachment] with the following:
+         * ```java
+         * ContactAttachment.builder()
+         *     .type(ContactAttachment.Type.CONTACT)
+         *     .contactProfile(contactProfile)
+         *     .build()
+         * ```
+         */
+        fun addContactAttachment(contactProfile: ContactProfile) =
+            addAttachment(
+                ContactAttachment.builder()
+                    .type(ContactAttachment.Type.CONTACT)
+                    .contactProfile(contactProfile)
+                    .build()
+            )
 
         /**
          * Alias for calling [addAttachment] with
@@ -422,11 +452,45 @@ private constructor(
             addAttachment(Attachment.ofQuickReplies(quickReplies))
 
         /**
-         * Alias for calling [addAttachment] with
-         * `Attachment.ofSocialMetadataIntegration(socialMetadataIntegration)`.
+         * Alias for calling [addAttachment] with the following:
+         * ```java
+         * QuickRepliesAttachment.builder()
+         *     .type(QuickRepliesAttachment.Type.QUICK_REPLIES)
+         *     .quickReplies(quickReplies)
+         *     .build()
+         * ```
          */
-        fun addAttachment(socialMetadataIntegration: SocialMetadataIntegrationAttachment) =
-            addAttachment(Attachment.ofSocialMetadataIntegration(socialMetadataIntegration))
+        fun addQuickRepliesAttachment(quickReplies: List<QuickReply>) =
+            addAttachment(
+                QuickRepliesAttachment.builder()
+                    .type(QuickRepliesAttachment.Type.QUICK_REPLIES)
+                    .quickReplies(quickReplies)
+                    .build()
+            )
+
+        /**
+         * Alias for calling [addAttachment] with
+         * `Attachment.ofSocialMediaMetadata(socialMediaMetadata)`.
+         */
+        fun addAttachment(socialMediaMetadata: SocialMetadataIntegrationAttachment) =
+            addAttachment(Attachment.ofSocialMediaMetadata(socialMediaMetadata))
+
+        /**
+         * Alias for calling [addAttachment] with the following:
+         * ```java
+         * SocialMetadataIntegrationAttachment.builder()
+         *     .type(SocialMetadataIntegrationAttachment.Type.SOCIAL_MEDIA_METADATA)
+         *     .socialMetadata(socialMetadata)
+         *     .build()
+         * ```
+         */
+        fun addSocialMediaMetadataAttachment(socialMetadata: SocialMetadata) =
+            addAttachment(
+                SocialMetadataIntegrationAttachment.builder()
+                    .type(SocialMetadataIntegrationAttachment.Type.SOCIAL_MEDIA_METADATA)
+                    .socialMetadata(socialMetadata)
+                    .build()
+            )
 
         fun channelAccountId(channelAccountId: String) =
             channelAccountId(JsonField.of(channelAccountId))
@@ -731,7 +795,7 @@ private constructor(
         private val unsupportedContent: UnsupportedContentAttachment? = null,
         private val messageHeader: MessageHeaderAttachment? = null,
         private val quickReplies: QuickRepliesAttachment? = null,
-        private val socialMetadataIntegration: SocialMetadataIntegrationAttachment? = null,
+        private val socialMediaMetadata: SocialMetadataIntegrationAttachment? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -748,8 +812,8 @@ private constructor(
 
         fun quickReplies(): Optional<QuickRepliesAttachment> = Optional.ofNullable(quickReplies)
 
-        fun socialMetadataIntegration(): Optional<SocialMetadataIntegrationAttachment> =
-            Optional.ofNullable(socialMetadataIntegration)
+        fun socialMediaMetadata(): Optional<SocialMetadataIntegrationAttachment> =
+            Optional.ofNullable(socialMediaMetadata)
 
         fun isFile(): Boolean = file != null
 
@@ -763,7 +827,7 @@ private constructor(
 
         fun isQuickReplies(): Boolean = quickReplies != null
 
-        fun isSocialMetadataIntegration(): Boolean = socialMetadataIntegration != null
+        fun isSocialMediaMetadata(): Boolean = socialMediaMetadata != null
 
         fun asFile(): FileAttachment = file.getOrThrow("file")
 
@@ -778,8 +842,8 @@ private constructor(
 
         fun asQuickReplies(): QuickRepliesAttachment = quickReplies.getOrThrow("quickReplies")
 
-        fun asSocialMetadataIntegration(): SocialMetadataIntegrationAttachment =
-            socialMetadataIntegration.getOrThrow("socialMetadataIntegration")
+        fun asSocialMediaMetadata(): SocialMetadataIntegrationAttachment =
+            socialMediaMetadata.getOrThrow("socialMediaMetadata")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -820,8 +884,7 @@ private constructor(
                 unsupportedContent != null -> visitor.visitUnsupportedContent(unsupportedContent)
                 messageHeader != null -> visitor.visitMessageHeader(messageHeader)
                 quickReplies != null -> visitor.visitQuickReplies(quickReplies)
-                socialMetadataIntegration != null ->
-                    visitor.visitSocialMetadataIntegration(socialMetadataIntegration)
+                socialMediaMetadata != null -> visitor.visitSocialMediaMetadata(socialMediaMetadata)
                 else -> visitor.unknown(_json)
             }
 
@@ -869,10 +932,10 @@ private constructor(
                         quickReplies.validate()
                     }
 
-                    override fun visitSocialMetadataIntegration(
-                        socialMetadataIntegration: SocialMetadataIntegrationAttachment
+                    override fun visitSocialMediaMetadata(
+                        socialMediaMetadata: SocialMetadataIntegrationAttachment
                     ) {
-                        socialMetadataIntegration.validate()
+                        socialMediaMetadata.validate()
                     }
                 }
             )
@@ -913,9 +976,9 @@ private constructor(
                     override fun visitQuickReplies(quickReplies: QuickRepliesAttachment) =
                         quickReplies.validity()
 
-                    override fun visitSocialMetadataIntegration(
-                        socialMetadataIntegration: SocialMetadataIntegrationAttachment
-                    ) = socialMetadataIntegration.validity()
+                    override fun visitSocialMediaMetadata(
+                        socialMediaMetadata: SocialMetadataIntegrationAttachment
+                    ) = socialMediaMetadata.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -933,7 +996,7 @@ private constructor(
                 unsupportedContent == other.unsupportedContent &&
                 messageHeader == other.messageHeader &&
                 quickReplies == other.quickReplies &&
-                socialMetadataIntegration == other.socialMetadataIntegration
+                socialMediaMetadata == other.socialMediaMetadata
         }
 
         override fun hashCode(): Int =
@@ -944,7 +1007,7 @@ private constructor(
                 unsupportedContent,
                 messageHeader,
                 quickReplies,
-                socialMetadataIntegration,
+                socialMediaMetadata,
             )
 
         override fun toString(): String =
@@ -955,8 +1018,8 @@ private constructor(
                 unsupportedContent != null -> "Attachment{unsupportedContent=$unsupportedContent}"
                 messageHeader != null -> "Attachment{messageHeader=$messageHeader}"
                 quickReplies != null -> "Attachment{quickReplies=$quickReplies}"
-                socialMetadataIntegration != null ->
-                    "Attachment{socialMetadataIntegration=$socialMetadataIntegration}"
+                socialMediaMetadata != null ->
+                    "Attachment{socialMediaMetadata=$socialMediaMetadata}"
                 _json != null -> "Attachment{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Attachment")
             }
@@ -983,9 +1046,8 @@ private constructor(
                 Attachment(quickReplies = quickReplies)
 
             @JvmStatic
-            fun ofSocialMetadataIntegration(
-                socialMetadataIntegration: SocialMetadataIntegrationAttachment
-            ) = Attachment(socialMetadataIntegration = socialMetadataIntegration)
+            fun ofSocialMediaMetadata(socialMediaMetadata: SocialMetadataIntegrationAttachment) =
+                Attachment(socialMediaMetadata = socialMediaMetadata)
         }
 
         /**
@@ -1005,8 +1067,8 @@ private constructor(
 
             fun visitQuickReplies(quickReplies: QuickRepliesAttachment): T
 
-            fun visitSocialMetadataIntegration(
-                socialMetadataIntegration: SocialMetadataIntegrationAttachment
+            fun visitSocialMediaMetadata(
+                socialMediaMetadata: SocialMetadataIntegrationAttachment
             ): T
 
             /**
@@ -1028,45 +1090,50 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Attachment {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<FileAttachment>())?.let {
-                                Attachment(file = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<LocationAttachment>())?.let {
-                                Attachment(location = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<ContactAttachment>())?.let {
-                                Attachment(contact = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<UnsupportedContentAttachment>())
-                                ?.let { Attachment(unsupportedContent = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<MessageHeaderAttachment>())?.let {
-                                Attachment(messageHeader = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<QuickRepliesAttachment>())?.let {
-                                Attachment(quickReplies = it, _json = json)
-                            },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<SocialMetadataIntegrationAttachment>(),
-                                )
-                                ?.let { Attachment(socialMetadataIntegration = it, _json = json) },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Attachment(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "FILE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<FileAttachment>())?.let {
+                            Attachment(file = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "LOCATION" -> {
+                        return tryDeserialize(node, jacksonTypeRef<LocationAttachment>())?.let {
+                            Attachment(location = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "CONTACT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ContactAttachment>())?.let {
+                            Attachment(contact = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "UNSUPPORTED_CONTENT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<UnsupportedContentAttachment>())
+                            ?.let { Attachment(unsupportedContent = it, _json = json) }
+                            ?: Attachment(_json = json)
+                    }
+                    "MESSAGE_HEADER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<MessageHeaderAttachment>())
+                            ?.let { Attachment(messageHeader = it, _json = json) }
+                            ?: Attachment(_json = json)
+                    }
+                    "QUICK_REPLIES" -> {
+                        return tryDeserialize(node, jacksonTypeRef<QuickRepliesAttachment>())?.let {
+                            Attachment(quickReplies = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "SOCIAL_MEDIA_METADATA" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<SocialMetadataIntegrationAttachment>(),
+                            )
+                            ?.let { Attachment(socialMediaMetadata = it, _json = json) }
+                            ?: Attachment(_json = json)
+                    }
                 }
+
+                return Attachment(_json = json)
             }
         }
 
@@ -1085,8 +1152,8 @@ private constructor(
                         generator.writeObject(value.unsupportedContent)
                     value.messageHeader != null -> generator.writeObject(value.messageHeader)
                     value.quickReplies != null -> generator.writeObject(value.quickReplies)
-                    value.socialMetadataIntegration != null ->
-                        generator.writeObject(value.socialMetadataIntegration)
+                    value.socialMediaMetadata != null ->
+                        generator.writeObject(value.socialMediaMetadata)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Attachment")
                 }

@@ -201,21 +201,15 @@ interface WebhookService {
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+        object_: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): JournalSubscriptionResponse =
-        createJournalSubscription(
-            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                objectSubscriptionUpsertRequest
-            ),
-            requestOptions,
-        )
+        createJournalSubscription(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-    ): JournalSubscriptionResponse =
-        createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
+        object_: ObjectSubscriptionUpsertRequest
+    ): JournalSubscriptionResponse = createJournalSubscription(object_, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
@@ -1553,22 +1547,17 @@ interface WebhookService {
         /** @see createJournalSubscription */
         @MustBeClosed
         fun createJournalSubscription(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+            object_: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<JournalSubscriptionResponse> =
-            createJournalSubscription(
-                SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                    objectSubscriptionUpsertRequest
-                ),
-                requestOptions,
-            )
+            createJournalSubscription(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
         /** @see createJournalSubscription */
         @MustBeClosed
         fun createJournalSubscription(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
+            object_: ObjectSubscriptionUpsertRequest
         ): HttpResponseFor<JournalSubscriptionResponse> =
-            createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
+            createJournalSubscription(object_, RequestOptions.none())
 
         /** @see createJournalSubscription */
         @MustBeClosed

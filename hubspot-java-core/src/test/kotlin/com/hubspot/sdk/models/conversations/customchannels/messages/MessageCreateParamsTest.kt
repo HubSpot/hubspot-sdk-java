@@ -84,12 +84,7 @@ internal class MessageCreateParamsTest {
                 .channelId(0)
                 .channelIntegrationMessageEgg(
                     ChannelIntegrationMessageEgg.builder()
-                        .addAttachment(
-                            FileAttachment.builder()
-                                .fileId("fileId")
-                                .type(FileAttachment.Type.FILE)
-                                .build()
-                        )
+                        .addFileAttachment("fileId")
                         .channelAccountId("channelAccountId")
                         .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                         .addRecipient(
@@ -263,12 +258,7 @@ internal class MessageCreateParamsTest {
                 .channelId(0)
                 .channelIntegrationMessageEgg(
                     ChannelIntegrationMessageEgg.builder()
-                        .addAttachment(
-                            FileAttachment.builder()
-                                .fileId("fileId")
-                                .type(FileAttachment.Type.FILE)
-                                .build()
-                        )
+                        .addFileAttachment("fileId")
                         .channelAccountId("channelAccountId")
                         .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                         .addRecipient(
@@ -306,12 +296,7 @@ internal class MessageCreateParamsTest {
         assertThat(body)
             .isEqualTo(
                 ChannelIntegrationMessageEgg.builder()
-                    .addAttachment(
-                        FileAttachment.builder()
-                            .fileId("fileId")
-                            .type(FileAttachment.Type.FILE)
-                            .build()
-                    )
+                    .addFileAttachment("fileId")
                     .channelAccountId("channelAccountId")
                     .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                     .addRecipient(

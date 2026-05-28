@@ -12,17 +12,17 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.BaseDeserializer
 import com.hubspot.sdk.core.BaseSerializer
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 @JsonDeserialize(using = SubscriptionUpsertRequest.Deserializer::class)
 @JsonSerialize(using = SubscriptionUpsertRequest.Serializer::class)
 class SubscriptionUpsertRequest
 private constructor(
-    private val objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest? = null,
+    private val object_: ObjectSubscriptionUpsertRequest? = null,
     private val association: AssociationSubscriptionUpsertRequest? = null,
     private val appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest? = null,
     private val listMembership: ListMembershipSubscriptionUpsertRequest? = null,
@@ -30,8 +30,7 @@ private constructor(
     private val _json: JsonValue? = null,
 ) {
 
-    fun objectSubscriptionUpsertRequest(): Optional<ObjectSubscriptionUpsertRequest> =
-        Optional.ofNullable(objectSubscriptionUpsertRequest)
+    fun object_(): Optional<ObjectSubscriptionUpsertRequest> = Optional.ofNullable(object_)
 
     fun association(): Optional<AssociationSubscriptionUpsertRequest> =
         Optional.ofNullable(association)
@@ -45,7 +44,7 @@ private constructor(
     fun gdprPrivacyDeletion(): Optional<GdprPrivacyDeletionSubscriptionUpsertRequest> =
         Optional.ofNullable(gdprPrivacyDeletion)
 
-    fun isObjectSubscriptionUpsertRequest(): Boolean = objectSubscriptionUpsertRequest != null
+    fun isObject(): Boolean = object_ != null
 
     fun isAssociation(): Boolean = association != null
 
@@ -55,8 +54,7 @@ private constructor(
 
     fun isGdprPrivacyDeletion(): Boolean = gdprPrivacyDeletion != null
 
-    fun asObjectSubscriptionUpsertRequest(): ObjectSubscriptionUpsertRequest =
-        objectSubscriptionUpsertRequest.getOrThrow("objectSubscriptionUpsertRequest")
+    fun asObject(): ObjectSubscriptionUpsertRequest = object_.getOrThrow("object_")
 
     fun asAssociation(): AssociationSubscriptionUpsertRequest =
         association.getOrThrow("association")
@@ -84,8 +82,8 @@ private constructor(
      *
      * Optional<String> result = subscriptionUpsertRequest.accept(new SubscriptionUpsertRequest.Visitor<Optional<String>>() {
      *     @Override
-     *     public Optional<String> visitObjectSubscriptionUpsertRequest(ObjectSubscriptionUpsertRequest objectSubscriptionUpsertRequest) {
-     *         return Optional.of(objectSubscriptionUpsertRequest.toString());
+     *     public Optional<String> visitObject(ObjectSubscriptionUpsertRequest object_) {
+     *         return Optional.of(object_.toString());
      *     }
      *
      *     // ...
@@ -103,8 +101,7 @@ private constructor(
      */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            objectSubscriptionUpsertRequest != null ->
-                visitor.visitObjectSubscriptionUpsertRequest(objectSubscriptionUpsertRequest)
+            object_ != null -> visitor.visitObject(object_)
             association != null -> visitor.visitAssociation(association)
             appLifecycleEvent != null -> visitor.visitAppLifecycleEvent(appLifecycleEvent)
             listMembership != null -> visitor.visitListMembership(listMembership)
@@ -129,10 +126,8 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitObjectSubscriptionUpsertRequest(
-                    objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-                ) {
-                    objectSubscriptionUpsertRequest.validate()
+                override fun visitObject(object_: ObjectSubscriptionUpsertRequest) {
+                    object_.validate()
                 }
 
                 override fun visitAssociation(association: AssociationSubscriptionUpsertRequest) {
@@ -178,9 +173,8 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitObjectSubscriptionUpsertRequest(
-                    objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-                ) = objectSubscriptionUpsertRequest.validity()
+                override fun visitObject(object_: ObjectSubscriptionUpsertRequest) =
+                    object_.validity()
 
                 override fun visitAssociation(association: AssociationSubscriptionUpsertRequest) =
                     association.validity()
@@ -207,7 +201,7 @@ private constructor(
         }
 
         return other is SubscriptionUpsertRequest &&
-            objectSubscriptionUpsertRequest == other.objectSubscriptionUpsertRequest &&
+            object_ == other.object_ &&
             association == other.association &&
             appLifecycleEvent == other.appLifecycleEvent &&
             listMembership == other.listMembership &&
@@ -215,18 +209,11 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            objectSubscriptionUpsertRequest,
-            association,
-            appLifecycleEvent,
-            listMembership,
-            gdprPrivacyDeletion,
-        )
+        Objects.hash(object_, association, appLifecycleEvent, listMembership, gdprPrivacyDeletion)
 
     override fun toString(): String =
         when {
-            objectSubscriptionUpsertRequest != null ->
-                "SubscriptionUpsertRequest{objectSubscriptionUpsertRequest=$objectSubscriptionUpsertRequest}"
+            object_ != null -> "SubscriptionUpsertRequest{object_=$object_}"
             association != null -> "SubscriptionUpsertRequest{association=$association}"
             appLifecycleEvent != null ->
                 "SubscriptionUpsertRequest{appLifecycleEvent=$appLifecycleEvent}"
@@ -240,12 +227,8 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofObjectSubscriptionUpsertRequest(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ) =
-            SubscriptionUpsertRequest(
-                objectSubscriptionUpsertRequest = objectSubscriptionUpsertRequest
-            )
+        fun ofObject(object_: ObjectSubscriptionUpsertRequest) =
+            SubscriptionUpsertRequest(object_ = object_)
 
         @JvmStatic
         fun ofAssociation(association: AssociationSubscriptionUpsertRequest) =
@@ -271,9 +254,7 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitObjectSubscriptionUpsertRequest(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ): T
+        fun visitObject(object_: ObjectSubscriptionUpsertRequest): T
 
         fun visitAssociation(association: AssociationSubscriptionUpsertRequest): T
 
@@ -305,50 +286,50 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): SubscriptionUpsertRequest {
             val json = JsonValue.fromJsonNode(node)
+            val subscriptionType =
+                json.asObject().getOrNull()?.get("subscriptionType")?.asString()?.getOrNull()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<ObjectSubscriptionUpsertRequest>())
-                            ?.let {
-                                SubscriptionUpsertRequest(
-                                    objectSubscriptionUpsertRequest = it,
-                                    _json = json,
-                                )
-                            },
-                        tryDeserialize(node, jacksonTypeRef<AssociationSubscriptionUpsertRequest>())
-                            ?.let { SubscriptionUpsertRequest(association = it, _json = json) },
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<AppLifecycleEventSubscriptionUpsertRequest>(),
-                            )
-                            ?.let {
-                                SubscriptionUpsertRequest(appLifecycleEvent = it, _json = json)
-                            },
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<ListMembershipSubscriptionUpsertRequest>(),
-                            )
-                            ?.let { SubscriptionUpsertRequest(listMembership = it, _json = json) },
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<GdprPrivacyDeletionSubscriptionUpsertRequest>(),
-                            )
-                            ?.let {
-                                SubscriptionUpsertRequest(gdprPrivacyDeletion = it, _json = json)
-                            },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> SubscriptionUpsertRequest(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (subscriptionType) {
+                "OBJECT" -> {
+                    return tryDeserialize(node, jacksonTypeRef<ObjectSubscriptionUpsertRequest>())
+                        ?.let { SubscriptionUpsertRequest(object_ = it, _json = json) }
+                        ?: SubscriptionUpsertRequest(_json = json)
+                }
+                "ASSOCIATION" -> {
+                    return tryDeserialize(
+                            node,
+                            jacksonTypeRef<AssociationSubscriptionUpsertRequest>(),
+                        )
+                        ?.let { SubscriptionUpsertRequest(association = it, _json = json) }
+                        ?: SubscriptionUpsertRequest(_json = json)
+                }
+                "APP_LIFECYCLE_EVENT" -> {
+                    return tryDeserialize(
+                            node,
+                            jacksonTypeRef<AppLifecycleEventSubscriptionUpsertRequest>(),
+                        )
+                        ?.let { SubscriptionUpsertRequest(appLifecycleEvent = it, _json = json) }
+                        ?: SubscriptionUpsertRequest(_json = json)
+                }
+                "LIST_MEMBERSHIP" -> {
+                    return tryDeserialize(
+                            node,
+                            jacksonTypeRef<ListMembershipSubscriptionUpsertRequest>(),
+                        )
+                        ?.let { SubscriptionUpsertRequest(listMembership = it, _json = json) }
+                        ?: SubscriptionUpsertRequest(_json = json)
+                }
+                "GDPR_PRIVACY_DELETION" -> {
+                    return tryDeserialize(
+                            node,
+                            jacksonTypeRef<GdprPrivacyDeletionSubscriptionUpsertRequest>(),
+                        )
+                        ?.let { SubscriptionUpsertRequest(gdprPrivacyDeletion = it, _json = json) }
+                        ?: SubscriptionUpsertRequest(_json = json)
+                }
             }
+
+            return SubscriptionUpsertRequest(_json = json)
         }
     }
 
@@ -361,8 +342,7 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.objectSubscriptionUpsertRequest != null ->
-                    generator.writeObject(value.objectSubscriptionUpsertRequest)
+                value.object_ != null -> generator.writeObject(value.object_)
                 value.association != null -> generator.writeObject(value.association)
                 value.appLifecycleEvent != null -> generator.writeObject(value.appLifecycleEvent)
                 value.listMembership != null -> generator.writeObject(value.listMembership)

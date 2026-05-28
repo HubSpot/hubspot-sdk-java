@@ -45,7 +45,7 @@ internal class SubscriptionCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
+                SubscriptionUpsertRequest.ofObject(
                     ObjectSubscriptionUpsertRequest.builder()
                         .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
                         .addObjectId(0L)

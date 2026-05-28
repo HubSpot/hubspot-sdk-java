@@ -12,36 +12,32 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.BaseDeserializer
 import com.hubspot.sdk.core.BaseSerializer
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 @JsonDeserialize(using = TokenInfoResponseBaseIf.Deserializer::class)
 @JsonSerialize(using = TokenInfoResponseBaseIf.Serializer::class)
 class TokenInfoResponseBaseIf
 private constructor(
-    private val publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse? = null,
-    private val publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse? = null,
+    private val accessToken: PublicAccessTokenInfoResponse? = null,
+    private val refreshToken: PublicRefreshTokenInfoResponse? = null,
     private val _json: JsonValue? = null,
 ) {
 
-    fun publicAccessTokenInfoResponse(): Optional<PublicAccessTokenInfoResponse> =
-        Optional.ofNullable(publicAccessTokenInfoResponse)
+    fun accessToken(): Optional<PublicAccessTokenInfoResponse> = Optional.ofNullable(accessToken)
 
-    fun publicRefreshTokenInfoResponse(): Optional<PublicRefreshTokenInfoResponse> =
-        Optional.ofNullable(publicRefreshTokenInfoResponse)
+    fun refreshToken(): Optional<PublicRefreshTokenInfoResponse> = Optional.ofNullable(refreshToken)
 
-    fun isPublicAccessTokenInfoResponse(): Boolean = publicAccessTokenInfoResponse != null
+    fun isAccessToken(): Boolean = accessToken != null
 
-    fun isPublicRefreshTokenInfoResponse(): Boolean = publicRefreshTokenInfoResponse != null
+    fun isRefreshToken(): Boolean = refreshToken != null
 
-    fun asPublicAccessTokenInfoResponse(): PublicAccessTokenInfoResponse =
-        publicAccessTokenInfoResponse.getOrThrow("publicAccessTokenInfoResponse")
+    fun asAccessToken(): PublicAccessTokenInfoResponse = accessToken.getOrThrow("accessToken")
 
-    fun asPublicRefreshTokenInfoResponse(): PublicRefreshTokenInfoResponse =
-        publicRefreshTokenInfoResponse.getOrThrow("publicRefreshTokenInfoResponse")
+    fun asRefreshToken(): PublicRefreshTokenInfoResponse = refreshToken.getOrThrow("refreshToken")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -57,8 +53,8 @@ private constructor(
      *
      * Optional<String> result = tokenInfoResponseBaseIf.accept(new TokenInfoResponseBaseIf.Visitor<Optional<String>>() {
      *     @Override
-     *     public Optional<String> visitPublicAccessTokenInfoResponse(PublicAccessTokenInfoResponse publicAccessTokenInfoResponse) {
-     *         return Optional.of(publicAccessTokenInfoResponse.toString());
+     *     public Optional<String> visitAccessToken(PublicAccessTokenInfoResponse accessToken) {
+     *         return Optional.of(accessToken.toString());
      *     }
      *
      *     // ...
@@ -76,10 +72,8 @@ private constructor(
      */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            publicAccessTokenInfoResponse != null ->
-                visitor.visitPublicAccessTokenInfoResponse(publicAccessTokenInfoResponse)
-            publicRefreshTokenInfoResponse != null ->
-                visitor.visitPublicRefreshTokenInfoResponse(publicRefreshTokenInfoResponse)
+            accessToken != null -> visitor.visitAccessToken(accessToken)
+            refreshToken != null -> visitor.visitRefreshToken(refreshToken)
             else -> visitor.unknown(_json)
         }
 
@@ -100,16 +94,12 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitPublicAccessTokenInfoResponse(
-                    publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
-                ) {
-                    publicAccessTokenInfoResponse.validate()
+                override fun visitAccessToken(accessToken: PublicAccessTokenInfoResponse) {
+                    accessToken.validate()
                 }
 
-                override fun visitPublicRefreshTokenInfoResponse(
-                    publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
-                ) {
-                    publicRefreshTokenInfoResponse.validate()
+                override fun visitRefreshToken(refreshToken: PublicRefreshTokenInfoResponse) {
+                    refreshToken.validate()
                 }
             }
         )
@@ -133,13 +123,11 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitPublicAccessTokenInfoResponse(
-                    publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
-                ) = publicAccessTokenInfoResponse.validity()
+                override fun visitAccessToken(accessToken: PublicAccessTokenInfoResponse) =
+                    accessToken.validity()
 
-                override fun visitPublicRefreshTokenInfoResponse(
-                    publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
-                ) = publicRefreshTokenInfoResponse.validity()
+                override fun visitRefreshToken(refreshToken: PublicRefreshTokenInfoResponse) =
+                    refreshToken.validity()
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -151,19 +139,16 @@ private constructor(
         }
 
         return other is TokenInfoResponseBaseIf &&
-            publicAccessTokenInfoResponse == other.publicAccessTokenInfoResponse &&
-            publicRefreshTokenInfoResponse == other.publicRefreshTokenInfoResponse
+            accessToken == other.accessToken &&
+            refreshToken == other.refreshToken
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(publicAccessTokenInfoResponse, publicRefreshTokenInfoResponse)
+    override fun hashCode(): Int = Objects.hash(accessToken, refreshToken)
 
     override fun toString(): String =
         when {
-            publicAccessTokenInfoResponse != null ->
-                "TokenInfoResponseBaseIf{publicAccessTokenInfoResponse=$publicAccessTokenInfoResponse}"
-            publicRefreshTokenInfoResponse != null ->
-                "TokenInfoResponseBaseIf{publicRefreshTokenInfoResponse=$publicRefreshTokenInfoResponse}"
+            accessToken != null -> "TokenInfoResponseBaseIf{accessToken=$accessToken}"
+            refreshToken != null -> "TokenInfoResponseBaseIf{refreshToken=$refreshToken}"
             _json != null -> "TokenInfoResponseBaseIf{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid TokenInfoResponseBaseIf")
         }
@@ -171,14 +156,12 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofPublicAccessTokenInfoResponse(
-            publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
-        ) = TokenInfoResponseBaseIf(publicAccessTokenInfoResponse = publicAccessTokenInfoResponse)
+        fun ofAccessToken(accessToken: PublicAccessTokenInfoResponse) =
+            TokenInfoResponseBaseIf(accessToken = accessToken)
 
         @JvmStatic
-        fun ofPublicRefreshTokenInfoResponse(
-            publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
-        ) = TokenInfoResponseBaseIf(publicRefreshTokenInfoResponse = publicRefreshTokenInfoResponse)
+        fun ofRefreshToken(refreshToken: PublicRefreshTokenInfoResponse) =
+            TokenInfoResponseBaseIf(refreshToken = refreshToken)
     }
 
     /**
@@ -187,13 +170,9 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitPublicAccessTokenInfoResponse(
-            publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
-        ): T
+        fun visitAccessToken(accessToken: PublicAccessTokenInfoResponse): T
 
-        fun visitPublicRefreshTokenInfoResponse(
-            publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
-        ): T
+        fun visitRefreshToken(refreshToken: PublicRefreshTokenInfoResponse): T
 
         /**
          * Maps an unknown variant of [TokenInfoResponseBaseIf] to a value of type [T].
@@ -215,35 +194,22 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): TokenInfoResponseBaseIf {
             val json = JsonValue.fromJsonNode(node)
+            val tokenUse = json.asObject().getOrNull()?.get("token_use")?.asString()?.getOrNull()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<PublicAccessTokenInfoResponse>())?.let {
-                            TokenInfoResponseBaseIf(
-                                publicAccessTokenInfoResponse = it,
-                                _json = json,
-                            )
-                        },
-                        tryDeserialize(node, jacksonTypeRef<PublicRefreshTokenInfoResponse>())
-                            ?.let {
-                                TokenInfoResponseBaseIf(
-                                    publicRefreshTokenInfoResponse = it,
-                                    _json = json,
-                                )
-                            },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> TokenInfoResponseBaseIf(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (tokenUse) {
+                "access_token" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PublicAccessTokenInfoResponse>())
+                        ?.let { TokenInfoResponseBaseIf(accessToken = it, _json = json) }
+                        ?: TokenInfoResponseBaseIf(_json = json)
+                }
+                "refresh_token" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PublicRefreshTokenInfoResponse>())
+                        ?.let { TokenInfoResponseBaseIf(refreshToken = it, _json = json) }
+                        ?: TokenInfoResponseBaseIf(_json = json)
+                }
             }
+
+            return TokenInfoResponseBaseIf(_json = json)
         }
     }
 
@@ -256,10 +222,8 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.publicAccessTokenInfoResponse != null ->
-                    generator.writeObject(value.publicAccessTokenInfoResponse)
-                value.publicRefreshTokenInfoResponse != null ->
-                    generator.writeObject(value.publicRefreshTokenInfoResponse)
+                value.accessToken != null -> generator.writeObject(value.accessToken)
+                value.refreshToken != null -> generator.writeObject(value.refreshToken)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid TokenInfoResponseBaseIf")
             }

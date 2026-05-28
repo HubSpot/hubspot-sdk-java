@@ -19,7 +19,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
@@ -218,13 +217,11 @@ private constructor(
                 }
         }
 
-        /** Alias for calling [addAction] with `Action.ofHookActionBody(hookActionBody)`. */
-        fun addAction(hookActionBody: ActionHookActionBody) =
-            addAction(Action.ofHookActionBody(hookActionBody))
+        /** Alias for calling [addAction] with `Action.ofHook(hook)`. */
+        fun addAction(hook: ActionHookActionBody) = addAction(Action.ofHook(hook))
 
-        /** Alias for calling [addAction] with `Action.ofIFrameActionBody(iFrameActionBody)`. */
-        fun addAction(iFrameActionBody: IFrameActionBody) =
-            addAction(Action.ofIFrameActionBody(iFrameActionBody))
+        /** Alias for calling [addAction] with `Action.ofIframe(iframe)`. */
+        fun addAction(iframe: IFrameActionBody) = addAction(Action.ofIframe(iframe))
 
         /** The top-level title for this card. Displayed to users in the CRM UI. */
         fun title(title: String) = title(JsonField.of(title))
@@ -367,22 +364,22 @@ private constructor(
     @JsonSerialize(using = Action.Serializer::class)
     class Action
     private constructor(
-        private val hookActionBody: ActionHookActionBody? = null,
-        private val iFrameActionBody: IFrameActionBody? = null,
+        private val hook: ActionHookActionBody? = null,
+        private val iframe: IFrameActionBody? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun hookActionBody(): Optional<ActionHookActionBody> = Optional.ofNullable(hookActionBody)
+        fun hook(): Optional<ActionHookActionBody> = Optional.ofNullable(hook)
 
-        fun iFrameActionBody(): Optional<IFrameActionBody> = Optional.ofNullable(iFrameActionBody)
+        fun iframe(): Optional<IFrameActionBody> = Optional.ofNullable(iframe)
 
-        fun isHookActionBody(): Boolean = hookActionBody != null
+        fun isHook(): Boolean = hook != null
 
-        fun isIFrameActionBody(): Boolean = iFrameActionBody != null
+        fun isIframe(): Boolean = iframe != null
 
-        fun asHookActionBody(): ActionHookActionBody = hookActionBody.getOrThrow("hookActionBody")
+        fun asHook(): ActionHookActionBody = hook.getOrThrow("hook")
 
-        fun asIFrameActionBody(): IFrameActionBody = iFrameActionBody.getOrThrow("iFrameActionBody")
+        fun asIframe(): IFrameActionBody = iframe.getOrThrow("iframe")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -398,8 +395,8 @@ private constructor(
          *
          * Optional<String> result = action.accept(new Action.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitHookActionBody(ActionHookActionBody hookActionBody) {
-         *         return Optional.of(hookActionBody.toString());
+         *     public Optional<String> visitHook(ActionHookActionBody hook) {
+         *         return Optional.of(hook.toString());
          *     }
          *
          *     // ...
@@ -417,8 +414,8 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                hookActionBody != null -> visitor.visitHookActionBody(hookActionBody)
-                iFrameActionBody != null -> visitor.visitIFrameActionBody(iFrameActionBody)
+                hook != null -> visitor.visitHook(hook)
+                iframe != null -> visitor.visitIframe(iframe)
                 else -> visitor.unknown(_json)
             }
 
@@ -440,12 +437,12 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitHookActionBody(hookActionBody: ActionHookActionBody) {
-                        hookActionBody.validate()
+                    override fun visitHook(hook: ActionHookActionBody) {
+                        hook.validate()
                     }
 
-                    override fun visitIFrameActionBody(iFrameActionBody: IFrameActionBody) {
-                        iFrameActionBody.validate()
+                    override fun visitIframe(iframe: IFrameActionBody) {
+                        iframe.validate()
                     }
                 }
             )
@@ -470,11 +467,9 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitHookActionBody(hookActionBody: ActionHookActionBody) =
-                        hookActionBody.validity()
+                    override fun visitHook(hook: ActionHookActionBody) = hook.validity()
 
-                    override fun visitIFrameActionBody(iFrameActionBody: IFrameActionBody) =
-                        iFrameActionBody.validity()
+                    override fun visitIframe(iframe: IFrameActionBody) = iframe.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -485,38 +480,32 @@ private constructor(
                 return true
             }
 
-            return other is Action &&
-                hookActionBody == other.hookActionBody &&
-                iFrameActionBody == other.iFrameActionBody
+            return other is Action && hook == other.hook && iframe == other.iframe
         }
 
-        override fun hashCode(): Int = Objects.hash(hookActionBody, iFrameActionBody)
+        override fun hashCode(): Int = Objects.hash(hook, iframe)
 
         override fun toString(): String =
             when {
-                hookActionBody != null -> "Action{hookActionBody=$hookActionBody}"
-                iFrameActionBody != null -> "Action{iFrameActionBody=$iFrameActionBody}"
+                hook != null -> "Action{hook=$hook}"
+                iframe != null -> "Action{iframe=$iframe}"
                 _json != null -> "Action{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Action")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofHookActionBody(hookActionBody: ActionHookActionBody) =
-                Action(hookActionBody = hookActionBody)
+            @JvmStatic fun ofHook(hook: ActionHookActionBody) = Action(hook = hook)
 
-            @JvmStatic
-            fun ofIFrameActionBody(iFrameActionBody: IFrameActionBody) =
-                Action(iFrameActionBody = iFrameActionBody)
+            @JvmStatic fun ofIframe(iframe: IFrameActionBody) = Action(iframe = iframe)
         }
 
         /** An interface that defines how to map each variant of [Action] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitHookActionBody(hookActionBody: ActionHookActionBody): T
+            fun visitHook(hook: ActionHookActionBody): T
 
-            fun visitIFrameActionBody(iFrameActionBody: IFrameActionBody): T
+            fun visitIframe(iframe: IFrameActionBody): T
 
             /**
              * Maps an unknown variant of [Action] to a value of type [T].
@@ -537,29 +526,22 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Action {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<ActionHookActionBody>())?.let {
-                                Action(hookActionBody = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<IFrameActionBody>())?.let {
-                                Action(iFrameActionBody = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Action(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "ACTION_HOOK" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ActionHookActionBody>())?.let {
+                            Action(hook = it, _json = json)
+                        } ?: Action(_json = json)
+                    }
+                    "IFRAME" -> {
+                        return tryDeserialize(node, jacksonTypeRef<IFrameActionBody>())?.let {
+                            Action(iframe = it, _json = json)
+                        } ?: Action(_json = json)
+                    }
                 }
+
+                return Action(_json = json)
             }
         }
 
@@ -571,8 +553,8 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.hookActionBody != null -> generator.writeObject(value.hookActionBody)
-                    value.iFrameActionBody != null -> generator.writeObject(value.iFrameActionBody)
+                    value.hook != null -> generator.writeObject(value.hook)
+                    value.iframe != null -> generator.writeObject(value.iframe)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Action")
                 }

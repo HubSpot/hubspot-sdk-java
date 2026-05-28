@@ -59,7 +59,7 @@ internal class TopLevelActionsTest {
 
         assertThat(topLevelActions.secondary())
             .containsExactly(
-                TopLevelActions.Secondary.ofActionHookActionBody(
+                TopLevelActions.Secondary.ofActionHook(
                     ActionHookActionBody.builder()
                         .httpMethod(ActionHookActionBody.HttpMethod.CONNECT)
                         .addPropertyNamesIncluded("string")
@@ -78,7 +78,7 @@ internal class TopLevelActionsTest {
             )
         assertThat(topLevelActions.primary())
             .contains(
-                TopLevelActions.Primary.ofActionHookActionBody(
+                TopLevelActions.Primary.ofActionHook(
                     ActionHookActionBody.builder()
                         .httpMethod(ActionHookActionBody.HttpMethod.CONNECT)
                         .addPropertyNamesIncluded("string")

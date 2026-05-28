@@ -36,7 +36,7 @@ internal class PublicSurveyMonkeyValueFilterTest {
         assertThat(publicSurveyMonkeyValueFilter.surveyQuestion()).isEqualTo("surveyQuestion")
         assertThat(publicSurveyMonkeyValueFilter.valueComparison())
             .isEqualTo(
-                PublicSurveyMonkeyValueFilter.ValueComparison.ofPublicBoolPropertyOperation(
+                PublicSurveyMonkeyValueFilter.ValueComparison.ofBool(
                     PublicBoolPropertyOperation.builder()
                         .includeObjectsWithNoValueSet(true)
                         .operationType(PublicBoolPropertyOperation.OperationType.BOOL)

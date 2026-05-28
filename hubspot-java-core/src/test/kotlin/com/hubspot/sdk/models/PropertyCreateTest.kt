@@ -40,6 +40,7 @@ internal class PropertyCreateTest {
                 )
                 .referencedObjectType("referencedObjectType")
                 .showCurrencySymbol(true)
+                .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                 .build()
 
         assertThat(propertyCreate.fieldType()).isEqualTo(PropertyCreate.FieldType.BOOLEANCHECKBOX)
@@ -71,6 +72,8 @@ internal class PropertyCreateTest {
             )
         assertThat(propertyCreate.referencedObjectType()).contains("referencedObjectType")
         assertThat(propertyCreate.showCurrencySymbol()).contains(true)
+        assertThat(propertyCreate.textDisplayHint())
+            .contains(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
     }
 
     @Test
@@ -104,6 +107,7 @@ internal class PropertyCreateTest {
                 )
                 .referencedObjectType("referencedObjectType")
                 .showCurrencySymbol(true)
+                .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                 .build()
 
         val roundtrippedPropertyCreate =

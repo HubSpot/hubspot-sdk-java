@@ -31,7 +31,7 @@ internal class PublicListConversionResponseTest {
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(publicListConversionResponse.requestedConversionTime())
             .contains(
-                PublicListConversionResponse.RequestedConversionTime.ofPublicListConversionDate(
+                PublicListConversionResponse.RequestedConversionTime.ofConversionDate(
                     PublicListConversionDate.builder()
                         .conversionType(PublicListConversionDate.ConversionType.CONVERSION_DATE)
                         .day(0)

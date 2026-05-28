@@ -325,6 +325,23 @@ private constructor(
         fun coalescingRefineBy(setOccurrences: SetOccurrencesRefineBy) =
             coalescingRefineBy(CoalescingRefineBy.ofSetOccurrences(setOccurrences))
 
+        /**
+         * Alias for calling [coalescingRefineBy] with the following:
+         * ```java
+         * SetOccurrencesRefineBy.builder()
+         *     .type(SetOccurrencesRefineBy.Type.SET_OCCURRENCES_REFINE_BY)
+         *     .setType(setType)
+         *     .build()
+         * ```
+         */
+        fun setOccurrencesCoalescingRefineBy(setType: SetOccurrencesRefineBy.SetType) =
+            coalescingRefineBy(
+                SetOccurrencesRefineBy.builder()
+                    .type(SetOccurrencesRefineBy.Type.SET_OCCURRENCES_REFINE_BY)
+                    .setType(setType)
+                    .build()
+            )
+
         fun includeObjectsWithNoValueSet(includeObjectsWithNoValueSet: Boolean) =
             includeObjectsWithNoValueSet(JsonField.of(includeObjectsWithNoValueSet))
 
@@ -787,29 +804,22 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): CoalescingRefineBy {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<NumOccurrencesRefineBy>())?.let {
-                                CoalescingRefineBy(numOccurrences = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<SetOccurrencesRefineBy>())?.let {
-                                CoalescingRefineBy(setOccurrences = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> CoalescingRefineBy(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "NumOccurrencesRefineBy" -> {
+                        return tryDeserialize(node, jacksonTypeRef<NumOccurrencesRefineBy>())?.let {
+                            CoalescingRefineBy(numOccurrences = it, _json = json)
+                        } ?: CoalescingRefineBy(_json = json)
+                    }
+                    "SetOccurrencesRefineBy" -> {
+                        return tryDeserialize(node, jacksonTypeRef<SetOccurrencesRefineBy>())?.let {
+                            CoalescingRefineBy(setOccurrences = it, _json = json)
+                        } ?: CoalescingRefineBy(_json = json)
+                    }
                 }
+
+                return CoalescingRefineBy(_json = json)
             }
         }
 
@@ -1481,34 +1491,52 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): PruningRefineBy {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
+
+                when (type) {
+                    "RelativeComparativeTimestampRefineBy" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<RelativeComparativeTimestampRefineBy>(),
+                            )
+                            ?.let {
+                                PruningRefineBy(relativeComparativeTimestamp = it, _json = json)
+                            } ?: PruningRefineBy(_json = json)
+                    }
+                    "RelativeRangedTimestampRefineBy" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<RelativeRangedTimestampRefineBy>(),
+                            )
+                            ?.let { PruningRefineBy(relativeRangedTimestamp = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "AbsoluteComparativeTimestampRefineBy" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<AbsoluteComparativeTimestampRefineBy>(),
+                            )
+                            ?.let {
+                                PruningRefineBy(absoluteComparativeTimestamp = it, _json = json)
+                            } ?: PruningRefineBy(_json = json)
+                    }
+                    "AbsoluteRangedTimestampRefineBy" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<AbsoluteRangedTimestampRefineBy>(),
+                            )
+                            ?.let { PruningRefineBy(absoluteRangedTimestamp = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "AllHistoryRefineBy" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AllHistoryRefineBy>())?.let {
+                            PruningRefineBy(allHistory = it, _json = json)
+                        } ?: PruningRefineBy(_json = json)
+                    }
+                }
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<RelativeComparativeTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    PruningRefineBy(relativeComparativeTimestamp = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<RelativeRangedTimestampRefineBy>())
-                                ?.let {
-                                    PruningRefineBy(relativeRangedTimestamp = it, _json = json)
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<AbsoluteComparativeTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    PruningRefineBy(absoluteComparativeTimestamp = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<AbsoluteRangedTimestampRefineBy>())
-                                ?.let {
-                                    PruningRefineBy(absoluteRangedTimestamp = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<AllHistoryRefineBy>())?.let {
-                                PruningRefineBy(allHistory = it, _json = json)
-                            },
                             tryDeserialize(node, jacksonTypeRef<TimePointOperation>())?.let {
                                 PruningRefineBy(timePointOperation = it, _json = json)
                             },

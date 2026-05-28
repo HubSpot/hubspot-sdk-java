@@ -12,36 +12,34 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.BaseDeserializer
 import com.hubspot.sdk.core.BaseSerializer
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 @JsonDeserialize(using = TokenResponseIf.Deserializer::class)
 @JsonSerialize(using = TokenResponseIf.Serializer::class)
 class TokenResponseIf
 private constructor(
-    private val accessTokenResponse: AccessTokenResponse? = null,
-    private val clientCredentialsTokenResponse: ClientCredentialsTokenResponse? = null,
+    private val accessToken: AccessTokenResponse? = null,
+    private val clientCredentials: ClientCredentialsTokenResponse? = null,
     private val _json: JsonValue? = null,
 ) {
 
-    fun accessTokenResponse(): Optional<AccessTokenResponse> =
-        Optional.ofNullable(accessTokenResponse)
+    fun accessToken(): Optional<AccessTokenResponse> = Optional.ofNullable(accessToken)
 
-    fun clientCredentialsTokenResponse(): Optional<ClientCredentialsTokenResponse> =
-        Optional.ofNullable(clientCredentialsTokenResponse)
+    fun clientCredentials(): Optional<ClientCredentialsTokenResponse> =
+        Optional.ofNullable(clientCredentials)
 
-    fun isAccessTokenResponse(): Boolean = accessTokenResponse != null
+    fun isAccessToken(): Boolean = accessToken != null
 
-    fun isClientCredentialsTokenResponse(): Boolean = clientCredentialsTokenResponse != null
+    fun isClientCredentials(): Boolean = clientCredentials != null
 
-    fun asAccessTokenResponse(): AccessTokenResponse =
-        accessTokenResponse.getOrThrow("accessTokenResponse")
+    fun asAccessToken(): AccessTokenResponse = accessToken.getOrThrow("accessToken")
 
-    fun asClientCredentialsTokenResponse(): ClientCredentialsTokenResponse =
-        clientCredentialsTokenResponse.getOrThrow("clientCredentialsTokenResponse")
+    fun asClientCredentials(): ClientCredentialsTokenResponse =
+        clientCredentials.getOrThrow("clientCredentials")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -57,8 +55,8 @@ private constructor(
      *
      * Optional<String> result = tokenResponseIf.accept(new TokenResponseIf.Visitor<Optional<String>>() {
      *     @Override
-     *     public Optional<String> visitAccessTokenResponse(AccessTokenResponse accessTokenResponse) {
-     *         return Optional.of(accessTokenResponse.toString());
+     *     public Optional<String> visitAccessToken(AccessTokenResponse accessToken) {
+     *         return Optional.of(accessToken.toString());
      *     }
      *
      *     // ...
@@ -76,9 +74,8 @@ private constructor(
      */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            accessTokenResponse != null -> visitor.visitAccessTokenResponse(accessTokenResponse)
-            clientCredentialsTokenResponse != null ->
-                visitor.visitClientCredentialsTokenResponse(clientCredentialsTokenResponse)
+            accessToken != null -> visitor.visitAccessToken(accessToken)
+            clientCredentials != null -> visitor.visitClientCredentials(clientCredentials)
             else -> visitor.unknown(_json)
         }
 
@@ -99,14 +96,14 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitAccessTokenResponse(accessTokenResponse: AccessTokenResponse) {
-                    accessTokenResponse.validate()
+                override fun visitAccessToken(accessToken: AccessTokenResponse) {
+                    accessToken.validate()
                 }
 
-                override fun visitClientCredentialsTokenResponse(
-                    clientCredentialsTokenResponse: ClientCredentialsTokenResponse
+                override fun visitClientCredentials(
+                    clientCredentials: ClientCredentialsTokenResponse
                 ) {
-                    clientCredentialsTokenResponse.validate()
+                    clientCredentials.validate()
                 }
             }
         )
@@ -130,12 +127,12 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitAccessTokenResponse(accessTokenResponse: AccessTokenResponse) =
-                    accessTokenResponse.validity()
+                override fun visitAccessToken(accessToken: AccessTokenResponse) =
+                    accessToken.validity()
 
-                override fun visitClientCredentialsTokenResponse(
-                    clientCredentialsTokenResponse: ClientCredentialsTokenResponse
-                ) = clientCredentialsTokenResponse.validity()
+                override fun visitClientCredentials(
+                    clientCredentials: ClientCredentialsTokenResponse
+                ) = clientCredentials.validity()
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -147,18 +144,16 @@ private constructor(
         }
 
         return other is TokenResponseIf &&
-            accessTokenResponse == other.accessTokenResponse &&
-            clientCredentialsTokenResponse == other.clientCredentialsTokenResponse
+            accessToken == other.accessToken &&
+            clientCredentials == other.clientCredentials
     }
 
-    override fun hashCode(): Int = Objects.hash(accessTokenResponse, clientCredentialsTokenResponse)
+    override fun hashCode(): Int = Objects.hash(accessToken, clientCredentials)
 
     override fun toString(): String =
         when {
-            accessTokenResponse != null ->
-                "TokenResponseIf{accessTokenResponse=$accessTokenResponse}"
-            clientCredentialsTokenResponse != null ->
-                "TokenResponseIf{clientCredentialsTokenResponse=$clientCredentialsTokenResponse}"
+            accessToken != null -> "TokenResponseIf{accessToken=$accessToken}"
+            clientCredentials != null -> "TokenResponseIf{clientCredentials=$clientCredentials}"
             _json != null -> "TokenResponseIf{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid TokenResponseIf")
         }
@@ -166,13 +161,12 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofAccessTokenResponse(accessTokenResponse: AccessTokenResponse) =
-            TokenResponseIf(accessTokenResponse = accessTokenResponse)
+        fun ofAccessToken(accessToken: AccessTokenResponse) =
+            TokenResponseIf(accessToken = accessToken)
 
         @JvmStatic
-        fun ofClientCredentialsTokenResponse(
-            clientCredentialsTokenResponse: ClientCredentialsTokenResponse
-        ) = TokenResponseIf(clientCredentialsTokenResponse = clientCredentialsTokenResponse)
+        fun ofClientCredentials(clientCredentials: ClientCredentialsTokenResponse) =
+            TokenResponseIf(clientCredentials = clientCredentials)
     }
 
     /**
@@ -181,11 +175,9 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitAccessTokenResponse(accessTokenResponse: AccessTokenResponse): T
+        fun visitAccessToken(accessToken: AccessTokenResponse): T
 
-        fun visitClientCredentialsTokenResponse(
-            clientCredentialsTokenResponse: ClientCredentialsTokenResponse
-        ): T
+        fun visitClientCredentials(clientCredentials: ClientCredentialsTokenResponse): T
 
         /**
          * Maps an unknown variant of [TokenResponseIf] to a value of type [T].
@@ -206,29 +198,22 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): TokenResponseIf {
             val json = JsonValue.fromJsonNode(node)
+            val tokenUse = json.asObject().getOrNull()?.get("token_use")?.asString()?.getOrNull()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<AccessTokenResponse>())?.let {
-                            TokenResponseIf(accessTokenResponse = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<ClientCredentialsTokenResponse>())
-                            ?.let {
-                                TokenResponseIf(clientCredentialsTokenResponse = it, _json = json)
-                            },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> TokenResponseIf(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (tokenUse) {
+                "access_token" -> {
+                    return tryDeserialize(node, jacksonTypeRef<AccessTokenResponse>())?.let {
+                        TokenResponseIf(accessToken = it, _json = json)
+                    } ?: TokenResponseIf(_json = json)
+                }
+                "client_credentials" -> {
+                    return tryDeserialize(node, jacksonTypeRef<ClientCredentialsTokenResponse>())
+                        ?.let { TokenResponseIf(clientCredentials = it, _json = json) }
+                        ?: TokenResponseIf(_json = json)
+                }
             }
+
+            return TokenResponseIf(_json = json)
         }
     }
 
@@ -240,10 +225,8 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.accessTokenResponse != null ->
-                    generator.writeObject(value.accessTokenResponse)
-                value.clientCredentialsTokenResponse != null ->
-                    generator.writeObject(value.clientCredentialsTokenResponse)
+                value.accessToken != null -> generator.writeObject(value.accessToken)
+                value.clientCredentials != null -> generator.writeObject(value.clientCredentials)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid TokenResponseIf")
             }

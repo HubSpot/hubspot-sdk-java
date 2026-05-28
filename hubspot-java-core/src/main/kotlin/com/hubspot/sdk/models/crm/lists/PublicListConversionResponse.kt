@@ -19,7 +19,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
@@ -188,25 +187,17 @@ private constructor(
 
         /**
          * Alias for calling [requestedConversionTime] with
-         * `RequestedConversionTime.ofPublicListConversionDate(publicListConversionDate)`.
+         * `RequestedConversionTime.ofConversionDate(conversionDate)`.
          */
-        fun requestedConversionTime(publicListConversionDate: PublicListConversionDate) =
-            requestedConversionTime(
-                RequestedConversionTime.ofPublicListConversionDate(publicListConversionDate)
-            )
+        fun requestedConversionTime(conversionDate: PublicListConversionDate) =
+            requestedConversionTime(RequestedConversionTime.ofConversionDate(conversionDate))
 
         /**
          * Alias for calling [requestedConversionTime] with
-         * `RequestedConversionTime.ofPublicListConversionInactivity(publicListConversionInactivity)`.
+         * `RequestedConversionTime.ofInactivity(inactivity)`.
          */
-        fun requestedConversionTime(
-            publicListConversionInactivity: PublicListConversionInactivity
-        ) =
-            requestedConversionTime(
-                RequestedConversionTime.ofPublicListConversionInactivity(
-                    publicListConversionInactivity
-                )
-            )
+        fun requestedConversionTime(inactivity: PublicListConversionInactivity) =
+            requestedConversionTime(RequestedConversionTime.ofInactivity(inactivity))
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -296,26 +287,24 @@ private constructor(
     @JsonSerialize(using = RequestedConversionTime.Serializer::class)
     class RequestedConversionTime
     private constructor(
-        private val publicListConversionDate: PublicListConversionDate? = null,
-        private val publicListConversionInactivity: PublicListConversionInactivity? = null,
+        private val conversionDate: PublicListConversionDate? = null,
+        private val inactivity: PublicListConversionInactivity? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicListConversionDate(): Optional<PublicListConversionDate> =
-            Optional.ofNullable(publicListConversionDate)
+        fun conversionDate(): Optional<PublicListConversionDate> =
+            Optional.ofNullable(conversionDate)
 
-        fun publicListConversionInactivity(): Optional<PublicListConversionInactivity> =
-            Optional.ofNullable(publicListConversionInactivity)
+        fun inactivity(): Optional<PublicListConversionInactivity> = Optional.ofNullable(inactivity)
 
-        fun isPublicListConversionDate(): Boolean = publicListConversionDate != null
+        fun isConversionDate(): Boolean = conversionDate != null
 
-        fun isPublicListConversionInactivity(): Boolean = publicListConversionInactivity != null
+        fun isInactivity(): Boolean = inactivity != null
 
-        fun asPublicListConversionDate(): PublicListConversionDate =
-            publicListConversionDate.getOrThrow("publicListConversionDate")
+        fun asConversionDate(): PublicListConversionDate =
+            conversionDate.getOrThrow("conversionDate")
 
-        fun asPublicListConversionInactivity(): PublicListConversionInactivity =
-            publicListConversionInactivity.getOrThrow("publicListConversionInactivity")
+        fun asInactivity(): PublicListConversionInactivity = inactivity.getOrThrow("inactivity")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -331,8 +320,8 @@ private constructor(
          *
          * Optional<String> result = requestedConversionTime.accept(new RequestedConversionTime.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicListConversionDate(PublicListConversionDate publicListConversionDate) {
-         *         return Optional.of(publicListConversionDate.toString());
+         *     public Optional<String> visitConversionDate(PublicListConversionDate conversionDate) {
+         *         return Optional.of(conversionDate.toString());
          *     }
          *
          *     // ...
@@ -350,10 +339,8 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicListConversionDate != null ->
-                    visitor.visitPublicListConversionDate(publicListConversionDate)
-                publicListConversionInactivity != null ->
-                    visitor.visitPublicListConversionInactivity(publicListConversionInactivity)
+                conversionDate != null -> visitor.visitConversionDate(conversionDate)
+                inactivity != null -> visitor.visitInactivity(inactivity)
                 else -> visitor.unknown(_json)
             }
 
@@ -375,16 +362,12 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicListConversionDate(
-                        publicListConversionDate: PublicListConversionDate
-                    ) {
-                        publicListConversionDate.validate()
+                    override fun visitConversionDate(conversionDate: PublicListConversionDate) {
+                        conversionDate.validate()
                     }
 
-                    override fun visitPublicListConversionInactivity(
-                        publicListConversionInactivity: PublicListConversionInactivity
-                    ) {
-                        publicListConversionInactivity.validate()
+                    override fun visitInactivity(inactivity: PublicListConversionInactivity) {
+                        inactivity.validate()
                     }
                 }
             )
@@ -409,13 +392,11 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicListConversionDate(
-                        publicListConversionDate: PublicListConversionDate
-                    ) = publicListConversionDate.validity()
+                    override fun visitConversionDate(conversionDate: PublicListConversionDate) =
+                        conversionDate.validity()
 
-                    override fun visitPublicListConversionInactivity(
-                        publicListConversionInactivity: PublicListConversionInactivity
-                    ) = publicListConversionInactivity.validity()
+                    override fun visitInactivity(inactivity: PublicListConversionInactivity) =
+                        inactivity.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -427,19 +408,16 @@ private constructor(
             }
 
             return other is RequestedConversionTime &&
-                publicListConversionDate == other.publicListConversionDate &&
-                publicListConversionInactivity == other.publicListConversionInactivity
+                conversionDate == other.conversionDate &&
+                inactivity == other.inactivity
         }
 
-        override fun hashCode(): Int =
-            Objects.hash(publicListConversionDate, publicListConversionInactivity)
+        override fun hashCode(): Int = Objects.hash(conversionDate, inactivity)
 
         override fun toString(): String =
             when {
-                publicListConversionDate != null ->
-                    "RequestedConversionTime{publicListConversionDate=$publicListConversionDate}"
-                publicListConversionInactivity != null ->
-                    "RequestedConversionTime{publicListConversionInactivity=$publicListConversionInactivity}"
+                conversionDate != null -> "RequestedConversionTime{conversionDate=$conversionDate}"
+                inactivity != null -> "RequestedConversionTime{inactivity=$inactivity}"
                 _json != null -> "RequestedConversionTime{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid RequestedConversionTime")
             }
@@ -447,16 +425,12 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofPublicListConversionDate(publicListConversionDate: PublicListConversionDate) =
-                RequestedConversionTime(publicListConversionDate = publicListConversionDate)
+            fun ofConversionDate(conversionDate: PublicListConversionDate) =
+                RequestedConversionTime(conversionDate = conversionDate)
 
             @JvmStatic
-            fun ofPublicListConversionInactivity(
-                publicListConversionInactivity: PublicListConversionInactivity
-            ) =
-                RequestedConversionTime(
-                    publicListConversionInactivity = publicListConversionInactivity
-                )
+            fun ofInactivity(inactivity: PublicListConversionInactivity) =
+                RequestedConversionTime(inactivity = inactivity)
         }
 
         /**
@@ -465,11 +439,9 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicListConversionDate(publicListConversionDate: PublicListConversionDate): T
+            fun visitConversionDate(conversionDate: PublicListConversionDate): T
 
-            fun visitPublicListConversionInactivity(
-                publicListConversionInactivity: PublicListConversionInactivity
-            ): T
+            fun visitInactivity(inactivity: PublicListConversionInactivity): T
 
             /**
              * Maps an unknown variant of [RequestedConversionTime] to a value of type [T].
@@ -491,33 +463,26 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): RequestedConversionTime {
                 val json = JsonValue.fromJsonNode(node)
+                val conversionType =
+                    json.asObject().getOrNull()?.get("conversionType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicListConversionDate>())?.let {
-                                RequestedConversionTime(publicListConversionDate = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicListConversionInactivity>())
-                                ?.let {
-                                    RequestedConversionTime(
-                                        publicListConversionInactivity = it,
-                                        _json = json,
-                                    )
-                                },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> RequestedConversionTime(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (conversionType) {
+                    "CONVERSION_DATE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicListConversionDate>())
+                            ?.let { RequestedConversionTime(conversionDate = it, _json = json) }
+                            ?: RequestedConversionTime(_json = json)
+                    }
+                    "INACTIVITY" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicListConversionInactivity>(),
+                            )
+                            ?.let { RequestedConversionTime(inactivity = it, _json = json) }
+                            ?: RequestedConversionTime(_json = json)
+                    }
                 }
+
+                return RequestedConversionTime(_json = json)
             }
         }
 
@@ -530,10 +495,8 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicListConversionDate != null ->
-                        generator.writeObject(value.publicListConversionDate)
-                    value.publicListConversionInactivity != null ->
-                        generator.writeObject(value.publicListConversionInactivity)
+                    value.conversionDate != null -> generator.writeObject(value.conversionDate)
+                    value.inactivity != null -> generator.writeObject(value.inactivity)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid RequestedConversionTime")
                 }

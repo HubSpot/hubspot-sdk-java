@@ -35,6 +35,7 @@ internal class PropertyUpdateTest {
                         .build()
                 )
                 .showCurrencySymbol(true)
+                .textDisplayHint(PropertyUpdate.TextDisplayHint.DOMAIN_NAME)
                 .type(PropertyUpdate.Type.BOOL)
                 .build()
 
@@ -60,6 +61,8 @@ internal class PropertyUpdateTest {
                     .build()
             )
         assertThat(propertyUpdate.showCurrencySymbol()).contains(true)
+        assertThat(propertyUpdate.textDisplayHint())
+            .contains(PropertyUpdate.TextDisplayHint.DOMAIN_NAME)
         assertThat(propertyUpdate.type()).contains(PropertyUpdate.Type.BOOL)
     }
 
@@ -88,6 +91,7 @@ internal class PropertyUpdateTest {
                         .build()
                 )
                 .showCurrencySymbol(true)
+                .textDisplayHint(PropertyUpdate.TextDisplayHint.DOMAIN_NAME)
                 .type(PropertyUpdate.Type.BOOL)
                 .build()
 

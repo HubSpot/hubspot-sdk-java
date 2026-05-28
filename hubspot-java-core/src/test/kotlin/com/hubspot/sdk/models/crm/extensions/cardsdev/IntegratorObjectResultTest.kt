@@ -45,7 +45,7 @@ internal class IntegratorObjectResultTest {
         assertThat(integratorObjectResult.id()).isEqualTo("id")
         assertThat(integratorObjectResult.actions())
             .containsExactly(
-                IntegratorObjectResult.Action.ofHookActionBody(
+                IntegratorObjectResult.Action.ofHook(
                     ActionHookActionBody.builder()
                         .httpMethod(ActionHookActionBody.HttpMethod.CONNECT)
                         .addPropertyNamesIncluded("string")

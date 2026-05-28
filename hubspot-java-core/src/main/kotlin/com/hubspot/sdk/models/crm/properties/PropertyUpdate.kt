@@ -35,6 +35,7 @@ private constructor(
     private val numberDisplayHint: JsonField<NumberDisplayHint>,
     private val options: JsonField<List<OptionInput>>,
     private val showCurrencySymbol: JsonField<Boolean>,
+    private val textDisplayHint: JsonField<TextDisplayHint>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -69,6 +70,9 @@ private constructor(
         @JsonProperty("showCurrencySymbol")
         @ExcludeMissing
         showCurrencySymbol: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("textDisplayHint")
+        @ExcludeMissing
+        textDisplayHint: JsonField<TextDisplayHint> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
         calculationFormula,
@@ -83,6 +87,7 @@ private constructor(
         numberDisplayHint,
         options,
         showCurrencySymbol,
+        textDisplayHint,
         type,
         mutableMapOf(),
     )
@@ -181,6 +186,13 @@ private constructor(
      */
     fun showCurrencySymbol(): Optional<Boolean> =
         showCurrencySymbol.getOptional("showCurrencySymbol")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun textDisplayHint(): Optional<TextDisplayHint> =
+        textDisplayHint.getOptional("textDisplayHint")
 
     /**
      * The data type of the property.
@@ -287,6 +299,15 @@ private constructor(
     fun _showCurrencySymbol(): JsonField<Boolean> = showCurrencySymbol
 
     /**
+     * Returns the raw JSON value of [textDisplayHint].
+     *
+     * Unlike [textDisplayHint], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("textDisplayHint")
+    @ExcludeMissing
+    fun _textDisplayHint(): JsonField<TextDisplayHint> = textDisplayHint
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -326,6 +347,7 @@ private constructor(
         private var numberDisplayHint: JsonField<NumberDisplayHint> = JsonMissing.of()
         private var options: JsonField<MutableList<OptionInput>>? = null
         private var showCurrencySymbol: JsonField<Boolean> = JsonMissing.of()
+        private var textDisplayHint: JsonField<TextDisplayHint> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -343,6 +365,7 @@ private constructor(
             numberDisplayHint = propertyUpdate.numberDisplayHint
             options = propertyUpdate.options.map { it.toMutableList() }
             showCurrencySymbol = propertyUpdate.showCurrencySymbol
+            textDisplayHint = propertyUpdate.textDisplayHint
             type = propertyUpdate.type
             additionalProperties = propertyUpdate.additionalProperties.toMutableMap()
         }
@@ -515,6 +538,20 @@ private constructor(
             this.showCurrencySymbol = showCurrencySymbol
         }
 
+        fun textDisplayHint(textDisplayHint: TextDisplayHint) =
+            textDisplayHint(JsonField.of(textDisplayHint))
+
+        /**
+         * Sets [Builder.textDisplayHint] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.textDisplayHint] with a well-typed [TextDisplayHint]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun textDisplayHint(textDisplayHint: JsonField<TextDisplayHint>) = apply {
+            this.textDisplayHint = textDisplayHint
+        }
+
         /** The data type of the property. */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -564,6 +601,7 @@ private constructor(
                 numberDisplayHint,
                 (options ?: JsonMissing.of()).map { it.toImmutable() },
                 showCurrencySymbol,
+                textDisplayHint,
                 type,
                 additionalProperties.toMutableMap(),
             )
@@ -596,6 +634,7 @@ private constructor(
         numberDisplayHint().ifPresent { it.validate() }
         options().ifPresent { it.forEach { it.validate() } }
         showCurrencySymbol()
+        textDisplayHint().ifPresent { it.validate() }
         type().ifPresent { it.validate() }
         validated = true
     }
@@ -627,6 +666,7 @@ private constructor(
             (numberDisplayHint.asKnown().getOrNull()?.validity() ?: 0) +
             (options.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (showCurrencySymbol.asKnown().isPresent) 1 else 0) +
+            (textDisplayHint.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
     /** Controls how the property appears in HubSpot. */
@@ -988,6 +1028,180 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class TextDisplayHint @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val DOMAIN_NAME = of("domain_name")
+
+            @JvmField val EMAIL = of("email")
+
+            @JvmField val IP_ADDRESS = of("ip_address")
+
+            @JvmField val MULTI_LINE = of("multi_line")
+
+            @JvmField val PHONE_NUMBER = of("phone_number")
+
+            @JvmField val PHYSICAL_ADDRESS = of("physical_address")
+
+            @JvmField val POSTAL_CODE = of("postal_code")
+
+            @JvmField val UNFORMATTED_SINGLE_LINE = of("unformatted_single_line")
+
+            @JvmStatic fun of(value: String) = TextDisplayHint(JsonField.of(value))
+        }
+
+        /** An enum containing [TextDisplayHint]'s known values. */
+        enum class Known {
+            DOMAIN_NAME,
+            EMAIL,
+            IP_ADDRESS,
+            MULTI_LINE,
+            PHONE_NUMBER,
+            PHYSICAL_ADDRESS,
+            POSTAL_CODE,
+            UNFORMATTED_SINGLE_LINE,
+        }
+
+        /**
+         * An enum containing [TextDisplayHint]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [TextDisplayHint] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            DOMAIN_NAME,
+            EMAIL,
+            IP_ADDRESS,
+            MULTI_LINE,
+            PHONE_NUMBER,
+            PHYSICAL_ADDRESS,
+            POSTAL_CODE,
+            UNFORMATTED_SINGLE_LINE,
+            /**
+             * An enum member indicating that [TextDisplayHint] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                DOMAIN_NAME -> Value.DOMAIN_NAME
+                EMAIL -> Value.EMAIL
+                IP_ADDRESS -> Value.IP_ADDRESS
+                MULTI_LINE -> Value.MULTI_LINE
+                PHONE_NUMBER -> Value.PHONE_NUMBER
+                PHYSICAL_ADDRESS -> Value.PHYSICAL_ADDRESS
+                POSTAL_CODE -> Value.POSTAL_CODE
+                UNFORMATTED_SINGLE_LINE -> Value.UNFORMATTED_SINGLE_LINE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                DOMAIN_NAME -> Known.DOMAIN_NAME
+                EMAIL -> Known.EMAIL
+                IP_ADDRESS -> Known.IP_ADDRESS
+                MULTI_LINE -> Known.MULTI_LINE
+                PHONE_NUMBER -> Known.PHONE_NUMBER
+                PHYSICAL_ADDRESS -> Known.PHYSICAL_ADDRESS
+                POSTAL_CODE -> Known.POSTAL_CODE
+                UNFORMATTED_SINGLE_LINE -> Known.UNFORMATTED_SINGLE_LINE
+                else -> throw HubSpotInvalidDataException("Unknown TextDisplayHint: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): TextDisplayHint = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubSpotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TextDisplayHint && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** The data type of the property. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1171,6 +1385,7 @@ private constructor(
             numberDisplayHint == other.numberDisplayHint &&
             options == other.options &&
             showCurrencySymbol == other.showCurrencySymbol &&
+            textDisplayHint == other.textDisplayHint &&
             type == other.type &&
             additionalProperties == other.additionalProperties
     }
@@ -1189,6 +1404,7 @@ private constructor(
             numberDisplayHint,
             options,
             showCurrencySymbol,
+            textDisplayHint,
             type,
             additionalProperties,
         )
@@ -1197,5 +1413,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PropertyUpdate{calculationFormula=$calculationFormula, currencyPropertyName=$currencyPropertyName, description=$description, displayOrder=$displayOrder, fieldType=$fieldType, formField=$formField, groupName=$groupName, hidden=$hidden, label=$label, numberDisplayHint=$numberDisplayHint, options=$options, showCurrencySymbol=$showCurrencySymbol, type=$type, additionalProperties=$additionalProperties}"
+        "PropertyUpdate{calculationFormula=$calculationFormula, currencyPropertyName=$currencyPropertyName, description=$description, displayOrder=$displayOrder, fieldType=$fieldType, formField=$formField, groupName=$groupName, hidden=$hidden, label=$label, numberDisplayHint=$numberDisplayHint, options=$options, showCurrencySymbol=$showCurrencySymbol, textDisplayHint=$textDisplayHint, type=$type, additionalProperties=$additionalProperties}"
 }

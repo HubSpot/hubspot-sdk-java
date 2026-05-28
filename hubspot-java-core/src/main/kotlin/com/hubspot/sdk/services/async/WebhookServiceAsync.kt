@@ -205,21 +205,16 @@ interface WebhookServiceAsync {
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+        object_: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<JournalSubscriptionResponse> =
-        createJournalSubscription(
-            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                objectSubscriptionUpsertRequest
-            ),
-            requestOptions,
-        )
+        createJournalSubscription(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
+        object_: ObjectSubscriptionUpsertRequest
     ): CompletableFuture<JournalSubscriptionResponse> =
-        createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
+        createJournalSubscription(object_, RequestOptions.none())
 
     /** @see createJournalSubscription */
     fun createJournalSubscription(
@@ -1595,21 +1590,16 @@ interface WebhookServiceAsync {
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+            object_: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
-            createJournalSubscription(
-                SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                    objectSubscriptionUpsertRequest
-                ),
-                requestOptions,
-            )
+            createJournalSubscription(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
+            object_: ObjectSubscriptionUpsertRequest
         ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
-            createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
+            createJournalSubscription(object_, RequestOptions.none())
 
         /** @see createJournalSubscription */
         fun createJournalSubscription(

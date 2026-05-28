@@ -62,7 +62,7 @@ internal class PublicUnifiedEventsFilterTest {
             .isEqualTo(PublicUnifiedEventsFilter.FilterType.UNIFIED_EVENTS)
         assertThat(publicUnifiedEventsFilter.coalescingRefineBy())
             .contains(
-                PublicUnifiedEventsFilter.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicUnifiedEventsFilter.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)
@@ -73,7 +73,7 @@ internal class PublicUnifiedEventsFilterTest {
         assertThat(publicUnifiedEventsFilter.eventTypeId()).contains("eventTypeId")
         assertThat(publicUnifiedEventsFilter.pruningRefineBy())
             .contains(
-                PublicUnifiedEventsFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicUnifiedEventsFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

@@ -145,7 +145,7 @@ internal class PublicActionDefinitionPatchTest {
             )
         assertThat(publicActionDefinitionPatch.inputFieldDependencies().getOrNull())
             .containsExactly(
-                PublicActionDefinitionPatch.InputFieldDependency.ofPublicSingle(
+                PublicActionDefinitionPatch.InputFieldDependency.ofSingleField(
                     PublicSingleFieldDependency.builder()
                         .controllingFieldName("controllingFieldName")
                         .dependencyType(PublicSingleFieldDependency.DependencyType.SINGLE_FIELD)

@@ -58,6 +58,7 @@ internal class Property1Test {
                 .referencedObjectType("referencedObjectType")
                 .addSensitiveDataCategory("string")
                 .showCurrencySymbol(true)
+                .textDisplayHint(Property1.TextDisplayHint.DOMAIN_NAME)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedUserId("updatedUserId")
                 .build()
@@ -107,6 +108,7 @@ internal class Property1Test {
         assertThat(property1.referencedObjectType()).contains("referencedObjectType")
         assertThat(property1.sensitiveDataCategories().getOrNull()).containsExactly("string")
         assertThat(property1.showCurrencySymbol()).contains(true)
+        assertThat(property1.textDisplayHint()).contains(Property1.TextDisplayHint.DOMAIN_NAME)
         assertThat(property1.updatedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(property1.updatedUserId()).contains("updatedUserId")
     }
@@ -158,6 +160,7 @@ internal class Property1Test {
                 .referencedObjectType("referencedObjectType")
                 .addSensitiveDataCategory("string")
                 .showCurrencySymbol(true)
+                .textDisplayHint(Property1.TextDisplayHint.DOMAIN_NAME)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedUserId("updatedUserId")
                 .build()

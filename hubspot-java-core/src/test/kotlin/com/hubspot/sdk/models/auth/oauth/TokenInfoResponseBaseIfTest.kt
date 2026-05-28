@@ -15,8 +15,8 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class TokenInfoResponseBaseIfTest {
 
     @Test
-    fun ofPublicAccessTokenInfoResponse() {
-        val publicAccessTokenInfoResponse =
+    fun ofAccessToken() {
+        val accessToken =
             PublicAccessTokenInfoResponse.builder()
                 .token("token")
                 .active(true)
@@ -52,19 +52,17 @@ internal class TokenInfoResponseBaseIfTest {
                 .user("user")
                 .build()
 
-        val tokenInfoResponseBaseIf =
-            TokenInfoResponseBaseIf.ofPublicAccessTokenInfoResponse(publicAccessTokenInfoResponse)
+        val tokenInfoResponseBaseIf = TokenInfoResponseBaseIf.ofAccessToken(accessToken)
 
-        assertThat(tokenInfoResponseBaseIf.publicAccessTokenInfoResponse())
-            .contains(publicAccessTokenInfoResponse)
-        assertThat(tokenInfoResponseBaseIf.publicRefreshTokenInfoResponse()).isEmpty
+        assertThat(tokenInfoResponseBaseIf.accessToken()).contains(accessToken)
+        assertThat(tokenInfoResponseBaseIf.refreshToken()).isEmpty
     }
 
     @Test
-    fun ofPublicAccessTokenInfoResponseRoundtrip() {
+    fun ofAccessTokenRoundtrip() {
         val jsonMapper = jsonMapper()
         val tokenInfoResponseBaseIf =
-            TokenInfoResponseBaseIf.ofPublicAccessTokenInfoResponse(
+            TokenInfoResponseBaseIf.ofAccessToken(
                 PublicAccessTokenInfoResponse.builder()
                     .token("token")
                     .active(true)
@@ -111,8 +109,8 @@ internal class TokenInfoResponseBaseIfTest {
     }
 
     @Test
-    fun ofPublicRefreshTokenInfoResponse() {
-        val publicRefreshTokenInfoResponse =
+    fun ofRefreshToken() {
+        val refreshToken =
             PublicRefreshTokenInfoResponse.builder()
                 .token("token")
                 .active(true)
@@ -127,19 +125,17 @@ internal class TokenInfoResponseBaseIfTest {
                 .user("user")
                 .build()
 
-        val tokenInfoResponseBaseIf =
-            TokenInfoResponseBaseIf.ofPublicRefreshTokenInfoResponse(publicRefreshTokenInfoResponse)
+        val tokenInfoResponseBaseIf = TokenInfoResponseBaseIf.ofRefreshToken(refreshToken)
 
-        assertThat(tokenInfoResponseBaseIf.publicAccessTokenInfoResponse()).isEmpty
-        assertThat(tokenInfoResponseBaseIf.publicRefreshTokenInfoResponse())
-            .contains(publicRefreshTokenInfoResponse)
+        assertThat(tokenInfoResponseBaseIf.accessToken()).isEmpty
+        assertThat(tokenInfoResponseBaseIf.refreshToken()).contains(refreshToken)
     }
 
     @Test
-    fun ofPublicRefreshTokenInfoResponseRoundtrip() {
+    fun ofRefreshTokenRoundtrip() {
         val jsonMapper = jsonMapper()
         val tokenInfoResponseBaseIf =
-            TokenInfoResponseBaseIf.ofPublicRefreshTokenInfoResponse(
+            TokenInfoResponseBaseIf.ofRefreshToken(
                 PublicRefreshTokenInfoResponse.builder()
                     .token("token")
                     .active(true)
