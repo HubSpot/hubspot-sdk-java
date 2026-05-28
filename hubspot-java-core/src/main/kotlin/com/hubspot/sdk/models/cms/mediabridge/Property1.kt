@@ -52,6 +52,7 @@ private constructor(
     private val referencedObjectType: JsonField<String>,
     private val sensitiveDataCategories: JsonField<List<String>>,
     private val showCurrencySymbol: JsonField<Boolean>,
+    private val textDisplayHint: JsonField<TextDisplayHint>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val updatedUserId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -124,6 +125,9 @@ private constructor(
         @JsonProperty("showCurrencySymbol")
         @ExcludeMissing
         showCurrencySymbol: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("textDisplayHint")
+        @ExcludeMissing
+        textDisplayHint: JsonField<TextDisplayHint> = JsonMissing.of(),
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -158,6 +162,7 @@ private constructor(
         referencedObjectType,
         sensitiveDataCategories,
         showCurrencySymbol,
+        textDisplayHint,
         updatedAt,
         updatedUserId,
         mutableMapOf(),
@@ -333,6 +338,13 @@ private constructor(
      */
     fun showCurrencySymbol(): Optional<Boolean> =
         showCurrencySymbol.getOptional("showCurrencySymbol")
+
+    /**
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun textDisplayHint(): Optional<TextDisplayHint> =
+        textDisplayHint.getOptional("textDisplayHint")
 
     /**
      * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -573,6 +585,15 @@ private constructor(
     fun _showCurrencySymbol(): JsonField<Boolean> = showCurrencySymbol
 
     /**
+     * Returns the raw JSON value of [textDisplayHint].
+     *
+     * Unlike [textDisplayHint], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("textDisplayHint")
+    @ExcludeMissing
+    fun _textDisplayHint(): JsonField<TextDisplayHint> = textDisplayHint
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -651,6 +672,7 @@ private constructor(
         private var referencedObjectType: JsonField<String> = JsonMissing.of()
         private var sensitiveDataCategories: JsonField<MutableList<String>>? = null
         private var showCurrencySymbol: JsonField<Boolean> = JsonMissing.of()
+        private var textDisplayHint: JsonField<TextDisplayHint> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var updatedUserId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -684,6 +706,7 @@ private constructor(
             referencedObjectType = property1.referencedObjectType
             sensitiveDataCategories = property1.sensitiveDataCategories.map { it.toMutableList() }
             showCurrencySymbol = property1.showCurrencySymbol
+            textDisplayHint = property1.textDisplayHint
             updatedAt = property1.updatedAt
             updatedUserId = property1.updatedUserId
             additionalProperties = property1.additionalProperties.toMutableMap()
@@ -1047,6 +1070,20 @@ private constructor(
             this.showCurrencySymbol = showCurrencySymbol
         }
 
+        fun textDisplayHint(textDisplayHint: TextDisplayHint) =
+            textDisplayHint(JsonField.of(textDisplayHint))
+
+        /**
+         * Sets [Builder.textDisplayHint] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.textDisplayHint] with a well-typed [TextDisplayHint]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun textDisplayHint(textDisplayHint: JsonField<TextDisplayHint>) = apply {
+            this.textDisplayHint = textDisplayHint
+        }
+
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -1137,6 +1174,7 @@ private constructor(
                 referencedObjectType,
                 (sensitiveDataCategories ?: JsonMissing.of()).map { it.toImmutable() },
                 showCurrencySymbol,
+                textDisplayHint,
                 updatedAt,
                 updatedUserId,
                 additionalProperties.toMutableMap(),
@@ -1185,6 +1223,7 @@ private constructor(
         referencedObjectType()
         sensitiveDataCategories()
         showCurrencySymbol()
+        textDisplayHint().ifPresent { it.validate() }
         updatedAt()
         updatedUserId()
         validated = true
@@ -1232,6 +1271,7 @@ private constructor(
             (if (referencedObjectType.asKnown().isPresent) 1 else 0) +
             (sensitiveDataCategories.asKnown().getOrNull()?.size ?: 0) +
             (if (showCurrencySymbol.asKnown().isPresent) 1 else 0) +
+            (textDisplayHint.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (updatedUserId.asKnown().isPresent) 1 else 0)
 
@@ -1691,6 +1731,180 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class TextDisplayHint @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val DOMAIN_NAME = of("domain_name")
+
+            @JvmField val EMAIL = of("email")
+
+            @JvmField val IP_ADDRESS = of("ip_address")
+
+            @JvmField val MULTI_LINE = of("multi_line")
+
+            @JvmField val PHONE_NUMBER = of("phone_number")
+
+            @JvmField val PHYSICAL_ADDRESS = of("physical_address")
+
+            @JvmField val POSTAL_CODE = of("postal_code")
+
+            @JvmField val UNFORMATTED_SINGLE_LINE = of("unformatted_single_line")
+
+            @JvmStatic fun of(value: String) = TextDisplayHint(JsonField.of(value))
+        }
+
+        /** An enum containing [TextDisplayHint]'s known values. */
+        enum class Known {
+            DOMAIN_NAME,
+            EMAIL,
+            IP_ADDRESS,
+            MULTI_LINE,
+            PHONE_NUMBER,
+            PHYSICAL_ADDRESS,
+            POSTAL_CODE,
+            UNFORMATTED_SINGLE_LINE,
+        }
+
+        /**
+         * An enum containing [TextDisplayHint]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [TextDisplayHint] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            DOMAIN_NAME,
+            EMAIL,
+            IP_ADDRESS,
+            MULTI_LINE,
+            PHONE_NUMBER,
+            PHYSICAL_ADDRESS,
+            POSTAL_CODE,
+            UNFORMATTED_SINGLE_LINE,
+            /**
+             * An enum member indicating that [TextDisplayHint] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                DOMAIN_NAME -> Value.DOMAIN_NAME
+                EMAIL -> Value.EMAIL
+                IP_ADDRESS -> Value.IP_ADDRESS
+                MULTI_LINE -> Value.MULTI_LINE
+                PHONE_NUMBER -> Value.PHONE_NUMBER
+                PHYSICAL_ADDRESS -> Value.PHYSICAL_ADDRESS
+                POSTAL_CODE -> Value.POSTAL_CODE
+                UNFORMATTED_SINGLE_LINE -> Value.UNFORMATTED_SINGLE_LINE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                DOMAIN_NAME -> Known.DOMAIN_NAME
+                EMAIL -> Known.EMAIL
+                IP_ADDRESS -> Known.IP_ADDRESS
+                MULTI_LINE -> Known.MULTI_LINE
+                PHONE_NUMBER -> Known.PHONE_NUMBER
+                PHYSICAL_ADDRESS -> Known.PHYSICAL_ADDRESS
+                POSTAL_CODE -> Known.POSTAL_CODE
+                UNFORMATTED_SINGLE_LINE -> Known.UNFORMATTED_SINGLE_LINE
+                else -> throw HubSpotInvalidDataException("Unknown TextDisplayHint: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws HubSpotInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): TextDisplayHint = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubSpotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TextDisplayHint && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -1724,6 +1938,7 @@ private constructor(
             referencedObjectType == other.referencedObjectType &&
             sensitiveDataCategories == other.sensitiveDataCategories &&
             showCurrencySymbol == other.showCurrencySymbol &&
+            textDisplayHint == other.textDisplayHint &&
             updatedAt == other.updatedAt &&
             updatedUserId == other.updatedUserId &&
             additionalProperties == other.additionalProperties
@@ -1758,6 +1973,7 @@ private constructor(
             referencedObjectType,
             sensitiveDataCategories,
             showCurrencySymbol,
+            textDisplayHint,
             updatedAt,
             updatedUserId,
             additionalProperties,
@@ -1767,5 +1983,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Property1{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, currencyPropertyName=$currencyPropertyName, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, modificationMetadata=$modificationMetadata, numberDisplayHint=$numberDisplayHint, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
+        "Property1{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, currencyPropertyName=$currencyPropertyName, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, modificationMetadata=$modificationMetadata, numberDisplayHint=$numberDisplayHint, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, textDisplayHint=$textDisplayHint, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
 }

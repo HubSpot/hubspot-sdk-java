@@ -15,8 +15,8 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class TokenResponseIfTest {
 
     @Test
-    fun ofAccessTokenResponse() {
-        val accessTokenResponse =
+    fun ofAccessToken() {
+        val accessToken =
             AccessTokenResponse.builder()
                 .accessToken("access_token")
                 .expiresIn(0L)
@@ -29,17 +29,17 @@ internal class TokenResponseIfTest {
                 .userId(0)
                 .build()
 
-        val tokenResponseIf = TokenResponseIf.ofAccessTokenResponse(accessTokenResponse)
+        val tokenResponseIf = TokenResponseIf.ofAccessToken(accessToken)
 
-        assertThat(tokenResponseIf.accessTokenResponse()).contains(accessTokenResponse)
-        assertThat(tokenResponseIf.clientCredentialsTokenResponse()).isEmpty
+        assertThat(tokenResponseIf.accessToken()).contains(accessToken)
+        assertThat(tokenResponseIf.clientCredentials()).isEmpty
     }
 
     @Test
-    fun ofAccessTokenResponseRoundtrip() {
+    fun ofAccessTokenRoundtrip() {
         val jsonMapper = jsonMapper()
         val tokenResponseIf =
-            TokenResponseIf.ofAccessTokenResponse(
+            TokenResponseIf.ofAccessToken(
                 AccessTokenResponse.builder()
                     .accessToken("access_token")
                     .expiresIn(0L)
@@ -63,8 +63,8 @@ internal class TokenResponseIfTest {
     }
 
     @Test
-    fun ofClientCredentialsTokenResponse() {
-        val clientCredentialsTokenResponse =
+    fun ofClientCredentials() {
+        val clientCredentials =
             ClientCredentialsTokenResponse.builder()
                 .accessToken("access_token")
                 .expiresIn(0L)
@@ -76,19 +76,17 @@ internal class TokenResponseIfTest {
                 .userId(0)
                 .build()
 
-        val tokenResponseIf =
-            TokenResponseIf.ofClientCredentialsTokenResponse(clientCredentialsTokenResponse)
+        val tokenResponseIf = TokenResponseIf.ofClientCredentials(clientCredentials)
 
-        assertThat(tokenResponseIf.accessTokenResponse()).isEmpty
-        assertThat(tokenResponseIf.clientCredentialsTokenResponse())
-            .contains(clientCredentialsTokenResponse)
+        assertThat(tokenResponseIf.accessToken()).isEmpty
+        assertThat(tokenResponseIf.clientCredentials()).contains(clientCredentials)
     }
 
     @Test
-    fun ofClientCredentialsTokenResponseRoundtrip() {
+    fun ofClientCredentialsRoundtrip() {
         val jsonMapper = jsonMapper()
         val tokenResponseIf =
-            TokenResponseIf.ofClientCredentialsTokenResponse(
+            TokenResponseIf.ofClientCredentials(
                 ClientCredentialsTokenResponse.builder()
                     .accessToken("access_token")
                     .expiresIn(0L)

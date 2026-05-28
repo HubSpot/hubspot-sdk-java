@@ -526,7 +526,7 @@ internal class PublicUnifiedEventsFilterBranchTest {
             .isEqualTo(PublicUnifiedEventsFilterBranch.Operator.HAS_COMPLETED)
         assertThat(publicUnifiedEventsFilterBranch.coalescingRefineBy())
             .contains(
-                PublicUnifiedEventsFilterBranch.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicUnifiedEventsFilterBranch.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)
@@ -536,7 +536,7 @@ internal class PublicUnifiedEventsFilterBranchTest {
             )
         assertThat(publicUnifiedEventsFilterBranch.pruningRefineBy())
             .contains(
-                PublicUnifiedEventsFilterBranch.PruningRefineBy.ofPublicNumOccurrences(
+                PublicUnifiedEventsFilterBranch.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

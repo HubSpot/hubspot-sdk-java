@@ -42,7 +42,7 @@ internal class PublicIndexedTimePointTest {
 
         assertThat(publicIndexedTimePoint.indexReference())
             .isEqualTo(
-                PublicIndexedTimePoint.IndexReference.ofPublicNow(
+                PublicIndexedTimePoint.IndexReference.ofNow(
                     PublicNowReference.builder()
                         .referenceType(PublicNowReference.ReferenceType.NOW)
                         .hour(0)

@@ -73,20 +73,14 @@ interface SubscriptionService {
 
     /** @see create */
     fun create(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+        object_: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): JournalSubscriptionResponse =
-        create(
-            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                objectSubscriptionUpsertRequest
-            ),
-            requestOptions,
-        )
+        create(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
     /** @see create */
-    fun create(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-    ): JournalSubscriptionResponse = create(objectSubscriptionUpsertRequest, RequestOptions.none())
+    fun create(object_: ObjectSubscriptionUpsertRequest): JournalSubscriptionResponse =
+        create(object_, RequestOptions.none())
 
     /** @see create */
     fun create(
@@ -319,22 +313,16 @@ interface SubscriptionService {
         /** @see create */
         @MustBeClosed
         fun create(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+            object_: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<JournalSubscriptionResponse> =
-            create(
-                SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                    objectSubscriptionUpsertRequest
-                ),
-                requestOptions,
-            )
+            create(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
         /** @see create */
         @MustBeClosed
         fun create(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ): HttpResponseFor<JournalSubscriptionResponse> =
-            create(objectSubscriptionUpsertRequest, RequestOptions.none())
+            object_: ObjectSubscriptionUpsertRequest
+        ): HttpResponseFor<JournalSubscriptionResponse> = create(object_, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed

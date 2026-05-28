@@ -41,6 +41,7 @@ internal class PropertyCreateParamsTest {
                     )
                     .referencedObjectType("referencedObjectType")
                     .showCurrencySymbol(true)
+                    .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                     .build()
             )
             .build()
@@ -100,6 +101,7 @@ internal class PropertyCreateParamsTest {
                         )
                         .referencedObjectType("referencedObjectType")
                         .showCurrencySymbol(true)
+                        .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                         .build()
                 )
                 .build()
@@ -135,6 +137,7 @@ internal class PropertyCreateParamsTest {
                     )
                     .referencedObjectType("referencedObjectType")
                     .showCurrencySymbol(true)
+                    .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                     .build()
             )
     }

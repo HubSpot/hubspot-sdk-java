@@ -74,10 +74,10 @@ private constructor(
 
         /**
          * Alias for calling [publicListConversionTime] with
-         * `PublicListConversionTime.ofDate(date)`.
+         * `PublicListConversionTime.ofConversionDate(conversionDate)`.
          */
-        fun publicListConversionTime(date: PublicListConversionDate) =
-            publicListConversionTime(PublicListConversionTime.ofDate(date))
+        fun publicListConversionTime(conversionDate: PublicListConversionDate) =
+            publicListConversionTime(PublicListConversionTime.ofConversionDate(conversionDate))
 
         /**
          * Alias for calling [publicListConversionTime] with

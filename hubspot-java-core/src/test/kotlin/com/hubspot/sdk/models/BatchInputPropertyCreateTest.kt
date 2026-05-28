@@ -41,6 +41,7 @@ internal class BatchInputPropertyCreateTest {
                         )
                         .referencedObjectType("referencedObjectType")
                         .showCurrencySymbol(true)
+                        .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                         .build()
                 )
                 .build()
@@ -74,6 +75,7 @@ internal class BatchInputPropertyCreateTest {
                     )
                     .referencedObjectType("referencedObjectType")
                     .showCurrencySymbol(true)
+                    .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                     .build()
             )
     }
@@ -111,6 +113,7 @@ internal class BatchInputPropertyCreateTest {
                         )
                         .referencedObjectType("referencedObjectType")
                         .showCurrencySymbol(true)
+                        .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                         .build()
                 )
                 .build()

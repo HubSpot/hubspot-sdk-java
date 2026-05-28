@@ -12,11 +12,11 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.BaseDeserializer
 import com.hubspot.sdk.core.BaseSerializer
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 @JsonDeserialize(using = PublicExportRequest.Deserializer::class)
 @JsonSerialize(using = PublicExportRequest.Serializer::class)
@@ -186,28 +186,22 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): PublicExportRequest {
             val json = JsonValue.fromJsonNode(node)
+            val exportType = json.asObject().getOrNull()?.get("exportType")?.asString()?.getOrNull()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<PublicExportViewRequest>())?.let {
-                            PublicExportRequest(view = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<PublicExportListRequest>())?.let {
-                            PublicExportRequest(list = it, _json = json)
-                        },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> PublicExportRequest(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (exportType) {
+                "VIEW" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PublicExportViewRequest>())?.let {
+                        PublicExportRequest(view = it, _json = json)
+                    } ?: PublicExportRequest(_json = json)
+                }
+                "LIST" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PublicExportListRequest>())?.let {
+                        PublicExportRequest(list = it, _json = json)
+                    } ?: PublicExportRequest(_json = json)
+                }
             }
+
+            return PublicExportRequest(_json = json)
         }
     }
 

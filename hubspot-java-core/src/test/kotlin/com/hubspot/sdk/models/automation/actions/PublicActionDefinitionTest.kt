@@ -221,7 +221,7 @@ internal class PublicActionDefinitionTest {
             )
         assertThat(publicActionDefinition.inputFieldDependencies().getOrNull())
             .containsExactly(
-                PublicActionDefinition.InputFieldDependency.ofPublicSingle(
+                PublicActionDefinition.InputFieldDependency.ofSingleField(
                     PublicSingleFieldDependency.builder()
                         .controllingFieldName("controllingFieldName")
                         .dependencyType(PublicSingleFieldDependency.DependencyType.SINGLE_FIELD)

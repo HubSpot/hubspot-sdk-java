@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
@@ -333,28 +332,22 @@ private constructor(
             this.lowerBoundTimePoint = lowerBoundTimePoint
         }
 
+        /** Alias for calling [lowerBoundTimePoint] with `LowerBoundTimePoint.ofDate(date)`. */
+        fun lowerBoundTimePoint(date: PublicDatePoint) =
+            lowerBoundTimePoint(LowerBoundTimePoint.ofDate(date))
+
         /**
-         * Alias for calling [lowerBoundTimePoint] with
-         * `LowerBoundTimePoint.ofPublicDate(publicDate)`.
+         * Alias for calling [lowerBoundTimePoint] with `LowerBoundTimePoint.ofIndexed(indexed)`.
          */
-        fun lowerBoundTimePoint(publicDate: PublicDatePoint) =
-            lowerBoundTimePoint(LowerBoundTimePoint.ofPublicDate(publicDate))
+        fun lowerBoundTimePoint(indexed: PublicIndexedTimePoint) =
+            lowerBoundTimePoint(LowerBoundTimePoint.ofIndexed(indexed))
 
         /**
          * Alias for calling [lowerBoundTimePoint] with
-         * `LowerBoundTimePoint.ofPublicIndexed(publicIndexed)`.
+         * `LowerBoundTimePoint.ofPropertyReferenced(propertyReferenced)`.
          */
-        fun lowerBoundTimePoint(publicIndexed: PublicIndexedTimePoint) =
-            lowerBoundTimePoint(LowerBoundTimePoint.ofPublicIndexed(publicIndexed))
-
-        /**
-         * Alias for calling [lowerBoundTimePoint] with
-         * `LowerBoundTimePoint.ofPublicPropertyReferencedTime(publicPropertyReferencedTime)`.
-         */
-        fun lowerBoundTimePoint(publicPropertyReferencedTime: PublicPropertyReferencedTime) =
-            lowerBoundTimePoint(
-                LowerBoundTimePoint.ofPublicPropertyReferencedTime(publicPropertyReferencedTime)
-            )
+        fun lowerBoundTimePoint(propertyReferenced: PublicPropertyReferencedTime) =
+            lowerBoundTimePoint(LowerBoundTimePoint.ofPropertyReferenced(propertyReferenced))
 
         /** Specifies the type of operation (TIME_RANGED). */
         fun operationType(operationType: OperationType) = operationType(JsonField.of(operationType))
@@ -409,28 +402,22 @@ private constructor(
             this.upperBoundTimePoint = upperBoundTimePoint
         }
 
+        /** Alias for calling [upperBoundTimePoint] with `UpperBoundTimePoint.ofDate(date)`. */
+        fun upperBoundTimePoint(date: PublicDatePoint) =
+            upperBoundTimePoint(UpperBoundTimePoint.ofDate(date))
+
         /**
-         * Alias for calling [upperBoundTimePoint] with
-         * `UpperBoundTimePoint.ofPublicDate(publicDate)`.
+         * Alias for calling [upperBoundTimePoint] with `UpperBoundTimePoint.ofIndexed(indexed)`.
          */
-        fun upperBoundTimePoint(publicDate: PublicDatePoint) =
-            upperBoundTimePoint(UpperBoundTimePoint.ofPublicDate(publicDate))
+        fun upperBoundTimePoint(indexed: PublicIndexedTimePoint) =
+            upperBoundTimePoint(UpperBoundTimePoint.ofIndexed(indexed))
 
         /**
          * Alias for calling [upperBoundTimePoint] with
-         * `UpperBoundTimePoint.ofPublicIndexed(publicIndexed)`.
+         * `UpperBoundTimePoint.ofPropertyReferenced(propertyReferenced)`.
          */
-        fun upperBoundTimePoint(publicIndexed: PublicIndexedTimePoint) =
-            upperBoundTimePoint(UpperBoundTimePoint.ofPublicIndexed(publicIndexed))
-
-        /**
-         * Alias for calling [upperBoundTimePoint] with
-         * `UpperBoundTimePoint.ofPublicPropertyReferencedTime(publicPropertyReferencedTime)`.
-         */
-        fun upperBoundTimePoint(publicPropertyReferencedTime: PublicPropertyReferencedTime) =
-            upperBoundTimePoint(
-                UpperBoundTimePoint.ofPublicPropertyReferencedTime(publicPropertyReferencedTime)
-            )
+        fun upperBoundTimePoint(propertyReferenced: PublicPropertyReferencedTime) =
+            upperBoundTimePoint(UpperBoundTimePoint.ofPropertyReferenced(propertyReferenced))
 
         /** Describes the behavior at the lower bound endpoint of the time range. */
         fun lowerBoundEndpointBehavior(lowerBoundEndpointBehavior: String) =
@@ -584,31 +571,31 @@ private constructor(
     @JsonSerialize(using = LowerBoundTimePoint.Serializer::class)
     class LowerBoundTimePoint
     private constructor(
-        private val publicDate: PublicDatePoint? = null,
-        private val publicIndexed: PublicIndexedTimePoint? = null,
-        private val publicPropertyReferencedTime: PublicPropertyReferencedTime? = null,
+        private val date: PublicDatePoint? = null,
+        private val indexed: PublicIndexedTimePoint? = null,
+        private val propertyReferenced: PublicPropertyReferencedTime? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicDate(): Optional<PublicDatePoint> = Optional.ofNullable(publicDate)
+        fun date(): Optional<PublicDatePoint> = Optional.ofNullable(date)
 
-        fun publicIndexed(): Optional<PublicIndexedTimePoint> = Optional.ofNullable(publicIndexed)
+        fun indexed(): Optional<PublicIndexedTimePoint> = Optional.ofNullable(indexed)
 
-        fun publicPropertyReferencedTime(): Optional<PublicPropertyReferencedTime> =
-            Optional.ofNullable(publicPropertyReferencedTime)
+        fun propertyReferenced(): Optional<PublicPropertyReferencedTime> =
+            Optional.ofNullable(propertyReferenced)
 
-        fun isPublicDate(): Boolean = publicDate != null
+        fun isDate(): Boolean = date != null
 
-        fun isPublicIndexed(): Boolean = publicIndexed != null
+        fun isIndexed(): Boolean = indexed != null
 
-        fun isPublicPropertyReferencedTime(): Boolean = publicPropertyReferencedTime != null
+        fun isPropertyReferenced(): Boolean = propertyReferenced != null
 
-        fun asPublicDate(): PublicDatePoint = publicDate.getOrThrow("publicDate")
+        fun asDate(): PublicDatePoint = date.getOrThrow("date")
 
-        fun asPublicIndexed(): PublicIndexedTimePoint = publicIndexed.getOrThrow("publicIndexed")
+        fun asIndexed(): PublicIndexedTimePoint = indexed.getOrThrow("indexed")
 
-        fun asPublicPropertyReferencedTime(): PublicPropertyReferencedTime =
-            publicPropertyReferencedTime.getOrThrow("publicPropertyReferencedTime")
+        fun asPropertyReferenced(): PublicPropertyReferencedTime =
+            propertyReferenced.getOrThrow("propertyReferenced")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -624,8 +611,8 @@ private constructor(
          *
          * Optional<String> result = lowerBoundTimePoint.accept(new LowerBoundTimePoint.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicDate(PublicDatePoint publicDate) {
-         *         return Optional.of(publicDate.toString());
+         *     public Optional<String> visitDate(PublicDatePoint date) {
+         *         return Optional.of(date.toString());
          *     }
          *
          *     // ...
@@ -643,10 +630,9 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicDate != null -> visitor.visitPublicDate(publicDate)
-                publicIndexed != null -> visitor.visitPublicIndexed(publicIndexed)
-                publicPropertyReferencedTime != null ->
-                    visitor.visitPublicPropertyReferencedTime(publicPropertyReferencedTime)
+                date != null -> visitor.visitDate(date)
+                indexed != null -> visitor.visitIndexed(indexed)
+                propertyReferenced != null -> visitor.visitPropertyReferenced(propertyReferenced)
                 else -> visitor.unknown(_json)
             }
 
@@ -668,18 +654,18 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicDate(publicDate: PublicDatePoint) {
-                        publicDate.validate()
+                    override fun visitDate(date: PublicDatePoint) {
+                        date.validate()
                     }
 
-                    override fun visitPublicIndexed(publicIndexed: PublicIndexedTimePoint) {
-                        publicIndexed.validate()
+                    override fun visitIndexed(indexed: PublicIndexedTimePoint) {
+                        indexed.validate()
                     }
 
-                    override fun visitPublicPropertyReferencedTime(
-                        publicPropertyReferencedTime: PublicPropertyReferencedTime
+                    override fun visitPropertyReferenced(
+                        propertyReferenced: PublicPropertyReferencedTime
                     ) {
-                        publicPropertyReferencedTime.validate()
+                        propertyReferenced.validate()
                     }
                 }
             )
@@ -704,15 +690,13 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicDate(publicDate: PublicDatePoint) =
-                        publicDate.validity()
+                    override fun visitDate(date: PublicDatePoint) = date.validity()
 
-                    override fun visitPublicIndexed(publicIndexed: PublicIndexedTimePoint) =
-                        publicIndexed.validity()
+                    override fun visitIndexed(indexed: PublicIndexedTimePoint) = indexed.validity()
 
-                    override fun visitPublicPropertyReferencedTime(
-                        publicPropertyReferencedTime: PublicPropertyReferencedTime
-                    ) = publicPropertyReferencedTime.validity()
+                    override fun visitPropertyReferenced(
+                        propertyReferenced: PublicPropertyReferencedTime
+                    ) = propertyReferenced.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -724,38 +708,33 @@ private constructor(
             }
 
             return other is LowerBoundTimePoint &&
-                publicDate == other.publicDate &&
-                publicIndexed == other.publicIndexed &&
-                publicPropertyReferencedTime == other.publicPropertyReferencedTime
+                date == other.date &&
+                indexed == other.indexed &&
+                propertyReferenced == other.propertyReferenced
         }
 
-        override fun hashCode(): Int =
-            Objects.hash(publicDate, publicIndexed, publicPropertyReferencedTime)
+        override fun hashCode(): Int = Objects.hash(date, indexed, propertyReferenced)
 
         override fun toString(): String =
             when {
-                publicDate != null -> "LowerBoundTimePoint{publicDate=$publicDate}"
-                publicIndexed != null -> "LowerBoundTimePoint{publicIndexed=$publicIndexed}"
-                publicPropertyReferencedTime != null ->
-                    "LowerBoundTimePoint{publicPropertyReferencedTime=$publicPropertyReferencedTime}"
+                date != null -> "LowerBoundTimePoint{date=$date}"
+                indexed != null -> "LowerBoundTimePoint{indexed=$indexed}"
+                propertyReferenced != null ->
+                    "LowerBoundTimePoint{propertyReferenced=$propertyReferenced}"
                 _json != null -> "LowerBoundTimePoint{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid LowerBoundTimePoint")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicDate(publicDate: PublicDatePoint) =
-                LowerBoundTimePoint(publicDate = publicDate)
+            @JvmStatic fun ofDate(date: PublicDatePoint) = LowerBoundTimePoint(date = date)
 
             @JvmStatic
-            fun ofPublicIndexed(publicIndexed: PublicIndexedTimePoint) =
-                LowerBoundTimePoint(publicIndexed = publicIndexed)
+            fun ofIndexed(indexed: PublicIndexedTimePoint) = LowerBoundTimePoint(indexed = indexed)
 
             @JvmStatic
-            fun ofPublicPropertyReferencedTime(
-                publicPropertyReferencedTime: PublicPropertyReferencedTime
-            ) = LowerBoundTimePoint(publicPropertyReferencedTime = publicPropertyReferencedTime)
+            fun ofPropertyReferenced(propertyReferenced: PublicPropertyReferencedTime) =
+                LowerBoundTimePoint(propertyReferenced = propertyReferenced)
         }
 
         /**
@@ -764,13 +743,11 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicDate(publicDate: PublicDatePoint): T
+            fun visitDate(date: PublicDatePoint): T
 
-            fun visitPublicIndexed(publicIndexed: PublicIndexedTimePoint): T
+            fun visitIndexed(indexed: PublicIndexedTimePoint): T
 
-            fun visitPublicPropertyReferencedTime(
-                publicPropertyReferencedTime: PublicPropertyReferencedTime
-            ): T
+            fun visitPropertyReferenced(propertyReferenced: PublicPropertyReferencedTime): T
 
             /**
              * Maps an unknown variant of [LowerBoundTimePoint] to a value of type [T].
@@ -792,36 +769,27 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): LowerBoundTimePoint {
                 val json = JsonValue.fromJsonNode(node)
+                val timeType = json.asObject().getOrNull()?.get("timeType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicDatePoint>())?.let {
-                                LowerBoundTimePoint(publicDate = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicIndexedTimePoint>())?.let {
-                                LowerBoundTimePoint(publicIndexed = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicPropertyReferencedTime>())
-                                ?.let {
-                                    LowerBoundTimePoint(
-                                        publicPropertyReferencedTime = it,
-                                        _json = json,
-                                    )
-                                },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> LowerBoundTimePoint(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (timeType) {
+                    "DATE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicDatePoint>())?.let {
+                            LowerBoundTimePoint(date = it, _json = json)
+                        } ?: LowerBoundTimePoint(_json = json)
+                    }
+                    "INDEXED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicIndexedTimePoint>())?.let {
+                            LowerBoundTimePoint(indexed = it, _json = json)
+                        } ?: LowerBoundTimePoint(_json = json)
+                    }
+                    "PROPERTY_REFERENCED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicPropertyReferencedTime>())
+                            ?.let { LowerBoundTimePoint(propertyReferenced = it, _json = json) }
+                            ?: LowerBoundTimePoint(_json = json)
+                    }
                 }
+
+                return LowerBoundTimePoint(_json = json)
             }
         }
 
@@ -834,10 +802,10 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicDate != null -> generator.writeObject(value.publicDate)
-                    value.publicIndexed != null -> generator.writeObject(value.publicIndexed)
-                    value.publicPropertyReferencedTime != null ->
-                        generator.writeObject(value.publicPropertyReferencedTime)
+                    value.date != null -> generator.writeObject(value.date)
+                    value.indexed != null -> generator.writeObject(value.indexed)
+                    value.propertyReferenced != null ->
+                        generator.writeObject(value.propertyReferenced)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid LowerBoundTimePoint")
                 }
@@ -1112,31 +1080,31 @@ private constructor(
     @JsonSerialize(using = UpperBoundTimePoint.Serializer::class)
     class UpperBoundTimePoint
     private constructor(
-        private val publicDate: PublicDatePoint? = null,
-        private val publicIndexed: PublicIndexedTimePoint? = null,
-        private val publicPropertyReferencedTime: PublicPropertyReferencedTime? = null,
+        private val date: PublicDatePoint? = null,
+        private val indexed: PublicIndexedTimePoint? = null,
+        private val propertyReferenced: PublicPropertyReferencedTime? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicDate(): Optional<PublicDatePoint> = Optional.ofNullable(publicDate)
+        fun date(): Optional<PublicDatePoint> = Optional.ofNullable(date)
 
-        fun publicIndexed(): Optional<PublicIndexedTimePoint> = Optional.ofNullable(publicIndexed)
+        fun indexed(): Optional<PublicIndexedTimePoint> = Optional.ofNullable(indexed)
 
-        fun publicPropertyReferencedTime(): Optional<PublicPropertyReferencedTime> =
-            Optional.ofNullable(publicPropertyReferencedTime)
+        fun propertyReferenced(): Optional<PublicPropertyReferencedTime> =
+            Optional.ofNullable(propertyReferenced)
 
-        fun isPublicDate(): Boolean = publicDate != null
+        fun isDate(): Boolean = date != null
 
-        fun isPublicIndexed(): Boolean = publicIndexed != null
+        fun isIndexed(): Boolean = indexed != null
 
-        fun isPublicPropertyReferencedTime(): Boolean = publicPropertyReferencedTime != null
+        fun isPropertyReferenced(): Boolean = propertyReferenced != null
 
-        fun asPublicDate(): PublicDatePoint = publicDate.getOrThrow("publicDate")
+        fun asDate(): PublicDatePoint = date.getOrThrow("date")
 
-        fun asPublicIndexed(): PublicIndexedTimePoint = publicIndexed.getOrThrow("publicIndexed")
+        fun asIndexed(): PublicIndexedTimePoint = indexed.getOrThrow("indexed")
 
-        fun asPublicPropertyReferencedTime(): PublicPropertyReferencedTime =
-            publicPropertyReferencedTime.getOrThrow("publicPropertyReferencedTime")
+        fun asPropertyReferenced(): PublicPropertyReferencedTime =
+            propertyReferenced.getOrThrow("propertyReferenced")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1152,8 +1120,8 @@ private constructor(
          *
          * Optional<String> result = upperBoundTimePoint.accept(new UpperBoundTimePoint.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicDate(PublicDatePoint publicDate) {
-         *         return Optional.of(publicDate.toString());
+         *     public Optional<String> visitDate(PublicDatePoint date) {
+         *         return Optional.of(date.toString());
          *     }
          *
          *     // ...
@@ -1171,10 +1139,9 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicDate != null -> visitor.visitPublicDate(publicDate)
-                publicIndexed != null -> visitor.visitPublicIndexed(publicIndexed)
-                publicPropertyReferencedTime != null ->
-                    visitor.visitPublicPropertyReferencedTime(publicPropertyReferencedTime)
+                date != null -> visitor.visitDate(date)
+                indexed != null -> visitor.visitIndexed(indexed)
+                propertyReferenced != null -> visitor.visitPropertyReferenced(propertyReferenced)
                 else -> visitor.unknown(_json)
             }
 
@@ -1196,18 +1163,18 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicDate(publicDate: PublicDatePoint) {
-                        publicDate.validate()
+                    override fun visitDate(date: PublicDatePoint) {
+                        date.validate()
                     }
 
-                    override fun visitPublicIndexed(publicIndexed: PublicIndexedTimePoint) {
-                        publicIndexed.validate()
+                    override fun visitIndexed(indexed: PublicIndexedTimePoint) {
+                        indexed.validate()
                     }
 
-                    override fun visitPublicPropertyReferencedTime(
-                        publicPropertyReferencedTime: PublicPropertyReferencedTime
+                    override fun visitPropertyReferenced(
+                        propertyReferenced: PublicPropertyReferencedTime
                     ) {
-                        publicPropertyReferencedTime.validate()
+                        propertyReferenced.validate()
                     }
                 }
             )
@@ -1232,15 +1199,13 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicDate(publicDate: PublicDatePoint) =
-                        publicDate.validity()
+                    override fun visitDate(date: PublicDatePoint) = date.validity()
 
-                    override fun visitPublicIndexed(publicIndexed: PublicIndexedTimePoint) =
-                        publicIndexed.validity()
+                    override fun visitIndexed(indexed: PublicIndexedTimePoint) = indexed.validity()
 
-                    override fun visitPublicPropertyReferencedTime(
-                        publicPropertyReferencedTime: PublicPropertyReferencedTime
-                    ) = publicPropertyReferencedTime.validity()
+                    override fun visitPropertyReferenced(
+                        propertyReferenced: PublicPropertyReferencedTime
+                    ) = propertyReferenced.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1252,38 +1217,33 @@ private constructor(
             }
 
             return other is UpperBoundTimePoint &&
-                publicDate == other.publicDate &&
-                publicIndexed == other.publicIndexed &&
-                publicPropertyReferencedTime == other.publicPropertyReferencedTime
+                date == other.date &&
+                indexed == other.indexed &&
+                propertyReferenced == other.propertyReferenced
         }
 
-        override fun hashCode(): Int =
-            Objects.hash(publicDate, publicIndexed, publicPropertyReferencedTime)
+        override fun hashCode(): Int = Objects.hash(date, indexed, propertyReferenced)
 
         override fun toString(): String =
             when {
-                publicDate != null -> "UpperBoundTimePoint{publicDate=$publicDate}"
-                publicIndexed != null -> "UpperBoundTimePoint{publicIndexed=$publicIndexed}"
-                publicPropertyReferencedTime != null ->
-                    "UpperBoundTimePoint{publicPropertyReferencedTime=$publicPropertyReferencedTime}"
+                date != null -> "UpperBoundTimePoint{date=$date}"
+                indexed != null -> "UpperBoundTimePoint{indexed=$indexed}"
+                propertyReferenced != null ->
+                    "UpperBoundTimePoint{propertyReferenced=$propertyReferenced}"
                 _json != null -> "UpperBoundTimePoint{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid UpperBoundTimePoint")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicDate(publicDate: PublicDatePoint) =
-                UpperBoundTimePoint(publicDate = publicDate)
+            @JvmStatic fun ofDate(date: PublicDatePoint) = UpperBoundTimePoint(date = date)
 
             @JvmStatic
-            fun ofPublicIndexed(publicIndexed: PublicIndexedTimePoint) =
-                UpperBoundTimePoint(publicIndexed = publicIndexed)
+            fun ofIndexed(indexed: PublicIndexedTimePoint) = UpperBoundTimePoint(indexed = indexed)
 
             @JvmStatic
-            fun ofPublicPropertyReferencedTime(
-                publicPropertyReferencedTime: PublicPropertyReferencedTime
-            ) = UpperBoundTimePoint(publicPropertyReferencedTime = publicPropertyReferencedTime)
+            fun ofPropertyReferenced(propertyReferenced: PublicPropertyReferencedTime) =
+                UpperBoundTimePoint(propertyReferenced = propertyReferenced)
         }
 
         /**
@@ -1292,13 +1252,11 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicDate(publicDate: PublicDatePoint): T
+            fun visitDate(date: PublicDatePoint): T
 
-            fun visitPublicIndexed(publicIndexed: PublicIndexedTimePoint): T
+            fun visitIndexed(indexed: PublicIndexedTimePoint): T
 
-            fun visitPublicPropertyReferencedTime(
-                publicPropertyReferencedTime: PublicPropertyReferencedTime
-            ): T
+            fun visitPropertyReferenced(propertyReferenced: PublicPropertyReferencedTime): T
 
             /**
              * Maps an unknown variant of [UpperBoundTimePoint] to a value of type [T].
@@ -1320,36 +1278,27 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): UpperBoundTimePoint {
                 val json = JsonValue.fromJsonNode(node)
+                val timeType = json.asObject().getOrNull()?.get("timeType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicDatePoint>())?.let {
-                                UpperBoundTimePoint(publicDate = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicIndexedTimePoint>())?.let {
-                                UpperBoundTimePoint(publicIndexed = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicPropertyReferencedTime>())
-                                ?.let {
-                                    UpperBoundTimePoint(
-                                        publicPropertyReferencedTime = it,
-                                        _json = json,
-                                    )
-                                },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> UpperBoundTimePoint(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (timeType) {
+                    "DATE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicDatePoint>())?.let {
+                            UpperBoundTimePoint(date = it, _json = json)
+                        } ?: UpperBoundTimePoint(_json = json)
+                    }
+                    "INDEXED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicIndexedTimePoint>())?.let {
+                            UpperBoundTimePoint(indexed = it, _json = json)
+                        } ?: UpperBoundTimePoint(_json = json)
+                    }
+                    "PROPERTY_REFERENCED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicPropertyReferencedTime>())
+                            ?.let { UpperBoundTimePoint(propertyReferenced = it, _json = json) }
+                            ?: UpperBoundTimePoint(_json = json)
+                    }
                 }
+
+                return UpperBoundTimePoint(_json = json)
             }
         }
 
@@ -1362,10 +1311,10 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicDate != null -> generator.writeObject(value.publicDate)
-                    value.publicIndexed != null -> generator.writeObject(value.publicIndexed)
-                    value.publicPropertyReferencedTime != null ->
-                        generator.writeObject(value.publicPropertyReferencedTime)
+                    value.date != null -> generator.writeObject(value.date)
+                    value.indexed != null -> generator.writeObject(value.indexed)
+                    value.propertyReferenced != null ->
+                        generator.writeObject(value.propertyReferenced)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid UpperBoundTimePoint")
                 }

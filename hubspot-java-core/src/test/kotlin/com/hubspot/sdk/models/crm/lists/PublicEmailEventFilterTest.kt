@@ -38,7 +38,7 @@ internal class PublicEmailEventFilterTest {
         assertThat(publicEmailEventFilter.clickUrl()).contains("clickUrl")
         assertThat(publicEmailEventFilter.pruningRefineBy())
             .contains(
-                PublicEmailEventFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicEmailEventFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

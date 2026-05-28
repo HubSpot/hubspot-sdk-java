@@ -72,16 +72,10 @@ private constructor(
 
         /**
          * Alias for calling [subscriptionUpsertRequest] with
-         * `SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(objectSubscriptionUpsertRequest)`.
+         * `SubscriptionUpsertRequest.ofObject(object_)`.
          */
-        fun subscriptionUpsertRequest(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-        ) =
-            subscriptionUpsertRequest(
-                SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                    objectSubscriptionUpsertRequest
-                )
-            )
+        fun subscriptionUpsertRequest(object_: ObjectSubscriptionUpsertRequest) =
+            subscriptionUpsertRequest(SubscriptionUpsertRequest.ofObject(object_))
 
         /**
          * Alias for calling [subscriptionUpsertRequest] with

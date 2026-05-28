@@ -19,7 +19,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
@@ -551,20 +550,20 @@ private constructor(
 
         /**
          * Alias for calling [addInputFieldDependency] with
-         * `InputFieldDependency.ofPublicSingle(publicSingle)`.
+         * `InputFieldDependency.ofSingleField(singleField)`.
          */
-        fun addInputFieldDependency(publicSingle: PublicSingleFieldDependency) =
-            addInputFieldDependency(InputFieldDependency.ofPublicSingle(publicSingle))
+        fun addInputFieldDependency(singleField: PublicSingleFieldDependency) =
+            addInputFieldDependency(InputFieldDependency.ofSingleField(singleField))
 
         /**
          * Alias for calling [addInputFieldDependency] with
-         * `InputFieldDependency.ofPublicConditionalSingle(publicConditionalSingle)`.
+         * `InputFieldDependency.ofConditionalSingleField(conditionalSingleField)`.
          */
         fun addInputFieldDependency(
-            publicConditionalSingle: PublicConditionalSingleFieldDependency
+            conditionalSingleField: PublicConditionalSingleFieldDependency
         ) =
             addInputFieldDependency(
-                InputFieldDependency.ofPublicConditionalSingle(publicConditionalSingle)
+                InputFieldDependency.ofConditionalSingleField(conditionalSingleField)
             )
 
         fun objectRequestOptions(objectRequestOptions: PublicObjectRequestOptions) =
@@ -837,25 +836,24 @@ private constructor(
     @JsonSerialize(using = InputFieldDependency.Serializer::class)
     class InputFieldDependency
     private constructor(
-        private val publicSingle: PublicSingleFieldDependency? = null,
-        private val publicConditionalSingle: PublicConditionalSingleFieldDependency? = null,
+        private val singleField: PublicSingleFieldDependency? = null,
+        private val conditionalSingleField: PublicConditionalSingleFieldDependency? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicSingle(): Optional<PublicSingleFieldDependency> =
-            Optional.ofNullable(publicSingle)
+        fun singleField(): Optional<PublicSingleFieldDependency> = Optional.ofNullable(singleField)
 
-        fun publicConditionalSingle(): Optional<PublicConditionalSingleFieldDependency> =
-            Optional.ofNullable(publicConditionalSingle)
+        fun conditionalSingleField(): Optional<PublicConditionalSingleFieldDependency> =
+            Optional.ofNullable(conditionalSingleField)
 
-        fun isPublicSingle(): Boolean = publicSingle != null
+        fun isSingleField(): Boolean = singleField != null
 
-        fun isPublicConditionalSingle(): Boolean = publicConditionalSingle != null
+        fun isConditionalSingleField(): Boolean = conditionalSingleField != null
 
-        fun asPublicSingle(): PublicSingleFieldDependency = publicSingle.getOrThrow("publicSingle")
+        fun asSingleField(): PublicSingleFieldDependency = singleField.getOrThrow("singleField")
 
-        fun asPublicConditionalSingle(): PublicConditionalSingleFieldDependency =
-            publicConditionalSingle.getOrThrow("publicConditionalSingle")
+        fun asConditionalSingleField(): PublicConditionalSingleFieldDependency =
+            conditionalSingleField.getOrThrow("conditionalSingleField")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -871,8 +869,8 @@ private constructor(
          *
          * Optional<String> result = inputFieldDependency.accept(new InputFieldDependency.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicSingle(PublicSingleFieldDependency publicSingle) {
-         *         return Optional.of(publicSingle.toString());
+         *     public Optional<String> visitSingleField(PublicSingleFieldDependency singleField) {
+         *         return Optional.of(singleField.toString());
          *     }
          *
          *     // ...
@@ -890,9 +888,9 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicSingle != null -> visitor.visitPublicSingle(publicSingle)
-                publicConditionalSingle != null ->
-                    visitor.visitPublicConditionalSingle(publicConditionalSingle)
+                singleField != null -> visitor.visitSingleField(singleField)
+                conditionalSingleField != null ->
+                    visitor.visitConditionalSingleField(conditionalSingleField)
                 else -> visitor.unknown(_json)
             }
 
@@ -914,14 +912,14 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicSingle(publicSingle: PublicSingleFieldDependency) {
-                        publicSingle.validate()
+                    override fun visitSingleField(singleField: PublicSingleFieldDependency) {
+                        singleField.validate()
                     }
 
-                    override fun visitPublicConditionalSingle(
-                        publicConditionalSingle: PublicConditionalSingleFieldDependency
+                    override fun visitConditionalSingleField(
+                        conditionalSingleField: PublicConditionalSingleFieldDependency
                     ) {
-                        publicConditionalSingle.validate()
+                        conditionalSingleField.validate()
                     }
                 }
             )
@@ -946,12 +944,12 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicSingle(publicSingle: PublicSingleFieldDependency) =
-                        publicSingle.validity()
+                    override fun visitSingleField(singleField: PublicSingleFieldDependency) =
+                        singleField.validity()
 
-                    override fun visitPublicConditionalSingle(
-                        publicConditionalSingle: PublicConditionalSingleFieldDependency
-                    ) = publicConditionalSingle.validity()
+                    override fun visitConditionalSingleField(
+                        conditionalSingleField: PublicConditionalSingleFieldDependency
+                    ) = conditionalSingleField.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -963,17 +961,17 @@ private constructor(
             }
 
             return other is InputFieldDependency &&
-                publicSingle == other.publicSingle &&
-                publicConditionalSingle == other.publicConditionalSingle
+                singleField == other.singleField &&
+                conditionalSingleField == other.conditionalSingleField
         }
 
-        override fun hashCode(): Int = Objects.hash(publicSingle, publicConditionalSingle)
+        override fun hashCode(): Int = Objects.hash(singleField, conditionalSingleField)
 
         override fun toString(): String =
             when {
-                publicSingle != null -> "InputFieldDependency{publicSingle=$publicSingle}"
-                publicConditionalSingle != null ->
-                    "InputFieldDependency{publicConditionalSingle=$publicConditionalSingle}"
+                singleField != null -> "InputFieldDependency{singleField=$singleField}"
+                conditionalSingleField != null ->
+                    "InputFieldDependency{conditionalSingleField=$conditionalSingleField}"
                 _json != null -> "InputFieldDependency{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid InputFieldDependency")
             }
@@ -981,13 +979,13 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofPublicSingle(publicSingle: PublicSingleFieldDependency) =
-                InputFieldDependency(publicSingle = publicSingle)
+            fun ofSingleField(singleField: PublicSingleFieldDependency) =
+                InputFieldDependency(singleField = singleField)
 
             @JvmStatic
-            fun ofPublicConditionalSingle(
-                publicConditionalSingle: PublicConditionalSingleFieldDependency
-            ) = InputFieldDependency(publicConditionalSingle = publicConditionalSingle)
+            fun ofConditionalSingleField(
+                conditionalSingleField: PublicConditionalSingleFieldDependency
+            ) = InputFieldDependency(conditionalSingleField = conditionalSingleField)
         }
 
         /**
@@ -996,10 +994,10 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicSingle(publicSingle: PublicSingleFieldDependency): T
+            fun visitSingleField(singleField: PublicSingleFieldDependency): T
 
-            fun visitPublicConditionalSingle(
-                publicConditionalSingle: PublicConditionalSingleFieldDependency
+            fun visitConditionalSingleField(
+                conditionalSingleField: PublicConditionalSingleFieldDependency
             ): T
 
             /**
@@ -1022,32 +1020,27 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): InputFieldDependency {
                 val json = JsonValue.fromJsonNode(node)
+                val dependencyType =
+                    json.asObject().getOrNull()?.get("dependencyType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicSingleFieldDependency>())
-                                ?.let { InputFieldDependency(publicSingle = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicConditionalSingleFieldDependency>(),
-                                )
-                                ?.let {
-                                    InputFieldDependency(publicConditionalSingle = it, _json = json)
-                                },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> InputFieldDependency(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (dependencyType) {
+                    "SINGLE_FIELD" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicSingleFieldDependency>())
+                            ?.let { InputFieldDependency(singleField = it, _json = json) }
+                            ?: InputFieldDependency(_json = json)
+                    }
+                    "CONDITIONAL_SINGLE_FIELD" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicConditionalSingleFieldDependency>(),
+                            )
+                            ?.let {
+                                InputFieldDependency(conditionalSingleField = it, _json = json)
+                            } ?: InputFieldDependency(_json = json)
+                    }
                 }
+
+                return InputFieldDependency(_json = json)
             }
         }
 
@@ -1060,9 +1053,9 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicSingle != null -> generator.writeObject(value.publicSingle)
-                    value.publicConditionalSingle != null ->
-                        generator.writeObject(value.publicConditionalSingle)
+                    value.singleField != null -> generator.writeObject(value.singleField)
+                    value.conditionalSingleField != null ->
+                        generator.writeObject(value.conditionalSingleField)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid InputFieldDependency")
                 }

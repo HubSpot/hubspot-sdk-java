@@ -38,7 +38,7 @@ internal class PublicFormSubmissionFilterTest {
             .isEqualTo(PublicFormSubmissionFilter.Operator.FILLED_OUT)
         assertThat(publicFormSubmissionFilter.coalescingRefineBy())
             .contains(
-                PublicFormSubmissionFilter.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicFormSubmissionFilter.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)
@@ -49,7 +49,7 @@ internal class PublicFormSubmissionFilterTest {
         assertThat(publicFormSubmissionFilter.formId()).contains("formId")
         assertThat(publicFormSubmissionFilter.pruningRefineBy())
             .contains(
-                PublicFormSubmissionFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicFormSubmissionFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

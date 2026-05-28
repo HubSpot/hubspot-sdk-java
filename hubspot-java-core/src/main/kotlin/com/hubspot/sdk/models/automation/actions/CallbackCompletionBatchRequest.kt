@@ -19,7 +19,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.core.toImmutable
@@ -253,9 +252,26 @@ private constructor(
         fun requestContext(workflows: WorkflowsRequestContext) =
             requestContext(RequestContext.ofWorkflows(workflows))
 
-        /** Alias for calling [requestContext] with `RequestContext.ofAgent(agent)`. */
-        fun requestContext(agent: AgentRequestContext) =
-            requestContext(RequestContext.ofAgent(agent))
+        /**
+         * Alias for calling [requestContext] with the following:
+         * ```java
+         * WorkflowsRequestContext.builder()
+         *     .source(WorkflowsRequestContext.Source.WORKFLOWS)
+         *     .workflowId(workflowId)
+         *     .build()
+         * ```
+         */
+        fun workflowsRequestContext(workflowId: Long) =
+            requestContext(
+                WorkflowsRequestContext.builder()
+                    .source(WorkflowsRequestContext.Source.WORKFLOWS)
+                    .workflowId(workflowId)
+                    .build()
+            )
+
+        /** Alias for calling [requestContext] with `RequestContext.ofAgents(agents)`. */
+        fun requestContext(agents: AgentRequestContext) =
+            requestContext(RequestContext.ofAgents(agents))
 
         /** Alias for calling [requestContext] with `RequestContext.ofCopilot(copilot)`. */
         fun requestContext(copilot: CopilotRequestContext) =
@@ -264,6 +280,23 @@ private constructor(
         /** Alias for calling [requestContext] with `RequestContext.ofStandalone(standalone)`. */
         fun requestContext(standalone: StandaloneRequestContext) =
             requestContext(RequestContext.ofStandalone(standalone))
+
+        /**
+         * Alias for calling [requestContext] with the following:
+         * ```java
+         * StandaloneRequestContext.builder()
+         *     .source(StandaloneRequestContext.Source.STANDALONE)
+         *     .chirpAiContextObject(chirpAiContextObject)
+         *     .build()
+         * ```
+         */
+        fun standaloneRequestContext(chirpAiContextObject: ChirpAiContextObject) =
+            requestContext(
+                StandaloneRequestContext.builder()
+                    .source(StandaloneRequestContext.Source.STANDALONE)
+                    .chirpAiContextObject(chirpAiContextObject)
+                    .build()
+            )
 
         /** Alias for calling [requestContext] with `RequestContext.ofTest(test)`. */
         fun requestContext(test: TestRequestContext) = requestContext(RequestContext.ofTest(test))
@@ -469,7 +502,7 @@ private constructor(
     class RequestContext
     private constructor(
         private val workflows: WorkflowsRequestContext? = null,
-        private val agent: AgentRequestContext? = null,
+        private val agents: AgentRequestContext? = null,
         private val copilot: CopilotRequestContext? = null,
         private val standalone: StandaloneRequestContext? = null,
         private val test: TestRequestContext? = null,
@@ -478,7 +511,7 @@ private constructor(
 
         fun workflows(): Optional<WorkflowsRequestContext> = Optional.ofNullable(workflows)
 
-        fun agent(): Optional<AgentRequestContext> = Optional.ofNullable(agent)
+        fun agents(): Optional<AgentRequestContext> = Optional.ofNullable(agents)
 
         fun copilot(): Optional<CopilotRequestContext> = Optional.ofNullable(copilot)
 
@@ -488,7 +521,7 @@ private constructor(
 
         fun isWorkflows(): Boolean = workflows != null
 
-        fun isAgent(): Boolean = agent != null
+        fun isAgents(): Boolean = agents != null
 
         fun isCopilot(): Boolean = copilot != null
 
@@ -498,7 +531,7 @@ private constructor(
 
         fun asWorkflows(): WorkflowsRequestContext = workflows.getOrThrow("workflows")
 
-        fun asAgent(): AgentRequestContext = agent.getOrThrow("agent")
+        fun asAgents(): AgentRequestContext = agents.getOrThrow("agents")
 
         fun asCopilot(): CopilotRequestContext = copilot.getOrThrow("copilot")
 
@@ -540,7 +573,7 @@ private constructor(
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 workflows != null -> visitor.visitWorkflows(workflows)
-                agent != null -> visitor.visitAgent(agent)
+                agents != null -> visitor.visitAgents(agents)
                 copilot != null -> visitor.visitCopilot(copilot)
                 standalone != null -> visitor.visitStandalone(standalone)
                 test != null -> visitor.visitTest(test)
@@ -569,8 +602,8 @@ private constructor(
                         workflows.validate()
                     }
 
-                    override fun visitAgent(agent: AgentRequestContext) {
-                        agent.validate()
+                    override fun visitAgents(agents: AgentRequestContext) {
+                        agents.validate()
                     }
 
                     override fun visitCopilot(copilot: CopilotRequestContext) {
@@ -610,7 +643,7 @@ private constructor(
                     override fun visitWorkflows(workflows: WorkflowsRequestContext) =
                         workflows.validity()
 
-                    override fun visitAgent(agent: AgentRequestContext) = agent.validity()
+                    override fun visitAgents(agents: AgentRequestContext) = agents.validity()
 
                     override fun visitCopilot(copilot: CopilotRequestContext) = copilot.validity()
 
@@ -630,18 +663,18 @@ private constructor(
 
             return other is RequestContext &&
                 workflows == other.workflows &&
-                agent == other.agent &&
+                agents == other.agents &&
                 copilot == other.copilot &&
                 standalone == other.standalone &&
                 test == other.test
         }
 
-        override fun hashCode(): Int = Objects.hash(workflows, agent, copilot, standalone, test)
+        override fun hashCode(): Int = Objects.hash(workflows, agents, copilot, standalone, test)
 
         override fun toString(): String =
             when {
                 workflows != null -> "RequestContext{workflows=$workflows}"
-                agent != null -> "RequestContext{agent=$agent}"
+                agents != null -> "RequestContext{agents=$agents}"
                 copilot != null -> "RequestContext{copilot=$copilot}"
                 standalone != null -> "RequestContext{standalone=$standalone}"
                 test != null -> "RequestContext{test=$test}"
@@ -655,7 +688,7 @@ private constructor(
             fun ofWorkflows(workflows: WorkflowsRequestContext) =
                 RequestContext(workflows = workflows)
 
-            @JvmStatic fun ofAgent(agent: AgentRequestContext) = RequestContext(agent = agent)
+            @JvmStatic fun ofAgents(agents: AgentRequestContext) = RequestContext(agents = agents)
 
             @JvmStatic
             fun ofCopilot(copilot: CopilotRequestContext) = RequestContext(copilot = copilot)
@@ -675,7 +708,7 @@ private constructor(
 
             fun visitWorkflows(workflows: WorkflowsRequestContext): T
 
-            fun visitAgent(agent: AgentRequestContext): T
+            fun visitAgents(agents: AgentRequestContext): T
 
             fun visitCopilot(copilot: CopilotRequestContext): T
 
@@ -702,38 +735,37 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): RequestContext {
                 val json = JsonValue.fromJsonNode(node)
+                val source = json.asObject().getOrNull()?.get("source")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<WorkflowsRequestContext>())?.let {
-                                RequestContext(workflows = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<AgentRequestContext>())?.let {
-                                RequestContext(agent = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<CopilotRequestContext>())?.let {
-                                RequestContext(copilot = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<StandaloneRequestContext>())?.let {
-                                RequestContext(standalone = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<TestRequestContext>())?.let {
-                                RequestContext(test = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> RequestContext(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (source) {
+                    "WORKFLOWS" -> {
+                        return tryDeserialize(node, jacksonTypeRef<WorkflowsRequestContext>())
+                            ?.let { RequestContext(workflows = it, _json = json) }
+                            ?: RequestContext(_json = json)
+                    }
+                    "AGENTS" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AgentRequestContext>())?.let {
+                            RequestContext(agents = it, _json = json)
+                        } ?: RequestContext(_json = json)
+                    }
+                    "COPILOT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<CopilotRequestContext>())?.let {
+                            RequestContext(copilot = it, _json = json)
+                        } ?: RequestContext(_json = json)
+                    }
+                    "STANDALONE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<StandaloneRequestContext>())
+                            ?.let { RequestContext(standalone = it, _json = json) }
+                            ?: RequestContext(_json = json)
+                    }
+                    "TEST" -> {
+                        return tryDeserialize(node, jacksonTypeRef<TestRequestContext>())?.let {
+                            RequestContext(test = it, _json = json)
+                        } ?: RequestContext(_json = json)
+                    }
                 }
+
+                return RequestContext(_json = json)
             }
         }
 
@@ -746,7 +778,7 @@ private constructor(
             ) {
                 when {
                     value.workflows != null -> generator.writeObject(value.workflows)
-                    value.agent != null -> generator.writeObject(value.agent)
+                    value.agents != null -> generator.writeObject(value.agents)
                     value.copilot != null -> generator.writeObject(value.copilot)
                     value.standalone != null -> generator.writeObject(value.standalone)
                     value.test != null -> generator.writeObject(value.test)

@@ -34,7 +34,7 @@ internal class PublicAssociationInListFilterTest {
         assertThat(publicAssociationInListFilter.associationTypeId()).isEqualTo(0)
         assertThat(publicAssociationInListFilter.coalescingRefineBy())
             .isEqualTo(
-                PublicAssociationInListFilter.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicAssociationInListFilter.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

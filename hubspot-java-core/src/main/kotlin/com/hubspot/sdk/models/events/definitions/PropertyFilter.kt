@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
@@ -228,69 +227,56 @@ private constructor(
          */
         fun operation(operation: JsonField<Operation>) = apply { this.operation = operation }
 
-        /** Alias for calling [operation] with `Operation.ofBoolProperty(boolProperty)`. */
-        fun operation(boolProperty: BoolPropertyOperation) =
-            operation(Operation.ofBoolProperty(boolProperty))
+        /** Alias for calling [operation] with `Operation.ofBool(bool)`. */
+        fun operation(bool: BoolPropertyOperation) = operation(Operation.ofBool(bool))
 
-        /** Alias for calling [operation] with `Operation.ofNumberProperty(numberProperty)`. */
-        fun operation(numberProperty: NumberPropertyOperation) =
-            operation(Operation.ofNumberProperty(numberProperty))
+        /** Alias for calling [operation] with `Operation.ofNumber(number)`. */
+        fun operation(number: NumberPropertyOperation) = operation(Operation.ofNumber(number))
 
-        /** Alias for calling [operation] with `Operation.ofStringProperty(stringProperty)`. */
-        fun operation(stringProperty: StringPropertyOperation) =
-            operation(Operation.ofStringProperty(stringProperty))
+        /** Alias for calling [operation] with `Operation.ofString(string)`. */
+        fun operation(string: StringPropertyOperation) = operation(Operation.ofString(string))
 
-        /** Alias for calling [operation] with `Operation.ofDateTimeProperty(dateTimeProperty)`. */
-        fun operation(dateTimeProperty: DateTimePropertyOperation) =
-            operation(Operation.ofDateTimeProperty(dateTimeProperty))
+        /** Alias for calling [operation] with `Operation.ofDatetime(datetime)`. */
+        fun operation(datetime: DateTimePropertyOperation) =
+            operation(Operation.ofDatetime(datetime))
 
-        /**
-         * Alias for calling [operation] with `Operation.ofRangedDateProperty(rangedDateProperty)`.
-         */
-        fun operation(rangedDateProperty: RangedDatePropertyOperation) =
-            operation(Operation.ofRangedDateProperty(rangedDateProperty))
+        /** Alias for calling [operation] with `Operation.ofDatetimeRanged(datetimeRanged)`. */
+        fun operation(datetimeRanged: RangedDatePropertyOperation) =
+            operation(Operation.ofDatetimeRanged(datetimeRanged))
 
         /**
          * Alias for calling [operation] with
-         * `Operation.ofComparativeDateProperty(comparativeDateProperty)`.
+         * `Operation.ofDatetimeComparative(datetimeComparative)`.
          */
-        fun operation(comparativeDateProperty: ComparativeDatePropertyOperation) =
-            operation(Operation.ofComparativeDateProperty(comparativeDateProperty))
+        fun operation(datetimeComparative: ComparativeDatePropertyOperation) =
+            operation(Operation.ofDatetimeComparative(datetimeComparative))
+
+        /** Alias for calling [operation] with `Operation.ofBoolComparative(boolComparative)`. */
+        fun operation(boolComparative: ComparativeBoolPropertyOperation) =
+            operation(Operation.ofBoolComparative(boolComparative))
+
+        /**
+         * Alias for calling [operation] with `Operation.ofNumberComparative(numberComparative)`.
+         */
+        fun operation(numberComparative: ComparativeNumberPropertyOperation) =
+            operation(Operation.ofNumberComparative(numberComparative))
+
+        /**
+         * Alias for calling [operation] with `Operation.ofStringComparative(stringComparative)`.
+         */
+        fun operation(stringComparative: ComparativeStringPropertyOperation) =
+            operation(Operation.ofStringComparative(stringComparative))
 
         /**
          * Alias for calling [operation] with
-         * `Operation.ofComparativeBoolProperty(comparativeBoolProperty)`.
+         * `Operation.ofPropertyUpdatedComparative(propertyUpdatedComparative)`.
          */
-        fun operation(comparativeBoolProperty: ComparativeBoolPropertyOperation) =
-            operation(Operation.ofComparativeBoolProperty(comparativeBoolProperty))
+        fun operation(propertyUpdatedComparative: ComparativePropertyUpdatedOperation) =
+            operation(Operation.ofPropertyUpdatedComparative(propertyUpdatedComparative))
 
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofComparativeNumberProperty(comparativeNumberProperty)`.
-         */
-        fun operation(comparativeNumberProperty: ComparativeNumberPropertyOperation) =
-            operation(Operation.ofComparativeNumberProperty(comparativeNumberProperty))
-
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofComparativeStringProperty(comparativeStringProperty)`.
-         */
-        fun operation(comparativeStringProperty: ComparativeStringPropertyOperation) =
-            operation(Operation.ofComparativeStringProperty(comparativeStringProperty))
-
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofComparativePropertyUpdated(comparativePropertyUpdated)`.
-         */
-        fun operation(comparativePropertyUpdated: ComparativePropertyUpdatedOperation) =
-            operation(Operation.ofComparativePropertyUpdated(comparativePropertyUpdated))
-
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofRollingDateRangeProperty(rollingDateRangeProperty)`.
-         */
-        fun operation(rollingDateRangeProperty: RollingDateRangePropertyOperation) =
-            operation(Operation.ofRollingDateRangeProperty(rollingDateRangeProperty))
+        /** Alias for calling [operation] with `Operation.ofDatetimeRolling(datetimeRolling)`. */
+        fun operation(datetimeRolling: RollingDateRangePropertyOperation) =
+            operation(Operation.ofDatetimeRolling(datetimeRolling))
 
         /**
          * Alias for calling [operation] with
@@ -299,52 +285,38 @@ private constructor(
         fun operation(rollingPropertyUpdated: RollingPropertyUpdatedOperation) =
             operation(Operation.ofRollingPropertyUpdated(rollingPropertyUpdated))
 
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofEnumerationProperty(enumerationProperty)`.
-         */
-        fun operation(enumerationProperty: EnumerationPropertyOperation) =
-            operation(Operation.ofEnumerationProperty(enumerationProperty))
+        /** Alias for calling [operation] with `Operation.ofEnumeration(enumeration)`. */
+        fun operation(enumeration: EnumerationPropertyOperation) =
+            operation(Operation.ofEnumeration(enumeration))
 
-        /** Alias for calling [operation] with `Operation.ofAllPropertyTypes(allPropertyTypes)`. */
-        fun operation(allPropertyTypes: AllPropertyTypesOperation) =
-            operation(Operation.ofAllPropertyTypes(allPropertyTypes))
+        /** Alias for calling [operation] with `Operation.ofAlltypes(alltypes)`. */
+        fun operation(alltypes: AllPropertyTypesOperation) =
+            operation(Operation.ofAlltypes(alltypes))
 
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofRangedNumberProperty(rangedNumberProperty)`.
-         */
-        fun operation(rangedNumberProperty: RangedNumberPropertyOperation) =
-            operation(Operation.ofRangedNumberProperty(rangedNumberProperty))
+        /** Alias for calling [operation] with `Operation.ofNumberRanged(numberRanged)`. */
+        fun operation(numberRanged: RangedNumberPropertyOperation) =
+            operation(Operation.ofNumberRanged(numberRanged))
 
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofMultiStringProperty(multiStringProperty)`.
-         */
-        fun operation(multiStringProperty: MultiStringPropertyOperation) =
-            operation(Operation.ofMultiStringProperty(multiStringProperty))
+        /** Alias for calling [operation] with `Operation.ofMultistring(multistring)`. */
+        fun operation(multistring: MultiStringPropertyOperation) =
+            operation(Operation.ofMultistring(multistring))
 
-        /** Alias for calling [operation] with `Operation.ofDateProperty(dateProperty)`. */
-        fun operation(dateProperty: DatePropertyOperation) =
-            operation(Operation.ofDateProperty(dateProperty))
+        /** Alias for calling [operation] with `Operation.ofDate(date)`. */
+        fun operation(date: DatePropertyOperation) = operation(Operation.ofDate(date))
 
-        /**
-         * Alias for calling [operation] with
-         * `Operation.ofCalendarDateProperty(calendarDateProperty)`.
-         */
-        fun operation(calendarDateProperty: CalendarDatePropertyOperation) =
-            operation(Operation.ofCalendarDateProperty(calendarDateProperty))
+        /** Alias for calling [operation] with `Operation.ofCalendarDate(calendarDate)`. */
+        fun operation(calendarDate: CalendarDatePropertyOperation) =
+            operation(Operation.ofCalendarDate(calendarDate))
 
-        /** Alias for calling [operation] with `Operation.ofTimePoint(timePoint)`. */
-        fun operation(timePoint: TimePointOperation) = operation(Operation.ofTimePoint(timePoint))
+        /** Alias for calling [operation] with `Operation.ofTimepoint(timepoint)`. */
+        fun operation(timepoint: TimePointOperation) = operation(Operation.ofTimepoint(timepoint))
 
-        /** Alias for calling [operation] with `Operation.ofRangedTime(rangedTime)`. */
-        fun operation(rangedTime: RangedTimeOperation) =
-            operation(Operation.ofRangedTime(rangedTime))
+        /** Alias for calling [operation] with `Operation.ofRangedtime(rangedtime)`. */
+        fun operation(rangedtime: RangedTimeOperation) =
+            operation(Operation.ofRangedtime(rangedtime))
 
-        /** Alias for calling [operation] with `Operation.ofRegexProperty(regexProperty)`. */
-        fun operation(regexProperty: RegexPropertyOperation) =
-            operation(Operation.ofRegexProperty(regexProperty))
+        /** Alias for calling [operation] with `Operation.ofRegex(regex)`. */
+        fun operation(regex: RegexPropertyOperation) = operation(Operation.ofRegex(regex))
 
         fun property(property: String) = property(JsonField.of(property))
 
@@ -620,187 +592,175 @@ private constructor(
     @JsonSerialize(using = Operation.Serializer::class)
     class Operation
     private constructor(
-        private val boolProperty: BoolPropertyOperation? = null,
-        private val numberProperty: NumberPropertyOperation? = null,
-        private val stringProperty: StringPropertyOperation? = null,
-        private val dateTimeProperty: DateTimePropertyOperation? = null,
-        private val rangedDateProperty: RangedDatePropertyOperation? = null,
-        private val comparativeDateProperty: ComparativeDatePropertyOperation? = null,
-        private val comparativeBoolProperty: ComparativeBoolPropertyOperation? = null,
-        private val comparativeNumberProperty: ComparativeNumberPropertyOperation? = null,
-        private val comparativeStringProperty: ComparativeStringPropertyOperation? = null,
-        private val comparativePropertyUpdated: ComparativePropertyUpdatedOperation? = null,
-        private val rollingDateRangeProperty: RollingDateRangePropertyOperation? = null,
+        private val bool: BoolPropertyOperation? = null,
+        private val number: NumberPropertyOperation? = null,
+        private val string: StringPropertyOperation? = null,
+        private val datetime: DateTimePropertyOperation? = null,
+        private val datetimeRanged: RangedDatePropertyOperation? = null,
+        private val datetimeComparative: ComparativeDatePropertyOperation? = null,
+        private val boolComparative: ComparativeBoolPropertyOperation? = null,
+        private val numberComparative: ComparativeNumberPropertyOperation? = null,
+        private val stringComparative: ComparativeStringPropertyOperation? = null,
+        private val propertyUpdatedComparative: ComparativePropertyUpdatedOperation? = null,
+        private val datetimeRolling: RollingDateRangePropertyOperation? = null,
         private val rollingPropertyUpdated: RollingPropertyUpdatedOperation? = null,
-        private val enumerationProperty: EnumerationPropertyOperation? = null,
-        private val allPropertyTypes: AllPropertyTypesOperation? = null,
-        private val rangedNumberProperty: RangedNumberPropertyOperation? = null,
-        private val multiStringProperty: MultiStringPropertyOperation? = null,
-        private val dateProperty: DatePropertyOperation? = null,
-        private val calendarDateProperty: CalendarDatePropertyOperation? = null,
-        private val timePoint: TimePointOperation? = null,
-        private val rangedTime: RangedTimeOperation? = null,
-        private val regexProperty: RegexPropertyOperation? = null,
+        private val enumeration: EnumerationPropertyOperation? = null,
+        private val alltypes: AllPropertyTypesOperation? = null,
+        private val numberRanged: RangedNumberPropertyOperation? = null,
+        private val multistring: MultiStringPropertyOperation? = null,
+        private val date: DatePropertyOperation? = null,
+        private val calendarDate: CalendarDatePropertyOperation? = null,
+        private val timepoint: TimePointOperation? = null,
+        private val rangedtime: RangedTimeOperation? = null,
+        private val regex: RegexPropertyOperation? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun boolProperty(): Optional<BoolPropertyOperation> = Optional.ofNullable(boolProperty)
+        fun bool(): Optional<BoolPropertyOperation> = Optional.ofNullable(bool)
 
-        fun numberProperty(): Optional<NumberPropertyOperation> =
-            Optional.ofNullable(numberProperty)
+        fun number(): Optional<NumberPropertyOperation> = Optional.ofNullable(number)
 
-        fun stringProperty(): Optional<StringPropertyOperation> =
-            Optional.ofNullable(stringProperty)
+        fun string(): Optional<StringPropertyOperation> = Optional.ofNullable(string)
 
-        fun dateTimeProperty(): Optional<DateTimePropertyOperation> =
-            Optional.ofNullable(dateTimeProperty)
+        fun datetime(): Optional<DateTimePropertyOperation> = Optional.ofNullable(datetime)
 
-        fun rangedDateProperty(): Optional<RangedDatePropertyOperation> =
-            Optional.ofNullable(rangedDateProperty)
+        fun datetimeRanged(): Optional<RangedDatePropertyOperation> =
+            Optional.ofNullable(datetimeRanged)
 
-        fun comparativeDateProperty(): Optional<ComparativeDatePropertyOperation> =
-            Optional.ofNullable(comparativeDateProperty)
+        fun datetimeComparative(): Optional<ComparativeDatePropertyOperation> =
+            Optional.ofNullable(datetimeComparative)
 
-        fun comparativeBoolProperty(): Optional<ComparativeBoolPropertyOperation> =
-            Optional.ofNullable(comparativeBoolProperty)
+        fun boolComparative(): Optional<ComparativeBoolPropertyOperation> =
+            Optional.ofNullable(boolComparative)
 
-        fun comparativeNumberProperty(): Optional<ComparativeNumberPropertyOperation> =
-            Optional.ofNullable(comparativeNumberProperty)
+        fun numberComparative(): Optional<ComparativeNumberPropertyOperation> =
+            Optional.ofNullable(numberComparative)
 
-        fun comparativeStringProperty(): Optional<ComparativeStringPropertyOperation> =
-            Optional.ofNullable(comparativeStringProperty)
+        fun stringComparative(): Optional<ComparativeStringPropertyOperation> =
+            Optional.ofNullable(stringComparative)
 
-        fun comparativePropertyUpdated(): Optional<ComparativePropertyUpdatedOperation> =
-            Optional.ofNullable(comparativePropertyUpdated)
+        fun propertyUpdatedComparative(): Optional<ComparativePropertyUpdatedOperation> =
+            Optional.ofNullable(propertyUpdatedComparative)
 
-        fun rollingDateRangeProperty(): Optional<RollingDateRangePropertyOperation> =
-            Optional.ofNullable(rollingDateRangeProperty)
+        fun datetimeRolling(): Optional<RollingDateRangePropertyOperation> =
+            Optional.ofNullable(datetimeRolling)
 
         fun rollingPropertyUpdated(): Optional<RollingPropertyUpdatedOperation> =
             Optional.ofNullable(rollingPropertyUpdated)
 
-        fun enumerationProperty(): Optional<EnumerationPropertyOperation> =
-            Optional.ofNullable(enumerationProperty)
+        fun enumeration(): Optional<EnumerationPropertyOperation> = Optional.ofNullable(enumeration)
 
-        fun allPropertyTypes(): Optional<AllPropertyTypesOperation> =
-            Optional.ofNullable(allPropertyTypes)
+        fun alltypes(): Optional<AllPropertyTypesOperation> = Optional.ofNullable(alltypes)
 
-        fun rangedNumberProperty(): Optional<RangedNumberPropertyOperation> =
-            Optional.ofNullable(rangedNumberProperty)
+        fun numberRanged(): Optional<RangedNumberPropertyOperation> =
+            Optional.ofNullable(numberRanged)
 
-        fun multiStringProperty(): Optional<MultiStringPropertyOperation> =
-            Optional.ofNullable(multiStringProperty)
+        fun multistring(): Optional<MultiStringPropertyOperation> = Optional.ofNullable(multistring)
 
-        fun dateProperty(): Optional<DatePropertyOperation> = Optional.ofNullable(dateProperty)
+        fun date(): Optional<DatePropertyOperation> = Optional.ofNullable(date)
 
-        fun calendarDateProperty(): Optional<CalendarDatePropertyOperation> =
-            Optional.ofNullable(calendarDateProperty)
+        fun calendarDate(): Optional<CalendarDatePropertyOperation> =
+            Optional.ofNullable(calendarDate)
 
-        fun timePoint(): Optional<TimePointOperation> = Optional.ofNullable(timePoint)
+        fun timepoint(): Optional<TimePointOperation> = Optional.ofNullable(timepoint)
 
-        fun rangedTime(): Optional<RangedTimeOperation> = Optional.ofNullable(rangedTime)
+        fun rangedtime(): Optional<RangedTimeOperation> = Optional.ofNullable(rangedtime)
 
-        fun regexProperty(): Optional<RegexPropertyOperation> = Optional.ofNullable(regexProperty)
+        fun regex(): Optional<RegexPropertyOperation> = Optional.ofNullable(regex)
 
-        fun isBoolProperty(): Boolean = boolProperty != null
+        fun isBool(): Boolean = bool != null
 
-        fun isNumberProperty(): Boolean = numberProperty != null
+        fun isNumber(): Boolean = number != null
 
-        fun isStringProperty(): Boolean = stringProperty != null
+        fun isString(): Boolean = string != null
 
-        fun isDateTimeProperty(): Boolean = dateTimeProperty != null
+        fun isDatetime(): Boolean = datetime != null
 
-        fun isRangedDateProperty(): Boolean = rangedDateProperty != null
+        fun isDatetimeRanged(): Boolean = datetimeRanged != null
 
-        fun isComparativeDateProperty(): Boolean = comparativeDateProperty != null
+        fun isDatetimeComparative(): Boolean = datetimeComparative != null
 
-        fun isComparativeBoolProperty(): Boolean = comparativeBoolProperty != null
+        fun isBoolComparative(): Boolean = boolComparative != null
 
-        fun isComparativeNumberProperty(): Boolean = comparativeNumberProperty != null
+        fun isNumberComparative(): Boolean = numberComparative != null
 
-        fun isComparativeStringProperty(): Boolean = comparativeStringProperty != null
+        fun isStringComparative(): Boolean = stringComparative != null
 
-        fun isComparativePropertyUpdated(): Boolean = comparativePropertyUpdated != null
+        fun isPropertyUpdatedComparative(): Boolean = propertyUpdatedComparative != null
 
-        fun isRollingDateRangeProperty(): Boolean = rollingDateRangeProperty != null
+        fun isDatetimeRolling(): Boolean = datetimeRolling != null
 
         fun isRollingPropertyUpdated(): Boolean = rollingPropertyUpdated != null
 
-        fun isEnumerationProperty(): Boolean = enumerationProperty != null
+        fun isEnumeration(): Boolean = enumeration != null
 
-        fun isAllPropertyTypes(): Boolean = allPropertyTypes != null
+        fun isAlltypes(): Boolean = alltypes != null
 
-        fun isRangedNumberProperty(): Boolean = rangedNumberProperty != null
+        fun isNumberRanged(): Boolean = numberRanged != null
 
-        fun isMultiStringProperty(): Boolean = multiStringProperty != null
+        fun isMultistring(): Boolean = multistring != null
 
-        fun isDateProperty(): Boolean = dateProperty != null
+        fun isDate(): Boolean = date != null
 
-        fun isCalendarDateProperty(): Boolean = calendarDateProperty != null
+        fun isCalendarDate(): Boolean = calendarDate != null
 
-        fun isTimePoint(): Boolean = timePoint != null
+        fun isTimepoint(): Boolean = timepoint != null
 
-        fun isRangedTime(): Boolean = rangedTime != null
+        fun isRangedtime(): Boolean = rangedtime != null
 
-        fun isRegexProperty(): Boolean = regexProperty != null
+        fun isRegex(): Boolean = regex != null
 
-        fun asBoolProperty(): BoolPropertyOperation = boolProperty.getOrThrow("boolProperty")
+        fun asBool(): BoolPropertyOperation = bool.getOrThrow("bool")
 
-        fun asNumberProperty(): NumberPropertyOperation =
-            numberProperty.getOrThrow("numberProperty")
+        fun asNumber(): NumberPropertyOperation = number.getOrThrow("number")
 
-        fun asStringProperty(): StringPropertyOperation =
-            stringProperty.getOrThrow("stringProperty")
+        fun asString(): StringPropertyOperation = string.getOrThrow("string")
 
-        fun asDateTimeProperty(): DateTimePropertyOperation =
-            dateTimeProperty.getOrThrow("dateTimeProperty")
+        fun asDatetime(): DateTimePropertyOperation = datetime.getOrThrow("datetime")
 
-        fun asRangedDateProperty(): RangedDatePropertyOperation =
-            rangedDateProperty.getOrThrow("rangedDateProperty")
+        fun asDatetimeRanged(): RangedDatePropertyOperation =
+            datetimeRanged.getOrThrow("datetimeRanged")
 
-        fun asComparativeDateProperty(): ComparativeDatePropertyOperation =
-            comparativeDateProperty.getOrThrow("comparativeDateProperty")
+        fun asDatetimeComparative(): ComparativeDatePropertyOperation =
+            datetimeComparative.getOrThrow("datetimeComparative")
 
-        fun asComparativeBoolProperty(): ComparativeBoolPropertyOperation =
-            comparativeBoolProperty.getOrThrow("comparativeBoolProperty")
+        fun asBoolComparative(): ComparativeBoolPropertyOperation =
+            boolComparative.getOrThrow("boolComparative")
 
-        fun asComparativeNumberProperty(): ComparativeNumberPropertyOperation =
-            comparativeNumberProperty.getOrThrow("comparativeNumberProperty")
+        fun asNumberComparative(): ComparativeNumberPropertyOperation =
+            numberComparative.getOrThrow("numberComparative")
 
-        fun asComparativeStringProperty(): ComparativeStringPropertyOperation =
-            comparativeStringProperty.getOrThrow("comparativeStringProperty")
+        fun asStringComparative(): ComparativeStringPropertyOperation =
+            stringComparative.getOrThrow("stringComparative")
 
-        fun asComparativePropertyUpdated(): ComparativePropertyUpdatedOperation =
-            comparativePropertyUpdated.getOrThrow("comparativePropertyUpdated")
+        fun asPropertyUpdatedComparative(): ComparativePropertyUpdatedOperation =
+            propertyUpdatedComparative.getOrThrow("propertyUpdatedComparative")
 
-        fun asRollingDateRangeProperty(): RollingDateRangePropertyOperation =
-            rollingDateRangeProperty.getOrThrow("rollingDateRangeProperty")
+        fun asDatetimeRolling(): RollingDateRangePropertyOperation =
+            datetimeRolling.getOrThrow("datetimeRolling")
 
         fun asRollingPropertyUpdated(): RollingPropertyUpdatedOperation =
             rollingPropertyUpdated.getOrThrow("rollingPropertyUpdated")
 
-        fun asEnumerationProperty(): EnumerationPropertyOperation =
-            enumerationProperty.getOrThrow("enumerationProperty")
+        fun asEnumeration(): EnumerationPropertyOperation = enumeration.getOrThrow("enumeration")
 
-        fun asAllPropertyTypes(): AllPropertyTypesOperation =
-            allPropertyTypes.getOrThrow("allPropertyTypes")
+        fun asAlltypes(): AllPropertyTypesOperation = alltypes.getOrThrow("alltypes")
 
-        fun asRangedNumberProperty(): RangedNumberPropertyOperation =
-            rangedNumberProperty.getOrThrow("rangedNumberProperty")
+        fun asNumberRanged(): RangedNumberPropertyOperation =
+            numberRanged.getOrThrow("numberRanged")
 
-        fun asMultiStringProperty(): MultiStringPropertyOperation =
-            multiStringProperty.getOrThrow("multiStringProperty")
+        fun asMultistring(): MultiStringPropertyOperation = multistring.getOrThrow("multistring")
 
-        fun asDateProperty(): DatePropertyOperation = dateProperty.getOrThrow("dateProperty")
+        fun asDate(): DatePropertyOperation = date.getOrThrow("date")
 
-        fun asCalendarDateProperty(): CalendarDatePropertyOperation =
-            calendarDateProperty.getOrThrow("calendarDateProperty")
+        fun asCalendarDate(): CalendarDatePropertyOperation =
+            calendarDate.getOrThrow("calendarDate")
 
-        fun asTimePoint(): TimePointOperation = timePoint.getOrThrow("timePoint")
+        fun asTimepoint(): TimePointOperation = timepoint.getOrThrow("timepoint")
 
-        fun asRangedTime(): RangedTimeOperation = rangedTime.getOrThrow("rangedTime")
+        fun asRangedtime(): RangedTimeOperation = rangedtime.getOrThrow("rangedtime")
 
-        fun asRegexProperty(): RegexPropertyOperation = regexProperty.getOrThrow("regexProperty")
+        fun asRegex(): RegexPropertyOperation = regex.getOrThrow("regex")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -816,8 +776,8 @@ private constructor(
          *
          * Optional<String> result = operation.accept(new Operation.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitBoolProperty(BoolPropertyOperation boolProperty) {
-         *         return Optional.of(boolProperty.toString());
+         *     public Optional<String> visitBool(BoolPropertyOperation bool) {
+         *         return Optional.of(bool.toString());
          *     }
          *
          *     // ...
@@ -835,36 +795,29 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                boolProperty != null -> visitor.visitBoolProperty(boolProperty)
-                numberProperty != null -> visitor.visitNumberProperty(numberProperty)
-                stringProperty != null -> visitor.visitStringProperty(stringProperty)
-                dateTimeProperty != null -> visitor.visitDateTimeProperty(dateTimeProperty)
-                rangedDateProperty != null -> visitor.visitRangedDateProperty(rangedDateProperty)
-                comparativeDateProperty != null ->
-                    visitor.visitComparativeDateProperty(comparativeDateProperty)
-                comparativeBoolProperty != null ->
-                    visitor.visitComparativeBoolProperty(comparativeBoolProperty)
-                comparativeNumberProperty != null ->
-                    visitor.visitComparativeNumberProperty(comparativeNumberProperty)
-                comparativeStringProperty != null ->
-                    visitor.visitComparativeStringProperty(comparativeStringProperty)
-                comparativePropertyUpdated != null ->
-                    visitor.visitComparativePropertyUpdated(comparativePropertyUpdated)
-                rollingDateRangeProperty != null ->
-                    visitor.visitRollingDateRangeProperty(rollingDateRangeProperty)
+                bool != null -> visitor.visitBool(bool)
+                number != null -> visitor.visitNumber(number)
+                string != null -> visitor.visitString(string)
+                datetime != null -> visitor.visitDatetime(datetime)
+                datetimeRanged != null -> visitor.visitDatetimeRanged(datetimeRanged)
+                datetimeComparative != null -> visitor.visitDatetimeComparative(datetimeComparative)
+                boolComparative != null -> visitor.visitBoolComparative(boolComparative)
+                numberComparative != null -> visitor.visitNumberComparative(numberComparative)
+                stringComparative != null -> visitor.visitStringComparative(stringComparative)
+                propertyUpdatedComparative != null ->
+                    visitor.visitPropertyUpdatedComparative(propertyUpdatedComparative)
+                datetimeRolling != null -> visitor.visitDatetimeRolling(datetimeRolling)
                 rollingPropertyUpdated != null ->
                     visitor.visitRollingPropertyUpdated(rollingPropertyUpdated)
-                enumerationProperty != null -> visitor.visitEnumerationProperty(enumerationProperty)
-                allPropertyTypes != null -> visitor.visitAllPropertyTypes(allPropertyTypes)
-                rangedNumberProperty != null ->
-                    visitor.visitRangedNumberProperty(rangedNumberProperty)
-                multiStringProperty != null -> visitor.visitMultiStringProperty(multiStringProperty)
-                dateProperty != null -> visitor.visitDateProperty(dateProperty)
-                calendarDateProperty != null ->
-                    visitor.visitCalendarDateProperty(calendarDateProperty)
-                timePoint != null -> visitor.visitTimePoint(timePoint)
-                rangedTime != null -> visitor.visitRangedTime(rangedTime)
-                regexProperty != null -> visitor.visitRegexProperty(regexProperty)
+                enumeration != null -> visitor.visitEnumeration(enumeration)
+                alltypes != null -> visitor.visitAlltypes(alltypes)
+                numberRanged != null -> visitor.visitNumberRanged(numberRanged)
+                multistring != null -> visitor.visitMultistring(multistring)
+                date != null -> visitor.visitDate(date)
+                calendarDate != null -> visitor.visitCalendarDate(calendarDate)
+                timepoint != null -> visitor.visitTimepoint(timepoint)
+                rangedtime != null -> visitor.visitRangedtime(rangedtime)
+                regex != null -> visitor.visitRegex(regex)
                 else -> visitor.unknown(_json)
             }
 
@@ -886,64 +839,60 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitBoolProperty(boolProperty: BoolPropertyOperation) {
-                        boolProperty.validate()
+                    override fun visitBool(bool: BoolPropertyOperation) {
+                        bool.validate()
                     }
 
-                    override fun visitNumberProperty(numberProperty: NumberPropertyOperation) {
-                        numberProperty.validate()
+                    override fun visitNumber(number: NumberPropertyOperation) {
+                        number.validate()
                     }
 
-                    override fun visitStringProperty(stringProperty: StringPropertyOperation) {
-                        stringProperty.validate()
+                    override fun visitString(string: StringPropertyOperation) {
+                        string.validate()
                     }
 
-                    override fun visitDateTimeProperty(
-                        dateTimeProperty: DateTimePropertyOperation
+                    override fun visitDatetime(datetime: DateTimePropertyOperation) {
+                        datetime.validate()
+                    }
+
+                    override fun visitDatetimeRanged(datetimeRanged: RangedDatePropertyOperation) {
+                        datetimeRanged.validate()
+                    }
+
+                    override fun visitDatetimeComparative(
+                        datetimeComparative: ComparativeDatePropertyOperation
                     ) {
-                        dateTimeProperty.validate()
+                        datetimeComparative.validate()
                     }
 
-                    override fun visitRangedDateProperty(
-                        rangedDateProperty: RangedDatePropertyOperation
+                    override fun visitBoolComparative(
+                        boolComparative: ComparativeBoolPropertyOperation
                     ) {
-                        rangedDateProperty.validate()
+                        boolComparative.validate()
                     }
 
-                    override fun visitComparativeDateProperty(
-                        comparativeDateProperty: ComparativeDatePropertyOperation
+                    override fun visitNumberComparative(
+                        numberComparative: ComparativeNumberPropertyOperation
                     ) {
-                        comparativeDateProperty.validate()
+                        numberComparative.validate()
                     }
 
-                    override fun visitComparativeBoolProperty(
-                        comparativeBoolProperty: ComparativeBoolPropertyOperation
+                    override fun visitStringComparative(
+                        stringComparative: ComparativeStringPropertyOperation
                     ) {
-                        comparativeBoolProperty.validate()
+                        stringComparative.validate()
                     }
 
-                    override fun visitComparativeNumberProperty(
-                        comparativeNumberProperty: ComparativeNumberPropertyOperation
+                    override fun visitPropertyUpdatedComparative(
+                        propertyUpdatedComparative: ComparativePropertyUpdatedOperation
                     ) {
-                        comparativeNumberProperty.validate()
+                        propertyUpdatedComparative.validate()
                     }
 
-                    override fun visitComparativeStringProperty(
-                        comparativeStringProperty: ComparativeStringPropertyOperation
+                    override fun visitDatetimeRolling(
+                        datetimeRolling: RollingDateRangePropertyOperation
                     ) {
-                        comparativeStringProperty.validate()
-                    }
-
-                    override fun visitComparativePropertyUpdated(
-                        comparativePropertyUpdated: ComparativePropertyUpdatedOperation
-                    ) {
-                        comparativePropertyUpdated.validate()
-                    }
-
-                    override fun visitRollingDateRangeProperty(
-                        rollingDateRangeProperty: RollingDateRangePropertyOperation
-                    ) {
-                        rollingDateRangeProperty.validate()
+                        datetimeRolling.validate()
                     }
 
                     override fun visitRollingPropertyUpdated(
@@ -952,50 +901,40 @@ private constructor(
                         rollingPropertyUpdated.validate()
                     }
 
-                    override fun visitEnumerationProperty(
-                        enumerationProperty: EnumerationPropertyOperation
-                    ) {
-                        enumerationProperty.validate()
+                    override fun visitEnumeration(enumeration: EnumerationPropertyOperation) {
+                        enumeration.validate()
                     }
 
-                    override fun visitAllPropertyTypes(
-                        allPropertyTypes: AllPropertyTypesOperation
-                    ) {
-                        allPropertyTypes.validate()
+                    override fun visitAlltypes(alltypes: AllPropertyTypesOperation) {
+                        alltypes.validate()
                     }
 
-                    override fun visitRangedNumberProperty(
-                        rangedNumberProperty: RangedNumberPropertyOperation
-                    ) {
-                        rangedNumberProperty.validate()
+                    override fun visitNumberRanged(numberRanged: RangedNumberPropertyOperation) {
+                        numberRanged.validate()
                     }
 
-                    override fun visitMultiStringProperty(
-                        multiStringProperty: MultiStringPropertyOperation
-                    ) {
-                        multiStringProperty.validate()
+                    override fun visitMultistring(multistring: MultiStringPropertyOperation) {
+                        multistring.validate()
                     }
 
-                    override fun visitDateProperty(dateProperty: DatePropertyOperation) {
-                        dateProperty.validate()
+                    override fun visitDate(date: DatePropertyOperation) {
+                        date.validate()
                     }
 
-                    override fun visitCalendarDateProperty(
-                        calendarDateProperty: CalendarDatePropertyOperation
-                    ) {
-                        calendarDateProperty.validate()
+                    override fun visitCalendarDate(calendarDate: CalendarDatePropertyOperation) {
+                        calendarDate.validate()
                     }
 
-                    override fun visitTimePoint(timePoint: TimePointOperation) {
-                        timePoint.validate()
+                    override fun visitTimepoint(timepoint: TimePointOperation) {
+                        timepoint.validate()
                     }
 
-                    override fun visitRangedTime(rangedTime: RangedTimeOperation) {
-                        rangedTime.validate()
+                    override fun visitRangedtime(rangedtime: RangedTimeOperation) {
+                        rangedtime.validate()
                     }
 
-                    override fun visitRegexProperty(regexProperty: RegexPropertyOperation) {
-                        regexProperty.validate()
+                    override fun visitRegex(regex: RegexPropertyOperation) {
+                        regex.validate()
                     }
                 }
             )
@@ -1020,82 +959,70 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitBoolProperty(boolProperty: BoolPropertyOperation) =
-                        boolProperty.validity()
+                    override fun visitBool(bool: BoolPropertyOperation) = bool.validity()
 
-                    override fun visitNumberProperty(numberProperty: NumberPropertyOperation) =
-                        numberProperty.validity()
+                    override fun visitNumber(number: NumberPropertyOperation) = number.validity()
 
-                    override fun visitStringProperty(stringProperty: StringPropertyOperation) =
-                        stringProperty.validity()
+                    override fun visitString(string: StringPropertyOperation) = string.validity()
 
-                    override fun visitDateTimeProperty(
-                        dateTimeProperty: DateTimePropertyOperation
-                    ) = dateTimeProperty.validity()
+                    override fun visitDatetime(datetime: DateTimePropertyOperation) =
+                        datetime.validity()
 
-                    override fun visitRangedDateProperty(
-                        rangedDateProperty: RangedDatePropertyOperation
-                    ) = rangedDateProperty.validity()
+                    override fun visitDatetimeRanged(datetimeRanged: RangedDatePropertyOperation) =
+                        datetimeRanged.validity()
 
-                    override fun visitComparativeDateProperty(
-                        comparativeDateProperty: ComparativeDatePropertyOperation
-                    ) = comparativeDateProperty.validity()
+                    override fun visitDatetimeComparative(
+                        datetimeComparative: ComparativeDatePropertyOperation
+                    ) = datetimeComparative.validity()
 
-                    override fun visitComparativeBoolProperty(
-                        comparativeBoolProperty: ComparativeBoolPropertyOperation
-                    ) = comparativeBoolProperty.validity()
+                    override fun visitBoolComparative(
+                        boolComparative: ComparativeBoolPropertyOperation
+                    ) = boolComparative.validity()
 
-                    override fun visitComparativeNumberProperty(
-                        comparativeNumberProperty: ComparativeNumberPropertyOperation
-                    ) = comparativeNumberProperty.validity()
+                    override fun visitNumberComparative(
+                        numberComparative: ComparativeNumberPropertyOperation
+                    ) = numberComparative.validity()
 
-                    override fun visitComparativeStringProperty(
-                        comparativeStringProperty: ComparativeStringPropertyOperation
-                    ) = comparativeStringProperty.validity()
+                    override fun visitStringComparative(
+                        stringComparative: ComparativeStringPropertyOperation
+                    ) = stringComparative.validity()
 
-                    override fun visitComparativePropertyUpdated(
-                        comparativePropertyUpdated: ComparativePropertyUpdatedOperation
-                    ) = comparativePropertyUpdated.validity()
+                    override fun visitPropertyUpdatedComparative(
+                        propertyUpdatedComparative: ComparativePropertyUpdatedOperation
+                    ) = propertyUpdatedComparative.validity()
 
-                    override fun visitRollingDateRangeProperty(
-                        rollingDateRangeProperty: RollingDateRangePropertyOperation
-                    ) = rollingDateRangeProperty.validity()
+                    override fun visitDatetimeRolling(
+                        datetimeRolling: RollingDateRangePropertyOperation
+                    ) = datetimeRolling.validity()
 
                     override fun visitRollingPropertyUpdated(
                         rollingPropertyUpdated: RollingPropertyUpdatedOperation
                     ) = rollingPropertyUpdated.validity()
 
-                    override fun visitEnumerationProperty(
-                        enumerationProperty: EnumerationPropertyOperation
-                    ) = enumerationProperty.validity()
+                    override fun visitEnumeration(enumeration: EnumerationPropertyOperation) =
+                        enumeration.validity()
 
-                    override fun visitAllPropertyTypes(
-                        allPropertyTypes: AllPropertyTypesOperation
-                    ) = allPropertyTypes.validity()
+                    override fun visitAlltypes(alltypes: AllPropertyTypesOperation) =
+                        alltypes.validity()
 
-                    override fun visitRangedNumberProperty(
-                        rangedNumberProperty: RangedNumberPropertyOperation
-                    ) = rangedNumberProperty.validity()
+                    override fun visitNumberRanged(numberRanged: RangedNumberPropertyOperation) =
+                        numberRanged.validity()
 
-                    override fun visitMultiStringProperty(
-                        multiStringProperty: MultiStringPropertyOperation
-                    ) = multiStringProperty.validity()
+                    override fun visitMultistring(multistring: MultiStringPropertyOperation) =
+                        multistring.validity()
 
-                    override fun visitDateProperty(dateProperty: DatePropertyOperation) =
-                        dateProperty.validity()
+                    override fun visitDate(date: DatePropertyOperation) = date.validity()
 
-                    override fun visitCalendarDateProperty(
-                        calendarDateProperty: CalendarDatePropertyOperation
-                    ) = calendarDateProperty.validity()
+                    override fun visitCalendarDate(calendarDate: CalendarDatePropertyOperation) =
+                        calendarDate.validity()
 
-                    override fun visitTimePoint(timePoint: TimePointOperation) =
-                        timePoint.validity()
+                    override fun visitTimepoint(timepoint: TimePointOperation) =
+                        timepoint.validity()
 
-                    override fun visitRangedTime(rangedTime: RangedTimeOperation) =
-                        rangedTime.validity()
+                    override fun visitRangedtime(rangedtime: RangedTimeOperation) =
+                        rangedtime.validity()
 
-                    override fun visitRegexProperty(regexProperty: RegexPropertyOperation) =
-                        regexProperty.validity()
+                    override fun visitRegex(regex: RegexPropertyOperation) = regex.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1107,179 +1034,155 @@ private constructor(
             }
 
             return other is Operation &&
-                boolProperty == other.boolProperty &&
-                numberProperty == other.numberProperty &&
-                stringProperty == other.stringProperty &&
-                dateTimeProperty == other.dateTimeProperty &&
-                rangedDateProperty == other.rangedDateProperty &&
-                comparativeDateProperty == other.comparativeDateProperty &&
-                comparativeBoolProperty == other.comparativeBoolProperty &&
-                comparativeNumberProperty == other.comparativeNumberProperty &&
-                comparativeStringProperty == other.comparativeStringProperty &&
-                comparativePropertyUpdated == other.comparativePropertyUpdated &&
-                rollingDateRangeProperty == other.rollingDateRangeProperty &&
+                bool == other.bool &&
+                number == other.number &&
+                string == other.string &&
+                datetime == other.datetime &&
+                datetimeRanged == other.datetimeRanged &&
+                datetimeComparative == other.datetimeComparative &&
+                boolComparative == other.boolComparative &&
+                numberComparative == other.numberComparative &&
+                stringComparative == other.stringComparative &&
+                propertyUpdatedComparative == other.propertyUpdatedComparative &&
+                datetimeRolling == other.datetimeRolling &&
                 rollingPropertyUpdated == other.rollingPropertyUpdated &&
-                enumerationProperty == other.enumerationProperty &&
-                allPropertyTypes == other.allPropertyTypes &&
-                rangedNumberProperty == other.rangedNumberProperty &&
-                multiStringProperty == other.multiStringProperty &&
-                dateProperty == other.dateProperty &&
-                calendarDateProperty == other.calendarDateProperty &&
-                timePoint == other.timePoint &&
-                rangedTime == other.rangedTime &&
-                regexProperty == other.regexProperty
+                enumeration == other.enumeration &&
+                alltypes == other.alltypes &&
+                numberRanged == other.numberRanged &&
+                multistring == other.multistring &&
+                date == other.date &&
+                calendarDate == other.calendarDate &&
+                timepoint == other.timepoint &&
+                rangedtime == other.rangedtime &&
+                regex == other.regex
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                boolProperty,
-                numberProperty,
-                stringProperty,
-                dateTimeProperty,
-                rangedDateProperty,
-                comparativeDateProperty,
-                comparativeBoolProperty,
-                comparativeNumberProperty,
-                comparativeStringProperty,
-                comparativePropertyUpdated,
-                rollingDateRangeProperty,
+                bool,
+                number,
+                string,
+                datetime,
+                datetimeRanged,
+                datetimeComparative,
+                boolComparative,
+                numberComparative,
+                stringComparative,
+                propertyUpdatedComparative,
+                datetimeRolling,
                 rollingPropertyUpdated,
-                enumerationProperty,
-                allPropertyTypes,
-                rangedNumberProperty,
-                multiStringProperty,
-                dateProperty,
-                calendarDateProperty,
-                timePoint,
-                rangedTime,
-                regexProperty,
+                enumeration,
+                alltypes,
+                numberRanged,
+                multistring,
+                date,
+                calendarDate,
+                timepoint,
+                rangedtime,
+                regex,
             )
 
         override fun toString(): String =
             when {
-                boolProperty != null -> "Operation{boolProperty=$boolProperty}"
-                numberProperty != null -> "Operation{numberProperty=$numberProperty}"
-                stringProperty != null -> "Operation{stringProperty=$stringProperty}"
-                dateTimeProperty != null -> "Operation{dateTimeProperty=$dateTimeProperty}"
-                rangedDateProperty != null -> "Operation{rangedDateProperty=$rangedDateProperty}"
-                comparativeDateProperty != null ->
-                    "Operation{comparativeDateProperty=$comparativeDateProperty}"
-                comparativeBoolProperty != null ->
-                    "Operation{comparativeBoolProperty=$comparativeBoolProperty}"
-                comparativeNumberProperty != null ->
-                    "Operation{comparativeNumberProperty=$comparativeNumberProperty}"
-                comparativeStringProperty != null ->
-                    "Operation{comparativeStringProperty=$comparativeStringProperty}"
-                comparativePropertyUpdated != null ->
-                    "Operation{comparativePropertyUpdated=$comparativePropertyUpdated}"
-                rollingDateRangeProperty != null ->
-                    "Operation{rollingDateRangeProperty=$rollingDateRangeProperty}"
+                bool != null -> "Operation{bool=$bool}"
+                number != null -> "Operation{number=$number}"
+                string != null -> "Operation{string=$string}"
+                datetime != null -> "Operation{datetime=$datetime}"
+                datetimeRanged != null -> "Operation{datetimeRanged=$datetimeRanged}"
+                datetimeComparative != null -> "Operation{datetimeComparative=$datetimeComparative}"
+                boolComparative != null -> "Operation{boolComparative=$boolComparative}"
+                numberComparative != null -> "Operation{numberComparative=$numberComparative}"
+                stringComparative != null -> "Operation{stringComparative=$stringComparative}"
+                propertyUpdatedComparative != null ->
+                    "Operation{propertyUpdatedComparative=$propertyUpdatedComparative}"
+                datetimeRolling != null -> "Operation{datetimeRolling=$datetimeRolling}"
                 rollingPropertyUpdated != null ->
                     "Operation{rollingPropertyUpdated=$rollingPropertyUpdated}"
-                enumerationProperty != null -> "Operation{enumerationProperty=$enumerationProperty}"
-                allPropertyTypes != null -> "Operation{allPropertyTypes=$allPropertyTypes}"
-                rangedNumberProperty != null ->
-                    "Operation{rangedNumberProperty=$rangedNumberProperty}"
-                multiStringProperty != null -> "Operation{multiStringProperty=$multiStringProperty}"
-                dateProperty != null -> "Operation{dateProperty=$dateProperty}"
-                calendarDateProperty != null ->
-                    "Operation{calendarDateProperty=$calendarDateProperty}"
-                timePoint != null -> "Operation{timePoint=$timePoint}"
-                rangedTime != null -> "Operation{rangedTime=$rangedTime}"
-                regexProperty != null -> "Operation{regexProperty=$regexProperty}"
+                enumeration != null -> "Operation{enumeration=$enumeration}"
+                alltypes != null -> "Operation{alltypes=$alltypes}"
+                numberRanged != null -> "Operation{numberRanged=$numberRanged}"
+                multistring != null -> "Operation{multistring=$multistring}"
+                date != null -> "Operation{date=$date}"
+                calendarDate != null -> "Operation{calendarDate=$calendarDate}"
+                timepoint != null -> "Operation{timepoint=$timepoint}"
+                rangedtime != null -> "Operation{rangedtime=$rangedtime}"
+                regex != null -> "Operation{regex=$regex}"
                 _json != null -> "Operation{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Operation")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofBoolProperty(boolProperty: BoolPropertyOperation) =
-                Operation(boolProperty = boolProperty)
+            @JvmStatic fun ofBool(bool: BoolPropertyOperation) = Operation(bool = bool)
+
+            @JvmStatic fun ofNumber(number: NumberPropertyOperation) = Operation(number = number)
+
+            @JvmStatic fun ofString(string: StringPropertyOperation) = Operation(string = string)
 
             @JvmStatic
-            fun ofNumberProperty(numberProperty: NumberPropertyOperation) =
-                Operation(numberProperty = numberProperty)
+            fun ofDatetime(datetime: DateTimePropertyOperation) = Operation(datetime = datetime)
 
             @JvmStatic
-            fun ofStringProperty(stringProperty: StringPropertyOperation) =
-                Operation(stringProperty = stringProperty)
+            fun ofDatetimeRanged(datetimeRanged: RangedDatePropertyOperation) =
+                Operation(datetimeRanged = datetimeRanged)
 
             @JvmStatic
-            fun ofDateTimeProperty(dateTimeProperty: DateTimePropertyOperation) =
-                Operation(dateTimeProperty = dateTimeProperty)
+            fun ofDatetimeComparative(datetimeComparative: ComparativeDatePropertyOperation) =
+                Operation(datetimeComparative = datetimeComparative)
 
             @JvmStatic
-            fun ofRangedDateProperty(rangedDateProperty: RangedDatePropertyOperation) =
-                Operation(rangedDateProperty = rangedDateProperty)
+            fun ofBoolComparative(boolComparative: ComparativeBoolPropertyOperation) =
+                Operation(boolComparative = boolComparative)
 
             @JvmStatic
-            fun ofComparativeDateProperty(
-                comparativeDateProperty: ComparativeDatePropertyOperation
-            ) = Operation(comparativeDateProperty = comparativeDateProperty)
+            fun ofNumberComparative(numberComparative: ComparativeNumberPropertyOperation) =
+                Operation(numberComparative = numberComparative)
 
             @JvmStatic
-            fun ofComparativeBoolProperty(
-                comparativeBoolProperty: ComparativeBoolPropertyOperation
-            ) = Operation(comparativeBoolProperty = comparativeBoolProperty)
+            fun ofStringComparative(stringComparative: ComparativeStringPropertyOperation) =
+                Operation(stringComparative = stringComparative)
 
             @JvmStatic
-            fun ofComparativeNumberProperty(
-                comparativeNumberProperty: ComparativeNumberPropertyOperation
-            ) = Operation(comparativeNumberProperty = comparativeNumberProperty)
+            fun ofPropertyUpdatedComparative(
+                propertyUpdatedComparative: ComparativePropertyUpdatedOperation
+            ) = Operation(propertyUpdatedComparative = propertyUpdatedComparative)
 
             @JvmStatic
-            fun ofComparativeStringProperty(
-                comparativeStringProperty: ComparativeStringPropertyOperation
-            ) = Operation(comparativeStringProperty = comparativeStringProperty)
-
-            @JvmStatic
-            fun ofComparativePropertyUpdated(
-                comparativePropertyUpdated: ComparativePropertyUpdatedOperation
-            ) = Operation(comparativePropertyUpdated = comparativePropertyUpdated)
-
-            @JvmStatic
-            fun ofRollingDateRangeProperty(
-                rollingDateRangeProperty: RollingDateRangePropertyOperation
-            ) = Operation(rollingDateRangeProperty = rollingDateRangeProperty)
+            fun ofDatetimeRolling(datetimeRolling: RollingDateRangePropertyOperation) =
+                Operation(datetimeRolling = datetimeRolling)
 
             @JvmStatic
             fun ofRollingPropertyUpdated(rollingPropertyUpdated: RollingPropertyUpdatedOperation) =
                 Operation(rollingPropertyUpdated = rollingPropertyUpdated)
 
             @JvmStatic
-            fun ofEnumerationProperty(enumerationProperty: EnumerationPropertyOperation) =
-                Operation(enumerationProperty = enumerationProperty)
+            fun ofEnumeration(enumeration: EnumerationPropertyOperation) =
+                Operation(enumeration = enumeration)
 
             @JvmStatic
-            fun ofAllPropertyTypes(allPropertyTypes: AllPropertyTypesOperation) =
-                Operation(allPropertyTypes = allPropertyTypes)
+            fun ofAlltypes(alltypes: AllPropertyTypesOperation) = Operation(alltypes = alltypes)
 
             @JvmStatic
-            fun ofRangedNumberProperty(rangedNumberProperty: RangedNumberPropertyOperation) =
-                Operation(rangedNumberProperty = rangedNumberProperty)
+            fun ofNumberRanged(numberRanged: RangedNumberPropertyOperation) =
+                Operation(numberRanged = numberRanged)
 
             @JvmStatic
-            fun ofMultiStringProperty(multiStringProperty: MultiStringPropertyOperation) =
-                Operation(multiStringProperty = multiStringProperty)
+            fun ofMultistring(multistring: MultiStringPropertyOperation) =
+                Operation(multistring = multistring)
+
+            @JvmStatic fun ofDate(date: DatePropertyOperation) = Operation(date = date)
 
             @JvmStatic
-            fun ofDateProperty(dateProperty: DatePropertyOperation) =
-                Operation(dateProperty = dateProperty)
+            fun ofCalendarDate(calendarDate: CalendarDatePropertyOperation) =
+                Operation(calendarDate = calendarDate)
 
             @JvmStatic
-            fun ofCalendarDateProperty(calendarDateProperty: CalendarDatePropertyOperation) =
-                Operation(calendarDateProperty = calendarDateProperty)
+            fun ofTimepoint(timepoint: TimePointOperation) = Operation(timepoint = timepoint)
 
             @JvmStatic
-            fun ofTimePoint(timePoint: TimePointOperation) = Operation(timePoint = timePoint)
+            fun ofRangedtime(rangedtime: RangedTimeOperation) = Operation(rangedtime = rangedtime)
 
-            @JvmStatic
-            fun ofRangedTime(rangedTime: RangedTimeOperation) = Operation(rangedTime = rangedTime)
-
-            @JvmStatic
-            fun ofRegexProperty(regexProperty: RegexPropertyOperation) =
-                Operation(regexProperty = regexProperty)
+            @JvmStatic fun ofRegex(regex: RegexPropertyOperation) = Operation(regex = regex)
         }
 
         /**
@@ -1287,61 +1190,51 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitBoolProperty(boolProperty: BoolPropertyOperation): T
+            fun visitBool(bool: BoolPropertyOperation): T
 
-            fun visitNumberProperty(numberProperty: NumberPropertyOperation): T
+            fun visitNumber(number: NumberPropertyOperation): T
 
-            fun visitStringProperty(stringProperty: StringPropertyOperation): T
+            fun visitString(string: StringPropertyOperation): T
 
-            fun visitDateTimeProperty(dateTimeProperty: DateTimePropertyOperation): T
+            fun visitDatetime(datetime: DateTimePropertyOperation): T
 
-            fun visitRangedDateProperty(rangedDateProperty: RangedDatePropertyOperation): T
+            fun visitDatetimeRanged(datetimeRanged: RangedDatePropertyOperation): T
 
-            fun visitComparativeDateProperty(
-                comparativeDateProperty: ComparativeDatePropertyOperation
+            fun visitDatetimeComparative(datetimeComparative: ComparativeDatePropertyOperation): T
+
+            fun visitBoolComparative(boolComparative: ComparativeBoolPropertyOperation): T
+
+            fun visitNumberComparative(numberComparative: ComparativeNumberPropertyOperation): T
+
+            fun visitStringComparative(stringComparative: ComparativeStringPropertyOperation): T
+
+            fun visitPropertyUpdatedComparative(
+                propertyUpdatedComparative: ComparativePropertyUpdatedOperation
             ): T
 
-            fun visitComparativeBoolProperty(
-                comparativeBoolProperty: ComparativeBoolPropertyOperation
-            ): T
-
-            fun visitComparativeNumberProperty(
-                comparativeNumberProperty: ComparativeNumberPropertyOperation
-            ): T
-
-            fun visitComparativeStringProperty(
-                comparativeStringProperty: ComparativeStringPropertyOperation
-            ): T
-
-            fun visitComparativePropertyUpdated(
-                comparativePropertyUpdated: ComparativePropertyUpdatedOperation
-            ): T
-
-            fun visitRollingDateRangeProperty(
-                rollingDateRangeProperty: RollingDateRangePropertyOperation
-            ): T
+            fun visitDatetimeRolling(datetimeRolling: RollingDateRangePropertyOperation): T
 
             fun visitRollingPropertyUpdated(
                 rollingPropertyUpdated: RollingPropertyUpdatedOperation
             ): T
 
-            fun visitEnumerationProperty(enumerationProperty: EnumerationPropertyOperation): T
+            fun visitEnumeration(enumeration: EnumerationPropertyOperation): T
 
-            fun visitAllPropertyTypes(allPropertyTypes: AllPropertyTypesOperation): T
+            fun visitAlltypes(alltypes: AllPropertyTypesOperation): T
 
-            fun visitRangedNumberProperty(rangedNumberProperty: RangedNumberPropertyOperation): T
+            fun visitNumberRanged(numberRanged: RangedNumberPropertyOperation): T
 
-            fun visitMultiStringProperty(multiStringProperty: MultiStringPropertyOperation): T
+            fun visitMultistring(multistring: MultiStringPropertyOperation): T
 
-            fun visitDateProperty(dateProperty: DatePropertyOperation): T
+            fun visitDate(date: DatePropertyOperation): T
 
-            fun visitCalendarDateProperty(calendarDateProperty: CalendarDatePropertyOperation): T
+            fun visitCalendarDate(calendarDate: CalendarDatePropertyOperation): T
 
-            fun visitTimePoint(timePoint: TimePointOperation): T
+            fun visitTimepoint(timepoint: TimePointOperation): T
 
-            fun visitRangedTime(rangedTime: RangedTimeOperation): T
+            fun visitRangedtime(rangedtime: RangedTimeOperation): T
 
-            fun visitRegexProperty(regexProperty: RegexPropertyOperation): T
+            fun visitRegex(regex: RegexPropertyOperation): T
 
             /**
              * Maps an unknown variant of [Operation] to a value of type [T].
@@ -1362,86 +1255,139 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Operation {
                 val json = JsonValue.fromJsonNode(node)
+                val propertyType =
+                    json.asObject().getOrNull()?.get("propertyType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<BoolPropertyOperation>())?.let {
-                                Operation(boolProperty = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<NumberPropertyOperation>())?.let {
-                                Operation(numberProperty = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<StringPropertyOperation>())?.let {
-                                Operation(stringProperty = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<DateTimePropertyOperation>())?.let {
-                                Operation(dateTimeProperty = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<RangedDatePropertyOperation>())
-                                ?.let { Operation(rangedDateProperty = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<ComparativeDatePropertyOperation>())
-                                ?.let { Operation(comparativeDateProperty = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<ComparativeBoolPropertyOperation>())
-                                ?.let { Operation(comparativeBoolProperty = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<ComparativeNumberPropertyOperation>(),
-                                )
-                                ?.let { Operation(comparativeNumberProperty = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<ComparativeStringPropertyOperation>(),
-                                )
-                                ?.let { Operation(comparativeStringProperty = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<ComparativePropertyUpdatedOperation>(),
-                                )
-                                ?.let { Operation(comparativePropertyUpdated = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<RollingDateRangePropertyOperation>(),
-                                )
-                                ?.let { Operation(rollingDateRangeProperty = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<RollingPropertyUpdatedOperation>())
-                                ?.let { Operation(rollingPropertyUpdated = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<EnumerationPropertyOperation>())
-                                ?.let { Operation(enumerationProperty = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<AllPropertyTypesOperation>())?.let {
-                                Operation(allPropertyTypes = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<RangedNumberPropertyOperation>())
-                                ?.let { Operation(rangedNumberProperty = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<MultiStringPropertyOperation>())
-                                ?.let { Operation(multiStringProperty = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<DatePropertyOperation>())?.let {
-                                Operation(dateProperty = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<CalendarDatePropertyOperation>())
-                                ?.let { Operation(calendarDateProperty = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<TimePointOperation>())?.let {
-                                Operation(timePoint = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<RangedTimeOperation>())?.let {
-                                Operation(rangedTime = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<RegexPropertyOperation>())?.let {
-                                Operation(regexProperty = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Operation(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (propertyType) {
+                    "bool" -> {
+                        return tryDeserialize(node, jacksonTypeRef<BoolPropertyOperation>())?.let {
+                            Operation(bool = it, _json = json)
+                        } ?: Operation(_json = json)
+                    }
+                    "number" -> {
+                        return tryDeserialize(node, jacksonTypeRef<NumberPropertyOperation>())
+                            ?.let { Operation(number = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "string" -> {
+                        return tryDeserialize(node, jacksonTypeRef<StringPropertyOperation>())
+                            ?.let { Operation(string = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "datetime" -> {
+                        return tryDeserialize(node, jacksonTypeRef<DateTimePropertyOperation>())
+                            ?.let { Operation(datetime = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "datetime-ranged" -> {
+                        return tryDeserialize(node, jacksonTypeRef<RangedDatePropertyOperation>())
+                            ?.let { Operation(datetimeRanged = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "datetime-comparative" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<ComparativeDatePropertyOperation>(),
+                            )
+                            ?.let { Operation(datetimeComparative = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "bool-comparative" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<ComparativeBoolPropertyOperation>(),
+                            )
+                            ?.let { Operation(boolComparative = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "number-comparative" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<ComparativeNumberPropertyOperation>(),
+                            )
+                            ?.let { Operation(numberComparative = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "string-comparative" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<ComparativeStringPropertyOperation>(),
+                            )
+                            ?.let { Operation(stringComparative = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "property-updated-comparative" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<ComparativePropertyUpdatedOperation>(),
+                            )
+                            ?.let { Operation(propertyUpdatedComparative = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "datetime-rolling" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<RollingDateRangePropertyOperation>(),
+                            )
+                            ?.let { Operation(datetimeRolling = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "rolling-property-updated" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<RollingPropertyUpdatedOperation>(),
+                            )
+                            ?.let { Operation(rollingPropertyUpdated = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "enumeration" -> {
+                        return tryDeserialize(node, jacksonTypeRef<EnumerationPropertyOperation>())
+                            ?.let { Operation(enumeration = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "alltypes" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AllPropertyTypesOperation>())
+                            ?.let { Operation(alltypes = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "number-ranged" -> {
+                        return tryDeserialize(node, jacksonTypeRef<RangedNumberPropertyOperation>())
+                            ?.let { Operation(numberRanged = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "multistring" -> {
+                        return tryDeserialize(node, jacksonTypeRef<MultiStringPropertyOperation>())
+                            ?.let { Operation(multistring = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "date" -> {
+                        return tryDeserialize(node, jacksonTypeRef<DatePropertyOperation>())?.let {
+                            Operation(date = it, _json = json)
+                        } ?: Operation(_json = json)
+                    }
+                    "calendar-date" -> {
+                        return tryDeserialize(node, jacksonTypeRef<CalendarDatePropertyOperation>())
+                            ?.let { Operation(calendarDate = it, _json = json) }
+                            ?: Operation(_json = json)
+                    }
+                    "timepoint" -> {
+                        return tryDeserialize(node, jacksonTypeRef<TimePointOperation>())?.let {
+                            Operation(timepoint = it, _json = json)
+                        } ?: Operation(_json = json)
+                    }
+                    "rangedtime" -> {
+                        return tryDeserialize(node, jacksonTypeRef<RangedTimeOperation>())?.let {
+                            Operation(rangedtime = it, _json = json)
+                        } ?: Operation(_json = json)
+                    }
+                    "regex" -> {
+                        return tryDeserialize(node, jacksonTypeRef<RegexPropertyOperation>())?.let {
+                            Operation(regex = it, _json = json)
+                        } ?: Operation(_json = json)
+                    }
                 }
+
+                return Operation(_json = json)
             }
         }
 
@@ -1453,39 +1399,32 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.boolProperty != null -> generator.writeObject(value.boolProperty)
-                    value.numberProperty != null -> generator.writeObject(value.numberProperty)
-                    value.stringProperty != null -> generator.writeObject(value.stringProperty)
-                    value.dateTimeProperty != null -> generator.writeObject(value.dateTimeProperty)
-                    value.rangedDateProperty != null ->
-                        generator.writeObject(value.rangedDateProperty)
-                    value.comparativeDateProperty != null ->
-                        generator.writeObject(value.comparativeDateProperty)
-                    value.comparativeBoolProperty != null ->
-                        generator.writeObject(value.comparativeBoolProperty)
-                    value.comparativeNumberProperty != null ->
-                        generator.writeObject(value.comparativeNumberProperty)
-                    value.comparativeStringProperty != null ->
-                        generator.writeObject(value.comparativeStringProperty)
-                    value.comparativePropertyUpdated != null ->
-                        generator.writeObject(value.comparativePropertyUpdated)
-                    value.rollingDateRangeProperty != null ->
-                        generator.writeObject(value.rollingDateRangeProperty)
+                    value.bool != null -> generator.writeObject(value.bool)
+                    value.number != null -> generator.writeObject(value.number)
+                    value.string != null -> generator.writeObject(value.string)
+                    value.datetime != null -> generator.writeObject(value.datetime)
+                    value.datetimeRanged != null -> generator.writeObject(value.datetimeRanged)
+                    value.datetimeComparative != null ->
+                        generator.writeObject(value.datetimeComparative)
+                    value.boolComparative != null -> generator.writeObject(value.boolComparative)
+                    value.numberComparative != null ->
+                        generator.writeObject(value.numberComparative)
+                    value.stringComparative != null ->
+                        generator.writeObject(value.stringComparative)
+                    value.propertyUpdatedComparative != null ->
+                        generator.writeObject(value.propertyUpdatedComparative)
+                    value.datetimeRolling != null -> generator.writeObject(value.datetimeRolling)
                     value.rollingPropertyUpdated != null ->
                         generator.writeObject(value.rollingPropertyUpdated)
-                    value.enumerationProperty != null ->
-                        generator.writeObject(value.enumerationProperty)
-                    value.allPropertyTypes != null -> generator.writeObject(value.allPropertyTypes)
-                    value.rangedNumberProperty != null ->
-                        generator.writeObject(value.rangedNumberProperty)
-                    value.multiStringProperty != null ->
-                        generator.writeObject(value.multiStringProperty)
-                    value.dateProperty != null -> generator.writeObject(value.dateProperty)
-                    value.calendarDateProperty != null ->
-                        generator.writeObject(value.calendarDateProperty)
-                    value.timePoint != null -> generator.writeObject(value.timePoint)
-                    value.rangedTime != null -> generator.writeObject(value.rangedTime)
-                    value.regexProperty != null -> generator.writeObject(value.regexProperty)
+                    value.enumeration != null -> generator.writeObject(value.enumeration)
+                    value.alltypes != null -> generator.writeObject(value.alltypes)
+                    value.numberRanged != null -> generator.writeObject(value.numberRanged)
+                    value.multistring != null -> generator.writeObject(value.multistring)
+                    value.date != null -> generator.writeObject(value.date)
+                    value.calendarDate != null -> generator.writeObject(value.calendarDate)
+                    value.timepoint != null -> generator.writeObject(value.timepoint)
+                    value.rangedtime != null -> generator.writeObject(value.rangedtime)
+                    value.regex != null -> generator.writeObject(value.regex)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Operation")
                 }

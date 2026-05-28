@@ -38,7 +38,7 @@ internal class PublicEventAnalyticsFilterTest {
         assertThat(publicEventAnalyticsFilter.operator()).isEqualTo("operator")
         assertThat(publicEventAnalyticsFilter.coalescingRefineBy())
             .contains(
-                PublicEventAnalyticsFilter.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicEventAnalyticsFilter.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)
@@ -48,7 +48,7 @@ internal class PublicEventAnalyticsFilterTest {
             )
         assertThat(publicEventAnalyticsFilter.pruningRefineBy())
             .contains(
-                PublicEventAnalyticsFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicEventAnalyticsFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

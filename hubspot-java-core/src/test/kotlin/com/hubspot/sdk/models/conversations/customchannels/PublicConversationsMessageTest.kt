@@ -92,7 +92,7 @@ internal class PublicConversationsMessageTest {
         assertThat(publicConversationsMessage.archived()).isEqualTo(true)
         assertThat(publicConversationsMessage.attachments())
             .containsExactly(
-                PublicConversationsMessage.Attachment.ofPublicFile(
+                PublicConversationsMessage.Attachment.ofFile(
                     PublicFile.builder()
                         .fileId("fileId")
                         .fileUsageType(PublicFile.FileUsageType.AUDIO)

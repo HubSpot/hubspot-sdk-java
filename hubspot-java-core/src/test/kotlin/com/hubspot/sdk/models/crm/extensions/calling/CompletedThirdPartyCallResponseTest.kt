@@ -32,7 +32,7 @@ internal class CompletedThirdPartyCallResponseTest {
 
         assertThat(completedThirdPartyCallResponse.callerIdMatches())
             .containsExactly(
-                CompletedThirdPartyCallResponse.CallerIdMatch.ofContactCallerId(
+                CompletedThirdPartyCallResponse.CallerIdMatch.ofContact(
                     ContactCallerId.builder()
                         .callerIdType(ContactCallerId.CallerIdType.CONTACT)
                         .objectCoordinates(
