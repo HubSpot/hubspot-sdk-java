@@ -59,6 +59,7 @@ internal class BatchServiceTest {
                                     )
                                     .referencedObjectType("referencedObjectType")
                                     .showCurrencySymbol(true)
+                                    .textDisplayHint(PropertyCreate.TextDisplayHint.DOMAIN_NAME)
                                     .build()
                             )
                             .build()

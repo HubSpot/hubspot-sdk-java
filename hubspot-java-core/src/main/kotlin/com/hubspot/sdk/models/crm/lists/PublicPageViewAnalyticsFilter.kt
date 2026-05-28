@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
@@ -275,72 +274,69 @@ private constructor(
 
         /**
          * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicNumOccurrences(publicNumOccurrences)`.
+         * `CoalescingRefineBy.ofNumOccurrences(numOccurrences)`.
          */
-        fun coalescingRefineBy(publicNumOccurrences: PublicNumOccurrencesRefineBy) =
-            coalescingRefineBy(CoalescingRefineBy.ofPublicNumOccurrences(publicNumOccurrences))
+        fun coalescingRefineBy(numOccurrences: PublicNumOccurrencesRefineBy) =
+            coalescingRefineBy(CoalescingRefineBy.ofNumOccurrences(numOccurrences))
 
         /**
          * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicSetOccurrences(publicSetOccurrences)`.
+         * `CoalescingRefineBy.ofSetOccurrences(setOccurrences)`.
          */
-        fun coalescingRefineBy(publicSetOccurrences: PublicSetOccurrencesRefineBy) =
-            coalescingRefineBy(CoalescingRefineBy.ofPublicSetOccurrences(publicSetOccurrences))
+        fun coalescingRefineBy(setOccurrences: PublicSetOccurrencesRefineBy) =
+            coalescingRefineBy(CoalescingRefineBy.ofSetOccurrences(setOccurrences))
 
         /**
-         * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicRelativeComparativeTimestamp(publicRelativeComparativeTimestamp)`.
+         * Alias for calling [coalescingRefineBy] with the following:
+         * ```java
+         * PublicSetOccurrencesRefineBy.builder()
+         *     .type(PublicSetOccurrencesRefineBy.Type.SET_OCCURRENCES)
+         *     .setType(setType)
+         *     .build()
+         * ```
          */
-        fun coalescingRefineBy(
-            publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
-        ) =
+        fun setOccurrencesCoalescingRefineBy(setType: String) =
             coalescingRefineBy(
-                CoalescingRefineBy.ofPublicRelativeComparativeTimestamp(
-                    publicRelativeComparativeTimestamp
-                )
+                PublicSetOccurrencesRefineBy.builder()
+                    .type(PublicSetOccurrencesRefineBy.Type.SET_OCCURRENCES)
+                    .setType(setType)
+                    .build()
             )
 
         /**
          * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)`.
+         * `CoalescingRefineBy.ofRelativeComparative(relativeComparative)`.
          */
-        fun coalescingRefineBy(
-            publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
-        ) =
-            coalescingRefineBy(
-                CoalescingRefineBy.ofPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)
-            )
+        fun coalescingRefineBy(relativeComparative: PublicRelativeComparativeTimestampRefineBy) =
+            coalescingRefineBy(CoalescingRefineBy.ofRelativeComparative(relativeComparative))
 
         /**
          * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicAbsoluteComparativeTimestamp(publicAbsoluteComparativeTimestamp)`.
+         * `CoalescingRefineBy.ofRelativeRanged(relativeRanged)`.
          */
-        fun coalescingRefineBy(
-            publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
-        ) =
-            coalescingRefineBy(
-                CoalescingRefineBy.ofPublicAbsoluteComparativeTimestamp(
-                    publicAbsoluteComparativeTimestamp
-                )
-            )
+        fun coalescingRefineBy(relativeRanged: PublicRelativeRangedTimestampRefineBy) =
+            coalescingRefineBy(CoalescingRefineBy.ofRelativeRanged(relativeRanged))
 
         /**
          * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)`.
+         * `CoalescingRefineBy.ofAbsoluteComparative(absoluteComparative)`.
          */
-        fun coalescingRefineBy(
-            publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
-        ) =
-            coalescingRefineBy(
-                CoalescingRefineBy.ofPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)
-            )
+        fun coalescingRefineBy(absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy) =
+            coalescingRefineBy(CoalescingRefineBy.ofAbsoluteComparative(absoluteComparative))
 
         /**
          * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicAllHistory(publicAllHistory)`.
+         * `CoalescingRefineBy.ofAbsoluteRanged(absoluteRanged)`.
          */
-        fun coalescingRefineBy(publicAllHistory: PublicAllHistoryRefineBy) =
-            coalescingRefineBy(CoalescingRefineBy.ofPublicAllHistory(publicAllHistory))
+        fun coalescingRefineBy(absoluteRanged: PublicAbsoluteRangedTimestampRefineBy) =
+            coalescingRefineBy(CoalescingRefineBy.ofAbsoluteRanged(absoluteRanged))
+
+        /**
+         * Alias for calling [coalescingRefineBy] with
+         * `CoalescingRefineBy.ofAllHistory(allHistory)`.
+         */
+        fun coalescingRefineBy(allHistory: PublicAllHistoryRefineBy) =
+            coalescingRefineBy(CoalescingRefineBy.ofAllHistory(allHistory))
 
         /**
          * Alias for calling [coalescingRefineBy] with
@@ -353,12 +349,10 @@ private constructor(
 
         /**
          * Alias for calling [coalescingRefineBy] with
-         * `CoalescingRefineBy.ofPublicRangedTimeOperation(publicRangedTimeOperation)`.
+         * `CoalescingRefineBy.ofTimeRanged(timeRanged)`.
          */
-        fun coalescingRefineBy(publicRangedTimeOperation: PublicRangedTimeOperation) =
-            coalescingRefineBy(
-                CoalescingRefineBy.ofPublicRangedTimeOperation(publicRangedTimeOperation)
-            )
+        fun coalescingRefineBy(timeRanged: PublicRangedTimeOperation) =
+            coalescingRefineBy(CoalescingRefineBy.ofTimeRanged(timeRanged))
 
         /** Indicates whether tracking is enabled for the page view. */
         fun enableTracking(enableTracking: Boolean) = enableTracking(JsonField.of(enableTracking))
@@ -391,68 +385,66 @@ private constructor(
 
         /**
          * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicNumOccurrences(publicNumOccurrences)`.
+         * `PruningRefineBy.ofNumOccurrences(numOccurrences)`.
          */
-        fun pruningRefineBy(publicNumOccurrences: PublicNumOccurrencesRefineBy) =
-            pruningRefineBy(PruningRefineBy.ofPublicNumOccurrences(publicNumOccurrences))
+        fun pruningRefineBy(numOccurrences: PublicNumOccurrencesRefineBy) =
+            pruningRefineBy(PruningRefineBy.ofNumOccurrences(numOccurrences))
 
         /**
          * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicSetOccurrences(publicSetOccurrences)`.
+         * `PruningRefineBy.ofSetOccurrences(setOccurrences)`.
          */
-        fun pruningRefineBy(publicSetOccurrences: PublicSetOccurrencesRefineBy) =
-            pruningRefineBy(PruningRefineBy.ofPublicSetOccurrences(publicSetOccurrences))
+        fun pruningRefineBy(setOccurrences: PublicSetOccurrencesRefineBy) =
+            pruningRefineBy(PruningRefineBy.ofSetOccurrences(setOccurrences))
 
         /**
-         * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicRelativeComparativeTimestamp(publicRelativeComparativeTimestamp)`.
+         * Alias for calling [pruningRefineBy] with the following:
+         * ```java
+         * PublicSetOccurrencesRefineBy.builder()
+         *     .type(PublicSetOccurrencesRefineBy.Type.SET_OCCURRENCES)
+         *     .setType(setType)
+         *     .build()
+         * ```
          */
-        fun pruningRefineBy(
-            publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
-        ) =
+        fun setOccurrencesPruningRefineBy(setType: String) =
             pruningRefineBy(
-                PruningRefineBy.ofPublicRelativeComparativeTimestamp(
-                    publicRelativeComparativeTimestamp
-                )
+                PublicSetOccurrencesRefineBy.builder()
+                    .type(PublicSetOccurrencesRefineBy.Type.SET_OCCURRENCES)
+                    .setType(setType)
+                    .build()
             )
 
         /**
          * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)`.
+         * `PruningRefineBy.ofRelativeComparative(relativeComparative)`.
          */
-        fun pruningRefineBy(publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy) =
-            pruningRefineBy(
-                PruningRefineBy.ofPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)
-            )
+        fun pruningRefineBy(relativeComparative: PublicRelativeComparativeTimestampRefineBy) =
+            pruningRefineBy(PruningRefineBy.ofRelativeComparative(relativeComparative))
 
         /**
          * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicAbsoluteComparativeTimestamp(publicAbsoluteComparativeTimestamp)`.
+         * `PruningRefineBy.ofRelativeRanged(relativeRanged)`.
          */
-        fun pruningRefineBy(
-            publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
-        ) =
-            pruningRefineBy(
-                PruningRefineBy.ofPublicAbsoluteComparativeTimestamp(
-                    publicAbsoluteComparativeTimestamp
-                )
-            )
+        fun pruningRefineBy(relativeRanged: PublicRelativeRangedTimestampRefineBy) =
+            pruningRefineBy(PruningRefineBy.ofRelativeRanged(relativeRanged))
 
         /**
          * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)`.
+         * `PruningRefineBy.ofAbsoluteComparative(absoluteComparative)`.
          */
-        fun pruningRefineBy(publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy) =
-            pruningRefineBy(
-                PruningRefineBy.ofPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)
-            )
+        fun pruningRefineBy(absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy) =
+            pruningRefineBy(PruningRefineBy.ofAbsoluteComparative(absoluteComparative))
 
         /**
          * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicAllHistory(publicAllHistory)`.
+         * `PruningRefineBy.ofAbsoluteRanged(absoluteRanged)`.
          */
-        fun pruningRefineBy(publicAllHistory: PublicAllHistoryRefineBy) =
-            pruningRefineBy(PruningRefineBy.ofPublicAllHistory(publicAllHistory))
+        fun pruningRefineBy(absoluteRanged: PublicAbsoluteRangedTimestampRefineBy) =
+            pruningRefineBy(PruningRefineBy.ofAbsoluteRanged(absoluteRanged))
+
+        /** Alias for calling [pruningRefineBy] with `PruningRefineBy.ofAllHistory(allHistory)`. */
+        fun pruningRefineBy(allHistory: PublicAllHistoryRefineBy) =
+            pruningRefineBy(PruningRefineBy.ofAllHistory(allHistory))
 
         /**
          * Alias for calling [pruningRefineBy] with
@@ -461,12 +453,9 @@ private constructor(
         fun pruningRefineBy(publicTimePointOperation: PublicTimePointOperation) =
             pruningRefineBy(PruningRefineBy.ofPublicTimePointOperation(publicTimePointOperation))
 
-        /**
-         * Alias for calling [pruningRefineBy] with
-         * `PruningRefineBy.ofPublicRangedTimeOperation(publicRangedTimeOperation)`.
-         */
-        fun pruningRefineBy(publicRangedTimeOperation: PublicRangedTimeOperation) =
-            pruningRefineBy(PruningRefineBy.ofPublicRangedTimeOperation(publicRangedTimeOperation))
+        /** Alias for calling [pruningRefineBy] with `PruningRefineBy.ofTimeRanged(timeRanged)`. */
+        fun pruningRefineBy(timeRanged: PublicRangedTimeOperation) =
+            pruningRefineBy(PruningRefineBy.ofTimeRanged(timeRanged))
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -695,97 +684,85 @@ private constructor(
     @JsonSerialize(using = CoalescingRefineBy.Serializer::class)
     class CoalescingRefineBy
     private constructor(
-        private val publicNumOccurrences: PublicNumOccurrencesRefineBy? = null,
-        private val publicSetOccurrences: PublicSetOccurrencesRefineBy? = null,
-        private val publicRelativeComparativeTimestamp:
-            PublicRelativeComparativeTimestampRefineBy? =
-            null,
-        private val publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy? = null,
-        private val publicAbsoluteComparativeTimestamp:
-            PublicAbsoluteComparativeTimestampRefineBy? =
-            null,
-        private val publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy? = null,
-        private val publicAllHistory: PublicAllHistoryRefineBy? = null,
+        private val numOccurrences: PublicNumOccurrencesRefineBy? = null,
+        private val setOccurrences: PublicSetOccurrencesRefineBy? = null,
+        private val relativeComparative: PublicRelativeComparativeTimestampRefineBy? = null,
+        private val relativeRanged: PublicRelativeRangedTimestampRefineBy? = null,
+        private val absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy? = null,
+        private val absoluteRanged: PublicAbsoluteRangedTimestampRefineBy? = null,
+        private val allHistory: PublicAllHistoryRefineBy? = null,
         private val publicTimePointOperation: PublicTimePointOperation? = null,
-        private val publicRangedTimeOperation: PublicRangedTimeOperation? = null,
+        private val timeRanged: PublicRangedTimeOperation? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicNumOccurrences(): Optional<PublicNumOccurrencesRefineBy> =
-            Optional.ofNullable(publicNumOccurrences)
+        fun numOccurrences(): Optional<PublicNumOccurrencesRefineBy> =
+            Optional.ofNullable(numOccurrences)
 
-        fun publicSetOccurrences(): Optional<PublicSetOccurrencesRefineBy> =
-            Optional.ofNullable(publicSetOccurrences)
+        fun setOccurrences(): Optional<PublicSetOccurrencesRefineBy> =
+            Optional.ofNullable(setOccurrences)
 
-        fun publicRelativeComparativeTimestamp():
-            Optional<PublicRelativeComparativeTimestampRefineBy> =
-            Optional.ofNullable(publicRelativeComparativeTimestamp)
+        fun relativeComparative(): Optional<PublicRelativeComparativeTimestampRefineBy> =
+            Optional.ofNullable(relativeComparative)
 
-        fun publicRelativeRangedTimestamp(): Optional<PublicRelativeRangedTimestampRefineBy> =
-            Optional.ofNullable(publicRelativeRangedTimestamp)
+        fun relativeRanged(): Optional<PublicRelativeRangedTimestampRefineBy> =
+            Optional.ofNullable(relativeRanged)
 
-        fun publicAbsoluteComparativeTimestamp():
-            Optional<PublicAbsoluteComparativeTimestampRefineBy> =
-            Optional.ofNullable(publicAbsoluteComparativeTimestamp)
+        fun absoluteComparative(): Optional<PublicAbsoluteComparativeTimestampRefineBy> =
+            Optional.ofNullable(absoluteComparative)
 
-        fun publicAbsoluteRangedTimestamp(): Optional<PublicAbsoluteRangedTimestampRefineBy> =
-            Optional.ofNullable(publicAbsoluteRangedTimestamp)
+        fun absoluteRanged(): Optional<PublicAbsoluteRangedTimestampRefineBy> =
+            Optional.ofNullable(absoluteRanged)
 
-        fun publicAllHistory(): Optional<PublicAllHistoryRefineBy> =
-            Optional.ofNullable(publicAllHistory)
+        fun allHistory(): Optional<PublicAllHistoryRefineBy> = Optional.ofNullable(allHistory)
 
         fun publicTimePointOperation(): Optional<PublicTimePointOperation> =
             Optional.ofNullable(publicTimePointOperation)
 
-        fun publicRangedTimeOperation(): Optional<PublicRangedTimeOperation> =
-            Optional.ofNullable(publicRangedTimeOperation)
+        fun timeRanged(): Optional<PublicRangedTimeOperation> = Optional.ofNullable(timeRanged)
 
-        fun isPublicNumOccurrences(): Boolean = publicNumOccurrences != null
+        fun isNumOccurrences(): Boolean = numOccurrences != null
 
-        fun isPublicSetOccurrences(): Boolean = publicSetOccurrences != null
+        fun isSetOccurrences(): Boolean = setOccurrences != null
 
-        fun isPublicRelativeComparativeTimestamp(): Boolean =
-            publicRelativeComparativeTimestamp != null
+        fun isRelativeComparative(): Boolean = relativeComparative != null
 
-        fun isPublicRelativeRangedTimestamp(): Boolean = publicRelativeRangedTimestamp != null
+        fun isRelativeRanged(): Boolean = relativeRanged != null
 
-        fun isPublicAbsoluteComparativeTimestamp(): Boolean =
-            publicAbsoluteComparativeTimestamp != null
+        fun isAbsoluteComparative(): Boolean = absoluteComparative != null
 
-        fun isPublicAbsoluteRangedTimestamp(): Boolean = publicAbsoluteRangedTimestamp != null
+        fun isAbsoluteRanged(): Boolean = absoluteRanged != null
 
-        fun isPublicAllHistory(): Boolean = publicAllHistory != null
+        fun isAllHistory(): Boolean = allHistory != null
 
         fun isPublicTimePointOperation(): Boolean = publicTimePointOperation != null
 
-        fun isPublicRangedTimeOperation(): Boolean = publicRangedTimeOperation != null
+        fun isTimeRanged(): Boolean = timeRanged != null
 
-        fun asPublicNumOccurrences(): PublicNumOccurrencesRefineBy =
-            publicNumOccurrences.getOrThrow("publicNumOccurrences")
+        fun asNumOccurrences(): PublicNumOccurrencesRefineBy =
+            numOccurrences.getOrThrow("numOccurrences")
 
-        fun asPublicSetOccurrences(): PublicSetOccurrencesRefineBy =
-            publicSetOccurrences.getOrThrow("publicSetOccurrences")
+        fun asSetOccurrences(): PublicSetOccurrencesRefineBy =
+            setOccurrences.getOrThrow("setOccurrences")
 
-        fun asPublicRelativeComparativeTimestamp(): PublicRelativeComparativeTimestampRefineBy =
-            publicRelativeComparativeTimestamp.getOrThrow("publicRelativeComparativeTimestamp")
+        fun asRelativeComparative(): PublicRelativeComparativeTimestampRefineBy =
+            relativeComparative.getOrThrow("relativeComparative")
 
-        fun asPublicRelativeRangedTimestamp(): PublicRelativeRangedTimestampRefineBy =
-            publicRelativeRangedTimestamp.getOrThrow("publicRelativeRangedTimestamp")
+        fun asRelativeRanged(): PublicRelativeRangedTimestampRefineBy =
+            relativeRanged.getOrThrow("relativeRanged")
 
-        fun asPublicAbsoluteComparativeTimestamp(): PublicAbsoluteComparativeTimestampRefineBy =
-            publicAbsoluteComparativeTimestamp.getOrThrow("publicAbsoluteComparativeTimestamp")
+        fun asAbsoluteComparative(): PublicAbsoluteComparativeTimestampRefineBy =
+            absoluteComparative.getOrThrow("absoluteComparative")
 
-        fun asPublicAbsoluteRangedTimestamp(): PublicAbsoluteRangedTimestampRefineBy =
-            publicAbsoluteRangedTimestamp.getOrThrow("publicAbsoluteRangedTimestamp")
+        fun asAbsoluteRanged(): PublicAbsoluteRangedTimestampRefineBy =
+            absoluteRanged.getOrThrow("absoluteRanged")
 
-        fun asPublicAllHistory(): PublicAllHistoryRefineBy =
-            publicAllHistory.getOrThrow("publicAllHistory")
+        fun asAllHistory(): PublicAllHistoryRefineBy = allHistory.getOrThrow("allHistory")
 
         fun asPublicTimePointOperation(): PublicTimePointOperation =
             publicTimePointOperation.getOrThrow("publicTimePointOperation")
 
-        fun asPublicRangedTimeOperation(): PublicRangedTimeOperation =
-            publicRangedTimeOperation.getOrThrow("publicRangedTimeOperation")
+        fun asTimeRanged(): PublicRangedTimeOperation = timeRanged.getOrThrow("timeRanged")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -801,8 +778,8 @@ private constructor(
          *
          * Optional<String> result = coalescingRefineBy.accept(new CoalescingRefineBy.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicNumOccurrences(PublicNumOccurrencesRefineBy publicNumOccurrences) {
-         *         return Optional.of(publicNumOccurrences.toString());
+         *     public Optional<String> visitNumOccurrences(PublicNumOccurrencesRefineBy numOccurrences) {
+         *         return Optional.of(numOccurrences.toString());
          *     }
          *
          *     // ...
@@ -820,27 +797,16 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicNumOccurrences != null ->
-                    visitor.visitPublicNumOccurrences(publicNumOccurrences)
-                publicSetOccurrences != null ->
-                    visitor.visitPublicSetOccurrences(publicSetOccurrences)
-                publicRelativeComparativeTimestamp != null ->
-                    visitor.visitPublicRelativeComparativeTimestamp(
-                        publicRelativeComparativeTimestamp
-                    )
-                publicRelativeRangedTimestamp != null ->
-                    visitor.visitPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)
-                publicAbsoluteComparativeTimestamp != null ->
-                    visitor.visitPublicAbsoluteComparativeTimestamp(
-                        publicAbsoluteComparativeTimestamp
-                    )
-                publicAbsoluteRangedTimestamp != null ->
-                    visitor.visitPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)
-                publicAllHistory != null -> visitor.visitPublicAllHistory(publicAllHistory)
+                numOccurrences != null -> visitor.visitNumOccurrences(numOccurrences)
+                setOccurrences != null -> visitor.visitSetOccurrences(setOccurrences)
+                relativeComparative != null -> visitor.visitRelativeComparative(relativeComparative)
+                relativeRanged != null -> visitor.visitRelativeRanged(relativeRanged)
+                absoluteComparative != null -> visitor.visitAbsoluteComparative(absoluteComparative)
+                absoluteRanged != null -> visitor.visitAbsoluteRanged(absoluteRanged)
+                allHistory != null -> visitor.visitAllHistory(allHistory)
                 publicTimePointOperation != null ->
                     visitor.visitPublicTimePointOperation(publicTimePointOperation)
-                publicRangedTimeOperation != null ->
-                    visitor.visitPublicRangedTimeOperation(publicRangedTimeOperation)
+                timeRanged != null -> visitor.visitTimeRanged(timeRanged)
                 else -> visitor.unknown(_json)
             }
 
@@ -862,46 +828,40 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicNumOccurrences(
-                        publicNumOccurrences: PublicNumOccurrencesRefineBy
-                    ) {
-                        publicNumOccurrences.validate()
+                    override fun visitNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy) {
+                        numOccurrences.validate()
                     }
 
-                    override fun visitPublicSetOccurrences(
-                        publicSetOccurrences: PublicSetOccurrencesRefineBy
-                    ) {
-                        publicSetOccurrences.validate()
+                    override fun visitSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy) {
+                        setOccurrences.validate()
                     }
 
-                    override fun visitPublicRelativeComparativeTimestamp(
-                        publicRelativeComparativeTimestamp:
-                            PublicRelativeComparativeTimestampRefineBy
+                    override fun visitRelativeComparative(
+                        relativeComparative: PublicRelativeComparativeTimestampRefineBy
                     ) {
-                        publicRelativeComparativeTimestamp.validate()
+                        relativeComparative.validate()
                     }
 
-                    override fun visitPublicRelativeRangedTimestamp(
-                        publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
+                    override fun visitRelativeRanged(
+                        relativeRanged: PublicRelativeRangedTimestampRefineBy
                     ) {
-                        publicRelativeRangedTimestamp.validate()
+                        relativeRanged.validate()
                     }
 
-                    override fun visitPublicAbsoluteComparativeTimestamp(
-                        publicAbsoluteComparativeTimestamp:
-                            PublicAbsoluteComparativeTimestampRefineBy
+                    override fun visitAbsoluteComparative(
+                        absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
                     ) {
-                        publicAbsoluteComparativeTimestamp.validate()
+                        absoluteComparative.validate()
                     }
 
-                    override fun visitPublicAbsoluteRangedTimestamp(
-                        publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
+                    override fun visitAbsoluteRanged(
+                        absoluteRanged: PublicAbsoluteRangedTimestampRefineBy
                     ) {
-                        publicAbsoluteRangedTimestamp.validate()
+                        absoluteRanged.validate()
                     }
 
-                    override fun visitPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy) {
-                        publicAllHistory.validate()
+                    override fun visitAllHistory(allHistory: PublicAllHistoryRefineBy) {
+                        allHistory.validate()
                     }
 
                     override fun visitPublicTimePointOperation(
@@ -910,10 +870,8 @@ private constructor(
                         publicTimePointOperation.validate()
                     }
 
-                    override fun visitPublicRangedTimeOperation(
-                        publicRangedTimeOperation: PublicRangedTimeOperation
-                    ) {
-                        publicRangedTimeOperation.validate()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) {
+                        timeRanged.validate()
                     }
                 }
             )
@@ -938,42 +896,37 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicNumOccurrences(
-                        publicNumOccurrences: PublicNumOccurrencesRefineBy
-                    ) = publicNumOccurrences.validity()
+                    override fun visitNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy) =
+                        numOccurrences.validity()
 
-                    override fun visitPublicSetOccurrences(
-                        publicSetOccurrences: PublicSetOccurrencesRefineBy
-                    ) = publicSetOccurrences.validity()
+                    override fun visitSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy) =
+                        setOccurrences.validity()
 
-                    override fun visitPublicRelativeComparativeTimestamp(
-                        publicRelativeComparativeTimestamp:
-                            PublicRelativeComparativeTimestampRefineBy
-                    ) = publicRelativeComparativeTimestamp.validity()
+                    override fun visitRelativeComparative(
+                        relativeComparative: PublicRelativeComparativeTimestampRefineBy
+                    ) = relativeComparative.validity()
 
-                    override fun visitPublicRelativeRangedTimestamp(
-                        publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
-                    ) = publicRelativeRangedTimestamp.validity()
+                    override fun visitRelativeRanged(
+                        relativeRanged: PublicRelativeRangedTimestampRefineBy
+                    ) = relativeRanged.validity()
 
-                    override fun visitPublicAbsoluteComparativeTimestamp(
-                        publicAbsoluteComparativeTimestamp:
-                            PublicAbsoluteComparativeTimestampRefineBy
-                    ) = publicAbsoluteComparativeTimestamp.validity()
+                    override fun visitAbsoluteComparative(
+                        absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
+                    ) = absoluteComparative.validity()
 
-                    override fun visitPublicAbsoluteRangedTimestamp(
-                        publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
-                    ) = publicAbsoluteRangedTimestamp.validity()
+                    override fun visitAbsoluteRanged(
+                        absoluteRanged: PublicAbsoluteRangedTimestampRefineBy
+                    ) = absoluteRanged.validity()
 
-                    override fun visitPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy) =
-                        publicAllHistory.validity()
+                    override fun visitAllHistory(allHistory: PublicAllHistoryRefineBy) =
+                        allHistory.validity()
 
                     override fun visitPublicTimePointOperation(
                         publicTimePointOperation: PublicTimePointOperation
                     ) = publicTimePointOperation.validity()
 
-                    override fun visitPublicRangedTimeOperation(
-                        publicRangedTimeOperation: PublicRangedTimeOperation
-                    ) = publicRangedTimeOperation.validity()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                        timeRanged.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -985,49 +938,44 @@ private constructor(
             }
 
             return other is CoalescingRefineBy &&
-                publicNumOccurrences == other.publicNumOccurrences &&
-                publicSetOccurrences == other.publicSetOccurrences &&
-                publicRelativeComparativeTimestamp == other.publicRelativeComparativeTimestamp &&
-                publicRelativeRangedTimestamp == other.publicRelativeRangedTimestamp &&
-                publicAbsoluteComparativeTimestamp == other.publicAbsoluteComparativeTimestamp &&
-                publicAbsoluteRangedTimestamp == other.publicAbsoluteRangedTimestamp &&
-                publicAllHistory == other.publicAllHistory &&
+                numOccurrences == other.numOccurrences &&
+                setOccurrences == other.setOccurrences &&
+                relativeComparative == other.relativeComparative &&
+                relativeRanged == other.relativeRanged &&
+                absoluteComparative == other.absoluteComparative &&
+                absoluteRanged == other.absoluteRanged &&
+                allHistory == other.allHistory &&
                 publicTimePointOperation == other.publicTimePointOperation &&
-                publicRangedTimeOperation == other.publicRangedTimeOperation
+                timeRanged == other.timeRanged
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                publicNumOccurrences,
-                publicSetOccurrences,
-                publicRelativeComparativeTimestamp,
-                publicRelativeRangedTimestamp,
-                publicAbsoluteComparativeTimestamp,
-                publicAbsoluteRangedTimestamp,
-                publicAllHistory,
+                numOccurrences,
+                setOccurrences,
+                relativeComparative,
+                relativeRanged,
+                absoluteComparative,
+                absoluteRanged,
+                allHistory,
                 publicTimePointOperation,
-                publicRangedTimeOperation,
+                timeRanged,
             )
 
         override fun toString(): String =
             when {
-                publicNumOccurrences != null ->
-                    "CoalescingRefineBy{publicNumOccurrences=$publicNumOccurrences}"
-                publicSetOccurrences != null ->
-                    "CoalescingRefineBy{publicSetOccurrences=$publicSetOccurrences}"
-                publicRelativeComparativeTimestamp != null ->
-                    "CoalescingRefineBy{publicRelativeComparativeTimestamp=$publicRelativeComparativeTimestamp}"
-                publicRelativeRangedTimestamp != null ->
-                    "CoalescingRefineBy{publicRelativeRangedTimestamp=$publicRelativeRangedTimestamp}"
-                publicAbsoluteComparativeTimestamp != null ->
-                    "CoalescingRefineBy{publicAbsoluteComparativeTimestamp=$publicAbsoluteComparativeTimestamp}"
-                publicAbsoluteRangedTimestamp != null ->
-                    "CoalescingRefineBy{publicAbsoluteRangedTimestamp=$publicAbsoluteRangedTimestamp}"
-                publicAllHistory != null -> "CoalescingRefineBy{publicAllHistory=$publicAllHistory}"
+                numOccurrences != null -> "CoalescingRefineBy{numOccurrences=$numOccurrences}"
+                setOccurrences != null -> "CoalescingRefineBy{setOccurrences=$setOccurrences}"
+                relativeComparative != null ->
+                    "CoalescingRefineBy{relativeComparative=$relativeComparative}"
+                relativeRanged != null -> "CoalescingRefineBy{relativeRanged=$relativeRanged}"
+                absoluteComparative != null ->
+                    "CoalescingRefineBy{absoluteComparative=$absoluteComparative}"
+                absoluteRanged != null -> "CoalescingRefineBy{absoluteRanged=$absoluteRanged}"
+                allHistory != null -> "CoalescingRefineBy{allHistory=$allHistory}"
                 publicTimePointOperation != null ->
                     "CoalescingRefineBy{publicTimePointOperation=$publicTimePointOperation}"
-                publicRangedTimeOperation != null ->
-                    "CoalescingRefineBy{publicRangedTimeOperation=$publicRangedTimeOperation}"
+                timeRanged != null -> "CoalescingRefineBy{timeRanged=$timeRanged}"
                 _json != null -> "CoalescingRefineBy{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid CoalescingRefineBy")
             }
@@ -1035,50 +983,42 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofPublicNumOccurrences(publicNumOccurrences: PublicNumOccurrencesRefineBy) =
-                CoalescingRefineBy(publicNumOccurrences = publicNumOccurrences)
+            fun ofNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy) =
+                CoalescingRefineBy(numOccurrences = numOccurrences)
 
             @JvmStatic
-            fun ofPublicSetOccurrences(publicSetOccurrences: PublicSetOccurrencesRefineBy) =
-                CoalescingRefineBy(publicSetOccurrences = publicSetOccurrences)
+            fun ofSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy) =
+                CoalescingRefineBy(setOccurrences = setOccurrences)
 
             @JvmStatic
-            fun ofPublicRelativeComparativeTimestamp(
-                publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
-            ) =
-                CoalescingRefineBy(
-                    publicRelativeComparativeTimestamp = publicRelativeComparativeTimestamp
-                )
+            fun ofRelativeComparative(
+                relativeComparative: PublicRelativeComparativeTimestampRefineBy
+            ) = CoalescingRefineBy(relativeComparative = relativeComparative)
 
             @JvmStatic
-            fun ofPublicRelativeRangedTimestamp(
-                publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
-            ) = CoalescingRefineBy(publicRelativeRangedTimestamp = publicRelativeRangedTimestamp)
+            fun ofRelativeRanged(relativeRanged: PublicRelativeRangedTimestampRefineBy) =
+                CoalescingRefineBy(relativeRanged = relativeRanged)
 
             @JvmStatic
-            fun ofPublicAbsoluteComparativeTimestamp(
-                publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
-            ) =
-                CoalescingRefineBy(
-                    publicAbsoluteComparativeTimestamp = publicAbsoluteComparativeTimestamp
-                )
+            fun ofAbsoluteComparative(
+                absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
+            ) = CoalescingRefineBy(absoluteComparative = absoluteComparative)
 
             @JvmStatic
-            fun ofPublicAbsoluteRangedTimestamp(
-                publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
-            ) = CoalescingRefineBy(publicAbsoluteRangedTimestamp = publicAbsoluteRangedTimestamp)
+            fun ofAbsoluteRanged(absoluteRanged: PublicAbsoluteRangedTimestampRefineBy) =
+                CoalescingRefineBy(absoluteRanged = absoluteRanged)
 
             @JvmStatic
-            fun ofPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy) =
-                CoalescingRefineBy(publicAllHistory = publicAllHistory)
+            fun ofAllHistory(allHistory: PublicAllHistoryRefineBy) =
+                CoalescingRefineBy(allHistory = allHistory)
 
             @JvmStatic
             fun ofPublicTimePointOperation(publicTimePointOperation: PublicTimePointOperation) =
                 CoalescingRefineBy(publicTimePointOperation = publicTimePointOperation)
 
             @JvmStatic
-            fun ofPublicRangedTimeOperation(publicRangedTimeOperation: PublicRangedTimeOperation) =
-                CoalescingRefineBy(publicRangedTimeOperation = publicRangedTimeOperation)
+            fun ofTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                CoalescingRefineBy(timeRanged = timeRanged)
         }
 
         /**
@@ -1087,33 +1027,27 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicNumOccurrences(publicNumOccurrences: PublicNumOccurrencesRefineBy): T
+            fun visitNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy): T
 
-            fun visitPublicSetOccurrences(publicSetOccurrences: PublicSetOccurrencesRefineBy): T
+            fun visitSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy): T
 
-            fun visitPublicRelativeComparativeTimestamp(
-                publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
+            fun visitRelativeComparative(
+                relativeComparative: PublicRelativeComparativeTimestampRefineBy
             ): T
 
-            fun visitPublicRelativeRangedTimestamp(
-                publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
+            fun visitRelativeRanged(relativeRanged: PublicRelativeRangedTimestampRefineBy): T
+
+            fun visitAbsoluteComparative(
+                absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
             ): T
 
-            fun visitPublicAbsoluteComparativeTimestamp(
-                publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
-            ): T
+            fun visitAbsoluteRanged(absoluteRanged: PublicAbsoluteRangedTimestampRefineBy): T
 
-            fun visitPublicAbsoluteRangedTimestamp(
-                publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
-            ): T
-
-            fun visitPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy): T
+            fun visitAllHistory(allHistory: PublicAllHistoryRefineBy): T
 
             fun visitPublicTimePointOperation(publicTimePointOperation: PublicTimePointOperation): T
 
-            fun visitPublicRangedTimeOperation(
-                publicRangedTimeOperation: PublicRangedTimeOperation
-            ): T
+            fun visitTimeRanged(timeRanged: PublicRangedTimeOperation): T
 
             /**
              * Maps an unknown variant of [CoalescingRefineBy] to a value of type [T].
@@ -1135,80 +1069,66 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): CoalescingRefineBy {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicNumOccurrencesRefineBy>())
-                                ?.let {
-                                    CoalescingRefineBy(publicNumOccurrences = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicSetOccurrencesRefineBy>())
-                                ?.let {
-                                    CoalescingRefineBy(publicSetOccurrences = it, _json = json)
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRelativeComparativeTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    CoalescingRefineBy(
-                                        publicRelativeComparativeTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRelativeRangedTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    CoalescingRefineBy(
-                                        publicRelativeRangedTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicAbsoluteComparativeTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    CoalescingRefineBy(
-                                        publicAbsoluteComparativeTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicAbsoluteRangedTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    CoalescingRefineBy(
-                                        publicAbsoluteRangedTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicAllHistoryRefineBy>())?.let {
-                                CoalescingRefineBy(publicAllHistory = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicTimePointOperation>())?.let {
-                                CoalescingRefineBy(publicTimePointOperation = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())?.let {
-                                CoalescingRefineBy(publicRangedTimeOperation = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> CoalescingRefineBy(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "NUM_OCCURRENCES" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNumOccurrencesRefineBy>())
+                            ?.let { CoalescingRefineBy(numOccurrences = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
+                    "SET_OCCURRENCES" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicSetOccurrencesRefineBy>())
+                            ?.let { CoalescingRefineBy(setOccurrences = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
+                    "RELATIVE_COMPARATIVE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRelativeComparativeTimestampRefineBy>(),
+                            )
+                            ?.let { CoalescingRefineBy(relativeComparative = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
+                    "RELATIVE_RANGED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRelativeRangedTimestampRefineBy>(),
+                            )
+                            ?.let { CoalescingRefineBy(relativeRanged = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
+                    "ABSOLUTE_COMPARATIVE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicAbsoluteComparativeTimestampRefineBy>(),
+                            )
+                            ?.let { CoalescingRefineBy(absoluteComparative = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
+                    "ABSOLUTE_RANGED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicAbsoluteRangedTimestampRefineBy>(),
+                            )
+                            ?.let { CoalescingRefineBy(absoluteRanged = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
+                    "ALL_HISTORY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAllHistoryRefineBy>())
+                            ?.let { CoalescingRefineBy(allHistory = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
+                    "TIME_RANGED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())
+                            ?.let { CoalescingRefineBy(timeRanged = it, _json = json) }
+                            ?: CoalescingRefineBy(_json = json)
+                    }
                 }
+
+                return tryDeserialize(node, jacksonTypeRef<PublicTimePointOperation>())?.let {
+                    CoalescingRefineBy(publicTimePointOperation = it, _json = json)
+                } ?: CoalescingRefineBy(_json = json)
             }
         }
 
@@ -1220,23 +1140,18 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicNumOccurrences != null ->
-                        generator.writeObject(value.publicNumOccurrences)
-                    value.publicSetOccurrences != null ->
-                        generator.writeObject(value.publicSetOccurrences)
-                    value.publicRelativeComparativeTimestamp != null ->
-                        generator.writeObject(value.publicRelativeComparativeTimestamp)
-                    value.publicRelativeRangedTimestamp != null ->
-                        generator.writeObject(value.publicRelativeRangedTimestamp)
-                    value.publicAbsoluteComparativeTimestamp != null ->
-                        generator.writeObject(value.publicAbsoluteComparativeTimestamp)
-                    value.publicAbsoluteRangedTimestamp != null ->
-                        generator.writeObject(value.publicAbsoluteRangedTimestamp)
-                    value.publicAllHistory != null -> generator.writeObject(value.publicAllHistory)
+                    value.numOccurrences != null -> generator.writeObject(value.numOccurrences)
+                    value.setOccurrences != null -> generator.writeObject(value.setOccurrences)
+                    value.relativeComparative != null ->
+                        generator.writeObject(value.relativeComparative)
+                    value.relativeRanged != null -> generator.writeObject(value.relativeRanged)
+                    value.absoluteComparative != null ->
+                        generator.writeObject(value.absoluteComparative)
+                    value.absoluteRanged != null -> generator.writeObject(value.absoluteRanged)
+                    value.allHistory != null -> generator.writeObject(value.allHistory)
                     value.publicTimePointOperation != null ->
                         generator.writeObject(value.publicTimePointOperation)
-                    value.publicRangedTimeOperation != null ->
-                        generator.writeObject(value.publicRangedTimeOperation)
+                    value.timeRanged != null -> generator.writeObject(value.timeRanged)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid CoalescingRefineBy")
                 }
@@ -1249,97 +1164,85 @@ private constructor(
     @JsonSerialize(using = PruningRefineBy.Serializer::class)
     class PruningRefineBy
     private constructor(
-        private val publicNumOccurrences: PublicNumOccurrencesRefineBy? = null,
-        private val publicSetOccurrences: PublicSetOccurrencesRefineBy? = null,
-        private val publicRelativeComparativeTimestamp:
-            PublicRelativeComparativeTimestampRefineBy? =
-            null,
-        private val publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy? = null,
-        private val publicAbsoluteComparativeTimestamp:
-            PublicAbsoluteComparativeTimestampRefineBy? =
-            null,
-        private val publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy? = null,
-        private val publicAllHistory: PublicAllHistoryRefineBy? = null,
+        private val numOccurrences: PublicNumOccurrencesRefineBy? = null,
+        private val setOccurrences: PublicSetOccurrencesRefineBy? = null,
+        private val relativeComparative: PublicRelativeComparativeTimestampRefineBy? = null,
+        private val relativeRanged: PublicRelativeRangedTimestampRefineBy? = null,
+        private val absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy? = null,
+        private val absoluteRanged: PublicAbsoluteRangedTimestampRefineBy? = null,
+        private val allHistory: PublicAllHistoryRefineBy? = null,
         private val publicTimePointOperation: PublicTimePointOperation? = null,
-        private val publicRangedTimeOperation: PublicRangedTimeOperation? = null,
+        private val timeRanged: PublicRangedTimeOperation? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicNumOccurrences(): Optional<PublicNumOccurrencesRefineBy> =
-            Optional.ofNullable(publicNumOccurrences)
+        fun numOccurrences(): Optional<PublicNumOccurrencesRefineBy> =
+            Optional.ofNullable(numOccurrences)
 
-        fun publicSetOccurrences(): Optional<PublicSetOccurrencesRefineBy> =
-            Optional.ofNullable(publicSetOccurrences)
+        fun setOccurrences(): Optional<PublicSetOccurrencesRefineBy> =
+            Optional.ofNullable(setOccurrences)
 
-        fun publicRelativeComparativeTimestamp():
-            Optional<PublicRelativeComparativeTimestampRefineBy> =
-            Optional.ofNullable(publicRelativeComparativeTimestamp)
+        fun relativeComparative(): Optional<PublicRelativeComparativeTimestampRefineBy> =
+            Optional.ofNullable(relativeComparative)
 
-        fun publicRelativeRangedTimestamp(): Optional<PublicRelativeRangedTimestampRefineBy> =
-            Optional.ofNullable(publicRelativeRangedTimestamp)
+        fun relativeRanged(): Optional<PublicRelativeRangedTimestampRefineBy> =
+            Optional.ofNullable(relativeRanged)
 
-        fun publicAbsoluteComparativeTimestamp():
-            Optional<PublicAbsoluteComparativeTimestampRefineBy> =
-            Optional.ofNullable(publicAbsoluteComparativeTimestamp)
+        fun absoluteComparative(): Optional<PublicAbsoluteComparativeTimestampRefineBy> =
+            Optional.ofNullable(absoluteComparative)
 
-        fun publicAbsoluteRangedTimestamp(): Optional<PublicAbsoluteRangedTimestampRefineBy> =
-            Optional.ofNullable(publicAbsoluteRangedTimestamp)
+        fun absoluteRanged(): Optional<PublicAbsoluteRangedTimestampRefineBy> =
+            Optional.ofNullable(absoluteRanged)
 
-        fun publicAllHistory(): Optional<PublicAllHistoryRefineBy> =
-            Optional.ofNullable(publicAllHistory)
+        fun allHistory(): Optional<PublicAllHistoryRefineBy> = Optional.ofNullable(allHistory)
 
         fun publicTimePointOperation(): Optional<PublicTimePointOperation> =
             Optional.ofNullable(publicTimePointOperation)
 
-        fun publicRangedTimeOperation(): Optional<PublicRangedTimeOperation> =
-            Optional.ofNullable(publicRangedTimeOperation)
+        fun timeRanged(): Optional<PublicRangedTimeOperation> = Optional.ofNullable(timeRanged)
 
-        fun isPublicNumOccurrences(): Boolean = publicNumOccurrences != null
+        fun isNumOccurrences(): Boolean = numOccurrences != null
 
-        fun isPublicSetOccurrences(): Boolean = publicSetOccurrences != null
+        fun isSetOccurrences(): Boolean = setOccurrences != null
 
-        fun isPublicRelativeComparativeTimestamp(): Boolean =
-            publicRelativeComparativeTimestamp != null
+        fun isRelativeComparative(): Boolean = relativeComparative != null
 
-        fun isPublicRelativeRangedTimestamp(): Boolean = publicRelativeRangedTimestamp != null
+        fun isRelativeRanged(): Boolean = relativeRanged != null
 
-        fun isPublicAbsoluteComparativeTimestamp(): Boolean =
-            publicAbsoluteComparativeTimestamp != null
+        fun isAbsoluteComparative(): Boolean = absoluteComparative != null
 
-        fun isPublicAbsoluteRangedTimestamp(): Boolean = publicAbsoluteRangedTimestamp != null
+        fun isAbsoluteRanged(): Boolean = absoluteRanged != null
 
-        fun isPublicAllHistory(): Boolean = publicAllHistory != null
+        fun isAllHistory(): Boolean = allHistory != null
 
         fun isPublicTimePointOperation(): Boolean = publicTimePointOperation != null
 
-        fun isPublicRangedTimeOperation(): Boolean = publicRangedTimeOperation != null
+        fun isTimeRanged(): Boolean = timeRanged != null
 
-        fun asPublicNumOccurrences(): PublicNumOccurrencesRefineBy =
-            publicNumOccurrences.getOrThrow("publicNumOccurrences")
+        fun asNumOccurrences(): PublicNumOccurrencesRefineBy =
+            numOccurrences.getOrThrow("numOccurrences")
 
-        fun asPublicSetOccurrences(): PublicSetOccurrencesRefineBy =
-            publicSetOccurrences.getOrThrow("publicSetOccurrences")
+        fun asSetOccurrences(): PublicSetOccurrencesRefineBy =
+            setOccurrences.getOrThrow("setOccurrences")
 
-        fun asPublicRelativeComparativeTimestamp(): PublicRelativeComparativeTimestampRefineBy =
-            publicRelativeComparativeTimestamp.getOrThrow("publicRelativeComparativeTimestamp")
+        fun asRelativeComparative(): PublicRelativeComparativeTimestampRefineBy =
+            relativeComparative.getOrThrow("relativeComparative")
 
-        fun asPublicRelativeRangedTimestamp(): PublicRelativeRangedTimestampRefineBy =
-            publicRelativeRangedTimestamp.getOrThrow("publicRelativeRangedTimestamp")
+        fun asRelativeRanged(): PublicRelativeRangedTimestampRefineBy =
+            relativeRanged.getOrThrow("relativeRanged")
 
-        fun asPublicAbsoluteComparativeTimestamp(): PublicAbsoluteComparativeTimestampRefineBy =
-            publicAbsoluteComparativeTimestamp.getOrThrow("publicAbsoluteComparativeTimestamp")
+        fun asAbsoluteComparative(): PublicAbsoluteComparativeTimestampRefineBy =
+            absoluteComparative.getOrThrow("absoluteComparative")
 
-        fun asPublicAbsoluteRangedTimestamp(): PublicAbsoluteRangedTimestampRefineBy =
-            publicAbsoluteRangedTimestamp.getOrThrow("publicAbsoluteRangedTimestamp")
+        fun asAbsoluteRanged(): PublicAbsoluteRangedTimestampRefineBy =
+            absoluteRanged.getOrThrow("absoluteRanged")
 
-        fun asPublicAllHistory(): PublicAllHistoryRefineBy =
-            publicAllHistory.getOrThrow("publicAllHistory")
+        fun asAllHistory(): PublicAllHistoryRefineBy = allHistory.getOrThrow("allHistory")
 
         fun asPublicTimePointOperation(): PublicTimePointOperation =
             publicTimePointOperation.getOrThrow("publicTimePointOperation")
 
-        fun asPublicRangedTimeOperation(): PublicRangedTimeOperation =
-            publicRangedTimeOperation.getOrThrow("publicRangedTimeOperation")
+        fun asTimeRanged(): PublicRangedTimeOperation = timeRanged.getOrThrow("timeRanged")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1355,8 +1258,8 @@ private constructor(
          *
          * Optional<String> result = pruningRefineBy.accept(new PruningRefineBy.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicNumOccurrences(PublicNumOccurrencesRefineBy publicNumOccurrences) {
-         *         return Optional.of(publicNumOccurrences.toString());
+         *     public Optional<String> visitNumOccurrences(PublicNumOccurrencesRefineBy numOccurrences) {
+         *         return Optional.of(numOccurrences.toString());
          *     }
          *
          *     // ...
@@ -1374,27 +1277,16 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicNumOccurrences != null ->
-                    visitor.visitPublicNumOccurrences(publicNumOccurrences)
-                publicSetOccurrences != null ->
-                    visitor.visitPublicSetOccurrences(publicSetOccurrences)
-                publicRelativeComparativeTimestamp != null ->
-                    visitor.visitPublicRelativeComparativeTimestamp(
-                        publicRelativeComparativeTimestamp
-                    )
-                publicRelativeRangedTimestamp != null ->
-                    visitor.visitPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)
-                publicAbsoluteComparativeTimestamp != null ->
-                    visitor.visitPublicAbsoluteComparativeTimestamp(
-                        publicAbsoluteComparativeTimestamp
-                    )
-                publicAbsoluteRangedTimestamp != null ->
-                    visitor.visitPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)
-                publicAllHistory != null -> visitor.visitPublicAllHistory(publicAllHistory)
+                numOccurrences != null -> visitor.visitNumOccurrences(numOccurrences)
+                setOccurrences != null -> visitor.visitSetOccurrences(setOccurrences)
+                relativeComparative != null -> visitor.visitRelativeComparative(relativeComparative)
+                relativeRanged != null -> visitor.visitRelativeRanged(relativeRanged)
+                absoluteComparative != null -> visitor.visitAbsoluteComparative(absoluteComparative)
+                absoluteRanged != null -> visitor.visitAbsoluteRanged(absoluteRanged)
+                allHistory != null -> visitor.visitAllHistory(allHistory)
                 publicTimePointOperation != null ->
                     visitor.visitPublicTimePointOperation(publicTimePointOperation)
-                publicRangedTimeOperation != null ->
-                    visitor.visitPublicRangedTimeOperation(publicRangedTimeOperation)
+                timeRanged != null -> visitor.visitTimeRanged(timeRanged)
                 else -> visitor.unknown(_json)
             }
 
@@ -1416,46 +1308,40 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicNumOccurrences(
-                        publicNumOccurrences: PublicNumOccurrencesRefineBy
-                    ) {
-                        publicNumOccurrences.validate()
+                    override fun visitNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy) {
+                        numOccurrences.validate()
                     }
 
-                    override fun visitPublicSetOccurrences(
-                        publicSetOccurrences: PublicSetOccurrencesRefineBy
-                    ) {
-                        publicSetOccurrences.validate()
+                    override fun visitSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy) {
+                        setOccurrences.validate()
                     }
 
-                    override fun visitPublicRelativeComparativeTimestamp(
-                        publicRelativeComparativeTimestamp:
-                            PublicRelativeComparativeTimestampRefineBy
+                    override fun visitRelativeComparative(
+                        relativeComparative: PublicRelativeComparativeTimestampRefineBy
                     ) {
-                        publicRelativeComparativeTimestamp.validate()
+                        relativeComparative.validate()
                     }
 
-                    override fun visitPublicRelativeRangedTimestamp(
-                        publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
+                    override fun visitRelativeRanged(
+                        relativeRanged: PublicRelativeRangedTimestampRefineBy
                     ) {
-                        publicRelativeRangedTimestamp.validate()
+                        relativeRanged.validate()
                     }
 
-                    override fun visitPublicAbsoluteComparativeTimestamp(
-                        publicAbsoluteComparativeTimestamp:
-                            PublicAbsoluteComparativeTimestampRefineBy
+                    override fun visitAbsoluteComparative(
+                        absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
                     ) {
-                        publicAbsoluteComparativeTimestamp.validate()
+                        absoluteComparative.validate()
                     }
 
-                    override fun visitPublicAbsoluteRangedTimestamp(
-                        publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
+                    override fun visitAbsoluteRanged(
+                        absoluteRanged: PublicAbsoluteRangedTimestampRefineBy
                     ) {
-                        publicAbsoluteRangedTimestamp.validate()
+                        absoluteRanged.validate()
                     }
 
-                    override fun visitPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy) {
-                        publicAllHistory.validate()
+                    override fun visitAllHistory(allHistory: PublicAllHistoryRefineBy) {
+                        allHistory.validate()
                     }
 
                     override fun visitPublicTimePointOperation(
@@ -1464,10 +1350,8 @@ private constructor(
                         publicTimePointOperation.validate()
                     }
 
-                    override fun visitPublicRangedTimeOperation(
-                        publicRangedTimeOperation: PublicRangedTimeOperation
-                    ) {
-                        publicRangedTimeOperation.validate()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) {
+                        timeRanged.validate()
                     }
                 }
             )
@@ -1492,42 +1376,37 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicNumOccurrences(
-                        publicNumOccurrences: PublicNumOccurrencesRefineBy
-                    ) = publicNumOccurrences.validity()
+                    override fun visitNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy) =
+                        numOccurrences.validity()
 
-                    override fun visitPublicSetOccurrences(
-                        publicSetOccurrences: PublicSetOccurrencesRefineBy
-                    ) = publicSetOccurrences.validity()
+                    override fun visitSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy) =
+                        setOccurrences.validity()
 
-                    override fun visitPublicRelativeComparativeTimestamp(
-                        publicRelativeComparativeTimestamp:
-                            PublicRelativeComparativeTimestampRefineBy
-                    ) = publicRelativeComparativeTimestamp.validity()
+                    override fun visitRelativeComparative(
+                        relativeComparative: PublicRelativeComparativeTimestampRefineBy
+                    ) = relativeComparative.validity()
 
-                    override fun visitPublicRelativeRangedTimestamp(
-                        publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
-                    ) = publicRelativeRangedTimestamp.validity()
+                    override fun visitRelativeRanged(
+                        relativeRanged: PublicRelativeRangedTimestampRefineBy
+                    ) = relativeRanged.validity()
 
-                    override fun visitPublicAbsoluteComparativeTimestamp(
-                        publicAbsoluteComparativeTimestamp:
-                            PublicAbsoluteComparativeTimestampRefineBy
-                    ) = publicAbsoluteComparativeTimestamp.validity()
+                    override fun visitAbsoluteComparative(
+                        absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
+                    ) = absoluteComparative.validity()
 
-                    override fun visitPublicAbsoluteRangedTimestamp(
-                        publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
-                    ) = publicAbsoluteRangedTimestamp.validity()
+                    override fun visitAbsoluteRanged(
+                        absoluteRanged: PublicAbsoluteRangedTimestampRefineBy
+                    ) = absoluteRanged.validity()
 
-                    override fun visitPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy) =
-                        publicAllHistory.validity()
+                    override fun visitAllHistory(allHistory: PublicAllHistoryRefineBy) =
+                        allHistory.validity()
 
                     override fun visitPublicTimePointOperation(
                         publicTimePointOperation: PublicTimePointOperation
                     ) = publicTimePointOperation.validity()
 
-                    override fun visitPublicRangedTimeOperation(
-                        publicRangedTimeOperation: PublicRangedTimeOperation
-                    ) = publicRangedTimeOperation.validity()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                        timeRanged.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1539,49 +1418,44 @@ private constructor(
             }
 
             return other is PruningRefineBy &&
-                publicNumOccurrences == other.publicNumOccurrences &&
-                publicSetOccurrences == other.publicSetOccurrences &&
-                publicRelativeComparativeTimestamp == other.publicRelativeComparativeTimestamp &&
-                publicRelativeRangedTimestamp == other.publicRelativeRangedTimestamp &&
-                publicAbsoluteComparativeTimestamp == other.publicAbsoluteComparativeTimestamp &&
-                publicAbsoluteRangedTimestamp == other.publicAbsoluteRangedTimestamp &&
-                publicAllHistory == other.publicAllHistory &&
+                numOccurrences == other.numOccurrences &&
+                setOccurrences == other.setOccurrences &&
+                relativeComparative == other.relativeComparative &&
+                relativeRanged == other.relativeRanged &&
+                absoluteComparative == other.absoluteComparative &&
+                absoluteRanged == other.absoluteRanged &&
+                allHistory == other.allHistory &&
                 publicTimePointOperation == other.publicTimePointOperation &&
-                publicRangedTimeOperation == other.publicRangedTimeOperation
+                timeRanged == other.timeRanged
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                publicNumOccurrences,
-                publicSetOccurrences,
-                publicRelativeComparativeTimestamp,
-                publicRelativeRangedTimestamp,
-                publicAbsoluteComparativeTimestamp,
-                publicAbsoluteRangedTimestamp,
-                publicAllHistory,
+                numOccurrences,
+                setOccurrences,
+                relativeComparative,
+                relativeRanged,
+                absoluteComparative,
+                absoluteRanged,
+                allHistory,
                 publicTimePointOperation,
-                publicRangedTimeOperation,
+                timeRanged,
             )
 
         override fun toString(): String =
             when {
-                publicNumOccurrences != null ->
-                    "PruningRefineBy{publicNumOccurrences=$publicNumOccurrences}"
-                publicSetOccurrences != null ->
-                    "PruningRefineBy{publicSetOccurrences=$publicSetOccurrences}"
-                publicRelativeComparativeTimestamp != null ->
-                    "PruningRefineBy{publicRelativeComparativeTimestamp=$publicRelativeComparativeTimestamp}"
-                publicRelativeRangedTimestamp != null ->
-                    "PruningRefineBy{publicRelativeRangedTimestamp=$publicRelativeRangedTimestamp}"
-                publicAbsoluteComparativeTimestamp != null ->
-                    "PruningRefineBy{publicAbsoluteComparativeTimestamp=$publicAbsoluteComparativeTimestamp}"
-                publicAbsoluteRangedTimestamp != null ->
-                    "PruningRefineBy{publicAbsoluteRangedTimestamp=$publicAbsoluteRangedTimestamp}"
-                publicAllHistory != null -> "PruningRefineBy{publicAllHistory=$publicAllHistory}"
+                numOccurrences != null -> "PruningRefineBy{numOccurrences=$numOccurrences}"
+                setOccurrences != null -> "PruningRefineBy{setOccurrences=$setOccurrences}"
+                relativeComparative != null ->
+                    "PruningRefineBy{relativeComparative=$relativeComparative}"
+                relativeRanged != null -> "PruningRefineBy{relativeRanged=$relativeRanged}"
+                absoluteComparative != null ->
+                    "PruningRefineBy{absoluteComparative=$absoluteComparative}"
+                absoluteRanged != null -> "PruningRefineBy{absoluteRanged=$absoluteRanged}"
+                allHistory != null -> "PruningRefineBy{allHistory=$allHistory}"
                 publicTimePointOperation != null ->
                     "PruningRefineBy{publicTimePointOperation=$publicTimePointOperation}"
-                publicRangedTimeOperation != null ->
-                    "PruningRefineBy{publicRangedTimeOperation=$publicRangedTimeOperation}"
+                timeRanged != null -> "PruningRefineBy{timeRanged=$timeRanged}"
                 _json != null -> "PruningRefineBy{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid PruningRefineBy")
             }
@@ -1589,50 +1463,42 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofPublicNumOccurrences(publicNumOccurrences: PublicNumOccurrencesRefineBy) =
-                PruningRefineBy(publicNumOccurrences = publicNumOccurrences)
+            fun ofNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy) =
+                PruningRefineBy(numOccurrences = numOccurrences)
 
             @JvmStatic
-            fun ofPublicSetOccurrences(publicSetOccurrences: PublicSetOccurrencesRefineBy) =
-                PruningRefineBy(publicSetOccurrences = publicSetOccurrences)
+            fun ofSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy) =
+                PruningRefineBy(setOccurrences = setOccurrences)
 
             @JvmStatic
-            fun ofPublicRelativeComparativeTimestamp(
-                publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
-            ) =
-                PruningRefineBy(
-                    publicRelativeComparativeTimestamp = publicRelativeComparativeTimestamp
-                )
+            fun ofRelativeComparative(
+                relativeComparative: PublicRelativeComparativeTimestampRefineBy
+            ) = PruningRefineBy(relativeComparative = relativeComparative)
 
             @JvmStatic
-            fun ofPublicRelativeRangedTimestamp(
-                publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
-            ) = PruningRefineBy(publicRelativeRangedTimestamp = publicRelativeRangedTimestamp)
+            fun ofRelativeRanged(relativeRanged: PublicRelativeRangedTimestampRefineBy) =
+                PruningRefineBy(relativeRanged = relativeRanged)
 
             @JvmStatic
-            fun ofPublicAbsoluteComparativeTimestamp(
-                publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
-            ) =
-                PruningRefineBy(
-                    publicAbsoluteComparativeTimestamp = publicAbsoluteComparativeTimestamp
-                )
+            fun ofAbsoluteComparative(
+                absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
+            ) = PruningRefineBy(absoluteComparative = absoluteComparative)
 
             @JvmStatic
-            fun ofPublicAbsoluteRangedTimestamp(
-                publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
-            ) = PruningRefineBy(publicAbsoluteRangedTimestamp = publicAbsoluteRangedTimestamp)
+            fun ofAbsoluteRanged(absoluteRanged: PublicAbsoluteRangedTimestampRefineBy) =
+                PruningRefineBy(absoluteRanged = absoluteRanged)
 
             @JvmStatic
-            fun ofPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy) =
-                PruningRefineBy(publicAllHistory = publicAllHistory)
+            fun ofAllHistory(allHistory: PublicAllHistoryRefineBy) =
+                PruningRefineBy(allHistory = allHistory)
 
             @JvmStatic
             fun ofPublicTimePointOperation(publicTimePointOperation: PublicTimePointOperation) =
                 PruningRefineBy(publicTimePointOperation = publicTimePointOperation)
 
             @JvmStatic
-            fun ofPublicRangedTimeOperation(publicRangedTimeOperation: PublicRangedTimeOperation) =
-                PruningRefineBy(publicRangedTimeOperation = publicRangedTimeOperation)
+            fun ofTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                PruningRefineBy(timeRanged = timeRanged)
         }
 
         /**
@@ -1641,33 +1507,27 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicNumOccurrences(publicNumOccurrences: PublicNumOccurrencesRefineBy): T
+            fun visitNumOccurrences(numOccurrences: PublicNumOccurrencesRefineBy): T
 
-            fun visitPublicSetOccurrences(publicSetOccurrences: PublicSetOccurrencesRefineBy): T
+            fun visitSetOccurrences(setOccurrences: PublicSetOccurrencesRefineBy): T
 
-            fun visitPublicRelativeComparativeTimestamp(
-                publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
+            fun visitRelativeComparative(
+                relativeComparative: PublicRelativeComparativeTimestampRefineBy
             ): T
 
-            fun visitPublicRelativeRangedTimestamp(
-                publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy
+            fun visitRelativeRanged(relativeRanged: PublicRelativeRangedTimestampRefineBy): T
+
+            fun visitAbsoluteComparative(
+                absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy
             ): T
 
-            fun visitPublicAbsoluteComparativeTimestamp(
-                publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
-            ): T
+            fun visitAbsoluteRanged(absoluteRanged: PublicAbsoluteRangedTimestampRefineBy): T
 
-            fun visitPublicAbsoluteRangedTimestamp(
-                publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy
-            ): T
-
-            fun visitPublicAllHistory(publicAllHistory: PublicAllHistoryRefineBy): T
+            fun visitAllHistory(allHistory: PublicAllHistoryRefineBy): T
 
             fun visitPublicTimePointOperation(publicTimePointOperation: PublicTimePointOperation): T
 
-            fun visitPublicRangedTimeOperation(
-                publicRangedTimeOperation: PublicRangedTimeOperation
-            ): T
+            fun visitTimeRanged(timeRanged: PublicRangedTimeOperation): T
 
             /**
              * Maps an unknown variant of [PruningRefineBy] to a value of type [T].
@@ -1688,76 +1548,66 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): PruningRefineBy {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicNumOccurrencesRefineBy>())
-                                ?.let { PruningRefineBy(publicNumOccurrences = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicSetOccurrencesRefineBy>())
-                                ?.let { PruningRefineBy(publicSetOccurrences = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRelativeComparativeTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    PruningRefineBy(
-                                        publicRelativeComparativeTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRelativeRangedTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    PruningRefineBy(
-                                        publicRelativeRangedTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicAbsoluteComparativeTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    PruningRefineBy(
-                                        publicAbsoluteComparativeTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicAbsoluteRangedTimestampRefineBy>(),
-                                )
-                                ?.let {
-                                    PruningRefineBy(
-                                        publicAbsoluteRangedTimestamp = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicAllHistoryRefineBy>())?.let {
-                                PruningRefineBy(publicAllHistory = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicTimePointOperation>())?.let {
-                                PruningRefineBy(publicTimePointOperation = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())?.let {
-                                PruningRefineBy(publicRangedTimeOperation = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> PruningRefineBy(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "NUM_OCCURRENCES" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNumOccurrencesRefineBy>())
+                            ?.let { PruningRefineBy(numOccurrences = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "SET_OCCURRENCES" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicSetOccurrencesRefineBy>())
+                            ?.let { PruningRefineBy(setOccurrences = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "RELATIVE_COMPARATIVE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRelativeComparativeTimestampRefineBy>(),
+                            )
+                            ?.let { PruningRefineBy(relativeComparative = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "RELATIVE_RANGED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRelativeRangedTimestampRefineBy>(),
+                            )
+                            ?.let { PruningRefineBy(relativeRanged = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "ABSOLUTE_COMPARATIVE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicAbsoluteComparativeTimestampRefineBy>(),
+                            )
+                            ?.let { PruningRefineBy(absoluteComparative = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "ABSOLUTE_RANGED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicAbsoluteRangedTimestampRefineBy>(),
+                            )
+                            ?.let { PruningRefineBy(absoluteRanged = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "ALL_HISTORY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAllHistoryRefineBy>())
+                            ?.let { PruningRefineBy(allHistory = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
+                    "TIME_RANGED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())
+                            ?.let { PruningRefineBy(timeRanged = it, _json = json) }
+                            ?: PruningRefineBy(_json = json)
+                    }
                 }
+
+                return tryDeserialize(node, jacksonTypeRef<PublicTimePointOperation>())?.let {
+                    PruningRefineBy(publicTimePointOperation = it, _json = json)
+                } ?: PruningRefineBy(_json = json)
             }
         }
 
@@ -1769,23 +1619,18 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicNumOccurrences != null ->
-                        generator.writeObject(value.publicNumOccurrences)
-                    value.publicSetOccurrences != null ->
-                        generator.writeObject(value.publicSetOccurrences)
-                    value.publicRelativeComparativeTimestamp != null ->
-                        generator.writeObject(value.publicRelativeComparativeTimestamp)
-                    value.publicRelativeRangedTimestamp != null ->
-                        generator.writeObject(value.publicRelativeRangedTimestamp)
-                    value.publicAbsoluteComparativeTimestamp != null ->
-                        generator.writeObject(value.publicAbsoluteComparativeTimestamp)
-                    value.publicAbsoluteRangedTimestamp != null ->
-                        generator.writeObject(value.publicAbsoluteRangedTimestamp)
-                    value.publicAllHistory != null -> generator.writeObject(value.publicAllHistory)
+                    value.numOccurrences != null -> generator.writeObject(value.numOccurrences)
+                    value.setOccurrences != null -> generator.writeObject(value.setOccurrences)
+                    value.relativeComparative != null ->
+                        generator.writeObject(value.relativeComparative)
+                    value.relativeRanged != null -> generator.writeObject(value.relativeRanged)
+                    value.absoluteComparative != null ->
+                        generator.writeObject(value.absoluteComparative)
+                    value.absoluteRanged != null -> generator.writeObject(value.absoluteRanged)
+                    value.allHistory != null -> generator.writeObject(value.allHistory)
                     value.publicTimePointOperation != null ->
                         generator.writeObject(value.publicTimePointOperation)
-                    value.publicRangedTimeOperation != null ->
-                        generator.writeObject(value.publicRangedTimeOperation)
+                    value.timeRanged != null -> generator.writeObject(value.timeRanged)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid PruningRefineBy")
                 }

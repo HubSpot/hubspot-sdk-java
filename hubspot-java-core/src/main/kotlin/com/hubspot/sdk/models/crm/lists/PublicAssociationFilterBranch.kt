@@ -533,78 +533,73 @@ private constructor(
 
         /**
          * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicNumOccurrences(publicNumOccurrences)`.
+         * `PublicAdsTimeFilter.PruningRefineBy.ofNumOccurrences(numOccurrences)`.
          */
-        fun addAdsTimeFilter(publicNumOccurrences: PublicNumOccurrencesRefineBy) =
+        fun addAdsTimeFilter(numOccurrences: PublicNumOccurrencesRefineBy) =
+            addAdsTimeFilter(PublicAdsTimeFilter.PruningRefineBy.ofNumOccurrences(numOccurrences))
+
+        /**
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofSetOccurrences(setOccurrences)`.
+         */
+        fun addAdsTimeFilter(setOccurrences: PublicSetOccurrencesRefineBy) =
+            addAdsTimeFilter(PublicAdsTimeFilter.PruningRefineBy.ofSetOccurrences(setOccurrences))
+
+        /**
+         * Alias for calling [addAdsTimeFilter] with the following:
+         * ```java
+         * PublicSetOccurrencesRefineBy.builder()
+         *     .type(PublicSetOccurrencesRefineBy.Type.SET_OCCURRENCES)
+         *     .setType(setType)
+         *     .build()
+         * ```
+         */
+        fun addSetOccurrencesAdsTimeFilter(setType: String) =
             addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicNumOccurrences(publicNumOccurrences)
+                PublicSetOccurrencesRefineBy.builder()
+                    .type(PublicSetOccurrencesRefineBy.Type.SET_OCCURRENCES)
+                    .setType(setType)
+                    .build()
             )
 
         /**
          * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicSetOccurrences(publicSetOccurrences)`.
+         * `PublicAdsTimeFilter.PruningRefineBy.ofRelativeComparative(relativeComparative)`.
          */
-        fun addAdsTimeFilter(publicSetOccurrences: PublicSetOccurrencesRefineBy) =
+        fun addAdsTimeFilter(relativeComparative: PublicRelativeComparativeTimestampRefineBy) =
             addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicSetOccurrences(publicSetOccurrences)
+                PublicAdsTimeFilter.PruningRefineBy.ofRelativeComparative(relativeComparative)
             )
 
         /**
          * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeComparativeTimestamp(publicRelativeComparativeTimestamp)`.
+         * `PublicAdsTimeFilter.PruningRefineBy.ofRelativeRanged(relativeRanged)`.
          */
-        fun addAdsTimeFilter(
-            publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
-        ) =
+        fun addAdsTimeFilter(relativeRanged: PublicRelativeRangedTimestampRefineBy) =
+            addAdsTimeFilter(PublicAdsTimeFilter.PruningRefineBy.ofRelativeRanged(relativeRanged))
+
+        /**
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofAbsoluteComparative(absoluteComparative)`.
+         */
+        fun addAdsTimeFilter(absoluteComparative: PublicAbsoluteComparativeTimestampRefineBy) =
             addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeComparativeTimestamp(
-                    publicRelativeComparativeTimestamp
-                )
+                PublicAdsTimeFilter.PruningRefineBy.ofAbsoluteComparative(absoluteComparative)
             )
 
         /**
          * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)`.
+         * `PublicAdsTimeFilter.PruningRefineBy.ofAbsoluteRanged(absoluteRanged)`.
          */
-        fun addAdsTimeFilter(publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy) =
-            addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeRangedTimestamp(
-                    publicRelativeRangedTimestamp
-                )
-            )
+        fun addAdsTimeFilter(absoluteRanged: PublicAbsoluteRangedTimestampRefineBy) =
+            addAdsTimeFilter(PublicAdsTimeFilter.PruningRefineBy.ofAbsoluteRanged(absoluteRanged))
 
         /**
          * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteComparativeTimestamp(publicAbsoluteComparativeTimestamp)`.
+         * `PublicAdsTimeFilter.PruningRefineBy.ofAllHistory(allHistory)`.
          */
-        fun addAdsTimeFilter(
-            publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
-        ) =
-            addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteComparativeTimestamp(
-                    publicAbsoluteComparativeTimestamp
-                )
-            )
-
-        /**
-         * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)`.
-         */
-        fun addAdsTimeFilter(publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy) =
-            addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteRangedTimestamp(
-                    publicAbsoluteRangedTimestamp
-                )
-            )
-
-        /**
-         * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicAllHistory(publicAllHistory)`.
-         */
-        fun addAdsTimeFilter(publicAllHistory: PublicAllHistoryRefineBy) =
-            addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicAllHistory(publicAllHistory)
-            )
+        fun addAdsTimeFilter(allHistory: PublicAllHistoryRefineBy) =
+            addAdsTimeFilter(PublicAdsTimeFilter.PruningRefineBy.ofAllHistory(allHistory))
 
         /**
          * Alias for calling [addAdsTimeFilter] with
@@ -619,14 +614,10 @@ private constructor(
 
         /**
          * Alias for calling [addAdsTimeFilter] with
-         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicRangedTimeOperation(publicRangedTimeOperation)`.
+         * `PublicAdsTimeFilter.PruningRefineBy.ofTimeRanged(timeRanged)`.
          */
-        fun addAdsTimeFilter(publicRangedTimeOperation: PublicRangedTimeOperation) =
-            addAdsTimeFilter(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicRangedTimeOperation(
-                    publicRangedTimeOperation
-                )
-            )
+        fun addAdsTimeFilter(timeRanged: PublicRangedTimeOperation) =
+            addAdsTimeFilter(PublicAdsTimeFilter.PruningRefineBy.ofTimeRanged(timeRanged))
 
         /** Alias for calling [addFilter] with `Filter.ofInList(inList)`. */
         fun addFilter(inList: PublicInListFilter) = addFilter(Filter.ofInList(inList))

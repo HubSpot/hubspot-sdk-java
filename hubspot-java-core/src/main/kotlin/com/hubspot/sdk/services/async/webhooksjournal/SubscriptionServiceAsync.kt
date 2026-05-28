@@ -75,21 +75,15 @@ interface SubscriptionServiceAsync {
 
     /** @see create */
     fun create(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+        object_: ObjectSubscriptionUpsertRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<JournalSubscriptionResponse> =
-        create(
-            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                objectSubscriptionUpsertRequest
-            ),
-            requestOptions,
-        )
+        create(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
     /** @see create */
     fun create(
-        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
-    ): CompletableFuture<JournalSubscriptionResponse> =
-        create(objectSubscriptionUpsertRequest, RequestOptions.none())
+        object_: ObjectSubscriptionUpsertRequest
+    ): CompletableFuture<JournalSubscriptionResponse> = create(object_, RequestOptions.none())
 
     /** @see create */
     fun create(
@@ -333,21 +327,16 @@ interface SubscriptionServiceAsync {
 
         /** @see create */
         fun create(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+            object_: ObjectSubscriptionUpsertRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
-            create(
-                SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                    objectSubscriptionUpsertRequest
-                ),
-                requestOptions,
-            )
+            create(SubscriptionUpsertRequest.ofObject(object_), requestOptions)
 
         /** @see create */
         fun create(
-            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
+            object_: ObjectSubscriptionUpsertRequest
         ): CompletableFuture<HttpResponseFor<JournalSubscriptionResponse>> =
-            create(objectSubscriptionUpsertRequest, RequestOptions.none())
+            create(object_, RequestOptions.none())
 
         /** @see create */
         fun create(

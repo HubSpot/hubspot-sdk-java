@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
@@ -224,8 +223,42 @@ private constructor(
         /** Alias for calling [indexReference] with `IndexReference.ofWeek(week)`. */
         fun indexReference(week: WeekReference) = indexReference(IndexReference.ofWeek(week))
 
+        /**
+         * Alias for calling [indexReference] with the following:
+         * ```java
+         * WeekReference.builder()
+         *     .referenceType(WeekReference.ReferenceType.WEEK)
+         *     .dayOfWeek(dayOfWeek)
+         *     .build()
+         * ```
+         */
+        fun weekIndexReference(dayOfWeek: WeekReference.DayOfWeek) =
+            indexReference(
+                WeekReference.builder()
+                    .referenceType(WeekReference.ReferenceType.WEEK)
+                    .dayOfWeek(dayOfWeek)
+                    .build()
+            )
+
         /** Alias for calling [indexReference] with `IndexReference.ofMonth(month)`. */
         fun indexReference(month: MonthReference) = indexReference(IndexReference.ofMonth(month))
+
+        /**
+         * Alias for calling [indexReference] with the following:
+         * ```java
+         * MonthReference.builder()
+         *     .referenceType(MonthReference.ReferenceType.MONTH)
+         *     .day(day)
+         *     .build()
+         * ```
+         */
+        fun monthIndexReference(day: Int) =
+            indexReference(
+                MonthReference.builder()
+                    .referenceType(MonthReference.ReferenceType.MONTH)
+                    .day(day)
+                    .build()
+            )
 
         /** Alias for calling [indexReference] with `IndexReference.ofQuarter(quarter)`. */
         fun indexReference(quarter: QuarterReference) =
@@ -692,47 +725,53 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): IndexReference {
                 val json = JsonValue.fromJsonNode(node)
+                val referenceType =
+                    json.asObject().getOrNull()?.get("referenceType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<NowReference>())?.let {
-                                IndexReference(now = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<TodayReference>())?.let {
-                                IndexReference(today = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<WeekReference>())?.let {
-                                IndexReference(week = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<MonthReference>())?.let {
-                                IndexReference(month = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<QuarterReference>())?.let {
-                                IndexReference(quarter = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<FiscalQuarter>())?.let {
-                                IndexReference(fiscalQuarter = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<YearReference>())?.let {
-                                IndexReference(year = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<FiscalYear>())?.let {
-                                IndexReference(fiscalYear = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> IndexReference(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (referenceType) {
+                    "NOW" -> {
+                        return tryDeserialize(node, jacksonTypeRef<NowReference>())?.let {
+                            IndexReference(now = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "TODAY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<TodayReference>())?.let {
+                            IndexReference(today = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "WEEK" -> {
+                        return tryDeserialize(node, jacksonTypeRef<WeekReference>())?.let {
+                            IndexReference(week = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "MONTH" -> {
+                        return tryDeserialize(node, jacksonTypeRef<MonthReference>())?.let {
+                            IndexReference(month = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "QUARTER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<QuarterReference>())?.let {
+                            IndexReference(quarter = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "FISCAL_QUARTER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<FiscalQuarter>())?.let {
+                            IndexReference(fiscalQuarter = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "YEAR" -> {
+                        return tryDeserialize(node, jacksonTypeRef<YearReference>())?.let {
+                            IndexReference(year = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "FISCAL_YEAR" -> {
+                        return tryDeserialize(node, jacksonTypeRef<FiscalYear>())?.let {
+                            IndexReference(fiscalYear = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
                 }
+
+                return IndexReference(_json = json)
             }
         }
 

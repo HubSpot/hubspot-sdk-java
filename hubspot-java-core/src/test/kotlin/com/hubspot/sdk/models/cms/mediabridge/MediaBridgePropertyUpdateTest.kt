@@ -36,6 +36,7 @@ internal class MediaBridgePropertyUpdateTest {
                         .build()
                 )
                 .showCurrencySymbol(true)
+                .textDisplayHint(MediaBridgePropertyUpdate.TextDisplayHint.DOMAIN_NAME)
                 .type(MediaBridgePropertyUpdate.Type.BOOL)
                 .build()
 
@@ -64,6 +65,8 @@ internal class MediaBridgePropertyUpdateTest {
                     .build()
             )
         assertThat(mediaBridgePropertyUpdate.showCurrencySymbol()).contains(true)
+        assertThat(mediaBridgePropertyUpdate.textDisplayHint())
+            .contains(MediaBridgePropertyUpdate.TextDisplayHint.DOMAIN_NAME)
         assertThat(mediaBridgePropertyUpdate.type()).contains(MediaBridgePropertyUpdate.Type.BOOL)
     }
 
@@ -93,6 +96,7 @@ internal class MediaBridgePropertyUpdateTest {
                         .build()
                 )
                 .showCurrencySymbol(true)
+                .textDisplayHint(MediaBridgePropertyUpdate.TextDisplayHint.DOMAIN_NAME)
                 .type(MediaBridgePropertyUpdate.Type.BOOL)
                 .build()
 

@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
@@ -310,188 +309,97 @@ private constructor(
             this.valueComparison = valueComparison
         }
 
+        /** Alias for calling [valueComparison] with `ValueComparison.ofBool(bool)`. */
+        fun valueComparison(bool: PublicBoolPropertyOperation) =
+            valueComparison(ValueComparison.ofBool(bool))
+
+        /** Alias for calling [valueComparison] with `ValueComparison.ofNumber(number)`. */
+        fun valueComparison(number: PublicNumberPropertyOperation) =
+            valueComparison(ValueComparison.ofNumber(number))
+
+        /** Alias for calling [valueComparison] with `ValueComparison.ofString(string)`. */
+        fun valueComparison(string: PublicStringPropertyOperation) =
+            valueComparison(ValueComparison.ofString(string))
+
+        /** Alias for calling [valueComparison] with `ValueComparison.ofDatetime(datetime)`. */
+        fun valueComparison(datetime: PublicDateTimePropertyOperation) =
+            valueComparison(ValueComparison.ofDatetime(datetime))
+
+        /** Alias for calling [valueComparison] with `ValueComparison.ofRangedDate(rangedDate)`. */
+        fun valueComparison(rangedDate: PublicRangedDatePropertyOperation) =
+            valueComparison(ValueComparison.ofRangedDate(rangedDate))
+
         /**
          * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicBoolPropertyOperation(publicBoolPropertyOperation)`.
+         * `ValueComparison.ofComparativePropertyUpdated(comparativePropertyUpdated)`.
          */
-        fun valueComparison(publicBoolPropertyOperation: PublicBoolPropertyOperation) =
+        fun valueComparison(comparativePropertyUpdated: PublicComparativePropertyUpdatedOperation) =
             valueComparison(
-                ValueComparison.ofPublicBoolPropertyOperation(publicBoolPropertyOperation)
+                ValueComparison.ofComparativePropertyUpdated(comparativePropertyUpdated)
             )
 
         /**
          * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicNumberPropertyOperation(publicNumberPropertyOperation)`.
+         * `ValueComparison.ofComparativeDate(comparativeDate)`.
          */
-        fun valueComparison(publicNumberPropertyOperation: PublicNumberPropertyOperation) =
-            valueComparison(
-                ValueComparison.ofPublicNumberPropertyOperation(publicNumberPropertyOperation)
-            )
+        fun valueComparison(comparativeDate: PublicComparativeDatePropertyOperation) =
+            valueComparison(ValueComparison.ofComparativeDate(comparativeDate))
 
         /**
          * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicStringPropertyOperation(publicStringPropertyOperation)`.
+         * `ValueComparison.ofRollingDateRange(rollingDateRange)`.
          */
-        fun valueComparison(publicStringPropertyOperation: PublicStringPropertyOperation) =
-            valueComparison(
-                ValueComparison.ofPublicStringPropertyOperation(publicStringPropertyOperation)
-            )
+        fun valueComparison(rollingDateRange: PublicRollingDateRangePropertyOperation) =
+            valueComparison(ValueComparison.ofRollingDateRange(rollingDateRange))
 
         /**
          * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicDateTimePropertyOperation(publicDateTimePropertyOperation)`.
+         * `ValueComparison.ofRollingPropertyUpdated(rollingPropertyUpdated)`.
          */
-        fun valueComparison(publicDateTimePropertyOperation: PublicDateTimePropertyOperation) =
-            valueComparison(
-                ValueComparison.ofPublicDateTimePropertyOperation(publicDateTimePropertyOperation)
-            )
+        fun valueComparison(rollingPropertyUpdated: PublicRollingPropertyUpdatedOperation) =
+            valueComparison(ValueComparison.ofRollingPropertyUpdated(rollingPropertyUpdated))
 
         /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicRangedDatePropertyOperation(publicRangedDatePropertyOperation)`.
+         * Alias for calling [valueComparison] with `ValueComparison.ofEnumeration(enumeration)`.
          */
-        fun valueComparison(publicRangedDatePropertyOperation: PublicRangedDatePropertyOperation) =
-            valueComparison(
-                ValueComparison.ofPublicRangedDatePropertyOperation(
-                    publicRangedDatePropertyOperation
-                )
-            )
+        fun valueComparison(enumeration: PublicEnumerationPropertyOperation) =
+            valueComparison(ValueComparison.ofEnumeration(enumeration))
 
         /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicComparativePropertyUpdatedOperation(publicComparativePropertyUpdatedOperation)`.
+         * Alias for calling [valueComparison] with `ValueComparison.ofAllProperty(allProperty)`.
          */
-        fun valueComparison(
-            publicComparativePropertyUpdatedOperation: PublicComparativePropertyUpdatedOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicComparativePropertyUpdatedOperation(
-                    publicComparativePropertyUpdatedOperation
-                )
-            )
+        fun valueComparison(allProperty: PublicAllPropertyTypesOperation) =
+            valueComparison(ValueComparison.ofAllProperty(allProperty))
 
         /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicComparativeDatePropertyOperation(publicComparativeDatePropertyOperation)`.
+         * Alias for calling [valueComparison] with `ValueComparison.ofNumberRanged(numberRanged)`.
          */
-        fun valueComparison(
-            publicComparativeDatePropertyOperation: PublicComparativeDatePropertyOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicComparativeDatePropertyOperation(
-                    publicComparativeDatePropertyOperation
-                )
-            )
+        fun valueComparison(numberRanged: PublicRangedNumberPropertyOperation) =
+            valueComparison(ValueComparison.ofNumberRanged(numberRanged))
 
         /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicRollingDateRangePropertyOperation(publicRollingDateRangePropertyOperation)`.
+         * Alias for calling [valueComparison] with `ValueComparison.ofMultistring(multistring)`.
          */
-        fun valueComparison(
-            publicRollingDateRangePropertyOperation: PublicRollingDateRangePropertyOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicRollingDateRangePropertyOperation(
-                    publicRollingDateRangePropertyOperation
-                )
-            )
+        fun valueComparison(multistring: PublicMultiStringPropertyOperation) =
+            valueComparison(ValueComparison.ofMultistring(multistring))
+
+        /** Alias for calling [valueComparison] with `ValueComparison.ofDate(date)`. */
+        fun valueComparison(date: PublicDatePropertyOperation) =
+            valueComparison(ValueComparison.ofDate(date))
 
         /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicRollingPropertyUpdatedOperation(publicRollingPropertyUpdatedOperation)`.
+         * Alias for calling [valueComparison] with `ValueComparison.ofCalendarDate(calendarDate)`.
          */
-        fun valueComparison(
-            publicRollingPropertyUpdatedOperation: PublicRollingPropertyUpdatedOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicRollingPropertyUpdatedOperation(
-                    publicRollingPropertyUpdatedOperation
-                )
-            )
+        fun valueComparison(calendarDate: PublicCalendarDatePropertyOperation) =
+            valueComparison(ValueComparison.ofCalendarDate(calendarDate))
 
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicEnumerationPropertyOperation(publicEnumerationPropertyOperation)`.
-         */
-        fun valueComparison(
-            publicEnumerationPropertyOperation: PublicEnumerationPropertyOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicEnumerationPropertyOperation(
-                    publicEnumerationPropertyOperation
-                )
-            )
+        /** Alias for calling [valueComparison] with `ValueComparison.ofTimePoint(timePoint)`. */
+        fun valueComparison(timePoint: PublicTimePointOperation) =
+            valueComparison(ValueComparison.ofTimePoint(timePoint))
 
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicAllPropertyTypesOperation(publicAllPropertyTypesOperation)`.
-         */
-        fun valueComparison(publicAllPropertyTypesOperation: PublicAllPropertyTypesOperation) =
-            valueComparison(
-                ValueComparison.ofPublicAllPropertyTypesOperation(publicAllPropertyTypesOperation)
-            )
-
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicRangedNumberPropertyOperation(publicRangedNumberPropertyOperation)`.
-         */
-        fun valueComparison(
-            publicRangedNumberPropertyOperation: PublicRangedNumberPropertyOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicRangedNumberPropertyOperation(
-                    publicRangedNumberPropertyOperation
-                )
-            )
-
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicMultiStringPropertyOperation(publicMultiStringPropertyOperation)`.
-         */
-        fun valueComparison(
-            publicMultiStringPropertyOperation: PublicMultiStringPropertyOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicMultiStringPropertyOperation(
-                    publicMultiStringPropertyOperation
-                )
-            )
-
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicDatePropertyOperation(publicDatePropertyOperation)`.
-         */
-        fun valueComparison(publicDatePropertyOperation: PublicDatePropertyOperation) =
-            valueComparison(
-                ValueComparison.ofPublicDatePropertyOperation(publicDatePropertyOperation)
-            )
-
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicCalendarDatePropertyOperation(publicCalendarDatePropertyOperation)`.
-         */
-        fun valueComparison(
-            publicCalendarDatePropertyOperation: PublicCalendarDatePropertyOperation
-        ) =
-            valueComparison(
-                ValueComparison.ofPublicCalendarDatePropertyOperation(
-                    publicCalendarDatePropertyOperation
-                )
-            )
-
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicTimePointOperation(publicTimePointOperation)`.
-         */
-        fun valueComparison(publicTimePointOperation: PublicTimePointOperation) =
-            valueComparison(ValueComparison.ofPublicTimePointOperation(publicTimePointOperation))
-
-        /**
-         * Alias for calling [valueComparison] with
-         * `ValueComparison.ofPublicRangedTimeOperation(publicRangedTimeOperation)`.
-         */
-        fun valueComparison(publicRangedTimeOperation: PublicRangedTimeOperation) =
-            valueComparison(ValueComparison.ofPublicRangedTimeOperation(publicRangedTimeOperation))
+        /** Alias for calling [valueComparison] with `ValueComparison.ofTimeRanged(timeRanged)`. */
+        fun valueComparison(timeRanged: PublicRangedTimeOperation) =
+            valueComparison(ValueComparison.ofTimeRanged(timeRanged))
 
         /** The column ID of the survey answer used in the filter. */
         fun surveyAnswerColId(surveyAnswerColId: String) =
@@ -755,192 +663,145 @@ private constructor(
     @JsonSerialize(using = ValueComparison.Serializer::class)
     class ValueComparison
     private constructor(
-        private val publicBoolPropertyOperation: PublicBoolPropertyOperation? = null,
-        private val publicNumberPropertyOperation: PublicNumberPropertyOperation? = null,
-        private val publicStringPropertyOperation: PublicStringPropertyOperation? = null,
-        private val publicDateTimePropertyOperation: PublicDateTimePropertyOperation? = null,
-        private val publicRangedDatePropertyOperation: PublicRangedDatePropertyOperation? = null,
-        private val publicComparativePropertyUpdatedOperation:
-            PublicComparativePropertyUpdatedOperation? =
-            null,
-        private val publicComparativeDatePropertyOperation:
-            PublicComparativeDatePropertyOperation? =
-            null,
-        private val publicRollingDateRangePropertyOperation:
-            PublicRollingDateRangePropertyOperation? =
-            null,
-        private val publicRollingPropertyUpdatedOperation: PublicRollingPropertyUpdatedOperation? =
-            null,
-        private val publicEnumerationPropertyOperation: PublicEnumerationPropertyOperation? = null,
-        private val publicAllPropertyTypesOperation: PublicAllPropertyTypesOperation? = null,
-        private val publicRangedNumberPropertyOperation: PublicRangedNumberPropertyOperation? =
-            null,
-        private val publicMultiStringPropertyOperation: PublicMultiStringPropertyOperation? = null,
-        private val publicDatePropertyOperation: PublicDatePropertyOperation? = null,
-        private val publicCalendarDatePropertyOperation: PublicCalendarDatePropertyOperation? =
-            null,
-        private val publicTimePointOperation: PublicTimePointOperation? = null,
-        private val publicRangedTimeOperation: PublicRangedTimeOperation? = null,
+        private val bool: PublicBoolPropertyOperation? = null,
+        private val number: PublicNumberPropertyOperation? = null,
+        private val string: PublicStringPropertyOperation? = null,
+        private val datetime: PublicDateTimePropertyOperation? = null,
+        private val rangedDate: PublicRangedDatePropertyOperation? = null,
+        private val comparativePropertyUpdated: PublicComparativePropertyUpdatedOperation? = null,
+        private val comparativeDate: PublicComparativeDatePropertyOperation? = null,
+        private val rollingDateRange: PublicRollingDateRangePropertyOperation? = null,
+        private val rollingPropertyUpdated: PublicRollingPropertyUpdatedOperation? = null,
+        private val enumeration: PublicEnumerationPropertyOperation? = null,
+        private val allProperty: PublicAllPropertyTypesOperation? = null,
+        private val numberRanged: PublicRangedNumberPropertyOperation? = null,
+        private val multistring: PublicMultiStringPropertyOperation? = null,
+        private val date: PublicDatePropertyOperation? = null,
+        private val calendarDate: PublicCalendarDatePropertyOperation? = null,
+        private val timePoint: PublicTimePointOperation? = null,
+        private val timeRanged: PublicRangedTimeOperation? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicBoolPropertyOperation(): Optional<PublicBoolPropertyOperation> =
-            Optional.ofNullable(publicBoolPropertyOperation)
+        fun bool(): Optional<PublicBoolPropertyOperation> = Optional.ofNullable(bool)
 
-        fun publicNumberPropertyOperation(): Optional<PublicNumberPropertyOperation> =
-            Optional.ofNullable(publicNumberPropertyOperation)
+        fun number(): Optional<PublicNumberPropertyOperation> = Optional.ofNullable(number)
 
-        fun publicStringPropertyOperation(): Optional<PublicStringPropertyOperation> =
-            Optional.ofNullable(publicStringPropertyOperation)
+        fun string(): Optional<PublicStringPropertyOperation> = Optional.ofNullable(string)
 
-        fun publicDateTimePropertyOperation(): Optional<PublicDateTimePropertyOperation> =
-            Optional.ofNullable(publicDateTimePropertyOperation)
+        fun datetime(): Optional<PublicDateTimePropertyOperation> = Optional.ofNullable(datetime)
 
-        fun publicRangedDatePropertyOperation(): Optional<PublicRangedDatePropertyOperation> =
-            Optional.ofNullable(publicRangedDatePropertyOperation)
+        fun rangedDate(): Optional<PublicRangedDatePropertyOperation> =
+            Optional.ofNullable(rangedDate)
 
-        fun publicComparativePropertyUpdatedOperation():
-            Optional<PublicComparativePropertyUpdatedOperation> =
-            Optional.ofNullable(publicComparativePropertyUpdatedOperation)
+        fun comparativePropertyUpdated(): Optional<PublicComparativePropertyUpdatedOperation> =
+            Optional.ofNullable(comparativePropertyUpdated)
 
-        fun publicComparativeDatePropertyOperation():
-            Optional<PublicComparativeDatePropertyOperation> =
-            Optional.ofNullable(publicComparativeDatePropertyOperation)
+        fun comparativeDate(): Optional<PublicComparativeDatePropertyOperation> =
+            Optional.ofNullable(comparativeDate)
 
-        fun publicRollingDateRangePropertyOperation():
-            Optional<PublicRollingDateRangePropertyOperation> =
-            Optional.ofNullable(publicRollingDateRangePropertyOperation)
+        fun rollingDateRange(): Optional<PublicRollingDateRangePropertyOperation> =
+            Optional.ofNullable(rollingDateRange)
 
-        fun publicRollingPropertyUpdatedOperation():
-            Optional<PublicRollingPropertyUpdatedOperation> =
-            Optional.ofNullable(publicRollingPropertyUpdatedOperation)
+        fun rollingPropertyUpdated(): Optional<PublicRollingPropertyUpdatedOperation> =
+            Optional.ofNullable(rollingPropertyUpdated)
 
-        fun publicEnumerationPropertyOperation(): Optional<PublicEnumerationPropertyOperation> =
-            Optional.ofNullable(publicEnumerationPropertyOperation)
+        fun enumeration(): Optional<PublicEnumerationPropertyOperation> =
+            Optional.ofNullable(enumeration)
 
-        fun publicAllPropertyTypesOperation(): Optional<PublicAllPropertyTypesOperation> =
-            Optional.ofNullable(publicAllPropertyTypesOperation)
+        fun allProperty(): Optional<PublicAllPropertyTypesOperation> =
+            Optional.ofNullable(allProperty)
 
-        fun publicRangedNumberPropertyOperation(): Optional<PublicRangedNumberPropertyOperation> =
-            Optional.ofNullable(publicRangedNumberPropertyOperation)
+        fun numberRanged(): Optional<PublicRangedNumberPropertyOperation> =
+            Optional.ofNullable(numberRanged)
 
-        fun publicMultiStringPropertyOperation(): Optional<PublicMultiStringPropertyOperation> =
-            Optional.ofNullable(publicMultiStringPropertyOperation)
+        fun multistring(): Optional<PublicMultiStringPropertyOperation> =
+            Optional.ofNullable(multistring)
 
-        fun publicDatePropertyOperation(): Optional<PublicDatePropertyOperation> =
-            Optional.ofNullable(publicDatePropertyOperation)
+        fun date(): Optional<PublicDatePropertyOperation> = Optional.ofNullable(date)
 
-        fun publicCalendarDatePropertyOperation(): Optional<PublicCalendarDatePropertyOperation> =
-            Optional.ofNullable(publicCalendarDatePropertyOperation)
+        fun calendarDate(): Optional<PublicCalendarDatePropertyOperation> =
+            Optional.ofNullable(calendarDate)
 
-        fun publicTimePointOperation(): Optional<PublicTimePointOperation> =
-            Optional.ofNullable(publicTimePointOperation)
+        fun timePoint(): Optional<PublicTimePointOperation> = Optional.ofNullable(timePoint)
 
-        fun publicRangedTimeOperation(): Optional<PublicRangedTimeOperation> =
-            Optional.ofNullable(publicRangedTimeOperation)
+        fun timeRanged(): Optional<PublicRangedTimeOperation> = Optional.ofNullable(timeRanged)
 
-        fun isPublicBoolPropertyOperation(): Boolean = publicBoolPropertyOperation != null
+        fun isBool(): Boolean = bool != null
 
-        fun isPublicNumberPropertyOperation(): Boolean = publicNumberPropertyOperation != null
+        fun isNumber(): Boolean = number != null
 
-        fun isPublicStringPropertyOperation(): Boolean = publicStringPropertyOperation != null
+        fun isString(): Boolean = string != null
 
-        fun isPublicDateTimePropertyOperation(): Boolean = publicDateTimePropertyOperation != null
+        fun isDatetime(): Boolean = datetime != null
 
-        fun isPublicRangedDatePropertyOperation(): Boolean =
-            publicRangedDatePropertyOperation != null
+        fun isRangedDate(): Boolean = rangedDate != null
 
-        fun isPublicComparativePropertyUpdatedOperation(): Boolean =
-            publicComparativePropertyUpdatedOperation != null
+        fun isComparativePropertyUpdated(): Boolean = comparativePropertyUpdated != null
 
-        fun isPublicComparativeDatePropertyOperation(): Boolean =
-            publicComparativeDatePropertyOperation != null
+        fun isComparativeDate(): Boolean = comparativeDate != null
 
-        fun isPublicRollingDateRangePropertyOperation(): Boolean =
-            publicRollingDateRangePropertyOperation != null
+        fun isRollingDateRange(): Boolean = rollingDateRange != null
 
-        fun isPublicRollingPropertyUpdatedOperation(): Boolean =
-            publicRollingPropertyUpdatedOperation != null
+        fun isRollingPropertyUpdated(): Boolean = rollingPropertyUpdated != null
 
-        fun isPublicEnumerationPropertyOperation(): Boolean =
-            publicEnumerationPropertyOperation != null
+        fun isEnumeration(): Boolean = enumeration != null
 
-        fun isPublicAllPropertyTypesOperation(): Boolean = publicAllPropertyTypesOperation != null
+        fun isAllProperty(): Boolean = allProperty != null
 
-        fun isPublicRangedNumberPropertyOperation(): Boolean =
-            publicRangedNumberPropertyOperation != null
+        fun isNumberRanged(): Boolean = numberRanged != null
 
-        fun isPublicMultiStringPropertyOperation(): Boolean =
-            publicMultiStringPropertyOperation != null
+        fun isMultistring(): Boolean = multistring != null
 
-        fun isPublicDatePropertyOperation(): Boolean = publicDatePropertyOperation != null
+        fun isDate(): Boolean = date != null
 
-        fun isPublicCalendarDatePropertyOperation(): Boolean =
-            publicCalendarDatePropertyOperation != null
+        fun isCalendarDate(): Boolean = calendarDate != null
 
-        fun isPublicTimePointOperation(): Boolean = publicTimePointOperation != null
+        fun isTimePoint(): Boolean = timePoint != null
 
-        fun isPublicRangedTimeOperation(): Boolean = publicRangedTimeOperation != null
+        fun isTimeRanged(): Boolean = timeRanged != null
 
-        fun asPublicBoolPropertyOperation(): PublicBoolPropertyOperation =
-            publicBoolPropertyOperation.getOrThrow("publicBoolPropertyOperation")
+        fun asBool(): PublicBoolPropertyOperation = bool.getOrThrow("bool")
 
-        fun asPublicNumberPropertyOperation(): PublicNumberPropertyOperation =
-            publicNumberPropertyOperation.getOrThrow("publicNumberPropertyOperation")
+        fun asNumber(): PublicNumberPropertyOperation = number.getOrThrow("number")
 
-        fun asPublicStringPropertyOperation(): PublicStringPropertyOperation =
-            publicStringPropertyOperation.getOrThrow("publicStringPropertyOperation")
+        fun asString(): PublicStringPropertyOperation = string.getOrThrow("string")
 
-        fun asPublicDateTimePropertyOperation(): PublicDateTimePropertyOperation =
-            publicDateTimePropertyOperation.getOrThrow("publicDateTimePropertyOperation")
+        fun asDatetime(): PublicDateTimePropertyOperation = datetime.getOrThrow("datetime")
 
-        fun asPublicRangedDatePropertyOperation(): PublicRangedDatePropertyOperation =
-            publicRangedDatePropertyOperation.getOrThrow("publicRangedDatePropertyOperation")
+        fun asRangedDate(): PublicRangedDatePropertyOperation = rangedDate.getOrThrow("rangedDate")
 
-        fun asPublicComparativePropertyUpdatedOperation():
-            PublicComparativePropertyUpdatedOperation =
-            publicComparativePropertyUpdatedOperation.getOrThrow(
-                "publicComparativePropertyUpdatedOperation"
-            )
+        fun asComparativePropertyUpdated(): PublicComparativePropertyUpdatedOperation =
+            comparativePropertyUpdated.getOrThrow("comparativePropertyUpdated")
 
-        fun asPublicComparativeDatePropertyOperation(): PublicComparativeDatePropertyOperation =
-            publicComparativeDatePropertyOperation.getOrThrow(
-                "publicComparativeDatePropertyOperation"
-            )
+        fun asComparativeDate(): PublicComparativeDatePropertyOperation =
+            comparativeDate.getOrThrow("comparativeDate")
 
-        fun asPublicRollingDateRangePropertyOperation(): PublicRollingDateRangePropertyOperation =
-            publicRollingDateRangePropertyOperation.getOrThrow(
-                "publicRollingDateRangePropertyOperation"
-            )
+        fun asRollingDateRange(): PublicRollingDateRangePropertyOperation =
+            rollingDateRange.getOrThrow("rollingDateRange")
 
-        fun asPublicRollingPropertyUpdatedOperation(): PublicRollingPropertyUpdatedOperation =
-            publicRollingPropertyUpdatedOperation.getOrThrow(
-                "publicRollingPropertyUpdatedOperation"
-            )
+        fun asRollingPropertyUpdated(): PublicRollingPropertyUpdatedOperation =
+            rollingPropertyUpdated.getOrThrow("rollingPropertyUpdated")
 
-        fun asPublicEnumerationPropertyOperation(): PublicEnumerationPropertyOperation =
-            publicEnumerationPropertyOperation.getOrThrow("publicEnumerationPropertyOperation")
+        fun asEnumeration(): PublicEnumerationPropertyOperation =
+            enumeration.getOrThrow("enumeration")
 
-        fun asPublicAllPropertyTypesOperation(): PublicAllPropertyTypesOperation =
-            publicAllPropertyTypesOperation.getOrThrow("publicAllPropertyTypesOperation")
+        fun asAllProperty(): PublicAllPropertyTypesOperation = allProperty.getOrThrow("allProperty")
 
-        fun asPublicRangedNumberPropertyOperation(): PublicRangedNumberPropertyOperation =
-            publicRangedNumberPropertyOperation.getOrThrow("publicRangedNumberPropertyOperation")
+        fun asNumberRanged(): PublicRangedNumberPropertyOperation =
+            numberRanged.getOrThrow("numberRanged")
 
-        fun asPublicMultiStringPropertyOperation(): PublicMultiStringPropertyOperation =
-            publicMultiStringPropertyOperation.getOrThrow("publicMultiStringPropertyOperation")
+        fun asMultistring(): PublicMultiStringPropertyOperation =
+            multistring.getOrThrow("multistring")
 
-        fun asPublicDatePropertyOperation(): PublicDatePropertyOperation =
-            publicDatePropertyOperation.getOrThrow("publicDatePropertyOperation")
+        fun asDate(): PublicDatePropertyOperation = date.getOrThrow("date")
 
-        fun asPublicCalendarDatePropertyOperation(): PublicCalendarDatePropertyOperation =
-            publicCalendarDatePropertyOperation.getOrThrow("publicCalendarDatePropertyOperation")
+        fun asCalendarDate(): PublicCalendarDatePropertyOperation =
+            calendarDate.getOrThrow("calendarDate")
 
-        fun asPublicTimePointOperation(): PublicTimePointOperation =
-            publicTimePointOperation.getOrThrow("publicTimePointOperation")
+        fun asTimePoint(): PublicTimePointOperation = timePoint.getOrThrow("timePoint")
 
-        fun asPublicRangedTimeOperation(): PublicRangedTimeOperation =
-            publicRangedTimeOperation.getOrThrow("publicRangedTimeOperation")
+        fun asTimeRanged(): PublicRangedTimeOperation = timeRanged.getOrThrow("timeRanged")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -956,8 +817,8 @@ private constructor(
          *
          * Optional<String> result = valueComparison.accept(new ValueComparison.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicBoolPropertyOperation(PublicBoolPropertyOperation publicBoolPropertyOperation) {
-         *         return Optional.of(publicBoolPropertyOperation.toString());
+         *     public Optional<String> visitBool(PublicBoolPropertyOperation bool) {
+         *         return Optional.of(bool.toString());
          *     }
          *
          *     // ...
@@ -975,58 +836,25 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicBoolPropertyOperation != null ->
-                    visitor.visitPublicBoolPropertyOperation(publicBoolPropertyOperation)
-                publicNumberPropertyOperation != null ->
-                    visitor.visitPublicNumberPropertyOperation(publicNumberPropertyOperation)
-                publicStringPropertyOperation != null ->
-                    visitor.visitPublicStringPropertyOperation(publicStringPropertyOperation)
-                publicDateTimePropertyOperation != null ->
-                    visitor.visitPublicDateTimePropertyOperation(publicDateTimePropertyOperation)
-                publicRangedDatePropertyOperation != null ->
-                    visitor.visitPublicRangedDatePropertyOperation(
-                        publicRangedDatePropertyOperation
-                    )
-                publicComparativePropertyUpdatedOperation != null ->
-                    visitor.visitPublicComparativePropertyUpdatedOperation(
-                        publicComparativePropertyUpdatedOperation
-                    )
-                publicComparativeDatePropertyOperation != null ->
-                    visitor.visitPublicComparativeDatePropertyOperation(
-                        publicComparativeDatePropertyOperation
-                    )
-                publicRollingDateRangePropertyOperation != null ->
-                    visitor.visitPublicRollingDateRangePropertyOperation(
-                        publicRollingDateRangePropertyOperation
-                    )
-                publicRollingPropertyUpdatedOperation != null ->
-                    visitor.visitPublicRollingPropertyUpdatedOperation(
-                        publicRollingPropertyUpdatedOperation
-                    )
-                publicEnumerationPropertyOperation != null ->
-                    visitor.visitPublicEnumerationPropertyOperation(
-                        publicEnumerationPropertyOperation
-                    )
-                publicAllPropertyTypesOperation != null ->
-                    visitor.visitPublicAllPropertyTypesOperation(publicAllPropertyTypesOperation)
-                publicRangedNumberPropertyOperation != null ->
-                    visitor.visitPublicRangedNumberPropertyOperation(
-                        publicRangedNumberPropertyOperation
-                    )
-                publicMultiStringPropertyOperation != null ->
-                    visitor.visitPublicMultiStringPropertyOperation(
-                        publicMultiStringPropertyOperation
-                    )
-                publicDatePropertyOperation != null ->
-                    visitor.visitPublicDatePropertyOperation(publicDatePropertyOperation)
-                publicCalendarDatePropertyOperation != null ->
-                    visitor.visitPublicCalendarDatePropertyOperation(
-                        publicCalendarDatePropertyOperation
-                    )
-                publicTimePointOperation != null ->
-                    visitor.visitPublicTimePointOperation(publicTimePointOperation)
-                publicRangedTimeOperation != null ->
-                    visitor.visitPublicRangedTimeOperation(publicRangedTimeOperation)
+                bool != null -> visitor.visitBool(bool)
+                number != null -> visitor.visitNumber(number)
+                string != null -> visitor.visitString(string)
+                datetime != null -> visitor.visitDatetime(datetime)
+                rangedDate != null -> visitor.visitRangedDate(rangedDate)
+                comparativePropertyUpdated != null ->
+                    visitor.visitComparativePropertyUpdated(comparativePropertyUpdated)
+                comparativeDate != null -> visitor.visitComparativeDate(comparativeDate)
+                rollingDateRange != null -> visitor.visitRollingDateRange(rollingDateRange)
+                rollingPropertyUpdated != null ->
+                    visitor.visitRollingPropertyUpdated(rollingPropertyUpdated)
+                enumeration != null -> visitor.visitEnumeration(enumeration)
+                allProperty != null -> visitor.visitAllProperty(allProperty)
+                numberRanged != null -> visitor.visitNumberRanged(numberRanged)
+                multistring != null -> visitor.visitMultistring(multistring)
+                date != null -> visitor.visitDate(date)
+                calendarDate != null -> visitor.visitCalendarDate(calendarDate)
+                timePoint != null -> visitor.visitTimePoint(timePoint)
+                timeRanged != null -> visitor.visitTimeRanged(timeRanged)
                 else -> visitor.unknown(_json)
             }
 
@@ -1048,109 +876,84 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicBoolPropertyOperation(
-                        publicBoolPropertyOperation: PublicBoolPropertyOperation
-                    ) {
-                        publicBoolPropertyOperation.validate()
+                    override fun visitBool(bool: PublicBoolPropertyOperation) {
+                        bool.validate()
                     }
 
-                    override fun visitPublicNumberPropertyOperation(
-                        publicNumberPropertyOperation: PublicNumberPropertyOperation
-                    ) {
-                        publicNumberPropertyOperation.validate()
+                    override fun visitNumber(number: PublicNumberPropertyOperation) {
+                        number.validate()
                     }
 
-                    override fun visitPublicStringPropertyOperation(
-                        publicStringPropertyOperation: PublicStringPropertyOperation
-                    ) {
-                        publicStringPropertyOperation.validate()
+                    override fun visitString(string: PublicStringPropertyOperation) {
+                        string.validate()
                     }
 
-                    override fun visitPublicDateTimePropertyOperation(
-                        publicDateTimePropertyOperation: PublicDateTimePropertyOperation
-                    ) {
-                        publicDateTimePropertyOperation.validate()
+                    override fun visitDatetime(datetime: PublicDateTimePropertyOperation) {
+                        datetime.validate()
                     }
 
-                    override fun visitPublicRangedDatePropertyOperation(
-                        publicRangedDatePropertyOperation: PublicRangedDatePropertyOperation
-                    ) {
-                        publicRangedDatePropertyOperation.validate()
+                    override fun visitRangedDate(rangedDate: PublicRangedDatePropertyOperation) {
+                        rangedDate.validate()
                     }
 
-                    override fun visitPublicComparativePropertyUpdatedOperation(
-                        publicComparativePropertyUpdatedOperation:
-                            PublicComparativePropertyUpdatedOperation
+                    override fun visitComparativePropertyUpdated(
+                        comparativePropertyUpdated: PublicComparativePropertyUpdatedOperation
                     ) {
-                        publicComparativePropertyUpdatedOperation.validate()
+                        comparativePropertyUpdated.validate()
                     }
 
-                    override fun visitPublicComparativeDatePropertyOperation(
-                        publicComparativeDatePropertyOperation:
-                            PublicComparativeDatePropertyOperation
+                    override fun visitComparativeDate(
+                        comparativeDate: PublicComparativeDatePropertyOperation
                     ) {
-                        publicComparativeDatePropertyOperation.validate()
+                        comparativeDate.validate()
                     }
 
-                    override fun visitPublicRollingDateRangePropertyOperation(
-                        publicRollingDateRangePropertyOperation:
-                            PublicRollingDateRangePropertyOperation
+                    override fun visitRollingDateRange(
+                        rollingDateRange: PublicRollingDateRangePropertyOperation
                     ) {
-                        publicRollingDateRangePropertyOperation.validate()
+                        rollingDateRange.validate()
                     }
 
-                    override fun visitPublicRollingPropertyUpdatedOperation(
-                        publicRollingPropertyUpdatedOperation: PublicRollingPropertyUpdatedOperation
+                    override fun visitRollingPropertyUpdated(
+                        rollingPropertyUpdated: PublicRollingPropertyUpdatedOperation
                     ) {
-                        publicRollingPropertyUpdatedOperation.validate()
+                        rollingPropertyUpdated.validate()
                     }
 
-                    override fun visitPublicEnumerationPropertyOperation(
-                        publicEnumerationPropertyOperation: PublicEnumerationPropertyOperation
-                    ) {
-                        publicEnumerationPropertyOperation.validate()
+                    override fun visitEnumeration(enumeration: PublicEnumerationPropertyOperation) {
+                        enumeration.validate()
                     }
 
-                    override fun visitPublicAllPropertyTypesOperation(
-                        publicAllPropertyTypesOperation: PublicAllPropertyTypesOperation
-                    ) {
-                        publicAllPropertyTypesOperation.validate()
+                    override fun visitAllProperty(allProperty: PublicAllPropertyTypesOperation) {
+                        allProperty.validate()
                     }
 
-                    override fun visitPublicRangedNumberPropertyOperation(
-                        publicRangedNumberPropertyOperation: PublicRangedNumberPropertyOperation
+                    override fun visitNumberRanged(
+                        numberRanged: PublicRangedNumberPropertyOperation
                     ) {
-                        publicRangedNumberPropertyOperation.validate()
+                        numberRanged.validate()
                     }
 
-                    override fun visitPublicMultiStringPropertyOperation(
-                        publicMultiStringPropertyOperation: PublicMultiStringPropertyOperation
-                    ) {
-                        publicMultiStringPropertyOperation.validate()
+                    override fun visitMultistring(multistring: PublicMultiStringPropertyOperation) {
+                        multistring.validate()
                     }
 
-                    override fun visitPublicDatePropertyOperation(
-                        publicDatePropertyOperation: PublicDatePropertyOperation
-                    ) {
-                        publicDatePropertyOperation.validate()
+                    override fun visitDate(date: PublicDatePropertyOperation) {
+                        date.validate()
                     }
 
-                    override fun visitPublicCalendarDatePropertyOperation(
-                        publicCalendarDatePropertyOperation: PublicCalendarDatePropertyOperation
+                    override fun visitCalendarDate(
+                        calendarDate: PublicCalendarDatePropertyOperation
                     ) {
-                        publicCalendarDatePropertyOperation.validate()
+                        calendarDate.validate()
                     }
 
-                    override fun visitPublicTimePointOperation(
-                        publicTimePointOperation: PublicTimePointOperation
-                    ) {
-                        publicTimePointOperation.validate()
+                    override fun visitTimePoint(timePoint: PublicTimePointOperation) {
+                        timePoint.validate()
                     }
 
-                    override fun visitPublicRangedTimeOperation(
-                        publicRangedTimeOperation: PublicRangedTimeOperation
-                    ) {
-                        publicRangedTimeOperation.validate()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) {
+                        timeRanged.validate()
                     }
                 }
             )
@@ -1175,76 +978,60 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicBoolPropertyOperation(
-                        publicBoolPropertyOperation: PublicBoolPropertyOperation
-                    ) = publicBoolPropertyOperation.validity()
+                    override fun visitBool(bool: PublicBoolPropertyOperation) = bool.validity()
 
-                    override fun visitPublicNumberPropertyOperation(
-                        publicNumberPropertyOperation: PublicNumberPropertyOperation
-                    ) = publicNumberPropertyOperation.validity()
+                    override fun visitNumber(number: PublicNumberPropertyOperation) =
+                        number.validity()
 
-                    override fun visitPublicStringPropertyOperation(
-                        publicStringPropertyOperation: PublicStringPropertyOperation
-                    ) = publicStringPropertyOperation.validity()
+                    override fun visitString(string: PublicStringPropertyOperation) =
+                        string.validity()
 
-                    override fun visitPublicDateTimePropertyOperation(
-                        publicDateTimePropertyOperation: PublicDateTimePropertyOperation
-                    ) = publicDateTimePropertyOperation.validity()
+                    override fun visitDatetime(datetime: PublicDateTimePropertyOperation) =
+                        datetime.validity()
 
-                    override fun visitPublicRangedDatePropertyOperation(
-                        publicRangedDatePropertyOperation: PublicRangedDatePropertyOperation
-                    ) = publicRangedDatePropertyOperation.validity()
+                    override fun visitRangedDate(rangedDate: PublicRangedDatePropertyOperation) =
+                        rangedDate.validity()
 
-                    override fun visitPublicComparativePropertyUpdatedOperation(
-                        publicComparativePropertyUpdatedOperation:
-                            PublicComparativePropertyUpdatedOperation
-                    ) = publicComparativePropertyUpdatedOperation.validity()
+                    override fun visitComparativePropertyUpdated(
+                        comparativePropertyUpdated: PublicComparativePropertyUpdatedOperation
+                    ) = comparativePropertyUpdated.validity()
 
-                    override fun visitPublicComparativeDatePropertyOperation(
-                        publicComparativeDatePropertyOperation:
-                            PublicComparativeDatePropertyOperation
-                    ) = publicComparativeDatePropertyOperation.validity()
+                    override fun visitComparativeDate(
+                        comparativeDate: PublicComparativeDatePropertyOperation
+                    ) = comparativeDate.validity()
 
-                    override fun visitPublicRollingDateRangePropertyOperation(
-                        publicRollingDateRangePropertyOperation:
-                            PublicRollingDateRangePropertyOperation
-                    ) = publicRollingDateRangePropertyOperation.validity()
+                    override fun visitRollingDateRange(
+                        rollingDateRange: PublicRollingDateRangePropertyOperation
+                    ) = rollingDateRange.validity()
 
-                    override fun visitPublicRollingPropertyUpdatedOperation(
-                        publicRollingPropertyUpdatedOperation: PublicRollingPropertyUpdatedOperation
-                    ) = publicRollingPropertyUpdatedOperation.validity()
+                    override fun visitRollingPropertyUpdated(
+                        rollingPropertyUpdated: PublicRollingPropertyUpdatedOperation
+                    ) = rollingPropertyUpdated.validity()
 
-                    override fun visitPublicEnumerationPropertyOperation(
-                        publicEnumerationPropertyOperation: PublicEnumerationPropertyOperation
-                    ) = publicEnumerationPropertyOperation.validity()
+                    override fun visitEnumeration(enumeration: PublicEnumerationPropertyOperation) =
+                        enumeration.validity()
 
-                    override fun visitPublicAllPropertyTypesOperation(
-                        publicAllPropertyTypesOperation: PublicAllPropertyTypesOperation
-                    ) = publicAllPropertyTypesOperation.validity()
+                    override fun visitAllProperty(allProperty: PublicAllPropertyTypesOperation) =
+                        allProperty.validity()
 
-                    override fun visitPublicRangedNumberPropertyOperation(
-                        publicRangedNumberPropertyOperation: PublicRangedNumberPropertyOperation
-                    ) = publicRangedNumberPropertyOperation.validity()
+                    override fun visitNumberRanged(
+                        numberRanged: PublicRangedNumberPropertyOperation
+                    ) = numberRanged.validity()
 
-                    override fun visitPublicMultiStringPropertyOperation(
-                        publicMultiStringPropertyOperation: PublicMultiStringPropertyOperation
-                    ) = publicMultiStringPropertyOperation.validity()
+                    override fun visitMultistring(multistring: PublicMultiStringPropertyOperation) =
+                        multistring.validity()
 
-                    override fun visitPublicDatePropertyOperation(
-                        publicDatePropertyOperation: PublicDatePropertyOperation
-                    ) = publicDatePropertyOperation.validity()
+                    override fun visitDate(date: PublicDatePropertyOperation) = date.validity()
 
-                    override fun visitPublicCalendarDatePropertyOperation(
-                        publicCalendarDatePropertyOperation: PublicCalendarDatePropertyOperation
-                    ) = publicCalendarDatePropertyOperation.validity()
+                    override fun visitCalendarDate(
+                        calendarDate: PublicCalendarDatePropertyOperation
+                    ) = calendarDate.validity()
 
-                    override fun visitPublicTimePointOperation(
-                        publicTimePointOperation: PublicTimePointOperation
-                    ) = publicTimePointOperation.validity()
+                    override fun visitTimePoint(timePoint: PublicTimePointOperation) =
+                        timePoint.validity()
 
-                    override fun visitPublicRangedTimeOperation(
-                        publicRangedTimeOperation: PublicRangedTimeOperation
-                    ) = publicRangedTimeOperation.validity()
+                    override fun visitTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                        timeRanged.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1256,203 +1043,136 @@ private constructor(
             }
 
             return other is ValueComparison &&
-                publicBoolPropertyOperation == other.publicBoolPropertyOperation &&
-                publicNumberPropertyOperation == other.publicNumberPropertyOperation &&
-                publicStringPropertyOperation == other.publicStringPropertyOperation &&
-                publicDateTimePropertyOperation == other.publicDateTimePropertyOperation &&
-                publicRangedDatePropertyOperation == other.publicRangedDatePropertyOperation &&
-                publicComparativePropertyUpdatedOperation ==
-                    other.publicComparativePropertyUpdatedOperation &&
-                publicComparativeDatePropertyOperation ==
-                    other.publicComparativeDatePropertyOperation &&
-                publicRollingDateRangePropertyOperation ==
-                    other.publicRollingDateRangePropertyOperation &&
-                publicRollingPropertyUpdatedOperation ==
-                    other.publicRollingPropertyUpdatedOperation &&
-                publicEnumerationPropertyOperation == other.publicEnumerationPropertyOperation &&
-                publicAllPropertyTypesOperation == other.publicAllPropertyTypesOperation &&
-                publicRangedNumberPropertyOperation == other.publicRangedNumberPropertyOperation &&
-                publicMultiStringPropertyOperation == other.publicMultiStringPropertyOperation &&
-                publicDatePropertyOperation == other.publicDatePropertyOperation &&
-                publicCalendarDatePropertyOperation == other.publicCalendarDatePropertyOperation &&
-                publicTimePointOperation == other.publicTimePointOperation &&
-                publicRangedTimeOperation == other.publicRangedTimeOperation
+                bool == other.bool &&
+                number == other.number &&
+                string == other.string &&
+                datetime == other.datetime &&
+                rangedDate == other.rangedDate &&
+                comparativePropertyUpdated == other.comparativePropertyUpdated &&
+                comparativeDate == other.comparativeDate &&
+                rollingDateRange == other.rollingDateRange &&
+                rollingPropertyUpdated == other.rollingPropertyUpdated &&
+                enumeration == other.enumeration &&
+                allProperty == other.allProperty &&
+                numberRanged == other.numberRanged &&
+                multistring == other.multistring &&
+                date == other.date &&
+                calendarDate == other.calendarDate &&
+                timePoint == other.timePoint &&
+                timeRanged == other.timeRanged
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                publicBoolPropertyOperation,
-                publicNumberPropertyOperation,
-                publicStringPropertyOperation,
-                publicDateTimePropertyOperation,
-                publicRangedDatePropertyOperation,
-                publicComparativePropertyUpdatedOperation,
-                publicComparativeDatePropertyOperation,
-                publicRollingDateRangePropertyOperation,
-                publicRollingPropertyUpdatedOperation,
-                publicEnumerationPropertyOperation,
-                publicAllPropertyTypesOperation,
-                publicRangedNumberPropertyOperation,
-                publicMultiStringPropertyOperation,
-                publicDatePropertyOperation,
-                publicCalendarDatePropertyOperation,
-                publicTimePointOperation,
-                publicRangedTimeOperation,
+                bool,
+                number,
+                string,
+                datetime,
+                rangedDate,
+                comparativePropertyUpdated,
+                comparativeDate,
+                rollingDateRange,
+                rollingPropertyUpdated,
+                enumeration,
+                allProperty,
+                numberRanged,
+                multistring,
+                date,
+                calendarDate,
+                timePoint,
+                timeRanged,
             )
 
         override fun toString(): String =
             when {
-                publicBoolPropertyOperation != null ->
-                    "ValueComparison{publicBoolPropertyOperation=$publicBoolPropertyOperation}"
-                publicNumberPropertyOperation != null ->
-                    "ValueComparison{publicNumberPropertyOperation=$publicNumberPropertyOperation}"
-                publicStringPropertyOperation != null ->
-                    "ValueComparison{publicStringPropertyOperation=$publicStringPropertyOperation}"
-                publicDateTimePropertyOperation != null ->
-                    "ValueComparison{publicDateTimePropertyOperation=$publicDateTimePropertyOperation}"
-                publicRangedDatePropertyOperation != null ->
-                    "ValueComparison{publicRangedDatePropertyOperation=$publicRangedDatePropertyOperation}"
-                publicComparativePropertyUpdatedOperation != null ->
-                    "ValueComparison{publicComparativePropertyUpdatedOperation=$publicComparativePropertyUpdatedOperation}"
-                publicComparativeDatePropertyOperation != null ->
-                    "ValueComparison{publicComparativeDatePropertyOperation=$publicComparativeDatePropertyOperation}"
-                publicRollingDateRangePropertyOperation != null ->
-                    "ValueComparison{publicRollingDateRangePropertyOperation=$publicRollingDateRangePropertyOperation}"
-                publicRollingPropertyUpdatedOperation != null ->
-                    "ValueComparison{publicRollingPropertyUpdatedOperation=$publicRollingPropertyUpdatedOperation}"
-                publicEnumerationPropertyOperation != null ->
-                    "ValueComparison{publicEnumerationPropertyOperation=$publicEnumerationPropertyOperation}"
-                publicAllPropertyTypesOperation != null ->
-                    "ValueComparison{publicAllPropertyTypesOperation=$publicAllPropertyTypesOperation}"
-                publicRangedNumberPropertyOperation != null ->
-                    "ValueComparison{publicRangedNumberPropertyOperation=$publicRangedNumberPropertyOperation}"
-                publicMultiStringPropertyOperation != null ->
-                    "ValueComparison{publicMultiStringPropertyOperation=$publicMultiStringPropertyOperation}"
-                publicDatePropertyOperation != null ->
-                    "ValueComparison{publicDatePropertyOperation=$publicDatePropertyOperation}"
-                publicCalendarDatePropertyOperation != null ->
-                    "ValueComparison{publicCalendarDatePropertyOperation=$publicCalendarDatePropertyOperation}"
-                publicTimePointOperation != null ->
-                    "ValueComparison{publicTimePointOperation=$publicTimePointOperation}"
-                publicRangedTimeOperation != null ->
-                    "ValueComparison{publicRangedTimeOperation=$publicRangedTimeOperation}"
+                bool != null -> "ValueComparison{bool=$bool}"
+                number != null -> "ValueComparison{number=$number}"
+                string != null -> "ValueComparison{string=$string}"
+                datetime != null -> "ValueComparison{datetime=$datetime}"
+                rangedDate != null -> "ValueComparison{rangedDate=$rangedDate}"
+                comparativePropertyUpdated != null ->
+                    "ValueComparison{comparativePropertyUpdated=$comparativePropertyUpdated}"
+                comparativeDate != null -> "ValueComparison{comparativeDate=$comparativeDate}"
+                rollingDateRange != null -> "ValueComparison{rollingDateRange=$rollingDateRange}"
+                rollingPropertyUpdated != null ->
+                    "ValueComparison{rollingPropertyUpdated=$rollingPropertyUpdated}"
+                enumeration != null -> "ValueComparison{enumeration=$enumeration}"
+                allProperty != null -> "ValueComparison{allProperty=$allProperty}"
+                numberRanged != null -> "ValueComparison{numberRanged=$numberRanged}"
+                multistring != null -> "ValueComparison{multistring=$multistring}"
+                date != null -> "ValueComparison{date=$date}"
+                calendarDate != null -> "ValueComparison{calendarDate=$calendarDate}"
+                timePoint != null -> "ValueComparison{timePoint=$timePoint}"
+                timeRanged != null -> "ValueComparison{timeRanged=$timeRanged}"
                 _json != null -> "ValueComparison{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid ValueComparison")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicBoolPropertyOperation(
-                publicBoolPropertyOperation: PublicBoolPropertyOperation
-            ) = ValueComparison(publicBoolPropertyOperation = publicBoolPropertyOperation)
+            @JvmStatic fun ofBool(bool: PublicBoolPropertyOperation) = ValueComparison(bool = bool)
 
             @JvmStatic
-            fun ofPublicNumberPropertyOperation(
-                publicNumberPropertyOperation: PublicNumberPropertyOperation
-            ) = ValueComparison(publicNumberPropertyOperation = publicNumberPropertyOperation)
+            fun ofNumber(number: PublicNumberPropertyOperation) = ValueComparison(number = number)
 
             @JvmStatic
-            fun ofPublicStringPropertyOperation(
-                publicStringPropertyOperation: PublicStringPropertyOperation
-            ) = ValueComparison(publicStringPropertyOperation = publicStringPropertyOperation)
+            fun ofString(string: PublicStringPropertyOperation) = ValueComparison(string = string)
 
             @JvmStatic
-            fun ofPublicDateTimePropertyOperation(
-                publicDateTimePropertyOperation: PublicDateTimePropertyOperation
-            ) = ValueComparison(publicDateTimePropertyOperation = publicDateTimePropertyOperation)
+            fun ofDatetime(datetime: PublicDateTimePropertyOperation) =
+                ValueComparison(datetime = datetime)
 
             @JvmStatic
-            fun ofPublicRangedDatePropertyOperation(
-                publicRangedDatePropertyOperation: PublicRangedDatePropertyOperation
-            ) =
-                ValueComparison(
-                    publicRangedDatePropertyOperation = publicRangedDatePropertyOperation
-                )
+            fun ofRangedDate(rangedDate: PublicRangedDatePropertyOperation) =
+                ValueComparison(rangedDate = rangedDate)
 
             @JvmStatic
-            fun ofPublicComparativePropertyUpdatedOperation(
-                publicComparativePropertyUpdatedOperation: PublicComparativePropertyUpdatedOperation
-            ) =
-                ValueComparison(
-                    publicComparativePropertyUpdatedOperation =
-                        publicComparativePropertyUpdatedOperation
-                )
+            fun ofComparativePropertyUpdated(
+                comparativePropertyUpdated: PublicComparativePropertyUpdatedOperation
+            ) = ValueComparison(comparativePropertyUpdated = comparativePropertyUpdated)
 
             @JvmStatic
-            fun ofPublicComparativeDatePropertyOperation(
-                publicComparativeDatePropertyOperation: PublicComparativeDatePropertyOperation
-            ) =
-                ValueComparison(
-                    publicComparativeDatePropertyOperation = publicComparativeDatePropertyOperation
-                )
+            fun ofComparativeDate(comparativeDate: PublicComparativeDatePropertyOperation) =
+                ValueComparison(comparativeDate = comparativeDate)
 
             @JvmStatic
-            fun ofPublicRollingDateRangePropertyOperation(
-                publicRollingDateRangePropertyOperation: PublicRollingDateRangePropertyOperation
-            ) =
-                ValueComparison(
-                    publicRollingDateRangePropertyOperation =
-                        publicRollingDateRangePropertyOperation
-                )
+            fun ofRollingDateRange(rollingDateRange: PublicRollingDateRangePropertyOperation) =
+                ValueComparison(rollingDateRange = rollingDateRange)
 
             @JvmStatic
-            fun ofPublicRollingPropertyUpdatedOperation(
-                publicRollingPropertyUpdatedOperation: PublicRollingPropertyUpdatedOperation
-            ) =
-                ValueComparison(
-                    publicRollingPropertyUpdatedOperation = publicRollingPropertyUpdatedOperation
-                )
+            fun ofRollingPropertyUpdated(
+                rollingPropertyUpdated: PublicRollingPropertyUpdatedOperation
+            ) = ValueComparison(rollingPropertyUpdated = rollingPropertyUpdated)
 
             @JvmStatic
-            fun ofPublicEnumerationPropertyOperation(
-                publicEnumerationPropertyOperation: PublicEnumerationPropertyOperation
-            ) =
-                ValueComparison(
-                    publicEnumerationPropertyOperation = publicEnumerationPropertyOperation
-                )
+            fun ofEnumeration(enumeration: PublicEnumerationPropertyOperation) =
+                ValueComparison(enumeration = enumeration)
 
             @JvmStatic
-            fun ofPublicAllPropertyTypesOperation(
-                publicAllPropertyTypesOperation: PublicAllPropertyTypesOperation
-            ) = ValueComparison(publicAllPropertyTypesOperation = publicAllPropertyTypesOperation)
+            fun ofAllProperty(allProperty: PublicAllPropertyTypesOperation) =
+                ValueComparison(allProperty = allProperty)
 
             @JvmStatic
-            fun ofPublicRangedNumberPropertyOperation(
-                publicRangedNumberPropertyOperation: PublicRangedNumberPropertyOperation
-            ) =
-                ValueComparison(
-                    publicRangedNumberPropertyOperation = publicRangedNumberPropertyOperation
-                )
+            fun ofNumberRanged(numberRanged: PublicRangedNumberPropertyOperation) =
+                ValueComparison(numberRanged = numberRanged)
 
             @JvmStatic
-            fun ofPublicMultiStringPropertyOperation(
-                publicMultiStringPropertyOperation: PublicMultiStringPropertyOperation
-            ) =
-                ValueComparison(
-                    publicMultiStringPropertyOperation = publicMultiStringPropertyOperation
-                )
+            fun ofMultistring(multistring: PublicMultiStringPropertyOperation) =
+                ValueComparison(multistring = multistring)
+
+            @JvmStatic fun ofDate(date: PublicDatePropertyOperation) = ValueComparison(date = date)
 
             @JvmStatic
-            fun ofPublicDatePropertyOperation(
-                publicDatePropertyOperation: PublicDatePropertyOperation
-            ) = ValueComparison(publicDatePropertyOperation = publicDatePropertyOperation)
+            fun ofCalendarDate(calendarDate: PublicCalendarDatePropertyOperation) =
+                ValueComparison(calendarDate = calendarDate)
 
             @JvmStatic
-            fun ofPublicCalendarDatePropertyOperation(
-                publicCalendarDatePropertyOperation: PublicCalendarDatePropertyOperation
-            ) =
-                ValueComparison(
-                    publicCalendarDatePropertyOperation = publicCalendarDatePropertyOperation
-                )
+            fun ofTimePoint(timePoint: PublicTimePointOperation) =
+                ValueComparison(timePoint = timePoint)
 
             @JvmStatic
-            fun ofPublicTimePointOperation(publicTimePointOperation: PublicTimePointOperation) =
-                ValueComparison(publicTimePointOperation = publicTimePointOperation)
-
-            @JvmStatic
-            fun ofPublicRangedTimeOperation(publicRangedTimeOperation: PublicRangedTimeOperation) =
-                ValueComparison(publicRangedTimeOperation = publicRangedTimeOperation)
+            fun ofTimeRanged(timeRanged: PublicRangedTimeOperation) =
+                ValueComparison(timeRanged = timeRanged)
         }
 
         /**
@@ -1461,71 +1181,43 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicBoolPropertyOperation(
-                publicBoolPropertyOperation: PublicBoolPropertyOperation
+            fun visitBool(bool: PublicBoolPropertyOperation): T
+
+            fun visitNumber(number: PublicNumberPropertyOperation): T
+
+            fun visitString(string: PublicStringPropertyOperation): T
+
+            fun visitDatetime(datetime: PublicDateTimePropertyOperation): T
+
+            fun visitRangedDate(rangedDate: PublicRangedDatePropertyOperation): T
+
+            fun visitComparativePropertyUpdated(
+                comparativePropertyUpdated: PublicComparativePropertyUpdatedOperation
             ): T
 
-            fun visitPublicNumberPropertyOperation(
-                publicNumberPropertyOperation: PublicNumberPropertyOperation
+            fun visitComparativeDate(comparativeDate: PublicComparativeDatePropertyOperation): T
+
+            fun visitRollingDateRange(rollingDateRange: PublicRollingDateRangePropertyOperation): T
+
+            fun visitRollingPropertyUpdated(
+                rollingPropertyUpdated: PublicRollingPropertyUpdatedOperation
             ): T
 
-            fun visitPublicStringPropertyOperation(
-                publicStringPropertyOperation: PublicStringPropertyOperation
-            ): T
+            fun visitEnumeration(enumeration: PublicEnumerationPropertyOperation): T
 
-            fun visitPublicDateTimePropertyOperation(
-                publicDateTimePropertyOperation: PublicDateTimePropertyOperation
-            ): T
+            fun visitAllProperty(allProperty: PublicAllPropertyTypesOperation): T
 
-            fun visitPublicRangedDatePropertyOperation(
-                publicRangedDatePropertyOperation: PublicRangedDatePropertyOperation
-            ): T
+            fun visitNumberRanged(numberRanged: PublicRangedNumberPropertyOperation): T
 
-            fun visitPublicComparativePropertyUpdatedOperation(
-                publicComparativePropertyUpdatedOperation: PublicComparativePropertyUpdatedOperation
-            ): T
+            fun visitMultistring(multistring: PublicMultiStringPropertyOperation): T
 
-            fun visitPublicComparativeDatePropertyOperation(
-                publicComparativeDatePropertyOperation: PublicComparativeDatePropertyOperation
-            ): T
+            fun visitDate(date: PublicDatePropertyOperation): T
 
-            fun visitPublicRollingDateRangePropertyOperation(
-                publicRollingDateRangePropertyOperation: PublicRollingDateRangePropertyOperation
-            ): T
+            fun visitCalendarDate(calendarDate: PublicCalendarDatePropertyOperation): T
 
-            fun visitPublicRollingPropertyUpdatedOperation(
-                publicRollingPropertyUpdatedOperation: PublicRollingPropertyUpdatedOperation
-            ): T
+            fun visitTimePoint(timePoint: PublicTimePointOperation): T
 
-            fun visitPublicEnumerationPropertyOperation(
-                publicEnumerationPropertyOperation: PublicEnumerationPropertyOperation
-            ): T
-
-            fun visitPublicAllPropertyTypesOperation(
-                publicAllPropertyTypesOperation: PublicAllPropertyTypesOperation
-            ): T
-
-            fun visitPublicRangedNumberPropertyOperation(
-                publicRangedNumberPropertyOperation: PublicRangedNumberPropertyOperation
-            ): T
-
-            fun visitPublicMultiStringPropertyOperation(
-                publicMultiStringPropertyOperation: PublicMultiStringPropertyOperation
-            ): T
-
-            fun visitPublicDatePropertyOperation(
-                publicDatePropertyOperation: PublicDatePropertyOperation
-            ): T
-
-            fun visitPublicCalendarDatePropertyOperation(
-                publicCalendarDatePropertyOperation: PublicCalendarDatePropertyOperation
-            ): T
-
-            fun visitPublicTimePointOperation(publicTimePointOperation: PublicTimePointOperation): T
-
-            fun visitPublicRangedTimeOperation(
-                publicRangedTimeOperation: PublicRangedTimeOperation
-            ): T
+            fun visitTimeRanged(timeRanged: PublicRangedTimeOperation): T
 
             /**
              * Maps an unknown variant of [ValueComparison] to a value of type [T].
@@ -1546,155 +1238,131 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): ValueComparison {
                 val json = JsonValue.fromJsonNode(node)
+                val operationType =
+                    json.asObject().getOrNull()?.get("operationType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicBoolPropertyOperation>())
-                                ?.let {
-                                    ValueComparison(publicBoolPropertyOperation = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicNumberPropertyOperation>())
-                                ?.let {
-                                    ValueComparison(
-                                        publicNumberPropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicStringPropertyOperation>())
-                                ?.let {
-                                    ValueComparison(
-                                        publicStringPropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicDateTimePropertyOperation>())
-                                ?.let {
-                                    ValueComparison(
-                                        publicDateTimePropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRangedDatePropertyOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicRangedDatePropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicComparativePropertyUpdatedOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicComparativePropertyUpdatedOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicComparativeDatePropertyOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicComparativeDatePropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRollingDateRangePropertyOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicRollingDateRangePropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRollingPropertyUpdatedOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicRollingPropertyUpdatedOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicEnumerationPropertyOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicEnumerationPropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicAllPropertyTypesOperation>())
-                                ?.let {
-                                    ValueComparison(
-                                        publicAllPropertyTypesOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicRangedNumberPropertyOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicRangedNumberPropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicMultiStringPropertyOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicMultiStringPropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicDatePropertyOperation>())
-                                ?.let {
-                                    ValueComparison(publicDatePropertyOperation = it, _json = json)
-                                },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicCalendarDatePropertyOperation>(),
-                                )
-                                ?.let {
-                                    ValueComparison(
-                                        publicCalendarDatePropertyOperation = it,
-                                        _json = json,
-                                    )
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicTimePointOperation>())?.let {
-                                ValueComparison(publicTimePointOperation = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())?.let {
-                                ValueComparison(publicRangedTimeOperation = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> ValueComparison(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (operationType) {
+                    "BOOL" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicBoolPropertyOperation>())
+                            ?.let { ValueComparison(bool = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "NUMBER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNumberPropertyOperation>())
+                            ?.let { ValueComparison(number = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "STRING" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicStringPropertyOperation>())
+                            ?.let { ValueComparison(string = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "DATETIME" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicDateTimePropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(datetime = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "RANGED_DATE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRangedDatePropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(rangedDate = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "COMPARATIVE_PROPERTY_UPDATED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicComparativePropertyUpdatedOperation>(),
+                            )
+                            ?.let { ValueComparison(comparativePropertyUpdated = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "COMPARATIVE_DATE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicComparativeDatePropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(comparativeDate = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "ROLLING_DATE_RANGE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRollingDateRangePropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(rollingDateRange = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "ROLLING_PROPERTY_UPDATED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRollingPropertyUpdatedOperation>(),
+                            )
+                            ?.let { ValueComparison(rollingPropertyUpdated = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "ENUMERATION" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicEnumerationPropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(enumeration = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "ALL_PROPERTY" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicAllPropertyTypesOperation>(),
+                            )
+                            ?.let { ValueComparison(allProperty = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "NUMBER_RANGED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicRangedNumberPropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(numberRanged = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "MULTISTRING" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicMultiStringPropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(multistring = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "DATE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicDatePropertyOperation>())
+                            ?.let { ValueComparison(date = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "CALENDAR_DATE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicCalendarDatePropertyOperation>(),
+                            )
+                            ?.let { ValueComparison(calendarDate = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "TIME_POINT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicTimePointOperation>())
+                            ?.let { ValueComparison(timePoint = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
+                    "TIME_RANGED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicRangedTimeOperation>())
+                            ?.let { ValueComparison(timeRanged = it, _json = json) }
+                            ?: ValueComparison(_json = json)
+                    }
                 }
+
+                return ValueComparison(_json = json)
             }
         }
 
@@ -1706,40 +1374,25 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicBoolPropertyOperation != null ->
-                        generator.writeObject(value.publicBoolPropertyOperation)
-                    value.publicNumberPropertyOperation != null ->
-                        generator.writeObject(value.publicNumberPropertyOperation)
-                    value.publicStringPropertyOperation != null ->
-                        generator.writeObject(value.publicStringPropertyOperation)
-                    value.publicDateTimePropertyOperation != null ->
-                        generator.writeObject(value.publicDateTimePropertyOperation)
-                    value.publicRangedDatePropertyOperation != null ->
-                        generator.writeObject(value.publicRangedDatePropertyOperation)
-                    value.publicComparativePropertyUpdatedOperation != null ->
-                        generator.writeObject(value.publicComparativePropertyUpdatedOperation)
-                    value.publicComparativeDatePropertyOperation != null ->
-                        generator.writeObject(value.publicComparativeDatePropertyOperation)
-                    value.publicRollingDateRangePropertyOperation != null ->
-                        generator.writeObject(value.publicRollingDateRangePropertyOperation)
-                    value.publicRollingPropertyUpdatedOperation != null ->
-                        generator.writeObject(value.publicRollingPropertyUpdatedOperation)
-                    value.publicEnumerationPropertyOperation != null ->
-                        generator.writeObject(value.publicEnumerationPropertyOperation)
-                    value.publicAllPropertyTypesOperation != null ->
-                        generator.writeObject(value.publicAllPropertyTypesOperation)
-                    value.publicRangedNumberPropertyOperation != null ->
-                        generator.writeObject(value.publicRangedNumberPropertyOperation)
-                    value.publicMultiStringPropertyOperation != null ->
-                        generator.writeObject(value.publicMultiStringPropertyOperation)
-                    value.publicDatePropertyOperation != null ->
-                        generator.writeObject(value.publicDatePropertyOperation)
-                    value.publicCalendarDatePropertyOperation != null ->
-                        generator.writeObject(value.publicCalendarDatePropertyOperation)
-                    value.publicTimePointOperation != null ->
-                        generator.writeObject(value.publicTimePointOperation)
-                    value.publicRangedTimeOperation != null ->
-                        generator.writeObject(value.publicRangedTimeOperation)
+                    value.bool != null -> generator.writeObject(value.bool)
+                    value.number != null -> generator.writeObject(value.number)
+                    value.string != null -> generator.writeObject(value.string)
+                    value.datetime != null -> generator.writeObject(value.datetime)
+                    value.rangedDate != null -> generator.writeObject(value.rangedDate)
+                    value.comparativePropertyUpdated != null ->
+                        generator.writeObject(value.comparativePropertyUpdated)
+                    value.comparativeDate != null -> generator.writeObject(value.comparativeDate)
+                    value.rollingDateRange != null -> generator.writeObject(value.rollingDateRange)
+                    value.rollingPropertyUpdated != null ->
+                        generator.writeObject(value.rollingPropertyUpdated)
+                    value.enumeration != null -> generator.writeObject(value.enumeration)
+                    value.allProperty != null -> generator.writeObject(value.allProperty)
+                    value.numberRanged != null -> generator.writeObject(value.numberRanged)
+                    value.multistring != null -> generator.writeObject(value.multistring)
+                    value.date != null -> generator.writeObject(value.date)
+                    value.calendarDate != null -> generator.writeObject(value.calendarDate)
+                    value.timePoint != null -> generator.writeObject(value.timePoint)
+                    value.timeRanged != null -> generator.writeObject(value.timeRanged)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid ValueComparison")
                 }

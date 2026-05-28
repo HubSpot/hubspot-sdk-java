@@ -832,6 +832,8 @@ private constructor(
 
             @JvmField val TEAM_USER_DELETED = of("TEAM_USER_DELETED")
 
+            @JvmField val TEMPLATE_DELETED = of("TEMPLATE_DELETED")
+
             @JvmField val TEMPLATE_MODIFIED = of("TEMPLATE_MODIFIED")
 
             @JvmField val TOUCHLESS_PURCHASE = of("TOUCHLESS_PURCHASE")
@@ -984,6 +986,7 @@ private constructor(
             TEAM_DELETED,
             TEAM_USER_ADDED,
             TEAM_USER_DELETED,
+            TEMPLATE_DELETED,
             TEMPLATE_MODIFIED,
             TOUCHLESS_PURCHASE,
             UNIFIED_RESTORE_UNDO_EXECUTION,
@@ -1135,6 +1138,7 @@ private constructor(
             TEAM_DELETED,
             TEAM_USER_ADDED,
             TEAM_USER_DELETED,
+            TEMPLATE_DELETED,
             TEMPLATE_MODIFIED,
             TOUCHLESS_PURCHASE,
             UNIFIED_RESTORE_UNDO_EXECUTION,
@@ -1297,6 +1301,7 @@ private constructor(
                 TEAM_DELETED -> Value.TEAM_DELETED
                 TEAM_USER_ADDED -> Value.TEAM_USER_ADDED
                 TEAM_USER_DELETED -> Value.TEAM_USER_DELETED
+                TEMPLATE_DELETED -> Value.TEMPLATE_DELETED
                 TEMPLATE_MODIFIED -> Value.TEMPLATE_MODIFIED
                 TOUCHLESS_PURCHASE -> Value.TOUCHLESS_PURCHASE
                 UNIFIED_RESTORE_UNDO_EXECUTION -> Value.UNIFIED_RESTORE_UNDO_EXECUTION
@@ -1460,6 +1465,7 @@ private constructor(
                 TEAM_DELETED -> Known.TEAM_DELETED
                 TEAM_USER_ADDED -> Known.TEAM_USER_ADDED
                 TEAM_USER_DELETED -> Known.TEAM_USER_DELETED
+                TEMPLATE_DELETED -> Known.TEMPLATE_DELETED
                 TEMPLATE_MODIFIED -> Known.TEMPLATE_MODIFIED
                 TOUCHLESS_PURCHASE -> Known.TOUCHLESS_PURCHASE
                 UNIFIED_RESTORE_UNDO_EXECUTION -> Known.UNIFIED_RESTORE_UNDO_EXECUTION

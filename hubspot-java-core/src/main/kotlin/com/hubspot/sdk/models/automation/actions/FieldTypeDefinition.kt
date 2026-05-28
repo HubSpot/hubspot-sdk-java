@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
@@ -433,26 +432,57 @@ private constructor(
          */
         fun schema(schema: JsonField<Schema>) = apply { this.schema = schema }
 
-        /** Alias for calling [schema] with `Schema.ofIntegerField(integerField)`. */
-        fun schema(integerField: IntegerFieldSchema) = schema(Schema.ofIntegerField(integerField))
+        /** Alias for calling [schema] with `Schema.ofInteger(integer)`. */
+        fun schema(integer: IntegerFieldSchema) = schema(Schema.ofInteger(integer))
 
-        /** Alias for calling [schema] with `Schema.ofLongField(longField)`. */
-        fun schema(longField: LongFieldSchema) = schema(Schema.ofLongField(longField))
+        /** Alias for calling [schema] with `Schema.ofLong(long_)`. */
+        fun schema(long_: LongFieldSchema) = schema(Schema.ofLong(long_))
 
-        /** Alias for calling [schema] with `Schema.ofDoubleField(doubleField)`. */
-        fun schema(doubleField: DoubleFieldSchema) = schema(Schema.ofDoubleField(doubleField))
+        /** Alias for calling [schema] with `Schema.ofDouble(double_)`. */
+        fun schema(double_: DoubleFieldSchema) = schema(Schema.ofDouble(double_))
 
-        /** Alias for calling [schema] with `Schema.ofStringField(stringField)`. */
-        fun schema(stringField: StringFieldSchema) = schema(Schema.ofStringField(stringField))
+        /** Alias for calling [schema] with `Schema.ofString(string)`. */
+        fun schema(string: StringFieldSchema) = schema(Schema.ofString(string))
 
-        /** Alias for calling [schema] with `Schema.ofBooleanField(booleanField)`. */
-        fun schema(booleanField: BooleanFieldSchema) = schema(Schema.ofBooleanField(booleanField))
+        /** Alias for calling [schema] with `Schema.ofBoolean(boolean_)`. */
+        fun schema(boolean_: BooleanFieldSchema) = schema(Schema.ofBoolean(boolean_))
 
-        /** Alias for calling [schema] with `Schema.ofArrayField(arrayField)`. */
-        fun schema(arrayField: ArrayFieldSchema) = schema(Schema.ofArrayField(arrayField))
+        /** Alias for calling [schema] with `Schema.ofArray(array)`. */
+        fun schema(array: ArrayFieldSchema) = schema(Schema.ofArray(array))
 
-        /** Alias for calling [schema] with `Schema.ofObjectField(objectField)`. */
-        fun schema(objectField: ObjectFieldSchema) = schema(Schema.ofObjectField(objectField))
+        /**
+         * Alias for calling [schema] with the following:
+         * ```java
+         * ArrayFieldSchema.builder()
+         *     .type(ArrayFieldSchema.Type.ARRAY)
+         *     .items(items)
+         *     .build()
+         * ```
+         */
+        fun arraySchema(items: JsonValue) =
+            schema(
+                ArrayFieldSchema.builder().type(ArrayFieldSchema.Type.ARRAY).items(items).build()
+            )
+
+        /** Alias for calling [schema] with `Schema.ofObject(object_)`. */
+        fun schema(object_: ObjectFieldSchema) = schema(Schema.ofObject(object_))
+
+        /**
+         * Alias for calling [schema] with the following:
+         * ```java
+         * ObjectFieldSchema.builder()
+         *     .type(ObjectFieldSchema.Type.OBJECT)
+         *     .properties(properties)
+         *     .build()
+         * ```
+         */
+        fun objectSchema(properties: JsonValue) =
+            schema(
+                ObjectFieldSchema.builder()
+                    .type(ObjectFieldSchema.Type.OBJECT)
+                    .properties(properties)
+                    .build()
+            )
 
         /**
          * Specifies the data type of the field, with accepted values like bool, date, datetime,
@@ -694,57 +724,57 @@ private constructor(
     @JsonSerialize(using = Schema.Serializer::class)
     class Schema
     private constructor(
-        private val integerField: IntegerFieldSchema? = null,
-        private val longField: LongFieldSchema? = null,
-        private val doubleField: DoubleFieldSchema? = null,
-        private val stringField: StringFieldSchema? = null,
-        private val booleanField: BooleanFieldSchema? = null,
-        private val arrayField: ArrayFieldSchema? = null,
-        private val objectField: ObjectFieldSchema? = null,
+        private val integer: IntegerFieldSchema? = null,
+        private val long_: LongFieldSchema? = null,
+        private val double_: DoubleFieldSchema? = null,
+        private val string: StringFieldSchema? = null,
+        private val boolean_: BooleanFieldSchema? = null,
+        private val array: ArrayFieldSchema? = null,
+        private val object_: ObjectFieldSchema? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun integerField(): Optional<IntegerFieldSchema> = Optional.ofNullable(integerField)
+        fun integer(): Optional<IntegerFieldSchema> = Optional.ofNullable(integer)
 
-        fun longField(): Optional<LongFieldSchema> = Optional.ofNullable(longField)
+        fun long_(): Optional<LongFieldSchema> = Optional.ofNullable(long_)
 
-        fun doubleField(): Optional<DoubleFieldSchema> = Optional.ofNullable(doubleField)
+        fun double_(): Optional<DoubleFieldSchema> = Optional.ofNullable(double_)
 
-        fun stringField(): Optional<StringFieldSchema> = Optional.ofNullable(stringField)
+        fun string(): Optional<StringFieldSchema> = Optional.ofNullable(string)
 
-        fun booleanField(): Optional<BooleanFieldSchema> = Optional.ofNullable(booleanField)
+        fun boolean_(): Optional<BooleanFieldSchema> = Optional.ofNullable(boolean_)
 
-        fun arrayField(): Optional<ArrayFieldSchema> = Optional.ofNullable(arrayField)
+        fun array(): Optional<ArrayFieldSchema> = Optional.ofNullable(array)
 
-        fun objectField(): Optional<ObjectFieldSchema> = Optional.ofNullable(objectField)
+        fun object_(): Optional<ObjectFieldSchema> = Optional.ofNullable(object_)
 
-        fun isIntegerField(): Boolean = integerField != null
+        fun isInteger(): Boolean = integer != null
 
-        fun isLongField(): Boolean = longField != null
+        fun isLong(): Boolean = long_ != null
 
-        fun isDoubleField(): Boolean = doubleField != null
+        fun isDouble(): Boolean = double_ != null
 
-        fun isStringField(): Boolean = stringField != null
+        fun isString(): Boolean = string != null
 
-        fun isBooleanField(): Boolean = booleanField != null
+        fun isBoolean(): Boolean = boolean_ != null
 
-        fun isArrayField(): Boolean = arrayField != null
+        fun isArray(): Boolean = array != null
 
-        fun isObjectField(): Boolean = objectField != null
+        fun isObject(): Boolean = object_ != null
 
-        fun asIntegerField(): IntegerFieldSchema = integerField.getOrThrow("integerField")
+        fun asInteger(): IntegerFieldSchema = integer.getOrThrow("integer")
 
-        fun asLongField(): LongFieldSchema = longField.getOrThrow("longField")
+        fun asLong(): LongFieldSchema = long_.getOrThrow("long_")
 
-        fun asDoubleField(): DoubleFieldSchema = doubleField.getOrThrow("doubleField")
+        fun asDouble(): DoubleFieldSchema = double_.getOrThrow("double_")
 
-        fun asStringField(): StringFieldSchema = stringField.getOrThrow("stringField")
+        fun asString(): StringFieldSchema = string.getOrThrow("string")
 
-        fun asBooleanField(): BooleanFieldSchema = booleanField.getOrThrow("booleanField")
+        fun asBoolean(): BooleanFieldSchema = boolean_.getOrThrow("boolean_")
 
-        fun asArrayField(): ArrayFieldSchema = arrayField.getOrThrow("arrayField")
+        fun asArray(): ArrayFieldSchema = array.getOrThrow("array")
 
-        fun asObjectField(): ObjectFieldSchema = objectField.getOrThrow("objectField")
+        fun asObject(): ObjectFieldSchema = object_.getOrThrow("object_")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -760,8 +790,8 @@ private constructor(
          *
          * Optional<String> result = schema.accept(new Schema.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitIntegerField(IntegerFieldSchema integerField) {
-         *         return Optional.of(integerField.toString());
+         *     public Optional<String> visitInteger(IntegerFieldSchema integer) {
+         *         return Optional.of(integer.toString());
          *     }
          *
          *     // ...
@@ -779,13 +809,13 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                integerField != null -> visitor.visitIntegerField(integerField)
-                longField != null -> visitor.visitLongField(longField)
-                doubleField != null -> visitor.visitDoubleField(doubleField)
-                stringField != null -> visitor.visitStringField(stringField)
-                booleanField != null -> visitor.visitBooleanField(booleanField)
-                arrayField != null -> visitor.visitArrayField(arrayField)
-                objectField != null -> visitor.visitObjectField(objectField)
+                integer != null -> visitor.visitInteger(integer)
+                long_ != null -> visitor.visitLong(long_)
+                double_ != null -> visitor.visitDouble(double_)
+                string != null -> visitor.visitString(string)
+                boolean_ != null -> visitor.visitBoolean(boolean_)
+                array != null -> visitor.visitArray(array)
+                object_ != null -> visitor.visitObject(object_)
                 else -> visitor.unknown(_json)
             }
 
@@ -807,32 +837,32 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitIntegerField(integerField: IntegerFieldSchema) {
-                        integerField.validate()
+                    override fun visitInteger(integer: IntegerFieldSchema) {
+                        integer.validate()
                     }
 
-                    override fun visitLongField(longField: LongFieldSchema) {
-                        longField.validate()
+                    override fun visitLong(long_: LongFieldSchema) {
+                        long_.validate()
                     }
 
-                    override fun visitDoubleField(doubleField: DoubleFieldSchema) {
-                        doubleField.validate()
+                    override fun visitDouble(double_: DoubleFieldSchema) {
+                        double_.validate()
                     }
 
-                    override fun visitStringField(stringField: StringFieldSchema) {
-                        stringField.validate()
+                    override fun visitString(string: StringFieldSchema) {
+                        string.validate()
                     }
 
-                    override fun visitBooleanField(booleanField: BooleanFieldSchema) {
-                        booleanField.validate()
+                    override fun visitBoolean(boolean_: BooleanFieldSchema) {
+                        boolean_.validate()
                     }
 
-                    override fun visitArrayField(arrayField: ArrayFieldSchema) {
-                        arrayField.validate()
+                    override fun visitArray(array: ArrayFieldSchema) {
+                        array.validate()
                     }
 
-                    override fun visitObjectField(objectField: ObjectFieldSchema) {
-                        objectField.validate()
+                    override fun visitObject(object_: ObjectFieldSchema) {
+                        object_.validate()
                     }
                 }
             )
@@ -857,25 +887,19 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitIntegerField(integerField: IntegerFieldSchema) =
-                        integerField.validity()
+                    override fun visitInteger(integer: IntegerFieldSchema) = integer.validity()
 
-                    override fun visitLongField(longField: LongFieldSchema) = longField.validity()
+                    override fun visitLong(long_: LongFieldSchema) = long_.validity()
 
-                    override fun visitDoubleField(doubleField: DoubleFieldSchema) =
-                        doubleField.validity()
+                    override fun visitDouble(double_: DoubleFieldSchema) = double_.validity()
 
-                    override fun visitStringField(stringField: StringFieldSchema) =
-                        stringField.validity()
+                    override fun visitString(string: StringFieldSchema) = string.validity()
 
-                    override fun visitBooleanField(booleanField: BooleanFieldSchema) =
-                        booleanField.validity()
+                    override fun visitBoolean(boolean_: BooleanFieldSchema) = boolean_.validity()
 
-                    override fun visitArrayField(arrayField: ArrayFieldSchema) =
-                        arrayField.validity()
+                    override fun visitArray(array: ArrayFieldSchema) = array.validity()
 
-                    override fun visitObjectField(objectField: ObjectFieldSchema) =
-                        objectField.validity()
+                    override fun visitObject(object_: ObjectFieldSchema) = object_.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -887,80 +911,64 @@ private constructor(
             }
 
             return other is Schema &&
-                integerField == other.integerField &&
-                longField == other.longField &&
-                doubleField == other.doubleField &&
-                stringField == other.stringField &&
-                booleanField == other.booleanField &&
-                arrayField == other.arrayField &&
-                objectField == other.objectField
+                integer == other.integer &&
+                long_ == other.long_ &&
+                double_ == other.double_ &&
+                string == other.string &&
+                boolean_ == other.boolean_ &&
+                array == other.array &&
+                object_ == other.object_
         }
 
         override fun hashCode(): Int =
-            Objects.hash(
-                integerField,
-                longField,
-                doubleField,
-                stringField,
-                booleanField,
-                arrayField,
-                objectField,
-            )
+            Objects.hash(integer, long_, double_, string, boolean_, array, object_)
 
         override fun toString(): String =
             when {
-                integerField != null -> "Schema{integerField=$integerField}"
-                longField != null -> "Schema{longField=$longField}"
-                doubleField != null -> "Schema{doubleField=$doubleField}"
-                stringField != null -> "Schema{stringField=$stringField}"
-                booleanField != null -> "Schema{booleanField=$booleanField}"
-                arrayField != null -> "Schema{arrayField=$arrayField}"
-                objectField != null -> "Schema{objectField=$objectField}"
+                integer != null -> "Schema{integer=$integer}"
+                long_ != null -> "Schema{long_=$long_}"
+                double_ != null -> "Schema{double_=$double_}"
+                string != null -> "Schema{string=$string}"
+                boolean_ != null -> "Schema{boolean_=$boolean_}"
+                array != null -> "Schema{array=$array}"
+                object_ != null -> "Schema{object_=$object_}"
                 _json != null -> "Schema{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Schema")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofIntegerField(integerField: IntegerFieldSchema) =
-                Schema(integerField = integerField)
+            @JvmStatic fun ofInteger(integer: IntegerFieldSchema) = Schema(integer = integer)
 
-            @JvmStatic fun ofLongField(longField: LongFieldSchema) = Schema(longField = longField)
+            @JvmStatic fun ofLong(long_: LongFieldSchema) = Schema(long_ = long_)
 
-            @JvmStatic
-            fun ofDoubleField(doubleField: DoubleFieldSchema) = Schema(doubleField = doubleField)
+            @JvmStatic fun ofDouble(double_: DoubleFieldSchema) = Schema(double_ = double_)
 
-            @JvmStatic
-            fun ofStringField(stringField: StringFieldSchema) = Schema(stringField = stringField)
+            @JvmStatic fun ofString(string: StringFieldSchema) = Schema(string = string)
 
-            @JvmStatic
-            fun ofBooleanField(booleanField: BooleanFieldSchema) =
-                Schema(booleanField = booleanField)
+            @JvmStatic fun ofBoolean(boolean_: BooleanFieldSchema) = Schema(boolean_ = boolean_)
 
-            @JvmStatic
-            fun ofArrayField(arrayField: ArrayFieldSchema) = Schema(arrayField = arrayField)
+            @JvmStatic fun ofArray(array: ArrayFieldSchema) = Schema(array = array)
 
-            @JvmStatic
-            fun ofObjectField(objectField: ObjectFieldSchema) = Schema(objectField = objectField)
+            @JvmStatic fun ofObject(object_: ObjectFieldSchema) = Schema(object_ = object_)
         }
 
         /** An interface that defines how to map each variant of [Schema] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitIntegerField(integerField: IntegerFieldSchema): T
+            fun visitInteger(integer: IntegerFieldSchema): T
 
-            fun visitLongField(longField: LongFieldSchema): T
+            fun visitLong(long_: LongFieldSchema): T
 
-            fun visitDoubleField(doubleField: DoubleFieldSchema): T
+            fun visitDouble(double_: DoubleFieldSchema): T
 
-            fun visitStringField(stringField: StringFieldSchema): T
+            fun visitString(string: StringFieldSchema): T
 
-            fun visitBooleanField(booleanField: BooleanFieldSchema): T
+            fun visitBoolean(boolean_: BooleanFieldSchema): T
 
-            fun visitArrayField(arrayField: ArrayFieldSchema): T
+            fun visitArray(array: ArrayFieldSchema): T
 
-            fun visitObjectField(objectField: ObjectFieldSchema): T
+            fun visitObject(object_: ObjectFieldSchema): T
 
             /**
              * Maps an unknown variant of [Schema] to a value of type [T].
@@ -981,44 +989,47 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Schema {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<IntegerFieldSchema>())?.let {
-                                Schema(integerField = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<LongFieldSchema>())?.let {
-                                Schema(longField = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<DoubleFieldSchema>())?.let {
-                                Schema(doubleField = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<StringFieldSchema>())?.let {
-                                Schema(stringField = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<BooleanFieldSchema>())?.let {
-                                Schema(booleanField = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<ArrayFieldSchema>())?.let {
-                                Schema(arrayField = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<ObjectFieldSchema>())?.let {
-                                Schema(objectField = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Schema(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "INTEGER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<IntegerFieldSchema>())?.let {
+                            Schema(integer = it, _json = json)
+                        } ?: Schema(_json = json)
+                    }
+                    "LONG" -> {
+                        return tryDeserialize(node, jacksonTypeRef<LongFieldSchema>())?.let {
+                            Schema(long_ = it, _json = json)
+                        } ?: Schema(_json = json)
+                    }
+                    "DOUBLE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<DoubleFieldSchema>())?.let {
+                            Schema(double_ = it, _json = json)
+                        } ?: Schema(_json = json)
+                    }
+                    "STRING" -> {
+                        return tryDeserialize(node, jacksonTypeRef<StringFieldSchema>())?.let {
+                            Schema(string = it, _json = json)
+                        } ?: Schema(_json = json)
+                    }
+                    "BOOLEAN" -> {
+                        return tryDeserialize(node, jacksonTypeRef<BooleanFieldSchema>())?.let {
+                            Schema(boolean_ = it, _json = json)
+                        } ?: Schema(_json = json)
+                    }
+                    "ARRAY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ArrayFieldSchema>())?.let {
+                            Schema(array = it, _json = json)
+                        } ?: Schema(_json = json)
+                    }
+                    "OBJECT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ObjectFieldSchema>())?.let {
+                            Schema(object_ = it, _json = json)
+                        } ?: Schema(_json = json)
+                    }
                 }
+
+                return Schema(_json = json)
             }
         }
 
@@ -1030,13 +1041,13 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.integerField != null -> generator.writeObject(value.integerField)
-                    value.longField != null -> generator.writeObject(value.longField)
-                    value.doubleField != null -> generator.writeObject(value.doubleField)
-                    value.stringField != null -> generator.writeObject(value.stringField)
-                    value.booleanField != null -> generator.writeObject(value.booleanField)
-                    value.arrayField != null -> generator.writeObject(value.arrayField)
-                    value.objectField != null -> generator.writeObject(value.objectField)
+                    value.integer != null -> generator.writeObject(value.integer)
+                    value.long_ != null -> generator.writeObject(value.long_)
+                    value.double_ != null -> generator.writeObject(value.double_)
+                    value.string != null -> generator.writeObject(value.string)
+                    value.boolean_ != null -> generator.writeObject(value.boolean_)
+                    value.array != null -> generator.writeObject(value.array)
+                    value.object_ != null -> generator.writeObject(value.object_)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Schema")
                 }

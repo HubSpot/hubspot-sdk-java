@@ -15,8 +15,8 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class PublicListConversionTimeTest {
 
     @Test
-    fun ofDate() {
-        val date =
+    fun ofConversionDate() {
+        val conversionDate =
             PublicListConversionDate.builder()
                 .conversionType(PublicListConversionDate.ConversionType.CONVERSION_DATE)
                 .day(0)
@@ -24,17 +24,17 @@ internal class PublicListConversionTimeTest {
                 .year(0)
                 .build()
 
-        val publicListConversionTime = PublicListConversionTime.ofDate(date)
+        val publicListConversionTime = PublicListConversionTime.ofConversionDate(conversionDate)
 
-        assertThat(publicListConversionTime.date()).contains(date)
+        assertThat(publicListConversionTime.conversionDate()).contains(conversionDate)
         assertThat(publicListConversionTime.inactivity()).isEmpty
     }
 
     @Test
-    fun ofDateRoundtrip() {
+    fun ofConversionDateRoundtrip() {
         val jsonMapper = jsonMapper()
         val publicListConversionTime =
-            PublicListConversionTime.ofDate(
+            PublicListConversionTime.ofConversionDate(
                 PublicListConversionDate.builder()
                     .conversionType(PublicListConversionDate.ConversionType.CONVERSION_DATE)
                     .day(0)
@@ -63,7 +63,7 @@ internal class PublicListConversionTimeTest {
 
         val publicListConversionTime = PublicListConversionTime.ofInactivity(inactivity)
 
-        assertThat(publicListConversionTime.date()).isEmpty
+        assertThat(publicListConversionTime.conversionDate()).isEmpty
         assertThat(publicListConversionTime.inactivity()).contains(inactivity)
     }
 

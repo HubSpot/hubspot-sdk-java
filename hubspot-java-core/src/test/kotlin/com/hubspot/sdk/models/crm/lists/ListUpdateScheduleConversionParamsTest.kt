@@ -61,7 +61,7 @@ internal class ListUpdateScheduleConversionParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                PublicListConversionTime.ofDate(
+                PublicListConversionTime.ofConversionDate(
                     PublicListConversionDate.builder()
                         .conversionType(PublicListConversionDate.ConversionType.CONVERSION_DATE)
                         .day(0)

@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
@@ -538,54 +537,77 @@ private constructor(
                 }
         }
 
-        /** Alias for calling [addAttachment] with `Attachment.ofPublicFile(publicFile)`. */
-        fun addAttachment(publicFile: PublicFile) =
-            addAttachment(Attachment.ofPublicFile(publicFile))
+        /** Alias for calling [addAttachment] with `Attachment.ofFile(file)`. */
+        fun addAttachment(file: PublicFile) = addAttachment(Attachment.ofFile(file))
 
-        /** Alias for calling [addAttachment] with `Attachment.ofPublicLocation(publicLocation)`. */
-        fun addAttachment(publicLocation: PublicLocation) =
-            addAttachment(Attachment.ofPublicLocation(publicLocation))
+        /** Alias for calling [addAttachment] with `Attachment.ofLocation(location)`. */
+        fun addAttachment(location: PublicLocation) = addAttachment(Attachment.ofLocation(location))
 
-        /** Alias for calling [addAttachment] with `Attachment.ofPublicContact(publicContact)`. */
-        fun addAttachment(publicContact: PublicContact) =
-            addAttachment(Attachment.ofPublicContact(publicContact))
+        /** Alias for calling [addAttachment] with `Attachment.ofContact(contact)`. */
+        fun addAttachment(contact: PublicContact) = addAttachment(Attachment.ofContact(contact))
 
         /**
-         * Alias for calling [addAttachment] with
-         * `Attachment.ofPublicUnsupportedContent(publicUnsupportedContent)`.
+         * Alias for calling [addAttachment] with the following:
+         * ```java
+         * PublicContact.builder()
+         *     .type(PublicContact.Type.CONTACT)
+         *     .contactProfile(contactProfile)
+         *     .build()
+         * ```
          */
-        fun addAttachment(publicUnsupportedContent: PublicUnsupportedContent) =
-            addAttachment(Attachment.ofPublicUnsupportedContent(publicUnsupportedContent))
-
-        /**
-         * Alias for calling [addAttachment] with
-         * `Attachment.ofPublicMessageHeader(publicMessageHeader)`.
-         */
-        fun addAttachment(publicMessageHeader: PublicMessageHeader) =
-            addAttachment(Attachment.ofPublicMessageHeader(publicMessageHeader))
-
-        /**
-         * Alias for calling [addAttachment] with
-         * `Attachment.ofPublicQuickReplies(publicQuickReplies)`.
-         */
-        fun addAttachment(publicQuickReplies: PublicQuickReplies) =
-            addAttachment(Attachment.ofPublicQuickReplies(publicQuickReplies))
-
-        /**
-         * Alias for calling [addAttachment] with
-         * `Attachment.ofPublicWhatsAppTemplateMetadata(publicWhatsAppTemplateMetadata)`.
-         */
-        fun addAttachment(publicWhatsAppTemplateMetadata: PublicWhatsAppTemplateMetadata) =
+        fun addContactAttachment(contactProfile: ContactProfile) =
             addAttachment(
-                Attachment.ofPublicWhatsAppTemplateMetadata(publicWhatsAppTemplateMetadata)
+                PublicContact.builder()
+                    .type(PublicContact.Type.CONTACT)
+                    .contactProfile(contactProfile)
+                    .build()
             )
 
         /**
          * Alias for calling [addAttachment] with
-         * `Attachment.ofPublicSocialMetadata(publicSocialMetadata)`.
+         * `Attachment.ofUnsupportedContent(unsupportedContent)`.
          */
-        fun addAttachment(publicSocialMetadata: PublicSocialMetadataAttachment) =
-            addAttachment(Attachment.ofPublicSocialMetadata(publicSocialMetadata))
+        fun addAttachment(unsupportedContent: PublicUnsupportedContent) =
+            addAttachment(Attachment.ofUnsupportedContent(unsupportedContent))
+
+        /** Alias for calling [addAttachment] with `Attachment.ofMessageHeader(messageHeader)`. */
+        fun addAttachment(messageHeader: PublicMessageHeader) =
+            addAttachment(Attachment.ofMessageHeader(messageHeader))
+
+        /** Alias for calling [addAttachment] with `Attachment.ofQuickReplies(quickReplies)`. */
+        fun addAttachment(quickReplies: PublicQuickReplies) =
+            addAttachment(Attachment.ofQuickReplies(quickReplies))
+
+        /**
+         * Alias for calling [addAttachment] with
+         * `Attachment.ofWhatsappTemplateMetadata(whatsappTemplateMetadata)`.
+         */
+        fun addAttachment(whatsappTemplateMetadata: PublicWhatsAppTemplateMetadata) =
+            addAttachment(Attachment.ofWhatsappTemplateMetadata(whatsappTemplateMetadata))
+
+        /**
+         * Alias for calling [addAttachment] with
+         * `Attachment.ofSocialMediaMetadata(socialMediaMetadata)`.
+         */
+        fun addAttachment(socialMediaMetadata: PublicSocialMetadataAttachment) =
+            addAttachment(Attachment.ofSocialMediaMetadata(socialMediaMetadata))
+
+        /**
+         * Alias for calling [addAttachment] with the following:
+         * ```java
+         * PublicSocialMetadataAttachment.builder()
+         *     .type(PublicSocialMetadataAttachment.Type.SOCIAL_MEDIA_METADATA)
+         *     .socialMetadata(socialMetadata)
+         *     .build()
+         * ```
+         */
+        fun addSocialMediaMetadataAttachment(socialMetadata: SocialMetadata) =
+            addAttachment(
+                PublicSocialMetadataAttachment.builder()
+                    .type(PublicSocialMetadataAttachment.Type.SOCIAL_MEDIA_METADATA)
+                    .socialMetadata(socialMetadata)
+                    .build()
+            )
 
         fun channelAccountId(channelAccountId: String) =
             channelAccountId(JsonField.of(channelAccountId))
@@ -956,74 +978,70 @@ private constructor(
     @JsonSerialize(using = Attachment.Serializer::class)
     class Attachment
     private constructor(
-        private val publicFile: PublicFile? = null,
-        private val publicLocation: PublicLocation? = null,
-        private val publicContact: PublicContact? = null,
-        private val publicUnsupportedContent: PublicUnsupportedContent? = null,
-        private val publicMessageHeader: PublicMessageHeader? = null,
-        private val publicQuickReplies: PublicQuickReplies? = null,
-        private val publicWhatsAppTemplateMetadata: PublicWhatsAppTemplateMetadata? = null,
-        private val publicSocialMetadata: PublicSocialMetadataAttachment? = null,
+        private val file: PublicFile? = null,
+        private val location: PublicLocation? = null,
+        private val contact: PublicContact? = null,
+        private val unsupportedContent: PublicUnsupportedContent? = null,
+        private val messageHeader: PublicMessageHeader? = null,
+        private val quickReplies: PublicQuickReplies? = null,
+        private val whatsappTemplateMetadata: PublicWhatsAppTemplateMetadata? = null,
+        private val socialMediaMetadata: PublicSocialMetadataAttachment? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicFile(): Optional<PublicFile> = Optional.ofNullable(publicFile)
+        fun file(): Optional<PublicFile> = Optional.ofNullable(file)
 
-        fun publicLocation(): Optional<PublicLocation> = Optional.ofNullable(publicLocation)
+        fun location(): Optional<PublicLocation> = Optional.ofNullable(location)
 
-        fun publicContact(): Optional<PublicContact> = Optional.ofNullable(publicContact)
+        fun contact(): Optional<PublicContact> = Optional.ofNullable(contact)
 
-        fun publicUnsupportedContent(): Optional<PublicUnsupportedContent> =
-            Optional.ofNullable(publicUnsupportedContent)
+        fun unsupportedContent(): Optional<PublicUnsupportedContent> =
+            Optional.ofNullable(unsupportedContent)
 
-        fun publicMessageHeader(): Optional<PublicMessageHeader> =
-            Optional.ofNullable(publicMessageHeader)
+        fun messageHeader(): Optional<PublicMessageHeader> = Optional.ofNullable(messageHeader)
 
-        fun publicQuickReplies(): Optional<PublicQuickReplies> =
-            Optional.ofNullable(publicQuickReplies)
+        fun quickReplies(): Optional<PublicQuickReplies> = Optional.ofNullable(quickReplies)
 
-        fun publicWhatsAppTemplateMetadata(): Optional<PublicWhatsAppTemplateMetadata> =
-            Optional.ofNullable(publicWhatsAppTemplateMetadata)
+        fun whatsappTemplateMetadata(): Optional<PublicWhatsAppTemplateMetadata> =
+            Optional.ofNullable(whatsappTemplateMetadata)
 
-        fun publicSocialMetadata(): Optional<PublicSocialMetadataAttachment> =
-            Optional.ofNullable(publicSocialMetadata)
+        fun socialMediaMetadata(): Optional<PublicSocialMetadataAttachment> =
+            Optional.ofNullable(socialMediaMetadata)
 
-        fun isPublicFile(): Boolean = publicFile != null
+        fun isFile(): Boolean = file != null
 
-        fun isPublicLocation(): Boolean = publicLocation != null
+        fun isLocation(): Boolean = location != null
 
-        fun isPublicContact(): Boolean = publicContact != null
+        fun isContact(): Boolean = contact != null
 
-        fun isPublicUnsupportedContent(): Boolean = publicUnsupportedContent != null
+        fun isUnsupportedContent(): Boolean = unsupportedContent != null
 
-        fun isPublicMessageHeader(): Boolean = publicMessageHeader != null
+        fun isMessageHeader(): Boolean = messageHeader != null
 
-        fun isPublicQuickReplies(): Boolean = publicQuickReplies != null
+        fun isQuickReplies(): Boolean = quickReplies != null
 
-        fun isPublicWhatsAppTemplateMetadata(): Boolean = publicWhatsAppTemplateMetadata != null
+        fun isWhatsappTemplateMetadata(): Boolean = whatsappTemplateMetadata != null
 
-        fun isPublicSocialMetadata(): Boolean = publicSocialMetadata != null
+        fun isSocialMediaMetadata(): Boolean = socialMediaMetadata != null
 
-        fun asPublicFile(): PublicFile = publicFile.getOrThrow("publicFile")
+        fun asFile(): PublicFile = file.getOrThrow("file")
 
-        fun asPublicLocation(): PublicLocation = publicLocation.getOrThrow("publicLocation")
+        fun asLocation(): PublicLocation = location.getOrThrow("location")
 
-        fun asPublicContact(): PublicContact = publicContact.getOrThrow("publicContact")
+        fun asContact(): PublicContact = contact.getOrThrow("contact")
 
-        fun asPublicUnsupportedContent(): PublicUnsupportedContent =
-            publicUnsupportedContent.getOrThrow("publicUnsupportedContent")
+        fun asUnsupportedContent(): PublicUnsupportedContent =
+            unsupportedContent.getOrThrow("unsupportedContent")
 
-        fun asPublicMessageHeader(): PublicMessageHeader =
-            publicMessageHeader.getOrThrow("publicMessageHeader")
+        fun asMessageHeader(): PublicMessageHeader = messageHeader.getOrThrow("messageHeader")
 
-        fun asPublicQuickReplies(): PublicQuickReplies =
-            publicQuickReplies.getOrThrow("publicQuickReplies")
+        fun asQuickReplies(): PublicQuickReplies = quickReplies.getOrThrow("quickReplies")
 
-        fun asPublicWhatsAppTemplateMetadata(): PublicWhatsAppTemplateMetadata =
-            publicWhatsAppTemplateMetadata.getOrThrow("publicWhatsAppTemplateMetadata")
+        fun asWhatsappTemplateMetadata(): PublicWhatsAppTemplateMetadata =
+            whatsappTemplateMetadata.getOrThrow("whatsappTemplateMetadata")
 
-        fun asPublicSocialMetadata(): PublicSocialMetadataAttachment =
-            publicSocialMetadata.getOrThrow("publicSocialMetadata")
+        fun asSocialMediaMetadata(): PublicSocialMetadataAttachment =
+            socialMediaMetadata.getOrThrow("socialMediaMetadata")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1039,8 +1057,8 @@ private constructor(
          *
          * Optional<String> result = attachment.accept(new Attachment.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicFile(PublicFile publicFile) {
-         *         return Optional.of(publicFile.toString());
+         *     public Optional<String> visitFile(PublicFile file) {
+         *         return Optional.of(file.toString());
          *     }
          *
          *     // ...
@@ -1058,17 +1076,15 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicFile != null -> visitor.visitPublicFile(publicFile)
-                publicLocation != null -> visitor.visitPublicLocation(publicLocation)
-                publicContact != null -> visitor.visitPublicContact(publicContact)
-                publicUnsupportedContent != null ->
-                    visitor.visitPublicUnsupportedContent(publicUnsupportedContent)
-                publicMessageHeader != null -> visitor.visitPublicMessageHeader(publicMessageHeader)
-                publicQuickReplies != null -> visitor.visitPublicQuickReplies(publicQuickReplies)
-                publicWhatsAppTemplateMetadata != null ->
-                    visitor.visitPublicWhatsAppTemplateMetadata(publicWhatsAppTemplateMetadata)
-                publicSocialMetadata != null ->
-                    visitor.visitPublicSocialMetadata(publicSocialMetadata)
+                file != null -> visitor.visitFile(file)
+                location != null -> visitor.visitLocation(location)
+                contact != null -> visitor.visitContact(contact)
+                unsupportedContent != null -> visitor.visitUnsupportedContent(unsupportedContent)
+                messageHeader != null -> visitor.visitMessageHeader(messageHeader)
+                quickReplies != null -> visitor.visitQuickReplies(quickReplies)
+                whatsappTemplateMetadata != null ->
+                    visitor.visitWhatsappTemplateMetadata(whatsappTemplateMetadata)
+                socialMediaMetadata != null -> visitor.visitSocialMediaMetadata(socialMediaMetadata)
                 else -> visitor.unknown(_json)
             }
 
@@ -1090,44 +1106,42 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicFile(publicFile: PublicFile) {
-                        publicFile.validate()
+                    override fun visitFile(file: PublicFile) {
+                        file.validate()
                     }
 
-                    override fun visitPublicLocation(publicLocation: PublicLocation) {
-                        publicLocation.validate()
+                    override fun visitLocation(location: PublicLocation) {
+                        location.validate()
                     }
 
-                    override fun visitPublicContact(publicContact: PublicContact) {
-                        publicContact.validate()
+                    override fun visitContact(contact: PublicContact) {
+                        contact.validate()
                     }
 
-                    override fun visitPublicUnsupportedContent(
-                        publicUnsupportedContent: PublicUnsupportedContent
+                    override fun visitUnsupportedContent(
+                        unsupportedContent: PublicUnsupportedContent
                     ) {
-                        publicUnsupportedContent.validate()
+                        unsupportedContent.validate()
                     }
 
-                    override fun visitPublicMessageHeader(
-                        publicMessageHeader: PublicMessageHeader
+                    override fun visitMessageHeader(messageHeader: PublicMessageHeader) {
+                        messageHeader.validate()
+                    }
+
+                    override fun visitQuickReplies(quickReplies: PublicQuickReplies) {
+                        quickReplies.validate()
+                    }
+
+                    override fun visitWhatsappTemplateMetadata(
+                        whatsappTemplateMetadata: PublicWhatsAppTemplateMetadata
                     ) {
-                        publicMessageHeader.validate()
+                        whatsappTemplateMetadata.validate()
                     }
 
-                    override fun visitPublicQuickReplies(publicQuickReplies: PublicQuickReplies) {
-                        publicQuickReplies.validate()
-                    }
-
-                    override fun visitPublicWhatsAppTemplateMetadata(
-                        publicWhatsAppTemplateMetadata: PublicWhatsAppTemplateMetadata
+                    override fun visitSocialMediaMetadata(
+                        socialMediaMetadata: PublicSocialMetadataAttachment
                     ) {
-                        publicWhatsAppTemplateMetadata.validate()
-                    }
-
-                    override fun visitPublicSocialMetadata(
-                        publicSocialMetadata: PublicSocialMetadataAttachment
-                    ) {
-                        publicSocialMetadata.validate()
+                        socialMediaMetadata.validate()
                     }
                 }
             )
@@ -1152,32 +1166,29 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicFile(publicFile: PublicFile) = publicFile.validity()
+                    override fun visitFile(file: PublicFile) = file.validity()
 
-                    override fun visitPublicLocation(publicLocation: PublicLocation) =
-                        publicLocation.validity()
+                    override fun visitLocation(location: PublicLocation) = location.validity()
 
-                    override fun visitPublicContact(publicContact: PublicContact) =
-                        publicContact.validity()
+                    override fun visitContact(contact: PublicContact) = contact.validity()
 
-                    override fun visitPublicUnsupportedContent(
-                        publicUnsupportedContent: PublicUnsupportedContent
-                    ) = publicUnsupportedContent.validity()
+                    override fun visitUnsupportedContent(
+                        unsupportedContent: PublicUnsupportedContent
+                    ) = unsupportedContent.validity()
 
-                    override fun visitPublicMessageHeader(
-                        publicMessageHeader: PublicMessageHeader
-                    ) = publicMessageHeader.validity()
+                    override fun visitMessageHeader(messageHeader: PublicMessageHeader) =
+                        messageHeader.validity()
 
-                    override fun visitPublicQuickReplies(publicQuickReplies: PublicQuickReplies) =
-                        publicQuickReplies.validity()
+                    override fun visitQuickReplies(quickReplies: PublicQuickReplies) =
+                        quickReplies.validity()
 
-                    override fun visitPublicWhatsAppTemplateMetadata(
-                        publicWhatsAppTemplateMetadata: PublicWhatsAppTemplateMetadata
-                    ) = publicWhatsAppTemplateMetadata.validity()
+                    override fun visitWhatsappTemplateMetadata(
+                        whatsappTemplateMetadata: PublicWhatsAppTemplateMetadata
+                    ) = whatsappTemplateMetadata.validity()
 
-                    override fun visitPublicSocialMetadata(
-                        publicSocialMetadata: PublicSocialMetadataAttachment
-                    ) = publicSocialMetadata.validity()
+                    override fun visitSocialMediaMetadata(
+                        socialMediaMetadata: PublicSocialMetadataAttachment
+                    ) = socialMediaMetadata.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1189,79 +1200,72 @@ private constructor(
             }
 
             return other is Attachment &&
-                publicFile == other.publicFile &&
-                publicLocation == other.publicLocation &&
-                publicContact == other.publicContact &&
-                publicUnsupportedContent == other.publicUnsupportedContent &&
-                publicMessageHeader == other.publicMessageHeader &&
-                publicQuickReplies == other.publicQuickReplies &&
-                publicWhatsAppTemplateMetadata == other.publicWhatsAppTemplateMetadata &&
-                publicSocialMetadata == other.publicSocialMetadata
+                file == other.file &&
+                location == other.location &&
+                contact == other.contact &&
+                unsupportedContent == other.unsupportedContent &&
+                messageHeader == other.messageHeader &&
+                quickReplies == other.quickReplies &&
+                whatsappTemplateMetadata == other.whatsappTemplateMetadata &&
+                socialMediaMetadata == other.socialMediaMetadata
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                publicFile,
-                publicLocation,
-                publicContact,
-                publicUnsupportedContent,
-                publicMessageHeader,
-                publicQuickReplies,
-                publicWhatsAppTemplateMetadata,
-                publicSocialMetadata,
+                file,
+                location,
+                contact,
+                unsupportedContent,
+                messageHeader,
+                quickReplies,
+                whatsappTemplateMetadata,
+                socialMediaMetadata,
             )
 
         override fun toString(): String =
             when {
-                publicFile != null -> "Attachment{publicFile=$publicFile}"
-                publicLocation != null -> "Attachment{publicLocation=$publicLocation}"
-                publicContact != null -> "Attachment{publicContact=$publicContact}"
-                publicUnsupportedContent != null ->
-                    "Attachment{publicUnsupportedContent=$publicUnsupportedContent}"
-                publicMessageHeader != null ->
-                    "Attachment{publicMessageHeader=$publicMessageHeader}"
-                publicQuickReplies != null -> "Attachment{publicQuickReplies=$publicQuickReplies}"
-                publicWhatsAppTemplateMetadata != null ->
-                    "Attachment{publicWhatsAppTemplateMetadata=$publicWhatsAppTemplateMetadata}"
-                publicSocialMetadata != null ->
-                    "Attachment{publicSocialMetadata=$publicSocialMetadata}"
+                file != null -> "Attachment{file=$file}"
+                location != null -> "Attachment{location=$location}"
+                contact != null -> "Attachment{contact=$contact}"
+                unsupportedContent != null -> "Attachment{unsupportedContent=$unsupportedContent}"
+                messageHeader != null -> "Attachment{messageHeader=$messageHeader}"
+                quickReplies != null -> "Attachment{quickReplies=$quickReplies}"
+                whatsappTemplateMetadata != null ->
+                    "Attachment{whatsappTemplateMetadata=$whatsappTemplateMetadata}"
+                socialMediaMetadata != null ->
+                    "Attachment{socialMediaMetadata=$socialMediaMetadata}"
                 _json != null -> "Attachment{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Attachment")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicFile(publicFile: PublicFile) = Attachment(publicFile = publicFile)
+            @JvmStatic fun ofFile(file: PublicFile) = Attachment(file = file)
+
+            @JvmStatic fun ofLocation(location: PublicLocation) = Attachment(location = location)
+
+            @JvmStatic fun ofContact(contact: PublicContact) = Attachment(contact = contact)
 
             @JvmStatic
-            fun ofPublicLocation(publicLocation: PublicLocation) =
-                Attachment(publicLocation = publicLocation)
+            fun ofUnsupportedContent(unsupportedContent: PublicUnsupportedContent) =
+                Attachment(unsupportedContent = unsupportedContent)
 
             @JvmStatic
-            fun ofPublicContact(publicContact: PublicContact) =
-                Attachment(publicContact = publicContact)
+            fun ofMessageHeader(messageHeader: PublicMessageHeader) =
+                Attachment(messageHeader = messageHeader)
 
             @JvmStatic
-            fun ofPublicUnsupportedContent(publicUnsupportedContent: PublicUnsupportedContent) =
-                Attachment(publicUnsupportedContent = publicUnsupportedContent)
+            fun ofQuickReplies(quickReplies: PublicQuickReplies) =
+                Attachment(quickReplies = quickReplies)
 
             @JvmStatic
-            fun ofPublicMessageHeader(publicMessageHeader: PublicMessageHeader) =
-                Attachment(publicMessageHeader = publicMessageHeader)
+            fun ofWhatsappTemplateMetadata(
+                whatsappTemplateMetadata: PublicWhatsAppTemplateMetadata
+            ) = Attachment(whatsappTemplateMetadata = whatsappTemplateMetadata)
 
             @JvmStatic
-            fun ofPublicQuickReplies(publicQuickReplies: PublicQuickReplies) =
-                Attachment(publicQuickReplies = publicQuickReplies)
-
-            @JvmStatic
-            fun ofPublicWhatsAppTemplateMetadata(
-                publicWhatsAppTemplateMetadata: PublicWhatsAppTemplateMetadata
-            ) = Attachment(publicWhatsAppTemplateMetadata = publicWhatsAppTemplateMetadata)
-
-            @JvmStatic
-            fun ofPublicSocialMetadata(publicSocialMetadata: PublicSocialMetadataAttachment) =
-                Attachment(publicSocialMetadata = publicSocialMetadata)
+            fun ofSocialMediaMetadata(socialMediaMetadata: PublicSocialMetadataAttachment) =
+                Attachment(socialMediaMetadata = socialMediaMetadata)
         }
 
         /**
@@ -1269,23 +1273,23 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicFile(publicFile: PublicFile): T
+            fun visitFile(file: PublicFile): T
 
-            fun visitPublicLocation(publicLocation: PublicLocation): T
+            fun visitLocation(location: PublicLocation): T
 
-            fun visitPublicContact(publicContact: PublicContact): T
+            fun visitContact(contact: PublicContact): T
 
-            fun visitPublicUnsupportedContent(publicUnsupportedContent: PublicUnsupportedContent): T
+            fun visitUnsupportedContent(unsupportedContent: PublicUnsupportedContent): T
 
-            fun visitPublicMessageHeader(publicMessageHeader: PublicMessageHeader): T
+            fun visitMessageHeader(messageHeader: PublicMessageHeader): T
 
-            fun visitPublicQuickReplies(publicQuickReplies: PublicQuickReplies): T
+            fun visitQuickReplies(quickReplies: PublicQuickReplies): T
 
-            fun visitPublicWhatsAppTemplateMetadata(
-                publicWhatsAppTemplateMetadata: PublicWhatsAppTemplateMetadata
+            fun visitWhatsappTemplateMetadata(
+                whatsappTemplateMetadata: PublicWhatsAppTemplateMetadata
             ): T
 
-            fun visitPublicSocialMetadata(publicSocialMetadata: PublicSocialMetadataAttachment): T
+            fun visitSocialMediaMetadata(socialMediaMetadata: PublicSocialMetadataAttachment): T
 
             /**
              * Maps an unknown variant of [Attachment] to a value of type [T].
@@ -1306,47 +1310,58 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Attachment {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicFile>())?.let {
-                                Attachment(publicFile = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicLocation>())?.let {
-                                Attachment(publicLocation = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicContact>())?.let {
-                                Attachment(publicContact = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicUnsupportedContent>())?.let {
-                                Attachment(publicUnsupportedContent = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicMessageHeader>())?.let {
-                                Attachment(publicMessageHeader = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicQuickReplies>())?.let {
-                                Attachment(publicQuickReplies = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicWhatsAppTemplateMetadata>())
-                                ?.let {
-                                    Attachment(publicWhatsAppTemplateMetadata = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicSocialMetadataAttachment>())
-                                ?.let { Attachment(publicSocialMetadata = it, _json = json) },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Attachment(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "FILE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicFile>())?.let {
+                            Attachment(file = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "LOCATION" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicLocation>())?.let {
+                            Attachment(location = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "CONTACT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicContact>())?.let {
+                            Attachment(contact = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "UNSUPPORTED_CONTENT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicUnsupportedContent>())
+                            ?.let { Attachment(unsupportedContent = it, _json = json) }
+                            ?: Attachment(_json = json)
+                    }
+                    "MESSAGE_HEADER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicMessageHeader>())?.let {
+                            Attachment(messageHeader = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "QUICK_REPLIES" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicQuickReplies>())?.let {
+                            Attachment(quickReplies = it, _json = json)
+                        } ?: Attachment(_json = json)
+                    }
+                    "WHATSAPP_TEMPLATE_METADATA" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicWhatsAppTemplateMetadata>(),
+                            )
+                            ?.let { Attachment(whatsappTemplateMetadata = it, _json = json) }
+                            ?: Attachment(_json = json)
+                    }
+                    "SOCIAL_MEDIA_METADATA" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicSocialMetadataAttachment>(),
+                            )
+                            ?.let { Attachment(socialMediaMetadata = it, _json = json) }
+                            ?: Attachment(_json = json)
+                    }
                 }
+
+                return Attachment(_json = json)
             }
         }
 
@@ -1358,19 +1373,17 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicFile != null -> generator.writeObject(value.publicFile)
-                    value.publicLocation != null -> generator.writeObject(value.publicLocation)
-                    value.publicContact != null -> generator.writeObject(value.publicContact)
-                    value.publicUnsupportedContent != null ->
-                        generator.writeObject(value.publicUnsupportedContent)
-                    value.publicMessageHeader != null ->
-                        generator.writeObject(value.publicMessageHeader)
-                    value.publicQuickReplies != null ->
-                        generator.writeObject(value.publicQuickReplies)
-                    value.publicWhatsAppTemplateMetadata != null ->
-                        generator.writeObject(value.publicWhatsAppTemplateMetadata)
-                    value.publicSocialMetadata != null ->
-                        generator.writeObject(value.publicSocialMetadata)
+                    value.file != null -> generator.writeObject(value.file)
+                    value.location != null -> generator.writeObject(value.location)
+                    value.contact != null -> generator.writeObject(value.contact)
+                    value.unsupportedContent != null ->
+                        generator.writeObject(value.unsupportedContent)
+                    value.messageHeader != null -> generator.writeObject(value.messageHeader)
+                    value.quickReplies != null -> generator.writeObject(value.quickReplies)
+                    value.whatsappTemplateMetadata != null ->
+                        generator.writeObject(value.whatsappTemplateMetadata)
+                    value.socialMediaMetadata != null ->
+                        generator.writeObject(value.socialMediaMetadata)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Attachment")
                 }

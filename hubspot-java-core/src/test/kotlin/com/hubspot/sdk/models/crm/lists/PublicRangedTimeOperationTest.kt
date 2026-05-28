@@ -53,7 +53,7 @@ internal class PublicRangedTimeOperationTest {
         assertThat(publicRangedTimeOperation.includeObjectsWithNoValueSet()).isEqualTo(true)
         assertThat(publicRangedTimeOperation.lowerBoundTimePoint())
             .isEqualTo(
-                PublicRangedTimeOperation.LowerBoundTimePoint.ofPublicDate(
+                PublicRangedTimeOperation.LowerBoundTimePoint.ofDate(
                     PublicDatePoint.builder()
                         .day(0)
                         .month(0)
@@ -75,7 +75,7 @@ internal class PublicRangedTimeOperationTest {
             .isEqualTo(PublicRangedTimeOperation.Type.TIME_RANGED)
         assertThat(publicRangedTimeOperation.upperBoundTimePoint())
             .isEqualTo(
-                PublicRangedTimeOperation.UpperBoundTimePoint.ofPublicDate(
+                PublicRangedTimeOperation.UpperBoundTimePoint.ofDate(
                     PublicDatePoint.builder()
                         .day(0)
                         .month(0)

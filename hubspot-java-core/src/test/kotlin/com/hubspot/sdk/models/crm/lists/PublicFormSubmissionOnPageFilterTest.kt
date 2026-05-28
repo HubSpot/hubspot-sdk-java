@@ -40,7 +40,7 @@ internal class PublicFormSubmissionOnPageFilterTest {
         assertThat(publicFormSubmissionOnPageFilter.pageId()).isEqualTo("pageId")
         assertThat(publicFormSubmissionOnPageFilter.coalescingRefineBy())
             .contains(
-                PublicFormSubmissionOnPageFilter.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicFormSubmissionOnPageFilter.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)
@@ -51,7 +51,7 @@ internal class PublicFormSubmissionOnPageFilterTest {
         assertThat(publicFormSubmissionOnPageFilter.formId()).contains("formId")
         assertThat(publicFormSubmissionOnPageFilter.pruningRefineBy())
             .contains(
-                PublicFormSubmissionOnPageFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicFormSubmissionOnPageFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

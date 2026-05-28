@@ -18,8 +18,8 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3Test {
 
     @Test
-    fun ofRandomAccessCollectionResponseWithTotal() {
-        val randomAccessCollectionResponseWithTotal =
+    fun ofRandomAccess() {
+        val randomAccess =
             RandomAccessCollectionResponseWithTotalHubDbTableRowV3.builder()
                 .addResult(HubDbTableRowV3Wrapper.builder().build())
                 .total(0)
@@ -32,41 +32,29 @@ internal class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3Test {
                 .build()
 
         val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                .ofRandomAccessCollectionResponseWithTotal(randomAccessCollectionResponseWithTotal)
+            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3.ofRandomAccess(randomAccess)
 
-        assertThat(
-                unifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                    .randomAccessCollectionResponseWithTotal()
-            )
-            .contains(randomAccessCollectionResponseWithTotal)
-        assertThat(
-                unifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                    .streamingCollectionResponseWithTotal()
-            )
-            .isEmpty
+        assertThat(unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.randomAccess())
+            .contains(randomAccess)
+        assertThat(unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.streaming()).isEmpty
     }
 
     @Test
-    fun ofRandomAccessCollectionResponseWithTotalRoundtrip() {
+    fun ofRandomAccessRoundtrip() {
         val jsonMapper = jsonMapper()
         val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                .ofRandomAccessCollectionResponseWithTotal(
-                    RandomAccessCollectionResponseWithTotalHubDbTableRowV3.builder()
-                        .addResult(HubDbTableRowV3Wrapper.builder().build())
-                        .total(0)
-                        .type(
-                            RandomAccessCollectionResponseWithTotalHubDbTableRowV3.Type
-                                .RANDOM_ACCESS
-                        )
-                        .paging(
-                            BoundedPaging.builder()
-                                .next(BoundedNextPage.builder().offset(0).link("link").build())
-                                .build()
-                        )
-                        .build()
-                )
+            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3.ofRandomAccess(
+                RandomAccessCollectionResponseWithTotalHubDbTableRowV3.builder()
+                    .addResult(HubDbTableRowV3Wrapper.builder().build())
+                    .total(0)
+                    .type(RandomAccessCollectionResponseWithTotalHubDbTableRowV3.Type.RANDOM_ACCESS)
+                    .paging(
+                        BoundedPaging.builder()
+                            .next(BoundedNextPage.builder().offset(0).link("link").build())
+                            .build()
+                    )
+                    .build()
+            )
 
         val roundtrippedUnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
             jsonMapper.readValue(
@@ -81,8 +69,8 @@ internal class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3Test {
     }
 
     @Test
-    fun ofStreamingCollectionResponseWithTotal() {
-        val streamingCollectionResponseWithTotal =
+    fun ofStreaming() {
+        val streaming =
             StreamingCollectionResponseWithTotalHubDbTableRowV3.builder()
                 .addResult(HubDbTableRowV3Wrapper.builder().build())
                 .total(0)
@@ -96,39 +84,30 @@ internal class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3Test {
                 .build()
 
         val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                .ofStreamingCollectionResponseWithTotal(streamingCollectionResponseWithTotal)
+            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3.ofStreaming(streaming)
 
-        assertThat(
-                unifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                    .randomAccessCollectionResponseWithTotal()
-            )
-            .isEmpty
-        assertThat(
-                unifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                    .streamingCollectionResponseWithTotal()
-            )
-            .contains(streamingCollectionResponseWithTotal)
+        assertThat(unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.randomAccess()).isEmpty
+        assertThat(unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.streaming())
+            .contains(streaming)
     }
 
     @Test
-    fun ofStreamingCollectionResponseWithTotalRoundtrip() {
+    fun ofStreamingRoundtrip() {
         val jsonMapper = jsonMapper()
         val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                .ofStreamingCollectionResponseWithTotal(
-                    StreamingCollectionResponseWithTotalHubDbTableRowV3.builder()
-                        .addResult(HubDbTableRowV3Wrapper.builder().build())
-                        .total(0)
-                        .type(StreamingCollectionResponseWithTotalHubDbTableRowV3.Type.STREAMING)
-                        .paging(
-                            Paging.builder()
-                                .next(NextPage.builder().after("after").link("link").build())
-                                .prev(PreviousPage.builder().before("before").link("link").build())
-                                .build()
-                        )
-                        .build()
-                )
+            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3.ofStreaming(
+                StreamingCollectionResponseWithTotalHubDbTableRowV3.builder()
+                    .addResult(HubDbTableRowV3Wrapper.builder().build())
+                    .total(0)
+                    .type(StreamingCollectionResponseWithTotalHubDbTableRowV3.Type.STREAMING)
+                    .paging(
+                        Paging.builder()
+                            .next(NextPage.builder().after("after").link("link").build())
+                            .prev(PreviousPage.builder().before("before").link("link").build())
+                            .build()
+                    )
+                    .build()
+            )
 
         val roundtrippedUnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
             jsonMapper.readValue(

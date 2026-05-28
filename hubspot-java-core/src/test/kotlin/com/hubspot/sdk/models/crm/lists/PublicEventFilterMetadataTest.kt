@@ -26,7 +26,7 @@ internal class PublicEventFilterMetadataTest {
 
         assertThat(publicEventFilterMetadata.operation())
             .isEqualTo(
-                PublicEventFilterMetadata.Operation.ofPublicBoolProperty(
+                PublicEventFilterMetadata.Operation.ofBool(
                     PublicBoolPropertyOperation.builder()
                         .includeObjectsWithNoValueSet(true)
                         .operationType(PublicBoolPropertyOperation.OperationType.BOOL)

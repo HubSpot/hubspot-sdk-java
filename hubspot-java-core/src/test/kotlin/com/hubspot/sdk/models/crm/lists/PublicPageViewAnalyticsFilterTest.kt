@@ -39,7 +39,7 @@ internal class PublicPageViewAnalyticsFilterTest {
         assertThat(publicPageViewAnalyticsFilter.pageUrl()).isEqualTo("pageUrl")
         assertThat(publicPageViewAnalyticsFilter.coalescingRefineBy())
             .contains(
-                PublicPageViewAnalyticsFilter.CoalescingRefineBy.ofPublicNumOccurrences(
+                PublicPageViewAnalyticsFilter.CoalescingRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)
@@ -50,7 +50,7 @@ internal class PublicPageViewAnalyticsFilterTest {
         assertThat(publicPageViewAnalyticsFilter.enableTracking()).contains(true)
         assertThat(publicPageViewAnalyticsFilter.pruningRefineBy())
             .contains(
-                PublicPageViewAnalyticsFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicPageViewAnalyticsFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

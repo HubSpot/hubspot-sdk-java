@@ -20,7 +20,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
@@ -195,45 +194,70 @@ private constructor(
             this.indexReference = indexReference
         }
 
-        /** Alias for calling [indexReference] with `IndexReference.ofPublicNow(publicNow)`. */
-        fun indexReference(publicNow: PublicNowReference) =
-            indexReference(IndexReference.ofPublicNow(publicNow))
+        /** Alias for calling [indexReference] with `IndexReference.ofNow(now)`. */
+        fun indexReference(now: PublicNowReference) = indexReference(IndexReference.ofNow(now))
 
-        /** Alias for calling [indexReference] with `IndexReference.ofPublicToday(publicToday)`. */
-        fun indexReference(publicToday: PublicTodayReference) =
-            indexReference(IndexReference.ofPublicToday(publicToday))
+        /** Alias for calling [indexReference] with `IndexReference.ofToday(today)`. */
+        fun indexReference(today: PublicTodayReference) =
+            indexReference(IndexReference.ofToday(today))
 
-        /** Alias for calling [indexReference] with `IndexReference.ofPublicWeek(publicWeek)`. */
-        fun indexReference(publicWeek: PublicWeekReference) =
-            indexReference(IndexReference.ofPublicWeek(publicWeek))
+        /** Alias for calling [indexReference] with `IndexReference.ofWeek(week)`. */
+        fun indexReference(week: PublicWeekReference) = indexReference(IndexReference.ofWeek(week))
 
         /**
-         * Alias for calling [indexReference] with
-         * `IndexReference.ofPublicFiscalQuarter(publicFiscalQuarter)`.
+         * Alias for calling [indexReference] with the following:
+         * ```java
+         * PublicWeekReference.builder()
+         *     .referenceType(PublicWeekReference.ReferenceType.WEEK)
+         *     .dayOfWeek(dayOfWeek)
+         *     .build()
+         * ```
          */
-        fun indexReference(publicFiscalQuarter: PublicFiscalQuarterReference) =
-            indexReference(IndexReference.ofPublicFiscalQuarter(publicFiscalQuarter))
+        fun weekIndexReference(dayOfWeek: PublicWeekReference.DayOfWeek) =
+            indexReference(
+                PublicWeekReference.builder()
+                    .referenceType(PublicWeekReference.ReferenceType.WEEK)
+                    .dayOfWeek(dayOfWeek)
+                    .build()
+            )
 
         /**
-         * Alias for calling [indexReference] with
-         * `IndexReference.ofPublicFiscalYear(publicFiscalYear)`.
+         * Alias for calling [indexReference] with `IndexReference.ofFiscalQuarter(fiscalQuarter)`.
          */
-        fun indexReference(publicFiscalYear: PublicFiscalYearReference) =
-            indexReference(IndexReference.ofPublicFiscalYear(publicFiscalYear))
+        fun indexReference(fiscalQuarter: PublicFiscalQuarterReference) =
+            indexReference(IndexReference.ofFiscalQuarter(fiscalQuarter))
 
-        /** Alias for calling [indexReference] with `IndexReference.ofPublicYear(publicYear)`. */
-        fun indexReference(publicYear: PublicYearReference) =
-            indexReference(IndexReference.ofPublicYear(publicYear))
+        /** Alias for calling [indexReference] with `IndexReference.ofFiscalYear(fiscalYear)`. */
+        fun indexReference(fiscalYear: PublicFiscalYearReference) =
+            indexReference(IndexReference.ofFiscalYear(fiscalYear))
+
+        /** Alias for calling [indexReference] with `IndexReference.ofYear(year)`. */
+        fun indexReference(year: PublicYearReference) = indexReference(IndexReference.ofYear(year))
+
+        /** Alias for calling [indexReference] with `IndexReference.ofQuarter(quarter)`. */
+        fun indexReference(quarter: PublicQuarterReference) =
+            indexReference(IndexReference.ofQuarter(quarter))
+
+        /** Alias for calling [indexReference] with `IndexReference.ofMonth(month)`. */
+        fun indexReference(month: PublicMonthReference) =
+            indexReference(IndexReference.ofMonth(month))
 
         /**
-         * Alias for calling [indexReference] with `IndexReference.ofPublicQuarter(publicQuarter)`.
+         * Alias for calling [indexReference] with the following:
+         * ```java
+         * PublicMonthReference.builder()
+         *     .referenceType(PublicMonthReference.ReferenceType.MONTH)
+         *     .day(day)
+         *     .build()
+         * ```
          */
-        fun indexReference(publicQuarter: PublicQuarterReference) =
-            indexReference(IndexReference.ofPublicQuarter(publicQuarter))
-
-        /** Alias for calling [indexReference] with `IndexReference.ofPublicMonth(publicMonth)`. */
-        fun indexReference(publicMonth: PublicMonthReference) =
-            indexReference(IndexReference.ofPublicMonth(publicMonth))
+        fun monthIndexReference(day: Int) =
+            indexReference(
+                PublicMonthReference.builder()
+                    .referenceType(PublicMonthReference.ReferenceType.MONTH)
+                    .day(day)
+                    .build()
+            )
 
         /** Defines the type of time (INDEXED). */
         fun timeType(timeType: TimeType) = timeType(JsonField.of(timeType))
@@ -379,68 +403,66 @@ private constructor(
     @JsonSerialize(using = IndexReference.Serializer::class)
     class IndexReference
     private constructor(
-        private val publicNow: PublicNowReference? = null,
-        private val publicToday: PublicTodayReference? = null,
-        private val publicWeek: PublicWeekReference? = null,
-        private val publicFiscalQuarter: PublicFiscalQuarterReference? = null,
-        private val publicFiscalYear: PublicFiscalYearReference? = null,
-        private val publicYear: PublicYearReference? = null,
-        private val publicQuarter: PublicQuarterReference? = null,
-        private val publicMonth: PublicMonthReference? = null,
+        private val now: PublicNowReference? = null,
+        private val today: PublicTodayReference? = null,
+        private val week: PublicWeekReference? = null,
+        private val fiscalQuarter: PublicFiscalQuarterReference? = null,
+        private val fiscalYear: PublicFiscalYearReference? = null,
+        private val year: PublicYearReference? = null,
+        private val quarter: PublicQuarterReference? = null,
+        private val month: PublicMonthReference? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicNow(): Optional<PublicNowReference> = Optional.ofNullable(publicNow)
+        fun now(): Optional<PublicNowReference> = Optional.ofNullable(now)
 
-        fun publicToday(): Optional<PublicTodayReference> = Optional.ofNullable(publicToday)
+        fun today(): Optional<PublicTodayReference> = Optional.ofNullable(today)
 
-        fun publicWeek(): Optional<PublicWeekReference> = Optional.ofNullable(publicWeek)
+        fun week(): Optional<PublicWeekReference> = Optional.ofNullable(week)
 
-        fun publicFiscalQuarter(): Optional<PublicFiscalQuarterReference> =
-            Optional.ofNullable(publicFiscalQuarter)
+        fun fiscalQuarter(): Optional<PublicFiscalQuarterReference> =
+            Optional.ofNullable(fiscalQuarter)
 
-        fun publicFiscalYear(): Optional<PublicFiscalYearReference> =
-            Optional.ofNullable(publicFiscalYear)
+        fun fiscalYear(): Optional<PublicFiscalYearReference> = Optional.ofNullable(fiscalYear)
 
-        fun publicYear(): Optional<PublicYearReference> = Optional.ofNullable(publicYear)
+        fun year(): Optional<PublicYearReference> = Optional.ofNullable(year)
 
-        fun publicQuarter(): Optional<PublicQuarterReference> = Optional.ofNullable(publicQuarter)
+        fun quarter(): Optional<PublicQuarterReference> = Optional.ofNullable(quarter)
 
-        fun publicMonth(): Optional<PublicMonthReference> = Optional.ofNullable(publicMonth)
+        fun month(): Optional<PublicMonthReference> = Optional.ofNullable(month)
 
-        fun isPublicNow(): Boolean = publicNow != null
+        fun isNow(): Boolean = now != null
 
-        fun isPublicToday(): Boolean = publicToday != null
+        fun isToday(): Boolean = today != null
 
-        fun isPublicWeek(): Boolean = publicWeek != null
+        fun isWeek(): Boolean = week != null
 
-        fun isPublicFiscalQuarter(): Boolean = publicFiscalQuarter != null
+        fun isFiscalQuarter(): Boolean = fiscalQuarter != null
 
-        fun isPublicFiscalYear(): Boolean = publicFiscalYear != null
+        fun isFiscalYear(): Boolean = fiscalYear != null
 
-        fun isPublicYear(): Boolean = publicYear != null
+        fun isYear(): Boolean = year != null
 
-        fun isPublicQuarter(): Boolean = publicQuarter != null
+        fun isQuarter(): Boolean = quarter != null
 
-        fun isPublicMonth(): Boolean = publicMonth != null
+        fun isMonth(): Boolean = month != null
 
-        fun asPublicNow(): PublicNowReference = publicNow.getOrThrow("publicNow")
+        fun asNow(): PublicNowReference = now.getOrThrow("now")
 
-        fun asPublicToday(): PublicTodayReference = publicToday.getOrThrow("publicToday")
+        fun asToday(): PublicTodayReference = today.getOrThrow("today")
 
-        fun asPublicWeek(): PublicWeekReference = publicWeek.getOrThrow("publicWeek")
+        fun asWeek(): PublicWeekReference = week.getOrThrow("week")
 
-        fun asPublicFiscalQuarter(): PublicFiscalQuarterReference =
-            publicFiscalQuarter.getOrThrow("publicFiscalQuarter")
+        fun asFiscalQuarter(): PublicFiscalQuarterReference =
+            fiscalQuarter.getOrThrow("fiscalQuarter")
 
-        fun asPublicFiscalYear(): PublicFiscalYearReference =
-            publicFiscalYear.getOrThrow("publicFiscalYear")
+        fun asFiscalYear(): PublicFiscalYearReference = fiscalYear.getOrThrow("fiscalYear")
 
-        fun asPublicYear(): PublicYearReference = publicYear.getOrThrow("publicYear")
+        fun asYear(): PublicYearReference = year.getOrThrow("year")
 
-        fun asPublicQuarter(): PublicQuarterReference = publicQuarter.getOrThrow("publicQuarter")
+        fun asQuarter(): PublicQuarterReference = quarter.getOrThrow("quarter")
 
-        fun asPublicMonth(): PublicMonthReference = publicMonth.getOrThrow("publicMonth")
+        fun asMonth(): PublicMonthReference = month.getOrThrow("month")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -456,8 +478,8 @@ private constructor(
          *
          * Optional<String> result = indexReference.accept(new IndexReference.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitPublicNow(PublicNowReference publicNow) {
-         *         return Optional.of(publicNow.toString());
+         *     public Optional<String> visitNow(PublicNowReference now) {
+         *         return Optional.of(now.toString());
          *     }
          *
          *     // ...
@@ -475,14 +497,14 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicNow != null -> visitor.visitPublicNow(publicNow)
-                publicToday != null -> visitor.visitPublicToday(publicToday)
-                publicWeek != null -> visitor.visitPublicWeek(publicWeek)
-                publicFiscalQuarter != null -> visitor.visitPublicFiscalQuarter(publicFiscalQuarter)
-                publicFiscalYear != null -> visitor.visitPublicFiscalYear(publicFiscalYear)
-                publicYear != null -> visitor.visitPublicYear(publicYear)
-                publicQuarter != null -> visitor.visitPublicQuarter(publicQuarter)
-                publicMonth != null -> visitor.visitPublicMonth(publicMonth)
+                now != null -> visitor.visitNow(now)
+                today != null -> visitor.visitToday(today)
+                week != null -> visitor.visitWeek(week)
+                fiscalQuarter != null -> visitor.visitFiscalQuarter(fiscalQuarter)
+                fiscalYear != null -> visitor.visitFiscalYear(fiscalYear)
+                year != null -> visitor.visitYear(year)
+                quarter != null -> visitor.visitQuarter(quarter)
+                month != null -> visitor.visitMonth(month)
                 else -> visitor.unknown(_json)
             }
 
@@ -504,40 +526,36 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicNow(publicNow: PublicNowReference) {
-                        publicNow.validate()
+                    override fun visitNow(now: PublicNowReference) {
+                        now.validate()
                     }
 
-                    override fun visitPublicToday(publicToday: PublicTodayReference) {
-                        publicToday.validate()
+                    override fun visitToday(today: PublicTodayReference) {
+                        today.validate()
                     }
 
-                    override fun visitPublicWeek(publicWeek: PublicWeekReference) {
-                        publicWeek.validate()
+                    override fun visitWeek(week: PublicWeekReference) {
+                        week.validate()
                     }
 
-                    override fun visitPublicFiscalQuarter(
-                        publicFiscalQuarter: PublicFiscalQuarterReference
-                    ) {
-                        publicFiscalQuarter.validate()
+                    override fun visitFiscalQuarter(fiscalQuarter: PublicFiscalQuarterReference) {
+                        fiscalQuarter.validate()
                     }
 
-                    override fun visitPublicFiscalYear(
-                        publicFiscalYear: PublicFiscalYearReference
-                    ) {
-                        publicFiscalYear.validate()
+                    override fun visitFiscalYear(fiscalYear: PublicFiscalYearReference) {
+                        fiscalYear.validate()
                     }
 
-                    override fun visitPublicYear(publicYear: PublicYearReference) {
-                        publicYear.validate()
+                    override fun visitYear(year: PublicYearReference) {
+                        year.validate()
                     }
 
-                    override fun visitPublicQuarter(publicQuarter: PublicQuarterReference) {
-                        publicQuarter.validate()
+                    override fun visitQuarter(quarter: PublicQuarterReference) {
+                        quarter.validate()
                     }
 
-                    override fun visitPublicMonth(publicMonth: PublicMonthReference) {
-                        publicMonth.validate()
+                    override fun visitMonth(month: PublicMonthReference) {
+                        month.validate()
                     }
                 }
             )
@@ -562,31 +580,23 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicNow(publicNow: PublicNowReference) =
-                        publicNow.validity()
+                    override fun visitNow(now: PublicNowReference) = now.validity()
 
-                    override fun visitPublicToday(publicToday: PublicTodayReference) =
-                        publicToday.validity()
+                    override fun visitToday(today: PublicTodayReference) = today.validity()
 
-                    override fun visitPublicWeek(publicWeek: PublicWeekReference) =
-                        publicWeek.validity()
+                    override fun visitWeek(week: PublicWeekReference) = week.validity()
 
-                    override fun visitPublicFiscalQuarter(
-                        publicFiscalQuarter: PublicFiscalQuarterReference
-                    ) = publicFiscalQuarter.validity()
+                    override fun visitFiscalQuarter(fiscalQuarter: PublicFiscalQuarterReference) =
+                        fiscalQuarter.validity()
 
-                    override fun visitPublicFiscalYear(
-                        publicFiscalYear: PublicFiscalYearReference
-                    ) = publicFiscalYear.validity()
+                    override fun visitFiscalYear(fiscalYear: PublicFiscalYearReference) =
+                        fiscalYear.validity()
 
-                    override fun visitPublicYear(publicYear: PublicYearReference) =
-                        publicYear.validity()
+                    override fun visitYear(year: PublicYearReference) = year.validity()
 
-                    override fun visitPublicQuarter(publicQuarter: PublicQuarterReference) =
-                        publicQuarter.validity()
+                    override fun visitQuarter(quarter: PublicQuarterReference) = quarter.validity()
 
-                    override fun visitPublicMonth(publicMonth: PublicMonthReference) =
-                        publicMonth.validity()
+                    override fun visitMonth(month: PublicMonthReference) = month.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -598,75 +608,55 @@ private constructor(
             }
 
             return other is IndexReference &&
-                publicNow == other.publicNow &&
-                publicToday == other.publicToday &&
-                publicWeek == other.publicWeek &&
-                publicFiscalQuarter == other.publicFiscalQuarter &&
-                publicFiscalYear == other.publicFiscalYear &&
-                publicYear == other.publicYear &&
-                publicQuarter == other.publicQuarter &&
-                publicMonth == other.publicMonth
+                now == other.now &&
+                today == other.today &&
+                week == other.week &&
+                fiscalQuarter == other.fiscalQuarter &&
+                fiscalYear == other.fiscalYear &&
+                year == other.year &&
+                quarter == other.quarter &&
+                month == other.month
         }
 
         override fun hashCode(): Int =
-            Objects.hash(
-                publicNow,
-                publicToday,
-                publicWeek,
-                publicFiscalQuarter,
-                publicFiscalYear,
-                publicYear,
-                publicQuarter,
-                publicMonth,
-            )
+            Objects.hash(now, today, week, fiscalQuarter, fiscalYear, year, quarter, month)
 
         override fun toString(): String =
             when {
-                publicNow != null -> "IndexReference{publicNow=$publicNow}"
-                publicToday != null -> "IndexReference{publicToday=$publicToday}"
-                publicWeek != null -> "IndexReference{publicWeek=$publicWeek}"
-                publicFiscalQuarter != null ->
-                    "IndexReference{publicFiscalQuarter=$publicFiscalQuarter}"
-                publicFiscalYear != null -> "IndexReference{publicFiscalYear=$publicFiscalYear}"
-                publicYear != null -> "IndexReference{publicYear=$publicYear}"
-                publicQuarter != null -> "IndexReference{publicQuarter=$publicQuarter}"
-                publicMonth != null -> "IndexReference{publicMonth=$publicMonth}"
+                now != null -> "IndexReference{now=$now}"
+                today != null -> "IndexReference{today=$today}"
+                week != null -> "IndexReference{week=$week}"
+                fiscalQuarter != null -> "IndexReference{fiscalQuarter=$fiscalQuarter}"
+                fiscalYear != null -> "IndexReference{fiscalYear=$fiscalYear}"
+                year != null -> "IndexReference{year=$year}"
+                quarter != null -> "IndexReference{quarter=$quarter}"
+                month != null -> "IndexReference{month=$month}"
                 _json != null -> "IndexReference{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid IndexReference")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicNow(publicNow: PublicNowReference) = IndexReference(publicNow = publicNow)
+            @JvmStatic fun ofNow(now: PublicNowReference) = IndexReference(now = now)
+
+            @JvmStatic fun ofToday(today: PublicTodayReference) = IndexReference(today = today)
+
+            @JvmStatic fun ofWeek(week: PublicWeekReference) = IndexReference(week = week)
 
             @JvmStatic
-            fun ofPublicToday(publicToday: PublicTodayReference) =
-                IndexReference(publicToday = publicToday)
+            fun ofFiscalQuarter(fiscalQuarter: PublicFiscalQuarterReference) =
+                IndexReference(fiscalQuarter = fiscalQuarter)
 
             @JvmStatic
-            fun ofPublicWeek(publicWeek: PublicWeekReference) =
-                IndexReference(publicWeek = publicWeek)
+            fun ofFiscalYear(fiscalYear: PublicFiscalYearReference) =
+                IndexReference(fiscalYear = fiscalYear)
+
+            @JvmStatic fun ofYear(year: PublicYearReference) = IndexReference(year = year)
 
             @JvmStatic
-            fun ofPublicFiscalQuarter(publicFiscalQuarter: PublicFiscalQuarterReference) =
-                IndexReference(publicFiscalQuarter = publicFiscalQuarter)
+            fun ofQuarter(quarter: PublicQuarterReference) = IndexReference(quarter = quarter)
 
-            @JvmStatic
-            fun ofPublicFiscalYear(publicFiscalYear: PublicFiscalYearReference) =
-                IndexReference(publicFiscalYear = publicFiscalYear)
-
-            @JvmStatic
-            fun ofPublicYear(publicYear: PublicYearReference) =
-                IndexReference(publicYear = publicYear)
-
-            @JvmStatic
-            fun ofPublicQuarter(publicQuarter: PublicQuarterReference) =
-                IndexReference(publicQuarter = publicQuarter)
-
-            @JvmStatic
-            fun ofPublicMonth(publicMonth: PublicMonthReference) =
-                IndexReference(publicMonth = publicMonth)
+            @JvmStatic fun ofMonth(month: PublicMonthReference) = IndexReference(month = month)
         }
 
         /**
@@ -675,21 +665,21 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicNow(publicNow: PublicNowReference): T
+            fun visitNow(now: PublicNowReference): T
 
-            fun visitPublicToday(publicToday: PublicTodayReference): T
+            fun visitToday(today: PublicTodayReference): T
 
-            fun visitPublicWeek(publicWeek: PublicWeekReference): T
+            fun visitWeek(week: PublicWeekReference): T
 
-            fun visitPublicFiscalQuarter(publicFiscalQuarter: PublicFiscalQuarterReference): T
+            fun visitFiscalQuarter(fiscalQuarter: PublicFiscalQuarterReference): T
 
-            fun visitPublicFiscalYear(publicFiscalYear: PublicFiscalYearReference): T
+            fun visitFiscalYear(fiscalYear: PublicFiscalYearReference): T
 
-            fun visitPublicYear(publicYear: PublicYearReference): T
+            fun visitYear(year: PublicYearReference): T
 
-            fun visitPublicQuarter(publicQuarter: PublicQuarterReference): T
+            fun visitQuarter(quarter: PublicQuarterReference): T
 
-            fun visitPublicMonth(publicMonth: PublicMonthReference): T
+            fun visitMonth(month: PublicMonthReference): T
 
             /**
              * Maps an unknown variant of [IndexReference] to a value of type [T].
@@ -710,46 +700,53 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): IndexReference {
                 val json = JsonValue.fromJsonNode(node)
+                val referenceType =
+                    json.asObject().getOrNull()?.get("referenceType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicNowReference>())?.let {
-                                IndexReference(publicNow = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicTodayReference>())?.let {
-                                IndexReference(publicToday = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicWeekReference>())?.let {
-                                IndexReference(publicWeek = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicFiscalQuarterReference>())
-                                ?.let { IndexReference(publicFiscalQuarter = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicFiscalYearReference>())?.let {
-                                IndexReference(publicFiscalYear = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicYearReference>())?.let {
-                                IndexReference(publicYear = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicQuarterReference>())?.let {
-                                IndexReference(publicQuarter = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicMonthReference>())?.let {
-                                IndexReference(publicMonth = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> IndexReference(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (referenceType) {
+                    "NOW" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNowReference>())?.let {
+                            IndexReference(now = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "TODAY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicTodayReference>())?.let {
+                            IndexReference(today = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "WEEK" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicWeekReference>())?.let {
+                            IndexReference(week = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "FISCAL_QUARTER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicFiscalQuarterReference>())
+                            ?.let { IndexReference(fiscalQuarter = it, _json = json) }
+                            ?: IndexReference(_json = json)
+                    }
+                    "FISCAL_YEAR" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicFiscalYearReference>())
+                            ?.let { IndexReference(fiscalYear = it, _json = json) }
+                            ?: IndexReference(_json = json)
+                    }
+                    "YEAR" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicYearReference>())?.let {
+                            IndexReference(year = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "QUARTER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicQuarterReference>())?.let {
+                            IndexReference(quarter = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
+                    "MONTH" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicMonthReference>())?.let {
+                            IndexReference(month = it, _json = json)
+                        } ?: IndexReference(_json = json)
+                    }
                 }
+
+                return IndexReference(_json = json)
             }
         }
 
@@ -761,15 +758,14 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicNow != null -> generator.writeObject(value.publicNow)
-                    value.publicToday != null -> generator.writeObject(value.publicToday)
-                    value.publicWeek != null -> generator.writeObject(value.publicWeek)
-                    value.publicFiscalQuarter != null ->
-                        generator.writeObject(value.publicFiscalQuarter)
-                    value.publicFiscalYear != null -> generator.writeObject(value.publicFiscalYear)
-                    value.publicYear != null -> generator.writeObject(value.publicYear)
-                    value.publicQuarter != null -> generator.writeObject(value.publicQuarter)
-                    value.publicMonth != null -> generator.writeObject(value.publicMonth)
+                    value.now != null -> generator.writeObject(value.now)
+                    value.today != null -> generator.writeObject(value.today)
+                    value.week != null -> generator.writeObject(value.week)
+                    value.fiscalQuarter != null -> generator.writeObject(value.fiscalQuarter)
+                    value.fiscalYear != null -> generator.writeObject(value.fiscalYear)
+                    value.year != null -> generator.writeObject(value.year)
+                    value.quarter != null -> generator.writeObject(value.quarter)
+                    value.month != null -> generator.writeObject(value.month)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid IndexReference")
                 }

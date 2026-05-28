@@ -15,8 +15,8 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class SubscriptionUpsertRequestTest {
 
     @Test
-    fun ofObjectSubscriptionUpsertRequest() {
-        val objectSubscriptionUpsertRequest =
+    fun ofObject() {
+        val object_ =
             ObjectSubscriptionUpsertRequest.builder()
                 .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
                 .addObjectId(0L)
@@ -26,13 +26,9 @@ internal class SubscriptionUpsertRequestTest {
                 .subscriptionType(ObjectSubscriptionUpsertRequest.SubscriptionType.OBJECT)
                 .build()
 
-        val subscriptionUpsertRequest =
-            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
-                objectSubscriptionUpsertRequest
-            )
+        val subscriptionUpsertRequest = SubscriptionUpsertRequest.ofObject(object_)
 
-        assertThat(subscriptionUpsertRequest.objectSubscriptionUpsertRequest())
-            .contains(objectSubscriptionUpsertRequest)
+        assertThat(subscriptionUpsertRequest.object_()).contains(object_)
         assertThat(subscriptionUpsertRequest.association()).isEmpty
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
         assertThat(subscriptionUpsertRequest.listMembership()).isEmpty
@@ -40,10 +36,10 @@ internal class SubscriptionUpsertRequestTest {
     }
 
     @Test
-    fun ofObjectSubscriptionUpsertRequestRoundtrip() {
+    fun ofObjectRoundtrip() {
         val jsonMapper = jsonMapper()
         val subscriptionUpsertRequest =
-            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
+            SubscriptionUpsertRequest.ofObject(
                 ObjectSubscriptionUpsertRequest.builder()
                     .addAction(ObjectSubscriptionUpsertRequest.Action.CREATE)
                     .addObjectId(0L)
@@ -77,7 +73,7 @@ internal class SubscriptionUpsertRequestTest {
 
         val subscriptionUpsertRequest = SubscriptionUpsertRequest.ofAssociation(association)
 
-        assertThat(subscriptionUpsertRequest.objectSubscriptionUpsertRequest()).isEmpty
+        assertThat(subscriptionUpsertRequest.object_()).isEmpty
         assertThat(subscriptionUpsertRequest.association()).contains(association)
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
         assertThat(subscriptionUpsertRequest.listMembership()).isEmpty
@@ -124,7 +120,7 @@ internal class SubscriptionUpsertRequestTest {
         val subscriptionUpsertRequest =
             SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent)
 
-        assertThat(subscriptionUpsertRequest.objectSubscriptionUpsertRequest()).isEmpty
+        assertThat(subscriptionUpsertRequest.object_()).isEmpty
         assertThat(subscriptionUpsertRequest.association()).isEmpty
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).contains(appLifecycleEvent)
         assertThat(subscriptionUpsertRequest.listMembership()).isEmpty
@@ -170,7 +166,7 @@ internal class SubscriptionUpsertRequestTest {
 
         val subscriptionUpsertRequest = SubscriptionUpsertRequest.ofListMembership(listMembership)
 
-        assertThat(subscriptionUpsertRequest.objectSubscriptionUpsertRequest()).isEmpty
+        assertThat(subscriptionUpsertRequest.object_()).isEmpty
         assertThat(subscriptionUpsertRequest.association()).isEmpty
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
         assertThat(subscriptionUpsertRequest.listMembership()).contains(listMembership)
@@ -218,7 +214,7 @@ internal class SubscriptionUpsertRequestTest {
         val subscriptionUpsertRequest =
             SubscriptionUpsertRequest.ofGdprPrivacyDeletion(gdprPrivacyDeletion)
 
-        assertThat(subscriptionUpsertRequest.objectSubscriptionUpsertRequest()).isEmpty
+        assertThat(subscriptionUpsertRequest.object_()).isEmpty
         assertThat(subscriptionUpsertRequest.association()).isEmpty
         assertThat(subscriptionUpsertRequest.appLifecycleEvent()).isEmpty
         assertThat(subscriptionUpsertRequest.listMembership()).isEmpty

@@ -19,7 +19,6 @@ import com.hubspot.sdk.core.ExcludeMissing
 import com.hubspot.sdk.core.JsonField
 import com.hubspot.sdk.core.JsonMissing
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.checkKnown
 import com.hubspot.sdk.core.checkRequired
 import com.hubspot.sdk.core.getOrThrow
@@ -126,19 +125,47 @@ private constructor(
                 }
         }
 
-        /**
-         * Alias for calling [addCallerIdMatch] with
-         * `CallerIdMatch.ofContactCallerId(contactCallerId)`.
-         */
-        fun addCallerIdMatch(contactCallerId: ContactCallerId) =
-            addCallerIdMatch(CallerIdMatch.ofContactCallerId(contactCallerId))
+        /** Alias for calling [addCallerIdMatch] with `CallerIdMatch.ofContact(contact)`. */
+        fun addCallerIdMatch(contact: ContactCallerId) =
+            addCallerIdMatch(CallerIdMatch.ofContact(contact))
 
         /**
-         * Alias for calling [addCallerIdMatch] with
-         * `CallerIdMatch.ofCompanyCallerId(companyCallerId)`.
+         * Alias for calling [addCallerIdMatch] with the following:
+         * ```java
+         * ContactCallerId.builder()
+         *     .callerIdType(ContactCallerId.CallerIdType.CONTACT)
+         *     .objectCoordinates(objectCoordinates)
+         *     .build()
+         * ```
          */
-        fun addCallerIdMatch(companyCallerId: CompanyCallerId) =
-            addCallerIdMatch(CallerIdMatch.ofCompanyCallerId(companyCallerId))
+        fun addContactCallerIdMatch(objectCoordinates: ObjectCoordinates) =
+            addCallerIdMatch(
+                ContactCallerId.builder()
+                    .callerIdType(ContactCallerId.CallerIdType.CONTACT)
+                    .objectCoordinates(objectCoordinates)
+                    .build()
+            )
+
+        /** Alias for calling [addCallerIdMatch] with `CallerIdMatch.ofCompany(company)`. */
+        fun addCallerIdMatch(company: CompanyCallerId) =
+            addCallerIdMatch(CallerIdMatch.ofCompany(company))
+
+        /**
+         * Alias for calling [addCallerIdMatch] with the following:
+         * ```java
+         * CompanyCallerId.builder()
+         *     .callerIdType(CompanyCallerId.CallerIdType.COMPANY)
+         *     .objectCoordinates(objectCoordinates)
+         *     .build()
+         * ```
+         */
+        fun addCompanyCallerIdMatch(objectCoordinates: ObjectCoordinates) =
+            addCallerIdMatch(
+                CompanyCallerId.builder()
+                    .callerIdType(CompanyCallerId.CallerIdType.COMPANY)
+                    .objectCoordinates(objectCoordinates)
+                    .build()
+            )
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -218,22 +245,22 @@ private constructor(
     @JsonSerialize(using = CallerIdMatch.Serializer::class)
     class CallerIdMatch
     private constructor(
-        private val contactCallerId: ContactCallerId? = null,
-        private val companyCallerId: CompanyCallerId? = null,
+        private val contact: ContactCallerId? = null,
+        private val company: CompanyCallerId? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun contactCallerId(): Optional<ContactCallerId> = Optional.ofNullable(contactCallerId)
+        fun contact(): Optional<ContactCallerId> = Optional.ofNullable(contact)
 
-        fun companyCallerId(): Optional<CompanyCallerId> = Optional.ofNullable(companyCallerId)
+        fun company(): Optional<CompanyCallerId> = Optional.ofNullable(company)
 
-        fun isContactCallerId(): Boolean = contactCallerId != null
+        fun isContact(): Boolean = contact != null
 
-        fun isCompanyCallerId(): Boolean = companyCallerId != null
+        fun isCompany(): Boolean = company != null
 
-        fun asContactCallerId(): ContactCallerId = contactCallerId.getOrThrow("contactCallerId")
+        fun asContact(): ContactCallerId = contact.getOrThrow("contact")
 
-        fun asCompanyCallerId(): CompanyCallerId = companyCallerId.getOrThrow("companyCallerId")
+        fun asCompany(): CompanyCallerId = company.getOrThrow("company")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -249,8 +276,8 @@ private constructor(
          *
          * Optional<String> result = callerIdMatch.accept(new CallerIdMatch.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitContactCallerId(ContactCallerId contactCallerId) {
-         *         return Optional.of(contactCallerId.toString());
+         *     public Optional<String> visitContact(ContactCallerId contact) {
+         *         return Optional.of(contact.toString());
          *     }
          *
          *     // ...
@@ -268,8 +295,8 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                contactCallerId != null -> visitor.visitContactCallerId(contactCallerId)
-                companyCallerId != null -> visitor.visitCompanyCallerId(companyCallerId)
+                contact != null -> visitor.visitContact(contact)
+                company != null -> visitor.visitCompany(company)
                 else -> visitor.unknown(_json)
             }
 
@@ -291,12 +318,12 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitContactCallerId(contactCallerId: ContactCallerId) {
-                        contactCallerId.validate()
+                    override fun visitContact(contact: ContactCallerId) {
+                        contact.validate()
                     }
 
-                    override fun visitCompanyCallerId(companyCallerId: CompanyCallerId) {
-                        companyCallerId.validate()
+                    override fun visitCompany(company: CompanyCallerId) {
+                        company.validate()
                     }
                 }
             )
@@ -321,11 +348,9 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitContactCallerId(contactCallerId: ContactCallerId) =
-                        contactCallerId.validity()
+                    override fun visitContact(contact: ContactCallerId) = contact.validity()
 
-                    override fun visitCompanyCallerId(companyCallerId: CompanyCallerId) =
-                        companyCallerId.validity()
+                    override fun visitCompany(company: CompanyCallerId) = company.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -336,30 +361,24 @@ private constructor(
                 return true
             }
 
-            return other is CallerIdMatch &&
-                contactCallerId == other.contactCallerId &&
-                companyCallerId == other.companyCallerId
+            return other is CallerIdMatch && contact == other.contact && company == other.company
         }
 
-        override fun hashCode(): Int = Objects.hash(contactCallerId, companyCallerId)
+        override fun hashCode(): Int = Objects.hash(contact, company)
 
         override fun toString(): String =
             when {
-                contactCallerId != null -> "CallerIdMatch{contactCallerId=$contactCallerId}"
-                companyCallerId != null -> "CallerIdMatch{companyCallerId=$companyCallerId}"
+                contact != null -> "CallerIdMatch{contact=$contact}"
+                company != null -> "CallerIdMatch{company=$company}"
                 _json != null -> "CallerIdMatch{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid CallerIdMatch")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofContactCallerId(contactCallerId: ContactCallerId) =
-                CallerIdMatch(contactCallerId = contactCallerId)
+            @JvmStatic fun ofContact(contact: ContactCallerId) = CallerIdMatch(contact = contact)
 
-            @JvmStatic
-            fun ofCompanyCallerId(companyCallerId: CompanyCallerId) =
-                CallerIdMatch(companyCallerId = companyCallerId)
+            @JvmStatic fun ofCompany(company: CompanyCallerId) = CallerIdMatch(company = company)
         }
 
         /**
@@ -368,9 +387,9 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitContactCallerId(contactCallerId: ContactCallerId): T
+            fun visitContact(contact: ContactCallerId): T
 
-            fun visitCompanyCallerId(companyCallerId: CompanyCallerId): T
+            fun visitCompany(company: CompanyCallerId): T
 
             /**
              * Maps an unknown variant of [CallerIdMatch] to a value of type [T].
@@ -391,29 +410,23 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): CallerIdMatch {
                 val json = JsonValue.fromJsonNode(node)
+                val callerIdType =
+                    json.asObject().getOrNull()?.get("callerIdType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<ContactCallerId>())?.let {
-                                CallerIdMatch(contactCallerId = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<CompanyCallerId>())?.let {
-                                CallerIdMatch(companyCallerId = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> CallerIdMatch(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (callerIdType) {
+                    "CONTACT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ContactCallerId>())?.let {
+                            CallerIdMatch(contact = it, _json = json)
+                        } ?: CallerIdMatch(_json = json)
+                    }
+                    "COMPANY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<CompanyCallerId>())?.let {
+                            CallerIdMatch(company = it, _json = json)
+                        } ?: CallerIdMatch(_json = json)
+                    }
                 }
+
+                return CallerIdMatch(_json = json)
             }
         }
 
@@ -425,8 +438,8 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.contactCallerId != null -> generator.writeObject(value.contactCallerId)
-                    value.companyCallerId != null -> generator.writeObject(value.companyCallerId)
+                    value.contact != null -> generator.writeObject(value.contact)
+                    value.company != null -> generator.writeObject(value.company)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid CallerIdMatch")
                 }

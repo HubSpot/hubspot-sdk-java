@@ -35,7 +35,7 @@ internal class PropertyFilterTest {
         assertThat(propertyFilter.filterType()).isEqualTo(PropertyFilter.FilterType.PROPERTY)
         assertThat(propertyFilter.operation())
             .isEqualTo(
-                PropertyFilter.Operation.ofBoolProperty(
+                PropertyFilter.Operation.ofBool(
                     BoolPropertyOperation.builder()
                         .includeObjectsWithNoValueSet(true)
                         .operationType("operationType")

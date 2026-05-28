@@ -12,30 +12,30 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.BaseDeserializer
 import com.hubspot.sdk.core.BaseSerializer
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 @JsonDeserialize(using = PublicListConversionTime.Deserializer::class)
 @JsonSerialize(using = PublicListConversionTime.Serializer::class)
 class PublicListConversionTime
 private constructor(
-    private val date: PublicListConversionDate? = null,
+    private val conversionDate: PublicListConversionDate? = null,
     private val inactivity: PublicListConversionInactivity? = null,
     private val _json: JsonValue? = null,
 ) {
 
-    fun date(): Optional<PublicListConversionDate> = Optional.ofNullable(date)
+    fun conversionDate(): Optional<PublicListConversionDate> = Optional.ofNullable(conversionDate)
 
     fun inactivity(): Optional<PublicListConversionInactivity> = Optional.ofNullable(inactivity)
 
-    fun isDate(): Boolean = date != null
+    fun isConversionDate(): Boolean = conversionDate != null
 
     fun isInactivity(): Boolean = inactivity != null
 
-    fun asDate(): PublicListConversionDate = date.getOrThrow("date")
+    fun asConversionDate(): PublicListConversionDate = conversionDate.getOrThrow("conversionDate")
 
     fun asInactivity(): PublicListConversionInactivity = inactivity.getOrThrow("inactivity")
 
@@ -53,8 +53,8 @@ private constructor(
      *
      * Optional<String> result = publicListConversionTime.accept(new PublicListConversionTime.Visitor<Optional<String>>() {
      *     @Override
-     *     public Optional<String> visitDate(PublicListConversionDate date) {
-     *         return Optional.of(date.toString());
+     *     public Optional<String> visitConversionDate(PublicListConversionDate conversionDate) {
+     *         return Optional.of(conversionDate.toString());
      *     }
      *
      *     // ...
@@ -72,7 +72,7 @@ private constructor(
      */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            date != null -> visitor.visitDate(date)
+            conversionDate != null -> visitor.visitConversionDate(conversionDate)
             inactivity != null -> visitor.visitInactivity(inactivity)
             else -> visitor.unknown(_json)
         }
@@ -94,8 +94,8 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitDate(date: PublicListConversionDate) {
-                    date.validate()
+                override fun visitConversionDate(conversionDate: PublicListConversionDate) {
+                    conversionDate.validate()
                 }
 
                 override fun visitInactivity(inactivity: PublicListConversionInactivity) {
@@ -123,7 +123,8 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitDate(date: PublicListConversionDate) = date.validity()
+                override fun visitConversionDate(conversionDate: PublicListConversionDate) =
+                    conversionDate.validity()
 
                 override fun visitInactivity(inactivity: PublicListConversionInactivity) =
                     inactivity.validity()
@@ -138,15 +139,15 @@ private constructor(
         }
 
         return other is PublicListConversionTime &&
-            date == other.date &&
+            conversionDate == other.conversionDate &&
             inactivity == other.inactivity
     }
 
-    override fun hashCode(): Int = Objects.hash(date, inactivity)
+    override fun hashCode(): Int = Objects.hash(conversionDate, inactivity)
 
     override fun toString(): String =
         when {
-            date != null -> "PublicListConversionTime{date=$date}"
+            conversionDate != null -> "PublicListConversionTime{conversionDate=$conversionDate}"
             inactivity != null -> "PublicListConversionTime{inactivity=$inactivity}"
             _json != null -> "PublicListConversionTime{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid PublicListConversionTime")
@@ -155,7 +156,8 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofDate(date: PublicListConversionDate) = PublicListConversionTime(date = date)
+        fun ofConversionDate(conversionDate: PublicListConversionDate) =
+            PublicListConversionTime(conversionDate = conversionDate)
 
         @JvmStatic
         fun ofInactivity(inactivity: PublicListConversionInactivity) =
@@ -168,7 +170,7 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitDate(date: PublicListConversionDate): T
+        fun visitConversionDate(conversionDate: PublicListConversionDate): T
 
         fun visitInactivity(inactivity: PublicListConversionInactivity): T
 
@@ -192,27 +194,23 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): PublicListConversionTime {
             val json = JsonValue.fromJsonNode(node)
+            val conversionType =
+                json.asObject().getOrNull()?.get("conversionType")?.asString()?.getOrNull()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<PublicListConversionDate>())?.let {
-                            PublicListConversionTime(date = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<PublicListConversionInactivity>())
-                            ?.let { PublicListConversionTime(inactivity = it, _json = json) },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> PublicListConversionTime(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (conversionType) {
+                "CONVERSION_DATE" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PublicListConversionDate>())?.let {
+                        PublicListConversionTime(conversionDate = it, _json = json)
+                    } ?: PublicListConversionTime(_json = json)
+                }
+                "INACTIVITY" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PublicListConversionInactivity>())
+                        ?.let { PublicListConversionTime(inactivity = it, _json = json) }
+                        ?: PublicListConversionTime(_json = json)
+                }
             }
+
+            return PublicListConversionTime(_json = json)
         }
     }
 
@@ -225,7 +223,7 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.date != null -> generator.writeObject(value.date)
+                value.conversionDate != null -> generator.writeObject(value.conversionDate)
                 value.inactivity != null -> generator.writeObject(value.inactivity)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid PublicListConversionTime")

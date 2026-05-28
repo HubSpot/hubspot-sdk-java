@@ -61,7 +61,7 @@ internal class FieldTypeDefinitionTest {
             )
         assertThat(fieldTypeDefinition.schema())
             .isEqualTo(
-                FieldTypeDefinition.Schema.ofIntegerField(
+                FieldTypeDefinition.Schema.ofInteger(
                     IntegerFieldSchema.builder()
                         .type(IntegerFieldSchema.Type.INTEGER)
                         .maximum(0)

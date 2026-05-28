@@ -660,6 +660,10 @@ private constructor(
 
             @JvmField val HS_IS_ENRICHED = of("hs_is_enriched")
 
+            @JvmField
+            val HS_IS_MASS_MARKETING_ACTIVATION_DISALLOWED =
+                of("hs_is_mass_marketing_activation_disallowed")
+
             @JvmField val HS_IS_MERGE_REVERTIBLE = of("hs_is_merge_revertible")
 
             @JvmField val HS_IS_UNWORKED = of("hs_is_unworked")
@@ -1331,6 +1335,7 @@ private constructor(
             HS_IP_TIMEZONE,
             HS_IS_CONTACT,
             HS_IS_ENRICHED,
+            HS_IS_MASS_MARKETING_ACTIVATION_DISALLOWED,
             HS_IS_MERGE_REVERTIBLE,
             HS_IS_UNWORKED,
             HS_JOB_CHANGE_DETECTED_DATE,
@@ -1735,6 +1740,7 @@ private constructor(
             HS_IP_TIMEZONE,
             HS_IS_CONTACT,
             HS_IS_ENRICHED,
+            HS_IS_MASS_MARKETING_ACTIVATION_DISALLOWED,
             HS_IS_MERGE_REVERTIBLE,
             HS_IS_UNWORKED,
             HS_JOB_CHANGE_DETECTED_DATE,
@@ -2158,6 +2164,8 @@ private constructor(
                 HS_IP_TIMEZONE -> Value.HS_IP_TIMEZONE
                 HS_IS_CONTACT -> Value.HS_IS_CONTACT
                 HS_IS_ENRICHED -> Value.HS_IS_ENRICHED
+                HS_IS_MASS_MARKETING_ACTIVATION_DISALLOWED ->
+                    Value.HS_IS_MASS_MARKETING_ACTIVATION_DISALLOWED
                 HS_IS_MERGE_REVERTIBLE -> Value.HS_IS_MERGE_REVERTIBLE
                 HS_IS_UNWORKED -> Value.HS_IS_UNWORKED
                 HS_JOB_CHANGE_DETECTED_DATE -> Value.HS_JOB_CHANGE_DETECTED_DATE
@@ -2601,6 +2609,8 @@ private constructor(
                 HS_IP_TIMEZONE -> Known.HS_IP_TIMEZONE
                 HS_IS_CONTACT -> Known.HS_IS_CONTACT
                 HS_IS_ENRICHED -> Known.HS_IS_ENRICHED
+                HS_IS_MASS_MARKETING_ACTIVATION_DISALLOWED ->
+                    Known.HS_IS_MASS_MARKETING_ACTIVATION_DISALLOWED
                 HS_IS_MERGE_REVERTIBLE -> Known.HS_IS_MERGE_REVERTIBLE
                 HS_IS_UNWORKED -> Known.HS_IS_UNWORKED
                 HS_JOB_CHANGE_DETECTED_DATE -> Known.HS_JOB_CHANGE_DETECTED_DATE

@@ -27,7 +27,7 @@ internal class PublicAdsTimeFilterTest {
             .isEqualTo(PublicAdsTimeFilter.FilterType.ADS_TIME)
         assertThat(publicAdsTimeFilter.pruningRefineBy())
             .isEqualTo(
-                PublicAdsTimeFilter.PruningRefineBy.ofPublicNumOccurrences(
+                PublicAdsTimeFilter.PruningRefineBy.ofNumOccurrences(
                     PublicNumOccurrencesRefineBy.builder()
                         .type(PublicNumOccurrencesRefineBy.Type.NUM_OCCURRENCES)
                         .maxOccurrences(0)

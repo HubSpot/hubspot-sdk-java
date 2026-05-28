@@ -12,48 +12,36 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot.sdk.core.BaseDeserializer
 import com.hubspot.sdk.core.BaseSerializer
 import com.hubspot.sdk.core.JsonValue
-import com.hubspot.sdk.core.allMaxBy
 import com.hubspot.sdk.core.getOrThrow
 import com.hubspot.sdk.errors.HubSpotInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 @JsonDeserialize(using = UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3.Deserializer::class)
 @JsonSerialize(using = UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3.Serializer::class)
 class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
 private constructor(
-    private val randomAccessCollectionResponseWithTotal:
-        RandomAccessCollectionResponseWithTotalHubDbTableRowV3? =
-        null,
-    private val streamingCollectionResponseWithTotal:
-        StreamingCollectionResponseWithTotalHubDbTableRowV3? =
-        null,
+    private val randomAccess: RandomAccessCollectionResponseWithTotalHubDbTableRowV3? = null,
+    private val streaming: StreamingCollectionResponseWithTotalHubDbTableRowV3? = null,
     private val _json: JsonValue? = null,
 ) {
 
-    fun randomAccessCollectionResponseWithTotal():
-        Optional<RandomAccessCollectionResponseWithTotalHubDbTableRowV3> =
-        Optional.ofNullable(randomAccessCollectionResponseWithTotal)
+    fun randomAccess(): Optional<RandomAccessCollectionResponseWithTotalHubDbTableRowV3> =
+        Optional.ofNullable(randomAccess)
 
-    fun streamingCollectionResponseWithTotal():
-        Optional<StreamingCollectionResponseWithTotalHubDbTableRowV3> =
-        Optional.ofNullable(streamingCollectionResponseWithTotal)
+    fun streaming(): Optional<StreamingCollectionResponseWithTotalHubDbTableRowV3> =
+        Optional.ofNullable(streaming)
 
-    fun isRandomAccessCollectionResponseWithTotal(): Boolean =
-        randomAccessCollectionResponseWithTotal != null
+    fun isRandomAccess(): Boolean = randomAccess != null
 
-    fun isStreamingCollectionResponseWithTotal(): Boolean =
-        streamingCollectionResponseWithTotal != null
+    fun isStreaming(): Boolean = streaming != null
 
-    fun asRandomAccessCollectionResponseWithTotal():
-        RandomAccessCollectionResponseWithTotalHubDbTableRowV3 =
-        randomAccessCollectionResponseWithTotal.getOrThrow(
-            "randomAccessCollectionResponseWithTotal"
-        )
+    fun asRandomAccess(): RandomAccessCollectionResponseWithTotalHubDbTableRowV3 =
+        randomAccess.getOrThrow("randomAccess")
 
-    fun asStreamingCollectionResponseWithTotal():
-        StreamingCollectionResponseWithTotalHubDbTableRowV3 =
-        streamingCollectionResponseWithTotal.getOrThrow("streamingCollectionResponseWithTotal")
+    fun asStreaming(): StreamingCollectionResponseWithTotalHubDbTableRowV3 =
+        streaming.getOrThrow("streaming")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -69,8 +57,8 @@ private constructor(
      *
      * Optional<String> result = unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.accept(new UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3.Visitor<Optional<String>>() {
      *     @Override
-     *     public Optional<String> visitRandomAccessCollectionResponseWithTotal(RandomAccessCollectionResponseWithTotalHubDbTableRowV3 randomAccessCollectionResponseWithTotal) {
-     *         return Optional.of(randomAccessCollectionResponseWithTotal.toString());
+     *     public Optional<String> visitRandomAccess(RandomAccessCollectionResponseWithTotalHubDbTableRowV3 randomAccess) {
+     *         return Optional.of(randomAccess.toString());
      *     }
      *
      *     // ...
@@ -88,14 +76,8 @@ private constructor(
      */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            randomAccessCollectionResponseWithTotal != null ->
-                visitor.visitRandomAccessCollectionResponseWithTotal(
-                    randomAccessCollectionResponseWithTotal
-                )
-            streamingCollectionResponseWithTotal != null ->
-                visitor.visitStreamingCollectionResponseWithTotal(
-                    streamingCollectionResponseWithTotal
-                )
+            randomAccess != null -> visitor.visitRandomAccess(randomAccess)
+            streaming != null -> visitor.visitStreaming(streaming)
             else -> visitor.unknown(_json)
         }
 
@@ -116,18 +98,16 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitRandomAccessCollectionResponseWithTotal(
-                    randomAccessCollectionResponseWithTotal:
-                        RandomAccessCollectionResponseWithTotalHubDbTableRowV3
+                override fun visitRandomAccess(
+                    randomAccess: RandomAccessCollectionResponseWithTotalHubDbTableRowV3
                 ) {
-                    randomAccessCollectionResponseWithTotal.validate()
+                    randomAccess.validate()
                 }
 
-                override fun visitStreamingCollectionResponseWithTotal(
-                    streamingCollectionResponseWithTotal:
-                        StreamingCollectionResponseWithTotalHubDbTableRowV3
+                override fun visitStreaming(
+                    streaming: StreamingCollectionResponseWithTotalHubDbTableRowV3
                 ) {
-                    streamingCollectionResponseWithTotal.validate()
+                    streaming.validate()
                 }
             }
         )
@@ -151,15 +131,13 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitRandomAccessCollectionResponseWithTotal(
-                    randomAccessCollectionResponseWithTotal:
-                        RandomAccessCollectionResponseWithTotalHubDbTableRowV3
-                ) = randomAccessCollectionResponseWithTotal.validity()
+                override fun visitRandomAccess(
+                    randomAccess: RandomAccessCollectionResponseWithTotalHubDbTableRowV3
+                ) = randomAccess.validity()
 
-                override fun visitStreamingCollectionResponseWithTotal(
-                    streamingCollectionResponseWithTotal:
-                        StreamingCollectionResponseWithTotalHubDbTableRowV3
-                ) = streamingCollectionResponseWithTotal.validity()
+                override fun visitStreaming(
+                    streaming: StreamingCollectionResponseWithTotalHubDbTableRowV3
+                ) = streaming.validity()
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -171,20 +149,18 @@ private constructor(
         }
 
         return other is UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 &&
-            randomAccessCollectionResponseWithTotal ==
-                other.randomAccessCollectionResponseWithTotal &&
-            streamingCollectionResponseWithTotal == other.streamingCollectionResponseWithTotal
+            randomAccess == other.randomAccess &&
+            streaming == other.streaming
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(randomAccessCollectionResponseWithTotal, streamingCollectionResponseWithTotal)
+    override fun hashCode(): Int = Objects.hash(randomAccess, streaming)
 
     override fun toString(): String =
         when {
-            randomAccessCollectionResponseWithTotal != null ->
-                "UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3{randomAccessCollectionResponseWithTotal=$randomAccessCollectionResponseWithTotal}"
-            streamingCollectionResponseWithTotal != null ->
-                "UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3{streamingCollectionResponseWithTotal=$streamingCollectionResponseWithTotal}"
+            randomAccess != null ->
+                "UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3{randomAccess=$randomAccess}"
+            streaming != null ->
+                "UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3{streaming=$streaming}"
             _json != null ->
                 "UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3{_unknown=$_json}"
             else ->
@@ -196,22 +172,12 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofRandomAccessCollectionResponseWithTotal(
-            randomAccessCollectionResponseWithTotal:
-                RandomAccessCollectionResponseWithTotalHubDbTableRowV3
-        ) =
-            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(
-                randomAccessCollectionResponseWithTotal = randomAccessCollectionResponseWithTotal
-            )
+        fun ofRandomAccess(randomAccess: RandomAccessCollectionResponseWithTotalHubDbTableRowV3) =
+            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(randomAccess = randomAccess)
 
         @JvmStatic
-        fun ofStreamingCollectionResponseWithTotal(
-            streamingCollectionResponseWithTotal:
-                StreamingCollectionResponseWithTotalHubDbTableRowV3
-        ) =
-            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(
-                streamingCollectionResponseWithTotal = streamingCollectionResponseWithTotal
-            )
+        fun ofStreaming(streaming: StreamingCollectionResponseWithTotalHubDbTableRowV3) =
+            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(streaming = streaming)
     }
 
     /**
@@ -220,15 +186,11 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitRandomAccessCollectionResponseWithTotal(
-            randomAccessCollectionResponseWithTotal:
-                RandomAccessCollectionResponseWithTotalHubDbTableRowV3
+        fun visitRandomAccess(
+            randomAccess: RandomAccessCollectionResponseWithTotalHubDbTableRowV3
         ): T
 
-        fun visitStreamingCollectionResponseWithTotal(
-            streamingCollectionResponseWithTotal:
-                StreamingCollectionResponseWithTotalHubDbTableRowV3
-        ): T
+        fun visitStreaming(streaming: StreamingCollectionResponseWithTotalHubDbTableRowV3): T
 
         /**
          * Maps an unknown variant of [UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3] to a
@@ -257,46 +219,36 @@ private constructor(
             node: JsonNode
         ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 {
             val json = JsonValue.fromJsonNode(node)
+            val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<
-                                    RandomAccessCollectionResponseWithTotalHubDbTableRowV3
-                                >(),
+            when (type) {
+                "RANDOM_ACCESS" -> {
+                    return tryDeserialize(
+                            node,
+                            jacksonTypeRef<RandomAccessCollectionResponseWithTotalHubDbTableRowV3>(),
+                        )
+                        ?.let {
+                            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(
+                                randomAccess = it,
+                                _json = json,
                             )
-                            ?.let {
-                                UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(
-                                    randomAccessCollectionResponseWithTotal = it,
-                                    _json = json,
-                                )
-                            },
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<
-                                    StreamingCollectionResponseWithTotalHubDbTableRowV3
-                                >(),
+                        } ?: UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(_json = json)
+                }
+                "STREAMING" -> {
+                    return tryDeserialize(
+                            node,
+                            jacksonTypeRef<StreamingCollectionResponseWithTotalHubDbTableRowV3>(),
+                        )
+                        ?.let {
+                            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(
+                                streaming = it,
+                                _json = json,
                             )
-                            ?.let {
-                                UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(
-                                    streamingCollectionResponseWithTotal = it,
-                                    _json = json,
-                                )
-                            },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                        } ?: UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(_json = json)
+                }
             }
+
+            return UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3(_json = json)
         }
     }
 
@@ -311,10 +263,8 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.randomAccessCollectionResponseWithTotal != null ->
-                    generator.writeObject(value.randomAccessCollectionResponseWithTotal)
-                value.streamingCollectionResponseWithTotal != null ->
-                    generator.writeObject(value.streamingCollectionResponseWithTotal)
+                value.randomAccess != null -> generator.writeObject(value.randomAccess)
+                value.streaming != null -> generator.writeObject(value.streaming)
                 value._json != null -> generator.writeObject(value._json)
                 else ->
                     throw IllegalStateException(
